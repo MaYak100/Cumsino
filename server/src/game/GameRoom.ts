@@ -38,12 +38,12 @@ export class GameRoom extends EventEmitter {
       currentBet: 0,
       hasAnswered: false,
     })
-    this.broadcast('game_state', this.getPublicState())
+    this.broadcastState()
   }
 
   removePlayer(id: string) {
     this.players.delete(id)
-    this.broadcast('game_state', this.getPublicState())
+    this.broadcastState()
   }
 
   start() {
@@ -106,6 +106,19 @@ export class GameRoom extends EventEmitter {
     }
   }
 
+  getStateForPlayer(playerId: string): GameState {
+    const base = this.getPublicState()
+    const showAnswer =
+      this.currentMode === 'gladiator' &&
+      playerId !== this.gladiatorId &&
+      (this.phase === 'BETTING' || this.phase === 'QUESTION_TEXT' || this.phase === 'QUESTION') &&
+      this.currentQuestion?.answer !== undefined
+    if (showAnswer) {
+      base.gladiatorAnswer = this.currentQuestion!.answer
+    }
+    return base
+  }
+
   get playerCount() { return this.players.size }
 
   private nextRound() {
@@ -129,7 +142,7 @@ export class GameRoom extends EventEmitter {
     clearTimeout(this.phaseTimer)
     this.phase = phase
     this.phaseEndTime = Date.now() + seconds * 1000
-    this.broadcast('game_state', this.getPublicState())
+    this.broadcastState()
 
     this.phaseTimer = setTimeout(() => this.onPhaseEnd(), seconds * 1000)
   }
@@ -166,7 +179,7 @@ export class GameRoom extends EventEmitter {
         if (winner) {
           this.phase = 'GAME_OVER'
           this.broadcast('game_over', { winner })
-          this.broadcast('game_state', this.getPublicState())
+          this.broadcastState()
         } else {
           this.nextRound()
         }
@@ -266,5 +279,15 @@ export class GameRoom extends EventEmitter {
 
   private broadcastExcept(excludeId: string, event: string, data: unknown) {
     this.emit('broadcastExcept', { excludeId, event, data })
+  }
+
+  private sendToPlayer(playerId: string, event: string, data: unknown) {
+    this.emit('sendToPlayer', { playerId, event, data })
+  }
+
+  private broadcastState() {
+    for (const [playerId] of this.players) {
+      this.emit('sendToPlayer', { playerId, event: 'game_state', data: this.getStateForPlayer(playerId) })
+    }
   }
 }
