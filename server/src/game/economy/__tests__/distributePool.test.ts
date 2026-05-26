@@ -51,4 +51,24 @@ describe('distributePool', () => {
     const sum = [...result.values()].reduce((a, b) => a + b, 0)
     expect(sum).toBe(0)
   })
+
+  it('пустой массив победителей — проигравшие теряют ставки (pool уходит в никуда)', () => {
+    const result = distributePool(
+      [],
+      [{ id: 'l1', stake: 100 }]
+    )
+    // Нет победителей — деньги не распределяются (особый случай гладиатора когда никто не угадал)
+    expect(result.get('l1')).toBe(-100)
+    expect(result.size).toBe(1)
+  })
+
+  it('победители с нулевыми ставками при ненулевом пуле — пул не распределяется', () => {
+    const result = distributePool(
+      [{ id: 'w1', stake: 0 }],
+      [{ id: 'l1', stake: 100 }]
+    )
+    expect(result.get('w1')).toBe(0)
+    expect(result.get('l1')).toBe(-100)
+    // Деньги сгорают — это задокументированное поведение когда нет реальных ставок у победителей
+  })
 })
