@@ -259,6 +259,10 @@ export class GameRoom extends EventEmitter {
   }
 
   private allAnswered(): boolean {
+    if (this.currentMode === 'gladiator') {
+      if (!this.gladiatorId) return false
+      return this.players.get(this.gladiatorId)?.hasAnswered ?? false
+    }
     return Array.from(this.players.values()).every(p => p.hasAnswered)
   }
 

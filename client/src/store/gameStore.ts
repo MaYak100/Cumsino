@@ -33,12 +33,12 @@ export const useGameStore = create<GameStore>((set, get) => {
   })
 
   socket.on('game_state', (state: GameState) => {
-    set({
+    set(prev => ({
       gameState: state,
       answeredIds: new Set(),
-      roundResults: [],
       gladiatorHoverIndex: null,
-    })
+      roundResults: state.phase === 'ANNOUNCE' ? [] : prev.roundResults,
+    }))
   })
 
   socket.on('bet_updated', (_payload: BetUpdatedPayload) => {
