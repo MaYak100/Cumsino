@@ -1,0 +1,6 @@
+node_modules/
+dist/
+server/dist/
+shared/dist/
+*.env
+.env.local
