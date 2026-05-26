@@ -1,0 +1,58 @@
+import type { Server, Socket } from 'socket.io'
+import { GameRoom } from './GameRoom'
+import type { Question } from '@cumsino/shared'
+import questions from '../../questions.json'
+
+function generateCode(): string {
+  return Array.from({ length: 4 }, () =>
+    'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 32)]
+  ).join('')
+}
+
+export class GameEngine {
+  private rooms: Map<string, GameRoom> = new Map()
+  private playerRoom: Map<string, string> = new Map()
+
+  constructor(private io: Server) {}
+
+  joinRoom(socket: Socket, name: string, gameCode: string): void {
+    let room = this.rooms.get(gameCode)
+    if (!room) {
+      room = this.createRoom(gameCode)
+    }
+    socket.join(gameCode)
+    this.playerRoom.set(socket.id, gameCode)
+    room.addPlayer(socket.id, name)
+  }
+
+  leaveRoom(socketId: string): void {
+    const gameCode = this.playerRoom.get(socketId)
+    if (!gameCode) return
+    this.rooms.get(gameCode)?.removePlayer(socketId)
+    this.playerRoom.delete(socketId)
+  }
+
+  getRoom(socketId: string): GameRoom | undefined {
+    const code = this.playerRoom.get(socketId)
+    return code ? this.rooms.get(code) : undefined
+  }
+
+  private createRoom(gameCode: string): GameRoom {
+    const room = new GameRoom(gameCode, questions as Question[])
+
+    room.on('broadcast', ({ event, data }: { event: string; data: unknown }) => {
+      this.io.to(gameCode).emit(event, data)
+    })
+
+    room.on('broadcastExcept', ({ excludeId, event, data }: { excludeId: string; event: string; data: unknown }) => {
+      this.io.to(gameCode).except(excludeId).emit(event, data)
+    })
+
+    room.on('sendToPlayer', ({ playerId, event, data }: { playerId: string; event: string; data: unknown }) => {
+      this.io.to(playerId).emit(event, data)
+    })
+
+    this.rooms.set(gameCode, room)
+    return room
+  }
+}
