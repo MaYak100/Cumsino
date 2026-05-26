@@ -3,12 +3,6 @@ import { GameRoom } from './GameRoom'
 import type { Question } from '@cumsino/shared'
 import questions from '../../questions.json'
 
-function generateCode(): string {
-  return Array.from({ length: 4 }, () =>
-    'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 32)]
-  ).join('')
-}
-
 export class GameEngine {
   private rooms: Map<string, GameRoom> = new Map()
   private playerRoom: Map<string, string> = new Map()

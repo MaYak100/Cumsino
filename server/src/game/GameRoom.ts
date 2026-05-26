@@ -205,7 +205,8 @@ export class GameRoom extends EventEmitter {
     }
 
     if (this.currentMode === 'gladiator') {
-      const gladiator = this.players.get(this.gladiatorId ?? '')
+      if (!this.gladiatorId) return []
+      const gladiator = this.players.get(this.gladiatorId)
       if (!gladiator) return []
       const correct = gladiator.answer === this.currentQuestion!.answer
       const crowd = players.filter(p => p.id !== this.gladiatorId && p.currentBet > 0)

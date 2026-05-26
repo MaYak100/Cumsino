@@ -17,6 +17,7 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
 
   socket.on('place_bet', ({ amount, target }: PlaceBetPayload) => {
     if (typeof amount !== 'number' || amount < 0) return
+    if (target !== undefined && target !== 'win' && target !== 'lose') return
     engine.getRoom(socket.id)?.placeBet(socket.id, amount, target)
   })
 
@@ -26,6 +27,7 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   })
 
   socket.on('gladiator_hover', ({ optionIndex }: GladiatorHoverPayload) => {
+    if (optionIndex !== null && typeof optionIndex !== 'number') return
     engine.getRoom(socket.id)?.relayHover(socket.id, optionIndex)
   })
 
