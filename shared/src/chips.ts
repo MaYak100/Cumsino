@@ -2,6 +2,7 @@
 import type { ChipBreakdown } from './types'
 
 export function decomposeToChips(amount: number): ChipBreakdown {
+  if (amount <= 0) return { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }
   const rounded = Math.round(amount / 10) * 10
   const chips: ChipBreakdown = { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }
   let remaining = rounded
@@ -24,7 +25,7 @@ export function decomposeToChips(amount: number): ChipBreakdown {
   remaining -= chips[50] * 50
   chips[20] = Math.floor(remaining / 20)
   remaining -= chips[20] * 20
-  chips[10] = Math.round(remaining / 10)
+  chips[10] = remaining / 10
 
   return chips
 }

@@ -1,4 +1,5 @@
 // shared/src/constants.ts
+import type { GamePhase } from './types'
 export const STARTING_CHIPS = 500
 export const WIN_CHIPS = 3000
 export const GLADIATOR_BONUS = 300
@@ -7,7 +8,7 @@ export const CLOSEST_EXACT_BONUS = 200
 export const TOP5_SLOT_BONUS = 20
 export const TOP5_PERFECT_BONUS = 150
 
-export const PHASE_DURATIONS: Record<string, number> = {
+export const PHASE_DURATIONS: Partial<Record<GamePhase, number>> = {
   ANNOUNCE: 5,
   BETTING: 30,
   QUESTION_TEXT: 5,

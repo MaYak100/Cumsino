@@ -40,8 +40,8 @@ export interface Question {
   options?: string[]
   answer?: string
   numericAnswer?: number
-  items?: string[]
-  orderedItems?: string[]
+  items?: string[]         // для ТОП 5: перемешанный порядок, показывается игроку
+  orderedItems?: string[]  // для ТОП 5: правильный порядок, только на сервере
 }
 
 export interface GameState {
@@ -52,7 +52,7 @@ export interface GameState {
   mode: GameMode
   currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'orderedItems'> | null
   gladiatorId?: string
-  gladiatorAnswer?: string
+  gladiatorAnswer?: string // правильный ответ — отправляется ТОЛЬКО толпе (не гладиатору) во время BETTING
   players: Player[]
   phaseTimeLeft: number
 }
