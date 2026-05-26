@@ -1,11 +1,7 @@
 // server/src/game/GameRoom.ts
 import { EventEmitter } from 'events'
 import type { GameState, GamePhase, GameMode, Player, RoundResult, Question } from '@cumsino/shared'
-import {
-  STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS,
-  PHASE_DURATIONS
-} from '@cumsino/shared'
-import { decomposeToChips } from '@cumsino/shared'
+import { STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, PHASE_DURATIONS, decomposeToChips } from '@cumsino/shared'
 import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
 import { distributeTop5 } from './economy/distributeTop5'
@@ -209,7 +205,8 @@ export class GameRoom extends EventEmitter {
     }
 
     if (this.currentMode === 'gladiator') {
-      const gladiator = this.players.get(this.gladiatorId!)!
+      const gladiator = this.players.get(this.gladiatorId ?? '')
+      if (!gladiator) return []
       const correct = gladiator.answer === this.currentQuestion!.answer
       const crowd = players.filter(p => p.id !== this.gladiatorId && p.currentBet > 0)
       const winners = crowd.filter(p => correct ? p.betTarget === 'win' : p.betTarget === 'lose')
@@ -270,6 +267,7 @@ export class GameRoom extends EventEmitter {
 
   private pickQuestion(mode: GameMode): Question {
     const pool = this.questions.filter(q => q.mode === mode)
+    if (pool.length === 0) throw new Error(`No questions for mode: ${mode}`)
     return pool[Math.floor(Math.random() * pool.length)]
   }
 
@@ -279,10 +277,6 @@ export class GameRoom extends EventEmitter {
 
   private broadcastExcept(excludeId: string, event: string, data: unknown) {
     this.emit('broadcastExcept', { excludeId, event, data })
-  }
-
-  private sendToPlayer(playerId: string, event: string, data: unknown) {
-    this.emit('sendToPlayer', { playerId, event, data })
   }
 
   private broadcastState() {
