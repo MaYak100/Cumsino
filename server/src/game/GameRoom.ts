@@ -239,11 +239,10 @@ export class GameRoom extends EventEmitter {
   }
 
   private buildResults(deltas: Map<string, number>): RoundResult[] {
-    return Array.from(deltas.entries()).map(([playerId, delta]) => ({
-      playerId,
-      delta,
-      chipBreakdown: decomposeToChips(Math.abs(delta)),
-    }))
+    return Array.from(this.players.keys()).map(playerId => {
+      const delta = deltas.get(playerId) ?? 0
+      return { playerId, delta, chipBreakdown: decomposeToChips(Math.abs(delta)) }
+    })
   }
 
   private applyDeltas(results: RoundResult[]) {

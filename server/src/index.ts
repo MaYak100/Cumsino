@@ -8,7 +8,7 @@ import { registerHandlers } from './socket/handlers'
 const app = express()
 const httpServer = createServer(app)
 
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN ?? 'http://localhost:5173'
+const CLIENT_ORIGIN: string | RegExp = process.env.CLIENT_ORIGIN ?? /^http:\/\/localhost(:\d+)?$/
 
 const io = new Server(httpServer, {
   cors: { origin: CLIENT_ORIGIN, methods: ['GET', 'POST'] },
