@@ -1,3 +1,4 @@
+import React from 'react'
 import { useGameStore, selectIsGladiator } from './store/gameStore'
 import { JoinScreen } from './components/screens/JoinScreen'
 import { LobbyScreen } from './components/screens/LobbyScreen'
