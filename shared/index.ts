@@ -1,1 +1,4 @@
-// shared/index.ts — populated in Task 2
+// shared/index.ts
+export * from './src/types'
+export * from './src/constants'
+export * from './src/chips'
