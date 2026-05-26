@@ -1,0 +1,9 @@
+{
+  "name": "cumsino",
+  "private": true,
+  "workspaces": ["shared", "server", "client"],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "test:server": "npm run test --workspace=server"
+  }
+}
