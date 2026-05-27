@@ -71,10 +71,31 @@ Pure in-memory state, no database.
 ### Client (`client/src/`)
 
 - **`socket.ts`** — Socket.IO singleton, `autoConnect: false`. URL from `VITE_SERVER_URL` env var, falls back to `http://localhost:3001`.
-- **`store/gameStore.ts`** — Zustand store. All socket listeners live here. `roundResults` is only cleared when `phase === 'ANNOUNCE'` (not on every `game_state` event) so RevealScreen can read them. Selectors: `selectMe`, `selectIsGladiator`.
-- **`App.tsx`** — Routes `GamePhase → Screen` with `AnimatePresence`. No router library. Special cases: BETTING in gladiator mode → `GladiatorCrowdScreen` for crowd, `BettingScreen` for gladiator; QUESTION branches by mode.
-- **`components/screens/`** — 13 screen components, one per game phase/role combination.
-- **`components/ui/`** — `Chip.tsx` (5 denominations: 10=white, 20=green, 50=blue, 100=red, 500=black), `Timer.tsx`, `PlayerCard.tsx`.
+- **`store/gameStore.ts`** — Zustand store. All socket listeners live here. `roundResults` is only cleared when `phase === 'ANNOUNCE'` (not on every `game_state` event) so RevealScreen can read them. Selectors: `selectMe`, `selectIsGladiator`. Store does NOT manage betting chip state — that lives locally in `BettingTableScreen`.
+- **`App.tsx`** — Routes `GamePhase → Screen` with `AnimatePresence`. No router library. BETTING phase always routes to `BettingTableScreen` (handles both `all` and `gladiator` modes). QUESTION branches by mode.
+- **`components/screens/`** — 11 screen components. `BettingScreen` and `GladiatorCrowdScreen` were deleted and replaced by `BettingTableScreen`.
+- **`components/ui/`** — `Chip.tsx` (5 denominations: 10=white, 20=green, 50=blue, 100=red, 500=black), `Timer.tsx`, `PlayerCard.tsx`, `PhysicalChipStack.tsx`, `BetZone.tsx`, `PlayerSlot.tsx`.
+
+### Physical Chips UI (`client/src/`)
+
+The betting phase uses a physical chip system rendered on a round poker table (desktop only, fixed 900×610 scene).
+
+**New files:**
+- **`types/chips.ts`** — `PhysicalChip { id: string, denom: ChipValue }`, `buildPhysicalChips(total)`, `chipScatter(id, range)` (deterministic scatter from hash).
+- **`lib/tableGeometry.ts`** — Pure math: ellipse constants (`FELT_CX=450, FELT_CY=305, FELT_RX=200, FELT_RY=125, OUTER_RX=227, OUTER_RY=152, LAND_INSET=42, CARD_GAP=28`), `playerAngle(i,N)`, `landingZone(angle)`, `cardAnchor(angle)`, `unitPosition(angle, unitW, chipRowH, cardH)`.
+- **`components/ui/PhysicalChipStack.tsx`** — Renders chips grouped by denom, stacked upward (`bottom: i*step`). Interactive chips (mine, not placed) use `<motion.div layoutId={chip.id}>` for Framer Motion flight. Placed chips render as static dim placeholder (no layoutId — avoids conflict with BetZone).
+- **`components/ui/BetZone.tsx`** — Absolutely positioned at `landingZone(angle)`. My chips: `layoutId` + clickable recall. Others: display-only static.
+- **`components/ui/PlayerSlot.tsx`** — PhysicalChipStack + name card, positioned via `unitPosition()`.
+- **`components/screens/BettingTableScreen.tsx`** — Main BETTING screen. `LayoutGroup` wraps all chip elements for cross-component layoutId animation. Local state: `myStack: PhysicalChip[]`, `placedIds: Set<string>`, `pendingTarget`. Emits `place_bet` directly via socket. Handles both modes: gladiator sees "waiting" overlay, crowd sees win/lose target selector.
+
+**Key design decisions:**
+- `myStack` is component-local (not Zustand) — rebuilt from `me.chips` each time BETTING phase starts.
+- Same `layoutId=chip.id` in PhysicalChipStack (non-placed) and BetZone (placed) → Framer Motion animates the chip flight.
+- Other players' bet chips: `buildPhysicalChips(player.currentBet)` rendered as display-only in their BetZone.
+- Chip stacks grow upward: `bottom: i * 10px` (md) / `7px` (sm).
+- `chipScatter()` uses deterministic hash of chip.id for stable scatter positions (no re-render jitter).
+
+**RevealScreen:** Win delta shown as animated physical chip objects with 60ms stagger (`WinChips` component).
 
 ### Phase flow
 
