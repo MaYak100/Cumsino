@@ -256,7 +256,8 @@ export function BettingTableScreen() {
               style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible', pointerEvents: 'none', zIndex: 1 }}
               width={SCENE_W} height={SCENE_H}
             >
-              <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX + 14} ry={OUTER_RY + 14} fill="#3d2600" />
+              <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX + 16} ry={OUTER_RY + 16} fill="#3d2600" />
+              <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX + 5}  ry={OUTER_RY + 5}  fill="#150900" />
               <defs>
                 <radialGradient id="felt-g" cx="35%" cy="38%" r="65%">
                   <stop offset="0%"   stopColor="#278320" />
@@ -271,31 +272,25 @@ export function BettingTableScreen() {
               />
             </svg>
 
-            {/* ── In-felt header: timer + topic + kerri badge ── */}
+            {/* ── In-felt header ── */}
             <div style={{
               position: 'absolute',
-              left: FELT_CX - 260, top: FELT_CY - OUTER_RY + 16,
-              width: 520, zIndex: 5, pointerEvents: 'none',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14,
+              left: 0, top: FELT_CY - OUTER_RY + 12,
+              width: SCENE_W, zIndex: 5, pointerEvents: 'none',
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', gap: 6,
             }}>
-              <Timer seconds={gameState.phaseTimeLeft} />
-              {gameState.currentQuestion && (
+              {isKerriCrowd && gladiatorName && (
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#fbbf24', letterSpacing: '.02em' }}>
+                  Ваш Керри: {gladiatorName}
+                </div>
+              )}
+              {!isKerriMode && gameState.currentQuestion && (
                 <div style={{ color: '#9ca3af', fontSize: 12 }}>
                   Тема: <span style={{ color: '#fbbf24' }}>{gameState.currentQuestion.topic}</span>
                 </div>
               )}
-              {isKerriMode && gladiatorName && (
-                <div style={{
-                  background: 'linear-gradient(135deg,#92400e,#78350f)',
-                  border: '1px solid #d97706',
-                  borderRadius: 20,
-                  padding: '3px 12px',
-                  fontSize: 11, fontWeight: 700,
-                  color: '#fbbf24', letterSpacing: '.05em',
-                }}>
-                  🎯 КЕРРИ: {gladiatorName}
-                </div>
-              )}
+              <Timer seconds={gameState.phaseTimeLeft} />
             </div>
 
             {/* ── Center: bank or gladiator label (non-kerri-crowd only) ── */}
@@ -570,72 +565,21 @@ export function BettingTableScreen() {
             }}>
               ✓ СТАВКА ПРИНЯТА
             </div>
-          ) : isKerriCrowd ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-              {/* Main bet summary */}
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 10, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '.1em' }}>
-                  {mainTarget === 'win' ? '👍 Ответит' : mainTarget === 'lose' ? '💀 Завалит' : 'Основная'}
-                </div>
-                <div style={{
-                  fontSize: 22, fontWeight: 900, fontFamily: 'monospace',
-                  color: mainBetAmt > 0 ? '#fbbf24' : '#374151',
-                }}>
-                  {mainBetAmt || '—'}
-                </div>
-              </div>
-              {bankTarget !== null && (
-                <>
-                  <div style={{ width: 1, height: 36, background: '#1f2937' }} />
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: 10, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '.1em' }}>
-                      ×4 {gameState.currentQuestion?.options?.[bankTarget]?.split(' ')[0] ?? ''}
-                    </div>
-                    <div style={{
-                      fontSize: 22, fontWeight: 900, fontFamily: 'monospace',
-                      color: bankBetAmt > 0 ? '#fbbf24' : '#374151',
-                    }}>
-                      {bankBetAmt || '—'}
-                    </div>
-                  </div>
-                </>
-              )}
-              <button
-                onClick={handleConfirm}
-                disabled={!canConfirm}
-                style={{
-                  padding: '10px 32px', borderRadius: 12, border: 'none',
-                  background: canConfirm ? 'linear-gradient(135deg,#d97706,#b45309)' : '#374151',
-                  color: canConfirm ? '#000' : '#6b7280',
-                  fontWeight: 700, fontSize: 14, letterSpacing: '.05em',
-                  cursor: canConfirm ? 'pointer' : 'not-allowed',
-                  transition: 'all .15s',
-                }}
-              >
-                ✓ ПОДТВЕРДИТЬ СТАВКУ
-              </button>
-            </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 11, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '.1em' }}>Ставка</div>
-                <div style={{ fontSize: 22, fontWeight: 900, color: '#fbbf24', fontFamily: 'monospace' }}>{stdBetAmt}</div>
-              </div>
-              <button
-                onClick={handleConfirm}
-                disabled={!canConfirm}
-                style={{
-                  padding: '10px 32px', borderRadius: 12, border: 'none',
-                  background: canConfirm ? 'linear-gradient(135deg,#d97706,#b45309)' : '#374151',
-                  color: canConfirm ? '#000' : '#6b7280',
-                  fontWeight: 700, fontSize: 14, letterSpacing: '.05em',
-                  cursor: canConfirm ? 'pointer' : 'not-allowed',
-                  transition: 'all .15s',
-                }}
-              >
-                ✓ ПОДТВЕРДИТЬ СТАВКУ
-              </button>
-            </div>
+            <button
+              onClick={handleConfirm}
+              disabled={!canConfirm}
+              style={{
+                padding: '10px 36px', borderRadius: 12, border: 'none',
+                background: canConfirm ? 'linear-gradient(135deg,#d97706,#b45309)' : '#374151',
+                color: canConfirm ? '#000' : '#6b7280',
+                fontWeight: 700, fontSize: 14, letterSpacing: '.05em',
+                cursor: canConfirm ? 'pointer' : 'not-allowed',
+                transition: 'all .15s',
+              }}
+            >
+              ✓ ПОДТВЕРДИТЬ СТАВКУ
+            </button>
           )}
         </div>
       )}

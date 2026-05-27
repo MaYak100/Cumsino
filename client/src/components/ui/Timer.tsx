@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 
 interface TimerProps {
   seconds: number
@@ -7,27 +7,49 @@ interface TimerProps {
 
 export function Timer({ seconds }: TimerProps) {
   const [current, setCurrent] = useState(seconds)
+  const maxRef = useRef(seconds)
 
   useEffect(() => {
+    if (seconds > current) maxRef.current = seconds
     setCurrent(seconds)
-    const id = setInterval(() => {
-      setCurrent(prev => Math.max(0, prev - 1))
-    }, 1000)
+    const id = setInterval(() => setCurrent(p => Math.max(0, p - 1)), 1000)
     return () => clearInterval(id)
   }, [seconds])
 
   const isUrgent = current <= 5
+  const r = 20
+  const circ = 2 * Math.PI * r
+  const frac = maxRef.current > 0 ? current / maxRef.current : 0
+  const dash = circ * frac
 
   return (
-    <motion.div
-      animate={isUrgent ? { scale: [1, 1.1, 1] } : {}}
-      transition={{ repeat: Infinity, duration: 0.8 }}
-      className={`
-        inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold
-        ${isUrgent ? 'bg-red-600 text-white' : 'bg-yellow-400 text-black'}
-      `}
+    <motion.svg
+      width={52} height={52}
+      style={{ flexShrink: 0 }}
+      animate={isUrgent ? { scale: [1, 1.15, 1] } : {}}
+      transition={{ repeat: Infinity, duration: 0.7 }}
     >
-      ⏱ {current} сек
-    </motion.div>
+      <circle cx={26} cy={26} r={r} fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.1)" strokeWidth={3.5} />
+      <circle
+        cx={26} cy={26} r={r}
+        fill="none"
+        stroke={isUrgent ? '#ef4444' : '#fbbf24'}
+        strokeWidth={3.5}
+        strokeDasharray={`${dash} ${circ - dash}`}
+        strokeLinecap="round"
+        transform="rotate(-90 26 26)"
+      />
+      <text
+        x={26} y={26}
+        dominantBaseline="middle"
+        textAnchor="middle"
+        fill={isUrgent ? '#ef4444' : '#fbbf24'}
+        fontSize={13}
+        fontWeight="bold"
+        fontFamily="monospace"
+      >
+        {current}
+      </text>
+    </motion.svg>
   )
 }
