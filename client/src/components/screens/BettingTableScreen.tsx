@@ -25,6 +25,8 @@ export function BettingTableScreen() {
   const [placedIds, setPlacedIds] = useState<Set<string>>(new Set())
   const [betConfirmed, setBetConfirmed] = useState(false)
   const [pendingTarget, setPendingTarget] = useState<'win' | 'lose' | null>(null)
+  const [bankBetTarget, setBankBetTarget] = useState<number | null>(null)
+  const [bankBetAmount, setBankBetAmount] = useState(0)
   const phaseRef = useRef<string>('')
 
   useEffect(() => {
@@ -33,6 +35,8 @@ export function BettingTableScreen() {
       setPlacedIds(new Set())
       setBetConfirmed(false)
       setPendingTarget(null)
+      setBankBetTarget(null)
+      setBankBetAmount(0)
     }
     phaseRef.current = gameState.phase
   }, [gameState.phase])
@@ -60,8 +64,11 @@ export function BettingTableScreen() {
 
   const handleConfirm = () => {
     if (pendingBet <= 0) return
-    if (gameState.mode === 'kerri' && !isGladiator && !pendingTarget) return
+    if (isKerriMode && !isGladiator && !pendingTarget) return
     socket.emit('place_bet', { amount: pendingBet, target: pendingTarget ?? undefined })
+    if (isKerriMode && !isGladiator && bankBetTarget !== null && bankBetAmount > 0) {
+      socket.emit('place_bank_bet', { optionIndex: bankBetTarget, amount: bankBetAmount })
+    }
     // Не сбрасываем placedIds — фишки остаются в BetZone как "подтверждённые"
     setBetConfirmed(true)
   }
@@ -71,9 +78,9 @@ export function BettingTableScreen() {
   const orderedPlayers = me ? [me, ...others] : players
   const N = orderedPlayers.length
 
-  const isGladiatorMode = gameState.mode === 'kerri'
+  const isKerriMode = gameState.mode === 'kerri'
   const gladiatorName = players.find(p => p.id === gameState.gladiatorId)?.name
-  const canConfirm = !betConfirmed && pendingBet > 0 && (!isGladiatorMode || isGladiator || pendingTarget !== null)
+  const canConfirm = !betConfirmed && pendingBet > 0 && (!isKerriMode || isGladiator || pendingTarget !== null)
 
   // Банк: подтверждённые ставки всех + мой незакреплённый пендинг
   // После betConfirmed мой bet уже в player.currentBet через bet_updated, не двоим
@@ -102,10 +109,10 @@ export function BettingTableScreen() {
         )}
       </div>
 
-      {/* Gladiator mode info bar */}
-      {isGladiatorMode && gladiatorName && (
+      {/* Kerri mode info bar */}
+      {isKerriMode && gladiatorName && (
         <div style={{ color: '#fbbf24', fontSize: 14, letterSpacing: '0.05em' }}>
-          ⚔️ Гладиатор: <strong>{gladiatorName}</strong>
+          🎯 Керри: <strong>{gladiatorName}</strong>
           {gameState.gladiatorAnswer && (
             <span style={{ color: '#9ca3af', marginLeft: 12, fontSize: 12 }}>
               Ответ: <strong style={{ color: '#fbbf24' }}>{gameState.gladiatorAnswer}</strong>
@@ -148,10 +155,10 @@ export function BettingTableScreen() {
               zIndex: 1,
             }}
           >
-            {isGladiator && isGladiatorMode ? (
+            {isGladiator && isKerriMode ? (
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 28, marginBottom: 2 }}>⚔️</div>
-                <div style={{ fontSize: 15, fontWeight: 'bold', color: '#fbbf24' }}>Ты — Гладиатор!</div>
+                <div style={{ fontSize: 28, marginBottom: 2 }}>🎯</div>
+                <div style={{ fontSize: 15, fontWeight: 'bold', color: '#fbbf24' }}>Ты — Керри!</div>
                 <div style={{ fontSize: 11, color: '#6b7280', marginTop: 3 }}>Жди вопроса…</div>
               </div>
             ) : (
@@ -206,8 +213,8 @@ export function BettingTableScreen() {
       {/* Bottom controls */}
       {!isGladiator && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-          {/* Gladiator target selector for crowd */}
-          {isGladiatorMode && !betConfirmed && (
+          {/* WIN/LOSE selector (kerri mode crowd only) */}
+          {isKerriMode && !betConfirmed && (
             <div style={{ display: 'flex', gap: 12 }}>
               {(['win', 'lose'] as const).map(target => (
                 <button
@@ -232,6 +239,91 @@ export function BettingTableScreen() {
                   {target === 'win' ? '👍 ОН ОТВЕТИТ' : '💀 ОН ЗАВАЛИТ'}
                 </button>
               ))}
+            </div>
+          )}
+
+          {/* Bank bet section — Ставка на вариант (x4) */}
+          {isKerriMode && !isGladiator && !betConfirmed && gameState.currentQuestion?.options && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+              <div style={{ fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                Ставка на вариант (×4)
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 400 }}>
+                {gameState.currentQuestion.options.map((opt, idx) => {
+                  const isCorrect = opt === gameState.gladiatorAnswer
+                  const isSelected = bankBetTarget === idx
+                  return (
+                    <button
+                      key={idx}
+                      onClick={isCorrect ? undefined : () => setBankBetTarget(isSelected ? null : idx)}
+                      disabled={isCorrect}
+                      style={{
+                        padding: '6px 16px',
+                        borderRadius: 8,
+                        border: `2px solid ${isCorrect ? '#4ade80' : isSelected ? '#fbbf24' : '#374151'}`,
+                        background: isCorrect ? '#052e16' : isSelected ? '#1a1200' : '#111827',
+                        color: isCorrect ? '#4ade80' : isSelected ? '#fbbf24' : '#9ca3af',
+                        fontSize: 12,
+                        cursor: isCorrect ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.15s',
+                        maxWidth: 180,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {isCorrect ? '✓ ' : ''}{opt}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {bankBetTarget !== null && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                  <span style={{ fontSize: 12, color: '#9ca3af' }}>Сумма:</span>
+                  <span style={{ fontSize: 16, fontWeight: 'bold', color: '#fbbf24', fontFamily: 'monospace', minWidth: 36, textAlign: 'center' }}>
+                    {bankBetAmount}
+                  </span>
+                  {([10, 20, 50, 100] as const).map(d => {
+                    const maxBet = Math.max(0, (me?.chips ?? 0) - pendingBet)
+                    const canAdd = bankBetAmount + d <= maxBet
+                    return (
+                      <button
+                        key={d}
+                        onClick={() => canAdd && setBankBetAmount(a => a + d)}
+                        disabled={!canAdd}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 6,
+                          border: `1px solid ${canAdd ? '#374151' : '#1f2937'}`,
+                          background: canAdd ? '#1f2937' : '#111',
+                          color: canAdd ? '#d1d5db' : '#4b5563',
+                          fontSize: 11,
+                          cursor: canAdd ? 'pointer' : 'not-allowed',
+                        }}
+                      >
+                        +{d}
+                      </button>
+                    )
+                  })}
+                  {bankBetAmount > 0 && (
+                    <button
+                      onClick={() => setBankBetAmount(0)}
+                      style={{
+                        padding: '4px 10px',
+                        borderRadius: 6,
+                        border: '1px solid #374151',
+                        background: '#1f2937',
+                        color: '#f87171',
+                        fontSize: 11,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      −все
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
