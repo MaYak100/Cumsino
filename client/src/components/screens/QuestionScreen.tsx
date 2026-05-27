@@ -21,7 +21,7 @@ export function QuestionScreen() {
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const options = gameState.currentQuestion?.options ?? []
-  const isGladiatorMode = gameState.mode === 'gladiator'
+  const isGladiatorMode = gameState.mode === 'kerri'
 
   function handleMouseEnter(idx: number) {
     if (isGladiator && isGladiatorMode) sendHover(idx)

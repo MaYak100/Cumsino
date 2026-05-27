@@ -60,7 +60,7 @@ export function BettingTableScreen() {
 
   const handleConfirm = () => {
     if (pendingBet <= 0) return
-    if (gameState.mode === 'gladiator' && !isGladiator && !pendingTarget) return
+    if (gameState.mode === 'kerri' && !isGladiator && !pendingTarget) return
     socket.emit('place_bet', { amount: pendingBet, target: pendingTarget ?? undefined })
     // Не сбрасываем placedIds — фишки остаются в BetZone как "подтверждённые"
     setBetConfirmed(true)
@@ -71,7 +71,7 @@ export function BettingTableScreen() {
   const orderedPlayers = me ? [me, ...others] : players
   const N = orderedPlayers.length
 
-  const isGladiatorMode = gameState.mode === 'gladiator'
+  const isGladiatorMode = gameState.mode === 'kerri'
   const gladiatorName = players.find(p => p.id === gameState.gladiatorId)?.name
   const canConfirm = !betConfirmed && pendingBet > 0 && (!isGladiatorMode || isGladiator || pendingTarget !== null)
 
