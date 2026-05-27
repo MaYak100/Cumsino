@@ -76,5 +76,11 @@ export interface BetUpdatedPayload { playerId: string; amount: number; target?: 
 export interface BankBetUpdatedPayload { playerId: string; optionIndex: number; amount: number }
 export interface PlayerAnsweredPayload { playerId: string }
 export interface GladiatorHoveringPayload { optionIndex: number | null }
-export interface RoundResultsPayload { results: RoundResult[] }
+export interface RoundResultsPayload {
+  results: RoundResult[]
+  correctAnswer?: string | null
+  correctNumericAnswer?: number | null
+  mode?: GameMode
+  gladiatorId?: string
+}
 export interface GameOverPayload { winner: Player }

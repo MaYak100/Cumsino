@@ -39,6 +39,9 @@ export function RevealScreen() {
   const gameState = useGameStore(s => s.gameState)!
   const roundResults = useGameStore(s => s.roundResults)
   const myId = useGameStore(s => s.myId)
+  const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
+  const roundMode = useGameStore(s => s.roundMode)
+  const roundGladiatorId = useGameStore(s => s.roundGladiatorId)
 
   const playerMap = new Map(gameState.players.map(p => [p.id, p]))
   const sorted = [...roundResults].sort((a, b) => b.delta - a.delta)
@@ -48,9 +51,9 @@ export function RevealScreen() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl text-yellow-400 mb-6"
+        className="text-3xl text-yellow-400 mb-6 font-bold tracking-wide"
       >
-        🏆 Итоги раунда
+        ИТОГИ РАУНДА
       </motion.div>
 
       <div className="w-full max-w-md space-y-3">
@@ -61,27 +64,80 @@ export function RevealScreen() {
           const isPos = result.delta > 0
           const isNeg = result.delta < 0
 
+          // Determine correct/wrong label and border
+          let borderColor = '#3a6a3a'
+          let statusLabel: string | null = null
+          let statusColor = ''
+
+          if (roundMode === 'all') {
+            const playerAnsweredCorrect =
+              player.answer !== undefined && player.answer === roundCorrectAnswer
+            const playerAnsweredWrong =
+              player.answer !== undefined && player.answer !== roundCorrectAnswer
+            if (playerAnsweredCorrect) {
+              borderColor = '#4ade80'
+              statusLabel = '✓ Верно'
+              statusColor = 'text-green-400'
+            } else if (playerAnsweredWrong) {
+              borderColor = '#f87171'
+              statusLabel = '✗ Неверно'
+              statusColor = 'text-red-400'
+            }
+          } else if (roundMode === 'kerri') {
+            const isGladiator = result.playerId === roundGladiatorId
+            if (isGladiator) {
+              if (isPos) {
+                borderColor = '#4ade80'
+                statusLabel = '✓ Верно'
+                statusColor = 'text-green-400'
+              } else {
+                borderColor = '#f87171'
+                statusLabel = '✗ Неверно'
+                statusColor = 'text-red-400'
+              }
+            } else {
+              if (isPos) {
+                borderColor = '#4ade80'
+                statusLabel = 'Ставка угадана'
+                statusColor = 'text-green-400'
+              } else if (isNeg) {
+                borderColor = '#f87171'
+                statusLabel = 'Ставка не угадана'
+                statusColor = 'text-red-400'
+              }
+            }
+          } else {
+            // closest / top5: border by delta
+            if (isPos) borderColor = '#4ade80'
+            else if (isNeg) borderColor = '#f87171'
+          }
+
           return (
             <motion.div
               key={result.playerId}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`
-                p-4 rounded-xl border
-                ${isMe ? 'border-yellow-400 bg-[#2a4a2a]' : 'border-[#3a6a3a] bg-[#1a3a1a]'}
-              `}
+              className="p-4 rounded-xl border bg-[#1a3a1a]"
+              style={{ borderColor }}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-bold">{player.name} {isMe && '(ты)'}</div>
+                  <div className="font-bold">
+                    {player.name} {isMe && '(ты)'}
+                  </div>
                   <div className="text-xs text-gray-400">Баланс: {player.chips} 🪙</div>
+                  {statusLabel && (
+                    <div className={`text-xs mt-1 font-semibold ${statusColor}`}>
+                      {statusLabel}
+                    </div>
+                  )}
                 </div>
                 <div className={`text-2xl font-mono font-bold ${isPos ? 'text-green-400' : isNeg ? 'text-red-400' : 'text-gray-400'}`}>
                   {isPos ? '+' : ''}{result.delta}
                 </div>
               </div>
-              {isMe && isPos && <WinChips delta={result.delta} />}
+              {isPos && <WinChips delta={result.delta} />}
             </motion.div>
           )
         })}

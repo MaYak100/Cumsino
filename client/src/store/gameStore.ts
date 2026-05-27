@@ -1,16 +1,19 @@
 import { create } from 'zustand'
 import { socket } from '../socket'
 import type {
-  GameState, Player, RoundResult,
+  GameState, Player, RoundResult, GameMode,
   BetUpdatedPayload, PlayerAnsweredPayload,
   GladiatorHoveringPayload, GameOverPayload,
-  BankBetUpdatedPayload,
+  BankBetUpdatedPayload, RoundResultsPayload,
 } from '@cumsino/shared'
 
 interface GameStore {
   gameState: GameState | null
   myId: string | null
   roundResults: RoundResult[]
+  roundCorrectAnswer: string | number | null
+  roundMode: GameMode | null
+  roundGladiatorId: string | null
   winner: Player | null
   answeredIds: Set<string>
   gladiatorHoverIndex: number | null
@@ -64,8 +67,13 @@ export const useGameStore = create<GameStore>((set) => {
     set({ gladiatorHoverIndex: optionIndex })
   })
 
-  socket.on('round_results', ({ results }: { results: RoundResult[] }) => {
-    set({ roundResults: results })
+  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, mode, gladiatorId }: RoundResultsPayload) => {
+    set({
+      roundResults: results,
+      roundCorrectAnswer: correctAnswer ?? correctNumericAnswer ?? null,
+      roundMode: mode ?? null,
+      roundGladiatorId: gladiatorId ?? null,
+    })
   })
 
   socket.on('bank_bet_updated', ({ playerId, optionIndex, amount }: BankBetUpdatedPayload) => {
@@ -82,6 +90,9 @@ export const useGameStore = create<GameStore>((set) => {
     gameState: null,
     myId: null,
     roundResults: [],
+    roundCorrectAnswer: null,
+    roundMode: null,
+    roundGladiatorId: null,
     winner: null,
     answeredIds: new Set(),
     gladiatorHoverIndex: null,
@@ -114,6 +125,9 @@ export const useGameStore = create<GameStore>((set) => {
         gameState: null,
         myId: null,
         roundResults: [],
+        roundCorrectAnswer: null,
+        roundMode: null,
+        roundGladiatorId: null,
         winner: null,
         answeredIds: new Set(),
         gladiatorHoverIndex: null,

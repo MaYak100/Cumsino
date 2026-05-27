@@ -216,7 +216,13 @@ export class GameRoom extends EventEmitter {
   private advanceFromQuestion() {
     const results = this.calculateResults()
     this.applyDeltas(results)
-    this.broadcast('round_results', { results })
+    this.broadcast('round_results', {
+      results,
+      correctAnswer: this.currentQuestion?.answer ?? null,
+      correctNumericAnswer: this.currentQuestion?.numericAnswer ?? null,
+      mode: this.currentMode,
+      gladiatorId: this.gladiatorId,
+    })
     this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
   }
 
