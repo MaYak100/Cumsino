@@ -123,13 +123,17 @@ export function BettingTableScreen() {
       )}
 
       {/* Table scene */}
+      <div style={{ width: SCENE_W * 1.25, height: SCENE_H * 1.25, flexShrink: 0, position: 'relative' }}>
       <LayoutGroup>
         <div
           style={{
-            position: 'relative',
+            position: 'absolute',
+            top: 0,
+            left: 0,
             width: SCENE_W,
             height: SCENE_H,
-            flexShrink: 0,
+            transform: 'scale(1.25)',
+            transformOrigin: 'top left',
           }}
         >
           {/* Green felt */}
@@ -210,6 +214,7 @@ export function BettingTableScreen() {
 
         </div>
       </LayoutGroup>
+      </div>
 
       {/* Bottom controls */}
       {!isGladiator && (
