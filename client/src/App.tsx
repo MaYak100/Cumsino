@@ -13,6 +13,7 @@ import { RevealScreen } from './components/screens/RevealScreen'
 import { LeaderboardScreen } from './components/screens/LeaderboardScreen'
 import { GameOverScreen } from './components/screens/GameOverScreen'
 import { AnimatePresence, motion } from 'framer-motion'
+import { TableFelt } from './components/ui/TableFelt'
 
 export default function App() {
   const gameState = useGameStore(s => s.gameState)
@@ -41,7 +42,7 @@ export default function App() {
     case 'QUESTION':
       if (mode === 'closest') Screen = ClosestScreen
       else if (mode === 'top5') Screen = Top5Screen
-      else if (mode === 'gladiator' && isGladiator) Screen = GladiatorSelfScreen
+      else if (mode === 'kerri' && isGladiator) Screen = GladiatorSelfScreen
       else Screen = QuestionScreen
       break
     case 'REVEAL':
@@ -58,16 +59,20 @@ export default function App() {
   }
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={phase}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <Screen />
-      </motion.div>
-    </AnimatePresence>
+    <div style={{ height: '100vh', overflow: 'hidden', position: 'relative', background: '#060606' }}>
+      <TableFelt blurred={phase !== 'BETTING'} />
+      <AnimatePresence>
+        <motion.div
+          key={phase}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}
+        >
+          <Screen />
+        </motion.div>
+      </AnimatePresence>
+    </div>
   )
 }
