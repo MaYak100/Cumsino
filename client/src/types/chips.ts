@@ -21,6 +21,20 @@ export function buildPhysicalChips(total: number): PhysicalChip[] {
   return chips
 }
 
+/** Стабильные ID на основе playerId — для BetZone чужих игроков, чтобы chipScatter не прыгал при каждом re-render. */
+export function buildChipsForPlayer(playerId: string, amount: number): PhysicalChip[] {
+  const breakdown = decomposeToChips(amount)
+  const chips: PhysicalChip[] = []
+  const denoms: ChipValue[] = [500, 100, 50, 20, 10]
+  denoms.forEach(denom => {
+    const count = breakdown[denom]
+    for (let i = 0; i < count; i++) {
+      chips.push({ id: `${playerId}-${denom}-${i}`, denom })
+    }
+  })
+  return chips
+}
+
 /** Deterministic scatter offset seeded from chip id (avoids re-render jitter). */
 export function chipScatter(id: string, range: number): number {
   let hash = 0
