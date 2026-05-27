@@ -37,6 +37,11 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
     engine.getRoom(socket.id)?.placeBankBet(socket.id, optionIndex, amount)
   })
 
+  socket.on('stage_chip', ({ amount }: { amount: number }) => {
+    if (typeof amount !== 'number' || amount < 0) return
+    engine.getRoom(socket.id)?.stageChip(socket.id, amount)
+  })
+
   socket.on('disconnect', () => {
     engine.leaveRoom(socket.id)
   })

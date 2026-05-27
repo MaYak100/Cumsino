@@ -98,6 +98,12 @@ export class GameRoom extends EventEmitter {
     }
   }
 
+  stageChip(playerId: string, amount: number) {
+    if (this.phase !== 'BETTING') return
+    if (!this.players.has(playerId)) return
+    this.broadcastExcept(playerId, 'chip_staged', { playerId, amount })
+  }
+
   relayHover(playerId: string, optionIndex: number | null) {
     if (playerId !== this.gladiatorId) return
     this.broadcastExcept(playerId, 'gladiator_hovering', { optionIndex })

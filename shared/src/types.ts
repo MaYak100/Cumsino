@@ -84,3 +84,4 @@ export interface RoundResultsPayload {
   gladiatorId?: string
 }
 export interface GameOverPayload { winner: Player }
+export interface ChipStagedPayload { playerId: string; amount: number }

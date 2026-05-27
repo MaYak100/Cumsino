@@ -20,6 +20,7 @@ export function BettingTableScreen() {
   const myId = useGameStore(s => s.myId)
   const me = useGameStore(selectMe)
   const isGladiator = useGameStore(selectIsGladiator)
+  const stagedBets = useGameStore(s => s.stagedBets)
 
   const [myStack, setMyStack] = useState<PhysicalChip[]>([])
   const [placedIds, setPlacedIds] = useState<Set<string>>(new Set())
@@ -48,16 +49,21 @@ export function BettingTableScreen() {
     const chip = unplaced[unplaced.length - 1]
     if (chip) {
       setPlacedIds(prev => new Set([...prev, chip.id]))
+      const newAmount = pendingBet + denom
+      socket.emit('stage_chip', { amount: newAmount })
     }
   }
 
   const recallChip = (id: string) => {
     if (betConfirmed) return
+    const chip = myStack.find(c => c.id === id)
     setPlacedIds(prev => {
       const next = new Set(prev)
       next.delete(id)
       return next
     })
+    const newAmount = pendingBet - (chip?.denom ?? 0)
+    socket.emit('stage_chip', { amount: Math.max(0, newAmount) })
   }
 
   const placedChips = myStack.filter(c => placedIds.has(c.id))
@@ -217,10 +223,10 @@ export function BettingTableScreen() {
             const isThisGladiator = player.id === gameState.gladiatorId
 
             // Для меня: неподтверждённые фишки в BetZone до confirm, затем они остаются там locked
-            // Для других: стабильные ID на основе playerId, чтобы chipScatter не прыгал
+            // Для других: staged amount if available (live preview), else confirmed bet
             const betChips = isMe
               ? placedChips
-              : buildChipsForPlayer(player.id, player.currentBet)
+              : buildChipsForPlayer(player.id, stagedBets[player.id] ?? player.currentBet)
 
             return (
               <div key={player.id}>

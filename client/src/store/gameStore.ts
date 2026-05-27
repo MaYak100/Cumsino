@@ -5,6 +5,7 @@ import type {
   BetUpdatedPayload, PlayerAnsweredPayload,
   GladiatorHoveringPayload, GameOverPayload,
   BankBetUpdatedPayload, RoundResultsPayload,
+  ChipStagedPayload,
 } from '@cumsino/shared'
 
 interface GameStore {
@@ -19,6 +20,7 @@ interface GameStore {
   gladiatorHoverIndex: number | null
   pendingTarget: 'win' | 'lose' | null
   bankBets: Record<string, { optionIndex: number; amount: number }>
+  stagedBets: Record<string, number>
   isLateJoiner: boolean
 
   connect: (name: string, gameCode: string) => void
@@ -41,6 +43,7 @@ export const useGameStore = create<GameStore>((set) => {
       gladiatorHoverIndex: null,
       roundResults: state.phase === 'ANNOUNCE' ? [] : prev.roundResults,
       bankBets: state.phase === 'ANNOUNCE' ? {} : prev.bankBets,
+      stagedBets: state.phase === 'ANNOUNCE' ? {} : prev.stagedBets,
       isLateJoiner: prev.gameState === null
         ? state.phase !== 'LOBBY'          // first state: late if not in lobby
         : state.phase === 'ANNOUNCE'
@@ -52,6 +55,7 @@ export const useGameStore = create<GameStore>((set) => {
   socket.on('bet_updated', ({ playerId, amount, target }: BetUpdatedPayload) => {
     set(prev => {
       if (!prev.gameState) return prev
+      const { [playerId]: _, ...restStaged } = prev.stagedBets
       return {
         gameState: {
           ...prev.gameState,
@@ -61,6 +65,7 @@ export const useGameStore = create<GameStore>((set) => {
               : p
           ),
         },
+        stagedBets: restStaged,
       }
     })
   })
@@ -88,6 +93,10 @@ export const useGameStore = create<GameStore>((set) => {
     }))
   })
 
+  socket.on('chip_staged', ({ playerId, amount }: ChipStagedPayload) => {
+    set(prev => ({ stagedBets: { ...prev.stagedBets, [playerId]: amount } }))
+  })
+
   socket.on('game_over', ({ winner }: GameOverPayload) => {
     set({ winner })
   })
@@ -104,6 +113,7 @@ export const useGameStore = create<GameStore>((set) => {
     gladiatorHoverIndex: null,
     pendingTarget: null,
     bankBets: {},
+    stagedBets: {},
     isLateJoiner: false,
 
     connect(name, gameCode) {
@@ -140,6 +150,7 @@ export const useGameStore = create<GameStore>((set) => {
         gladiatorHoverIndex: null,
         pendingTarget: null,
         bankBets: {},
+        stagedBets: {},
         isLateJoiner: false,
       })
       socket.disconnect()
