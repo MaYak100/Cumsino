@@ -1,5 +1,6 @@
 import type { Player } from '@cumsino/shared'
-import { decomposeToChips } from '@cumsino/shared'
+import { buildPhysicalChips } from '../../types/chips'
+import { PhysicalChipStack } from './PhysicalChipStack'
 
 interface PlayerCardProps {
   player: Player
@@ -9,7 +10,7 @@ interface PlayerCardProps {
 }
 
 export function PlayerCard({ player, isMe, isGladiator, hasAnswered }: PlayerCardProps) {
-  const breakdown = decomposeToChips(player.chips)
+  const chips = buildPhysicalChips(player.chips)
 
   return (
     <div className={`
@@ -22,16 +23,8 @@ export function PlayerCard({ player, isMe, isGladiator, hasAnswered }: PlayerCar
         <span className="font-bold text-sm truncate">{player.name}</span>
         {isMe && <span className="text-xs text-yellow-400 ml-auto">(ты)</span>}
       </div>
-      <div className="text-yellow-400 font-mono text-lg">{player.chips} 🪙</div>
-      <div className="flex flex-wrap gap-1 mt-1">
-        {(Object.entries(breakdown) as [string, number][])
-          .filter(([, count]) => count > 0)
-          .map(([denom, count]) => (
-            <span key={denom} className="text-xs text-gray-400">
-              {count}×{denom}
-            </span>
-          ))}
-      </div>
+      <div className="text-yellow-400 font-mono text-sm mb-2">{player.chips}</div>
+      <PhysicalChipStack chips={chips} interactive={false} size="sm" />
     </div>
   )
 }
