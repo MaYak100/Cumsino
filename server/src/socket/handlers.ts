@@ -2,7 +2,8 @@ import type { Socket } from 'socket.io'
 import type { GameEngine } from '../game/GameEngine'
 import type {
   JoinGamePayload, PlaceBetPayload,
-  SubmitAnswerPayload, GladiatorHoverPayload
+  SubmitAnswerPayload, GladiatorHoverPayload,
+  PlaceBankBetPayload,
 } from '@cumsino/shared'
 
 export function registerHandlers(socket: Socket, engine: GameEngine): void {
@@ -29,6 +30,11 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   socket.on('gladiator_hover', ({ optionIndex }: GladiatorHoverPayload) => {
     if (optionIndex !== null && typeof optionIndex !== 'number') return
     engine.getRoom(socket.id)?.relayHover(socket.id, optionIndex)
+  })
+
+  socket.on('place_bank_bet', ({ optionIndex, amount }: PlaceBankBetPayload) => {
+    if (typeof optionIndex !== 'number' || typeof amount !== 'number' || amount <= 0) return
+    engine.getRoom(socket.id)?.placeBankBet(socket.id, optionIndex, amount)
   })
 
   socket.on('disconnect', () => {
