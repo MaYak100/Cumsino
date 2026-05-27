@@ -23,7 +23,7 @@ export function GladiatorSelfScreen() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
       <div className="text-center mb-4">
-        <div className="text-2xl text-yellow-400 mb-1">⚔️ Ты — Гладиатор!</div>
+        <div className="text-2xl text-yellow-400 mb-1">🎯 Ты — Керри!</div>
         <div className="text-xs text-gray-400">Толпа наблюдает за твоим выбором</div>
       </div>
 
