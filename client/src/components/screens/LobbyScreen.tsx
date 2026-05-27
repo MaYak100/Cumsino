@@ -4,7 +4,9 @@ import { PlayerCard } from '../ui/PlayerCard'
 export function LobbyScreen() {
   const gameState = useGameStore(s => s.gameState)!
   const me = useGameStore(selectMe)
+  const myId = useGameStore(s => s.myId)
   const startGame = useGameStore(s => s.startGame)
+  const isHost = myId !== null && myId === gameState.hostId
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -36,12 +38,18 @@ export function LobbyScreen() {
         </div>
       </div>
 
-      <button
-        onClick={startGame}
-        className="px-10 py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold text-lg rounded-xl hover:brightness-110 transition-all shadow-lg"
-      >
-        ▶ НАЧАТЬ ИГРУ
-      </button>
+      {isHost ? (
+        <button
+          onClick={startGame}
+          className="px-10 py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold text-lg rounded-xl hover:brightness-110 transition-all shadow-lg"
+        >
+          ▶ НАЧАТЬ ИГРУ
+        </button>
+      ) : (
+        <div className="text-gray-400 text-sm tracking-widest uppercase">
+          Ожидаем хоста…
+        </div>
+      )}
 
       <p className="text-gray-500 text-xs mt-4">
         Стартовый капитал: 500 фишек · Цель: 3000 фишек
