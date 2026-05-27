@@ -39,6 +39,15 @@ function topic(q: RawMCQuestion | RawCNQuestion): string {
   return q.item_name ?? q.hero_name ?? q.category ?? 'Dota 2'
 }
 
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
 function flatMC(db: QuestionsDB): RawMCQuestion[] {
   const mc = db.multiple_choice
   return [
@@ -73,14 +82,17 @@ export function loadQuestions(): Question[] {
       options = splitOptions.map(o => o[lvl] ?? o[0])
     }
 
+    const correctAnswer = options[raw.correct]
+    const shuffledOptions = shuffleArray(options)
+
     const base = {
       topic: topic(raw),
       text,
-      options,
-      answer: options[raw.correct],
+      options: shuffledOptions,
+      answer: correctAnswer,
     }
     questions.push({ id: `mc_${idCounter++}`, mode: 'all', ...base })
-    questions.push({ id: `mc_${idCounter++}`, mode: 'gladiator', ...base })
+    questions.push({ id: `mc_${idCounter++}`, mode: 'kerri', ...base })
   }
 
   for (const raw of flatCN(db)) {
