@@ -3,10 +3,10 @@ import { useGameStore } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
 
 const MODE_LABELS: Record<string, string> = {
-  all: '🧠 ВОПРОС ДЛЯ ВСЕХ',
-  kerri: '🎯 КЕРРИ',
-  closest: '🎯 КТО БЛИЖЕ',
-  top5: '📊 ТОП 5',
+  all: 'ВОПРОС ДЛЯ ВСЕХ',
+  kerri: 'КЕРРИ',
+  closest: 'КТО БЛИЖЕ',
+  top5: 'ТОП 5',
 }
 
 const MODE_DESCRIPTIONS: Record<string, string> = {

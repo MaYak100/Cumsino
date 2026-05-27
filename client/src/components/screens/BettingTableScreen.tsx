@@ -43,8 +43,9 @@ export function BettingTableScreen() {
 
   const placeChip = (denom: number) => {
     if (betConfirmed) return
-    // Find first unplaced chip with this denom and place it
-    const chip = myStack.find(c => c.denom === denom && !placedIds.has(c.id))
+    // Find last unplaced chip with this denom (top of visual stack) and place it
+    const unplaced = myStack.filter(c => c.denom === denom && !placedIds.has(c.id))
+    const chip = unplaced[unplaced.length - 1]
     if (chip) {
       setPlacedIds(prev => new Set([...prev, chip.id]))
     }
