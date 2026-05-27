@@ -74,14 +74,14 @@ export function AnnounceScreen() {
         </motion.div>
       )}
 
-      {/* "Готовься к ставкам" — all modes now go through BETTING */}
+      {/* Footer hint — mode-specific */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.4 }}
         style={{ marginTop: 24, color: '#6b7280', fontSize: 13 }}
       >
-        Готовься к ставкам…
+        {gameState.mode === 'closest' ? 'Угадай число — победитель забирает банк' : 'Готовься к ставкам…'}
       </motion.p>
     </div>
   )

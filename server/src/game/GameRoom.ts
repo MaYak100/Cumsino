@@ -176,7 +176,11 @@ export class GameRoom extends EventEmitter {
     switch (this.phase) {
       case 'ANNOUNCE':
         if (this.currentMode === 'kerri') this.selectGladiator()
-        this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
+        if (this.currentMode === 'closest') {
+          this.schedulePhase('QUESTION_TEXT', PHASE_DURATIONS['QUESTION_TEXT']!)
+        } else {
+          this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
+        }
         break
 
       case 'BETTING':
