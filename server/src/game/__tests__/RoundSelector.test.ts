@@ -3,44 +3,38 @@ import { describe, it, expect } from 'vitest'
 import { RoundSelector } from '../RoundSelector'
 
 describe('RoundSelector', () => {
-  it('раунд 1 всегда "all"', () => {
-    const selector = new RoundSelector(['closest', 'top5'])
+  it('3-mode cycle: all → kerri → closest → all', () => {
+    const selector = new RoundSelector()
     expect(selector.next()).toBe('all')
+    expect(selector.next()).toBe('kerri')
+    expect(selector.next()).toBe('closest')
+    expect(selector.next()).toBe('all')
+    expect(selector.next()).toBe('kerri')
   })
 
-  it('раунд 2 всегда "gladiator"', () => {
-    const selector = new RoundSelector(['closest', 'top5'])
-    selector.next()
-    expect(selector.next()).toBe('gladiator')
-  })
-
-  it('после gladiator следующий основной — "all"', () => {
-    const selector = new RoundSelector([]) // нет спец-режимов → всегда основной
-    selector.next() // all
-    selector.next() // gladiator
-    // при отсутствии спец-режимов — всегда основной
-    const next = selector.next()
-    expect(next).toBe('all')
-  })
-
-  it('после all следующий основной — "gladiator"', () => {
-    const selector = new RoundSelector([])
-    selector.next() // all
-    selector.next() // gladiator
-    selector.next() // all (нет спец-режимов)
-    const next = selector.next()
-    expect(next).toBe('gladiator')
-  })
-
-  it('lastMainMode обновляется только для основных режимов', () => {
-    const selector = new RoundSelector(['closest'])
-    selector.next() // all
-    selector.next() // gladiator
-    // принудительно делаем спец-режим
-    const mode = selector.nextForceSpecial()
-    expect(mode).toBe('closest')
-    // следующий основной должен быть all (т.к. последний основной = gladiator)
-    selector.nextForceMain()
+  it('lastMainMode is "all" initially', () => {
+    const selector = new RoundSelector()
     expect(selector.lastMainMode).toBe('all')
+  })
+
+  it('lastMainMode updates after all', () => {
+    const selector = new RoundSelector()
+    selector.next() // all
+    expect(selector.lastMainMode).toBe('all')
+  })
+
+  it('lastMainMode updates after kerri', () => {
+    const selector = new RoundSelector()
+    selector.next() // all
+    selector.next() // kerri
+    expect(selector.lastMainMode).toBe('kerri')
+  })
+
+  it('lastMainMode does not update after closest', () => {
+    const selector = new RoundSelector()
+    selector.next() // all
+    selector.next() // kerri
+    selector.next() // closest
+    expect(selector.lastMainMode).toBe('kerri')
   })
 })
