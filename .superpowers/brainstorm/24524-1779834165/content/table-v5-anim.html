@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стол v5 — анимация фишек</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+body {
+  background: radial-gradient(ellipse at 50% 35%, #1c1600 0%, #060606 70%);
+  color: #e0e0e0;
+  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+h2 { color: #fbbf24; font-size: 1rem; letter-spacing: 0.05em; }
+.subtitle { color: #374151; font-size: 0.72rem; }
+
+/* ══ СЦЕНА ══ */
+.scene {
+  position: relative;
+  width: 860px;
+  height: 600px;
+}
+
+/* Зелёное полотно */
+.felt {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 250px;
+  background:
+    radial-gradient(ellipse at 35% 35%, #26831c 0%, #0f4a0a 55%, #071e06 100%);
+  border-radius: 130px;
+  border: 9px solid #071507;
+  box-shadow:
+    0 0 0 14px #3d2600,
+    0 0 0 18px #1a1000,
+    0 10px 80px rgba(0,0,0,0.98),
+    inset 0 0 60px rgba(0,0,0,0.55);
+  z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+
+.pot-info { text-align: center; user-select: none; }
+.pot-label { font-size: 0.6rem; color: rgba(255,255,255,0.25); letter-spacing: 0.12em; text-transform: uppercase; }
+.pot-amount { font-size: 1.2rem; font-weight: bold; color: #fbbf24; display: block; margin-top: 2px; }
+
+/* Зона куда летят фишки — над центром стола */
+#pot-zone {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -58%);
+  z-index: 5;
+  display: flex; gap: 4px; align-items: flex-end;
+  pointer-events: none;
+  min-width: 10px; min-height: 10px;
+}
+
+/* ══ КАРТОЧКА ИГРОКА ══ */
+.player-unit {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4;
+}
+
+.player-card {
+  background: linear-gradient(135deg, #121212, #0a0a0a);
+  border: 1.5px solid #222;
+  border-radius: 10px;
+  padding: 7px 18px;
+  white-space: nowrap;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.8);
+}
+.player-card.me {
+  border-color: #fbbf24;
+  background: linear-gradient(135deg, #14110000, #0d0d0000);
+  background: #100e00;
+  box-shadow: 0 0 18px rgba(251,191,36,0.12), 0 4px 24px rgba(0,0,0,0.8);
+}
+.player-name {
+  font-size: 0.82rem; font-weight: 600; color: #aaa; letter-spacing: 0.01em;
+}
+.player-card.me .player-name { color: #fbbf24; }
+
+/* ══ СТОПКИ ФИШЕК ══ */
+.chip-stack-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding-bottom: 5px;
+}
+.stack-wrap {
+  position: relative;
+  width: 28px;
+  flex-shrink: 0;
+}
+.chip {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.45rem; font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12);
+  user-select: none;
+  transition: opacity 0.25s, transform 0.12s;
+}
+/* Только мои фишки интерактивны */
+.me-chip { cursor: pointer; }
+.me-chip:hover { transform: scale(1.18) translateY(-4px) !important; }
+.me-chip.placed { opacity: 0.22; cursor: pointer; }
+
+.c10  { background: linear-gradient(145deg,#d4d8dc,#6b7280); color:#111; }
+.c20  { background: linear-gradient(145deg,#4ade80,#16a34a); color:#fff; }
+.c50  { background: linear-gradient(145deg,#60a5fa,#1d4ed8); color:#fff; }
+.c100 { background: linear-gradient(145deg,#f87171,#b91c1c); color:#fff; }
+.c500 { background: linear-gradient(145deg,#52525b,#18181b); color:#fbbf24; border-color:rgba(251,191,36,0.25); }
+
+/* ══ ЛЕТЯЩАЯ ФИШКА (клон) ══ */
+.flying-chip {
+  position: fixed;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.45rem; font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  pointer-events: none;
+  z-index: 9999;
+  transition: left 0.42s cubic-bezier(0.34, 1.5, 0.64, 1),
+              top  0.42s cubic-bezier(0.34, 1.5, 0.64, 1),
+              transform 0.42s ease;
+}
+
+/* Позиции */
+.pos-top { top: 14px; left: 50%; transform: translateX(-50%); }
+.pos-tl  { top: 120px; left: 16px; }
+.pos-tr  { top: 120px; right: 16px; }
+.pos-bl  { bottom: 120px; left: 16px; }
+.pos-br  { bottom: 120px; right: 16px; }
+.pos-me  { bottom: 10px; left: 50%; transform: translateX(-50%); }
+
+/* HUD — сумма ставки */
+.bet-hud {
+  font-size: 0.78rem;
+  color: #fbbf24;
+  min-height: 20px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+<h2>Кликни на свои фишки — они полетят к банку</h2>
+<p class="subtitle">Ещё клик на потускневшую фишку — вернётся обратно</p>
+
+<div class="scene" id="scene">
+  <div class="felt">
+    <div class="pot-info">
+      <div class="pot-label">банк</div>
+      <span class="pot-amount" id="potAmount">0</span>
+    </div>
+  </div>
+
+  <div id="pot-zone"></div>
+</div>
+
+<div class="bet-hud" id="betHud">Твоя ставка: <b>0</b></div>
+
+<script>
+const CHIP_COLORS = { 10:'c10', 20:'c20', 50:'c50', 100:'c100', 500:'c500' };
+const CHIP_SIZE = 28;
+const OVERLAP = 17;  // перекрытие — стопка растёт вверх
+
+/* ══ СТРОИМ СТОПКУ ══ */
+function buildStack(denom, count, isMe) {
+  const wrap = document.createElement('div');
+  wrap.className = 'stack-wrap';
+  const h = CHIP_SIZE + (count - 1) * (CHIP_SIZE - OVERLAP);
+  wrap.style.height = h + 'px';
+
+  for (let i = 0; i < count; i++) {
+    const chip = document.createElement('div');
+    chip.className = `chip ${CHIP_COLORS[denom]}` + (isMe ? ' me-chip' : '');
+    chip.textContent = denom;
+    chip.style.bottom = (i * (CHIP_SIZE - OVERLAP)) + 'px';
+    chip.style.zIndex = i + 1;
+    chip.dataset.denom = denom;
+    if (isMe) chip.addEventListener('click', onMyChipClick);
+    wrap.appendChild(chip);
+  }
+  return wrap;
+}
+
+function buildPlayer(name, stacks, posClass, isMe) {
+  const unit = document.createElement('div');
+  unit.className = 'player-unit ' + posClass;
+
+  const row = document.createElement('div');
+  row.className = 'chip-stack-row';
+  stacks.forEach(({denom, count}) => {
+    if (count > 0) row.appendChild(buildStack(denom, count, isMe));
+  });
+
+  const card = document.createElement('div');
+  card.className = 'player-card' + (isMe ? ' me' : '');
+  card.innerHTML = `<div class="player-name">${name}</div>`;
+
+  unit.appendChild(row);
+  unit.appendChild(card);
+  return unit;
+}
+
+const scene = document.getElementById('scene');
+
+/* Расставляем игроков */
+[
+  { name:'Александра К.',  pos:'pos-top', s:[{denom:500,count:3},{denom:100,count:2},{denom:50,count:1}] },
+  { name:'Максим П.',      pos:'pos-tl',  s:[{denom:500,count:1},{denom:100,count:3},{denom:20,count:2}] },
+  { name:'Дмитрий В.',     pos:'pos-tr',  s:[{denom:500,count:2},{denom:50,count:3}] },
+  { name:'Анастасия Р.',   pos:'pos-bl',  s:[{denom:100,count:1},{denom:50,count:3},{denom:10,count:2}] },
+  { name:'Никита Л.',      pos:'pos-br',  s:[{denom:500,count:1},{denom:100,count:2},{denom:20,count:3}] },
+].forEach(p => scene.appendChild(buildPlayer(p.name, p.s, p.pos, false)));
+
+/* МОИ фишки */
+scene.appendChild(buildPlayer('Ты (Ярослав)', [
+  {denom:500,count:2},{denom:100,count:4},{denom:50,count:2},{denom:20,count:3},{denom:10,count:1}
+], 'pos-me', true));
+
+/* ══ АНИМАЦИЯ ══ */
+const potZone  = document.getElementById('pot-zone');
+const potAmountEl = document.getElementById('potAmount');
+const betHudEl = document.getElementById('betHud');
+
+// chip → flying clone (в потлне)
+const chipToBetClone = new Map();
+let totalBet = 0;
+
+function updateBetDisplay() {
+  potAmountEl.textContent = totalBet;
+  betHudEl.innerHTML = `Твоя ставка: <b>${totalBet}</b>`;
+}
+
+function getPotCenter() {
+  const pz = potZone.getBoundingClientRect();
+  return { x: pz.left + pz.width / 2, y: pz.top + pz.height / 2 };
+}
+
+function onMyChipClick(e) {
+  const chip = e.currentTarget;
+
+  if (chip.classList.contains('placed')) {
+    returnChip(chip);
+  } else {
+    sendToPot(chip);
+  }
+}
+
+function sendToPot(chip) {
+  chip.removeEventListener('click', onMyChipClick);
+
+  const rect  = chip.getBoundingClientRect();
+  const denom = parseInt(chip.dataset.denom);
+
+  /* Клон, который полетит */
+  const clone = document.createElement('div');
+  clone.className = `flying-chip ${CHIP_COLORS[denom]}`;
+  clone.textContent = denom;
+  clone.style.left   = rect.left + 'px';
+  clone.style.top    = rect.top  + 'px';
+  document.body.appendChild(clone);
+
+  /* Приглушаем оригинал */
+  chip.classList.add('placed');
+
+  /* Два RAF — чтобы transition сработал после mount */
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    /* Целевая точка — центр pot-zone + случайный разброс */
+    const potR = potZone.getBoundingClientRect();
+    const tx = potR.left + potR.width / 2  + (Math.random() - 0.5) * 28 - 14;
+    const ty = potR.top  + potR.height / 2 + (Math.random() - 0.5) * 12 - 14;
+
+    clone.style.left      = tx + 'px';
+    clone.style.top       = ty + 'px';
+    clone.style.transform = 'scale(0.88)';
+  }));
+
+  setTimeout(() => {
+    /* Переносим в pot-zone как статичную фишку */
+    const potChip = document.createElement('div');
+    potChip.className = `chip ${CHIP_COLORS[denom]}`;
+    potChip.textContent = denom;
+    potChip.style.position = 'relative';
+    potChip.style.width = '24px'; potChip.style.height = '24px';
+    potChip.style.flexShrink = '0';
+    potZone.appendChild(potChip);
+    clone.remove();
+
+    totalBet += denom;
+    updateBetDisplay();
+
+    chipToBetClone.set(chip, potChip);
+    chip.addEventListener('click', onMyChipClick);
+  }, 440);
+}
+
+function returnChip(chip) {
+  chip.removeEventListener('click', onMyChipClick);
+  const denom     = parseInt(chip.dataset.denom);
+  const potChip   = chipToBetClone.get(chip);
+  if (!potChip) { chip.addEventListener('click', onMyChipClick); return; }
+
+  /* Запускаем клон обратно */
+  const potRect  = potChip.getBoundingClientRect();
+  const chipRect = chip.getBoundingClientRect();
+
+  const clone = document.createElement('div');
+  clone.className = `flying-chip ${CHIP_COLORS[denom]}`;
+  clone.textContent = denom;
+  clone.style.left   = potRect.left + 'px';
+  clone.style.top    = potRect.top  + 'px';
+  clone.style.transform = 'scale(0.88)';
+  document.body.appendChild(clone);
+
+  potChip.remove();
+  chipToBetClone.delete(chip);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    clone.style.left      = chipRect.left + 'px';
+    clone.style.top       = chipRect.top  + 'px';
+    clone.style.transform = 'scale(1)';
+  }));
+
+  setTimeout(() => {
+    clone.remove();
+    chip.classList.remove('placed');
+    totalBet -= denom;
+    updateBetDisplay();
+    chip.addEventListener('click', onMyChipClick);
+  }, 430);
+}
+</script>
+</body>
+</html>

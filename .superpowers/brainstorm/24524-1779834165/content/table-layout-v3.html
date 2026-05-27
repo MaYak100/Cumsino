@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стол v3 — живой выбор темы</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { color: #e0e0e0; font-family: system-ui, sans-serif; padding: 24px; transition: background 0.5s; }
+body.theme-night { background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%); }
+body.theme-noir  { background: linear-gradient(160deg, #080808 0%, #141414 100%); }
+body.theme-red   { background: linear-gradient(160deg, #120606 0%, #1f0c0c 100%); }
+
+h2 { text-align: center; color: #fbbf24; margin-bottom: 4px; font-size: 1.15rem; }
+.subtitle { text-align: center; color: #6b7280; font-size: 0.82rem; margin-bottom: 24px; }
+
+/* ---- TABLE SCENE ---- */
+.table-scene {
+  position: relative;
+  width: 620px;
+  height: 500px;
+  margin: 0 auto 28px;
+}
+
+.felt {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px; height: 210px;
+  background: radial-gradient(ellipse at center, #1d6b1d 0%, #0d3d0d 80%);
+  border-radius: 110px;
+  border: 6px solid #0a2d0a;
+  box-shadow: 0 0 0 10px #5a3800, 0 0 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.5);
+  z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.pot-label { text-align: center; color: rgba(255,255,255,0.45); font-size: 0.75rem; }
+.pot-label .amount { color: #fbbf24; font-size: 1rem; font-weight: bold; display: block; }
+
+.pot-chips-area {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -60%);
+  z-index: 2;
+  display: flex; gap: 5px; align-items: flex-end;
+}
+
+/* Карточка игрока */
+.player-card {
+  position: absolute;
+  border-radius: 10px;
+  padding: 8px 14px;
+  display: flex; align-items: center; gap: 10px;
+  z-index: 3;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  transition: background 0.5s, border-color 0.5s;
+}
+
+/* Тема Night */
+body.theme-night .player-card         { background: linear-gradient(135deg,#1e293b,#0f172a); border: 2px solid #334155; }
+body.theme-night .player-card.me      { background: linear-gradient(135deg,#1c2a0e,#0f1a0a); border: 2px solid #fbbf24; box-shadow: 0 0 20px rgba(251,191,36,0.15),0 4px 20px rgba(0,0,0,0.6); }
+body.theme-night .player-name         { color: #e2e8f0; }
+body.theme-night .player-card.me .player-name { color: #fbbf24; }
+
+/* Тема Noir */
+body.theme-noir .player-card          { background: linear-gradient(135deg,#1a1a1a,#0d0d0d); border: 2px solid #333; }
+body.theme-noir .player-card.me       { background: linear-gradient(135deg,#1a1500,#0d0f00); border: 2px solid #fbbf24; box-shadow: 0 0 20px rgba(251,191,36,0.2),0 4px 20px rgba(0,0,0,0.6); }
+body.theme-noir .player-name          { color: #d4d4d4; }
+body.theme-noir .player-card.me .player-name { color: #fbbf24; }
+
+/* Тема Red */
+body.theme-red .player-card           { background: linear-gradient(135deg,#2a1010,#1a0808); border: 2px solid #4a1a1a; }
+body.theme-red .player-card.me        { background: linear-gradient(135deg,#2a1f00,#1a1400); border: 2px solid #fbbf24; box-shadow: 0 0 20px rgba(251,191,36,0.2),0 4px 20px rgba(0,0,0,0.6); }
+body.theme-red .player-name           { color: #e8d0d0; }
+body.theme-red .player-card.me .player-name { color: #fbbf24; }
+
+.player-name { font-size: 0.85rem; font-weight: 600; min-width: 90px; }
+
+/* Фишки — стопки */
+.chip-stack { display: flex; gap: 5px; align-items: flex-end; }
+.stack { position: relative; display: flex; flex-direction: column-reverse; align-items: center; }
+.chip {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.48rem; font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform 0.12s;
+  margin-top: -18px; /* перекрытие для эффекта стопки */
+}
+.stack .chip:first-child { margin-top: 0; }
+.chip:hover { transform: scale(1.12) translateY(-3px); z-index: 10; position: relative; }
+.chip.small { width: 22px; height: 22px; font-size: 0.42rem; margin-top: -14px; }
+.stack .chip.small:first-child { margin-top: 0; }
+
+.c10  { background: linear-gradient(135deg,#d1d5db,#6b7280); color: #111; }
+.c20  { background: linear-gradient(135deg,#4ade80,#15803d); color: #fff; }
+.c50  { background: linear-gradient(135deg,#60a5fa,#1d4ed8); color: #fff; }
+.c100 { background: linear-gradient(135deg,#f87171,#b91c1c); color: #fff; }
+.c500 { background: linear-gradient(135deg,#4b5563,#1f2937); color: #fbbf24; }
+
+/* Позиции */
+.pos-top { top: 14px;  left: 50%; transform: translateX(-50%); }
+.pos-tl  { top: 100px; left: 8px; }
+.pos-tr  { top: 100px; right: 8px; }
+.pos-bl  { bottom: 90px; left: 8px; }
+.pos-me  { bottom: 10px; left: 50%; transform: translateX(-50%); }
+
+/* ---- THEME SELECTOR ---- */
+.section-title {
+  text-align: center;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 14px;
+}
+.theme-btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.theme-btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.theme-btn:hover { transform: translateY(-2px); }
+.theme-btn.active { border-color: #fbbf24 !important; }
+
+.btn-night { background: linear-gradient(135deg,#1e1b4b,#0f172a); color: #a5b4fc; border-color: #312e81; }
+.btn-noir  { background: linear-gradient(135deg,#1a1a1a,#080808); color: #fbbf24; border-color: #333; }
+.btn-red   { background: linear-gradient(135deg,#2a0a0a,#120606); color: #fca5a5; border-color: #5a1a1a; }
+
+.hint { text-align: center; color: #4b5563; font-size: 0.72rem; margin-top: 10px; }
+</style>
+</head>
+<body class="theme-night">
+
+<h2>Стол + живая тема</h2>
+<p class="subtitle">Кликни кнопку ниже — фон и карточки сменятся. Зелёное полотно всегда остаётся.</p>
+
+<!-- СТОЛ -->
+<div class="table-scene">
+
+  <div class="felt">
+    <div class="pot-label">БАНК<span class="amount">150</span></div>
+  </div>
+
+  <div class="pot-chips-area">
+    <div class="stack">
+      <div class="chip c100 small">100</div>
+      <div class="chip c100 small">100</div>
+    </div>
+    <div class="stack">
+      <div class="chip c50 small">50</div>
+    </div>
+  </div>
+
+  <!-- Верх -->
+  <div class="player-card pos-top">
+    <div class="player-name">Александра К.</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Верх-лево -->
+  <div class="player-card pos-tl">
+    <div class="player-name">Максим П.</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c20">20</div>
+        <div class="chip c20">20</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Верх-право -->
+  <div class="player-card pos-tr">
+    <div class="player-name">Дмитрий В.</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Низ-лево -->
+  <div class="player-card pos-bl">
+    <div class="player-name">Анастасия Р.</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+      </div>
+      <div class="stack">
+        <div class="chip c10">10</div>
+        <div class="chip c10">10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Я -->
+  <div class="player-card pos-me me">
+    <div class="player-name">Ты (Ярослав)</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+      </div>
+      <div class="stack">
+        <div class="chip c20">20</div>
+        <div class="chip c20">20</div>
+        <div class="chip c20">20</div>
+      </div>
+      <div class="stack">
+        <div class="chip c10">10</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- КНОПКИ ТЕМЫ -->
+<div class="section-title">Выбери тему фона — стол всегда зелёный</div>
+<div class="theme-btns">
+  <button class="theme-btn btn-night active" onclick="setTheme('night', this)">🌌 Deep Night</button>
+  <button class="theme-btn btn-noir"         onclick="setTheme('noir', this)">🖤 Noir Gold</button>
+  <button class="theme-btn btn-red"          onclick="setTheme('red', this)">🔴 Deep Red</button>
+</div>
+<div class="hint">Скажи в терминале, какая нравится (или предложи свою идею)</div>
+
+<script>
+function setTheme(name, btn) {
+  document.body.className = 'theme-' + name;
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (window.recordChoice) recordChoice(name, btn.textContent.trim());
+}
+</script>
+</body>
+</html>

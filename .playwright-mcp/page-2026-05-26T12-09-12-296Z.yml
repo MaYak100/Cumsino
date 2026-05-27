@@ -1,0 +1,28 @@
+- generic [ref=e16]:
+  - generic [ref=e17]: ⏱ 15 сек
+  - generic [ref=e18]:
+    - generic [ref=e19]:
+      - generic [ref=e20]: Тема
+      - generic [ref=e21]: Музыка
+    - generic [ref=e22]: Выбери фишки
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - button "10" [ref=e25] [cursor=pointer]
+        - button "−" [ref=e26] [cursor=pointer]
+      - generic [ref=e27]:
+        - button "20" [ref=e28] [cursor=pointer]
+        - button "−" [ref=e29] [cursor=pointer]
+      - generic [ref=e30]:
+        - button "50" [ref=e31] [cursor=pointer]
+        - button "−" [ref=e32] [cursor=pointer]
+      - generic [ref=e33]:
+        - button "100" [ref=e34] [cursor=pointer]
+        - button "−" [ref=e35] [cursor=pointer]
+      - generic [ref=e36]:
+        - button "500" [ref=e37] [cursor=pointer]
+        - button "−" [ref=e38] [cursor=pointer]
+    - generic [ref=e39]:
+      - generic [ref=e40]: Твоя ставка
+      - generic [ref=e41]: 0 🪙
+      - generic [ref=e42]: "Баланс: 500 фишек"
+    - button "✓ ПОДТВЕРДИТЬ СТАВКУ" [disabled] [ref=e43]

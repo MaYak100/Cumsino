@@ -1,0 +1,154 @@
+[
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет движение Arctic Blast от Shiva's Guard?",
+    "options": ["-40%", "-30%", "-45%", "-35%"],
+    "correct": 0,
+    "item": "shivas_guard",
+    "item_name": "Shiva's Guard",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько магического урона наносит Arctic Blast от Shiva's Guard?",
+    "answer": 260,
+    "item": "shivas_guard",
+    "item_name": "Shiva's Guard",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % ускоряет передвижение союзников активация Boots of Bearing (Endurance)?",
+    "answer": 15,
+    "item": "boots_of_bearing",
+    "item_name": "Boots of Bearing",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак с повышенной скоростью даёт Hurricane Pike при активации?",
+    "answer": 5,
+    "item": "hurricane_pike",
+    "item_name": "Hurricane Pike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько единиц Hurricane Pike отбрасывает врага от вас при активации Hurricane Thrust?",
+    "options": ["425 единиц", "600 единиц", "500 единиц", "350 единиц"],
+    "correct": 0,
+    "item": "hurricane_pike",
+    "item_name": "Hurricane Pike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько брони даёт союзнику активация Solar Crest (Shine)?",
+    "answer": 5,
+    "item": "solar_crest",
+    "item_name": "Solar Crest",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько физического урона поглощает барьер от Solar Crest (Shine)?",
+    "answer": 350,
+    "item": "solar_crest",
+    "item_name": "Solar Crest",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % урона, полученного под сайленсом Soul Burn (Orchid), становится бонусным магическим уроном?",
+    "options": ["30%", "25%", "40%", "20%"],
+    "correct": 0,
+    "item": "orchid",
+    "item_name": "Orchid Malevolence",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % урона, полученного под сайленсом Soul Rend (Bloodthorn), наносится дополнительно как магический?",
+    "options": ["60%", "30%", "50%", "75%"],
+    "correct": 0,
+    "item": "bloodthorn",
+    "item_name": "Bloodthorn",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько секунд Transfer Spellblock от Linken's Sphere передаёт союзнику блок заклинания?",
+    "answer": 14,
+    "item": "sphere",
+    "item_name": "Linken's Sphere",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько магического урона поглощает барьер Pipe of Insight при активации?",
+    "answer": 425,
+    "item": "pipe",
+    "item_name": "Pipe of Insight",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько единиц Force Staff толкает цель?",
+    "answer": 600,
+    "item": "force_staff",
+    "item_name": "Force Staff",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько секунд длится дебафф от активации Nullifier (Nullify)?",
+    "options": ["4 секунды", "3 секунды", "5 секунд", "2 секунды"],
+    "correct": 0,
+    "item": "nullifier",
+    "item_name": "Nullifier",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько секунд Abyssal Blade оглушает цель активной способностью Overwhelm?",
+    "options": ["1.6 секунды", "1.2 секунды", "2.0 секунды", "1.5 секунды"],
+    "correct": 0,
+    "item": "abyssal_blade",
+    "item_name": "Abyssal Blade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какова базовая скорость передвижения цели, превращённой в животное Scythe of Vyse (Hex)?",
+    "answer": 140,
+    "item": "sheepstick",
+    "item_name": "Scythe of Vyse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % магической защиты даёт Black King Bar (Avatar) при активации?",
+    "options": ["60%", "50%", "75%", "80%"],
+    "correct": 0,
+    "item": "black_king_bar",
+    "item_name": "Black King Bar",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько секунд Echo Shell от Lotus Orb отражает заклинания обратно на цастера?",
+    "answer": 5,
+    "item": "lotus_orb",
+    "item_name": "Lotus Orb",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько маны сжигает Disperser пассивно (Manabreak) за каждую атаку?",
+    "options": ["40 маны", "30 маны", "50 маны", "25 маны"],
+    "correct": 0,
+    "item": "disperser",
+    "item_name": "Disperser",
+    "category": "active_mechanics"
+  }
+]

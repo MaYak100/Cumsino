@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стол v6 — фишки на свою сторону</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width:100%; height:100%; overflow:hidden; }
+body {
+  background: radial-gradient(ellipse at 50% 35%, #1c1600 0%, #060606 70%);
+  color: #e0e0e0;
+  font-family: system-ui, sans-serif;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+h2 { color:#fbbf24; font-size:0.95rem; letter-spacing:0.05em; }
+.hint { color:#374151; font-size:0.7rem; text-align:center; }
+
+/* ══ СЦЕНА ══ */
+.scene {
+  position: relative;
+  width: 860px; height: 600px;
+}
+
+/* Зелёное полотно */
+.felt {
+  position: absolute;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 250px;
+  background: radial-gradient(ellipse at 35% 35%, #26831c 0%, #0f4a0a 55%, #071e06 100%);
+  border-radius: 130px;
+  border: 9px solid #071507;
+  box-shadow:
+    0 0 0 14px #3d2600,
+    0 0 0 18px #1a1000,
+    0 10px 80px rgba(0,0,0,0.98),
+    inset 0 0 60px rgba(0,0,0,0.55);
+  z-index: 1; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.pot-info { text-align:center; user-select:none; }
+.pot-label { font-size:0.58rem; color:rgba(255,255,255,0.22); letter-spacing:0.12em; text-transform:uppercase; }
+.pot-amount { font-size:1.1rem; font-weight:bold; color:#fbbf24; display:block; margin-top:2px; }
+
+/* ══ КАРТОЧКА ИГРОКА ══ */
+.player-unit {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center; z-index:4;
+}
+.chip-stack-row {
+  display: flex; align-items: flex-end; gap:6px; padding-bottom:5px;
+}
+.stack-wrap { position:relative; width:28px; flex-shrink:0; }
+.chip {
+  position: absolute;
+  width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.44rem; font-weight:bold;
+  border:2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12);
+  user-select:none;
+  transition: opacity 0.22s, transform 0.12s;
+}
+.me-chip { cursor:pointer; }
+.me-chip:not(.placed):hover { transform: scale(1.18) translateY(-5px) !important; filter:brightness(1.15); }
+.me-chip.placed { opacity:0.2; cursor:pointer; }
+
+.player-card {
+  background:linear-gradient(135deg,#121212,#0a0a0a);
+  border:1.5px solid #222; border-radius:10px;
+  padding:7px 18px; white-space:nowrap;
+  box-shadow:0 4px 24px rgba(0,0,0,0.8);
+}
+.player-card.me {
+  border-color:#fbbf24; background:#100e00;
+  box-shadow:0 0 18px rgba(251,191,36,0.12),0 4px 24px rgba(0,0,0,0.8);
+}
+.player-name { font-size:0.82rem; font-weight:600; color:#888; }
+.player-card.me .player-name { color:#fbbf24; }
+
+/* Фишки цвета */
+.c10  { background:linear-gradient(145deg,#d4d8dc,#6b7280); color:#111; }
+.c20  { background:linear-gradient(145deg,#4ade80,#16a34a); color:#fff; }
+.c50  { background:linear-gradient(145deg,#60a5fa,#1d4ed8); color:#fff; }
+.c100 { background:linear-gradient(145deg,#f87171,#b91c1c); color:#fff; }
+.c500 { background:linear-gradient(145deg,#52525b,#18181b); color:#fbbf24; border-color:rgba(251,191,36,0.25); }
+
+/* ══ ФИШКИ НА СТОЛЕ (landing) ══ */
+.table-chip {
+  position: absolute;
+  width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.42rem; font-weight:bold;
+  border:2px solid rgba(255,255,255,0.15);
+  box-shadow:0 4px 12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.12);
+  z-index:6;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.table-chip.mine {
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.8), 0 0 8px rgba(251,191,36,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+.table-chip.mine:hover {
+  transform:scale(1.18) translateY(-3px);
+  box-shadow:0 6px 18px rgba(0,0,0,0.9), 0 0 12px rgba(251,191,36,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* ══ ЛЕТЯЩАЯ ФИШКА ══ */
+.flying-chip {
+  position:fixed; width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.44rem; font-weight:bold;
+  border:2px solid rgba(255,255,255,0.15);
+  box-shadow:0 6px 20px rgba(0,0,0,0.7);
+  pointer-events:none; z-index:9999;
+  transition:
+    left  0.44s cubic-bezier(0.34,1.45,0.64,1),
+    top   0.44s cubic-bezier(0.34,1.45,0.64,1),
+    transform 0.44s ease,
+    opacity 0.44s ease;
+}
+
+/* Позиции */
+.pos-top { top:12px;  left:50%; transform:translateX(-50%); }
+.pos-tl  { top:110px; left:14px; }
+.pos-tr  { top:110px; right:14px; }
+.pos-bl  { bottom:110px; left:14px; }
+.pos-br  { bottom:110px; right:14px; }
+.pos-me  { bottom:8px; left:50%; transform:translateX(-50%); }
+
+/* ══ HUD ══ */
+.hud {
+  display:flex; gap:24px; align-items:center; font-size:0.74rem;
+}
+.hud-bet { color:#fbbf24; }
+.hud-bet b { font-size:1rem; }
+.demo-btn {
+  background:linear-gradient(135deg,#1a1a1a,#0d0d0d);
+  border:1px solid #333; border-radius:8px;
+  color:#aaa; font-size:0.72rem; padding:5px 14px; cursor:pointer;
+  transition:border-color 0.2s, color 0.2s;
+}
+.demo-btn:hover { border-color:#fbbf24; color:#fbbf24; }
+</style>
+</head>
+<body>
+<h2>Каждый игрок кидает фишки на свою сторону стола</h2>
+<p class="hint">Кликни свою фишку — летит на твою сторону. Кликни там — летит обратно.</p>
+
+<div class="scene" id="scene">
+  <div class="felt">
+    <div class="pot-info">
+      <div class="pot-label">ставки</div>
+      <span class="pot-amount" id="potAmount">0</span>
+    </div>
+  </div>
+</div>
+
+<div class="hud">
+  <div class="hud-bet">Твоя ставка: <b id="betDisplay">0</b></div>
+  <button class="demo-btn" id="demoBtn">▶ Симулировать ставки соперников</button>
+</div>
+
+<script>
+const CHIP_COLORS = {10:'c10',20:'c20',50:'c50',100:'c100',500:'c500'};
+const CS = 28, OVERLAP = 17;
+const scene = document.getElementById('scene');
+
+/* ══ Зоны приземления (координаты в сцене 860×600, центр felt ≈ 430,300) ══
+   Каждая зона — на полурадиуса от края к центру.
+   felt rx≈200, ry≈125. Half-radius:
+   top:  y = 300 - (125-125*0.5) = 300 - 62 = 238  ← ждём центр-верх
+   me:   y = 300 + 62 = 362
+   tl/tr: диагональный вектор
+*/
+const ZONES = {
+  'pos-top': { cx:430, cy:232 },
+  'pos-tl':  { cx:348, cy:256 },
+  'pos-tr':  { cx:512, cy:256 },
+  'pos-bl':  { cx:348, cy:344 },
+  'pos-br':  { cx:512, cy:344 },
+  'pos-me':  { cx:430, cy:368 },
+};
+
+function randSpread(v, r) { return v + (Math.random()-0.5)*r; }
+
+/* ══ Строим стопки ══ */
+function buildStack(denom, count, isMe) {
+  const wrap = document.createElement('div');
+  wrap.className = 'stack-wrap';
+  wrap.style.height = (CS + (count-1)*(CS-OVERLAP)) + 'px';
+  for (let i = 0; i < count; i++) {
+    const c = document.createElement('div');
+    c.className = `chip ${CHIP_COLORS[denom]}` + (isMe ? ' me-chip' : '');
+    c.textContent = denom;
+    c.style.bottom  = (i*(CS-OVERLAP)) + 'px';
+    c.style.zIndex  = i+1;
+    c.dataset.denom = denom;
+    if (isMe) c.addEventListener('click', onMyChip);
+    wrap.appendChild(c);
+  }
+  return wrap;
+}
+
+function buildPlayer(name, stacks, posClass, isMe) {
+  const unit = document.createElement('div');
+  unit.className = 'player-unit ' + posClass;
+  unit.dataset.pos = posClass;
+
+  const row = document.createElement('div');
+  row.className = 'chip-stack-row';
+  stacks.forEach(({denom,count}) => { if(count>0) row.appendChild(buildStack(denom,count,isMe)); });
+
+  const card = document.createElement('div');
+  card.className = 'player-card' + (isMe ? ' me' : '');
+  card.innerHTML = `<div class="player-name">${name}</div>`;
+
+  unit.appendChild(row);
+  unit.appendChild(card);
+  return unit;
+}
+
+const players = [
+  { name:'Александра К.', pos:'pos-top', s:[{denom:500,count:3},{denom:100,count:2},{denom:50,count:1}] },
+  { name:'Максим П.',      pos:'pos-tl',  s:[{denom:500,count:1},{denom:100,count:3},{denom:20,count:2}] },
+  { name:'Дмитрий В.',     pos:'pos-tr',  s:[{denom:500,count:2},{denom:50,count:3}] },
+  { name:'Анастасия Р.',   pos:'pos-bl',  s:[{denom:100,count:1},{denom:50,count:3},{denom:10,count:2}] },
+  { name:'Никита Л.',      pos:'pos-br',  s:[{denom:500,count:1},{denom:100,count:2},{denom:20,count:3}] },
+];
+players.forEach(p => scene.appendChild(buildPlayer(p.name, p.s, p.pos, false)));
+scene.appendChild(buildPlayer('Ты (Ярослав)', [
+  {denom:500,count:2},{denom:100,count:4},{denom:50,count:2},{denom:20,count:3},{denom:10,count:1}
+], 'pos-me', true));
+
+/* ══ Состояние ══ */
+const chipToTableChip = new Map(); // оригинальная фишка → фишка на столе
+let totalBet = 0;
+
+function updateDisplay() {
+  document.getElementById('potAmount').textContent = totalBet;
+  document.getElementById('betDisplay').textContent = totalBet;
+}
+
+/* Конвертируем сцена-координаты → страница-координаты */
+function sceneToPage(sx, sy) {
+  const r = scene.getBoundingClientRect();
+  return { x: r.left + sx, y: r.top + sy };
+}
+
+/* ══ Создаём летящую фишку ══ */
+function createFlyer(colorClass, fromPageX, fromPageY) {
+  const f = document.createElement('div');
+  f.className = `flying-chip ${colorClass}`;
+  f.style.left = fromPageX + 'px';
+  f.style.top  = fromPageY + 'px';
+  document.body.appendChild(f);
+  return f;
+}
+
+/* ══ МОИ ФИШКИ: click → на стол ══ */
+function onMyChip(e) {
+  const chip = e.currentTarget;
+  if (chip.classList.contains('placed')) { returnMyChip(chip); return; }
+  sendMyChipToTable(chip);
+}
+
+function sendMyChipToTable(chip) {
+  chip.removeEventListener('click', onMyChip);
+  const denom = parseInt(chip.dataset.denom);
+  const rect  = chip.getBoundingClientRect();
+  const fromX = rect.left + rect.width/2  - CS/2;
+  const fromY = rect.top  + rect.height/2 - CS/2;
+
+  const flyer = createFlyer(CHIP_COLORS[denom], fromX, fromY);
+  chip.classList.add('placed');
+
+  const zone = ZONES['pos-me'];
+  const sx = randSpread(zone.cx, 32);
+  const sy = randSpread(zone.cy, 18);
+  const tp = sceneToPage(sx - CS/2, sy - CS/2);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    flyer.style.left = tp.x + 'px';
+    flyer.style.top  = tp.y + 'px';
+    flyer.style.transform = 'scale(0.9)';
+  }));
+
+  setTimeout(() => {
+    flyer.remove();
+    // Кладём фишку на стол
+    const tc = document.createElement('div');
+    tc.className = `table-chip ${CHIP_COLORS[denom]} mine`;
+    tc.textContent = denom;
+    tc.style.left = (sx - 13) + 'px';
+    tc.style.top  = (sy - 13) + 'px';
+    tc.title = 'Нажми — вернуть фишку';
+    scene.appendChild(tc);
+
+    totalBet += denom;
+    updateDisplay();
+    chipToTableChip.set(chip, tc);
+    chip.addEventListener('click', onMyChip);
+
+    tc.addEventListener('click', () => returnMyChip(chip));
+  }, 450);
+}
+
+function returnMyChip(chip) {
+  chip.removeEventListener('click', onMyChip);
+  const tc = chipToTableChip.get(chip);
+  if (!tc) { chip.addEventListener('click', onMyChip); return; }
+
+  const tcRect   = tc.getBoundingClientRect();
+  const chipRect = chip.getBoundingClientRect();
+
+  const flyer = createFlyer(tc.className.replace('table-chip ','').replace(' mine',''),
+    tcRect.left, tcRect.top);
+  tc.remove();
+  chipToTableChip.delete(chip);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    flyer.style.left = (chipRect.left + chipRect.width/2 - CS/2) + 'px';
+    flyer.style.top  = (chipRect.top  + chipRect.height/2 - CS/2) + 'px';
+    flyer.style.transform = 'scale(1)';
+  }));
+
+  setTimeout(() => {
+    flyer.remove();
+    chip.classList.remove('placed');
+    totalBet -= parseInt(chip.dataset.denom);
+    updateDisplay();
+    chip.addEventListener('click', onMyChip);
+  }, 450);
+}
+
+/* ══ ДЕМО: фишки соперников прилетают на свои стороны ══ */
+document.getElementById('demoBtn').addEventListener('click', () => {
+  const demos = [
+    { pos:'pos-top', denom:100, fromX: 430, fromY: 55 },
+    { pos:'pos-top', denom:500, fromX: 460, fromY: 55 },
+    { pos:'pos-tl',  denom:50,  fromX: 150, fromY: 160 },
+    { pos:'pos-tl',  denom:20,  fromX: 170, fromY: 155 },
+    { pos:'pos-tr',  denom:500, fromX: 710, fromY: 160 },
+    { pos:'pos-bl',  denom:100, fromX: 150, fromY: 440 },
+    { pos:'pos-br',  denom:50,  fromX: 710, fromY: 440 },
+    { pos:'pos-br',  denom:20,  fromX: 730, fromY: 430 },
+  ];
+
+  demos.forEach(({pos, denom, fromX, fromY}, i) => {
+    setTimeout(() => {
+      const r = scene.getBoundingClientRect();
+      const flyer = createFlyer(CHIP_COLORS[denom], r.left+fromX-CS/2, r.top+fromY-CS/2);
+
+      const zone = ZONES[pos];
+      const sx = randSpread(zone.cx, 28);
+      const sy = randSpread(zone.cy, 16);
+      const tp = sceneToPage(sx-CS/2, sy-CS/2);
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        flyer.style.left = tp.x + 'px';
+        flyer.style.top  = tp.y + 'px';
+        flyer.style.transform = 'scale(0.88)';
+      }));
+
+      setTimeout(() => {
+        flyer.remove();
+        const tc = document.createElement('div');
+        tc.className = `table-chip ${CHIP_COLORS[denom]}`;
+        tc.textContent = denom;
+        tc.style.left = (sx-13) + 'px';
+        tc.style.top  = (sy-13) + 'px';
+        scene.appendChild(tc);
+      }, 460);
+    }, i * 200);
+  });
+});
+</script>
+</body>
+</html>

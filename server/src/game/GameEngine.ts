@@ -1,7 +1,9 @@
 import type { Server, Socket } from 'socket.io'
 import { GameRoom } from './GameRoom'
 import type { Question } from '@cumsino/shared'
-import questions from '../../questions.json'
+import { loadQuestions } from './loadQuestions'
+
+const questions: Question[] = loadQuestions()
 
 export class GameEngine {
   private rooms: Map<string, GameRoom> = new Map()
@@ -22,7 +24,14 @@ export class GameEngine {
   leaveRoom(socketId: string): void {
     const gameCode = this.playerRoom.get(socketId)
     if (!gameCode) return
-    this.rooms.get(gameCode)?.removePlayer(socketId)
+    const room = this.rooms.get(gameCode)
+    if (room) {
+      room.removePlayer(socketId)
+      if (room.playerCount === 0) {
+        room.destroy()
+        this.rooms.delete(gameCode)
+      }
+    }
     this.playerRoom.delete(socketId)
   }
 

@@ -1,0 +1,96 @@
+<h2>Секция 2: Игровой цикл и фазы раунда</h2>
+<p class="subtitle">Как сервер ведёт игру от старта до победителя</p>
+
+<div class="section">
+  <h3>Последовательность раундов</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-size:13px;line-height:2.2;font-family:monospace;">
+      Раунд 1 → <strong>ВОПРОС ДЛЯ ВСЕХ</strong> (гарантировано)<br>
+      Раунд 2 → <strong>ГЛАДИАТОР</strong> (гарантировано)<br>
+      Раунд 3+ → 70% противоположный основной / 30% спец-режим<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(если был ВОПРОС→берём ГЛАДИАТОР, и наоборот)<br>
+      <br>
+      Игра заканчивается когда кто-то достигает <strong>3000 монет</strong>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Фазы одного раунда</h3>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px;">
+    <div style="background:#1a2a1a;border:1px solid #4a7a4a;border-radius:8px;padding:12px;text-align:center;">
+      <div style="font-size:24px;">📢</div>
+      <div style="font-weight:bold;color:#ffd700;margin:4px 0;font-size:12px;">АНОНС</div>
+      <div style="font-size:11px;color:#aaa;">Показываем тему / режим</div>
+      <div style="font-size:11px;color:#ffd700;margin-top:4px;">~5 сек</div>
+    </div>
+    <div style="background:#1a2a1a;border:1px solid #4a7a4a;border-radius:8px;padding:12px;text-align:center;">
+      <div style="font-size:24px;">🎰</div>
+      <div style="font-weight:bold;color:#ffd700;margin:4px 0;font-size:12px;">СТАВКИ</div>
+      <div style="font-size:11px;color:#aaa;">Игроки делают ставки фишками</div>
+      <div style="font-size:11px;color:#ffd700;margin-top:4px;">~30 сек</div>
+    </div>
+    <div style="background:#1a2a1a;border:1px solid #4a7a4a;border-radius:8px;padding:12px;text-align:center;">
+      <div style="font-size:24px;">❓</div>
+      <div style="font-weight:bold;color:#ffd700;margin:4px 0;font-size:12px;">ВОПРОС</div>
+      <div style="font-size:11px;color:#aaa;">Текст вопроса + варианты</div>
+      <div style="font-size:11px;color:#ffd700;margin-top:4px;">~45 сек</div>
+    </div>
+    <div style="background:#1a2a1a;border:1px solid #4a7a4a;border-radius:8px;padding:12px;text-align:center;">
+      <div style="font-size:24px;">⏳</div>
+      <div style="font-weight:bold;color:#ffd700;margin:4px 0;font-size:12px;">ОЖИДАНИЕ</div>
+      <div style="font-size:11px;color:#aaa;">Все ответили? Таймер закончился?</div>
+      <div style="font-size:11px;color:#ffd700;margin-top:4px;">авто</div>
+    </div>
+    <div style="background:#1a2a1a;border:1px solid #4a7a4a;border-radius:8px;padding:12px;text-align:center;">
+      <div style="font-size:24px;">🏆</div>
+      <div style="font-weight:bold;color:#ffd700;margin:4px 0;font-size:12px;">ИТОГИ</div>
+      <div style="font-size:11px;color:#aaa;">Кто выиграл, кто потерял</div>
+      <div style="font-size:11px;color:#ffd700;margin-top:4px;">~8 сек</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Отличия по режимам</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:8px;font-size:12px;">
+    <div class="mockup">
+      <div class="mockup-header">ВОПРОС ДЛЯ ВСЕХ</div>
+      <div class="mockup-body" style="line-height:1.8;">
+        Анонс: только тема<br>
+        Ставки: все вслепую<br>
+        Вопрос: 4 варианта<br>
+        Итог: победители делят пул
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">ГЛАДИАТОР</div>
+      <div class="mockup-body" style="line-height:1.8;">
+        Гладиатор выбран рандомно<br>
+        Ставки: толпа видит вопрос<br>
+        &nbsp;&nbsp;→ «ответит» / «завалит»<br>
+        Итог: толпа делит пул<br>
+        Гладиатор: +300 за верный
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">КТО БЛИЖЕ</div>
+      <div class="mockup-body" style="line-height:1.8;">
+        Нет ставок<br>
+        Ввод числа<br>
+        Победитель: +200<br>
+        Точное: +200 бонус<br>
+        Ничья: делят пул
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">ТОП 5</div>
+      <div class="mockup-body" style="line-height:1.8;">
+        Нет ставок<br>
+        Расставить 5 пунктов<br>
+        +20 за каждый слот<br>
+        Все верно: +150 (не 100)
+      </div>
+    </div>
+  </div>
+</div>

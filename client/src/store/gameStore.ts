@@ -13,21 +13,17 @@ interface GameStore {
   winner: Player | null
   answeredIds: Set<string>
   gladiatorHoverIndex: number | null
-  pendingBet: number
   pendingTarget: 'win' | 'lose' | null
 
   connect: (name: string, gameCode: string) => void
-  addChipToBet: (value: number) => void
-  removeLastChip: (value: number) => void
-  confirmBet: () => void
-  setPendingTarget: (target: 'win' | 'lose') => void
+  setPendingTarget: (target: 'win' | 'lose' | null) => void
   submitAnswer: (answer: string | number | string[]) => void
   sendHover: (optionIndex: number | null) => void
   startGame: () => void
   reset: () => void
 }
 
-export const useGameStore = create<GameStore>((set, get) => {
+export const useGameStore = create<GameStore>((set) => {
   socket.on('connect', () => {
     set({ myId: socket.id ?? null })
   })
@@ -68,33 +64,11 @@ export const useGameStore = create<GameStore>((set, get) => {
     winner: null,
     answeredIds: new Set(),
     gladiatorHoverIndex: null,
-    pendingBet: 0,
     pendingTarget: null,
 
     connect(name, gameCode) {
       if (!socket.connected) socket.connect()
       socket.emit('join_game', { name, gameCode })
-    },
-
-    addChipToBet(value) {
-      const { gameState, myId, pendingBet } = get()
-      if (!gameState || !myId) return
-      const me = gameState.players.find(p => p.id === myId)
-      if (!me) return
-      if (pendingBet + value > me.chips) return
-      set({ pendingBet: pendingBet + value })
-    },
-
-    removeLastChip(value) {
-      const { pendingBet } = get()
-      set({ pendingBet: Math.max(0, pendingBet - value) })
-    },
-
-    confirmBet() {
-      const { pendingBet, pendingTarget } = get()
-      if (pendingBet <= 0) return
-      socket.emit('place_bet', { amount: pendingBet, target: pendingTarget ?? undefined })
-      set({ pendingBet: 0, pendingTarget: null })
     },
 
     setPendingTarget(target) {
@@ -121,7 +95,6 @@ export const useGameStore = create<GameStore>((set, get) => {
         winner: null,
         answeredIds: new Set(),
         gladiatorHoverIndex: null,
-        pendingBet: 0,
         pendingTarget: null,
       })
       socket.disconnect()

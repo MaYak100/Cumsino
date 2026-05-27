@@ -3,8 +3,7 @@ import { useGameStore, selectIsGladiator } from './store/gameStore'
 import { JoinScreen } from './components/screens/JoinScreen'
 import { LobbyScreen } from './components/screens/LobbyScreen'
 import { AnnounceScreen } from './components/screens/AnnounceScreen'
-import { BettingScreen } from './components/screens/BettingScreen'
-import { GladiatorCrowdScreen } from './components/screens/GladiatorCrowdScreen'
+import { BettingTableScreen } from './components/screens/BettingTableScreen'
 import { QuestionTextScreen } from './components/screens/QuestionTextScreen'
 import { QuestionScreen } from './components/screens/QuestionScreen'
 import { GladiatorSelfScreen } from './components/screens/GladiatorSelfScreen'
@@ -34,7 +33,7 @@ export default function App() {
       Screen = AnnounceScreen
       break
     case 'BETTING':
-      Screen = (mode === 'gladiator' && !isGladiator) ? GladiatorCrowdScreen : BettingScreen
+      Screen = BettingTableScreen
       break
     case 'QUESTION_TEXT':
       Screen = QuestionTextScreen

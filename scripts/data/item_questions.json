@@ -1,0 +1,5773 @@
+{
+  "numeric": [
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Blink Dagger?",
+      "answer": 2250,
+      "unit": "золото",
+      "item": "blink",
+      "item_name": "Blink Dagger",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Blink Dagger?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "blink",
+      "item_name": "Blink Dagger",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какая максимальная дальность блинка у Blink Dagger?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "blink",
+      "item_name": "Blink Dagger",
+      "category": "blink_range"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Overwhelming Blink?",
+      "answer": 6800,
+      "unit": "золото",
+      "item": "overwhelming_blink",
+      "item_name": "Overwhelming Blink",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Overwhelming Blink?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "overwhelming_blink",
+      "item_name": "Overwhelming Blink",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какая максимальная дальность блинка у Overwhelming Blink?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "overwhelming_blink",
+      "item_name": "Overwhelming Blink",
+      "category": "blink_range"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Overwhelming Blink?",
+      "answer": 6.0,
+      "unit": "сек.",
+      "item": "overwhelming_blink",
+      "item_name": "Overwhelming Blink",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Swift Blink?",
+      "answer": 6800,
+      "unit": "золото",
+      "item": "swift_blink",
+      "item_name": "Swift Blink",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Swift Blink?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "swift_blink",
+      "item_name": "Swift Blink",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какая максимальная дальность блинка у Swift Blink?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "swift_blink",
+      "item_name": "Swift Blink",
+      "category": "blink_range"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Swift Blink?",
+      "answer": 6.0,
+      "unit": "сек.",
+      "item": "swift_blink",
+      "item_name": "Swift Blink",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Arcane Blink?",
+      "answer": 6800,
+      "unit": "золото",
+      "item": "arcane_blink",
+      "item_name": "Arcane Blink",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Arcane Blink?",
+      "answer": 9.0,
+      "unit": "сек.",
+      "item": "arcane_blink",
+      "item_name": "Arcane Blink",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какая максимальная дальность блинка у Arcane Blink?",
+      "answer": 1400.0,
+      "unit": "ед.",
+      "item": "arcane_blink",
+      "item_name": "Arcane Blink",
+      "category": "blink_range"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Blades of Attack?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "blades_of_attack",
+      "item_name": "Blades of Attack",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Broadsword?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "broadsword",
+      "item_name": "Broadsword",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Chainmail?",
+      "answer": 500,
+      "unit": "золото",
+      "item": "chainmail",
+      "item_name": "Chainmail",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Splintmail?",
+      "answer": 950,
+      "unit": "золото",
+      "item": "splintmail",
+      "item_name": "Splintmail",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Claymore?",
+      "answer": 1350,
+      "unit": "золото",
+      "item": "claymore",
+      "item_name": "Claymore",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Helm of Iron Will?",
+      "answer": 975,
+      "unit": "золото",
+      "item": "helm_of_iron_will",
+      "item_name": "Helm of Iron Will",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Javelin?",
+      "answer": 900,
+      "unit": "золото",
+      "item": "javelin",
+      "item_name": "Javelin",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит proc от Javelin?",
+      "answer": 60.0,
+      "unit": "ед.",
+      "item": "javelin",
+      "item_name": "Javelin",
+      "category": "bonus_chance_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mithril Hammer?",
+      "answer": 1600,
+      "unit": "золото",
+      "item": "mithril_hammer",
+      "item_name": "Mithril Hammer",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Platemail?",
+      "answer": 1400,
+      "unit": "золото",
+      "item": "platemail",
+      "item_name": "Platemail",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Quelling Blade?",
+      "answer": 100,
+      "unit": "золото",
+      "item": "quelling_blade",
+      "item_name": "Quelling Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Quelling Blade?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "quelling_blade",
+      "item_name": "Quelling Blade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Infused Raindrops?",
+      "answer": 225,
+      "unit": "золото",
+      "item": "infused_raindrop",
+      "item_name": "Infused Raindrops",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Infused Raindrops?",
+      "answer": 7.0,
+      "unit": "сек.",
+      "item": "infused_raindrop",
+      "item_name": "Infused Raindrops",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Wind Lace?",
+      "answer": 225,
+      "unit": "золото",
+      "item": "wind_lace",
+      "item_name": "Wind Lace",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько ускоряет Wind Lace?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "wind_lace",
+      "item_name": "Wind Lace",
+      "category": "movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ring of Protection?",
+      "answer": 175,
+      "unit": "золото",
+      "item": "ring_of_protection",
+      "item_name": "Ring of Protection",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Moon Shard?",
+      "answer": 4000,
+      "unit": "золото",
+      "item": "moon_shard",
+      "item_name": "Moon Shard",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Gauntlets of Strength?",
+      "answer": 140,
+      "unit": "золото",
+      "item": "gauntlets",
+      "item_name": "Gauntlets of Strength",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Slippers of Agility?",
+      "answer": 140,
+      "unit": "золото",
+      "item": "slippers",
+      "item_name": "Slippers of Agility",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mantle of Intelligence?",
+      "answer": 140,
+      "unit": "золото",
+      "item": "mantle",
+      "item_name": "Mantle of Intelligence",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Belt of Strength?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "belt_of_strength",
+      "item_name": "Belt of Strength",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Band of Elvenskin?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "boots_of_elves",
+      "item_name": "Band of Elvenskin",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Robe of the Magi?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "robe",
+      "item_name": "Robe of the Magi",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Circlet?",
+      "answer": 155,
+      "unit": "золото",
+      "item": "circlet",
+      "item_name": "Circlet",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Crown?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "crown",
+      "item_name": "Crown",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Diadem?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "diadem",
+      "item_name": "Diadem",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ogre Axe?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "ogre_axe",
+      "item_name": "Ogre Axe",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Blade of Alacrity?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "blade_of_alacrity",
+      "item_name": "Blade of Alacrity",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Staff of Wizardry?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "staff_of_wizardry",
+      "item_name": "Staff of Wizardry",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ultimate Orb?",
+      "answer": 2800,
+      "unit": "золото",
+      "item": "ultimate_orb",
+      "item_name": "Ultimate Orb",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Gloves of Haste?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "gloves",
+      "item_name": "Gloves of Haste",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Blitz Knuckles?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "blitz_knuckles",
+      "item_name": "Blitz Knuckles",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Morbid Mask?",
+      "answer": 900,
+      "unit": "золото",
+      "item": "lifesteal",
+      "item_name": "Morbid Mask",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Voodoo Mask?",
+      "answer": 650,
+      "unit": "золото",
+      "item": "voodoo_mask",
+      "item_name": "Voodoo Mask",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма заклинаниями у Voodoo Mask?",
+      "answer": 15.0,
+      "unit": "%",
+      "item": "voodoo_mask",
+      "item_name": "Voodoo Mask",
+      "category": "spell_lifesteal"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ring of Regen?",
+      "answer": 175,
+      "unit": "золото",
+      "item": "ring_of_regen",
+      "item_name": "Ring of Regen",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Sage's Mask?",
+      "answer": 175,
+      "unit": "золото",
+      "item": "sobi_mask",
+      "item_name": "Sage's Mask",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Boots of Speed?",
+      "answer": 500,
+      "unit": "золото",
+      "item": "boots",
+      "item_name": "Boots of Speed",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Boots of Speed?",
+      "answer": 45.0,
+      "unit": "ед.",
+      "item": "boots",
+      "item_name": "Boots of Speed",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Shawl?",
+      "answer": 450,
+      "unit": "золото",
+      "item": "shawl",
+      "item_name": "Shawl",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Cloak?",
+      "answer": 900,
+      "unit": "золото",
+      "item": "cloak",
+      "item_name": "Cloak",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Talisman of Evasion?",
+      "answer": 1300,
+      "unit": "золото",
+      "item": "talisman_of_evasion",
+      "item_name": "Talisman of Evasion",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Magic Stick?",
+      "answer": 200,
+      "unit": "золото",
+      "item": "magic_stick",
+      "item_name": "Magic Stick",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Magic Stick?",
+      "answer": 17.0,
+      "unit": "сек.",
+      "item": "magic_stick",
+      "item_name": "Magic Stick",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На каком расстоянии пополняются заряды Magic Stick?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "magic_stick",
+      "item_name": "Magic Stick",
+      "category": "charge_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Magic Wand?",
+      "answer": 460,
+      "unit": "золото",
+      "item": "magic_wand",
+      "item_name": "Magic Wand",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Magic Wand?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "magic_wand",
+      "item_name": "Magic Wand",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На каком расстоянии пополняются заряды Magic Wand?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "magic_wand",
+      "item_name": "Magic Wand",
+      "category": "charge_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ghost Scepter?",
+      "answer": 1500,
+      "unit": "золото",
+      "item": "ghost",
+      "item_name": "Ghost Scepter",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Ghost Scepter?",
+      "answer": 22.0,
+      "unit": "сек.",
+      "item": "ghost",
+      "item_name": "Ghost Scepter",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Ghost Scepter?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "ghost",
+      "item_name": "Ghost Scepter",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Blood Grenade?",
+      "answer": 10.0,
+      "unit": "сек.",
+      "item": "blood_grenade",
+      "item_name": "Blood Grenade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус у активной способности Blood Grenade?",
+      "answer": 300.0,
+      "unit": "ед.",
+      "item": "blood_grenade",
+      "item_name": "Blood Grenade",
+      "category": "radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Boots of Travel?",
+      "answer": 90.0,
+      "unit": "ед.",
+      "item": "travel_boots",
+      "item_name": "Boots of Travel",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Boots of Travel 2?",
+      "answer": 4500,
+      "unit": "золото",
+      "item": "travel_boots_2",
+      "item_name": "Boots of Travel 2",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Boots of Travel 2?",
+      "answer": 110.0,
+      "unit": "ед.",
+      "item": "travel_boots_2",
+      "item_name": "Boots of Travel 2",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Phase Boots?",
+      "answer": 1450,
+      "unit": "золото",
+      "item": "phase_boots",
+      "item_name": "Phase Boots",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Phase Boots?",
+      "answer": 8.0,
+      "unit": "сек.",
+      "item": "phase_boots",
+      "item_name": "Phase Boots",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Phase Boots?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "phase_boots",
+      "item_name": "Phase Boots",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Demon Edge?",
+      "answer": 2200,
+      "unit": "золото",
+      "item": "demon_edge",
+      "item_name": "Demon Edge",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Eaglesong?",
+      "answer": 2800,
+      "unit": "золото",
+      "item": "eagle",
+      "item_name": "Eaglesong",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Reaver?",
+      "answer": 2800,
+      "unit": "золото",
+      "item": "reaver",
+      "item_name": "Reaver",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Sacred Relic?",
+      "answer": 3400,
+      "unit": "золото",
+      "item": "relic",
+      "item_name": "Sacred Relic",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Hyperstone?",
+      "answer": 2000,
+      "unit": "золото",
+      "item": "hyperstone",
+      "item_name": "Hyperstone",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ring of Health?",
+      "answer": 700,
+      "unit": "золото",
+      "item": "ring_of_health",
+      "item_name": "Ring of Health",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ring of Tarrasque?",
+      "answer": 1700,
+      "unit": "золото",
+      "item": "ring_of_tarrasque",
+      "item_name": "Ring of Tarrasque",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Void Stone?",
+      "answer": 700,
+      "unit": "золото",
+      "item": "void_stone",
+      "item_name": "Void Stone",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Tiara of Selemene?",
+      "answer": 1700,
+      "unit": "золото",
+      "item": "tiara_of_selemene",
+      "item_name": "Tiara of Selemene",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mystic Staff?",
+      "answer": 2800,
+      "unit": "золото",
+      "item": "mystic_staff",
+      "item_name": "Mystic Staff",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Energy Booster?",
+      "answer": 800,
+      "unit": "золото",
+      "item": "energy_booster",
+      "item_name": "Energy Booster",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Point Booster?",
+      "answer": 1200,
+      "unit": "золото",
+      "item": "point_booster",
+      "item_name": "Point Booster",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Vitality Booster?",
+      "answer": 1000,
+      "unit": "золото",
+      "item": "vitality_booster",
+      "item_name": "Vitality Booster",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Fluffy Hat?",
+      "answer": 250,
+      "unit": "золото",
+      "item": "fluffy_hat",
+      "item_name": "Fluffy Hat",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Wizard Hat?",
+      "answer": 250,
+      "unit": "золото",
+      "item": "wizard_hat",
+      "item_name": "Wizard Hat",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Power Treads?",
+      "answer": 1400,
+      "unit": "золото",
+      "item": "power_treads",
+      "item_name": "Power Treads",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Phylactery?",
+      "answer": 2600,
+      "unit": "золото",
+      "item": "phylactery",
+      "item_name": "Phylactery",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Phylactery?",
+      "answer": 9.0,
+      "unit": "сек.",
+      "item": "phylactery",
+      "item_name": "Phylactery",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится замедление от Phylactery?",
+      "answer": 3.0,
+      "unit": "сек.",
+      "item": "phylactery",
+      "item_name": "Phylactery",
+      "category": "slow_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Khanda?",
+      "answer": 5600,
+      "unit": "золото",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Khanda?",
+      "answer": 9.0,
+      "unit": "сек.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится замедление от Khanda?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "slow_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Hand of Midas?",
+      "answer": 2200,
+      "unit": "золото",
+      "item": "hand_of_midas",
+      "item_name": "Hand of Midas",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Oblivion Staff?",
+      "answer": 1625,
+      "unit": "золото",
+      "item": "oblivion_staff",
+      "item_name": "Oblivion Staff",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Witch Blade?",
+      "answer": 2775,
+      "unit": "золото",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Witch Blade?",
+      "answer": 9.0,
+      "unit": "сек.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится замедление от Witch Blade?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "slow_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какую скорость снаряда дает Witch Blade?",
+      "answer": 300.0,
+      "unit": "ед.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "projectile_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Perseverance?",
+      "answer": 1400,
+      "unit": "золото",
+      "item": "pers",
+      "item_name": "Perseverance",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоиЛА( Cornucopia?",
+      "answer": 1200,
+      "unit": "золото",
+      "item": "cornucopia",
+      "item_name": "Cornucopia",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Bracer?",
+      "answer": 505,
+      "unit": "золото",
+      "item": "bracer",
+      "item_name": "Bracer",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Wraith Band?",
+      "answer": 505,
+      "unit": "золото",
+      "item": "wraith_band",
+      "item_name": "Wraith Band",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Null Talisman?",
+      "answer": 505,
+      "unit": "золото",
+      "item": "null_talisman",
+      "item_name": "Null Talisman",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mekansm?",
+      "answer": 1775,
+      "unit": "золото",
+      "item": "mekansm",
+      "item_name": "Mekansm",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Mekansm?",
+      "answer": 50.0,
+      "unit": "сек.",
+      "item": "mekansm",
+      "item_name": "Mekansm",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Mekansm?",
+      "answer": 100.0,
+      "unit": "ед.",
+      "item": "mekansm",
+      "item_name": "Mekansm",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Vladmir's Offering?",
+      "answer": 2200,
+      "unit": "золото",
+      "item": "vladmir",
+      "item_name": "Vladmir's Offering",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма у ауры Vladmir's Offering?",
+      "answer": 20.0,
+      "unit": "%",
+      "item": "vladmir",
+      "item_name": "Vladmir's Offering",
+      "category": "lifesteal_aura"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоиЛ Wraith Pact?",
+      "answer": 3800,
+      "unit": "золото",
+      "item": "wraith_pact",
+      "item_name": "Wraith Pact",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Buckler?",
+      "answer": 425,
+      "unit": "золото",
+      "item": "buckler",
+      "item_name": "Buckler",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ring of Basilius?",
+      "answer": 425,
+      "unit": "золото",
+      "item": "ring_of_basilius",
+      "item_name": "Ring of Basilius",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Holy Locket?",
+      "answer": 2250,
+      "unit": "золото",
+      "item": "holy_locket",
+      "item_name": "Holy Locket",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Pipe of Insight?",
+      "answer": 3725,
+      "unit": "золото",
+      "item": "pipe",
+      "item_name": "Pipe of Insight",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Pipe of Insight?",
+      "answer": 60.0,
+      "unit": "сек.",
+      "item": "pipe",
+      "item_name": "Pipe of Insight",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Pipe of Insight?",
+      "answer": 150.0,
+      "unit": "ед.",
+      "item": "pipe",
+      "item_name": "Pipe of Insight",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона поглощает барьер Pipe of Insight?",
+      "answer": 425.0,
+      "unit": "ед.",
+      "item": "pipe",
+      "item_name": "Pipe of Insight",
+      "category": "barrier_block"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Urn of Shadows?",
+      "answer": 825,
+      "unit": "золото",
+      "item": "urn_of_shadows",
+      "item_name": "Urn of Shadows",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Urn of Shadows?",
+      "answer": 10.0,
+      "unit": "сек.",
+      "item": "urn_of_shadows",
+      "item_name": "Urn of Shadows",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На каком расстоянии поглощаются души Urn of Shadows?",
+      "answer": 1500.0,
+      "unit": "ед.",
+      "item": "urn_of_shadows",
+      "item_name": "Urn of Shadows",
+      "category": "soul_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Urn of Shadows?",
+      "answer": 8.0,
+      "unit": "сек.",
+      "item": "urn_of_shadows",
+      "item_name": "Urn of Shadows",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Headdress?",
+      "answer": 425,
+      "unit": "золото",
+      "item": "headdress",
+      "item_name": "Headdress",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус ауры у Headdress?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "headdress",
+      "item_name": "Headdress",
+      "category": "aura_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Scythe of Vyse?",
+      "answer": 5200,
+      "unit": "золото",
+      "item": "sheepstick",
+      "item_name": "Scythe of Vyse",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Scythe of Vyse?",
+      "answer": 20.0,
+      "unit": "сек.",
+      "item": "sheepstick",
+      "item_name": "Scythe of Vyse",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Scythe of Vyse?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "sheepstick",
+      "item_name": "Scythe of Vyse",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Orchid Malevolence?",
+      "answer": 3275,
+      "unit": "золото",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Orchid Malevolence?",
+      "answer": 18.0,
+      "unit": "сек.",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько усиливается урон после сайленса Orchid Malevolence?",
+      "answer": 30.0,
+      "unit": "%",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "silence_damage_percent"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится сайленс от Orchid Malevolence?",
+      "answer": 5.0,
+      "unit": "сек.",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "silence_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Bloodthorn?",
+      "answer": 6400,
+      "unit": "золото",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Bloodthorn?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Bloodthorn?",
+      "answer": 150.0,
+      "unit": "ед.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой шанс трустрайка пассивно у Bloodthorn?",
+      "answer": 40.0,
+      "unit": "%",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "proc_chance"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько усиливается урон после сайленса Bloodthorn?",
+      "answer": 60.0,
+      "unit": "%",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "silence_damage_percent"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится сайленс от Bloodthorn?",
+      "answer": 5.0,
+      "unit": "сек.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "silence_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Echo Sabre?",
+      "answer": 2700,
+      "unit": "золото",
+      "item": "echo_sabre",
+      "item_name": "Echo Sabre",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Echo Sabre?",
+      "answer": 5.0,
+      "unit": "сек.",
+      "item": "echo_sabre",
+      "item_name": "Echo Sabre",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится замедление от Echo Sabre?",
+      "answer": 0.8,
+      "unit": "сек.",
+      "item": "echo_sabre",
+      "item_name": "Echo Sabre",
+      "category": "slow_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Eul's Scepter of Divinity?",
+      "answer": 2600,
+      "unit": "золото",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Eul's Scepter of Divinity?",
+      "answer": 23.0,
+      "unit": "сек.",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Eul's Scepter of Divinity?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится циклон от Eul's Scepter of Divinity?",
+      "answer": 2.5,
+      "unit": "сек.",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "cyclone_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Eul's Scepter of Divinity?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Wind Waker?",
+      "answer": 6800,
+      "unit": "золото",
+      "item": "wind_waker",
+      "item_name": "Wind Waker",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Wind Waker?",
+      "answer": 19.0,
+      "unit": "сек.",
+      "item": "wind_waker",
+      "item_name": "Wind Waker",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Wind Waker?",
+      "answer": 30.0,
+      "unit": "ед.",
+      "item": "wind_waker",
+      "item_name": "Wind Waker",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Aether Lens?",
+      "answer": 2275,
+      "unit": "золото",
+      "item": "aether_lens",
+      "item_name": "Aether Lens",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Force Staff?",
+      "answer": 2200,
+      "unit": "золото",
+      "item": "force_staff",
+      "item_name": "Force Staff",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Force Staff?",
+      "answer": 19.0,
+      "unit": "сек.",
+      "item": "force_staff",
+      "item_name": "Force Staff",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Force Staff?",
+      "answer": 150.0,
+      "unit": "ед.",
+      "item": "force_staff",
+      "item_name": "Force Staff",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько единиц толкает Force Staff?",
+      "answer": 600.0,
+      "unit": "ед.",
+      "item": "force_staff",
+      "item_name": "Force Staff",
+      "category": "push_length"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Hurricane Pike?",
+      "answer": 4450,
+      "unit": "золото",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Hurricane Pike?",
+      "answer": 19.0,
+      "unit": "сек.",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Hurricane Pike?",
+      "answer": 150.0,
+      "unit": "ед.",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Aghanim's Scepter?",
+      "answer": 4200,
+      "unit": "золото",
+      "item": "ultimate_scepter",
+      "item_name": "Aghanim's Scepter",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Aghanim's Blessing?",
+      "answer": 5800,
+      "unit": "золото",
+      "item": "ultimate_scepter_2",
+      "item_name": "Aghanim's Blessing",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Aghanim's Shard?",
+      "answer": 1400,
+      "unit": "золото",
+      "item": "aghanims_shard",
+      "item_name": "Aghanim's Shard",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Refresher Orb?",
+      "answer": 5000,
+      "unit": "золото",
+      "item": "refresher",
+      "item_name": "Refresher Orb",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Refresher Orb?",
+      "answer": 325.0,
+      "unit": "ед.",
+      "item": "refresher",
+      "item_name": "Refresher Orb",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Assault Cuirass?",
+      "answer": 5125,
+      "unit": "золото",
+      "item": "assault",
+      "item_name": "Assault Cuirass",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус скорости атаки у ауры Assault Cuirass?",
+      "answer": 30.0,
+      "unit": "ед.",
+      "item": "assault",
+      "item_name": "Assault Cuirass",
+      "category": "aura_attack_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Heart of Tarrasque?",
+      "answer": 5100,
+      "unit": "золото",
+      "item": "heart",
+      "item_name": "Heart of Tarrasque",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Black King Bar?",
+      "answer": 4050,
+      "unit": "золото",
+      "item": "black_king_bar",
+      "item_name": "Black King Bar",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Black King Bar?",
+      "answer": 95.0,
+      "unit": "сек.",
+      "item": "black_king_bar",
+      "item_name": "Black King Bar",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Black King Bar? (при покупке)",
+      "answer": 9.0,
+      "unit": "сек.",
+      "item": "black_king_bar",
+      "item_name": "Black King Bar",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Shiva's Guard?",
+      "answer": 4500,
+      "unit": "золото",
+      "item": "shivas_guard",
+      "item_name": "Shiva's Guard",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Shiva's Guard?",
+      "answer": 27.0,
+      "unit": "сек.",
+      "item": "shivas_guard",
+      "item_name": "Shiva's Guard",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Bloodstone?",
+      "answer": 4700,
+      "unit": "золото",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Bloodstone?",
+      "answer": 30.0,
+      "unit": "сек.",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится бафф от Bloodstone?",
+      "answer": 5.0,
+      "unit": "сек.",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "buff_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма заклинаниями у Bloodstone?",
+      "answer": 20.0,
+      "unit": "%",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "spell_lifesteal"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Linken's Sphere?",
+      "answer": 4800,
+      "unit": "золото",
+      "item": "sphere",
+      "item_name": "Linken's Sphere",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Linken's Sphere?",
+      "answer": 14.0,
+      "unit": "сек.",
+      "item": "sphere",
+      "item_name": "Linken's Sphere",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Lotus Orb?",
+      "answer": 3850,
+      "unit": "золото",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Lotus Orb?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Lotus Orb?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится активный эффект Lotus Orb?",
+      "answer": 5.0,
+      "unit": "сек.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "active_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Meteor Hammer?",
+      "answer": 2850,
+      "unit": "золото",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Meteor Hammer?",
+      "answer": 24.0,
+      "unit": "сек.",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Meteor Hammer?",
+      "answer": 75.0,
+      "unit": "ед.",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится стан от Meteor Hammer?",
+      "answer": 0.75,
+      "unit": "сек.",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "stun_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает урон заклинаний Meteor Hammer?",
+      "answer": 10.0,
+      "unit": "%",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "spell_amp"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает реген маны Meteor Hammer?",
+      "answer": 35.0,
+      "unit": "%",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "mana_regen_multiplier"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Nullifier?",
+      "answer": 4350,
+      "unit": "золото",
+      "item": "nullifier",
+      "item_name": "Nullifier",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Nullifier?",
+      "answer": 10.0,
+      "unit": "сек.",
+      "item": "nullifier",
+      "item_name": "Nullifier",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Aeon Disk?",
+      "answer": 3000,
+      "unit": "золото",
+      "item": "aeon_disk",
+      "item_name": "Aeon Disk",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Aeon Disk?",
+      "answer": 105.0,
+      "unit": "сек.",
+      "item": "aeon_disk",
+      "item_name": "Aeon Disk",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится бафф от Aeon Disk?",
+      "answer": 2.5,
+      "unit": "сек.",
+      "item": "aeon_disk",
+      "item_name": "Aeon Disk",
+      "category": "buff_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько Status Resistance даёт Aeon Disk?",
+      "answer": 75.0,
+      "unit": "%",
+      "item": "aeon_disk",
+      "item_name": "Aeon Disk",
+      "category": "status_resistance"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Kaya?",
+      "answer": 2100,
+      "unit": "золото",
+      "item": "kaya",
+      "item_name": "Kaya",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает урон заклинаний Kaya?",
+      "answer": 10.0,
+      "unit": "%",
+      "item": "kaya",
+      "item_name": "Kaya",
+      "category": "spell_amp"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает реген маны Kaya?",
+      "answer": 30.0,
+      "unit": "%",
+      "item": "kaya",
+      "item_name": "Kaya",
+      "category": "mana_regen_multiplier"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Spirit Vessel?",
+      "answer": 2725,
+      "unit": "золото",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Spirit Vessel?",
+      "answer": 10.0,
+      "unit": "сек.",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На каком расстоянии поглощаются души Spirit Vessel?",
+      "answer": 1500.0,
+      "unit": "ед.",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "soul_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Spirit Vessel?",
+      "answer": 8.0,
+      "unit": "сек.",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Essence Distiller?",
+      "answer": 1775,
+      "unit": "золото",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Essence Distiller?",
+      "answer": 10.0,
+      "unit": "сек.",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На каком расстоянии поглощаются души Essence Distiller?",
+      "answer": 1500.0,
+      "unit": "ед.",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "soul_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Essence Distiller?",
+      "answer": 8.0,
+      "unit": "сек.",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Vanguard?",
+      "answer": 1700,
+      "unit": "золото",
+      "item": "vanguard",
+      "item_name": "Vanguard",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Crimson Guard?",
+      "answer": 3725,
+      "unit": "золото",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Crimson Guard?",
+      "answer": 40.0,
+      "unit": "сек.",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Crimson Guard?",
+      "answer": 75.0,
+      "unit": "ед.",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Crimson Guard?",
+      "answer": 7.0,
+      "unit": "сек.",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Blade Mail?",
+      "answer": 2400,
+      "unit": "золото",
+      "item": "blade_mail",
+      "item_name": "Blade Mail",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Blade Mail?",
+      "answer": 25.0,
+      "unit": "сек.",
+      "item": "blade_mail",
+      "item_name": "Blade Mail",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Blade Mail?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "blade_mail",
+      "item_name": "Blade Mail",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Blade Mail?",
+      "answer": 5.5,
+      "unit": "сек.",
+      "item": "blade_mail",
+      "item_name": "Blade Mail",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Soul Booster?",
+      "answer": 3000,
+      "unit": "золото",
+      "item": "soul_booster",
+      "item_name": "Soul Booster",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоиЛ( Eternal Shroud?",
+      "answer": 3900,
+      "unit": "золото",
+      "item": "eternal_shroud",
+      "item_name": "Eternal Shroud",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Consecrated Wraps?",
+      "answer": 2600,
+      "unit": "золото",
+      "item": "consecrated_wraps",
+      "item_name": "Consecrated Wraps",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Crella's Crozier?",
+      "answer": 4800,
+      "unit": "золото",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Crella's Crozier?",
+      "answer": 20.0,
+      "unit": "сек.",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус у активной способности Crella's Crozier?",
+      "answer": 900.0,
+      "unit": "ед.",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Crella's Crozier?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Divine Rapier?",
+      "answer": 5600,
+      "unit": "золото",
+      "item": "rapier",
+      "item_name": "Divine Rapier",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у переключения Divine Rapier?",
+      "answer": 6.0,
+      "unit": "сек.",
+      "item": "rapier",
+      "item_name": "Divine Rapier",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Monkey King Bar?",
+      "answer": 5000,
+      "unit": "золото",
+      "item": "monkey_king_bar",
+      "item_name": "Monkey King Bar",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит proc от Monkey King Bar?",
+      "answer": 70.0,
+      "unit": "ед.",
+      "item": "monkey_king_bar",
+      "item_name": "Monkey King Bar",
+      "category": "bonus_chance_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Radiance?",
+      "answer": 4700,
+      "unit": "золото",
+      "item": "radiance",
+      "item_name": "Radiance",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона в секунду наносит аура Radiance?",
+      "answer": 60.0,
+      "unit": "ед.",
+      "item": "radiance",
+      "item_name": "Radiance",
+      "category": "aura_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус ауры у Radiance?",
+      "answer": 650.0,
+      "unit": "ед.",
+      "item": "radiance",
+      "item_name": "Radiance",
+      "category": "aura_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Butterfly?",
+      "answer": 5450,
+      "unit": "золото",
+      "item": "butterfly",
+      "item_name": "Butterfly",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Daedalus?",
+      "answer": 5100,
+      "unit": "золото",
+      "item": "greater_crit",
+      "item_name": "Daedalus",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Skull Basher?",
+      "answer": 2875,
+      "unit": "золото",
+      "item": "basher",
+      "item_name": "Skull Basher",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Skull Basher?",
+      "answer": 2.0,
+      "unit": "сек.",
+      "item": "basher",
+      "item_name": "Skull Basher",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится баш от Skull Basher?",
+      "answer": 1.2,
+      "unit": "сек.",
+      "item": "basher",
+      "item_name": "Skull Basher",
+      "category": "bash_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит proc от Skull Basher?",
+      "answer": 100.0,
+      "unit": "ед.",
+      "item": "basher",
+      "item_name": "Skull Basher",
+      "category": "bonus_chance_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Battle Fury?",
+      "answer": 3900,
+      "unit": "золото",
+      "item": "bfury",
+      "item_name": "Battle Fury",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Battle Fury?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "bfury",
+      "item_name": "Battle Fury",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Manta Style?",
+      "answer": 4650,
+      "unit": "золото",
+      "item": "manta",
+      "item_name": "Manta Style",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Manta Style?",
+      "answer": 34.0,
+      "unit": "сек.",
+      "item": "manta",
+      "item_name": "Manta Style",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Crystalys?",
+      "answer": 2000,
+      "unit": "золото",
+      "item": "lesser_crit",
+      "item_name": "Crystalys",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Dragon Lance?",
+      "answer": 1900,
+      "unit": "золото",
+      "item": "dragon_lance",
+      "item_name": "Dragon Lance",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Armlet of Mordiggian?",
+      "answer": 2500,
+      "unit": "золото",
+      "item": "armlet",
+      "item_name": "Armlet of Mordiggian",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Shadow Blade?",
+      "answer": 3250,
+      "unit": "золото",
+      "item": "invis_sword",
+      "item_name": "Shadow Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Shadow Blade?",
+      "answer": 25.0,
+      "unit": "сек.",
+      "item": "invis_sword",
+      "item_name": "Shadow Blade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит первая атака из инвиза Shadow Blade?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "invis_sword",
+      "item_name": "Shadow Blade",
+      "category": "windwalk_bonus_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Silver Edge?",
+      "answer": 5700,
+      "unit": "золото",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Silver Edge?",
+      "answer": 20.0,
+      "unit": "сек.",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Silver Edge?",
+      "answer": 75.0,
+      "unit": "ед.",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит первая атака из инвиза Silver Edge?",
+      "answer": 300.0,
+      "unit": "ед.",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "windwalk_bonus_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится невидимость от Silver Edge?",
+      "answer": 17.0,
+      "unit": "сек.",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "windwalk_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Sange and Yasha?",
+      "answer": 4200,
+      "unit": "золото",
+      "item": "sange_and_yasha",
+      "item_name": "Sange and Yasha",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько Status Resistance даёт Sange and Yasha?",
+      "answer": 16.0,
+      "unit": "%",
+      "item": "sange_and_yasha",
+      "item_name": "Sange and Yasha",
+      "category": "status_resistance"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Kaya and Sange?",
+      "answer": 4200,
+      "unit": "золото",
+      "item": "kaya_and_sange",
+      "item_name": "Kaya and Sange",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает урон заклинаний Kaya and Sange?",
+      "answer": 12.0,
+      "unit": "%",
+      "item": "kaya_and_sange",
+      "item_name": "Kaya and Sange",
+      "category": "spell_amp"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает реген маны Kaya and Sange?",
+      "answer": 40.0,
+      "unit": "%",
+      "item": "kaya_and_sange",
+      "item_name": "Kaya and Sange",
+      "category": "mana_regen_multiplier"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Yasha and Kaya?",
+      "answer": 4200,
+      "unit": "золото",
+      "item": "yasha_and_kaya",
+      "item_name": "Yasha and Kaya",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает урон заклинаний Yasha and Kaya?",
+      "answer": 12.0,
+      "unit": "%",
+      "item": "yasha_and_kaya",
+      "item_name": "Yasha and Kaya",
+      "category": "spell_amp"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает реген маны Yasha and Kaya?",
+      "answer": 40.0,
+      "unit": "%",
+      "item": "yasha_and_kaya",
+      "item_name": "Yasha and Kaya",
+      "category": "mana_regen_multiplier"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Satanic?",
+      "answer": 5050,
+      "unit": "золото",
+      "item": "satanic",
+      "item_name": "Satanic",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Satanic?",
+      "answer": 30.0,
+      "unit": "сек.",
+      "item": "satanic",
+      "item_name": "Satanic",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма у Satanic?",
+      "answer": 30.0,
+      "unit": "%",
+      "item": "satanic",
+      "item_name": "Satanic",
+      "category": "lifesteal_percent"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mjollnir?",
+      "answer": 5500,
+      "unit": "золото",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Mjollnir?",
+      "answer": 35.0,
+      "unit": "сек.",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой шанс цепной молнии у Mjollnir?",
+      "answer": 25.0,
+      "unit": "%",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "chain_chance"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит цепная молния Mjollnir?",
+      "answer": 180.0,
+      "unit": "ед.",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "chain_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько целей прыгает молния Mjollnir?",
+      "answer": 12.0,
+      "unit": "шт.",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "chain_strikes"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус поиска цели для молнии Mjollnir?",
+      "answer": 650.0,
+      "unit": "ед.",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "chain_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Eye of Skadi?",
+      "answer": 5900,
+      "unit": "золото",
+      "item": "skadi",
+      "item_name": "Eye of Skadi",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Sange?",
+      "answer": 2100,
+      "unit": "золото",
+      "item": "sange",
+      "item_name": "Sange",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Helm of the Dominator?",
+      "answer": 2550,
+      "unit": "золото",
+      "item": "helm_of_the_dominator",
+      "item_name": "Helm of the Dominator",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Helm of the Dominator?",
+      "answer": 45.0,
+      "unit": "сек.",
+      "item": "helm_of_the_dominator",
+      "item_name": "Helm of the Dominator",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Helm of the Overlord?",
+      "answer": 5650,
+      "unit": "золото",
+      "item": "helm_of_the_overlord",
+      "item_name": "Helm of the Overlord",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Helm of the Overlord?",
+      "answer": 45.0,
+      "unit": "сек.",
+      "item": "helm_of_the_overlord",
+      "item_name": "Helm of the Overlord",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Maelstrom?",
+      "answer": 2950,
+      "unit": "золото",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой шанс цепной молнии у Maelstrom?",
+      "answer": 25.0,
+      "unit": "%",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "chain_chance"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит цепная молния Maelstrom?",
+      "answer": 110.0,
+      "unit": "ед.",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "chain_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько целей прыгает молния Maelstrom?",
+      "answer": 4.0,
+      "unit": "шт.",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "chain_strikes"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус поиска цели для молнии Maelstrom?",
+      "answer": 650.0,
+      "unit": "ед.",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "chain_radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Gleipnir?",
+      "answer": 4650,
+      "unit": "золото",
+      "item": "gungir",
+      "item_name": "Gleipnir",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Gleipnir?",
+      "answer": 18.0,
+      "unit": "сек.",
+      "item": "gungir",
+      "item_name": "Gleipnir",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус у активной способности Gleipnir?",
+      "answer": 275.0,
+      "unit": "ед.",
+      "item": "gungir",
+      "item_name": "Gleipnir",
+      "category": "radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Gleipnir?",
+      "answer": 2.0,
+      "unit": "сек.",
+      "item": "gungir",
+      "item_name": "Gleipnir",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Desolator?",
+      "answer": 3500,
+      "unit": "золото",
+      "item": "desolator",
+      "item_name": "Desolator",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mask of Madness?",
+      "answer": 1900,
+      "unit": "золото",
+      "item": "mask_of_madness",
+      "item_name": "Mask of Madness",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Mask of Madness?",
+      "answer": 16.0,
+      "unit": "сек.",
+      "item": "mask_of_madness",
+      "item_name": "Mask of Madness",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Mask of Madness?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "mask_of_madness",
+      "item_name": "Mask of Madness",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма у Mask of Madness?",
+      "answer": 24.0,
+      "unit": "%",
+      "item": "mask_of_madness",
+      "item_name": "Mask of Madness",
+      "category": "lifesteal_percent"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Diffusal Blade?",
+      "answer": 2500,
+      "unit": "золото",
+      "item": "diffusal_blade",
+      "item_name": "Diffusal Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Diffusal Blade?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "diffusal_blade",
+      "item_name": "Diffusal Blade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Diffusal Blade?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "diffusal_blade",
+      "item_name": "Diffusal Blade",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны сжигает за атаку Diffusal Blade?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "diffusal_blade",
+      "item_name": "Diffusal Blade",
+      "category": "feedback_mana_burn"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Disperser?",
+      "answer": 6100,
+      "unit": "золото",
+      "item": "disperser",
+      "item_name": "Disperser",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Disperser?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "disperser",
+      "item_name": "Disperser",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Disperser?",
+      "answer": 75.0,
+      "unit": "ед.",
+      "item": "disperser",
+      "item_name": "Disperser",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны сжигает за атаку Disperser?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "disperser",
+      "item_name": "Disperser",
+      "category": "feedback_mana_burn"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Ethereal Blade?",
+      "answer": 5200,
+      "unit": "золото",
+      "item": "ethereal_blade",
+      "item_name": "Ethereal Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Ethereal Blade?",
+      "answer": 22.0,
+      "unit": "сек.",
+      "item": "ethereal_blade",
+      "item_name": "Ethereal Blade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Ethereal Blade?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "ethereal_blade",
+      "item_name": "Ethereal Blade",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какая скорость снаряда у Ethereal Blade?",
+      "answer": 1400.0,
+      "unit": "ед.",
+      "item": "ethereal_blade",
+      "item_name": "Ethereal Blade",
+      "category": "projectile_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Soul Ring?",
+      "answer": 805,
+      "unit": "золото",
+      "item": "soul_ring",
+      "item_name": "Soul Ring",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Soul Ring?",
+      "answer": 25.0,
+      "unit": "сек.",
+      "item": "soul_ring",
+      "item_name": "Soul Ring",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Soul Ring?",
+      "answer": 10.0,
+      "unit": "сек.",
+      "item": "soul_ring",
+      "item_name": "Soul Ring",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Arcane Boots?",
+      "answer": 1500,
+      "unit": "золото",
+      "item": "arcane_boots",
+      "item_name": "Arcane Boots",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Arcane Boots?",
+      "answer": 55.0,
+      "unit": "сек.",
+      "item": "arcane_boots",
+      "item_name": "Arcane Boots",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Octarine Core?",
+      "answer": 4900,
+      "unit": "золото",
+      "item": "octarine_core",
+      "item_name": "Octarine Core",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько снижает кулдауны Octarine Core?",
+      "answer": 25.0,
+      "unit": "%",
+      "item": "octarine_core",
+      "item_name": "Octarine Core",
+      "category": "bonus_cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Orb of Venom?",
+      "answer": 350,
+      "unit": "золото",
+      "item": "orb_of_venom",
+      "item_name": "Orb of Venom",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Orb of Venom?",
+      "answer": 9.0,
+      "unit": "сек.",
+      "item": "orb_of_venom",
+      "item_name": "Orb of Venom",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит активная способность Orb of Venom в секунду?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "orb_of_venom",
+      "item_name": "Orb of Venom",
+      "category": "damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Orb of Blight?",
+      "answer": 300,
+      "unit": "золото",
+      "item": "blight_stone",
+      "item_name": "Orb of Blight",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Orb of Corrosion?",
+      "answer": 1050,
+      "unit": "золото",
+      "item": "orb_of_corrosion",
+      "item_name": "Orb of Corrosion",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Orb of Frost?",
+      "answer": 300,
+      "unit": "золото",
+      "item": "orb_of_frost",
+      "item_name": "Orb of Frost",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Orb of Frost?",
+      "answer": 3.0,
+      "unit": "сек.",
+      "item": "orb_of_frost",
+      "item_name": "Orb of Frost",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Falcon Blade?",
+      "answer": 1125,
+      "unit": "золото",
+      "item": "falcon_blade",
+      "item_name": "Falcon Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Mage Slayer?",
+      "answer": 3100,
+      "unit": "золото",
+      "item": "mage_slayer",
+      "item_name": "Mage Slayer",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Mage Slayer?",
+      "answer": 3.0,
+      "unit": "сек.",
+      "item": "mage_slayer",
+      "item_name": "Mage Slayer",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Drum of Endurance?",
+      "answer": 1625,
+      "unit": "золото",
+      "item": "ancient_janggo",
+      "item_name": "Drum of Endurance",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Drum of Endurance?",
+      "answer": 45.0,
+      "unit": "сек.",
+      "item": "ancient_janggo",
+      "item_name": "Drum of Endurance",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус у активной способности Drum of Endurance?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "ancient_janggo",
+      "item_name": "Drum of Endurance",
+      "category": "radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Drum of Endurance?",
+      "answer": 6.0,
+      "unit": "сек.",
+      "item": "ancient_janggo",
+      "item_name": "Drum of Endurance",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Boots of Bearing?",
+      "answer": 4225,
+      "unit": "золото",
+      "item": "boots_of_bearing",
+      "item_name": "Boots of Bearing",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Boots of Bearing?",
+      "answer": 30.0,
+      "unit": "сек.",
+      "item": "boots_of_bearing",
+      "item_name": "Boots of Bearing",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой радиус у активной способности Boots of Bearing?",
+      "answer": 1200.0,
+      "unit": "ед.",
+      "item": "boots_of_bearing",
+      "item_name": "Boots of Bearing",
+      "category": "radius"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Boots of Bearing?",
+      "answer": 6.0,
+      "unit": "сек.",
+      "item": "boots_of_bearing",
+      "item_name": "Boots of Bearing",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Boots of Bearing?",
+      "answer": 65.0,
+      "unit": "ед.",
+      "item": "boots_of_bearing",
+      "item_name": "Boots of Bearing",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Solar Crest?",
+      "answer": 2575,
+      "unit": "золото",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Solar Crest?",
+      "answer": 16.0,
+      "unit": "сек.",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Solar Crest?",
+      "answer": 100.0,
+      "unit": "ед.",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Solar Crest?",
+      "answer": 7.0,
+      "unit": "сек.",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Pavise?",
+      "answer": 1350,
+      "unit": "золото",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Pavise?",
+      "answer": 16.0,
+      "unit": "сек.",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Pavise?",
+      "answer": 60.0,
+      "unit": "ед.",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Pavise?",
+      "answer": 7.0,
+      "unit": "сек.",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Veil of Discord?",
+      "answer": 1700,
+      "unit": "золото",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Veil of Discord?",
+      "answer": 16.0,
+      "unit": "сек.",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Veil of Discord?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько увеличивает урон заклинаний Veil of Discord?",
+      "answer": 10.0,
+      "unit": "%",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "spell_amp"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма заклинаниями у Veil of Discord?",
+      "answer": 18.0,
+      "unit": "%",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "spell_lifesteal"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Revenant's Brooch?",
+      "answer": 3300,
+      "unit": "золото",
+      "item": "revenants_brooch",
+      "item_name": "Revenant's Brooch",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой множитель доп крита у Revenant's Brooch?",
+      "answer": 80.0,
+      "unit": "%",
+      "item": "revenants_brooch",
+      "item_name": "Revenant's Brooch",
+      "category": "crit_multiplier"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой процент вампиризма заклинаниями у Revenant's Brooch?",
+      "answer": 15.0,
+      "unit": "%",
+      "item": "revenants_brooch",
+      "item_name": "Revenant's Brooch",
+      "category": "spell_lifesteal"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Parasma?",
+      "answer": 5975,
+      "unit": "золото",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Parasma?",
+      "answer": 7.0,
+      "unit": "сек.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Parasma?",
+      "answer": 4.0,
+      "unit": "сек.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "slow_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какая скорость снаряда у Parasma?",
+      "answer": 300.0,
+      "unit": "ед.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "projectile_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Guardian Greaves?",
+      "answer": 4450,
+      "unit": "золото",
+      "item": "guardian_greaves",
+      "item_name": "Guardian Greaves",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Guardian Greaves?",
+      "answer": 45.0,
+      "unit": "сек.",
+      "item": "guardian_greaves",
+      "item_name": "Guardian Greaves",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Rod of Atos?",
+      "answer": 2250,
+      "unit": "золото",
+      "item": "rod_of_atos",
+      "item_name": "Rod of Atos",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Rod of Atos?",
+      "answer": 18.0,
+      "unit": "сек.",
+      "item": "rod_of_atos",
+      "item_name": "Rod of Atos",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Rod of Atos?",
+      "answer": 2.0,
+      "unit": "сек.",
+      "item": "rod_of_atos",
+      "item_name": "Rod of Atos",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Abyssal Blade?",
+      "answer": 6250,
+      "unit": "золото",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Abyssal Blade?",
+      "answer": 35.0,
+      "unit": "сек.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Abyssal Blade?",
+      "answer": 75.0,
+      "unit": "ед.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой шанс баша в ближнем бою у Abyssal Blade?",
+      "answer": 25.0,
+      "unit": "%",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "bash_chance_melee"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой шанс баша в дальнем бою у Abyssal Blade?",
+      "answer": 10.0,
+      "unit": "%",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "bash_chance_ranged"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится баш от Abyssal Blade?",
+      "answer": 1.2,
+      "unit": "сек.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "bash_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона наносит proc от Abyssal Blade?",
+      "answer": 120.0,
+      "unit": "ед.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "bonus_chance_damage"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится активный стан от Abyssal Blade?",
+      "answer": 1.6,
+      "unit": "сек.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "stun_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Heaven's Halberd?",
+      "answer": 3400,
+      "unit": "золото",
+      "item": "heavens_halberd",
+      "item_name": "Heaven's Halberd",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Heaven's Halberd?",
+      "answer": 16.0,
+      "unit": "сек.",
+      "item": "heavens_halberd",
+      "item_name": "Heaven's Halberd",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны стоит активация Heaven's Halberd?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "heavens_halberd",
+      "item_name": "Heaven's Halberd",
+      "category": "mana_cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Tranquil Boots?",
+      "answer": 900,
+      "unit": "золото",
+      "item": "tranquil_boots",
+      "item_name": "Tranquil Boots",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Tranquil Boots?",
+      "answer": 13.0,
+      "unit": "сек.",
+      "item": "tranquil_boots",
+      "item_name": "Tranquil Boots",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения даёт Tranquil Boots?",
+      "answer": 65.0,
+      "unit": "ед.",
+      "item": "tranquil_boots",
+      "item_name": "Tranquil Boots",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Shadow Amulet?",
+      "answer": 900,
+      "unit": "золото",
+      "item": "shadow_amulet",
+      "item_name": "Shadow Amulet",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Shadow Amulet?",
+      "answer": 18.0,
+      "unit": "сек.",
+      "item": "shadow_amulet",
+      "item_name": "Shadow Amulet",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Glimmer Cape?",
+      "answer": 2150,
+      "unit": "золото",
+      "item": "glimmer_cape",
+      "item_name": "Glimmer Cape",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой кулдаун у Glimmer Cape?",
+      "answer": 15.0,
+      "unit": "сек.",
+      "item": "glimmer_cape",
+      "item_name": "Glimmer Cape",
+      "category": "cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится эффект Glimmer Cape?",
+      "answer": 5.0,
+      "unit": "сек.",
+      "item": "glimmer_cape",
+      "item_name": "Glimmer Cape",
+      "category": "duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона поглощает барьер Glimmer Cape?",
+      "answer": 375.0,
+      "unit": "ед.",
+      "item": "glimmer_cape",
+      "item_name": "Glimmer Cape",
+      "category": "barrier_block"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько длится дебафф от Grove Bow?",
+      "answer": 6.0,
+      "unit": "сек.",
+      "item": "grove_bow",
+      "item_name": "Grove Bow",
+      "category": "debuff_duration"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько снижает кулдауны Quickening Charm?",
+      "answer": 10.0,
+      "unit": "%",
+      "item": "quickening_charm",
+      "item_name": "Quickening Charm",
+      "category": "bonus_cooldown"
+    },
+    {
+      "type": "closest_number",
+      "question": "На сколько единиц толкали Force Boots?",
+      "answer": 750.0,
+      "unit": "ед.",
+      "item": "force_boots",
+      "item_name": "Force Boots",
+      "category": "push_length"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости передвижения давали Force Boots?",
+      "answer": 115.0,
+      "unit": "ед.",
+      "item": "force_boots",
+      "item_name": "Force Boots",
+      "category": "bonus_movement_speed"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько стоит Hydra's Breath?",
+      "answer": 5900,
+      "unit": "золото",
+      "item": "hydras_breath",
+      "item_name": "Hydra's Breath",
+      "category": "cost"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Phylactery?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "phylactery",
+      "item_name": "Phylactery",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Phylactery?",
+      "answer": 5.5,
+      "unit": "ед./сек.",
+      "item": "phylactery",
+      "item_name": "Phylactery",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Phylactery?",
+      "answer": 2.25,
+      "unit": "ед./сек.",
+      "item": "phylactery",
+      "item_name": "Phylactery",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Khanda?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Khanda?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Khanda?",
+      "answer": 8.0,
+      "unit": "ед.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Khanda?",
+      "answer": 7.0,
+      "unit": "ед./сек.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Khanda?",
+      "answer": 3.0,
+      "unit": "ед./сек.",
+      "item": "angels_demise",
+      "item_name": "Khanda",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Oblivion Staff?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "oblivion_staff",
+      "item_name": "Oblivion Staff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Oblivion Staff?",
+      "answer": 1.25,
+      "unit": "ед./сек.",
+      "item": "oblivion_staff",
+      "item_name": "Oblivion Staff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Witch Blade?",
+      "answer": 5.0,
+      "unit": "ед.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Witch Blade?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Witch Blade?",
+      "answer": 1.5,
+      "unit": "ед./сек.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Cornucopia?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "cornucopia",
+      "item_name": "Cornucopia",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Cornucopia?",
+      "answer": 5.0,
+      "unit": "ед./сек.",
+      "item": "cornucopia",
+      "item_name": "Cornucopia",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Cornucopia?",
+      "answer": 2.0,
+      "unit": "ед./сек.",
+      "item": "cornucopia",
+      "item_name": "Cornucopia",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Bracer?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "bracer",
+      "item_name": "Bracer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Bracer?",
+      "answer": 0.75,
+      "unit": "ед./сек.",
+      "item": "bracer",
+      "item_name": "Bracer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Wraith Band?",
+      "answer": 1.75,
+      "unit": "ед.",
+      "item": "wraith_band",
+      "item_name": "Wraith Band",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Wraith Band?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "wraith_band",
+      "item_name": "Wraith Band",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Null Talisman?",
+      "answer": 1.0,
+      "unit": "ед./сек.",
+      "item": "null_talisman",
+      "item_name": "Null Talisman",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Orchid Malevolence?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Orchid Malevolence?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Orchid Malevolence?",
+      "answer": 2.5,
+      "unit": "ед./сек.",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Bloodthorn?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Bloodthorn?",
+      "answer": 70.0,
+      "unit": "ед.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Bloodthorn?",
+      "answer": 4.0,
+      "unit": "ед./сек.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Echo Sabre?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "echo_sabre",
+      "item_name": "Echo Sabre",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Echo Sabre?",
+      "answer": 1.75,
+      "unit": "ед./сек.",
+      "item": "echo_sabre",
+      "item_name": "Echo Sabre",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Hurricane Pike?",
+      "answer": 200.0,
+      "unit": "ед.",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Hurricane Pike?",
+      "answer": 100.0,
+      "unit": "ед.",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Aghanim's Scepter?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "ultimate_scepter",
+      "item_name": "Aghanim's Scepter",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Aghanim's Scepter?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "ultimate_scepter",
+      "item_name": "Aghanim's Scepter",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Aghanim's Scepter?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "ultimate_scepter",
+      "item_name": "Aghanim's Scepter",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Bloodstone?",
+      "answer": 650.0,
+      "unit": "ед.",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Bloodstone?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Linken's Sphere?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "sphere",
+      "item_name": "Linken's Sphere",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Linken's Sphere?",
+      "answer": 6.5,
+      "unit": "ед./сек.",
+      "item": "sphere",
+      "item_name": "Linken's Sphere",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Linken's Sphere?",
+      "answer": 4.25,
+      "unit": "ед./сек.",
+      "item": "sphere",
+      "item_name": "Linken's Sphere",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Lotus Orb?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Lotus Orb?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Lotus Orb?",
+      "answer": 6.5,
+      "unit": "ед./сек.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Lotus Orb?",
+      "answer": 4.0,
+      "unit": "ед./сек.",
+      "item": "lotus_orb",
+      "item_name": "Lotus Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Refresher Shard?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "refresher_shard",
+      "item_name": "Refresher Shard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Refresher Shard?",
+      "answer": 12.0,
+      "unit": "ед./сек.",
+      "item": "refresher_shard",
+      "item_name": "Refresher Shard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Refresher Shard?",
+      "answer": 6.0,
+      "unit": "ед./сек.",
+      "item": "refresher_shard",
+      "item_name": "Refresher Shard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Spirit Vessel?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Spirit Vessel?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Spirit Vessel?",
+      "answer": 1.75,
+      "unit": "ед./сек.",
+      "item": "spirit_vessel",
+      "item_name": "Spirit Vessel",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Essence Distiller?",
+      "answer": 150.0,
+      "unit": "ед.",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Essence Distiller?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Essence Distiller?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "essence_distiller",
+      "item_name": "Essence Distiller",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Crimson Guard?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Crimson Guard?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Crimson Guard?",
+      "answer": 12.0,
+      "unit": "ед./сек.",
+      "item": "crimson_guard",
+      "item_name": "Crimson Guard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Crella's Crozier?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Crella's Crozier?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Crella's Crozier?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "crellas_crozier",
+      "item_name": "Crella's Crozier",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Battle Fury?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "bfury",
+      "item_name": "Battle Fury",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Battle Fury?",
+      "answer": 7.5,
+      "unit": "ед./сек.",
+      "item": "bfury",
+      "item_name": "Battle Fury",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Battle Fury?",
+      "answer": 2.75,
+      "unit": "ед./сек.",
+      "item": "bfury",
+      "item_name": "Battle Fury",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Manta Style?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "manta",
+      "item_name": "Manta Style",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Armlet of Mordiggian?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "armlet",
+      "item_name": "Armlet of Mordiggian",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Armlet of Mordiggian?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "armlet",
+      "item_name": "Armlet of Mordiggian",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Armlet of Mordiggian?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "armlet",
+      "item_name": "Armlet of Mordiggian",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Armlet of Mordiggian?",
+      "answer": 5.0,
+      "unit": "ед./сек.",
+      "item": "armlet",
+      "item_name": "Armlet of Mordiggian",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Sange and Yasha?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "sange_and_yasha",
+      "item_name": "Sange and Yasha",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Yasha and Kaya?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "yasha_and_kaya",
+      "item_name": "Yasha and Kaya",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Octarine Core?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "octarine_core",
+      "item_name": "Octarine Core",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Octarine Core?",
+      "answer": 450.0,
+      "unit": "ед.",
+      "item": "octarine_core",
+      "item_name": "Octarine Core",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Octarine Core?",
+      "answer": 6.0,
+      "unit": "ед./сек.",
+      "item": "octarine_core",
+      "item_name": "Octarine Core",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Falcon Blade?",
+      "answer": 14.0,
+      "unit": "ед.",
+      "item": "falcon_blade",
+      "item_name": "Falcon Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Falcon Blade?",
+      "answer": 200.0,
+      "unit": "ед.",
+      "item": "falcon_blade",
+      "item_name": "Falcon Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Falcon Blade?",
+      "answer": 1.8,
+      "unit": "ед./сек.",
+      "item": "falcon_blade",
+      "item_name": "Falcon Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Mage Slayer?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "mage_slayer",
+      "item_name": "Mage Slayer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Mage Slayer?",
+      "answer": 6.0,
+      "unit": "ед./сек.",
+      "item": "mage_slayer",
+      "item_name": "Mage Slayer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Mage Slayer?",
+      "answer": 2.5,
+      "unit": "ед./сек.",
+      "item": "mage_slayer",
+      "item_name": "Mage Slayer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Solar Crest?",
+      "answer": 200.0,
+      "unit": "ед.",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Solar Crest?",
+      "answer": 200.0,
+      "unit": "ед.",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Solar Crest?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "solar_crest",
+      "item_name": "Solar Crest",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Pavise?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Pavise?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Pavise?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "pavise",
+      "item_name": "Pavise",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Parasma?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Parasma?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Parasma?",
+      "answer": 1.5,
+      "unit": "ед./сек.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Harpoon?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "harpoon",
+      "item_name": "Harpoon",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Harpoon?",
+      "answer": 2.0,
+      "unit": "ед./сек.",
+      "item": "harpoon",
+      "item_name": "Harpoon",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Blades of Attack?",
+      "answer": 9.0,
+      "unit": "ед.",
+      "item": "blades_of_attack",
+      "item_name": "Blades of Attack",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Broadsword?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "broadsword",
+      "item_name": "Broadsword",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Chainmail?",
+      "answer": 4.0,
+      "unit": "ед.",
+      "item": "chainmail",
+      "item_name": "Chainmail",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Splintmail?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "splintmail",
+      "item_name": "Splintmail",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Claymore?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "claymore",
+      "item_name": "Claymore",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Helm of Iron Will?",
+      "answer": 4.0,
+      "unit": "ед.",
+      "item": "helm_of_iron_will",
+      "item_name": "Helm of Iron Will",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Mithril Hammer?",
+      "answer": 24.0,
+      "unit": "ед.",
+      "item": "mithril_hammer",
+      "item_name": "Mithril Hammer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Platemail?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "platemail",
+      "item_name": "Platemail",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Quarterstaff?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "quarterstaff",
+      "item_name": "Quarterstaff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Ring of Protection?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "ring_of_protection",
+      "item_name": "Ring of Protection",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Moon Shard?",
+      "answer": 140.0,
+      "unit": "ед.",
+      "item": "moon_shard",
+      "item_name": "Moon Shard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Iron Branch?",
+      "answer": 1.0,
+      "unit": "ед.",
+      "item": "branches",
+      "item_name": "Iron Branch",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Circlet?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "circlet",
+      "item_name": "Circlet",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Crown?",
+      "answer": 4.0,
+      "unit": "ед.",
+      "item": "crown",
+      "item_name": "Crown",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Diadem?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "diadem",
+      "item_name": "Diadem",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Ultimate Orb?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "ultimate_orb",
+      "item_name": "Ultimate Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Gloves of Haste?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "gloves",
+      "item_name": "Gloves of Haste",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Blitz Knuckles?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "blitz_knuckles",
+      "item_name": "Blitz Knuckles",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Ring of Regen?",
+      "answer": 1.25,
+      "unit": "ед./сек.",
+      "item": "ring_of_regen",
+      "item_name": "Ring of Regen",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Sage's Mask?",
+      "answer": 0.7,
+      "unit": "ед./сек.",
+      "item": "sobi_mask",
+      "item_name": "Sage's Mask",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Magic Wand?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "magic_wand",
+      "item_name": "Magic Wand",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Ghost Scepter?",
+      "answer": 5.0,
+      "unit": "ед.",
+      "item": "ghost",
+      "item_name": "Ghost Scepter",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Blood Grenade?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "blood_grenade",
+      "item_name": "Blood Grenade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Phase Boots?",
+      "answer": 4.0,
+      "unit": "ед.",
+      "item": "phase_boots",
+      "item_name": "Phase Boots",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Demon Edge?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "demon_edge",
+      "item_name": "Demon Edge",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Sacred Relic?",
+      "answer": 55.0,
+      "unit": "ед.",
+      "item": "relic",
+      "item_name": "Sacred Relic",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Hyperstone?",
+      "answer": 60.0,
+      "unit": "ед.",
+      "item": "hyperstone",
+      "item_name": "Hyperstone",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Ring of Health?",
+      "answer": 4.5,
+      "unit": "ед./сек.",
+      "item": "ring_of_health",
+      "item_name": "Ring of Health",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Ring of Tarrasque?",
+      "answer": 12.0,
+      "unit": "ед./сек.",
+      "item": "ring_of_tarrasque",
+      "item_name": "Ring of Tarrasque",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Void Stone?",
+      "answer": 1.75,
+      "unit": "ед./сек.",
+      "item": "void_stone",
+      "item_name": "Void Stone",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Tiara of Selemene?",
+      "answer": 6.0,
+      "unit": "ед./сек.",
+      "item": "tiara_of_selemene",
+      "item_name": "Tiara of Selemene",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Energy Booster?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "energy_booster",
+      "item_name": "Energy Booster",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Point Booster?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "point_booster",
+      "item_name": "Point Booster",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Point Booster?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "point_booster",
+      "item_name": "Point Booster",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Vitality Booster?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "vitality_booster",
+      "item_name": "Vitality Booster",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Fluffy Hat?",
+      "answer": 125.0,
+      "unit": "ед.",
+      "item": "fluffy_hat",
+      "item_name": "Fluffy Hat",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Wizard Hat?",
+      "answer": 125.0,
+      "unit": "ед.",
+      "item": "wizard_hat",
+      "item_name": "Wizard Hat",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Power Treads?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "power_treads",
+      "item_name": "Power Treads",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Hand of Midas?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "hand_of_midas",
+      "item_name": "Hand of Midas",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Perseverance?",
+      "answer": 5.5,
+      "unit": "ед./сек.",
+      "item": "pers",
+      "item_name": "Perseverance",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Perseverance?",
+      "answer": 2.25,
+      "unit": "ед./сек.",
+      "item": "pers",
+      "item_name": "Perseverance",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Mekansm?",
+      "answer": 5.0,
+      "unit": "ед.",
+      "item": "mekansm",
+      "item_name": "Mekansm",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Wraith Pact?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "wraith_pact",
+      "item_name": "Wraith Pact",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Wraith Pact?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "wraith_pact",
+      "item_name": "Wraith Pact",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Holy Locket?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "holy_locket",
+      "item_name": "Holy Locket",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Urn of Shadows?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "urn_of_shadows",
+      "item_name": "Urn of Shadows",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Urn of Shadows?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "urn_of_shadows",
+      "item_name": "Urn of Shadows",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Scythe of Vyse?",
+      "answer": 8.5,
+      "unit": "ед./сек.",
+      "item": "sheepstick",
+      "item_name": "Scythe of Vyse",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Eul's Scepter of Divinity?",
+      "answer": 2.5,
+      "unit": "ед./сек.",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Wind Waker?",
+      "answer": 3.0,
+      "unit": "ед./сек.",
+      "item": "wind_waker",
+      "item_name": "Wind Waker",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Aether Lens?",
+      "answer": 300.0,
+      "unit": "ед.",
+      "item": "aether_lens",
+      "item_name": "Aether Lens",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Aether Lens?",
+      "answer": 2.5,
+      "unit": "ед./сек.",
+      "item": "aether_lens",
+      "item_name": "Aether Lens",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Force Staff?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "force_staff",
+      "item_name": "Force Staff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Refresher Orb?",
+      "answer": 14.0,
+      "unit": "ед./сек.",
+      "item": "refresher",
+      "item_name": "Refresher Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена маны даёт Refresher Orb?",
+      "answer": 7.0,
+      "unit": "ед./сек.",
+      "item": "refresher",
+      "item_name": "Refresher Orb",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Assault Cuirass?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "assault",
+      "item_name": "Assault Cuirass",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Assault Cuirass?",
+      "answer": 30.0,
+      "unit": "ед.",
+      "item": "assault",
+      "item_name": "Assault Cuirass",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Black King Bar?",
+      "answer": 24.0,
+      "unit": "ед.",
+      "item": "black_king_bar",
+      "item_name": "Black King Bar",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Shiva's Guard?",
+      "answer": 17.0,
+      "unit": "ед.",
+      "item": "shivas_guard",
+      "item_name": "Shiva's Guard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Nullifier?",
+      "answer": 75.0,
+      "unit": "ед.",
+      "item": "nullifier",
+      "item_name": "Nullifier",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Nullifier?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "nullifier",
+      "item_name": "Nullifier",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Aeon Disk?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "aeon_disk",
+      "item_name": "Aeon Disk",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Aeon Disk?",
+      "answer": 300.0,
+      "unit": "ед.",
+      "item": "aeon_disk",
+      "item_name": "Aeon Disk",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Vanguard?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "vanguard",
+      "item_name": "Vanguard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Vanguard?",
+      "answer": 4.5,
+      "unit": "ед./сек.",
+      "item": "vanguard",
+      "item_name": "Vanguard",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Blade Mail?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "blade_mail",
+      "item_name": "Blade Mail",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Blade Mail?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "blade_mail",
+      "item_name": "Blade Mail",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Soul Booster?",
+      "answer": 425.0,
+      "unit": "ед.",
+      "item": "soul_booster",
+      "item_name": "Soul Booster",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Soul Booster?",
+      "answer": 425.0,
+      "unit": "ед.",
+      "item": "soul_booster",
+      "item_name": "Soul Booster",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Hood of Defiance?",
+      "answer": 8.5,
+      "unit": "ед./сек.",
+      "item": "hood_of_defiance",
+      "item_name": "Hood of Defiance",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Eternal Shroud?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "eternal_shroud",
+      "item_name": "Eternal Shroud",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Consecrated Wraps?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "consecrated_wraps",
+      "item_name": "Consecrated Wraps",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Consecrated Wraps?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "consecrated_wraps",
+      "item_name": "Consecrated Wraps",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Divine Rapier?",
+      "answer": 250.0,
+      "unit": "ед.",
+      "item": "rapier",
+      "item_name": "Divine Rapier",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Monkey King Bar?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "monkey_king_bar",
+      "item_name": "Monkey King Bar",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Monkey King Bar?",
+      "answer": 50.0,
+      "unit": "ед.",
+      "item": "monkey_king_bar",
+      "item_name": "Monkey King Bar",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Radiance?",
+      "answer": 55.0,
+      "unit": "ед.",
+      "item": "radiance",
+      "item_name": "Radiance",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Butterfly?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "butterfly",
+      "item_name": "Butterfly",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Daedalus?",
+      "answer": 88.0,
+      "unit": "ед.",
+      "item": "greater_crit",
+      "item_name": "Daedalus",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Skull Basher?",
+      "answer": 30.0,
+      "unit": "ед.",
+      "item": "basher",
+      "item_name": "Skull Basher",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Crystalys?",
+      "answer": 32.0,
+      "unit": "ед.",
+      "item": "lesser_crit",
+      "item_name": "Crystalys",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Shadow Blade?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "invis_sword",
+      "item_name": "Shadow Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Shadow Blade?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "invis_sword",
+      "item_name": "Shadow Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Silver Edge?",
+      "answer": 70.0,
+      "unit": "ед.",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Silver Edge?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "silver_edge",
+      "item_name": "Silver Edge",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Satanic?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "satanic",
+      "item_name": "Satanic",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Mjollnir?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Mjollnir?",
+      "answer": 90.0,
+      "unit": "ед.",
+      "item": "mjollnir",
+      "item_name": "Mjollnir",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Какой бонус ко всем атрибутам даёт Eye of Skadi?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "skadi",
+      "item_name": "Eye of Skadi",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Helm of the Dominator?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "helm_of_the_dominator",
+      "item_name": "Helm of the Dominator",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Helm of the Overlord?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "helm_of_the_overlord",
+      "item_name": "Helm of the Overlord",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Maelstrom?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Maelstrom?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "maelstrom",
+      "item_name": "Maelstrom",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Gleipnir?",
+      "answer": 200.0,
+      "unit": "ед.",
+      "item": "gungir",
+      "item_name": "Gleipnir",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Desolator?",
+      "answer": 55.0,
+      "unit": "ед.",
+      "item": "desolator",
+      "item_name": "Desolator",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Yasha?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "yasha",
+      "item_name": "Yasha",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Mask of Madness?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "mask_of_madness",
+      "item_name": "Mask of Madness",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Soul Ring?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "soul_ring",
+      "item_name": "Soul Ring",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Arcane Boots?",
+      "answer": 125.0,
+      "unit": "ед.",
+      "item": "arcane_boots",
+      "item_name": "Arcane Boots",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Boots of Bearing?",
+      "answer": 18.0,
+      "unit": "ед./сек.",
+      "item": "boots_of_bearing",
+      "item_name": "Boots of Bearing",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько здоровья даёт Veil of Discord?",
+      "answer": 175.0,
+      "unit": "ед.",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Revenant's Brooch?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "revenants_brooch",
+      "item_name": "Revenant's Brooch",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько маны даёт Guardian Greaves?",
+      "answer": 150.0,
+      "unit": "ед.",
+      "item": "guardian_greaves",
+      "item_name": "Guardian Greaves",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Guardian Greaves?",
+      "answer": 5.0,
+      "unit": "ед.",
+      "item": "guardian_greaves",
+      "item_name": "Guardian Greaves",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько урона даёт Abyssal Blade?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько брони даёт Heaven's Halberd?",
+      "answer": 9.0,
+      "unit": "ед.",
+      "item": "heavens_halberd",
+      "item_name": "Heaven's Halberd",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Heaven's Halberd?",
+      "answer": 6.0,
+      "unit": "ед./сек.",
+      "item": "heavens_halberd",
+      "item_name": "Heaven's Halberd",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько регена здоровья даёт Tranquil Boots?",
+      "answer": 14.0,
+      "unit": "ед./сек.",
+      "item": "tranquil_boots",
+      "item_name": "Tranquil Boots",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько скорости атаки даёт Duelist Gloves?",
+      "answer": 20.0,
+      "unit": "ед.",
+      "item": "duelist_gloves",
+      "item_name": "Duelist Gloves",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Oblivion Staff?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "oblivion_staff",
+      "item_name": "Oblivion Staff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Witch Blade?",
+      "answer": 12.0,
+      "unit": "ед.",
+      "item": "witch_blade",
+      "item_name": "Witch Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Bracer?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "bracer",
+      "item_name": "Bracer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы (дополнительно) даёт Bracer?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "bracer",
+      "item_name": "Bracer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Wraith Band?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "wraith_band",
+      "item_name": "Wraith Band",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости (дополнительно) даёт Wraith Band?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "wraith_band",
+      "item_name": "Wraith Band",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Null Talisman?",
+      "answer": 2.0,
+      "unit": "ед.",
+      "item": "null_talisman",
+      "item_name": "Null Talisman",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта (дополнительно) даёт Null Talisman?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "null_talisman",
+      "item_name": "Null Talisman",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Orchid Malevolence?",
+      "answer": 12.0,
+      "unit": "ед.",
+      "item": "orchid",
+      "item_name": "Orchid Malevolence",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Bloodthorn?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "bloodthorn",
+      "item_name": "Bloodthorn",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Echo Sabre?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "echo_sabre",
+      "item_name": "Echo Sabre",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Hurricane Pike?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости (дополнительно) даёт Hurricane Pike?",
+      "answer": 5.0,
+      "unit": "ед.",
+      "item": "hurricane_pike",
+      "item_name": "Hurricane Pike",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Bloodstone?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "bloodstone",
+      "item_name": "Bloodstone",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Meteor Hammer?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта (дополнительно) даёт Meteor Hammer?",
+      "answer": 18.0,
+      "unit": "ед.",
+      "item": "meteor_hammer",
+      "item_name": "Meteor Hammer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Manta Style?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "manta",
+      "item_name": "Manta Style",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости (дополнительно) даёт Manta Style?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "manta",
+      "item_name": "Manta Style",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Sange and Yasha?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "sange_and_yasha",
+      "item_name": "Sange and Yasha",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Sange and Yasha?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "sange_and_yasha",
+      "item_name": "Sange and Yasha",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Yasha and Kaya?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "yasha_and_kaya",
+      "item_name": "Yasha and Kaya",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Yasha and Kaya?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "yasha_and_kaya",
+      "item_name": "Yasha and Kaya",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Ethereal Blade?",
+      "answer": 24.0,
+      "unit": "ед.",
+      "item": "ethereal_blade",
+      "item_name": "Ethereal Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Parasma?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "devastator",
+      "item_name": "Parasma",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько атрибутов даёт Harpoon?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "harpoon",
+      "item_name": "Harpoon",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы (дополнительно) даёт Harpoon?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "harpoon",
+      "item_name": "Harpoon",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Overwhelming Blink?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "overwhelming_blink",
+      "item_name": "Overwhelming Blink",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Swift Blink?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "swift_blink",
+      "item_name": "Swift Blink",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Arcane Blink?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "arcane_blink",
+      "item_name": "Arcane Blink",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Gauntlets of Strength?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "gauntlets",
+      "item_name": "Gauntlets of Strength",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Slippers of Agility?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "slippers",
+      "item_name": "Slippers of Agility",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Mantle of Intelligence?",
+      "answer": 3.0,
+      "unit": "ед.",
+      "item": "mantle",
+      "item_name": "Mantle of Intelligence",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Belt of Strength?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "belt_of_strength",
+      "item_name": "Belt of Strength",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Band of Elvenskin?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "boots_of_elves",
+      "item_name": "Band of Elvenskin",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Robe of the Magi?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "robe",
+      "item_name": "Robe of the Magi",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Ogre Axe?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "ogre_axe",
+      "item_name": "Ogre Axe",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Blade of Alacrity?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "blade_of_alacrity",
+      "item_name": "Blade of Alacrity",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Staff of Wizardry?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "staff_of_wizardry",
+      "item_name": "Staff of Wizardry",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Eaglesong?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "eagle",
+      "item_name": "Eaglesong",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Reaver?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "reaver",
+      "item_name": "Reaver",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Mystic Staff?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "mystic_staff",
+      "item_name": "Mystic Staff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Scythe of Vyse?",
+      "answer": 30.0,
+      "unit": "ед.",
+      "item": "sheepstick",
+      "item_name": "Scythe of Vyse",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Eul's Scepter of Divinity?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "cyclone",
+      "item_name": "Eul's Scepter of Divinity",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Wind Waker?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "wind_waker",
+      "item_name": "Wind Waker",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Force Staff?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "force_staff",
+      "item_name": "Force Staff",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Heart of Tarrasque?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "heart",
+      "item_name": "Heart of Tarrasque",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Black King Bar?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "black_king_bar",
+      "item_name": "Black King Bar",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Kaya?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "kaya",
+      "item_name": "Kaya",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Eternal Shroud?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "eternal_shroud",
+      "item_name": "Eternal Shroud",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Butterfly?",
+      "answer": 35.0,
+      "unit": "ед.",
+      "item": "butterfly",
+      "item_name": "Butterfly",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Skull Basher?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "basher",
+      "item_name": "Skull Basher",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Dragon Lance?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "dragon_lance",
+      "item_name": "Dragon Lance",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Dragon Lance?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "dragon_lance",
+      "item_name": "Dragon Lance",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Kaya and Sange?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "kaya_and_sange",
+      "item_name": "Kaya and Sange",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Kaya and Sange?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "kaya_and_sange",
+      "item_name": "Kaya and Sange",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Satanic?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "satanic",
+      "item_name": "Satanic",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Sange?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "sange",
+      "item_name": "Sange",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Gleipnir?",
+      "answer": 12.0,
+      "unit": "ед.",
+      "item": "gungir",
+      "item_name": "Gleipnir",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Yasha?",
+      "answer": 16.0,
+      "unit": "ед.",
+      "item": "yasha",
+      "item_name": "Yasha",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Diffusal Blade?",
+      "answer": 15.0,
+      "unit": "ед.",
+      "item": "diffusal_blade",
+      "item_name": "Diffusal Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Diffusal Blade?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "diffusal_blade",
+      "item_name": "Diffusal Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Disperser?",
+      "answer": 40.0,
+      "unit": "ед.",
+      "item": "disperser",
+      "item_name": "Disperser",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Disperser?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "disperser",
+      "item_name": "Disperser",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Soul Ring?",
+      "answer": 6.0,
+      "unit": "ед.",
+      "item": "soul_ring",
+      "item_name": "Soul Ring",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Orb of Corrosion?",
+      "answer": 7.0,
+      "unit": "ед.",
+      "item": "orb_of_corrosion",
+      "item_name": "Orb of Corrosion",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Veil of Discord?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "veil_of_discord",
+      "item_name": "Veil of Discord",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Rod of Atos?",
+      "answer": 12.0,
+      "unit": "ед.",
+      "item": "rod_of_atos",
+      "item_name": "Rod of Atos",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Abyssal Blade?",
+      "answer": 26.0,
+      "unit": "ед.",
+      "item": "abyssal_blade",
+      "item_name": "Abyssal Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько силы даёт Havoc Hammer?",
+      "answer": 14.0,
+      "unit": "ед.",
+      "item": "havoc_hammer",
+      "item_name": "Havoc Hammer",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько ловкости даёт Diffusal Blade?",
+      "answer": 25.0,
+      "unit": "ед.",
+      "item": "diffusal_blade_2",
+      "item_name": "Diffusal Blade",
+      "category": "stat_bonus"
+    },
+    {
+      "type": "closest_number",
+      "question": "Сколько интеллекта даёт Diffusal Blade?",
+      "answer": 10.0,
+      "unit": "ед.",
+      "item": "diffusal_blade_2",
+      "item_name": "Diffusal Blade",
+      "category": "stat_bonus"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+<h2>Секция 3: Модель данных и события Socket.IO</h2>
+<p class="subtitle">Что хранится на сервере и как клиент с ним общается</p>
+
+<div class="section">
+  <h3>Игровое состояние (in-memory, сервер)</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="mockup">
+      <div class="mockup-header">Game</div>
+      <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2;">
+        id: string<br>
+        phase: GamePhase<br>
+        roundIndex: number<br>
+        lastMainMode: 'all' | 'gladiator'<br>
+        currentQuestion: Question<br>
+        gladiatorId?: string<br>
+        players: Player[]<br>
+        phaseTimer: number
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">Player</div>
+      <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2;">
+        id: string (socket.id)<br>
+        name: string<br>
+        coins: number<br>
+        currentBet: number<br>
+        betTarget?: 'win' | 'lose'<br>
+        &nbsp;&nbsp;(только для гладиатора)<br>
+        answer?: string | number | string[]<br>
+        hasAnswered: boolean
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+    <div class="mockup">
+      <div class="mockup-header">Question (JSON-банк)</div>
+      <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2;">
+        id: string<br>
+        mode: 'all'|'gladiator'|'closest'|'top5'<br>
+        topic: string<br>
+        text: string<br>
+        options?: string[] &nbsp;&nbsp;<span style="color:#aaa">// A/B/C/D</span><br>
+        answer: string | number | string[]<br>
+        numericAnswer?: number<br>
+        items?: string[] &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#aaa">// для топ5</span>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">GamePhase (enum)</div>
+      <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2;">
+        LOBBY<br>
+        ANNOUNCE &nbsp;&nbsp;&nbsp;<span style="color:#ffd700">← тема/режим</span><br>
+        BETTING &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffd700">← ставки</span><br>
+        QUESTION &nbsp;&nbsp;&nbsp;<span style="color:#ffd700">← вопрос+ответ</span><br>
+        REVEAL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffd700">← итоги раунда</span><br>
+        LEADERBOARD<br>
+        GAME_OVER
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>События Socket.IO</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="mockup">
+      <div class="mockup-header">Client → Server</div>
+      <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2.2;">
+        <span style="color:#6af">join_game</span> { name, gameCode }<br>
+        <span style="color:#6af">place_bet</span> { amount, target? }<br>
+        <span style="color:#6af">submit_answer</span> { answer }<br>
+        <span style="color:#6af">start_game</span> <span style="color:#aaa">← от первого игрока</span>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">Server → Client (broadcast)</div>
+      <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2.2;">
+        <span style="color:#fa6">game_state</span> { phase, players, question… }<br>
+        <span style="color:#fa6">phase_changed</span> { phase, timeLeft }<br>
+        <span style="color:#fa6">bet_updated</span> { playerId, amount }<br>
+        <span style="color:#fa6">player_answered</span> { playerId }<br>
+        <span style="color:#fa6">round_results</span> { deltas[], winners[] }<br>
+        <span style="color:#fa6">game_over</span> { winner }
+      </div>
+    </div>
+  </div>
+  <div class="mockup" style="margin-top:12px;">
+    <div class="mockup-header">Принцип: один большой game_state</div>
+    <div class="mockup-body" style="font-size:13px;line-height:1.8;">
+      При каждой смене фазы сервер шлёт полный <strong>game_state</strong> — клиент просто рендерит то, что пришло.<br>
+      Мелкие события (bet_updated, player_answered) — только для живых анимаций (фишки, галочки).<br>
+      Так клиент никогда не теряет синхронизацию.
+    </div>
+  </div>
+</div>

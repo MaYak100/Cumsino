@@ -1,0 +1,64 @@
+<h2>Секция 1: Стек и структура проекта</h2>
+<p class="subtitle">Монорепо с двумя приложениями и общими типами</p>
+
+<div class="section">
+  <h3>Структура репозитория</h3>
+  <div class="mockup">
+    <div class="mockup-header">cumsino/ (GitHub repo)</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:2;">
+      📁 <strong>client/</strong> &nbsp;&nbsp;&nbsp;← Vite + React + TypeScript<br>
+      &nbsp;&nbsp;src/components/ &nbsp;&nbsp;&nbsp;← UI компоненты (экраны игры)<br>
+      &nbsp;&nbsp;src/hooks/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← useSocket, useGame<br>
+      &nbsp;&nbsp;src/store/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Zustand (состояние клиента)<br>
+      📁 <strong>server/</strong> &nbsp;&nbsp;&nbsp;← Node.js + Express + Socket.IO<br>
+      &nbsp;&nbsp;src/game/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← GameEngine, RoundManager<br>
+      &nbsp;&nbsp;src/socket/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← обработчики событий<br>
+      &nbsp;&nbsp;questions.json &nbsp;&nbsp;← банк вопросов<br>
+      📁 <strong>shared/</strong> &nbsp;&nbsp;&nbsp;← общие TypeScript типы<br>
+      &nbsp;&nbsp;types.ts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← GameState, Player, Question…
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Технологии</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
+    <div class="mockup">
+      <div class="mockup-header">Client</div>
+      <div class="mockup-body" style="font-size:13px;line-height:2;">
+        <strong>Vite + React + TypeScript</strong><br>
+        TailwindCSS — стили<br>
+        Framer Motion — анимации фишек<br>
+        Socket.IO client — реалтайм<br>
+        Zustand — глобальный стейт<br>
+        <em>Деплой: GitHub Pages</em>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">Server</div>
+      <div class="mockup-body" style="font-size:13px;line-height:2;">
+        <strong>Node.js + Express + TypeScript</strong><br>
+        Socket.IO — WebSocket сервер<br>
+        In-memory state — игровое состояние<br>
+        (никакой БД не нужно)<br>
+        <br>
+        <em>Деплой: Render.com (бесплатно)</em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Как подключаются игроки</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-size:13px;line-height:2;text-align:center;">
+      Игрок открывает сайт на GitHub Pages<br>
+      ↓<br>
+      Вводит имя + код комнаты<br>
+      ↓<br>
+      WebSocket соединение с Render.com<br>
+      ↓<br>
+      Все 4–7 игроков в одной игровой сессии
+    </div>
+  </div>
+</div>

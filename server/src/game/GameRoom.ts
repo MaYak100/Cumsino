@@ -24,7 +24,7 @@ export class GameRoom extends EventEmitter {
     super()
     this.id = id
     this.questions = questions
-    this.selector = new RoundSelector(['closest', 'top5'])
+    this.selector = new RoundSelector(['closest'])
   }
 
   addPlayer(id: string, name: string) {
@@ -40,6 +40,10 @@ export class GameRoom extends EventEmitter {
   removePlayer(id: string) {
     this.players.delete(id)
     this.broadcastState()
+  }
+
+  destroy() {
+    clearTimeout(this.phaseTimer)
   }
 
   start() {

@@ -1,0 +1,67 @@
+<h2>Архитектурные подходы</h2>
+<p class="subtitle">Выбери подход для реализации мультиплеерной викторины</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Монорепо: Vite + React / Express + Socket.IO ⭐ Рекомендую</h3>
+      <p>Два отдельных приложения в одном репозитории.</p>
+      <div class="mockup" style="margin-top:12px;font-size:13px;">
+        <div class="mockup-header">Структура</div>
+        <div class="mockup-body" style="font-family:monospace;line-height:1.8;">
+          /client → Vite + React (деплой на GitHub Pages)<br>
+          /server → Node.js + Express + Socket.IO<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(деплой на Render.com бесплатно)<br>
+          /shared → общие типы и константы
+        </div>
+      </div>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Простой стек, много туториалов</li><li>Socket.IO — идеален для игр</li><li>Frontend и backend независимы</li><li>Бесплатный деплой</li></ul></div>
+        <div class="cons"><h4>Минусы</h4><ul><li>Render.com засыпает (15 мин простоя)</li><li>Нужно управлять двумя приложениями</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Full-stack: Next.js + WS через Ably/Pusher</h3>
+      <p>Next.js обслуживает и фронт, и API. WebSockets через внешний сервис.</p>
+      <div class="mockup" style="margin-top:12px;font-size:13px;">
+        <div class="mockup-header">Структура</div>
+        <div class="mockup-body" style="font-family:monospace;line-height:1.8;">
+          /app → Next.js (всё в одном)<br>
+          &nbsp;&nbsp;/api → REST + WS через Ably SDK<br>
+          &nbsp;&nbsp;/components → React компоненты<br>
+          Деплой: Vercel (бесплатно)
+        </div>
+      </div>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Один деплой (Vercel)</li><li>Не засыпает</li></ul></div>
+        <div class="cons"><h4>Минусы</h4><ul><li>Ably — внешняя зависимость</li><li>Игровое состояние — где хранить?</li><li>Serverless плохо держит сессию</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Всё локально + ngrok-тоннель</h3>
+      <p>Сервер на твоей машине, ngrok пробрасывает публичный URL для друзей.</p>
+      <div class="mockup" style="margin-top:12px;font-size:13px;">
+        <div class="mockup-header">Структура</div>
+        <div class="mockup-body" style="font-family:monospace;line-height:1.8;">
+          /client → Vite + React (билд раздаёт сервер)<br>
+          /server → Node.js + Socket.IO<br>
+          ngrok → публичный URL для друзей<br>
+          Деплой: никакого, запускаешь сам
+        </div>
+      </div>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Нет ограничений по сну</li><li>Полный контроль</li><li>Самый простой деплой</li></ul></div>
+        <div class="cons"><h4>Минусы</h4><ul><li>Твой ПК должен быть включён</li><li>ngrok бесплатно — случайный URL</li><li>Нет постоянной ссылки</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>

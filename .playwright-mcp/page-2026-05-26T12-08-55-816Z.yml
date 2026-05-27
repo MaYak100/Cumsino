@@ -1,0 +1,11 @@
+- generic [ref=e4]:
+  - heading "♠ CUMSINO ♠" [level=1] [ref=e5]
+  - paragraph [ref=e6]: Викторина со ставками
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]: Твоё имя
+      - textbox "Введи имя" [ref=e10]
+    - generic [ref=e11]:
+      - generic [ref=e12]: Код комнаты
+      - textbox "XXXX" [ref=e13]
+    - button "ВОЙТИ В ИГРУ" [disabled] [ref=e14]

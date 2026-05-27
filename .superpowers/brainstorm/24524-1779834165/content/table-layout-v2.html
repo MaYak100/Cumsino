@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стол v2 + тема</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0f172a; color: #e0e0e0; font-family: system-ui, sans-serif; padding: 24px; }
+h2 { text-align: center; color: #fbbf24; margin-bottom: 6px; font-size: 1.2rem; }
+.subtitle { text-align: center; color: #6b7280; font-size: 0.85rem; margin-bottom: 28px; }
+
+/* ---- TABLE MOCKUP ---- */
+.table-scene {
+  position: relative;
+  width: 580px;
+  height: 480px;
+  margin: 0 auto 32px;
+}
+
+/* Зелёное полотно */
+.felt {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; height: 200px;
+  background: radial-gradient(ellipse at center, #1a5c1a 0%, #0d3d0d 80%);
+  border-radius: 100px;
+  border: 6px solid #0a2d0a;
+  box-shadow: 0 0 0 8px #4a3000, 0 0 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.4);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pot-label {
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.8rem;
+}
+.pot-label .amount { color: #fbbf24; font-size: 1.1rem; font-weight: bold; display: block; }
+
+/* Фишки в центре банка */
+.pot-chips-area {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+/* Карточка игрока — горизонтальный прямоугольник */
+.player-card {
+  position: absolute;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 2px solid #334155;
+  border-radius: 10px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 3;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.player-card.me {
+  border-color: #fbbf24;
+  background: linear-gradient(135deg, #1c2a0e, #0f1a0a);
+  box-shadow: 0 0 20px rgba(251,191,36,0.2), 0 4px 16px rgba(0,0,0,0.5);
+}
+.player-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  min-width: 80px;
+}
+.player-card.me .player-name { color: #fbbf24; }
+
+/* Стек фишек (одинаковые — стопкой) */
+.chip-stack {
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
+}
+.stack {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chip {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.5rem; font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.25);
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.chip:hover { transform: scale(1.12); }
+.chip.small { width: 22px; height: 22px; font-size: 0.45rem; }
+
+/* Стопка: каждая следующая чипа немного выше */
+.stack .chip { margin-bottom: -20px; }
+.stack .chip:last-child { margin-bottom: 0; }
+
+.c10  { background: linear-gradient(135deg, #d1d5db, #6b7280); color: #111; }
+.c20  { background: linear-gradient(135deg, #4ade80, #15803d); color: #fff; }
+.c50  { background: linear-gradient(135deg, #60a5fa, #1d4ed8); color: #fff; }
+.c100 { background: linear-gradient(135deg, #f87171, #b91c1c); color: #fff; }
+.c500 { background: linear-gradient(135deg, #374151, #111827); color: #fbbf24; }
+
+/* Позиции карточек вокруг стола */
+/* 5 игроков: верх, верх-лево, верх-право, низ-лево, Я-низ */
+.pos-top    { top: 20px;  left: 50%; transform: translateX(-50%); }
+.pos-tl     { top: 100px; left: 10px; }
+.pos-tr     { top: 100px; right: 10px; }
+.pos-bl     { bottom: 80px; left: 10px; }
+.pos-me     { bottom: 14px; left: 50%; transform: translateX(-50%); }
+
+/* Линии от карточек к столу */
+.connector {
+  position: absolute;
+  background: rgba(255,255,255,0.06);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- ТЕМА ---- */
+.section-title {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.theme-cards {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.theme-card {
+  width: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #334155;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.theme-card:hover { transform: translateY(-3px); border-color: #64748b; }
+.theme-card.selected { border-color: #fbbf24 !important; }
+.theme-preview {
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: rgba(255,255,255,0.6);
+}
+/* Мини-стол внутри превью темы */
+.mini-felt {
+  width: 60px; height: 36px;
+  background: radial-gradient(ellipse, #1a5c1a, #0d3d0d);
+  border-radius: 20px;
+  border: 3px solid #0a2d0a;
+  box-shadow: 0 0 0 3px #4a3000;
+}
+.theme-label {
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.theme-sublabel {
+  padding: 0 10px 8px;
+  font-size: 0.68rem;
+  color: #6b7280;
+}
+
+/* Тема A: Deep Night */
+.theme-night { background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%); }
+.theme-night .theme-label { background: #0f172a; color: #a5b4fc; }
+.theme-night .theme-sublabel { background: #0f172a; }
+
+/* Тема B: Noir Gold */
+.theme-noir { background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%); }
+.theme-noir .theme-label { background: #0a0a0a; color: #fbbf24; }
+.theme-noir .theme-sublabel { background: #0a0a0a; }
+
+/* Тема C: Deep Red */
+.theme-red { background: linear-gradient(160deg, #150a0a 0%, #1f0d0d 100%); }
+.theme-red .theme-label { background: #150a0a; color: #fca5a5; }
+.theme-red .theme-sublabel { background: #150a0a; }
+
+.choice-letter {
+  display: inline-block;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  float: right;
+  margin: 6px 8px 0 0;
+}
+</style>
+</head>
+<body>
+
+<h2>Обновлённый стол + выбор темы</h2>
+<p class="subtitle">Горизонтальные карточки, стопки фишек. Зелёное полотно — всегда, фон — на выбор.</p>
+
+<!-- СТОЛ МОКАП -->
+<div class="table-scene">
+
+  <!-- Зелёное полотно -->
+  <div class="felt">
+    <div class="pot-label">
+      БАНК<span class="amount">150</span>
+    </div>
+  </div>
+
+  <!-- Фишки уже поставленные в банк -->
+  <div class="pot-chips-area">
+    <div class="stack">
+      <div class="chip c100 small">100</div>
+      <div class="chip c100 small">100</div>
+    </div>
+    <div class="stack">
+      <div class="chip c50 small">50</div>
+    </div>
+  </div>
+
+  <!-- Игрок сверху -->
+  <div class="player-card pos-top">
+    <div class="player-name">Александра</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Верх-слева -->
+  <div class="player-card pos-tl">
+    <div class="player-name">Максим</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c20">20</div>
+        <div class="chip c20">20</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Верх-справа -->
+  <div class="player-card pos-tr">
+    <div class="player-name">Дмитрий</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Низ-слева -->
+  <div class="player-card pos-bl">
+    <div class="player-name">Настя</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+      </div>
+      <div class="stack">
+        <div class="chip c10">10</div>
+        <div class="chip c10">10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Я — снизу -->
+  <div class="player-card pos-me me">
+    <div class="player-name">Ты (Ярослав)</div>
+    <div class="chip-stack">
+      <div class="stack">
+        <div class="chip c500">500</div>
+        <div class="chip c500">500</div>
+      </div>
+      <div class="stack">
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+        <div class="chip c100">100</div>
+      </div>
+      <div class="stack">
+        <div class="chip c50">50</div>
+        <div class="chip c50">50</div>
+      </div>
+      <div class="stack">
+        <div class="chip c20">20</div>
+        <div class="chip c20">20</div>
+        <div class="chip c20">20</div>
+      </div>
+      <div class="stack">
+        <div class="chip c10">10</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ВЫБОР ТЕМЫ -->
+<div class="section-title">Теперь выбери общую тему интерфейса (стол всегда зелёный)</div>
+
+<div class="theme-cards">
+
+  <div class="theme-card" data-choice="night" onclick="pickTheme(this)">
+    <div class="theme-preview theme-night">
+      <div class="mini-felt"></div>
+      <span>Deep Night</span>
+    </div>
+    <span class="choice-letter">A</span>
+    <div class="theme-label">Полночный синий</div>
+    <div class="theme-sublabel">Тёмно-синий / индиго. Холодный, атмосферный, чуть мистический.</div>
+  </div>
+
+  <div class="theme-card" data-choice="noir" onclick="pickTheme(this)">
+    <div class="theme-preview theme-noir">
+      <div class="mini-felt"></div>
+      <span>Noir Gold</span>
+    </div>
+    <span class="choice-letter">B</span>
+    <div class="theme-label">Чёрный с золотом</div>
+    <div class="theme-sublabel">Чистый чёрный фон, золотые акценты. Классика люкс-казино.</div>
+  </div>
+
+  <div class="theme-card" data-choice="red" onclick="pickTheme(this)">
+    <div class="theme-preview theme-red">
+      <div class="mini-felt"></div>
+      <span>Deep Red</span>
+    </div>
+    <span class="choice-letter">C</span>
+    <div class="theme-label">Тёмно-красный</div>
+    <div class="theme-sublabel">Багровый фон с золотом. Агрессивно, как гладиаторская арена.</div>
+  </div>
+
+</div>
+
+<script>
+function pickTheme(el) {
+  document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (window.recordChoice) recordChoice(el.dataset.choice, el.querySelector('.theme-label').textContent);
+}
+</script>
+</body>
+</html>

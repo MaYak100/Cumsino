@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стол v4 — Noir + стопки вверх</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: radial-gradient(ellipse at 50% 30%, #1a1400 0%, #080808 70%);
+  color: #e0e0e0;
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h2 { text-align:center; color:#fbbf24; margin-bottom:4px; font-size:1.1rem; }
+.subtitle { text-align:center; color:#4b5563; font-size:0.78rem; margin-bottom:20px; }
+
+/* ══ СЦЕНА ══ */
+.scene {
+  position: relative;
+  width: 700px;
+  height: 540px;
+  margin: 0 auto;
+}
+
+/* Зелёное полотно */
+.felt {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px; height: 210px;
+  background: radial-gradient(ellipse at 40% 40%, #22721a 0%, #0e4010 60%, #091f09 100%);
+  border-radius: 120px;
+  border: 8px solid #071a07;
+  box-shadow:
+    0 0 0 12px #3d2600,
+    0 0 0 16px #1a1000,
+    0 8px 60px rgba(0,0,0,0.95),
+    inset 0 0 50px rgba(0,0,0,0.6);
+  z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.pot-info {
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+.pot-label { font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+.pot-amount { font-size: 1.1rem; font-weight: bold; color: #fbbf24; display: block; margin-top: 2px; }
+
+/* Фишки в банке (анимационная позиция) */
+.pot-chips {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-40%, -65%);
+  z-index: 3;
+  display: flex; gap: 4px; align-items: flex-end;
+}
+
+/* ══ КАРТОЧКА ИГРОКА ══ */
+.player-unit {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 4;
+}
+
+.player-card {
+  background: linear-gradient(135deg, #141414, #0d0d0d);
+  border: 1.5px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 7px 16px;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+.player-card.me {
+  border-color: #fbbf24;
+  background: linear-gradient(135deg, #161200, #0d0d00);
+  box-shadow: 0 0 16px rgba(251,191,36,0.15), 0 4px 20px rgba(0,0,0,0.7);
+}
+
+.player-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #c0c0c0;
+  letter-spacing: 0.01em;
+}
+.player-card.me .player-name { color: #fbbf24; }
+
+/* ══ СТОПКИ ФИШЕК ══ */
+.chip-stack-row {
+  display: flex;
+  align-items: flex-end;   /* выравнивание по нижнему краю = все стопки растут вверх */
+  gap: 5px;
+  padding-bottom: 4px;
+}
+
+/* Одна стопка — позиционируется вверх */
+.stack-wrap {
+  position: relative;
+  width: 26px;
+  /* высота определяется JS */
+}
+
+/* Одна фишка */
+.chip {
+  position: absolute;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.44rem; font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.18);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: transform 0.12s;
+  user-select: none;
+}
+.chip:hover { transform: scale(1.15) translateY(-3px); }
+
+.c10  { background: linear-gradient(145deg,#d4d8dc,#707880); color:#111; }
+.c20  { background: linear-gradient(145deg,#4ade80,#16a34a); color:#fff; }
+.c50  { background: linear-gradient(145deg,#60a5fa,#1d4ed8); color:#fff; }
+.c100 { background: linear-gradient(145deg,#f87171,#b91c1c); color:#fff; }
+.c500 { background: linear-gradient(145deg,#52525b,#18181b); color:#fbbf24; border-color: rgba(251,191,36,0.3); }
+
+.chip.sm { width:22px; height:22px; font-size:0.4rem; }
+
+/* Позиции вокруг стола (5 игроков + я) */
+/* Сцена 700×540, центр стола ~(350, 270) */
+.pos-top    { top:10px;  left:50%; transform:translateX(-50%); }
+.pos-tl     { top:100px; left:14px; }
+.pos-tr     { top:100px; right:14px; }
+.pos-bl     { bottom:100px; left:14px; }
+.pos-br     { bottom:100px; right:14px; }
+.pos-me     { bottom:8px; left:50%; transform:translateX(-50%); }
+
+/* ══ ПОДСКАЗКА ══ */
+.hint-bar {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: #4b5563;
+}
+.hint-bar span { color: #fbbf24; }
+</style>
+</head>
+<body>
+<h2>Стол — Noir Gold · Стопки растут вверх</h2>
+<p class="subtitle">Одинаковые фишки складываются вверх. Кликни на фишку — она летит к центру.</p>
+
+<div class="scene" id="scene">
+  <!-- Зелёное полотно -->
+  <div class="felt">
+    <div class="pot-info">
+      <div class="pot-label">банк</div>
+      <span class="pot-amount">150</span>
+    </div>
+  </div>
+
+  <!-- Фишки в банке (поставленные) -->
+  <div class="pot-chips" id="potChips"></div>
+
+  <!-- Игроки — рендерятся JS-ом ниже -->
+</div>
+
+<div class="hint-bar">
+  <span>Клик по фишке</span> → перемещается к банку с анимацией · <span>Ещё клик</span> → возврат
+</div>
+
+<script>
+const CHIP_COLORS = { 10:'c10', 20:'c20', 50:'c50', 100:'c100', 500:'c500' };
+const CHIP_OVERLAP = 16;  // перекрытие в пикселях (фишка 26px, шаг 10px)
+const CHIP_SIZE = 26;
+
+/* Строим DOM стопки (фишки растут вверх от bottom:0) */
+function buildStack(denom, count) {
+  const wrap = document.createElement('div');
+  wrap.className = 'stack-wrap';
+  const totalH = CHIP_SIZE + (count - 1) * (CHIP_SIZE - CHIP_OVERLAP);
+  wrap.style.height = totalH + 'px';
+
+  for (let i = 0; i < count; i++) {
+    const chip = document.createElement('div');
+    chip.className = `chip ${CHIP_COLORS[denom]}`;
+    chip.textContent = denom;
+    // i=0 → основание (bottom:0), i=count-1 → верхушка
+    chip.style.bottom = (i * (CHIP_SIZE - CHIP_OVERLAP)) + 'px';
+    chip.style.zIndex = i + 1;
+    chip.title = denom;
+    wrap.appendChild(chip);
+  }
+  return wrap;
+}
+
+function buildChipRow(stacks) {
+  // stacks = [{denom, count}, ...]
+  const row = document.createElement('div');
+  row.className = 'chip-stack-row';
+  stacks.forEach(({ denom, count }) => {
+    if (count > 0) row.appendChild(buildStack(denom, count));
+  });
+  return row;
+}
+
+function buildPlayer(name, stacks, posClass, isMe) {
+  const unit = document.createElement('div');
+  unit.className = 'player-unit ' + posClass;
+
+  const chipRow = buildChipRow(stacks);
+
+  const card = document.createElement('div');
+  card.className = 'player-card' + (isMe ? ' me' : '');
+  card.innerHTML = `<div class="player-name">${name}</div>`;
+
+  // Стопки — НАД карточкой
+  unit.appendChild(chipRow);
+  unit.appendChild(card);
+
+  return unit;
+}
+
+const players = [
+  { name: 'Александра К.',  pos: 'pos-top', stacks: [{denom:500,count:3},{denom:100,count:2},{denom:50,count:1}] },
+  { name: 'Максим П.',      pos: 'pos-tl',  stacks: [{denom:500,count:1},{denom:100,count:3},{denom:20,count:2}] },
+  { name: 'Дмитрий В.',     pos: 'pos-tr',  stacks: [{denom:500,count:2},{denom:50,count:3}] },
+  { name: 'Анастасия Р.',   pos: 'pos-bl',  stacks: [{denom:100,count:1},{denom:50,count:3},{denom:10,count:2}] },
+  { name: 'Никита Л.',      pos: 'pos-br',  stacks: [{denom:500,count:1},{denom:100,count:2},{denom:20,count:3}] },
+  { name: 'Ты (Ярослав)',   pos: 'pos-me',  stacks: [{denom:500,count:2},{denom:100,count:4},{denom:50,count:2},{denom:20,count:3},{denom:10,count:1}], isMe: true },
+];
+
+const scene = document.getElementById('scene');
+players.forEach(p => {
+  scene.appendChild(buildPlayer(p.name, p.stacks, p.pos, p.isMe));
+});
+
+// Несколько фишек уже в банке
+const potEl = document.getElementById('potChips');
+potEl.appendChild(buildStack(100, 2));
+potEl.appendChild(buildStack(50, 1));
+</script>
+</body>
+</html>

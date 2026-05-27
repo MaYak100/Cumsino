@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI Экраны v2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1f0d; color: #e8d9b0; font-family: 'Georgia', serif; padding: 24px; }
+  h2 { color: #ffd700; font-size: 22px; margin-bottom: 6px; }
+  .subtitle { color: #aaa; margin-bottom: 20px; font-size: 14px; }
+  h3 { color: #ffd700; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .screens { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .screen { background: #1a3a1a; border: 1px solid #3a6a3a; border-radius: 12px; overflow: hidden; }
+  .screen-label { background: #0d2a0d; padding: 8px 14px; font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #3a6a3a; }
+
+  .lobby { padding: 20px; text-align: center; }
+  .game-title { font-size: 28px; color: #ffd700; text-shadow: 0 0 20px #ffd70088; margin-bottom: 4px; }
+  .game-code { font-size: 36px; color: #fff; letter-spacing: 8px; margin: 10px 0; font-family: monospace; }
+  .player-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0; }
+  .player-tag { background: #2a5a2a; border: 1px solid #4a9a4a; border-radius: 20px; padding: 4px 14px; font-size: 12px; }
+  .btn { background: linear-gradient(135deg, #ffd700, #ff9900); color: #000; border: none; padding: 10px 28px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; margin-top: 8px; }
+
+  .betting { padding: 16px; }
+  .topic-badge { background: #2a4a2a; border: 1px solid #4a7a4a; border-radius: 8px; padding: 8px 14px; text-align: center; margin-bottom: 12px; }
+  .topic-badge .label { font-size: 10px; color: #aaa; text-transform: uppercase; }
+  .topic-badge .topic { font-size: 16px; color: #ffd700; margin-top: 2px; }
+  .chips-row { display: flex; gap: 6px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
+  .chip { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 11px; cursor: pointer; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 3px 8px rgba(0,0,0,0.5); }
+  .chip-10  { background: radial-gradient(circle at 35% 35%, #e0e0e0, #999); color: #333; }
+  .chip-20  { background: radial-gradient(circle at 35% 35%, #6adb6a, #2a8a2a); color: #fff; }
+  .chip-50  { background: radial-gradient(circle at 35% 35%, #4a9fff, #1a5fcc); color: #fff; }
+  .chip-100 { background: radial-gradient(circle at 35% 35%, #ff6060, #cc1a1a); color: #fff; }
+  .chip-500 { background: radial-gradient(circle at 35% 35%, #333, #000); color: #ffd700; }
+  .bet-display { background: #0d2a0d; border: 1px solid #4a7a4a; border-radius: 8px; padding: 10px; text-align: center; margin-top: 8px; }
+  .bet-amount { font-size: 26px; color: #ffd700; font-family: monospace; }
+
+  .gladiator { padding: 16px; }
+  .glad-name { font-size: 22px; color: #ffd700; text-align: center; margin-bottom: 4px; }
+  .baskets { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .basket { border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; border: 2px solid transparent; }
+  .basket-win { background: #1a4a1a; border-color: #4a9a4a; }
+  .basket-lose { background: #4a1a1a; border-color: #9a4a4a; }
+  .basket-emoji { font-size: 24px; }
+  .basket-label { font-size: 12px; font-weight: bold; margin: 4px 0; }
+  .basket-pool { font-size: 10px; color: #aaa; }
+
+  .results { padding: 16px; }
+  .result-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; background: #1a3a1a; border: 1px solid #3a5a3a; }
+  .result-name { font-size: 13px; }
+  .result-delta { font-size: 14px; font-weight: bold; font-family: monospace; }
+  .result-total { font-size: 11px; color: #aaa; }
+  .delta-pos { color: #4aff4a; }
+  .delta-neg { color: #ff4a4a; }
+  .timer { background: #ffd700; color: #000; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+
+  .chip-legend { display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 16px; padding: 12px; background: #1a3a1a; border-radius: 10px; border: 1px solid #3a6a3a; }
+  .chip-item { text-align: center; }
+  .chip-item .chip { width: 44px; height: 44px; font-size: 10px; margin: 0 auto 4px; }
+  .chip-item .chip-name { font-size: 10px; color: #aaa; }
+</style>
+</head>
+<body>
+  <h2>Секция 4 (v2): Экраны + полный набор фишек</h2>
+  <p class="subtitle">Добавлена фишка 20 🟢 — итого 5 номиналов</p>
+
+  <div class="chip-legend">
+    <div class="chip-item">
+      <div class="chip chip-10">10</div>
+      <div class="chip-name">Белая</div>
+    </div>
+    <div class="chip-item">
+      <div class="chip chip-20">20</div>
+      <div class="chip-name">Зелёная</div>
+    </div>
+    <div class="chip-item">
+      <div class="chip chip-50">50</div>
+      <div class="chip-name">Синяя</div>
+    </div>
+    <div class="chip-item">
+      <div class="chip chip-100">100</div>
+      <div class="chip-name">Красная</div>
+    </div>
+    <div class="chip-item">
+      <div class="chip chip-500">500</div>
+      <div class="chip-name">Чёрная</div>
+    </div>
+  </div>
+
+  <div style="height:20px;"></div>
+
+  <div class="screens">
+    <div class="screen">
+      <div class="screen-label">Лобби — ожидание игроков</div>
+      <div class="lobby">
+        <div class="game-title">♠ CUMSINO ♠</div>
+        <div style="font-size:11px;color:#aaa;margin-bottom:6px;">Код комнаты:</div>
+        <div class="game-code">X7K3</div>
+        <div style="font-size:11px;color:#aaa;margin-bottom:6px;">Игроки (4/7):</div>
+        <div class="player-list">
+          <div class="player-tag">👑 Дима</div>
+          <div class="player-tag">Вася</div>
+          <div class="player-tag">Петя</div>
+          <div class="player-tag">Маша</div>
+        </div>
+        <button class="btn">▶ НАЧАТЬ ИГРУ</button>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="screen-label">Фаза ставок — все 5 фишек</div>
+      <div class="betting">
+        <div class="timer">⏱ 28 сек</div>
+        <div class="topic-badge">
+          <div class="label">Тема раунда</div>
+          <div class="topic">🎬 Кинематограф 90-х</div>
+        </div>
+        <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:4px;">Выбери фишки для ставки:</div>
+        <div class="chips-row">
+          <div class="chip chip-10">10</div>
+          <div class="chip chip-20">20</div>
+          <div class="chip chip-50">50</div>
+          <div class="chip chip-100">100</div>
+          <div class="chip chip-500">500</div>
+        </div>
+        <div class="bet-display">
+          <div style="font-size:10px;color:#aaa;text-transform:uppercase;">Твоя ставка</div>
+          <div class="bet-amount">250 🪙</div>
+          <div style="font-size:10px;color:#aaa;margin-top:2px;">Баланс: 750 🪙</div>
+        </div>
+        <button class="btn" style="width:100%;margin-top:10px;">✓ ПОДТВЕРДИТЬ СТАВКУ</button>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="screen-label">Гладиатор — ставки толпы</div>
+      <div class="gladiator">
+        <div class="timer">⏱ 22 сек</div>
+        <div style="font-size:11px;color:#aaa;text-align:center;">Гладиатор сегодня:</div>
+        <div class="glad-name">⚔️ Петя</div>
+        <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:4px;">Вопрос: «Столицы государств»</div>
+        <div style="font-size:12px;text-align:center;margin-bottom:10px;">Правильный ответ: <strong style="color:#ffd700">Астана</strong></div>
+        <div class="baskets">
+          <div class="basket basket-win">
+            <div class="basket-emoji">👍</div>
+            <div class="basket-label">ОН ОТВЕТИТ</div>
+            <div class="basket-pool">В корзине: 320 🪙</div>
+            <div class="chips-row" style="margin-top:8px;">
+              <div class="chip chip-20" style="width:34px;height:34px;font-size:9px;">20</div>
+              <div class="chip chip-100" style="width:34px;height:34px;font-size:9px;">100</div>
+            </div>
+          </div>
+          <div class="basket basket-lose">
+            <div class="basket-emoji">💀</div>
+            <div class="basket-label">ОН ЗАВАЛИТ</div>
+            <div class="basket-pool">В корзине: 150 🪙</div>
+            <div class="chips-row" style="margin-top:8px;">
+              <div class="chip chip-50" style="width:34px;height:34px;font-size:9px;">50</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="screen-label">Итоги раунда</div>
+      <div class="results">
+        <div style="text-align:center;font-size:16px;color:#ffd700;margin-bottom:12px;">🏆 Результаты раунда</div>
+        <div class="result-row" style="background:#1a4a1a;border-color:#4a9a4a;">
+          <div>
+            <div class="result-name">👑 Дима</div>
+            <div class="result-total">Баланс: 1450 🪙</div>
+          </div>
+          <div class="result-delta delta-pos">+700</div>
+        </div>
+        <div class="result-row">
+          <div>
+            <div class="result-name">Маша</div>
+            <div class="result-total">Баланс: 380 🪙</div>
+          </div>
+          <div class="result-delta delta-pos">+80</div>
+        </div>
+        <div class="result-row">
+          <div>
+            <div class="result-name">Вася</div>
+            <div class="result-total">Баланс: 250 🪙</div>
+          </div>
+          <div class="result-delta delta-neg">−250</div>
+        </div>
+        <div class="result-row">
+          <div>
+            <div class="result-name">Петя</div>
+            <div class="result-total">Баланс: 120 🪙</div>
+          </div>
+          <div class="result-delta delta-neg">−380</div>
+        </div>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:#aaa;">Следующий раунд через 5 сек…</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

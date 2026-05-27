@@ -1,0 +1,7318 @@
+[
+  {
+    "type": "closest_number",
+    "question": "Сколько урона/лечения даёт Mist Coil Abaddon на {level} уровне?",
+    "answers": [
+      95,
+      170,
+      245,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "abaddon",
+    "hero_name": "Abaddon",
+    "ability": "abaddon_death_coil",
+    "ability_name": "Mist Coil",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % своего HP тратит Abaddon при касте Mist Coil?",
+    "options": [
+      "40%",
+      "25%",
+      "50%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "abaddon",
+    "hero_name": "Abaddon",
+    "ability": "abaddon_death_coil",
+    "ability_name": "Mist Coil",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона поглощает барьер Aphotic Shield Abaddon на {level} уровне?",
+    "answers": [
+      120,
+      150,
+      180,
+      210
+    ],
+    "unit": "ед.",
+    "hero": "abaddon",
+    "hero_name": "Abaddon",
+    "ability": "abaddon_aphotic_shield",
+    "ability_name": "Aphotic Shield",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Curse of Avernus Abaddon на максимальном уровне?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "correct": 0,
+    "hero": "abaddon",
+    "hero_name": "Abaddon",
+    "ability": "abaddon_frostmourne",
+    "ability_name": "Curse of Avernus",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Ниже какого % HP у Borrowed Time Abaddon активируется автоматически?",
+    "options": [
+      "400 HP",
+      "25%",
+      "500 HP",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "abaddon",
+    "hero_name": "Abaddon",
+    "ability": "abaddon_borrowed_time",
+    "ability_name": "Borrowed Time",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько волн наносит Firestorm Underlord?",
+    "answer": 6,
+    "unit": "волн",
+    "hero": "abyssal_underlord",
+    "hero_name": "Underlord",
+    "ability": "abyssal_underlord_firestorm",
+    "ability_name": "Firestorm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % урона от макс. HP наносит Firestorm Underlord за горение на 4 уровне?",
+    "options": [
+      "3%",
+      "2%",
+      "2.5%",
+      "1.5%"
+    ],
+    "correct": 0,
+    "hero": "abyssal_underlord",
+    "hero_name": "Underlord",
+    "ability": "abyssal_underlord_firestorm",
+    "ability_name": "Firestorm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % снижает базовый урон Atrophy Aura Underlord на 4 уровне?",
+    "options": [
+      "32%",
+      "24%",
+      "16%",
+      "8%"
+    ],
+    "correct": 0,
+    "hero": "abyssal_underlord",
+    "hero_name": "Underlord",
+    "ability": "abyssal_underlord_atrophy_aura",
+    "ability_name": "Atrophy Aura",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона даёт Atrophy Aura Underlord за убийство героя на 4 уровне?",
+    "answer": 45,
+    "unit": "ед.",
+    "hero": "abyssal_underlord",
+    "hero_name": "Underlord",
+    "ability": "abyssal_underlord_atrophy_aura",
+    "ability_name": "Atrophy Aura",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько секунд нужно каналировать портал Fiend's Gate Underlord?",
+    "answer": 3.5,
+    "unit": "сек.",
+    "hero": "abyssal_underlord",
+    "hero_name": "Underlord",
+    "ability": "abyssal_underlord_dark_portal",
+    "ability_name": "Fiend's Gate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный стан у Unstable Concoction Alchemist на {level} уровне?",
+    "answers": [
+      1.7,
+      2.2,
+      2.7,
+      3.2
+    ],
+    "unit": "сек.",
+    "hero": "alchemist",
+    "hero_name": "Alchemist",
+    "ability": "alchemist_unstable_concoction",
+    "ability_name": "Unstable Concoction",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимального урона наносит Unstable Concoction Alchemist на {level} уровне?",
+    "answers": [
+      150,
+      220,
+      290,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "alchemist",
+    "hero_name": "Alchemist",
+    "ability": "alchemist_unstable_concoction",
+    "ability_name": "Unstable Concoction",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько секунд длится Chemical Rage Alchemist?",
+    "options": [
+      "30",
+      "20",
+      "25",
+      "15"
+    ],
+    "correct": 0,
+    "hero": "alchemist",
+    "hero_name": "Alchemist",
+    "ability": "alchemist_chemical_rage",
+    "ability_name": "Chemical Rage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой BASE ATTACK TIME у Chemical Rage Alchemist на максимальном уровне?",
+    "answer": 1,
+    "unit": "сек.",
+    "hero": "alchemist",
+    "hero_name": "Alchemist",
+    "ability": "alchemist_chemical_rage",
+    "ability_name": "Chemical Rage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько скоростей замедления на стак даёт Corrosive Weaponry Alchemist на 4 уровне?",
+    "options": [
+      "4%",
+      "3%",
+      "3.5%",
+      "2.5%"
+    ],
+    "correct": 0,
+    "hero": "alchemist",
+    "hero_name": "Alchemist",
+    "ability": "alchemist_corrosive_weaponry",
+    "ability_name": "Corrosive Weaponry",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % увеличивает магический урон Ice Vortex Ancient Apparition на 4 уровне?",
+    "options": [
+      "25%",
+      "22%",
+      "19%",
+      "16%"
+    ],
+    "correct": 0,
+    "hero": "ancient_apparition",
+    "hero_name": "Ancient Apparition",
+    "ability": "ancient_apparition_ice_vortex",
+    "ability_name": "Ice Vortex",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Ниже какого % HP шатает Ice Blast Ancient Apparition при максимальном уровне?",
+    "options": [
+      "14%",
+      "12%",
+      "13%",
+      "10%"
+    ],
+    "correct": 0,
+    "hero": "ancient_apparition",
+    "hero_name": "Ancient Apparition",
+    "ability": "ancient_apparition_ice_blast",
+    "ability_name": "Ice Blast",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько секунд длится Frostbitten от Ice Blast Ancient Apparition на {level} уровне?",
+    "answers": [
+      10,
+      11,
+      12
+    ],
+    "unit": "сек.",
+    "hero": "ancient_apparition",
+    "hero_name": "Ancient Apparition",
+    "ability": "ancient_apparition_ice_blast",
+    "ability_name": "Ice Blast",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны сжигает Mana Break Anti-Mage за удар на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "маны",
+    "hero": "antimage",
+    "hero_name": "Anti-Mage",
+    "ability": "antimage_mana_break",
+    "ability_name": "Mana Break",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % сожжённой маны Mana Break Anti-Mage наносит как урон?",
+    "options": [
+      "50%",
+      "25%",
+      "75%",
+      "100%"
+    ],
+    "correct": 0,
+    "hero": "antimage",
+    "hero_name": "Anti-Mage",
+    "ability": "antimage_mana_break",
+    "ability_name": "Mana Break",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % магической защиты пассивно даёт Counterspell Anti-Mage на 4 уровне?",
+    "options": [
+      "35%",
+      "28%",
+      "21%",
+      "14%"
+    ],
+    "correct": 0,
+    "hero": "antimage",
+    "hero_name": "Anti-Mage",
+    "ability": "antimage_counterspell",
+    "ability_name": "Counterspell",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой мини-стан у Mana Void Anti-Mage?",
+    "answer": 0.3,
+    "unit": "сек.",
+    "hero": "antimage",
+    "hero_name": "Anti-Mage",
+    "ability": "antimage_mana_void",
+    "ability_name": "Mana Void",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Flux Arc Warden на 4 уровне?",
+    "options": [
+      "35%",
+      "28%",
+      "21%",
+      "14%"
+    ],
+    "correct": 0,
+    "hero": "arc_warden",
+    "hero_name": "Arc Warden",
+    "ability": "arc_warden_flux",
+    "ability_name": "Flux",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % шанс уклонения даёт Magnetic Field Arc Warden?",
+    "options": [
+      "100%",
+      "75%",
+      "50%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "arc_warden",
+    "hero_name": "Arc Warden",
+    "ability": "arc_warden_magnetic_field",
+    "ability_name": "Magnetic Field",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Spark Wraith Arc Warden на {level} уровне?",
+    "answers": [
+      100,
+      170,
+      240,
+      310
+    ],
+    "unit": "ед.",
+    "hero": "arc_warden",
+    "hero_name": "Arc Warden",
+    "ability": "arc_warden_spark_wraith",
+    "ability_name": "Spark Wraith",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой максимальный шанс промаха у Tempest Double Arc Warden к концу длительности?",
+    "options": [
+      "35%",
+      "25%",
+      "20%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "arc_warden",
+    "hero_name": "Arc Warden",
+    "ability": "arc_warden_tempest_double",
+    "ability_name": "Tempest Double",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько ударов до срабатывания Counter Helix Axe на 4 уровне?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct": 0,
+    "hero": "axe",
+    "hero_name": "Axe",
+    "ability": "axe_counter_helix",
+    "ability_name": "Counter Helix",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Ниже какого порога HP Culling Blade Axe мгновенно убивает на 3 уровне?",
+    "options": [
+      "475",
+      "375",
+      "275",
+      "550"
+    ],
+    "correct": 0,
+    "hero": "axe",
+    "hero_name": "Axe",
+    "ability": "axe_culling_blade",
+    "ability_name": "Culling Blade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона за убийство героем даёт Culling Blade Axe союзникам (скорость передвижения) на 3 уровне?",
+    "answer": 30,
+    "unit": "ед.",
+    "hero": "axe",
+    "hero_name": "Axe",
+    "ability": "axe_culling_blade",
+    "ability_name": "Culling Blade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % снижает дальность каста Enfeeble Bane?",
+    "options": [
+      "30%",
+      "20%",
+      "25%",
+      "40%"
+    ],
+    "correct": 0,
+    "hero": "bane",
+    "hero_name": "Bane",
+    "ability": "bane_enfeeble",
+    "ability_name": "Enfeeble",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона/лечения даёт Brain Sap Bane на {level} уровне?",
+    "answers": [
+      90,
+      160,
+      230,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "bane",
+    "hero_name": "Bane",
+    "ability": "bane_brain_sap",
+    "ability_name": "Brain Sap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % маны в секунду высасывает Fiend's Grip Bane?",
+    "options": [
+      "5%",
+      "3%",
+      "7%",
+      "10%"
+    ],
+    "correct": 0,
+    "hero": "bane",
+    "hero_name": "Bane",
+    "ability": "bane_fiends_grip",
+    "ability_name": "Fiend's Grip",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Fiend's Grip Bane на {level} уровне?",
+    "answers": [
+      4.75,
+      5.25,
+      5.75
+    ],
+    "unit": "сек.",
+    "hero": "bane",
+    "hero_name": "Bane",
+    "ability": "bane_fiends_grip",
+    "ability_name": "Fiend's Grip",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько стаков Sticky Napalm Batrider добавляет за одно применение?",
+    "answer": 2,
+    "unit": "стака",
+    "hero": "batrider",
+    "hero_name": "Batrider",
+    "ability": "batrider_sticky_napalm",
+    "ability_name": "Sticky Napalm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько максимально стаков Sticky Napalm Batrider?",
+    "options": [
+      "20",
+      "10",
+      "15",
+      "25"
+    ],
+    "correct": 0,
+    "hero": "batrider",
+    "hero_name": "Batrider",
+    "ability": "batrider_sticky_napalm",
+    "ability_name": "Sticky Napalm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Flaming Lasso Batrider на {level} уровне?",
+    "answers": [
+      2.25,
+      2.75,
+      3.25
+    ],
+    "unit": "сек.",
+    "hero": "batrider",
+    "hero_name": "Batrider",
+    "ability": "batrider_flaming_lasso",
+    "ability_name": "Flaming Lasso",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % увеличивает движение Firefly Batrider на максимальном уровне?",
+    "options": [
+      "30%",
+      "24%",
+      "18%",
+      "12%"
+    ],
+    "correct": 0,
+    "hero": "batrider",
+    "hero_name": "Batrider",
+    "ability": "batrider_firefly",
+    "ability_name": "Firefly",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % усиливает Wild Axes Beastmaster входящий урон на {level} уровне?",
+    "answers": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "unit": "%",
+    "hero": "beastmaster",
+    "hero_name": "Beastmaster",
+    "ability": "beastmaster_wild_axes",
+    "ability_name": "Wild Axes",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет яд боара Razorback Beastmaster на 4 уровне?",
+    "options": [
+      "34%",
+      "26%",
+      "18%",
+      "10%"
+    ],
+    "correct": 0,
+    "hero": "beastmaster",
+    "hero_name": "Beastmaster",
+    "ability": "beastmaster_summon_razorback",
+    "ability_name": "Summon Razorback",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан Primal Roar Beastmaster на {level} уровне?",
+    "answers": [
+      3,
+      3.5,
+      4
+    ],
+    "unit": "сек.",
+    "hero": "beastmaster",
+    "hero_name": "Beastmaster",
+    "ability": "beastmaster_primal_roar",
+    "ability_name": "Primal Roar",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Primal Roar Beastmaster движение отброшенных врагов?",
+    "options": [
+      "-60%",
+      "-40%",
+      "-50%",
+      "-70%"
+    ],
+    "correct": 0,
+    "hero": "beastmaster",
+    "hero_name": "Beastmaster",
+    "ability": "beastmaster_primal_roar",
+    "ability_name": "Primal Roar",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % усиления заклинаний даёт Bloodrage Bloodseeker на 4 уровне?",
+    "options": [
+      "30%",
+      "25%",
+      "20%",
+      "15%"
+    ],
+    "correct": 0,
+    "hero": "bloodseeker",
+    "hero_name": "Bloodseeker",
+    "ability": "bloodseeker_bloodrage",
+    "ability_name": "Bloodrage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % перемещения наносит Rupture Bloodseeker за движение на 3 уровне?",
+    "options": [
+      "55%",
+      "45%",
+      "35%",
+      "65%"
+    ],
+    "correct": 0,
+    "hero": "bloodseeker",
+    "hero_name": "Bloodseeker",
+    "ability": "bloodseeker_rupture",
+    "ability_name": "Rupture",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Ниже какого % HP враги становятся видимы для Bloodseeker через Thirst?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "correct": 0,
+    "hero": "bloodseeker",
+    "hero_name": "Bloodseeker",
+    "ability": "bloodseeker_thirst",
+    "ability_name": "Thirst",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % HP в секунду тратит Blood Mist Bloodseeker?",
+    "options": [
+      "7%",
+      "5%",
+      "10%",
+      "3%"
+    ],
+    "correct": 0,
+    "hero": "bloodseeker",
+    "hero_name": "Bloodseeker",
+    "ability": "bloodseeker_blood_mist",
+    "ability_name": "Blood Mist",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько золота крадёт Jinada Bounty Hunter за удар на {level} уровне?",
+    "answers": [
+      15,
+      22,
+      29,
+      36
+    ],
+    "unit": "золота",
+    "hero": "bounty_hunter",
+    "hero_name": "Bounty Hunter",
+    "ability": "bounty_hunter_jinada",
+    "ability_name": "Jinada",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % усиливает Track Bounty Hunter входящий урон на 3 уровне?",
+    "options": [
+      "16%",
+      "12%",
+      "8%",
+      "20%"
+    ],
+    "correct": 0,
+    "hero": "bounty_hunter",
+    "hero_name": "Bounty Hunter",
+    "ability": "bounty_hunter_track",
+    "ability_name": "Track",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько золота получает сам Bounty Hunter при убийстве под Track на {level} уровне?",
+    "answers": [
+      130,
+      225,
+      320
+    ],
+    "unit": "золота",
+    "hero": "bounty_hunter",
+    "hero_name": "Bounty Hunter",
+    "ability": "bounty_hunter_track",
+    "ability_name": "Track",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Thunder Clap Brewmaster на {level} уровне?",
+    "answers": [
+      80,
+      160,
+      240,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "brewmaster",
+    "hero_name": "Brewmaster",
+    "ability": "brewmaster_thunder_clap",
+    "ability_name": "Thunder Clap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Thunder Clap Brewmaster на 4 уровне?",
+    "options": [
+      "60%",
+      "45%",
+      "30%",
+      "15%"
+    ],
+    "correct": 0,
+    "hero": "brewmaster",
+    "hero_name": "Brewmaster",
+    "ability": "brewmaster_thunder_clap",
+    "ability_name": "Thunder Clap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс крита у Drunken Brawler Brewmaster?",
+    "options": [
+      "20%",
+      "15%",
+      "25%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "brewmaster",
+    "hero_name": "Brewmaster",
+    "ability": "brewmaster_drunken_brawler",
+    "ability_name": "Drunken Brawler",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Primal Split Brewmaster на {level} уровне?",
+    "answers": [
+      16,
+      20,
+      24,
+      24
+    ],
+    "unit": "сек.",
+    "hero": "brewmaster",
+    "hero_name": "Brewmaster",
+    "ability": "brewmaster_primal_split",
+    "ability_name": "Primal Split",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько базового урона наносит Quill Spray Bristleback на {level} уровне?",
+    "answers": [
+      25,
+      45,
+      65,
+      85
+    ],
+    "unit": "ед.",
+    "hero": "bristleback",
+    "hero_name": "Bristleback",
+    "ability": "bristleback_quill_spray",
+    "ability_name": "Quill Spray",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит каждый стак Quill Spray Bristleback?",
+    "answer": 30,
+    "unit": "ед.",
+    "hero": "bristleback",
+    "hero_name": "Bristleback",
+    "ability": "bristleback_quill_spray",
+    "ability_name": "Quill Spray",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько урона снижает Bristleback с тыла на 4 уровне?",
+    "options": [
+      "40%",
+      "32%",
+      "24%",
+      "16%"
+    ],
+    "correct": 0,
+    "hero": "bristleback",
+    "hero_name": "Bristleback",
+    "ability": "bristleback_bristleback",
+    "ability_name": "Bristleback",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимально стаков у Warpath Bristleback на 3 уровне?",
+    "answer": 12,
+    "unit": "стаков",
+    "hero": "bristleback",
+    "hero_name": "Bristleback",
+    "ability": "bristleback_warpath",
+    "ability_name": "Warpath",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько спидерлингов призывает Spawn Spiderlings Broodmother на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6
+    ],
+    "unit": "шт.",
+    "hero": "broodmother",
+    "hero_name": "Broodmother",
+    "ability": "broodmother_spawn_spiderlings",
+    "ability_name": "Spawn Spiderlings",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Incapacitating Bite Broodmother на 4 уровне?",
+    "options": [
+      "-30%",
+      "-25%",
+      "-20%",
+      "-15%"
+    ],
+    "correct": 0,
+    "hero": "broodmother",
+    "hero_name": "Broodmother",
+    "ability": "broodmother_incapacitating_bite",
+    "ability_name": "Incapacitating Bite",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс промаха накладывает Incapacitating Bite Broodmother на 4 уровне?",
+    "options": [
+      "60%",
+      "50%",
+      "40%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "broodmother",
+    "hero_name": "Broodmother",
+    "ability": "broodmother_incapacitating_bite",
+    "ability_name": "Incapacitating Bite",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % лайфстила даёт Insatiable Hunger Broodmother на 4 уровне?",
+    "options": [
+      "100%",
+      "80%",
+      "60%",
+      "40%"
+    ],
+    "correct": 0,
+    "hero": "broodmother",
+    "hero_name": "Broodmother",
+    "ability": "broodmother_insatiable_hunger",
+    "ability_name": "Insatiable Hunger",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Hoof Stomp Centaur на {level} уровне?",
+    "answers": [
+      70,
+      140,
+      210,
+      280
+    ],
+    "unit": "ед.",
+    "hero": "centaur",
+    "hero_name": "Centaur Warrunner",
+    "ability": "centaur_hoof_stomp",
+    "ability_name": "Hoof Stomp",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан Hoof Stomp Centaur на {level} уровне?",
+    "answers": [
+      1.6,
+      1.8,
+      2.0,
+      2.2
+    ],
+    "unit": "сек.",
+    "hero": "centaur",
+    "hero_name": "Centaur Warrunner",
+    "ability": "centaur_hoof_stomp",
+    "ability_name": "Hoof Stomp",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой множитель урона от Силы даёт Double Edge Centaur на 4 уровне?",
+    "options": [
+      "150%",
+      "120%",
+      "90%",
+      "60%"
+    ],
+    "correct": 0,
+    "hero": "centaur",
+    "hero_name": "Centaur Warrunner",
+    "ability": "centaur_double_edge",
+    "ability_name": "Double Edge",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Stampede Centaur на {level} уровне?",
+    "answers": [
+      3.5,
+      4.0,
+      4.5
+    ],
+    "unit": "сек.",
+    "hero": "centaur",
+    "hero_name": "Centaur Warrunner",
+    "ability": "centaur_stampede",
+    "ability_name": "Stampede",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой минимальный стан у Chaos Bolt Chaos Knight на 1 уровне?",
+    "options": [
+      "1.25",
+      "0.75",
+      "1",
+      "1.5"
+    ],
+    "correct": 0,
+    "hero": "chaos_knight",
+    "hero_name": "Chaos Knight",
+    "ability": "chaos_knight_chaos_bolt",
+    "ability_name": "Chaos Bolt",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой максимальный стан у Chaos Bolt Chaos Knight на 4 уровне?",
+    "options": [
+      "3.25",
+      "2.75",
+      "2.25",
+      "4"
+    ],
+    "correct": 0,
+    "hero": "chaos_knight",
+    "hero_name": "Chaos Knight",
+    "ability": "chaos_knight_chaos_bolt",
+    "ability_name": "Chaos Bolt",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс крита у Chaos Strike Chaos Knight?",
+    "options": [
+      "33%",
+      "25%",
+      "50%",
+      "20%"
+    ],
+    "correct": 0,
+    "hero": "chaos_knight",
+    "hero_name": "Chaos Knight",
+    "ability": "chaos_knight_chaos_strike",
+    "ability_name": "Chaos Strike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько фантомов создаёт Phantasm Chaos Knight на максимальном уровне?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "1"
+    ],
+    "correct": 0,
+    "hero": "chaos_knight",
+    "hero_name": "Chaos Knight",
+    "ability": "chaos_knight_phantasm",
+    "ability_name": "Phantasm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Penitence Chen на 4 уровне?",
+    "options": [
+      "-30%",
+      "-24%",
+      "-18%",
+      "-12%"
+    ],
+    "correct": 0,
+    "hero": "chen",
+    "hero_name": "Chen",
+    "ability": "chen_penitence",
+    "ability_name": "Penitence",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько юнитов может контролировать Holy Persuasion Chen на {level} уровне?",
+    "answers": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "unit": "юнитов",
+    "hero": "chen",
+    "hero_name": "Chen",
+    "ability": "chen_holy_persuasion",
+    "ability_name": "Holy Persuasion",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP в секунду лечит Hand of God Chen на {level} уровне?",
+    "answers": [
+      20,
+      30,
+      40
+    ],
+    "unit": "HP",
+    "hero": "chen",
+    "hero_name": "Chen",
+    "ability": "chen_hand_of_god",
+    "ability_name": "Hand of God",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько скорости атаки даёт Strafe Clinkz?",
+    "answer": 240,
+    "unit": "ед.",
+    "hero": "clinkz",
+    "hero_name": "Clinkz",
+    "ability": "clinkz_strafe",
+    "ability_name": "Strafe",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько стрел выпускает Burning Barrage Clinkz?",
+    "options": [
+      "6",
+      "4",
+      "8",
+      "5"
+    ],
+    "correct": 0,
+    "hero": "clinkz",
+    "hero_name": "Clinkz",
+    "ability": "clinkz_burning_barrage",
+    "ability_name": "Burning Barrage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного HP даёт Death Pact Clinkz на {level} уровне?",
+    "answers": [
+      175,
+      250,
+      325,
+      400
+    ],
+    "unit": "HP",
+    "hero": "clinkz",
+    "hero_name": "Clinkz",
+    "ability": "clinkz_death_pact",
+    "ability_name": "Death Pact",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Crystal Nova Crystal Maiden на {level} уровне?",
+    "answers": [
+      110,
+      160,
+      210,
+      260
+    ],
+    "unit": "ед.",
+    "hero": "crystal_maiden",
+    "hero_name": "Crystal Maiden",
+    "ability": "crystal_maiden_crystal_nova",
+    "ability_name": "Crystal Nova",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Crystal Nova Crystal Maiden на 4 уровне?",
+    "options": [
+      "-50%",
+      "-40%",
+      "-30%",
+      "-20%"
+    ],
+    "correct": 0,
+    "hero": "crystal_maiden",
+    "hero_name": "Crystal Maiden",
+    "ability": "crystal_maiden_crystal_nova",
+    "ability_name": "Crystal Nova",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны реги в секунду даёт Arcane Aura Crystal Maiden союзникам на {level} уровне?",
+    "answers": [
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "unit": "маны/с",
+    "hero": "crystal_maiden",
+    "hero_name": "Crystal Maiden",
+    "ability": "crystal_maiden_brilliance_aura",
+    "ability_name": "Arcane Aura",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой замедление атаки даёт Freezing Field Crystal Maiden на 3 уровне?",
+    "options": [
+      "-160",
+      "-120",
+      "-80",
+      "-200"
+    ],
+    "correct": 0,
+    "hero": "crystal_maiden",
+    "hero_name": "Crystal Maiden",
+    "ability": "crystal_maiden_freezing_field",
+    "ability_name": "Freezing Field",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Ion Shell Dark Seer на {level} уровне?",
+    "answers": [
+      30,
+      50,
+      70,
+      90
+    ],
+    "unit": "ед.",
+    "hero": "dark_seer",
+    "hero_name": "Dark Seer",
+    "ability": "dark_seer_ion_shell",
+    "ability_name": "Ion Shell",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Vacuum Dark Seer на {level} уровне?",
+    "answers": [
+      70,
+      130,
+      190,
+      250
+    ],
+    "unit": "ед.",
+    "hero": "dark_seer",
+    "hero_name": "Dark Seer",
+    "ability": "dark_seer_vacuum",
+    "ability_name": "Vacuum",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % урона наносят иллюзии Wall of Replica Dark Seer на 3 уровне?",
+    "options": [
+      "90%",
+      "80%",
+      "70%",
+      "100%"
+    ],
+    "correct": 0,
+    "hero": "dark_seer",
+    "hero_name": "Dark Seer",
+    "ability": "dark_seer_wall_of_replica",
+    "ability_name": "Wall of Replica",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится рут Bramble Maze Dark Willow на {level} уровне?",
+    "answers": [
+      1,
+      1.5,
+      2,
+      2.5
+    ],
+    "unit": "сек.",
+    "hero": "dark_willow",
+    "hero_name": "Dark Willow",
+    "ability": "dark_willow_bramble_maze",
+    "ability_name": "Bramble Maze",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный урон накапливает Shadow Realm Dark Willow на {level} уровне?",
+    "answers": [
+      120,
+      200,
+      280,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "dark_willow",
+    "hero_name": "Dark Willow",
+    "ability": "dark_willow_shadow_realm",
+    "ability_name": "Shadow Realm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится страх от Terrorize Dark Willow на {level} уровне?",
+    "answers": [
+      2.8,
+      3.0,
+      3.2
+    ],
+    "unit": "сек.",
+    "hero": "dark_willow",
+    "hero_name": "Dark Willow",
+    "ability": "dark_willow_terrorize",
+    "ability_name": "Terrorize",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан от Cursed Crown Dark Willow на {level} уровне?",
+    "answers": [
+      1.5,
+      1.8,
+      2.1,
+      2.4
+    ],
+    "unit": "сек.",
+    "hero": "dark_willow",
+    "hero_name": "Dark Willow",
+    "ability": "dark_willow_cursed_crown",
+    "ability_name": "Cursed Crown",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан при максимальном заряде Starbreaker Dawnbreaker на {level} уровне?",
+    "answers": [
+      0.6,
+      0.8,
+      1.0,
+      1.2
+    ],
+    "unit": "сек.",
+    "hero": "dawnbreaker",
+    "hero_name": "Dawnbreaker",
+    "ability": "dawnbreaker_fire_wreath",
+    "ability_name": "Starbreaker",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет огненный след Celestial Hammer Dawnbreaker на 4 уровне?",
+    "options": [
+      "36%",
+      "32%",
+      "28%",
+      "24%"
+    ],
+    "correct": 0,
+    "hero": "dawnbreaker",
+    "hero_name": "Dawnbreaker",
+    "ability": "dawnbreaker_celestial_hammer",
+    "ability_name": "Celestial Hammer",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP в пульс лечит Solar Guardian Dawnbreaker на {level} уровне?",
+    "answers": [
+      45,
+      70,
+      95
+    ],
+    "unit": "HP",
+    "hero": "dawnbreaker",
+    "hero_name": "Dawnbreaker",
+    "ability": "dawnbreaker_solar_guardian",
+    "ability_name": "Solar Guardian",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан приземления Solar Guardian Dawnbreaker на {level} уровне?",
+    "answers": [
+      1.4,
+      1.6,
+      1.8
+    ],
+    "unit": "сек.",
+    "hero": "dawnbreaker",
+    "hero_name": "Dawnbreaker",
+    "ability": "dawnbreaker_solar_guardian",
+    "ability_name": "Solar Guardian",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько целей поражает Poison Touch Dazzle на {level} уровне?",
+    "answers": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "unit": "целей",
+    "hero": "dazzle",
+    "hero_name": "Dazzle",
+    "ability": "dazzle_poison_touch",
+    "ability_name": "Poison Touch",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Shallow Grave Dazzle на {level} уровне?",
+    "answers": [
+      4,
+      4.5,
+      5,
+      5.5
+    ],
+    "unit": "сек.",
+    "hero": "dazzle",
+    "hero_name": "Dazzle",
+    "ability": "dazzle_shallow_grave",
+    "ability_name": "Shallow Grave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимально союзников лечит Shadow Wave Dazzle на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "unit": "целей",
+    "hero": "dazzle",
+    "hero_name": "Dazzle",
+    "ability": "dazzle_shadow_wave",
+    "ability_name": "Shadow Wave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Shadow Wave Dazzle на {level} уровне?",
+    "answers": [
+      85,
+      105,
+      125,
+      145
+    ],
+    "unit": "ед.",
+    "hero": "dazzle",
+    "hero_name": "Dazzle",
+    "ability": "dazzle_shadow_wave",
+    "ability_name": "Shadow Wave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько духов выпускает Exorcism Death Prophet на {level} уровне?",
+    "answers": [
+      10,
+      18,
+      26
+    ],
+    "unit": "шт.",
+    "hero": "death_prophet",
+    "hero_name": "Death Prophet",
+    "ability": "death_prophet_exorcism",
+    "ability_name": "Exorcism",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % нанесённого урона лечит Death Prophet по завершении Exorcism?",
+    "options": [
+      "25%",
+      "10%",
+      "50%",
+      "33%"
+    ],
+    "correct": 0,
+    "hero": "death_prophet",
+    "hero_name": "Death Prophet",
+    "ability": "death_prophet_exorcism",
+    "ability_name": "Exorcism",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько зарядов Spirit Siphon у Death Prophet на {level} уровне?",
+    "answers": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "unit": "шт.",
+    "hero": "death_prophet",
+    "hero_name": "Death Prophet",
+    "ability": "death_prophet_spirit_siphon",
+    "ability_name": "Spirit Siphon",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько раз ударяет Thunder Strike Disruptor по цели?",
+    "answer": 4,
+    "unit": "раз",
+    "hero": "disruptor",
+    "hero_name": "Disruptor",
+    "ability": "disruptor_thunder_strike",
+    "ability_name": "Thunder Strike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит каждый удар Thunder Strike Disruptor на {level} уровне?",
+    "answers": [
+      30,
+      60,
+      90,
+      120
+    ],
+    "unit": "ед.",
+    "hero": "disruptor",
+    "hero_name": "Disruptor",
+    "ability": "disruptor_thunder_strike",
+    "ability_name": "Thunder Strike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный урон в секунду наносит Static Storm Disruptor на {level} уровне?",
+    "answers": [
+      200,
+      275,
+      350
+    ],
+    "unit": "ед.",
+    "hero": "disruptor",
+    "hero_name": "Disruptor",
+    "ability": "disruptor_static_storm",
+    "ability_name": "Static Storm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько секунд назад откидывает Glimpse Disruptor цель?",
+    "answer": 4,
+    "unit": "сек.",
+    "hero": "disruptor",
+    "hero_name": "Disruptor",
+    "ability": "disruptor_glimpse",
+    "ability_name": "Glimpse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой стан от удара Infernal Blade Doom?",
+    "answer": 0.66,
+    "unit": "сек.",
+    "hero": "doom_bringer",
+    "hero_name": "Doom",
+    "ability": "doom_bringer_infernal_blade",
+    "ability_name": "Infernal Blade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % максимального HP наносит Infernal Blade Doom как урон в секунду на {level} уровне?",
+    "answers": [
+      "1%",
+      "2%",
+      "3%",
+      "4%"
+    ],
+    "unit": "",
+    "hero": "doom_bringer",
+    "hero_name": "Doom",
+    "ability": "doom_bringer_infernal_blade",
+    "ability_name": "Infernal Blade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % максимального HP наносит Infernal Blade Doom как урон в секунду на 4 уровне?",
+    "options": [
+      "4%",
+      "2%",
+      "6%",
+      "8%"
+    ],
+    "correct": 0,
+    "hero": "doom_bringer",
+    "hero_name": "Doom",
+    "ability": "doom_bringer_infernal_blade",
+    "ability_name": "Infernal Blade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный уровень крипа может поглотить Devour Doom на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6,
+      6
+    ],
+    "unit": "ур.",
+    "hero": "doom_bringer",
+    "hero_name": "Doom",
+    "ability": "doom_bringer_devour",
+    "ability_name": "Devour",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонусный % снижения урона от атак даёт Breathe Fire Dragon Knight на {level} уровне?",
+    "answers": [
+      "20%",
+      "24%",
+      "28%",
+      "32%"
+    ],
+    "unit": "",
+    "hero": "dragon_knight",
+    "hero_name": "Dragon Knight",
+    "ability": "dragon_knight_breathe_fire",
+    "ability_name": "Breathe Fire",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % урона от атак снижает Breathe Fire Dragon Knight на максимальном уровне?",
+    "options": [
+      "32%",
+      "20%",
+      "40%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "dragon_knight",
+    "hero_name": "Dragon Knight",
+    "ability": "dragon_knight_breathe_fire",
+    "ability_name": "Breathe Fire",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонус к скорости передвижения даёт Elder Dragon Form Dragon Knight на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "ед.",
+    "hero": "dragon_knight",
+    "hero_name": "Dragon Knight",
+    "ability": "dragon_knight_elder_dragon_form",
+    "ability_name": "Elder Dragon Form",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % сплэш-урона даёт Elder Dragon Form Dragon Knight на 2 уровне (Red Dragon)?",
+    "options": [
+      "75%",
+      "50%",
+      "100%",
+      "0%"
+    ],
+    "correct": 0,
+    "hero": "dragon_knight",
+    "hero_name": "Dragon Knight",
+    "ability": "dragon_knight_elder_dragon_form",
+    "ability_name": "Elder Dragon Form",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Frost Arrows Drow Ranger на {level} уровне?",
+    "answers": [
+      15,
+      25,
+      35,
+      45
+    ],
+    "unit": "%",
+    "hero": "drow_ranger",
+    "hero_name": "Drow Ranger",
+    "ability": "drow_ranger_frost_arrows",
+    "ability_name": "Frost Arrows",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой шанс прока у Marksmanship Drow Ranger на {level} уровне?",
+    "answers": [
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "drow_ranger",
+    "hero_name": "Drow Ranger",
+    "ability": "drow_ranger_marksmanship",
+    "ability_name": "Marksmanship",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На какое расстояние максимально отбрасывает Gust Drow Ranger?",
+    "answer": 450,
+    "unit": "ед.",
+    "hero": "drow_ranger",
+    "hero_name": "Drow Ranger",
+    "ability": "drow_ranger_wave_of_silence",
+    "ability_name": "Gust",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Boulder Smash Earth Spirit при попадании кремнём?",
+    "answer": 50,
+    "unit": "%",
+    "hero": "earth_spirit",
+    "hero_name": "Earth Spirit",
+    "ability": "earth_spirit_boulder_smash",
+    "ability_name": "Boulder Smash",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Geomagnetic Grip Earth Spirit при попадании камнем на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "earth_spirit",
+    "hero_name": "Earth Spirit",
+    "ability": "earth_spirit_geomagnetic_grip",
+    "ability_name": "Geomagnetic Grip",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона при взрыве наносит Enchant Remnant Earth Spirit?",
+    "answer": 450,
+    "unit": "ед.",
+    "hero": "earth_spirit",
+    "hero_name": "Earth Spirit",
+    "ability": "earth_spirit_petrify",
+    "ability_name": "Enchant Remnant",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Magnetize Earth Spirit на {level} уровне?",
+    "answers": [
+      45,
+      90,
+      135
+    ],
+    "unit": "ед.",
+    "hero": "earth_spirit",
+    "hero_name": "Earth Spirit",
+    "ability": "earth_spirit_magnetize",
+    "ability_name": "Magnetize",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонусный % урона от атаки даёт Enchant Totem Earthshaker на {level} уровне?",
+    "answers": [
+      100,
+      200,
+      300,
+      400
+    ],
+    "unit": "%",
+    "hero": "earthshaker",
+    "hero_name": "Earthshaker",
+    "ability": "earthshaker_enchant_totem",
+    "ability_name": "Enchant Totem",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой бонус к урону от атаки даёт Enchant Totem Earthshaker на 4 уровне?",
+    "options": [
+      "400%",
+      "200%",
+      "100%",
+      "300%"
+    ],
+    "correct": 0,
+    "hero": "earthshaker",
+    "hero_name": "Earthshaker",
+    "ability": "earthshaker_enchant_totem",
+    "ability_name": "Enchant Totem",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Aftershock Earthshaker на {level} уровне?",
+    "answers": [
+      65,
+      90,
+      115,
+      140
+    ],
+    "unit": "ед.",
+    "hero": "earthshaker",
+    "hero_name": "Earthshaker",
+    "ability": "earthshaker_aftershock",
+    "ability_name": "Aftershock",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой начальный урон наносит Echo Slam Earthshaker на {level} уровне?",
+    "answers": [
+      100,
+      140,
+      180
+    ],
+    "unit": "ед.",
+    "hero": "earthshaker",
+    "hero_name": "Earthshaker",
+    "ability": "earthshaker_echo_slam",
+    "ability_name": "Echo Slam",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит каждый отклик Echo Slam Earthshaker на {level} уровне?",
+    "answers": [
+      70,
+      90,
+      110
+    ],
+    "unit": "ед.",
+    "hero": "earthshaker",
+    "hero_name": "Earthshaker",
+    "ability": "earthshaker_echo_slam",
+    "ability_name": "Echo Slam",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % HP как урон наносит Earth Splitter Elder Titan на {level} уровне?",
+    "answers": [
+      34,
+      42,
+      50
+    ],
+    "unit": "%",
+    "hero": "elder_titan",
+    "hero_name": "Elder Titan",
+    "ability": "elder_titan_earth_splitter",
+    "ability_name": "Earth Splitter",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % максимального HP наносит Earth Splitter Elder Titan на максимальном уровне?",
+    "options": [
+      "50%",
+      "34%",
+      "42%",
+      "60%"
+    ],
+    "correct": 0,
+    "hero": "elder_titan",
+    "hero_name": "Elder Titan",
+    "ability": "elder_titan_earth_splitter",
+    "ability_name": "Earth Splitter",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает базовую броню Natural Order Elder Titan на {level} уровне?",
+    "answers": [
+      40,
+      60,
+      80,
+      100
+    ],
+    "unit": "%",
+    "hero": "elder_titan",
+    "hero_name": "Elder Titan",
+    "ability": "elder_titan_natural_order",
+    "ability_name": "Natural Order",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько единиц врагов захватывает Searing Chains Ember Spirit?",
+    "answer": 2,
+    "unit": "цели",
+    "hero": "ember_spirit",
+    "hero_name": "Ember Spirit",
+    "ability": "ember_spirit_searing_chains",
+    "ability_name": "Searing Chains",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % магического урона поглощает Flame Guard Ember Spirit?",
+    "answer": 70,
+    "unit": "%",
+    "hero": "ember_spirit",
+    "hero_name": "Ember Spirit",
+    "ability": "ember_spirit_flame_guard",
+    "ability_name": "Flame Guard",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько зарядов Fire Remnant максимально у Ember Spirit?",
+    "answer": 3,
+    "unit": "шт.",
+    "hero": "ember_spirit",
+    "hero_name": "Ember Spirit",
+    "ability": "ember_spirit_fire_remnant",
+    "ability_name": "Fire Remnant",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона наносит Sleight of Fist Ember Spirit героям на {level} уровне?",
+    "answers": [
+      50,
+      90,
+      130,
+      170
+    ],
+    "unit": "ед.",
+    "hero": "ember_spirit",
+    "hero_name": "Ember Spirit",
+    "ability": "ember_spirit_sleight_of_fist",
+    "ability_name": "Sleight of Fist",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой барьер поглощает Flame Guard Ember Spirit на {level} уровне?",
+    "answers": [
+      60,
+      140,
+      220,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "ember_spirit",
+    "hero_name": "Ember Spirit",
+    "ability": "ember_spirit_flame_guard",
+    "ability_name": "Flame Guard",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % от расстояния до цели наносит урон Impetus Enchantress на {level} уровне?",
+    "answers": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "unit": "%",
+    "hero": "enchantress",
+    "hero_name": "Enchantress",
+    "ability": "enchantress_impetus",
+    "ability_name": "Impetus",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % от расстояния до цели наносит урон Impetus Enchantress на 4 уровне?",
+    "options": [
+      "20%",
+      "10%",
+      "15%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "enchantress",
+    "hero_name": "Enchantress",
+    "ability": "enchantress_impetus",
+    "ability_name": "Impetus",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько снижает скорость атаки Untouchable Enchantress на {level} уровне?",
+    "answers": [
+      110,
+      160,
+      210
+    ],
+    "unit": "ед.",
+    "hero": "enchantress",
+    "hero_name": "Enchantress",
+    "ability": "enchantress_untouchable",
+    "ability_name": "Untouchable",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько раз поражает Malefice Enigma цель (экземпляров)?",
+    "answer": 3,
+    "unit": "раз",
+    "hero": "enigma",
+    "hero_name": "Enigma",
+    "ability": "enigma_malefice",
+    "ability_name": "Malefice",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % текущего HP как урон наносит Midnight Pulse Enigma на {level} уровне?",
+    "answers": [
+      4,
+      6,
+      8,
+      10
+    ],
+    "unit": "%",
+    "hero": "enigma",
+    "hero_name": "Enigma",
+    "ability": "enigma_midnight_pulse",
+    "ability_name": "Midnight Pulse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % текущего HP наносит Midnight Pulse Enigma на максимальном уровне?",
+    "options": [
+      "10%",
+      "4%",
+      "8%",
+      "6%"
+    ],
+    "correct": 0,
+    "hero": "enigma",
+    "hero_name": "Enigma",
+    "ability": "enigma_midnight_pulse",
+    "ability_name": "Midnight Pulse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько духов призывает Demonic Summoning Enigma?",
+    "answer": 3,
+    "unit": "шт.",
+    "hero": "enigma",
+    "hero_name": "Enigma",
+    "ability": "enigma_demonic_conversion",
+    "ability_name": "Demonic Summoning",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак нужно eidolon'у Enigma для размножения?",
+    "answer": 6,
+    "unit": "атак",
+    "hero": "enigma",
+    "hero_name": "Enigma",
+    "ability": "enigma_demonic_conversion",
+    "ability_name": "Demonic Summoning",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой шанс прока у Time Lock Faceless Void на {level} уровне?",
+    "answers": [
+      12,
+      16,
+      20,
+      24
+    ],
+    "unit": "%",
+    "hero": "faceless_void",
+    "hero_name": "Faceless Void",
+    "ability": "faceless_void_time_lock",
+    "ability_name": "Time Lock",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс прока у Time Lock Faceless Void на 4 уровне?",
+    "options": [
+      "24%",
+      "16%",
+      "20%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "faceless_void",
+    "hero_name": "Faceless Void",
+    "ability": "faceless_void_time_lock",
+    "ability_name": "Time Lock",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет прогресс кулдаунов Time Dilation Faceless Void на {level} уровне?",
+    "answers": [
+      30,
+      40,
+      50,
+      60
+    ],
+    "unit": "%",
+    "hero": "faceless_void",
+    "hero_name": "Faceless Void",
+    "ability": "faceless_void_time_dilation",
+    "ability_name": "Time Dilation",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет прогресс кулдаунов Time Dilation Faceless Void на максимальном уровне?",
+    "options": [
+      "60%",
+      "30%",
+      "50%",
+      "40%"
+    ],
+    "correct": 0,
+    "hero": "faceless_void",
+    "hero_name": "Faceless Void",
+    "ability": "faceless_void_time_dilation",
+    "ability_name": "Time Dilation",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % увеличивается урон каждого следующего прыжка Wrath of Nature Nature's Prophet?",
+    "answer": 10,
+    "unit": "%",
+    "hero": "furion",
+    "hero_name": "Nature's Prophet",
+    "ability": "furion_wrath_of_nature",
+    "ability_name": "Wrath of Nature",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько целей максимально поражает Wrath of Nature Nature's Prophet?",
+    "answer": 16,
+    "unit": "целей",
+    "hero": "furion",
+    "hero_name": "Nature's Prophet",
+    "ability": "furion_wrath_of_nature",
+    "ability_name": "Wrath of Nature",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько трентов призывает Nature's Call Nature's Prophet на {level} уровне?",
+    "answers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "unit": "шт.",
+    "hero": "furion",
+    "hero_name": "Nature's Prophet",
+    "ability": "furion_force_of_nature",
+    "ability_name": "Nature's Call",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Sprout Nature's Prophet на {level} уровне?",
+    "answers": [
+      70,
+      130,
+      190,
+      250
+    ],
+    "unit": "ед.",
+    "hero": "furion",
+    "hero_name": "Nature's Prophet",
+    "ability": "furion_sprout",
+    "ability_name": "Sprout",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонусный урон за каждого задетого героя даёт Stroke of Fate Grimstroke на {level} уровне?",
+    "answers": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "unit": "ед.",
+    "hero": "grimstroke",
+    "hero_name": "Grimstroke",
+    "ability": "grimstroke_dark_artistry",
+    "ability_name": "Stroke of Fate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Stroke of Fate Grimstroke на {level} уровне?",
+    "answers": [
+      50,
+      60,
+      70,
+      80
+    ],
+    "unit": "%",
+    "hero": "grimstroke",
+    "hero_name": "Grimstroke",
+    "ability": "grimstroke_dark_artistry",
+    "ability_name": "Stroke of Fate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Stroke of Fate Grimstroke на максимальном уровне?",
+    "options": [
+      "80%",
+      "50%",
+      "60%",
+      "70%"
+    ],
+    "correct": 0,
+    "hero": "grimstroke",
+    "hero_name": "Grimstroke",
+    "ability": "grimstroke_dark_artistry",
+    "ability_name": "Stroke of Fate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона при отрыве (rend) наносит Phantom's Embrace Grimstroke на {level} уровне?",
+    "answers": [
+      120,
+      200,
+      280,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "grimstroke",
+    "hero_name": "Grimstroke",
+    "ability": "grimstroke_ink_creature",
+    "ability_name": "Phantom's Embrace",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимального стана наносит Ink Swell Grimstroke на {level} уровне?",
+    "answers": [
+      1.6,
+      2,
+      2.4,
+      2.8
+    ],
+    "unit": "сек.",
+    "hero": "grimstroke",
+    "hero_name": "Grimstroke",
+    "ability": "grimstroke_spirit_walk",
+    "ability_name": "Ink Swell",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько ракет в секунду выпускает Rocket Barrage Gyrocopter?",
+    "answer": 10,
+    "unit": "ракет/с",
+    "hero": "gyrocopter",
+    "hero_name": "Gyrocopter",
+    "ability": "gyrocopter_rocket_barrage",
+    "ability_name": "Rocket Barrage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак нужно, чтобы уничтожить ракету Homing Missile Gyrocopter?",
+    "answer": 3,
+    "unit": "атак",
+    "hero": "gyrocopter",
+    "hero_name": "Gyrocopter",
+    "ability": "gyrocopter_homing_missile",
+    "ability_name": "Homing Missile",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимум атак позволяет сделать Flak Cannon Gyrocopter на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "unit": "атак",
+    "hero": "gyrocopter",
+    "hero_name": "Gyrocopter",
+    "ability": "gyrocopter_flak_cannon",
+    "ability_name": "Flak Cannon",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Call Down Gyrocopter?",
+    "answer": 50,
+    "unit": "%",
+    "hero": "gyrocopter",
+    "hero_name": "Gyrocopter",
+    "ability": "gyrocopter_call_down",
+    "ability_name": "Call Down",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % усиливает входящий спелл-урон Hunter's Boomerang Hoodwink?",
+    "answer": 20,
+    "unit": "%",
+    "hero": "hoodwink",
+    "hero_name": "Hoodwink",
+    "ability": "hoodwink_hunters_boomerang",
+    "ability_name": "Hunter's Boomerang",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимального урона наносит Sharpshooter Hoodwink на {level} уровне?",
+    "answers": [
+      600,
+      975,
+      1350
+    ],
+    "unit": "ед.",
+    "hero": "hoodwink",
+    "hero_name": "Hoodwink",
+    "ability": "hoodwink_sharpshooter",
+    "ability_name": "Sharpshooter",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько максимального урона наносит Sharpshooter Hoodwink на 3 уровне?",
+    "options": [
+      "1350",
+      "975",
+      "600",
+      "1200"
+    ],
+    "correct": 0,
+    "hero": "hoodwink",
+    "hero_name": "Hoodwink",
+    "ability": "hoodwink_sharpshooter",
+    "ability_name": "Sharpshooter",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько суммарного урона наносит Bushwhack Hoodwink на {level} уровне?",
+    "answers": [
+      90,
+      180,
+      270,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "hoodwink",
+    "hero_name": "Hoodwink",
+    "ability": "hoodwink_bushwhack",
+    "ability_name": "Bushwhack",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько прыжков отскакивает Acorn Shot Hoodwink на {level} уровне?",
+    "answers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "unit": "прыжков",
+    "hero": "hoodwink",
+    "hero_name": "Hoodwink",
+    "ability": "hoodwink_acorn_shot",
+    "ability_name": "Acorn Shot",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Inner Fire Huskar на {level} уровне?",
+    "answers": [
+      110,
+      180,
+      250,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "huskar",
+    "hero_name": "Huskar",
+    "ability": "huskar_inner_fire",
+    "ability_name": "Inner Fire",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На какое расстояние отбрасывает Inner Fire Huskar?",
+    "answer": 400,
+    "unit": "ед.",
+    "hero": "huskar",
+    "hero_name": "Huskar",
+    "ability": "huskar_inner_fire",
+    "ability_name": "Inner Fire",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Burning Spear Huskar на {level} уровне?",
+    "answers": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "unit": "ед.",
+    "hero": "huskar",
+    "hero_name": "Huskar",
+    "ability": "huskar_burning_spear",
+    "ability_name": "Burning Spear",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный бонус к скорости атаки даёт Berserker's Blood Huskar на {level} уровне?",
+    "answers": [
+      170,
+      220,
+      270,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "huskar",
+    "hero_name": "Huskar",
+    "ability": "huskar_berserkers_blood",
+    "ability_name": "Berserker's Blood",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % текущего HP как урон наносит Life Break Huskar на {level} уровне?",
+    "answers": [
+      32,
+      38,
+      44
+    ],
+    "unit": "%",
+    "hero": "huskar",
+    "hero_name": "Huskar",
+    "ability": "huskar_life_break",
+    "ability_name": "Life Break",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % текущего HP наносит как урон Life Break Huskar на 3 уровне?",
+    "options": [
+      "44%",
+      "32%",
+      "38%",
+      "50%"
+    ],
+    "correct": 0,
+    "hero": "huskar",
+    "hero_name": "Huskar",
+    "ability": "huskar_life_break",
+    "ability_name": "Life Break",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Dual Breath Jakiro огнём на {level} уровне?",
+    "answers": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "unit": "ед.",
+    "hero": "jakiro",
+    "hero_name": "Jakiro",
+    "ability": "jakiro_dual_breath",
+    "ability_name": "Dual Breath",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет движение Dual Breath Jakiro на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "jakiro",
+    "hero_name": "Jakiro",
+    "ability": "jakiro_dual_breath",
+    "ability_name": "Dual Breath",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Macropyre Jakiro на {level} уровне?",
+    "answers": [
+      100,
+      150,
+      200
+    ],
+    "unit": "ед.",
+    "hero": "jakiro",
+    "hero_name": "Jakiro",
+    "ability": "jakiro_macropyre",
+    "ability_name": "Macropyre",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какая ширина пламени Macropyre Jakiro?",
+    "answer": 500,
+    "unit": "ед.",
+    "hero": "jakiro",
+    "hero_name": "Jakiro",
+    "ability": "jakiro_macropyre",
+    "ability_name": "Macropyre",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой шанс критического удара у Blade Dance Juggernaut?",
+    "answer": 35,
+    "unit": "%",
+    "hero": "juggernaut",
+    "hero_name": "Juggernaut",
+    "ability": "juggernaut_blade_dance",
+    "ability_name": "Blade Dance",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % критического урона наносит Blade Dance Juggernaut на {level} уровне?",
+    "answers": [
+      130,
+      150,
+      170,
+      190
+    ],
+    "unit": "%",
+    "hero": "juggernaut",
+    "hero_name": "Juggernaut",
+    "ability": "juggernaut_blade_dance",
+    "ability_name": "Blade Dance",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % критического урона наносит Blade Dance Juggernaut на максимальном уровне?",
+    "options": [
+      "190%",
+      "130%",
+      "150%",
+      "170%"
+    ],
+    "correct": 0,
+    "hero": "juggernaut",
+    "hero_name": "Juggernaut",
+    "ability": "juggernaut_blade_dance",
+    "ability_name": "Blade Dance",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Blade Fury Juggernaut на {level} уровне?",
+    "answers": [
+      80,
+      110,
+      140,
+      170
+    ],
+    "unit": "ед.",
+    "hero": "juggernaut",
+    "hero_name": "Juggernaut",
+    "ability": "juggernaut_blade_fury",
+    "ability_name": "Blade Fury",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % максимального HP в секунду восстанавливает Healing Ward Juggernaut на {level} уровне?",
+    "answers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "unit": "%",
+    "hero": "juggernaut",
+    "hero_name": "Juggernaut",
+    "ability": "juggernaut_healing_ward",
+    "ability_name": "Healing Ward",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько ударов выдерживает Healing Ward Juggernaut до уничтожения?",
+    "answer": 1,
+    "unit": "удар",
+    "hero": "juggernaut",
+    "hero_name": "Juggernaut",
+    "ability": "juggernaut_healing_ward",
+    "ability_name": "Healing Ward",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Torrent Kunkka на {level} уровне?",
+    "answers": [
+      110,
+      180,
+      250,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "kunkka",
+    "hero_name": "Kunkka",
+    "ability": "kunkka_torrent",
+    "ability_name": "Torrent",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан от Torrent Kunkka?",
+    "answer": 1.4,
+    "unit": "сек.",
+    "hero": "kunkka",
+    "hero_name": "Kunkka",
+    "ability": "kunkka_torrent",
+    "ability_name": "Torrent",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет движение Torrent Kunkka?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "kunkka",
+    "hero_name": "Kunkka",
+    "ability": "kunkka_torrent",
+    "ability_name": "Torrent",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонусный урон атаки даёт Tidebringer Kunkka на {level} уровне?",
+    "answers": [
+      35,
+      70,
+      105,
+      140
+    ],
+    "unit": "ед.",
+    "hero": "kunkka",
+    "hero_name": "Kunkka",
+    "ability": "kunkka_tidebringer",
+    "ability_name": "Tidebringer",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % от урона атаки наносит Tidebringer Kunkka при клив-атаке?",
+    "options": [
+      "150%",
+      "100%",
+      "200%",
+      "50%"
+    ],
+    "correct": 0,
+    "hero": "kunkka",
+    "hero_name": "Kunkka",
+    "ability": "kunkka_tidebringer",
+    "ability_name": "Tidebringer",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой стан наносит Ghostship Kunkka при крушении?",
+    "answer": 1.2,
+    "unit": "сек.",
+    "hero": "kunkka",
+    "hero_name": "Kunkka",
+    "ability": "kunkka_ghostship",
+    "ability_name": "Ghostship",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонусный урон при победе в дуэли даёт Duel Legion Commander на {level} уровне?",
+    "answers": [
+      10,
+      20,
+      30
+    ],
+    "unit": "ед.",
+    "hero": "legion_commander",
+    "hero_name": "Legion Commander",
+    "ability": "legion_commander_duel",
+    "ability_name": "Duel",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % лайфстила у Moment of Courage Legion Commander на {level} уровне?",
+    "answers": [
+      55,
+      65,
+      75,
+      85
+    ],
+    "unit": "%",
+    "hero": "legion_commander",
+    "hero_name": "Legion Commander",
+    "ability": "legion_commander_moment_of_courage",
+    "ability_name": "Moment of Courage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % лайфстила у Moment of Courage Legion Commander на максимальном уровне?",
+    "options": [
+      "85%",
+      "55%",
+      "65%",
+      "75%"
+    ],
+    "correct": 0,
+    "hero": "legion_commander",
+    "hero_name": "Legion Commander",
+    "ability": "legion_commander_moment_of_courage",
+    "ability_name": "Moment of Courage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Через сколько атак срабатывает Moment of Courage Legion Commander на {level} уровне?",
+    "answers": [
+      7,
+      6,
+      5,
+      4
+    ],
+    "unit": "атак",
+    "hero": "legion_commander",
+    "hero_name": "Legion Commander",
+    "ability": "legion_commander_moment_of_courage",
+    "ability_name": "Moment of Courage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусной скорости атаки даёт Overwhelming Odds Legion Commander при попадании на {level} уровне?",
+    "answers": [
+      50,
+      75,
+      100,
+      125
+    ],
+    "unit": "ед.",
+    "hero": "legion_commander",
+    "hero_name": "Legion Commander",
+    "ability": "legion_commander_overwhelming_odds",
+    "ability_name": "Overwhelming Odds",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой стан-делей у Split Earth Leshrac?",
+    "answer": 0.35,
+    "unit": "сек.",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_split_earth",
+    "ability_name": "Split Earth",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой тип урона у Diabolic Edict Leshrac?",
+    "options": [
+      "Чистый",
+      "Магический",
+      "Физический",
+      "Эффект"
+    ],
+    "correct": 0,
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_diabolic_edict",
+    "ability_name": "Diabolic Edict",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько взрывов у Diabolic Edict Leshrac?",
+    "answer": 40,
+    "unit": "шт.",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_diabolic_edict",
+    "ability_name": "Diabolic Edict",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Lightning Storm Leshrac?",
+    "answer": 75,
+    "unit": "%",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_lightning_storm",
+    "ability_name": "Lightning Storm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько молний в Lightning Storm Leshrac на {level} уровне?",
+    "answers": [
+      5,
+      7,
+      9,
+      11
+    ],
+    "unit": "шт.",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_lightning_storm",
+    "ability_name": "Lightning Storm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько усиливает урон от магии Nihilism Leshrac?",
+    "answer": 30,
+    "unit": "%",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_greater_lightning_storm",
+    "ability_name": "Nihilism",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны/сек тратит Pulse Nova Leshrac на {level} уровне?",
+    "answers": [
+      25,
+      45,
+      65
+    ],
+    "unit": "маны",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_pulse_nova",
+    "ability_name": "Pulse Nova",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % маны от удара восстанавливает Chronoptic Nourishment Leshrac?",
+    "answer": 25,
+    "unit": "%",
+    "hero": "leshrac",
+    "hero_name": "Leshrac",
+    "ability": "leshrac_chronoptic_nourishment",
+    "ability_name": "Chronoptic Nourishment",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько базового урона наносит Frost Blast Lich на {level} уровне?",
+    "answers": [
+      40,
+      80,
+      120,
+      160
+    ],
+    "unit": "ед.",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_frost_nova",
+    "ability_name": "Frost Blast",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько атаки замедляет Frost Blast Lich на {level} уровне?",
+    "answers": [
+      30,
+      40,
+      50,
+      60
+    ],
+    "unit": "ед.",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_frost_nova",
+    "ability_name": "Frost Blast",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % HP крипа Sacrifice Lich конвертирует в ману?",
+    "answer": 42,
+    "unit": "%",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_death_charge",
+    "ability_name": "Sacrifice",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько % маны в секунду сжигает Sinister Gaze Lich?",
+    "answer": 20,
+    "unit": "%",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_sinister_gaze",
+    "ability_name": "Sinister Gaze",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % прыгает цепочка Chain Frost Lich с каждым прыжком (дополнительный урон)?",
+    "answers": [
+      15,
+      20,
+      25
+    ],
+    "unit": "ед.",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_chain_frost",
+    "ability_name": "Chain Frost",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой диапазон прыжков Chain Frost Lich?",
+    "answer": 550,
+    "unit": "ед.",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_chain_frost",
+    "ability_name": "Chain Frost",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько раз максимум Chain Frost Lich может ударить одну цель?",
+    "options": [
+      "10",
+      "5",
+      "8",
+      "15"
+    ],
+    "correct": 0,
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_chain_frost",
+    "ability_name": "Chain Frost",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Chain Frost Lich?",
+    "answer": 65,
+    "unit": "%",
+    "hero": "lich",
+    "hero_name": "Lich",
+    "ability": "lich_chain_frost",
+    "ability_name": "Chain Frost",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % хп цели (от максимума) лечит и наносит как урон Feast Lifestealer на {level} уровне?",
+    "answers": [
+      1.45,
+      2.05,
+      2.65,
+      3.25
+    ],
+    "unit": "%",
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_feast",
+    "ability_name": "Feast",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько постоянного HP получает Lifestealer за убийство героя от Feast на {level} уровне?",
+    "answers": [
+      10,
+      15,
+      20,
+      25
+    ],
+    "unit": "ед.",
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_feast",
+    "ability_name": "Feast",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какое магическое сопротивление даёт Rage Lifestealer?",
+    "options": [
+      "80%",
+      "60%",
+      "50%",
+      "100%"
+    ],
+    "correct": 0,
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_rage",
+    "ability_name": "Rage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % урона союзники лечатся при ударе по цели с Open Wounds на {level} уровне?",
+    "answers": [
+      20,
+      30,
+      40,
+      50
+    ],
+    "unit": "%",
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_open_wounds",
+    "ability_name": "Open Wounds",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный слоу от Open Wounds Lifestealer?",
+    "answer": 50,
+    "unit": "%",
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_open_wounds",
+    "ability_name": "Open Wounds",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько % HP/сек восстанавливает Infest Lifestealer, пока находится внутри союзника?",
+    "answers": [
+      3,
+      4,
+      5
+    ],
+    "unit": "%",
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_infest",
+    "ability_name": "Infest",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какое магическое сопротивление и сопротивление статусам даёт Unfettered Lifestealer?",
+    "answer": 60,
+    "unit": "%",
+    "hero": "life_stealer",
+    "hero_name": "Lifestealer",
+    "ability": "life_stealer_unfettered",
+    "ability_name": "Unfettered",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Dragon Slave Lina на {level} уровне?",
+    "answers": [
+      65,
+      125,
+      185,
+      245
+    ],
+    "unit": "ед.",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_dragon_slave",
+    "ability_name": "Dragon Slave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан Light Strike Array Lina на {level} уровне?",
+    "answers": [
+      1.2,
+      1.6,
+      2.0,
+      2.4
+    ],
+    "unit": "сек.",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_light_strike_array",
+    "ability_name": "Light Strike Array",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Light Strike Array Lina на {level} уровне?",
+    "answers": [
+      80,
+      120,
+      160,
+      200
+    ],
+    "unit": "ед.",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_light_strike_array",
+    "ability_name": "Light Strike Array",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимальных стаков у Fiery Soul Lina?",
+    "answer": 7,
+    "unit": "шт.",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_fiery_soul",
+    "ability_name": "Fiery Soul",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько скорости атаки за стак даёт Fiery Soul Lina на {level} уровне?",
+    "answers": [
+      8,
+      16,
+      24,
+      32
+    ],
+    "unit": "ед.",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_fiery_soul",
+    "ability_name": "Fiery Soul",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % бонусного урона от заклинаний даёт Flame Cloak Lina?",
+    "answer": 35,
+    "unit": "%",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_flame_cloak",
+    "ability_name": "Flame Cloak",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой порог урона для Combustion Lina (каждые сколько урона по герою — взрыв)?",
+    "answer": 175,
+    "unit": "ед.",
+    "hero": "lina",
+    "hero_name": "Lina",
+    "ability": "lina_combustion",
+    "ability_name": "Combustion",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан Earth Spike Lion на {level} уровне?",
+    "answers": [
+      1.3,
+      1.6,
+      1.9,
+      2.2
+    ],
+    "unit": "сек.",
+    "hero": "lion",
+    "hero_name": "Lion",
+    "ability": "lion_impale",
+    "ability_name": "Earth Spike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны/сек сжигает Mana Drain Lion на {level} уровне?",
+    "answers": [
+      20,
+      40,
+      60,
+      120
+    ],
+    "unit": "маны",
+    "hero": "lion",
+    "hero_name": "Lion",
+    "ability": "lion_mana_drain",
+    "ability_name": "Mana Drain",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Mana Drain Lion на {level} уровне?",
+    "answers": [
+      15,
+      20,
+      25,
+      30
+    ],
+    "unit": "%",
+    "hero": "lion",
+    "hero_name": "Lion",
+    "ability": "lion_mana_drain",
+    "ability_name": "Mana Drain",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона добавляет каждый убитый герой к Finger of Death Lion?",
+    "answer": 30,
+    "unit": "ед.",
+    "hero": "lion",
+    "hero_name": "Lion",
+    "ability": "lion_finger_of_death",
+    "ability_name": "Finger of Death",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % cleave-урона у кулака после Finger of Death Lion?",
+    "options": [
+      "25%",
+      "50%",
+      "15%",
+      "35%"
+    ],
+    "correct": 0,
+    "hero": "lion",
+    "hero_name": "Lion",
+    "ability": "lion_finger_of_death",
+    "ability_name": "Finger of Death",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP у медведя Spirit Bear Lone Druid?",
+    "answer": 1500,
+    "unit": "ед.",
+    "hero": "lone_druid",
+    "hero_name": "Lone Druid",
+    "ability": "lone_druid_spirit_bear",
+    "ability_name": "Summon Spirit Bear",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % лайфстила делит Spirit Link Lone Druid на {level} уровне?",
+    "answers": [
+      15,
+      30,
+      45,
+      60
+    ],
+    "unit": "%",
+    "hero": "lone_druid",
+    "hero_name": "Lone Druid",
+    "ability": "lone_druid_spirit_link",
+    "ability_name": "Spirit Link",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP бонуса даёт True Form Lone Druid на {level} уровне?",
+    "answers": [
+      500,
+      1000,
+      1500
+    ],
+    "unit": "ед.",
+    "hero": "lone_druid",
+    "hero_name": "Lone Druid",
+    "ability": "lone_druid_true_form",
+    "ability_name": "True Form",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Entangling Claws Lone Druid при рутировании?",
+    "answer": 90,
+    "unit": "ед.",
+    "hero": "lone_druid",
+    "hero_name": "Lone Druid",
+    "ability": "lone_druid_spirit_bear_entangle",
+    "ability_name": "Entangling Claws",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится рут от Entangling Claws Lone Druid на {level} уровне?",
+    "answers": [
+      1.2,
+      1.6,
+      2.0,
+      2.4
+    ],
+    "unit": "сек.",
+    "hero": "lone_druid",
+    "hero_name": "Lone Druid",
+    "ability": "lone_druid_spirit_bear_entangle",
+    "ability_name": "Entangling Claws",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Lucent Beam Luna на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "luna",
+    "hero_name": "Luna",
+    "ability": "luna_lucent_beam",
+    "ability_name": "Lucent Beam",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько всего лучей выпускает Eclipse Luna на {level} уровне?",
+    "answers": [
+      6,
+      9,
+      12
+    ],
+    "unit": "шт.",
+    "hero": "luna",
+    "hero_name": "Luna",
+    "ability": "luna_eclipse",
+    "ability_name": "Eclipse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько максимум раз Eclipse Luna бьёт одну цель?",
+    "options": [
+      "5",
+      "3",
+      "10",
+      "7"
+    ],
+    "correct": 0,
+    "hero": "luna",
+    "hero_name": "Luna",
+    "ability": "luna_eclipse",
+    "ability_name": "Eclipse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Насколько Moon Glaives Luna снижают урон с каждым прыжком на {level} уровне?",
+    "answers": [
+      50,
+      45,
+      40,
+      35
+    ],
+    "unit": "%",
+    "hero": "luna",
+    "hero_name": "Luna",
+    "ability": "luna_moon_glaive",
+    "ability_name": "Moon Glaives",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько прыжков у Moon Glaives Luna на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "шт.",
+    "hero": "luna",
+    "hero_name": "Luna",
+    "ability": "luna_moon_glaive",
+    "ability_name": "Moon Glaives",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % снижения урона даёт Lunar Orbit Luna на {level} уровне?",
+    "answers": [
+      8,
+      12,
+      16,
+      20
+    ],
+    "unit": "%",
+    "hero": "luna",
+    "hero_name": "Luna",
+    "ability": "luna_lunar_orbit",
+    "ability_name": "Lunar Orbit",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой шанс крита у Shapeshift Lycan?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "lycan",
+    "hero_name": "Lycan",
+    "ability": "lycan_shapeshift",
+    "ability_name": "Shapeshift",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой крит-множитель у Shapeshift Lycan на {level} уровне?",
+    "answers": [
+      160,
+      200,
+      240
+    ],
+    "unit": "%",
+    "hero": "lycan",
+    "hero_name": "Lycan",
+    "ability": "lycan_shapeshift",
+    "ability_name": "Shapeshift",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько снижает урон атаки Howl Lycan на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "lycan",
+    "hero_name": "Lycan",
+    "ability": "lycan_howl",
+    "ability_name": "Howl",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько снижает броню Howl Lycan на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "unit": "ед.",
+    "hero": "lycan",
+    "hero_name": "Lycan",
+    "ability": "lycan_howl",
+    "ability_name": "Howl",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % лайфстила получают Lycan и союзник от Wolf Bite?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "lycan",
+    "hero_name": "Lycan",
+    "ability": "lycan_wolf_bite",
+    "ability_name": "Wolf Bite",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % бонусного урона даёт Feral Impulse Lycan на {level} уровне?",
+    "answers": [
+      10,
+      20,
+      30,
+      40
+    ],
+    "unit": "%",
+    "hero": "lycan",
+    "hero_name": "Lycan",
+    "ability": "lycan_feral_impulse",
+    "ability_name": "Feral Impulse",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Shockwave Magnus на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_shockwave",
+    "ability_name": "Shockwave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Shockwave Magnus?",
+    "answer": 75,
+    "unit": "%",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_shockwave",
+    "ability_name": "Shockwave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % бонусного урона и клива даёт Empower Magnus союзнику на {level} уровне?",
+    "answers": [
+      16,
+      24,
+      32,
+      40
+    ],
+    "unit": "%",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_empower",
+    "ability_name": "Empower",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Skewer Magnus на {level} уровне?",
+    "answers": [
+      80,
+      160,
+      240,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_skewer",
+    "ability_name": "Skewer",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Skewer Magnus на {level} уровне?",
+    "answers": [
+      20,
+      30,
+      40,
+      50
+    ],
+    "unit": "%",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_skewer",
+    "ability_name": "Skewer",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Reverse Polarity Magnus на {level} уровне?",
+    "answers": [
+      100,
+      200,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_reverse_polarity",
+    "ability_name": "Reverse Polarity",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан Reverse Polarity Magnus на {level} уровне?",
+    "answers": [
+      2.5,
+      3.0,
+      3.5
+    ],
+    "unit": "сек.",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_reverse_polarity",
+    "ability_name": "Reverse Polarity",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой радиус притяжения Reverse Polarity Magnus?",
+    "answer": 430,
+    "unit": "ед.",
+    "hero": "magnataur",
+    "hero_name": "Magnus",
+    "ability": "magnataur_reverse_polarity",
+    "ability_name": "Reverse Polarity",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Dispose Marci на {level} уровне?",
+    "answers": [
+      60,
+      150,
+      240,
+      330
+    ],
+    "unit": "ед.",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_grapple",
+    "ability_name": "Dispose",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Dispose Marci на {level} уровне?",
+    "answers": [
+      20,
+      30,
+      40,
+      50
+    ],
+    "unit": "%",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_grapple",
+    "ability_name": "Dispose",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько ударов в серии Fury у Unleash Marci?",
+    "answer": 5,
+    "unit": "шт.",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_unleash",
+    "ability_name": "Unleash",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой урон пульса после каждой серии ударов Unleash Marci на {level} уровне?",
+    "answers": [
+      50,
+      100,
+      150
+    ],
+    "unit": "ед.",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_unleash",
+    "ability_name": "Unleash",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Rebound Marci на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_companion_run",
+    "ability_name": "Rebound",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % лайфстила пассивно даёт Bodyguard Marci на {level} уровне?",
+    "answers": [
+      12,
+      18,
+      24,
+      30
+    ],
+    "unit": "%",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_bodyguard",
+    "ability_name": "Bodyguard",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько барьера создаёт Bodyguard Marci на {level} уровне?",
+    "answers": [
+      90,
+      160,
+      230,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "marci",
+    "hero_name": "Marci",
+    "ability": "marci_bodyguard",
+    "ability_name": "Bodyguard",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Spear of Mars на {level} уровне?",
+    "answers": [
+      100,
+      175,
+      250,
+      325
+    ],
+    "unit": "ед.",
+    "hero": "mars",
+    "hero_name": "Mars",
+    "ability": "mars_spear",
+    "ability_name": "Spear of Mars",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой критический урон у God's Rebuke Mars на {level} уровне?",
+    "answers": [
+      150,
+      200,
+      250,
+      300
+    ],
+    "unit": "%",
+    "hero": "mars",
+    "hero_name": "Mars",
+    "ability": "mars_gods_rebuke",
+    "ability_name": "God's Rebuke",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет God's Rebuke Mars?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "mars",
+    "hero_name": "Mars",
+    "ability": "mars_gods_rebuke",
+    "ability_name": "God's Rebuke",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносят копья Arena of Blood Mars на {level} уровне?",
+    "answers": [
+      80,
+      160,
+      240
+    ],
+    "unit": "ед.",
+    "hero": "mars",
+    "hero_name": "Mars",
+    "ability": "mars_arena_of_blood",
+    "ability_name": "Arena Of Blood",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько снижает физический урон спереди Bulwark Mars на {level} уровне?",
+    "answers": [
+      40,
+      50,
+      60,
+      70
+    ],
+    "unit": "%",
+    "hero": "mars",
+    "hero_name": "Mars",
+    "ability": "mars_bulwark",
+    "ability_name": "Bulwark",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько снижает физический урон с боков Bulwark Mars на {level} уровне?",
+    "answers": [
+      20,
+      25,
+      30,
+      35
+    ],
+    "unit": "%",
+    "hero": "mars",
+    "hero_name": "Mars",
+    "ability": "mars_bulwark",
+    "ability_name": "Bulwark",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько прыжков у Mystic Snake Medusa на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "шт.",
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_mystic_snake",
+    "ability_name": "Mystic Snake",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % маны возвращает Mystic Snake Medusa от маны целей?",
+    "answer": 15,
+    "unit": "%",
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_mystic_snake",
+    "ability_name": "Mystic Snake",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % увеличивается урон и скорость Mystic Snake Medusa с каждым прыжком?",
+    "answer": 25,
+    "unit": "%",
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_mystic_snake",
+    "ability_name": "Mystic Snake",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит при обездвиженности Gorgon's Grasp Medusa?",
+    "answer": 100,
+    "unit": "ед.",
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_gorgon_grasp",
+    "ability_name": "Gorgon's Grasp",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится окаменение Stone Gaze Medusa на {level} уровне?",
+    "answers": [
+      2.0,
+      2.2,
+      2.4
+    ],
+    "unit": "сек.",
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_stone_gaze",
+    "ability_name": "Stone Gaze",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % усиливает физический урон по цели Stone Gaze Medusa на {level} уровне?",
+    "answers": [
+      35,
+      45,
+      55
+    ],
+    "unit": "%",
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_stone_gaze",
+    "ability_name": "Stone Gaze",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько урона поглощает Mana Shield Medusa за 1 ману?",
+    "options": [
+      "2",
+      "1",
+      "3",
+      "5"
+    ],
+    "correct": 0,
+    "hero": "medusa",
+    "hero_name": "Medusa",
+    "ability": "medusa_mana_shield",
+    "ability_name": "Mana Shield",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится рут от Earthbind Meepo?",
+    "answer": 2,
+    "unit": "сек.",
+    "hero": "meepo",
+    "hero_name": "Meepo",
+    "ability": "meepo_earthbind",
+    "ability_name": "Earthbind",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Poof Meepo на {level} уровне?",
+    "answers": [
+      50,
+      80,
+      110,
+      140
+    ],
+    "unit": "ед.",
+    "hero": "meepo",
+    "hero_name": "Meepo",
+    "ability": "meepo_poof",
+    "ability_name": "Poof",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP восстанавливает Dig Meepo от максимального?",
+    "answer": 25,
+    "unit": "%",
+    "hero": "meepo",
+    "hero_name": "Meepo",
+    "ability": "meepo_petrify",
+    "ability_name": "Dig",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP крадёт Ransack Meepo за удар по герою на {level} уровне?",
+    "answers": [
+      9,
+      12,
+      15,
+      18
+    ],
+    "unit": "ед.",
+    "hero": "meepo",
+    "hero_name": "Meepo",
+    "ability": "meepo_ransack",
+    "ability_name": "Ransack",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Fling Meepo на {level} уровне?",
+    "answers": [
+      30,
+      40,
+      50,
+      60
+    ],
+    "unit": "%",
+    "hero": "meepo",
+    "hero_name": "Meepo",
+    "ability": "meepo_fling",
+    "ability_name": "Fling",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит MegaMeepo Fling?",
+    "answer": 225,
+    "unit": "ед.",
+    "hero": "meepo",
+    "hero_name": "Meepo",
+    "ability": "meepo_megameepo_fling",
+    "ability_name": "MegaMeepo Fling",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный стан у Sacred Arrow Mirana на {level} уровне?",
+    "answers": [
+      2.6,
+      3.4,
+      4.2,
+      5.0
+    ],
+    "unit": "сек.",
+    "hero": "mirana",
+    "hero_name": "Mirana",
+    "ability": "mirana_arrow",
+    "ability_name": "Sacred Arrow",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный бонусный урон у Sacred Arrow Mirana?",
+    "answer": 180,
+    "unit": "ед.",
+    "hero": "mirana",
+    "hero_name": "Mirana",
+    "ability": "mirana_arrow",
+    "ability_name": "Sacred Arrow",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Starstorm Mirana на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "mirana",
+    "hero_name": "Mirana",
+    "ability": "mirana_starfall",
+    "ability_name": "Starstorm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой % урона наносит второй метеор Starstorm Mirana ближайшему врагу?",
+    "options": [
+      "70%",
+      "50%",
+      "100%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "mirana",
+    "hero_name": "Mirana",
+    "ability": "mirana_starfall",
+    "ability_name": "Starstorm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный бонус атаки/движения даёт Solar Flare Mirana на {level} уровне?",
+    "answers": [
+      70,
+      110,
+      150
+    ],
+    "unit": "ед.",
+    "hero": "mirana",
+    "hero_name": "Mirana",
+    "ability": "mirana_solar_flare",
+    "ability_name": "Solar Flare",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Moonlight Shadow Mirana?",
+    "answer": 18,
+    "unit": "сек.",
+    "hero": "mirana",
+    "hero_name": "Mirana",
+    "ability": "mirana_invis",
+    "ability_name": "Moonlight Shadow",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона и лайфстила при зарядах Jingu Mastery Monkey King на {level} уровне?",
+    "answers": [
+      30,
+      80,
+      130,
+      180
+    ],
+    "unit": "ед.",
+    "hero": "monkey_king",
+    "hero_name": "Monkey King",
+    "ability": "monkey_king_jingu_mastery",
+    "ability_name": "Jingu Mastery",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % лайфстила дают заряды Jingu Mastery Monkey King на {level} уровне?",
+    "answers": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "unit": "%",
+    "hero": "monkey_king",
+    "hero_name": "Monkey King",
+    "ability": "monkey_king_jingu_mastery",
+    "ability_name": "Jingu Mastery",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько ударов нужно нанести по одному герою для активации Jingu Mastery?",
+    "options": [
+      "4",
+      "3",
+      "5",
+      "6"
+    ],
+    "correct": 0,
+    "hero": "monkey_king",
+    "hero_name": "Monkey King",
+    "ability": "monkey_king_jingu_mastery",
+    "ability_name": "Jingu Mastery",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Primal Spring Monkey King на {level} уровне?",
+    "answers": [
+      110,
+      200,
+      290,
+      380
+    ],
+    "unit": "ед.",
+    "hero": "monkey_king",
+    "hero_name": "Monkey King",
+    "ability": "monkey_king_primal_spring",
+    "ability_name": "Primal Spring",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный слоу у Primal Spring Monkey King на {level} уровне?",
+    "answers": [
+      35,
+      50,
+      65,
+      80
+    ],
+    "unit": "%",
+    "hero": "monkey_king",
+    "hero_name": "Monkey King",
+    "ability": "monkey_king_primal_spring",
+    "ability_name": "Primal Spring",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько брони Monkey King получает во время Wukong's Command на {level} уровне?",
+    "answers": [
+      15,
+      20,
+      25
+    ],
+    "unit": "ед.",
+    "hero": "monkey_king",
+    "hero_name": "Monkey King",
+    "ability": "monkey_king_wukongs_command",
+    "ability_name": "Wukong's Command",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Waveform Morphling на {level} уровне?",
+    "answers": [
+      80,
+      130,
+      180,
+      230
+    ],
+    "unit": "ед.",
+    "hero": "morphling",
+    "hero_name": "Morphling",
+    "ability": "morphling_waveform",
+    "ability_name": "Waveform",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой базовый урон у Adaptive Strike Morphling на {level} уровне?",
+    "answers": [
+      50,
+      70,
+      90,
+      110
+    ],
+    "unit": "ед.",
+    "hero": "morphling",
+    "hero_name": "Morphling",
+    "ability": "morphling_adaptive_strike_agi",
+    "ability_name": "Adaptive Strike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный стан Adaptive Strike Morphling (при высокой силе) на {level} уровне?",
+    "answers": [
+      1.4,
+      1.8,
+      2.2,
+      2.6
+    ],
+    "unit": "сек.",
+    "hero": "morphling",
+    "hero_name": "Morphling",
+    "ability": "morphling_adaptive_strike_agi",
+    "ability_name": "Adaptive Strike",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % скорость движения передаёт Ebb and Flow (с агилити) Morphling?",
+    "answer": 15,
+    "unit": "%",
+    "hero": "morphling",
+    "hero_name": "Morphling",
+    "ability": "morphling_ebb_and_flow",
+    "ability_name": "Ebb and Flow",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какую скорость атаки у Ofrenda Muerta на {level} уровне?",
+    "answers": [
+      20,
+      30,
+      40,
+      50
+    ],
+    "unit": "ед.",
+    "hero": "muerta",
+    "hero_name": "Muerta",
+    "ability": "muerta_ofrenda",
+    "ability_name": "Ofrenda",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой радиус эффекта Ofrenda Muerta на {level} уровне?",
+    "answers": [
+      400,
+      450,
+      500,
+      550
+    ],
+    "unit": "ед.",
+    "hero": "muerta",
+    "hero_name": "Muerta",
+    "ability": "muerta_ofrenda",
+    "ability_name": "Ofrenda",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Fortune's End Oracle на {level} уровне?",
+    "answers": [
+      100,
+      160,
+      220,
+      280
+    ],
+    "unit": "ед.",
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_fortunes_end",
+    "ability_name": "Fortune's End",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится рут от Fortune's End Oracle при полном канале?",
+    "answer": 2.75,
+    "unit": "сек.",
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_fortunes_end",
+    "ability_name": "Fortune's End",
+    "category": "стан"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой радиус у Fortune's End Oracle?",
+    "answer": 350,
+    "unit": "ед.",
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_fortunes_end",
+    "ability_name": "Fortune's End",
+    "category": "радиус"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько усиливается лечение, задержанное False Promise Oracle?",
+    "options": [
+      "100%",
+      "50%",
+      "75%",
+      "200%"
+    ],
+    "correct": 0,
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_false_promise",
+    "ability_name": "False Promise",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько лечения в секунду даёт Purifying Flames Oracle на {level} уровне?",
+    "answers": [
+      15,
+      25,
+      35,
+      45
+    ],
+    "unit": "ед.",
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_purifying_flames",
+    "ability_name": "Purifying Flames",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько суммарного лечения даёт Purifying Flames Oracle на {level} уровне?",
+    "answers": [
+      150,
+      250,
+      350,
+      450
+    ],
+    "unit": "ед.",
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_purifying_flames",
+    "ability_name": "Purifying Flames",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Rain of Destiny Oracle?",
+    "answer": 30,
+    "unit": "ед.",
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_rain_of_destiny",
+    "ability_name": "Rain of Destiny",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько процентов увеличивает Heal Amplification Rain of Destiny Oracle?",
+    "options": [
+      "15%",
+      "10%",
+      "20%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "oracle",
+    "hero_name": "Oracle",
+    "ability": "oracle_rain_of_destiny",
+    "ability_name": "Rain of Destiny",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько ударов наносит Swashbuckle Pangolier за один рывок?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "5"
+    ],
+    "correct": 0,
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_swashbuckle",
+    "ability_name": "Swashbuckle",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько барьера даёт Shield Crash Pangolier при попадании в героя на {level} уровне?",
+    "answers": [
+      60,
+      120,
+      180,
+      240
+    ],
+    "unit": "ед.",
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_shield_crash",
+    "ability_name": "Shield Crash",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс прока у Lucky Shot Pangolier?",
+    "options": [
+      "17%",
+      "10%",
+      "25%",
+      "20%"
+    ],
+    "correct": 0,
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_lucky_shot",
+    "ability_name": "Lucky Shot",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько Lucky Shot замедляет скорость атаки на {level} уровне?",
+    "answers": [
+      40,
+      80,
+      120,
+      160
+    ],
+    "unit": "ед.",
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_lucky_shot",
+    "ability_name": "Lucky Shot",
+    "category": "атака"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько единиц Lucky Shot снижает броню на {level} уровне?",
+    "answers": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "unit": "ед.",
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_lucky_shot",
+    "ability_name": "Lucky Shot",
+    "category": "броня"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какова скорость перекатки в Rolling Thunder Pangolier?",
+    "answer": 550,
+    "unit": "ед./с",
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_gyroshell",
+    "ability_name": "Rolling Thunder",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько процентов снижает Fortune Favors the Bold шанс случайных эффектов против Pangolier?",
+    "options": [
+      "50%",
+      "25%",
+      "75%",
+      "33%"
+    ],
+    "correct": 0,
+    "hero": "pangolier",
+    "hero_name": "Pangolier",
+    "ability": "pangolier_fortune_favors_the_bold",
+    "ability_name": "Fortune Favors the Bold",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько процентов максимального HP снимает Fan of Knives Phantom Assassin?",
+    "answer": 30,
+    "unit": "%",
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_fan_of_knives",
+    "ability_name": "Fan of Knives",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой Break-эффект даёт Fan of Knives Phantom Assassin?",
+    "options": [
+      "Break на 4 сек.",
+      "Silence на 3 сек.",
+      "Stun на 0.5 сек.",
+      "Slow на 2 сек."
+    ],
+    "correct": 0,
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_fan_of_knives",
+    "ability_name": "Fan of Knives",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Stifling Dagger Phantom Assassin?",
+    "answer": 50,
+    "unit": "%",
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_stifling_dagger",
+    "ability_name": "Stifling Dagger",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько процентов урона атаки добавляет Stifling Dagger Phantom Assassin на {level} уровне?",
+    "answers": [
+      "30%",
+      "45%",
+      "60%",
+      "75%"
+    ],
+    "unit": "",
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_stifling_dagger",
+    "ability_name": "Stifling Dagger",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс Deadly Focus у Coup de Grace Phantom Assassin с обычной атаки?",
+    "options": [
+      "17%",
+      "10%",
+      "25%",
+      "34%"
+    ],
+    "correct": 0,
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_coup_de_grace",
+    "ability_name": "Coup de Grace",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой крит-множитель у Coup de Grace Phantom Assassin на {level} уровне?",
+    "answers": [
+      200,
+      300,
+      400
+    ],
+    "unit": "%",
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_coup_de_grace",
+    "ability_name": "Coup de Grace",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой уклон даёт Immaterial Phantom Assassin на {level} уровне?",
+    "answers": [
+      25,
+      35,
+      45,
+      55
+    ],
+    "unit": "%",
+    "hero": "phantom_assassin",
+    "hero_name": "Phantom Assassin",
+    "ability": "phantom_assassin_immaterial",
+    "ability_name": "Immaterial",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Spirit Lance Phantom Lancer на {level} уровне?",
+    "answers": [
+      14,
+      21,
+      28,
+      35
+    ],
+    "unit": "%",
+    "hero": "phantom_lancer",
+    "hero_name": "Phantom Lancer",
+    "ability": "phantom_lancer_spirit_lance",
+    "ability_name": "Spirit Lance",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько иллюзий можно иметь одновременно от Juxtapose Phantom Lancer на {level} уровне?",
+    "answers": [
+      6,
+      8,
+      10
+    ],
+    "unit": "шт.",
+    "hero": "phantom_lancer",
+    "hero_name": "Phantom Lancer",
+    "ability": "phantom_lancer_juxtapose",
+    "ability_name": "Juxtapose",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс создать иллюзию у самого Phantom Lancer от Juxtapose на максимальном уровне?",
+    "options": [
+      "50%",
+      "40%",
+      "45%",
+      "35%"
+    ],
+    "correct": 0,
+    "hero": "phantom_lancer",
+    "hero_name": "Phantom Lancer",
+    "ability": "phantom_lancer_juxtapose",
+    "ability_name": "Juxtapose",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой процент уклонения даёт Phantom Rush на максимальном уровне?",
+    "options": [
+      "50%",
+      "20%",
+      "30%",
+      "40%"
+    ],
+    "correct": 0,
+    "hero": "phantom_lancer",
+    "hero_name": "Phantom Lancer",
+    "ability": "phantom_lancer_phantom_edge",
+    "ability_name": "Phantom Rush",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько секунд длится иллюзия от Spirit Lance Phantom Lancer на {level} уровне?",
+    "answers": [
+      3.5,
+      5,
+      6.5,
+      8
+    ],
+    "unit": "сек.",
+    "hero": "phantom_lancer",
+    "hero_name": "Phantom Lancer",
+    "ability": "phantom_lancer_spirit_lance",
+    "ability_name": "Spirit Lance",
+    "category": "длительность"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько HP стоит Icarus Dive Phoenix?",
+    "options": [
+      "15%",
+      "20%",
+      "10%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "phoenix",
+    "hero_name": "Phoenix",
+    "ability": "phoenix_icarus_dive",
+    "ability_name": "Icarus Dive",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Icarus Dive Phoenix на {level} уровне?",
+    "answers": [
+      10,
+      15,
+      20,
+      25
+    ],
+    "unit": "%",
+    "hero": "phoenix",
+    "hero_name": "Phoenix",
+    "ability": "phoenix_icarus_dive",
+    "ability_name": "Icarus Dive",
+    "category": "слоу"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько HP стоит запуск Fire Spirits Phoenix?",
+    "options": [
+      "20%",
+      "15%",
+      "25%",
+      "10%"
+    ],
+    "correct": 0,
+    "hero": "phoenix",
+    "hero_name": "Phoenix",
+    "ability": "phoenix_fire_spirits",
+    "ability_name": "Fire Spirits",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет скорость атаки Fire Spirits Phoenix на {level} уровне?",
+    "answers": [
+      50,
+      80,
+      110,
+      140
+    ],
+    "unit": "ед.",
+    "hero": "phoenix",
+    "hero_name": "Phoenix",
+    "ability": "phoenix_fire_spirits",
+    "ability_name": "Fire Spirits",
+    "category": "атака"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак нужно, чтобы уничтожить Supernova Phoenix на {level} уровне?",
+    "answers": [
+      6,
+      8,
+      10
+    ],
+    "unit": "атак",
+    "hero": "phoenix",
+    "hero_name": "Phoenix",
+    "ability": "phoenix_supernova",
+    "ability_name": "Supernova",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько процентов HP в секунду стоит Sun Ray Phoenix?",
+    "options": [
+      "5%",
+      "3%",
+      "7%",
+      "10%"
+    ],
+    "correct": 0,
+    "hero": "phoenix",
+    "hero_name": "Phoenix",
+    "ability": "phoenix_sun_ray",
+    "ability_name": "Sun Ray",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Onslaught Primal Beast на {level} уровне?",
+    "answers": [
+      75,
+      170,
+      265,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_onslaught",
+    "ability_name": "Onslaught",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какова максимальная дистанция Onslaught Primal Beast?",
+    "answer": 2000,
+    "unit": "ед.",
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_onslaught",
+    "ability_name": "Onslaught",
+    "category": "дальность"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько процентов урона атаки добавляет Trample Primal Beast к каждому удару?",
+    "options": [
+      "35%",
+      "25%",
+      "50%",
+      "40%"
+    ],
+    "correct": 0,
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_trample",
+    "ability_name": "Trample",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой AOE у Trample Primal Beast?",
+    "answer": 230,
+    "unit": "ед.",
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_trample",
+    "ability_name": "Trample",
+    "category": "радиус"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона добавляет каждый удар Pulverize Primal Beast на {level} уровне?",
+    "answers": [
+      20,
+      40,
+      60
+    ],
+    "unit": "ед.",
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_pulverize",
+    "ability_name": "Pulverize",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой AOE у Pulverize Primal Beast?",
+    "answer": 575,
+    "unit": "ед.",
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_pulverize",
+    "ability_name": "Pulverize",
+    "category": "радиус"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона за стак даёт Uproar Primal Beast на {level} уровне?",
+    "answers": [
+      10,
+      20,
+      30,
+      40
+    ],
+    "unit": "ед.",
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_uproar",
+    "ability_name": "Uproar",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько максимум стаков можно набрать в Uproar Primal Beast?",
+    "options": [
+      "6",
+      "5",
+      "8",
+      "10"
+    ],
+    "correct": 0,
+    "hero": "primal_beast",
+    "hero_name": "Primal Beast",
+    "ability": "primal_beast_uproar",
+    "ability_name": "Uproar",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "С какой частотой Illusory Orb Puck наносит дополнительный AOE урон вдоль пути?",
+    "options": [
+      "3% каждые 0.5 сек.",
+      "5% каждую сек.",
+      "2% каждые 0.3 сек.",
+      "4% каждые 0.5 сек."
+    ],
+    "correct": 0,
+    "hero": "puck",
+    "hero_name": "Puck",
+    "ability": "puck_illusory_orb",
+    "ability_name": "Illusory Orb",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Waning Rift Puck и молчания накладывает на {level} уровне — сколько длится силенс?",
+    "answers": [
+      2,
+      2.5,
+      3,
+      3.5
+    ],
+    "unit": "сек.",
+    "hero": "puck",
+    "hero_name": "Puck",
+    "ability": "puck_waning_rift",
+    "ability_name": "Waning Rift",
+    "category": "стан"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой радиус разрыва у Dream Coil Puck?",
+    "answer": 600,
+    "unit": "ед.",
+    "hero": "puck",
+    "hero_name": "Puck",
+    "ability": "puck_dream_coil",
+    "ability_name": "Dream Coil",
+    "category": "радиус"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит разрыв Dream Coil Puck на {level} уровне?",
+    "answers": [
+      200,
+      300,
+      400
+    ],
+    "unit": "ед.",
+    "hero": "puck",
+    "hero_name": "Puck",
+    "ability": "puck_dream_coil",
+    "ability_name": "Dream Coil",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан от разрыва Dream Coil Puck на {level} уровне?",
+    "answers": [
+      1.5,
+      2,
+      2.5
+    ],
+    "unit": "сек.",
+    "hero": "puck",
+    "hero_name": "Puck",
+    "ability": "puck_dream_coil",
+    "ability_name": "Dream Coil",
+    "category": "стан"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Dream Coil Puck при применении на {level} уровне?",
+    "answers": [
+      175,
+      250,
+      325
+    ],
+    "unit": "ед.",
+    "hero": "puck",
+    "hero_name": "Puck",
+    "ability": "puck_dream_coil",
+    "ability_name": "Dream Coil",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона за секунду наносит Rot Pudge на {level} уровне?",
+    "answers": [
+      30,
+      60,
+      90,
+      120
+    ],
+    "unit": "ед.",
+    "hero": "pudge",
+    "hero_name": "Pudge",
+    "ability": "pudge_rot",
+    "ability_name": "Rot",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Rot Pudge на {level} уровне?",
+    "answers": [
+      14,
+      20,
+      26,
+      32
+    ],
+    "unit": "%",
+    "hero": "pudge",
+    "hero_name": "Pudge",
+    "ability": "pudge_rot",
+    "ability_name": "Rot",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой радиус у Rot Pudge?",
+    "answer": 250,
+    "unit": "ед.",
+    "hero": "pudge",
+    "hero_name": "Pudge",
+    "ability": "pudge_rot",
+    "ability_name": "Rot",
+    "category": "радиус"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Dismember Pudge на {level} уровне?",
+    "answers": [
+      80,
+      100,
+      120
+    ],
+    "unit": "ед.",
+    "hero": "pudge",
+    "hero_name": "Pudge",
+    "ability": "pudge_dismember",
+    "ability_name": "Dismember",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой множитель силы использует Dismember Pudge для бонусного урона на {level} уровне?",
+    "answers": [
+      0.3,
+      0.6,
+      0.9
+    ],
+    "unit": "",
+    "hero": "pudge",
+    "hero_name": "Pudge",
+    "ability": "pudge_dismember",
+    "ability_name": "Dismember",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько единиц блока урона даёт Meat Shield Pudge на {level} уровне?",
+    "answers": [
+      8,
+      14,
+      20,
+      26
+    ],
+    "unit": "ед.",
+    "hero": "pudge",
+    "hero_name": "Pudge",
+    "ability": "pudge_flesh_heap",
+    "ability_name": "Meat Shield",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Decrepify Pugna врагов на {level} уровне?",
+    "answers": [
+      45,
+      50,
+      55,
+      60
+    ],
+    "unit": "%",
+    "hero": "pugna",
+    "hero_name": "Pugna",
+    "ability": "pugna_decrepify",
+    "ability_name": "Decrepify",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько увеличивает магический урон по врагу Decrepify Pugna на {level} уровне?",
+    "answers": [
+      20,
+      30,
+      40,
+      50
+    ],
+    "unit": "%",
+    "hero": "pugna",
+    "hero_name": "Pugna",
+    "ability": "pugna_decrepify",
+    "ability_name": "Decrepify",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько базового урона наносит Nether Blast Pugna на {level} уровне?",
+    "answers": [
+      95,
+      170,
+      245,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "pugna",
+    "hero_name": "Pugna",
+    "ability": "pugna_nether_blast",
+    "ability_name": "Nether Blast",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона за ману наносит Nether Ward Pugna на {level} уровне?",
+    "answers": [
+      1,
+      1.2,
+      1.4,
+      1.6
+    ],
+    "unit": "ед.",
+    "hero": "pugna",
+    "hero_name": "Pugna",
+    "ability": "pugna_nether_ward",
+    "ability_name": "Nether Ward",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько HP в секунду восстанавливает/наносит Life Drain Pugna на {level} уровне?",
+    "answers": [
+      150,
+      250,
+      350
+    ],
+    "unit": "ед.",
+    "hero": "pugna",
+    "hero_name": "Pugna",
+    "ability": "pugna_life_drain",
+    "ability_name": "Life Drain",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько начального урона наносит Shadow Strike Queen of Pain на {level} уровне?",
+    "answers": [
+      50,
+      80,
+      110,
+      140
+    ],
+    "unit": "ед.",
+    "hero": "queenofpain",
+    "hero_name": "Queen of Pain",
+    "ability": "queenofpain_shadow_strike",
+    "ability_name": "Shadow Strike",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Shadow Strike Queen of Pain на {level} уровне?",
+    "answers": [
+      25,
+      35,
+      45,
+      55
+    ],
+    "unit": "%",
+    "hero": "queenofpain",
+    "hero_name": "Queen of Pain",
+    "ability": "queenofpain_shadow_strike",
+    "ability_name": "Shadow Strike",
+    "category": "слоу"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой процент Spell Amplification даёт Masochist Queen of Pain?",
+    "options": [
+      "14%",
+      "10%",
+      "20%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "queenofpain",
+    "hero_name": "Queen of Pain",
+    "ability": "queenofpain_masochist",
+    "ability_name": "Masochist",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой минимальный Spell Lifesteal у Succubus Queen of Pain (на дальней дистанции)?",
+    "options": [
+      "2%",
+      "5%",
+      "10%",
+      "14%"
+    ],
+    "correct": 0,
+    "hero": "queenofpain",
+    "hero_name": "Queen of Pain",
+    "ability": "queenofpain_succubus",
+    "ability_name": "Succubus",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько единиц отбрасывает Sonic Wave Queen of Pain?",
+    "answer": 350,
+    "unit": "ед.",
+    "hero": "queenofpain",
+    "hero_name": "Queen of Pain",
+    "ability": "queenofpain_sonic_wave",
+    "ability_name": "Sonic Wave",
+    "category": "толчок"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Battery Assault Clockwerk за каждые 0.7 сек. на {level} уровне?",
+    "answers": [
+      20,
+      45,
+      70,
+      95
+    ],
+    "unit": "ед.",
+    "hero": "rattletrap",
+    "hero_name": "Clockwerk",
+    "ability": "rattletrap_battery_assault",
+    "ability_name": "Battery Assault",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны сжигает Power Cogs Clockwerk при ударе на {level} уровне?",
+    "answers": [
+      35,
+      75,
+      115,
+      155
+    ],
+    "unit": "ед.",
+    "hero": "rattletrap",
+    "hero_name": "Clockwerk",
+    "ability": "rattletrap_power_cogs",
+    "ability_name": "Power Cogs",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % увеличивает Overclocking радиус Hookshot Clockwerk?",
+    "options": [
+      "50%",
+      "25%",
+      "75%",
+      "100%"
+    ],
+    "correct": 0,
+    "hero": "rattletrap",
+    "hero_name": "Clockwerk",
+    "ability": "rattletrap_overclocking",
+    "ability_name": "Overclocking",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой стан даёт Hookshot Clockwerk на {level} уровне?",
+    "answers": [
+      1.2,
+      1.4,
+      1.6
+    ],
+    "unit": "сек.",
+    "hero": "rattletrap",
+    "hero_name": "Clockwerk",
+    "ability": "rattletrap_hookshot",
+    "ability_name": "Hookshot",
+    "category": "стан"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % увеличивает скорость Jetpack Clockwerk?",
+    "options": [
+      "20%",
+      "10%",
+      "15%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "rattletrap",
+    "hero_name": "Clockwerk",
+    "ability": "rattletrap_jetpack",
+    "ability_name": "Jetpack",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный урон наносит Plasma Field Razor на {level} уровне?",
+    "answers": [
+      80,
+      115,
+      150,
+      185
+    ],
+    "unit": "ед.",
+    "hero": "razor",
+    "hero_name": "Razor",
+    "ability": "razor_plasma_field",
+    "ability_name": "Plasma Field",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько максимум замедляет Plasma Field Razor на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "razor",
+    "hero_name": "Razor",
+    "ability": "razor_plasma_field",
+    "ability_name": "Plasma Field",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду похищает Static Link Razor на {level} уровне?",
+    "answers": [
+      6,
+      12,
+      18,
+      24
+    ],
+    "unit": "ед.",
+    "hero": "razor",
+    "hero_name": "Razor",
+    "ability": "razor_static_link",
+    "ability_name": "Static Link",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс срабатывания Storm Surge Razor при атаке?",
+    "options": [
+      "20%",
+      "10%",
+      "15%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "razor",
+    "hero_name": "Razor",
+    "ability": "razor_storm_surge",
+    "ability_name": "Storm Surge",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона снижает Eye of the Storm Razor за удар (броня)?",
+    "answer": 1,
+    "unit": "ед.",
+    "hero": "razor",
+    "hero_name": "Razor",
+    "ability": "razor_eye_of_the_storm",
+    "ability_name": "Eye of the Storm",
+    "category": "броня"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько замедляет Storm Surge Razor на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "razor",
+    "hero_name": "Razor",
+    "ability": "razor_storm_surge",
+    "ability_name": "Storm Surge",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой процент промаха даёт Smoke Screen Riki на {level} уровне?",
+    "answers": [
+      40,
+      50,
+      60,
+      70
+    ],
+    "unit": "%",
+    "hero": "riki",
+    "hero_name": "Riki",
+    "ability": "riki_smoke_screen",
+    "ability_name": "Smoke Screen",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона наносит Tricks of the Trade Riki за удар на {level} уровне?",
+    "answers": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "unit": "ед.",
+    "hero": "riki",
+    "hero_name": "Riki",
+    "ability": "riki_tricks_of_the_trade",
+    "ability_name": "Tricks of the Trade",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой множитель ловкости у Backstab Riki для бонусного урона?",
+    "options": [
+      "0.55",
+      "0.75",
+      "0.5",
+      "1.0"
+    ],
+    "correct": 0,
+    "hero": "riki",
+    "hero_name": "Riki",
+    "ability": "riki_innate_backstab",
+    "ability_name": "Backstab",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Через сколько секунд Cloak and Dagger Riki уходит в инвиз на {level} уровне?",
+    "answers": [
+      4,
+      3,
+      2
+    ],
+    "unit": "сек.",
+    "hero": "riki",
+    "hero_name": "Riki",
+    "ability": "riki_backstab",
+    "ability_name": "Cloak and Dagger",
+    "category": "длительность"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный урон наносит Tame the Beasts Ring Master на {level} уровне?",
+    "answers": [
+      180,
+      280,
+      380,
+      480
+    ],
+    "unit": "ед.",
+    "hero": "ringmaster",
+    "hero_name": "Ring Master",
+    "ability": "ringmaster_tame_the_beasts",
+    "ability_name": "Tame the Beasts",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой процент магической резистентности даёт Escape Act Ring Master на максимальном уровне?",
+    "options": [
+      "80%",
+      "50%",
+      "60%",
+      "70%"
+    ],
+    "correct": 0,
+    "hero": "ringmaster",
+    "hero_name": "Ring Master",
+    "ability": "ringmaster_the_box",
+    "ability_name": "Escape Act",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Wheel of Wonder Ring Master на {level} уровне?",
+    "answers": [
+      50,
+      75,
+      100
+    ],
+    "unit": "ед.",
+    "hero": "ringmaster",
+    "hero_name": "Ring Master",
+    "ability": "ringmaster_wheel",
+    "ability_name": "Wheel of Wonder",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько процентов максимального HP в секунду снимает Impalement Arts Ring Master с героев на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "%",
+    "hero": "ringmaster",
+    "hero_name": "Ring Master",
+    "ability": "ringmaster_impalement",
+    "ability_name": "Impalement Arts",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой процент промаха накладывает Spotlight Ring Master?",
+    "options": [
+      "30%",
+      "20%",
+      "40%",
+      "50%"
+    ],
+    "correct": 0,
+    "hero": "ringmaster",
+    "hero_name": "Ring Master",
+    "ability": "ringmaster_spotlight",
+    "ability_name": "Spotlight",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько поднимает Telekinesis Rubick цель на {level} уровне?",
+    "answers": [
+      0.95,
+      1.2,
+      1.45,
+      1.7
+    ],
+    "unit": "сек.",
+    "hero": "rubick",
+    "hero_name": "Rubick",
+    "ability": "rubick_telekinesis",
+    "ability_name": "Telekinesis",
+    "category": "стан"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонус к площади заклинаний даёт каждый стак Might and Magus Rubick?",
+    "answer": 15,
+    "unit": "ед.",
+    "hero": "rubick",
+    "hero_name": "Rubick",
+    "ability": "rubick_might_and_magus",
+    "ability_name": "Might and Magus",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонус к spell amp даёт Arcane Supremacy Rubick на {level} уровне?",
+    "answers": [
+      11,
+      16,
+      21,
+      26
+    ],
+    "unit": "%",
+    "hero": "rubick",
+    "hero_name": "Rubick",
+    "ability": "rubick_arcane_supremacy",
+    "ability_name": "Arcane Supremacy",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает Spell Steal Rubick кулдаун украденного заклинания на {level} уровне?",
+    "answers": [
+      10,
+      20,
+      30
+    ],
+    "unit": "%",
+    "hero": "rubick",
+    "hero_name": "Rubick",
+    "ability": "rubick_spell_steal",
+    "ability_name": "Spell Steal",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится бан от Disruption Shadow Demon?",
+    "answer": 2.75,
+    "unit": "сек.",
+    "hero": "shadow_demon",
+    "hero_name": "Shadow Demon",
+    "ability": "shadow_demon_disruption",
+    "ability_name": "Disruption",
+    "category": "стан"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько иллюзий создаёт Disruption Shadow Demon при появлении?",
+    "answer": 2,
+    "unit": "шт.",
+    "hero": "shadow_demon",
+    "hero_name": "Shadow Demon",
+    "ability": "shadow_demon_disruption",
+    "ability_name": "Disruption",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Demonic Purge Shadow Demon на {level} уровне?",
+    "answers": [
+      300,
+      450,
+      600
+    ],
+    "unit": "ед.",
+    "hero": "shadow_demon",
+    "hero_name": "Shadow Demon",
+    "ability": "shadow_demon_demonic_purge",
+    "ability_name": "Demonic Purge",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько процентов урона разделяет Disseminate Shadow Demon на {level} уровне?",
+    "answers": [
+      16,
+      24,
+      32,
+      40
+    ],
+    "unit": "%",
+    "hero": "shadow_demon",
+    "hero_name": "Shadow Demon",
+    "ability": "shadow_demon_disseminate",
+    "ability_name": "Disseminate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько стак-урона наносит Shadow Poison Shadow Demon за каждый стак на {level} уровне?",
+    "answers": [
+      24,
+      36,
+      48,
+      60
+    ],
+    "unit": "ед.",
+    "hero": "shadow_demon",
+    "hero_name": "Shadow Demon",
+    "ability": "shadow_demon_shadow_poison",
+    "ability_name": "Shadow Poison",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько стаков Shadow Poison Shadow Demon умножается по прогрессии 1/2/4/8/16?",
+    "options": [
+      "5",
+      "4",
+      "6",
+      "3"
+    ],
+    "correct": 0,
+    "hero": "shadow_demon",
+    "hero_name": "Shadow Demon",
+    "ability": "shadow_demon_shadow_poison",
+    "ability_name": "Shadow Poison",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Ether Shock Shadow Shaman на {level} уровне?",
+    "answers": [
+      125,
+      190,
+      255,
+      320
+    ],
+    "unit": "ед.",
+    "hero": "shadow_shaman",
+    "hero_name": "Shadow Shaman",
+    "ability": "shadow_shaman_ether_shock",
+    "ability_name": "Ether Shock",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько целей поражает Ether Shock Shadow Shaman на {level} уровне?",
+    "answers": [
+      3,
+      5,
+      7,
+      9
+    ],
+    "unit": "шт.",
+    "hero": "shadow_shaman",
+    "hero_name": "Shadow Shaman",
+    "ability": "shadow_shaman_ether_shock",
+    "ability_name": "Ether Shock",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Hex Shadow Shaman на {level} уровне?",
+    "answers": [
+      2,
+      2.3,
+      2.6,
+      2.9
+    ],
+    "unit": "сек.",
+    "hero": "shadow_shaman",
+    "hero_name": "Shadow Shaman",
+    "ability": "shadow_shaman_voodoo",
+    "ability_name": "Hex",
+    "category": "стан"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько суммарного урона/лечения наносит Shackles Shadow Shaman на {level} уровне?",
+    "answers": [
+      100,
+      160,
+      220,
+      280
+    ],
+    "unit": "ед.",
+    "hero": "shadow_shaman",
+    "hero_name": "Shadow Shaman",
+    "ability": "shadow_shaman_shackles",
+    "ability_name": "Shackles",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит каждый Serpent Ward Mass Serpent Ward Shadow Shaman на {level} уровне?",
+    "answers": [
+      50,
+      85,
+      120
+    ],
+    "unit": "ед.",
+    "hero": "shadow_shaman",
+    "hero_name": "Shadow Shaman",
+    "ability": "shadow_shaman_mass_serpent_ward",
+    "ability_name": "Mass Serpent Ward",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Flamethrower Timbersaw?",
+    "answer": 70,
+    "unit": "ед.",
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_flamethrower",
+    "ability_name": "Flamethrower",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько процентов Flamethrower Timbersaw замедляет врагов?",
+    "options": [
+      "30%",
+      "20%",
+      "40%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_flamethrower",
+    "ability_name": "Flamethrower",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Whirling Death Timbersaw на {level} уровне?",
+    "answers": [
+      75,
+      120,
+      165,
+      210
+    ],
+    "unit": "ед.",
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_whirling_death",
+    "ability_name": "Whirling Death",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой процент главного атрибута героя снижает Whirling Death Timbersaw?",
+    "options": [
+      "13%",
+      "10%",
+      "15%",
+      "20%"
+    ],
+    "correct": 0,
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_whirling_death",
+    "ability_name": "Whirling Death",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько ДПС наносит Chakram Timbersaw на {level} уровне?",
+    "answers": [
+      50,
+      75,
+      100
+    ],
+    "unit": "ед.",
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_chakram",
+    "ability_name": "Chakram",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны в секунду стоит Chakram Timbersaw на {level} уровне?",
+    "answers": [
+      14,
+      22,
+      30
+    ],
+    "unit": "ед.",
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_chakram",
+    "ability_name": "Chakram",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько маны восстанавливает каждое уничтоженное дерево от Exposure Therapy Timbersaw?",
+    "answer": 3.75,
+    "unit": "ед.",
+    "hero": "shredder",
+    "hero_name": "Timbersaw",
+    "ability": "shredder_exposure_therapy",
+    "ability_name": "Exposure Therapy",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько Интеллекта похищает Glaives of Wisdom Silencer за удар на {level} уровне?",
+    "answers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "unit": "ед.",
+    "hero": "silencer",
+    "hero_name": "Silencer",
+    "ability": "silencer_glaives_of_wisdom",
+    "ability_name": "Glaives of Wisdom",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько секунд продлевается Arcane Curse Silencer каждый раз, когда враг кастует заклинание?",
+    "answer": 2,
+    "unit": "сек.",
+    "hero": "silencer",
+    "hero_name": "Silencer",
+    "ability": "silencer_curse_of_the_silent",
+    "ability_name": "Arcane Curse",
+    "category": "длительность"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько процентов замедляет Arcane Curse Silencer на {level} уровне?",
+    "answers": [
+      16,
+      19,
+      22,
+      25
+    ],
+    "unit": "%",
+    "hero": "silencer",
+    "hero_name": "Silencer",
+    "ability": "silencer_curse_of_the_silent",
+    "ability_name": "Arcane Curse",
+    "category": "слоу"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько базового урона наносит Last Word Silencer на {level} уровне?",
+    "answers": [
+      120,
+      160,
+      200,
+      240
+    ],
+    "unit": "ед.",
+    "hero": "silencer",
+    "hero_name": "Silencer",
+    "ability": "silencer_last_word",
+    "ability_name": "Last Word",
+    "category": "урон"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой процент Интеллекта Silencer добавляется к урону Glaives of Wisdom на {level} уровне?",
+    "answers": [
+      35,
+      50,
+      65,
+      80
+    ],
+    "unit": "%",
+    "hero": "silencer",
+    "hero_name": "Silencer",
+    "ability": "silencer_glaives_of_wisdom",
+    "ability_name": "Glaives of Wisdom",
+    "category": "урон"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой шанс прока у Headshot Sniper?",
+    "options": [
+      "40%",
+      "25%",
+      "50%",
+      "30%"
+    ],
+    "correct": 0,
+    "hero": "sniper",
+    "hero_name": "Sniper",
+    "ability": "sniper_headshot",
+    "ability_name": "Headshot",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Concussive Grenade Sniper?",
+    "options": [
+      "50%",
+      "30%",
+      "40%",
+      "60%"
+    ],
+    "correct": 0,
+    "hero": "sniper",
+    "hero_name": "Sniper",
+    "ability": "sniper_concussive_grenade",
+    "ability_name": "Concussive Grenade",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Shrapnel Sniper на {level} уровне?",
+    "answers": [
+      12,
+      18,
+      24,
+      30
+    ],
+    "unit": "%",
+    "hero": "sniper",
+    "hero_name": "Sniper",
+    "ability": "sniper_shrapnel",
+    "ability_name": "Shrapnel",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Каков пассивный бонус дальности атаки Take Aim Sniper на {level} уровне?",
+    "answers": [
+      160,
+      240,
+      320,
+      400
+    ],
+    "unit": "ед.",
+    "hero": "sniper",
+    "hero_name": "Sniper",
+    "ability": "sniper_take_aim",
+    "ability_name": "Take Aim",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько времени прицеливается Assassinate Sniper перед выстрелом?",
+    "answer": 2,
+    "unit": "сек.",
+    "hero": "sniper",
+    "hero_name": "Sniper",
+    "ability": "sniper_assassinate",
+    "ability_name": "Assassinate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % увеличивает урон Keen Scope Sniper за каждые 100 ед. дистанции?",
+    "options": [
+      "1.5%",
+      "1%",
+      "2%",
+      "0.5%"
+    ],
+    "correct": 0,
+    "hero": "sniper",
+    "hero_name": "Sniper",
+    "ability": "sniper_keen_scope",
+    "ability_name": "Keen Scope",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Spectral Dagger Spectre за ход по тени на {level} уровне?",
+    "answers": [
+      70,
+      120,
+      170,
+      220
+    ],
+    "unit": "ед.",
+    "hero": "spectre",
+    "hero_name": "Spectre",
+    "ability": "spectre_spectral_dagger",
+    "ability_name": "Spectral Dagger",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % увеличивает скорость Spectre Spectral Dagger по тени на {level} уровне?",
+    "options": [
+      "10% / 14% / 18% / 22%",
+      "5% / 10% / 15% / 20%",
+      "8% / 12% / 16% / 20%",
+      "15% / 20% / 25% / 30%"
+    ],
+    "correct": 0,
+    "hero": "spectre",
+    "hero_name": "Spectre",
+    "ability": "spectre_spectral_dagger",
+    "ability_name": "Spectral Dagger",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько чистого урона наносит Desolate Spectre за удар по одинокому врагу?",
+    "answer": 23,
+    "unit": "ед.",
+    "hero": "spectre",
+    "hero_name": "Spectre",
+    "ability": "spectre_desolate",
+    "ability_name": "Desolate",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % отражает урон Dispersion Spectre на {level} уровне?",
+    "answers": [
+      8,
+      12,
+      16,
+      20
+    ],
+    "unit": "%",
+    "hero": "spectre",
+    "hero_name": "Spectre",
+    "ability": "spectre_dispersion",
+    "ability_name": "Dispersion",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Каков максимальный радиус Dispersion Spectre?",
+    "answer": 800,
+    "unit": "ед.",
+    "hero": "spectre",
+    "hero_name": "Spectre",
+    "ability": "spectre_dispersion",
+    "ability_name": "Dispersion",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько % урона наносят иллюзии Haunt Spectre на {level} уровне?",
+    "answers": [
+      30,
+      50,
+      70
+    ],
+    "unit": "%",
+    "hero": "spectre",
+    "hero_name": "Spectre",
+    "ability": "spectre_haunt",
+    "ability_name": "Haunt",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Static Remnant Storm Spirit на {level} уровне?",
+    "answers": [
+      100,
+      160,
+      220,
+      280
+    ],
+    "unit": "ед.",
+    "hero": "storm_spirit",
+    "hero_name": "Storm Spirit",
+    "ability": "storm_spirit_static_remnant",
+    "ability_name": "Static Remnant",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Overload Storm Spirit движение?",
+    "answer": 80,
+    "unit": "%",
+    "hero": "storm_spirit",
+    "hero_name": "Storm Spirit",
+    "ability": "storm_spirit_overload",
+    "ability_name": "Overload",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Overload Storm Spirit на {level} уровне?",
+    "answers": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "unit": "ед.",
+    "hero": "storm_spirit",
+    "hero_name": "Storm Spirit",
+    "ability": "storm_spirit_overload",
+    "ability_name": "Overload",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько маны стоит Ball Lightning Storm Spirit на активацию (базово)?",
+    "options": [
+      "25",
+      "15",
+      "30",
+      "50"
+    ],
+    "correct": 0,
+    "hero": "storm_spirit",
+    "hero_name": "Storm Spirit",
+    "ability": "storm_spirit_ball_lightning",
+    "ability_name": "Ball Lightning",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % от мана-пула стоит активация Ball Lightning Storm Spirit?",
+    "answer": 7.5,
+    "unit": "%",
+    "hero": "storm_spirit",
+    "hero_name": "Storm Spirit",
+    "ability": "storm_spirit_ball_lightning",
+    "ability_name": "Ball Lightning",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько секунд длится Overload Storm Spirit?",
+    "answer": 0.8,
+    "unit": "сек.",
+    "hero": "storm_spirit",
+    "hero_name": "Storm Spirit",
+    "ability": "storm_spirit_overload",
+    "ability_name": "Overload",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан от Storm Hammer Sven на {level} уровне?",
+    "answers": [
+      1,
+      1.2,
+      1.4,
+      1.6
+    ],
+    "unit": "сек.",
+    "hero": "sven",
+    "hero_name": "Sven",
+    "ability": "sven_storm_bolt",
+    "ability_name": "Storm Hammer",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % наносит урон Great Cleave Sven на {level} уровне?",
+    "answers": [
+      60,
+      70,
+      80,
+      90
+    ],
+    "unit": "%",
+    "hero": "sven",
+    "hero_name": "Sven",
+    "ability": "sven_great_cleave",
+    "ability_name": "Great Cleave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какова дальность Great Cleave Sven на {level} уровне?",
+    "answers": [
+      400,
+      500,
+      600,
+      700
+    ],
+    "unit": "ед.",
+    "hero": "sven",
+    "hero_name": "Sven",
+    "ability": "sven_great_cleave",
+    "ability_name": "Great Cleave",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % усиливает урон God's Strength Sven на {level} уровне?",
+    "answers": [
+      110,
+      150,
+      190
+    ],
+    "unit": "%",
+    "hero": "sven",
+    "hero_name": "Sven",
+    "ability": "sven_gods_strength",
+    "ability_name": "God's Strength",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % скорости движения усиливает Warcry Sven на {level} уровне?",
+    "options": [
+      "6% / 9% / 12% / 15%",
+      "5% / 8% / 11% / 14%",
+      "10% / 12% / 14% / 16%",
+      "4% / 6% / 8% / 10%"
+    ],
+    "correct": 0,
+    "hero": "sven",
+    "hero_name": "Sven",
+    "ability": "sven_warcry",
+    "ability_name": "Warcry",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % сопротивления к замедлению даёт God's Strength Sven?",
+    "answer": 30,
+    "unit": "%",
+    "hero": "sven",
+    "hero_name": "Sven",
+    "ability": "sven_gods_strength",
+    "ability_name": "God's Strength",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Proximity Mines Techies на {level} уровне?",
+    "answers": [
+      400,
+      575,
+      750
+    ],
+    "unit": "ед.",
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_land_mines",
+    "ability_name": "Proximity Mines",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится рут от Stasis Trap Techies на {level} уровне?",
+    "answers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "unit": "сек.",
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_stasis_trap",
+    "ability_name": "Stasis Trap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Каков радиус рута Stasis Trap Techies?",
+    "answer": 600,
+    "unit": "ед.",
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_stasis_trap",
+    "ability_name": "Stasis Trap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Blast Off! Techies на {level} уровне?",
+    "answers": [
+      200,
+      300,
+      400,
+      500
+    ],
+    "unit": "ед.",
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_suicide",
+    "ability_name": "Blast Off!",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % текущего HP тратит Blast Off! Techies на себя?",
+    "options": [
+      "20%",
+      "10%",
+      "30%",
+      "15%"
+    ],
+    "correct": 0,
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_suicide",
+    "ability_name": "Blast Off!",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает Magic Resistance Proximity Mines Techies на {level} уровне?",
+    "answers": [
+      15,
+      20,
+      25
+    ],
+    "unit": "%",
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_land_mines",
+    "ability_name": "Proximity Mines",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Remote Mines Techies на {level} уровне?",
+    "answers": [
+      300,
+      450,
+      600
+    ],
+    "unit": "ед.",
+    "hero": "techies",
+    "hero_name": "Techies",
+    "ability": "techies_remote_mines",
+    "ability_name": "Remote Mines",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько зарядов щита даёт Refraction Templar Assassin на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "ед.",
+    "hero": "templar_assassin",
+    "hero_name": "Templar Assassin",
+    "ability": "templar_assassin_refraction",
+    "ability_name": "Refraction",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько единиц барьера даёт каждый заряд Refraction Templar Assassin?",
+    "answer": 30,
+    "unit": "ед.",
+    "hero": "templar_assassin",
+    "hero_name": "Templar Assassin",
+    "ability": "templar_assassin_refraction",
+    "ability_name": "Refraction",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько ед. снижает броню Meld Templar Assassin на {level} уровне?",
+    "answers": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "unit": "ед.",
+    "hero": "templar_assassin",
+    "hero_name": "Templar Assassin",
+    "ability": "templar_assassin_meld",
+    "ability_name": "Meld",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько ед. увеличивает дальность атаки Psi Blades Templar Assassin на {level} уровне?",
+    "answers": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "unit": "ед.",
+    "hero": "templar_assassin",
+    "hero_name": "Templar Assassin",
+    "ability": "templar_assassin_psi_blades",
+    "ability_name": "Psi Blades",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой максимальный слоу накладывает Psionic Trap Templar Assassin?",
+    "answer": 50,
+    "unit": "%",
+    "hero": "templar_assassin",
+    "hero_name": "Templar Assassin",
+    "ability": "templar_assassin_psionic_trap",
+    "ability_name": "Psionic Trap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Psionic Trap Templar Assassin на {level} уровне?",
+    "answers": [
+      200,
+      300,
+      400
+    ],
+    "unit": "ед.",
+    "hero": "templar_assassin",
+    "hero_name": "Templar Assassin",
+    "ability": "templar_assassin_psionic_trap",
+    "ability_name": "Psionic Trap",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Reflection Terrorblade движение на {level} уровне?",
+    "answers": [
+      15,
+      20,
+      25,
+      30
+    ],
+    "unit": "%",
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_reflection",
+    "ability_name": "Reflection",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько секунд длится Reflection Terrorblade?",
+    "answer": 5,
+    "unit": "сек.",
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_reflection",
+    "ability_name": "Reflection",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой % урона наносят иллюзии Conjure Image Terrorblade на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_conjure_image",
+    "ability_name": "Conjure Image",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько секунд длится иллюзия Conjure Image Terrorblade?",
+    "answer": 34,
+    "unit": "сек.",
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_conjure_image",
+    "ability_name": "Conjure Image",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой минимальный % HP остаётся после Sunder Terrorblade на {level} уровне?",
+    "options": [
+      "35% / 30% / 25%",
+      "40% / 35% / 30%",
+      "30% / 25% / 20%",
+      "25% / 20% / 15%"
+    ],
+    "correct": 0,
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_sunder",
+    "ability_name": "Sunder",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько скорости атаки даёт Demon Zeal Terrorblade?",
+    "answer": 100,
+    "unit": "ед.",
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_demon_zeal",
+    "ability_name": "Demon Zeal",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Сколько % текущего HP стоит Demon Zeal Terrorblade?",
+    "options": [
+      "20%",
+      "10%",
+      "15%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "terrorblade",
+    "hero_name": "Terrorblade",
+    "ability": "terrorblade_demon_zeal",
+    "ability_name": "Demon Zeal",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Gush Tidehunter?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "tidehunter",
+    "hero_name": "Tidehunter",
+    "ability": "tidehunter_gush",
+    "ability_name": "Gush",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько ед. снижает броню Gush Tidehunter на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "ед.",
+    "hero": "tidehunter",
+    "hero_name": "Tidehunter",
+    "ability": "tidehunter_gush",
+    "ability_name": "Gush",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает урон Anchor Smash Tidehunter на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "%",
+    "hero": "tidehunter",
+    "hero_name": "Tidehunter",
+    "ability": "tidehunter_anchor_smash",
+    "ability_name": "Anchor Smash",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан от Ravage Tidehunter на {level} уровне?",
+    "answers": [
+      2,
+      2.2,
+      2.4
+    ],
+    "unit": "сек.",
+    "hero": "tidehunter",
+    "hero_name": "Tidehunter",
+    "ability": "tidehunter_ravage",
+    "ability_name": "Ravage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак нужно чтобы уничтожить якорь Dead in the Water Tidehunter?",
+    "answer": 4,
+    "unit": "ед.",
+    "hero": "tidehunter",
+    "hero_name": "Tidehunter",
+    "ability": "tidehunter_dead_in_the_water",
+    "ability_name": "Dead in the Water",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона наносит Anchor Smash Tidehunter на {level} уровне?",
+    "answers": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "unit": "ед.",
+    "hero": "tidehunter",
+    "hero_name": "Tidehunter",
+    "ability": "tidehunter_anchor_smash",
+    "ability_name": "Anchor Smash",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Laser Tinker на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "tinker",
+    "hero_name": "Tinker",
+    "ability": "tinker_laser",
+    "ability_name": "Laser",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько времени канализирует Rearm Tinker на {level} уровне?",
+    "answers": [
+      2.75,
+      2,
+      1.25
+    ],
+    "unit": "сек.",
+    "hero": "tinker",
+    "hero_name": "Tinker",
+    "ability": "tinker_rearm",
+    "ability_name": "Rearm",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой барьер накладывает Defense Matrix Tinker?",
+    "answer": 240,
+    "unit": "ед.",
+    "hero": "tinker",
+    "hero_name": "Tinker",
+    "ability": "tinker_defense_matrix",
+    "ability_name": "Defense Matrix",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой Status Resistance даёт Defense Matrix Tinker?",
+    "options": [
+      "30%",
+      "15%",
+      "20%",
+      "25%"
+    ],
+    "correct": 0,
+    "hero": "tinker",
+    "hero_name": "Tinker",
+    "ability": "tinker_defense_matrix",
+    "ability_name": "Defense Matrix",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает Cast/Attack Range Warp Flare Tinker?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "tinker",
+    "hero_name": "Tinker",
+    "ability": "tinker_warp_grenade",
+    "ability_name": "Warp Flare",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Avalanche Tiny на {level} уровне?",
+    "answers": [
+      90,
+      180,
+      270,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "tiny",
+    "hero_name": "Tiny",
+    "ability": "tiny_avalanche",
+    "ability_name": "Avalanche",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Toss Tiny на {level} уровне?",
+    "answers": [
+      90,
+      180,
+      270,
+      360
+    ],
+    "unit": "ед.",
+    "hero": "tiny",
+    "hero_name": "Tiny",
+    "ability": "tiny_toss",
+    "ability_name": "Toss",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижается урон атак на каждый стак Craggy Exterior Tiny на {level} уровне?",
+    "answers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "unit": "%",
+    "hero": "tiny",
+    "hero_name": "Tiny",
+    "ability": "tiny_craggy_exterior",
+    "ability_name": "Craggy Exterior",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак с деревом даёт Tree Grab Tiny на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "unit": "ед.",
+    "hero": "tiny",
+    "hero_name": "Tiny",
+    "ability": "tiny_tree_grab",
+    "ability_name": "Tree Grab",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Какой бонус урона по зданиям даёт Tree Grab Tiny на {level} уровне?",
+    "answers": [
+      30,
+      40,
+      50,
+      60
+    ],
+    "unit": "%",
+    "hero": "tiny",
+    "hero_name": "Tiny",
+    "ability": "tiny_tree_grab",
+    "ability_name": "Tree Grab",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона даёт Grow Tiny на {level} уровне?",
+    "answers": [
+      55,
+      110,
+      165
+    ],
+    "unit": "ед.",
+    "hero": "tiny",
+    "hero_name": "Tiny",
+    "ability": "tiny_grow",
+    "ability_name": "Grow",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Nature's Grasp Treant Protector на {level} уровне?",
+    "answers": [
+      35,
+      50,
+      65,
+      80
+    ],
+    "unit": "ед.",
+    "hero": "treant",
+    "hero_name": "Treant Protector",
+    "ability": "treant_natures_grasp",
+    "ability_name": "Nature's Grasp",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится виноград Nature's Grasp Treant Protector на {level} уровне?",
+    "answers": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "unit": "сек.",
+    "hero": "treant",
+    "hero_name": "Treant Protector",
+    "ability": "treant_natures_grasp",
+    "ability_name": "Nature's Grasp",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Overgrowth Treant Protector?",
+    "answer": 95,
+    "unit": "ед.",
+    "hero": "treant",
+    "hero_name": "Treant Protector",
+    "ability": "treant_overgrowth",
+    "ability_name": "Overgrowth",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько хилла в секунду даёт Living Armor Treant Protector на {level} уровне?",
+    "answers": [
+      4,
+      7,
+      10,
+      13
+    ],
+    "unit": "ед.",
+    "hero": "treant",
+    "hero_name": "Treant Protector",
+    "ability": "treant_living_armor",
+    "ability_name": "Living Armor",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимального блока урона даёт Living Armor Treant Protector на {level} уровне?",
+    "answers": [
+      60,
+      80,
+      100,
+      120
+    ],
+    "unit": "ед.",
+    "hero": "treant",
+    "hero_name": "Treant Protector",
+    "ability": "treant_living_armor",
+    "ability_name": "Living Armor",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Каков шанс насечки Ensnare у Berserker's Rage Troll Warlord в ближнем бою?",
+    "answer": 20,
+    "unit": "%",
+    "hero": "troll_warlord",
+    "hero_name": "Troll Warlord",
+    "ability": "troll_warlord_berserkers_rage",
+    "ability_name": "Berserker's Rage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Ensnare от Berserker's Rage Troll Warlord на {level} уровне?",
+    "answers": [
+      0.8,
+      1.2,
+      1.6,
+      2
+    ],
+    "unit": "сек.",
+    "hero": "troll_warlord",
+    "hero_name": "Troll Warlord",
+    "ability": "troll_warlord_berserkers_rage",
+    "ability_name": "Berserker's Rage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Whirling Axes (Ranged) Troll Warlord движение?",
+    "answer": 40,
+    "unit": "%",
+    "hero": "troll_warlord",
+    "hero_name": "Troll Warlord",
+    "ability": "troll_warlord_whirling_axes_ranged",
+    "ability_name": "Whirling Axes (Ranged)",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % промахиваются враги от Whirling Axes (Melee) Troll Warlord?",
+    "answer": 60,
+    "unit": "%",
+    "hero": "troll_warlord",
+    "hero_name": "Troll Warlord",
+    "ability": "troll_warlord_whirling_axes_melee",
+    "ability_name": "Whirling Axes (Melee)",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько % лайфстила даёт Battle Trance Troll Warlord на {level} уровне?",
+    "answers": [
+      40,
+      60,
+      80
+    ],
+    "unit": "%",
+    "hero": "troll_warlord",
+    "hero_name": "Troll Warlord",
+    "ability": "troll_warlord_battle_trance",
+    "ability_name": "Battle Trance",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится Battle Trance Troll Warlord?",
+    "answer": 6.5,
+    "unit": "сек.",
+    "hero": "troll_warlord",
+    "hero_name": "Troll Warlord",
+    "ability": "troll_warlord_battle_trance",
+    "ability_name": "Battle Trance",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона наносит Ice Shards Tusk на {level} уровне?",
+    "answers": [
+      75,
+      150,
+      225,
+      300
+    ],
+    "unit": "ед.",
+    "hero": "tusk",
+    "hero_name": "Tusk",
+    "ability": "tusk_ice_shards",
+    "ability_name": "Ice Shards",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длятся заграждения Ice Shards Tusk на {level} уровне?",
+    "answers": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "unit": "сек.",
+    "hero": "tusk",
+    "hero_name": "Tusk",
+    "ability": "tusk_ice_shards",
+    "ability_name": "Ice Shards",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Каков критический множитель Walrus PUNCH! Tusk на {level} уровне?",
+    "answers": [
+      200,
+      250,
+      300
+    ],
+    "unit": "%",
+    "hero": "tusk",
+    "hero_name": "Tusk",
+    "ability": "tusk_walrus_punch",
+    "ability_name": "Walrus PUNCH!",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько ед. отбрасывает Walrus Kick Tusk?",
+    "answer": 1200,
+    "unit": "ед.",
+    "hero": "tusk",
+    "hero_name": "Tusk",
+    "ability": "tusk_walrus_kick",
+    "ability_name": "Walrus Kick",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % замедляет Tag Team Tusk?",
+    "options": [
+      "75%",
+      "50%",
+      "60%",
+      "40%"
+    ],
+    "correct": 0,
+    "hero": "tusk",
+    "hero_name": "Tusk",
+    "ability": "tusk_tag_team",
+    "ability_name": "Tag Team",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько силы ворует Decay Undying за удар?",
+    "answer": 4,
+    "unit": "ед.",
+    "hero": "undying",
+    "hero_name": "Undying",
+    "ability": "undying_decay",
+    "ability_name": "Decay",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится кража силы от Decay Undying?",
+    "answer": 35,
+    "unit": "сек.",
+    "hero": "undying",
+    "hero_name": "Undying",
+    "ability": "undying_decay",
+    "ability_name": "Decay",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона/лечения даёт Soul Rip Undying с одной единицы на {level} уровне?",
+    "answers": [
+      14,
+      26,
+      38,
+      50
+    ],
+    "unit": "ед.",
+    "hero": "undying",
+    "hero_name": "Undying",
+    "ability": "undying_soul_rip",
+    "ability_name": "Soul Rip",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько максимум единиц захватывает Soul Rip Undying?",
+    "answer": 10,
+    "unit": "ед.",
+    "hero": "undying",
+    "hero_name": "Undying",
+    "ability": "undying_soul_rip",
+    "ability_name": "Soul Rip",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % усиливает Flesh Golem Undying силу (Strength) на {level} уровне?",
+    "answers": [
+      40,
+      50,
+      60
+    ],
+    "unit": "%",
+    "hero": "undying",
+    "hero_name": "Undying",
+    "ability": "undying_flesh_golem",
+    "ability_name": "Flesh Golem",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % усиливает урон Flesh Golem Undying на {level} уровне?",
+    "answers": [
+      25,
+      30,
+      35
+    ],
+    "unit": "%",
+    "hero": "undying",
+    "hero_name": "Undying",
+    "ability": "undying_flesh_golem",
+    "ability_name": "Flesh Golem",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Earthshock Ursa на {level} уровне?",
+    "answers": [
+      22,
+      28,
+      34,
+      40
+    ],
+    "unit": "%",
+    "hero": "ursa",
+    "hero_name": "Ursa",
+    "ability": "ursa_earthshock",
+    "ability_name": "Earthshock",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько атак с ускоренной скоростью атаки даёт Overpower Ursa на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "ед.",
+    "hero": "ursa",
+    "hero_name": "Ursa",
+    "ability": "ursa_overpower",
+    "ability_name": "Overpower",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "Какой бонус скорости атаки даёт Overpower Ursa?",
+    "options": [
+      "400",
+      "200",
+      "300",
+      "250"
+    ],
+    "correct": 0,
+    "hero": "ursa",
+    "hero_name": "Ursa",
+    "ability": "ursa_overpower",
+    "ability_name": "Overpower",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько бонусного урона добавляет каждая стака Fury Swipes Ursa на {level} уровне?",
+    "answers": [
+      12,
+      20,
+      28,
+      36
+    ],
+    "unit": "ед.",
+    "hero": "ursa",
+    "hero_name": "Ursa",
+    "ability": "ursa_fury_swipes",
+    "ability_name": "Fury Swipes",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает входящий урон Enrage Ursa?",
+    "answer": 80,
+    "unit": "%",
+    "hero": "ursa",
+    "hero_name": "Ursa",
+    "ability": "ursa_enrage",
+    "ability_name": "Enrage",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько длится стан от Magic Missile Vengeful Spirit на {level} уровне?",
+    "answers": [
+      1.2,
+      1.4,
+      1.6,
+      1.8
+    ],
+    "unit": "сек.",
+    "hero": "vengefulspirit",
+    "hero_name": "Vengeful Spirit",
+    "ability": "vengefulspirit_magic_missile",
+    "ability_name": "Magic Missile",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько ед. снижает броню Wave of Terror Vengeful Spirit на {level} уровне?",
+    "answers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "unit": "ед.",
+    "hero": "vengefulspirit",
+    "hero_name": "Vengeful Spirit",
+    "ability": "vengefulspirit_wave_of_terror",
+    "ability_name": "Wave of Terror",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % снижает атаку Wave of Terror Vengeful Spirit на {level} уровне?",
+    "answers": [
+      10,
+      15,
+      20,
+      25
+    ],
+    "unit": "%",
+    "hero": "vengefulspirit",
+    "hero_name": "Vengeful Spirit",
+    "ability": "vengefulspirit_wave_of_terror",
+    "ability_name": "Wave of Terror",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % базового урона усиливает Vengeance Aura Vengeful Spirit союзникам на {level} уровне?",
+    "answers": [
+      10,
+      15,
+      20,
+      25
+    ],
+    "unit": "%",
+    "hero": "vengefulspirit",
+    "hero_name": "Vengeful Spirit",
+    "ability": "vengefulspirit_command_aura",
+    "ability_name": "Vengeance Aura",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % замедляет Venomous Gale Venomancer на {level} уровне?",
+    "answers": [
+      35,
+      40,
+      45,
+      50
+    ],
+    "unit": "%",
+    "hero": "venomancer",
+    "hero_name": "Venomancer",
+    "ability": "venomancer_venomous_gale",
+    "ability_name": "Venomous Gale",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона за тик наносит Venomous Gale Venomancer на {level} уровне?",
+    "answers": [
+      10,
+      40,
+      70,
+      100
+    ],
+    "unit": "ед.",
+    "hero": "venomancer",
+    "hero_name": "Venomancer",
+    "ability": "venomancer_venomous_gale",
+    "ability_name": "Venomous Gale",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько начального урона наносит Noxious Plague Venomancer на {level} уровне?",
+    "answers": [
+      150,
+      200,
+      250
+    ],
+    "unit": "ед.",
+    "hero": "venomancer",
+    "hero_name": "Venomancer",
+    "ability": "venomancer_noxious_plague",
+    "ability_name": "Noxious Plague",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "multiple_choice",
+    "question": "На сколько % максимального HP в секунду наносит урон Noxious Plague Venomancer на {level} уровне?",
+    "options": [
+      "2% / 3% / 4%",
+      "1% / 2% / 3%",
+      "3% / 4% / 5%",
+      "1.5% / 2.5% / 3.5%"
+    ],
+    "correct": 0,
+    "hero": "venomancer",
+    "hero_name": "Venomancer",
+    "ability": "venomancer_noxious_plague",
+    "ability_name": "Noxious Plague",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "Сколько урона в секунду наносит Poison Nova Venomancer на {level} уровне?",
+    "answers": [
+      35,
+      50,
+      65
+    ],
+    "unit": "ед.",
+    "hero": "venomancer",
+    "hero_name": "Venomancer",
+    "ability": "venomancer_poison_nova",
+    "ability_name": "Poison Nova",
+    "category": "active_mechanics"
+  },
+  {
+    "type": "closest_number",
+    "question": "На сколько % максимального HP в секунду наносит урон Poison Nova Venomancer на {level} уровне?",
+    "answers": [
+      3,
+      3.5,
+      4
+    ],
+    "unit": "%",
+    "hero": "venomancer",
+    "hero_name": "Venomancer",
+    "ability": "venomancer_poison_nova",
+    "ability_name": "Poison Nova",
+    "category": "active_mechanics"
+  }
+]
