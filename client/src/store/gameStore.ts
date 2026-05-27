@@ -4,6 +4,7 @@ import type {
   GameState, Player, RoundResult,
   BetUpdatedPayload, PlayerAnsweredPayload,
   GladiatorHoveringPayload, GameOverPayload,
+  BankBetUpdatedPayload,
 } from '@cumsino/shared'
 
 interface GameStore {
@@ -14,6 +15,7 @@ interface GameStore {
   answeredIds: Set<string>
   gladiatorHoverIndex: number | null
   pendingTarget: 'win' | 'lose' | null
+  bankBets: Record<string, { optionIndex: number; amount: number }>
 
   connect: (name: string, gameCode: string) => void
   setPendingTarget: (target: 'win' | 'lose' | null) => void
@@ -34,11 +36,24 @@ export const useGameStore = create<GameStore>((set) => {
       answeredIds: new Set(),
       gladiatorHoverIndex: null,
       roundResults: state.phase === 'ANNOUNCE' ? [] : prev.roundResults,
+      bankBets: state.phase === 'ANNOUNCE' ? {} : prev.bankBets,
     }))
   })
 
-  socket.on('bet_updated', (_payload: BetUpdatedPayload) => {
-    // Updates come via game_state; bet_updated is for future animations
+  socket.on('bet_updated', ({ playerId, amount, target }: BetUpdatedPayload) => {
+    set(prev => {
+      if (!prev.gameState) return prev
+      return {
+        gameState: {
+          ...prev.gameState,
+          players: prev.gameState.players.map(p =>
+            p.id === playerId
+              ? { ...p, currentBet: amount, ...(target ? { betTarget: target } : {}) }
+              : p
+          ),
+        },
+      }
+    })
   })
 
   socket.on('player_answered', ({ playerId }: PlayerAnsweredPayload) => {
@@ -53,6 +68,12 @@ export const useGameStore = create<GameStore>((set) => {
     set({ roundResults: results })
   })
 
+  socket.on('bank_bet_updated', ({ playerId, optionIndex, amount }: BankBetUpdatedPayload) => {
+    set(prev => ({
+      bankBets: { ...prev.bankBets, [playerId]: { optionIndex, amount } },
+    }))
+  })
+
   socket.on('game_over', ({ winner }: GameOverPayload) => {
     set({ winner })
   })
@@ -65,6 +86,7 @@ export const useGameStore = create<GameStore>((set) => {
     answeredIds: new Set(),
     gladiatorHoverIndex: null,
     pendingTarget: null,
+    bankBets: {},
 
     connect(name, gameCode) {
       if (!socket.connected) socket.connect()
@@ -96,6 +118,7 @@ export const useGameStore = create<GameStore>((set) => {
         answeredIds: new Set(),
         gladiatorHoverIndex: null,
         pendingTarget: null,
+        bankBets: {},
       })
       socket.disconnect()
     },
