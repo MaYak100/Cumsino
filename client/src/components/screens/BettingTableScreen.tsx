@@ -12,7 +12,7 @@ import {
   playerAngle,
   landingZone,
   FELT_CX, FELT_CY,
-  FELT_RX, FELT_RY,
+  FELT_RY,
   OUTER_RX, OUTER_RY,
   SCENE_W, SCENE_H,
 } from '../../lib/tableGeometry'
@@ -23,19 +23,19 @@ import {
 const OPT_W = 240
 const OPT_H = 48
 const OPT_GAP = 12
-const OPT_TOP = 265
+const OPT_TOP = 322
 const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2   // = 650 − 240 − 6 = 404
 
 const MAIN_W = 274
 const MAIN_H = 60
 const MAIN_GAP = 14
-const MAIN_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 18  // = 265+120+18 = 403
+const MAIN_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 18  // = 322+120+18 = 460
 const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2       // = 650−274−7 = 369
 const WIN_LEFT  = FELT_CX + MAIN_GAP / 2                // = 657
 
-const Q_TOP    = FELT_CY - FELT_RY + 18   // = 415 − 248 + 18 = 185
+const Q_TOP    = FELT_CY - FELT_RY + 72   // = 415 − 248 + 72 = 239  (below in-felt header)
 const Q_CX     = FELT_CX                  // = 650
-const Q_W      = 400
+const Q_W      = 420
 
 // Chip pixel size inside zones
 const CPIX = 26
@@ -246,28 +246,6 @@ export function BettingTableScreen() {
         userSelect: 'none',
       }}
     >
-      {/* Timer + topic + kerri badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <Timer seconds={gameState.phaseTimeLeft} />
-        {gameState.currentQuestion && (
-          <div style={{ color: '#9ca3af', fontSize: 13 }}>
-            Тема: <span style={{ color: '#fbbf24' }}>{gameState.currentQuestion.topic}</span>
-          </div>
-        )}
-        {isKerriMode && gladiatorName && (
-          <div style={{
-            background: 'linear-gradient(135deg,#92400e,#78350f)',
-            border: '1px solid #d97706',
-            borderRadius: 20,
-            padding: '3px 14px',
-            fontSize: 12, fontWeight: 700,
-            color: '#fbbf24', letterSpacing: '.05em',
-          }}>
-            🎯 КЕРРИ: {gladiatorName}
-          </div>
-        )}
-      </div>
-
       {/* Table scene */}
       <div style={{ width: SCENE_W, height: SCENE_H, flexShrink: 0, position: 'relative' }}>
         <LayoutGroup>
@@ -279,7 +257,6 @@ export function BettingTableScreen() {
               width={SCENE_W} height={SCENE_H}
             >
               <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX + 14} ry={OUTER_RY + 14} fill="#3d2600" />
-              <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX}      ry={OUTER_RY}      fill="#071507" />
               <defs>
                 <radialGradient id="felt-g" cx="35%" cy="38%" r="65%">
                   <stop offset="0%"   stopColor="#278320" />
@@ -289,10 +266,37 @@ export function BettingTableScreen() {
               </defs>
               <ellipse
                 cx={FELT_CX} cy={FELT_CY}
-                rx={FELT_RX} ry={FELT_RY}
-                fill="url(#felt-g)" stroke="#071507" strokeWidth={9}
+                rx={OUTER_RX} ry={OUTER_RY}
+                fill="url(#felt-g)"
               />
             </svg>
+
+            {/* ── In-felt header: timer + topic + kerri badge ── */}
+            <div style={{
+              position: 'absolute',
+              left: FELT_CX - 260, top: FELT_CY - OUTER_RY + 16,
+              width: 520, zIndex: 5, pointerEvents: 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14,
+            }}>
+              <Timer seconds={gameState.phaseTimeLeft} />
+              {gameState.currentQuestion && (
+                <div style={{ color: '#9ca3af', fontSize: 12 }}>
+                  Тема: <span style={{ color: '#fbbf24' }}>{gameState.currentQuestion.topic}</span>
+                </div>
+              )}
+              {isKerriMode && gladiatorName && (
+                <div style={{
+                  background: 'linear-gradient(135deg,#92400e,#78350f)',
+                  border: '1px solid #d97706',
+                  borderRadius: 20,
+                  padding: '3px 12px',
+                  fontSize: 11, fontWeight: 700,
+                  color: '#fbbf24', letterSpacing: '.05em',
+                }}>
+                  🎯 КЕРРИ: {gladiatorName}
+                </div>
+              )}
+            </div>
 
             {/* ── Center: bank or gladiator label (non-kerri-crowd only) ── */}
             {!isKerriCrowd && (
