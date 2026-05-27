@@ -19,6 +19,7 @@ interface GameStore {
   gladiatorHoverIndex: number | null
   pendingTarget: 'win' | 'lose' | null
   bankBets: Record<string, { optionIndex: number; amount: number }>
+  isLateJoiner: boolean
 
   connect: (name: string, gameCode: string) => void
   setPendingTarget: (target: 'win' | 'lose' | null) => void
@@ -40,6 +41,11 @@ export const useGameStore = create<GameStore>((set) => {
       gladiatorHoverIndex: null,
       roundResults: state.phase === 'ANNOUNCE' ? [] : prev.roundResults,
       bankBets: state.phase === 'ANNOUNCE' ? {} : prev.bankBets,
+      isLateJoiner: prev.gameState === null
+        ? state.phase !== 'LOBBY'          // first state: late if not in lobby
+        : state.phase === 'ANNOUNCE'
+          ? false                           // new round starting: no longer late
+          : prev.isLateJoiner,              // keep existing value
     }))
   })
 
@@ -98,6 +104,7 @@ export const useGameStore = create<GameStore>((set) => {
     gladiatorHoverIndex: null,
     pendingTarget: null,
     bankBets: {},
+    isLateJoiner: false,
 
     connect(name, gameCode) {
       if (!socket.connected) socket.connect()
@@ -133,6 +140,7 @@ export const useGameStore = create<GameStore>((set) => {
         gladiatorHoverIndex: null,
         pendingTarget: null,
         bankBets: {},
+        isLateJoiner: false,
       })
       socket.disconnect()
     },
