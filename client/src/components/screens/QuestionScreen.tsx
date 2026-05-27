@@ -37,37 +37,41 @@ export function QuestionScreen() {
 
       <div className="w-full max-w-lg mt-4">
         <div className="text-center mb-6">
-          <div className="text-xs uppercase tracking-widest text-gray-400 mb-3">Вопрос</div>
+          <div className="text-xs uppercase tracking-widest text-gray-400 mb-3">{isGladiatorMode && !isGladiator ? 'Наблюдай за Керри' : 'Вопрос'}</div>
           <div className="text-xl text-white leading-relaxed">
             {gameState.currentQuestion?.text}
           </div>
         </div>
 
-        <div className="flex justify-center gap-2 mb-4">
-          {gameState.players.map(p => (
-            <span
-              key={p.id}
-              className={`w-2 h-2 rounded-full ${answeredIds.has(p.id) ? 'bg-green-400' : 'bg-gray-600'}`}
-              title={p.name}
-            />
-          ))}
-        </div>
+        {!(isGladiatorMode && !isGladiator) && (
+          <div className="flex justify-center gap-2 mb-4">
+            {gameState.players.map(p => (
+              <span
+                key={p.id}
+                className={`w-2 h-2 rounded-full ${answeredIds.has(p.id) ? 'bg-green-400' : 'bg-gray-600'}`}
+                title={p.name}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="grid grid-cols-2 gap-3">
           {options.map((option, idx) => {
             const isHovered = !isGladiator && gladiatorHoverIndex === idx && isGladiatorMode
+            const isCrowdObserver = isGladiatorMode && !isGladiator
             return (
               <motion.button
                 key={idx}
                 onMouseEnter={() => handleMouseEnter(idx)}
                 onMouseLeave={handleMouseLeave}
-                onClick={() => !myAnswered && submitAnswer(option)}
-                disabled={myAnswered}
+                onClick={isCrowdObserver ? undefined : () => !myAnswered && submitAnswer(option)}
+                disabled={isCrowdObserver || myAnswered}
                 animate={isHovered ? { scale: 1.03 } : { scale: 1 }}
+                style={isCrowdObserver ? { cursor: 'default' } : undefined}
                 className={`
                   p-4 rounded-xl border-2 text-left transition-colors bg-[#1a3a1a]
                   ${OPTION_BORDER_COLORS[idx]}
-                  ${myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]'}
+                  ${isCrowdObserver ? 'cursor-default' : myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]'}
                   ${isHovered ? 'border-yellow-400 bg-[#2a3a1a] shadow-[0_0_20px_rgba(255,215,0,0.3)]' : ''}
                 `}
               >

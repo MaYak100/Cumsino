@@ -122,6 +122,37 @@ export function BettingTableScreen() {
         </div>
       )}
 
+      {/* Question panel for crowd in kerri mode */}
+      {isKerriMode && !isGladiator && gameState.currentQuestion && (
+        <div style={{ maxWidth: 480, textAlign: 'center' }}>
+          <div style={{ fontSize: 14, color: '#e5e7eb', marginBottom: 8, lineHeight: 1.5 }}>
+            {gameState.currentQuestion.text}
+          </div>
+          {gameState.currentQuestion.options && (
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+              {gameState.currentQuestion.options.map((opt, idx) => {
+                const isCorrect = opt === gameState.gladiatorAnswer
+                return (
+                  <div
+                    key={idx}
+                    style={{
+                      padding: '4px 12px',
+                      borderRadius: 8,
+                      fontSize: 12,
+                      border: `1px solid ${isCorrect ? '#4ade80' : '#374151'}`,
+                      color: isCorrect ? '#4ade80' : '#6b7280',
+                      background: isCorrect ? '#052e16' : 'transparent',
+                    }}
+                  >
+                    {isCorrect ? '✓ ' : ''}{opt}
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Table scene */}
       <div style={{ width: SCENE_W * 1.25, height: SCENE_H * 1.25, flexShrink: 0, position: 'relative' }}>
       <LayoutGroup>

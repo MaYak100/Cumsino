@@ -85,6 +85,8 @@ export class GameRoom extends EventEmitter {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'QUESTION') return
     if (player.hasAnswered) return
+    // In kerri mode, only the gladiator can answer
+    if (this.currentMode === 'kerri' && playerId !== this.gladiatorId) return
 
     player.answer = answer
     player.hasAnswered = true
