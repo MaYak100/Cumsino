@@ -1,13 +1,13 @@
-export const FELT_CX = 520
-export const FELT_CY = 330
-export const FELT_RX = 240
-export const FELT_RY = 148
-export const OUTER_RX = 272
-export const OUTER_RY = 182
-export const LAND_INSET = 46
-export const CARD_GAP = 30
-export const SCENE_W = 1040
-export const SCENE_H = 660
+export const FELT_CX = 650
+export const FELT_CY = 415
+export const FELT_RX = 380
+export const FELT_RY = 248
+export const OUTER_RX = 424
+export const OUTER_RY = 285
+export const LAND_INSET = 58
+export const CARD_GAP = 28
+export const SCENE_W = 1300
+export const SCENE_H = 820
 
 export function playerAngle(i: number, N: number): number {
   return Math.PI / 2 + i * (2 * Math.PI / N)
