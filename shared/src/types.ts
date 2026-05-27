@@ -2,17 +2,16 @@
 
 export type GamePhase =
   | 'LOBBY'
-  | 'ANNOUNCE'        // тема раунда, ~5 сек
-  | 'BETTING'         // ставки фишками, ~30 сек
-  | 'QUESTION_TEXT'   // вопрос без вариантов, ~5 сек
-  | 'QUESTION'        // вопрос + варианты ответа, ~40 сек
-  | 'REVEAL'          // итоги раунда, ~8 сек
-  | 'LEADERBOARD'     // таблица лидеров, ~5 сек
+  | 'ANNOUNCE'
+  | 'BETTING'
+  | 'QUESTION_TEXT'
+  | 'QUESTION'
+  | 'REVEAL'
+  | 'LEADERBOARD'
   | 'GAME_OVER'
 
-export type GameMode = 'all' | 'gladiator' | 'closest' | 'top5'
-
-export type MainMode = 'all' | 'gladiator'
+export type GameMode = 'all' | 'kerri' | 'closest' | 'top5'
+export type MainMode = 'all' | 'kerri'
 
 export interface ChipBreakdown {
   500: number
@@ -40,8 +39,8 @@ export interface Question {
   options?: string[]
   answer?: string
   numericAnswer?: number
-  items?: string[]         // для ТОП 5: перемешанный порядок, показывается игроку
-  orderedItems?: string[]  // для ТОП 5: правильный порядок, только на сервере
+  items?: string[]
+  orderedItems?: string[]
 }
 
 export interface GameState {
@@ -52,7 +51,8 @@ export interface GameState {
   mode: GameMode
   currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'orderedItems'> | null
   gladiatorId?: string
-  gladiatorAnswer?: string // правильный ответ — отправляется ТОЛЬКО толпе (не гладиатору) во время BETTING
+  gladiatorAnswer?: string
+  hostId: string
   players: Player[]
   phaseTimeLeft: number
 }
@@ -66,12 +66,14 @@ export interface RoundResult {
 // Socket event payloads — Client → Server
 export interface JoinGamePayload { name: string; gameCode: string }
 export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose' }
+export interface PlaceBankBetPayload { optionIndex: number; amount: number }
 export interface SubmitAnswerPayload { answer: string | number | string[] }
 export interface GladiatorHoverPayload { optionIndex: number | null }
 
 // Socket event payloads — Server → Client
 export interface PhaseChangedPayload { phase: GamePhase; timeLeft: number }
 export interface BetUpdatedPayload { playerId: string; amount: number; target?: 'win' | 'lose' }
+export interface BankBetUpdatedPayload { playerId: string; optionIndex: number; amount: number }
 export interface PlayerAnsweredPayload { playerId: string }
 export interface GladiatorHoveringPayload { optionIndex: number | null }
 export interface RoundResultsPayload { results: RoundResult[] }
