@@ -69,28 +69,30 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onChipClick, 
                 </div>
               )
 
-              if (interactive) {
-                return (
-                  <motion.div
-                    key={chip.id}
-                    layoutId={chip.id}
-                    style={{ position: 'absolute', bottom: i * step, zIndex: i + 1 }}
-                    whileHover={!placed ? { scale: 1.18, y: -4 } : {}}
-                    transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                  >
-                    {chipNode}
-                  </motion.div>
-                )
-              }
-
+              if (interactive && !placed) {
+              // Active chip: layoutId enables Framer Motion flight to BetZone
               return (
-                <div
+                <motion.div
                   key={chip.id}
+                  layoutId={chip.id}
                   style={{ position: 'absolute', bottom: i * step, zIndex: i + 1 }}
+                  whileHover={{ scale: 1.18, y: -4 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 28 }}
                 >
                   {chipNode}
-                </div>
+                </motion.div>
               )
+            }
+
+            // Placed chip or non-interactive: static placeholder, no layoutId
+            return (
+              <div
+                key={chip.id}
+                style={{ position: 'absolute', bottom: i * step, zIndex: i + 1 }}
+              >
+                {chipNode}
+              </div>
+            )
             })}
           </div>
         )
