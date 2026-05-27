@@ -12,7 +12,7 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   })
 
   socket.on('start_game', () => {
-    engine.getRoom(socket.id)?.start()
+    engine.getRoom(socket.id)?.start(socket.id)
   })
 
   socket.on('place_bet', ({ amount, target }: PlaceBetPayload) => {

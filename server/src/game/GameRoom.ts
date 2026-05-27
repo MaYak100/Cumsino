@@ -5,11 +5,17 @@ import { STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, PHASE_DURATIONS, decomposeT
 import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
 import { distributeTop5 } from './economy/distributeTop5'
+import { applyBankBets } from './economy/applyBankBets'
 import { RoundSelector } from './RoundSelector'
+
+interface PlayerWithBankBet extends Player {
+  bankBet?: { optionIndex: number; amount: number }
+}
 
 export class GameRoom extends EventEmitter {
   readonly id: string
-  private players: Map<string, Player> = new Map()
+  private players: Map<string, PlayerWithBankBet> = new Map()
+  private hostId = ''
   private phase: GamePhase = 'LOBBY'
   private roundIndex = 0
   private currentMode: GameMode = 'all'
@@ -24,10 +30,11 @@ export class GameRoom extends EventEmitter {
     super()
     this.id = id
     this.questions = questions
-    this.selector = new RoundSelector(['closest'])
+    this.selector = new RoundSelector()
   }
 
   addPlayer(id: string, name: string) {
+    if (this.players.size === 0) this.hostId = id
     this.players.set(id, {
       id, name,
       chips: STARTING_CHIPS,
@@ -46,8 +53,9 @@ export class GameRoom extends EventEmitter {
     clearTimeout(this.phaseTimer)
   }
 
-  start() {
+  start(requesterId: string) {
     if (this.phase !== 'LOBBY') return
+    if (requesterId !== this.hostId) return
     this.nextRound()
   }
 
@@ -60,6 +68,17 @@ export class GameRoom extends EventEmitter {
     if (target) player.betTarget = target
 
     this.broadcast('bet_updated', { playerId, amount, target })
+  }
+
+  placeBankBet(playerId: string, optionIndex: number, amount: number) {
+    const player = this.players.get(playerId)
+    if (!player || this.phase !== 'BETTING' || this.currentMode !== 'kerri') return
+    if (!this.currentQuestion?.options) return
+    if (optionIndex < 0 || optionIndex >= this.currentQuestion.options.length) return
+    if (player.currentBet + amount > player.chips) return
+
+    player.bankBet = { optionIndex, amount }
+    this.broadcast('bank_bet_updated', { playerId, optionIndex, amount })
   }
 
   submitAnswer(playerId: string, answer: string | number | string[]) {
@@ -101,7 +120,11 @@ export class GameRoom extends EventEmitter {
           }
         : null,
       gladiatorId: this.gladiatorId,
-      players: Array.from(this.players.values()),
+      hostId: this.hostId,
+      players: Array.from(this.players.values()).map(p => ({
+        id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
+        betTarget: p.betTarget, answer: p.answer, hasAnswered: p.hasAnswered,
+      })),
       phaseTimeLeft: timeLeft,
     }
   }
@@ -109,7 +132,7 @@ export class GameRoom extends EventEmitter {
   getStateForPlayer(playerId: string): GameState {
     const base = this.getPublicState()
     const showAnswer =
-      this.currentMode === 'gladiator' &&
+      this.currentMode === 'kerri' &&
       playerId !== this.gladiatorId &&
       (this.phase === 'BETTING' || this.phase === 'QUESTION_TEXT' || this.phase === 'QUESTION') &&
       this.currentQuestion?.answer !== undefined
@@ -133,6 +156,7 @@ export class GameRoom extends EventEmitter {
       p.betTarget = undefined
       p.answer = undefined
       p.hasAnswered = false
+      p.bankBet = undefined
     }
 
     this.schedulePhase('ANNOUNCE', PHASE_DURATIONS['ANNOUNCE']!)
@@ -143,19 +167,14 @@ export class GameRoom extends EventEmitter {
     this.phase = phase
     this.phaseEndTime = Date.now() + seconds * 1000
     this.broadcastState()
-
     this.phaseTimer = setTimeout(() => this.onPhaseEnd(), seconds * 1000)
   }
 
   private onPhaseEnd() {
     switch (this.phase) {
       case 'ANNOUNCE':
-        if (this.currentMode === 'gladiator') this.selectGladiator()
-        if (this.currentMode === 'all' || this.currentMode === 'gladiator') {
-          this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
-        } else {
-          this.schedulePhase('QUESTION_TEXT', PHASE_DURATIONS['QUESTION_TEXT']!)
-        }
+        if (this.currentMode === 'kerri') this.selectGladiator()
+        this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
         break
 
       case 'BETTING':
@@ -208,7 +227,7 @@ export class GameRoom extends EventEmitter {
       return this.buildResults(deltas)
     }
 
-    if (this.currentMode === 'gladiator') {
+    if (this.currentMode === 'kerri') {
       if (!this.gladiatorId) return []
       const gladiator = this.players.get(this.gladiatorId)
       if (!gladiator) return []
@@ -218,8 +237,15 @@ export class GameRoom extends EventEmitter {
         .map(p => ({ id: p.id, stake: p.currentBet }))
       const losers = crowd.filter(p => correct ? p.betTarget === 'lose' : p.betTarget === 'win')
         .map(p => ({ id: p.id, stake: p.currentBet }))
-      const deltas = distributePool(winners, losers)
+      let deltas = distributePool(winners, losers)
       deltas.set(gladiator.id, correct ? GLADIATOR_BONUS : 0)
+
+      // Bank bets x4
+      const gladiatorAnswerIndex = this.currentQuestion?.options
+        ? this.currentQuestion.options.indexOf(gladiator.answer as string)
+        : -1
+      deltas = applyBankBets(deltas, this.players.values(), gladiatorAnswerIndex)
+
       return this.buildResults(deltas)
     }
 
@@ -262,7 +288,7 @@ export class GameRoom extends EventEmitter {
   }
 
   private allAnswered(): boolean {
-    if (this.currentMode === 'gladiator') {
+    if (this.currentMode === 'kerri') {
       if (!this.gladiatorId) return false
       return this.players.get(this.gladiatorId)?.hasAnswered ?? false
     }
