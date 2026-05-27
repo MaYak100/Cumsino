@@ -1,3 +1,4 @@
+import React from 'react'
 import { motion } from 'framer-motion'
 import type { ChipValue } from './Chip'
 import type { PhysicalChip } from '../../types/chips'
@@ -6,7 +7,7 @@ interface Props {
   chips: PhysicalChip[]
   interactive: boolean
   placedIds?: Set<string>
-  onChipClick?: (id: string) => void
+  onDenomClick?: (denom: ChipValue) => void
   size?: 'sm' | 'md'
 }
 
@@ -23,7 +24,7 @@ const CHIP_COLORS: Record<ChipValue, string> = {
   500: 'bg-gradient-to-br from-gray-700 to-black text-yellow-400 border-yellow-600/30',
 }
 
-export function PhysicalChipStack({ chips, interactive, placedIds, onChipClick, size = 'md' }: Props) {
+export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick, size = 'md' }: Props) {
   const px = CHIP_PX[size]
   const step = STEP_PX[size]
 
@@ -38,62 +39,78 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onChipClick, 
       {stacks.map(denom => {
         const group = byDenom.get(denom)!
         const stackH = px + (group.length - 1) * step
-        return (
-          <div
-            key={denom}
-            style={{ position: 'relative', width: px, height: stackH, flexShrink: 0 }}
-          >
-            {group.map((chip, i) => {
-              const placed = placedIds?.has(chip.id) ?? false
-              const chipNode = (
-                <div
-                  className={`
-                    ${CHIP_COLORS[denom]}
-                    rounded-full border flex items-center justify-center font-bold select-none
-                    shadow-[0_3px_8px_rgba(0,0,0,0.7)]
-                    transition-opacity duration-200
-                    ${interactive ? 'cursor-pointer' : ''}
-                    ${placed ? 'opacity-20' : 'opacity-100'}
-                  `}
-                  style={{
-                    position: 'absolute',
-                    width: px,
-                    height: px,
-                    bottom: i * step,
-                    zIndex: i + 1,
-                    fontSize: size === 'sm' ? 8 : 10,
-                  }}
-                  onClick={interactive ? () => onChipClick?.(chip.id) : undefined}
-                >
-                  {denom}
-                </div>
-              )
+        const hasUnplaced = group.some(c => !(placedIds?.has(c.id) ?? false))
+        const isClickable = interactive && hasUnplaced && onDenomClick != null
 
-              if (interactive && !placed) {
-              // Active chip: layoutId enables Framer Motion flight to BetZone
-              return (
-                <motion.div
-                  key={chip.id}
-                  layoutId={chip.id}
-                  style={{ position: 'absolute', bottom: i * step, zIndex: i + 1 }}
-                  whileHover={{ scale: 1.18, y: -4 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                >
-                  {chipNode}
-                </motion.div>
-              )
-            }
+        const containerStyle: React.CSSProperties = {
+          position: 'relative',
+          width: px,
+          height: stackH,
+          flexShrink: 0,
+          ...(isClickable ? { cursor: 'pointer' } : {}),
+        }
 
-            // Placed chip or non-interactive: static placeholder, no layoutId
+        const inner = group.map((chip, i) => {
+          const placed = placedIds?.has(chip.id) ?? false
+
+          const wrapperClass = [
+            CHIP_COLORS[denom],
+            'rounded-full border flex items-center justify-center font-bold select-none',
+            'shadow-[0_3px_8px_rgba(0,0,0,0.7)]',
+            'transition-opacity duration-200',
+            placed ? 'opacity-20' : 'opacity-100',
+          ].join(' ')
+
+          const wrapperStyle: React.CSSProperties = {
+            position: 'absolute',
+            width: px,
+            height: px,
+            bottom: i * step,
+            zIndex: i + 1,
+            fontSize: size === 'sm' ? 8 : 10,
+          }
+
+          if (interactive && !placed) {
             return (
-              <div
+              <motion.div
                 key={chip.id}
-                style={{ position: 'absolute', bottom: i * step, zIndex: i + 1 }}
+                layoutId={chip.id}
+                className={wrapperClass}
+                style={wrapperStyle}
               >
-                {chipNode}
-              </div>
+                {denom}
+              </motion.div>
             )
-            })}
+          }
+
+          return (
+            <div
+              key={chip.id}
+              className={wrapperClass}
+              style={wrapperStyle}
+            >
+              {denom}
+            </div>
+          )
+        })
+
+        if (isClickable) {
+          return (
+            <motion.div
+              key={denom}
+              style={containerStyle}
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+              onClick={() => onDenomClick!(denom)}
+            >
+              {inner}
+            </motion.div>
+          )
+        }
+
+        return (
+          <div key={denom} style={containerStyle}>
+            {inner}
           </div>
         )
       })}

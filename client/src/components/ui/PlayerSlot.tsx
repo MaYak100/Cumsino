@@ -1,6 +1,7 @@
 import type { Player } from '@cumsino/shared'
 import { buildPhysicalChips } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
+import type { ChipValue } from './Chip'
 import { PhysicalChipStack } from './PhysicalChipStack'
 import { unitPosition } from '../../lib/tableGeometry'
 
@@ -14,10 +15,10 @@ interface Props {
   isMe: boolean
   myChips?: PhysicalChip[]
   placedIds?: Set<string>
-  onChipClick?: (id: string) => void
+  onDenomClick?: (denom: ChipValue) => void
 }
 
-export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onChipClick }: Props) {
+export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomClick }: Props) {
   const { left, top } = unitPosition(angle, UNIT_W, CHIP_ROW_H, CARD_H)
   const chips = isMe ? (myChips ?? []) : buildPhysicalChips(player.chips)
 
@@ -40,7 +41,7 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onChipClic
           chips={chips}
           interactive={isMe}
           placedIds={placedIds}
-          onChipClick={onChipClick}
+          onDenomClick={onDenomClick}
           size="md"
         />
       </div>

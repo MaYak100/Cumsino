@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { LayoutGroup } from 'framer-motion'
 import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
-import { buildPhysicalChips } from '../../types/chips'
+import { buildPhysicalChips, buildChipsForPlayer } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import { PlayerSlot } from '../ui/PlayerSlot'
 import { BetZone } from '../ui/BetZone'
@@ -23,6 +23,7 @@ export function BettingTableScreen() {
 
   const [myStack, setMyStack] = useState<PhysicalChip[]>([])
   const [placedIds, setPlacedIds] = useState<Set<string>>(new Set())
+  const [betConfirmed, setBetConfirmed] = useState(false)
   const [pendingTarget, setPendingTarget] = useState<'win' | 'lose' | null>(null)
   const phaseRef = useRef<string>('')
 
@@ -30,16 +31,23 @@ export function BettingTableScreen() {
     if (gameState.phase === 'BETTING' && me && phaseRef.current !== 'BETTING') {
       setMyStack(buildPhysicalChips(me.chips))
       setPlacedIds(new Set())
+      setBetConfirmed(false)
       setPendingTarget(null)
     }
     phaseRef.current = gameState.phase
   }, [gameState.phase])
 
-  const placeChip = (id: string) => {
-    setPlacedIds(prev => new Set([...prev, id]))
+  const placeChip = (denom: number) => {
+    if (betConfirmed) return
+    // Find first unplaced chip with this denom and place it
+    const chip = myStack.find(c => c.denom === denom && !placedIds.has(c.id))
+    if (chip) {
+      setPlacedIds(prev => new Set([...prev, chip.id]))
+    }
   }
 
   const recallChip = (id: string) => {
+    if (betConfirmed) return
     setPlacedIds(prev => {
       const next = new Set(prev)
       next.delete(id)
@@ -54,11 +62,10 @@ export function BettingTableScreen() {
     if (pendingBet <= 0) return
     if (gameState.mode === 'gladiator' && !isGladiator && !pendingTarget) return
     socket.emit('place_bet', { amount: pendingBet, target: pendingTarget ?? undefined })
-    setPlacedIds(new Set())
-    setPendingTarget(null)
+    // Не сбрасываем placedIds — фишки остаются в BetZone как "подтверждённые"
+    setBetConfirmed(true)
   }
 
-  // Me first (i=0 → bottom), then others in game order
   const players = gameState.players
   const others = players.filter(p => p.id !== myId)
   const orderedPlayers = me ? [me, ...others] : players
@@ -66,7 +73,11 @@ export function BettingTableScreen() {
 
   const isGladiatorMode = gameState.mode === 'gladiator'
   const gladiatorName = players.find(p => p.id === gameState.gladiatorId)?.name
-  const canConfirm = pendingBet > 0 && (!isGladiatorMode || isGladiator || pendingTarget !== null)
+  const canConfirm = !betConfirmed && pendingBet > 0 && (!isGladiatorMode || isGladiator || pendingTarget !== null)
+
+  // Банк: подтверждённые ставки всех + мой незакреплённый пендинг
+  // После betConfirmed мой bet уже в player.currentBet через bet_updated, не двоим
+  const bankTotal = players.reduce((a, p) => a + p.currentBet, 0) + (betConfirmed ? 0 : pendingBet)
 
   return (
     <div
@@ -137,15 +148,22 @@ export function BettingTableScreen() {
               zIndex: 1,
             }}
           >
-            {/* Pot display */}
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                банк
+            {isGladiator && isGladiatorMode ? (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 28, marginBottom: 2 }}>⚔️</div>
+                <div style={{ fontSize: 15, fontWeight: 'bold', color: '#fbbf24' }}>Ты — Гладиатор!</div>
+                <div style={{ fontSize: 11, color: '#6b7280', marginTop: 3 }}>Жди вопроса…</div>
               </div>
-              <div style={{ fontSize: 20, fontWeight: 'bold', color: '#fbbf24', marginTop: 2 }}>
-                {players.reduce((a, p) => a + p.currentBet, 0) + pendingBet}
+            ) : (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+                  банк
+                </div>
+                <div style={{ fontSize: 20, fontWeight: 'bold', color: '#fbbf24', marginTop: 2 }}>
+                  {bankTotal}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Players + BetZones */}
@@ -155,9 +173,11 @@ export function BettingTableScreen() {
             const isMe = player.id === myId
             const isThisGladiator = player.id === gameState.gladiatorId
 
+            // Для меня: неподтверждённые фишки в BetZone до confirm, затем они остаются там locked
+            // Для других: стабильные ID на основе playerId, чтобы chipScatter не прыгал
             const betChips = isMe
               ? placedChips
-              : buildPhysicalChips(player.currentBet)
+              : buildChipsForPlayer(player.id, player.currentBet)
 
             return (
               <div key={player.id}>
@@ -167,38 +187,19 @@ export function BettingTableScreen() {
                   isMe={isMe}
                   myChips={isMe ? myStack : undefined}
                   placedIds={isMe ? placedIds : undefined}
-                  onChipClick={isMe && !isThisGladiator ? placeChip : undefined}
+                  onDenomClick={isMe && !isThisGladiator && !betConfirmed ? placeChip : undefined}
                 />
                 <BetZone
                   cx={cx}
                   cy={cy}
                   chips={betChips}
-                  mine={isMe}
-                  onRecall={isMe ? recallChip : undefined}
+                  mine={isMe && !betConfirmed}
+                  onRecall={isMe && !betConfirmed ? recallChip : undefined}
                 />
               </div>
             )
           })}
 
-          {/* Gladiator self overlay — replaces chip interaction */}
-          {isGladiator && isGladiatorMode && (
-            <div
-              style={{
-                position: 'absolute',
-                bottom: 16,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                textAlign: 'center',
-                zIndex: 20,
-              }}
-            >
-              <div style={{ fontSize: 36, marginBottom: 4 }}>⚔️</div>
-              <div style={{ fontSize: 20, fontWeight: 'bold', color: '#fbbf24' }}>Ты — Гладиатор!</div>
-              <div style={{ fontSize: 13, color: '#6b7280', marginTop: 4, animation: 'pulse 2s infinite' }}>
-                Жди вопроса…
-              </div>
-            </div>
-          )}
         </div>
       </LayoutGroup>
 
@@ -206,7 +207,7 @@ export function BettingTableScreen() {
       {!isGladiator && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
           {/* Gladiator target selector for crowd */}
-          {isGladiatorMode && (
+          {isGladiatorMode && !betConfirmed && (
             <div style={{ display: 'flex', gap: 12 }}>
               {(['win', 'lose'] as const).map(target => (
                 <button
@@ -236,34 +237,51 @@ export function BettingTableScreen() {
 
           {/* Bet summary + confirm */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 11, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Ставка
-              </div>
-              <div style={{ fontSize: 22, fontWeight: 'bold', color: '#fbbf24', fontFamily: 'monospace' }}>
-                {pendingBet}
-              </div>
-            </div>
-            <button
-              onClick={handleConfirm}
-              disabled={!canConfirm}
-              style={{
+            {betConfirmed ? (
+              <div style={{
                 padding: '10px 32px',
                 borderRadius: 12,
-                border: 'none',
-                background: canConfirm
-                  ? 'linear-gradient(135deg, #d97706, #b45309)'
-                  : '#374151',
-                color: canConfirm ? '#000' : '#6b7280',
+                background: '#14532d',
+                border: '2px solid #4ade80',
+                color: '#4ade80',
                 fontWeight: 700,
                 fontSize: 14,
-                cursor: canConfirm ? 'pointer' : 'not-allowed',
                 letterSpacing: '0.05em',
-                transition: 'all 0.15s',
-              }}
-            >
-              ✓ ПОДТВЕРДИТЬ СТАВКУ
-            </button>
+              }}>
+                ✓ СТАВКА {pendingBet} ПРИНЯТА
+              </div>
+            ) : (
+              <>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 11, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                    Ставка
+                  </div>
+                  <div style={{ fontSize: 22, fontWeight: 'bold', color: '#fbbf24', fontFamily: 'monospace' }}>
+                    {pendingBet}
+                  </div>
+                </div>
+                <button
+                  onClick={handleConfirm}
+                  disabled={!canConfirm}
+                  style={{
+                    padding: '10px 32px',
+                    borderRadius: 12,
+                    border: 'none',
+                    background: canConfirm
+                      ? 'linear-gradient(135deg, #d97706, #b45309)'
+                      : '#374151',
+                    color: canConfirm ? '#000' : '#6b7280',
+                    fontWeight: 700,
+                    fontSize: 14,
+                    cursor: canConfirm ? 'pointer' : 'not-allowed',
+                    letterSpacing: '0.05em',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  ✓ ПОДТВЕРДИТЬ СТАВКУ
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
