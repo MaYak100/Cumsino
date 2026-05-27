@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { chipScatter } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import type { ChipValue } from './Chip'
@@ -23,6 +23,36 @@ const CHIP_COLORS: Record<ChipValue, string> = {
 }
 
 export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
+  if (!mine) {
+    return (
+      <AnimatePresence>
+        {chips.map((chip, i) => {
+          const ox = chipScatter(chip.id + 'x', SCATTER_XY * 2)
+          const oy = chipScatter(chip.id + 'y', SCATTER_XY * 2)
+          const left = cx + ox - CHIP_PX / 2
+          const top = cy + oy - CHIP_PX / 2
+          return (
+            <motion.div
+              key={chip.id}
+              style={{ position: 'absolute', left, top, zIndex: 10 }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.25, delay: i * 0.04 }}
+            >
+              <div
+                className={`${CHIP_COLORS[chip.denom]} rounded-full border flex items-center justify-center font-bold select-none shadow-[0_3px_12px_rgba(0,0,0,0.8)]`}
+                style={{ width: CHIP_PX, height: CHIP_PX, fontSize: 10 }}
+              >
+                {chip.denom}
+              </div>
+            </motion.div>
+          )
+        })}
+      </AnimatePresence>
+    )
+  }
+
   return (
     <>
       {chips.map(chip => {
@@ -37,35 +67,24 @@ export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
               ${CHIP_COLORS[chip.denom]}
               rounded-full border flex items-center justify-center font-bold select-none
               shadow-[0_3px_12px_rgba(0,0,0,0.8)]
-              ${mine ? 'cursor-pointer hover:scale-110 hover:-translate-y-1 transition-transform' : ''}
+              cursor-pointer hover:scale-110 hover:-translate-y-1 transition-transform
             `}
             style={{ width: CHIP_PX, height: CHIP_PX, fontSize: 10 }}
-            onClick={mine ? () => onRecall?.(chip.id) : undefined}
+            onClick={() => onRecall?.(chip.id)}
           >
             {chip.denom}
           </div>
         )
 
-        if (mine) {
-          return (
-            <motion.div
-              key={chip.id}
-              layoutId={chip.id}
-              style={{ position: 'absolute', left, top, zIndex: 10 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            >
-              {inner}
-            </motion.div>
-          )
-        }
-
         return (
-          <div
+          <motion.div
             key={chip.id}
+            layoutId={chip.id}
             style={{ position: 'absolute', left, top, zIndex: 10 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
           >
             {inner}
-          </div>
+          </motion.div>
         )
       })}
     </>
