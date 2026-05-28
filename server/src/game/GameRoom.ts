@@ -25,6 +25,7 @@ export class GameRoom extends EventEmitter {
   private phaseEndTime = 0
   private selector: RoundSelector
   private questions: Question[]
+  private bettingConfirmedIds = new Set<string>()
 
   constructor(id: string, questions: Question[]) {
     super()
@@ -68,6 +69,12 @@ export class GameRoom extends EventEmitter {
     if (target) player.betTarget = target
 
     this.broadcast('bet_updated', { playerId, amount, target })
+
+    this.bettingConfirmedIds.add(playerId)
+    if (this.allBettingConfirmed()) {
+      clearTimeout(this.phaseTimer)
+      this.schedulePhase('QUESTION_TEXT', PHASE_DURATIONS['QUESTION_TEXT']!)
+    }
   }
 
   placeBankBet(playerId: string, optionIndex: number, amount: number) {
@@ -159,6 +166,7 @@ export class GameRoom extends EventEmitter {
     this.currentQuestion = this.pickQuestion(mode)
     this.roundIndex++
 
+    this.bettingConfirmedIds.clear()
     for (const p of this.players.values()) {
       p.currentBet = 0
       p.betTarget = undefined
@@ -303,6 +311,15 @@ export class GameRoom extends EventEmitter {
   private selectGladiator() {
     const ids = Array.from(this.players.keys())
     this.gladiatorId = ids[Math.floor(Math.random() * ids.length)]
+  }
+
+  private allBettingConfirmed(): boolean {
+    if (this.bettingConfirmedIds.size === 0) return false
+    for (const [id] of this.players) {
+      if (this.currentMode === 'kerri' && id === this.gladiatorId) continue
+      if (!this.bettingConfirmedIds.has(id)) return false
+    }
+    return true
   }
 
   private allAnswered(): boolean {

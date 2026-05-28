@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CHIP_PX = { sm: 20, md: 28 } as const
-const STEP_PX = { sm: 7, md: 10 } as const
+const STEP_PX = { sm: 6, md: 8 } as const
 
 const DENOM_ORDER: ChipValue[] = [500, 100, 50, 20, 10]
 
@@ -32,15 +32,16 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
   for (const d of DENOM_ORDER) byDenom.set(d, [])
   for (const chip of chips) byDenom.get(chip.denom)!.push(chip)
 
-  const stacks = DENOM_ORDER.filter(d => byDenom.get(d)!.length > 0)
+  const stacks = DENOM_ORDER.filter(d => byDenom.get(d)!.some(c => !(placedIds?.has(c.id) ?? false)))
 
   return (
     <div className="flex items-end gap-1.5">
       {stacks.map(denom => {
         const group = byDenom.get(denom)!
-        const stackH = px + (group.length - 1) * step
-        const hasUnplaced = group.some(c => !(placedIds?.has(c.id) ?? false))
-        const isClickable = interactive && hasUnplaced && onDenomClick != null
+        const unplacedCount = group.filter(c => !(placedIds?.has(c.id) ?? false)).length
+        if (unplacedCount === 0) return null
+        const stackH = px + (unplacedCount - 1) * step
+        const isClickable = interactive && unplacedCount > 0 && onDenomClick != null
 
         const containerStyle: React.CSSProperties = {
           position: 'relative',
@@ -50,15 +51,13 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
           ...(isClickable ? { cursor: 'pointer' } : {}),
         }
 
-        const inner = group.map((chip, i) => {
-          const placed = placedIds?.has(chip.id) ?? false
+        const unplaced = group.filter(c => !(placedIds?.has(c.id) ?? false))
 
+        const inner = unplaced.map((chip, i) => {
           const wrapperClass = [
             CHIP_COLORS[denom],
             'rounded-full border flex items-center justify-center font-bold select-none',
             'shadow-[0_3px_8px_rgba(0,0,0,0.7)]',
-            'transition-opacity duration-200',
-            placed ? 'opacity-20' : 'opacity-100',
           ].join(' ')
 
           const wrapperStyle: React.CSSProperties = {
@@ -70,7 +69,7 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
             fontSize: size === 'sm' ? 8 : 10,
           }
 
-          if (interactive && !placed) {
+          if (interactive) {
             return (
               <motion.div
                 key={chip.id}

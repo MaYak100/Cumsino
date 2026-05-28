@@ -12,30 +12,30 @@ import {
   playerAngle,
   landingZone,
   FELT_CX, FELT_CY,
-  FELT_RY,
   OUTER_RX, OUTER_RY,
   SCENE_W, SCENE_H,
 } from '../../lib/tableGeometry'
 
 // Zone layout constants — positions in scene coord space
-// Felt interior: x ∈ [270, 1030], y ∈ [167, 663]
+// Felt outer top = FELT_CY - OUTER_RY = 130. Header starts at 270 (below top opponent bet zone cy≈225).
+// Q_TOP=365 leaves room for header (270+78=348) + gap. OPT_TOP=470 leaves 33px below question text.
 
 const OPT_W = 240
 const OPT_H = 48
 const OPT_GAP = 12
-const OPT_TOP = 322
+const OPT_TOP = 470
 const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2   // = 650 − 240 − 6 = 404
 
 const MAIN_W = 274
 const MAIN_H = 60
 const MAIN_GAP = 14
-const MAIN_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 18  // = 322+120+18 = 460
+const MAIN_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 14  // = 470+120+14 = 604
 const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2       // = 650−274−7 = 369
 const WIN_LEFT  = FELT_CX + MAIN_GAP / 2                // = 657
 
-const Q_TOP    = FELT_CY - FELT_RY + 72   // = 415 − 248 + 72 = 239  (below in-felt header)
-const Q_CX     = FELT_CX                  // = 650
-const Q_W      = 420
+const Q_TOP = 365
+const Q_CX  = FELT_CX  // = 650
+const Q_W   = 440
 
 // Chip pixel size inside zones
 const CPIX = 26
@@ -70,6 +70,8 @@ export function BettingTableScreen() {
   const [bankPlacedIds, setBankPlacedIds] = useState<Set<string>>(new Set())
 
   const phaseRef = useRef('')
+  const handleConfirmRef = useRef<() => void>(() => {})
+  const autoConfirmTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     if (gameState.phase === 'BETTING' && me && phaseRef.current !== 'BETTING') {
@@ -85,6 +87,14 @@ export function BettingTableScreen() {
     phaseRef.current = gameState.phase
   }, [gameState.phase])
 
+  useEffect(() => {
+    if (gameState.phase !== 'BETTING' || isGladiator) return
+    const delay = gameState.phaseTimeLeft * 1000
+    if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current)
+    autoConfirmTimerRef.current = setTimeout(() => handleConfirmRef.current(), delay)
+    return () => { if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current) }
+  }, [gameState.phase, isGladiator])
+
   const isKerriMode  = gameState.mode === 'kerri'
   const isKerriCrowd = isKerriMode && !isGladiator
 
@@ -96,9 +106,6 @@ export function BettingTableScreen() {
   const mainBetAmt  = mainPlacedChips.reduce((a, c) => a + c.denom, 0)
   const bankBetAmt  = bankPlacedChips.reduce((a, c) => a + c.denom, 0)
   const stdBetAmt   = stdPlacedChips.reduce((a, c) => a + c.denom, 0)
-  const bankTotal   = gameState.players.reduce((a, p) => a + p.currentBet, 0)
-    + (betConfirmed ? 0 : isKerriCrowd ? mainBetAmt + bankBetAmt : stdBetAmt)
-
   // ── Standard mode handlers ───────────────────────────────────────────────
   const stdPlace = (denom: ChipValue) => {
     if (betConfirmed) return
@@ -193,6 +200,9 @@ export function BettingTableScreen() {
     setBetConfirmed(true)
   }
 
+  // Keep ref fresh every render so auto-confirm timeout always calls latest version
+  handleConfirmRef.current = handleConfirm
+
   const players       = gameState.players
   const others        = players.filter(p => p.id !== myId)
   const orderedPlayers = me ? [me, ...others] : players
@@ -272,10 +282,10 @@ export function BettingTableScreen() {
               />
             </svg>
 
-            {/* ── In-felt header ── */}
+            {/* ── In-felt header (starts at y=270, below top opponent bet zones cy≈225) ── */}
             <div style={{
               position: 'absolute',
-              left: 0, top: FELT_CY - OUTER_RY + 12,
+              left: 0, top: FELT_CY - OUTER_RY + 140,
               width: SCENE_W, zIndex: 5, pointerEvents: 'none',
               display: 'flex', flexDirection: 'column',
               alignItems: 'center', gap: 6,
@@ -286,33 +296,24 @@ export function BettingTableScreen() {
                 </div>
               )}
               {!isKerriMode && gameState.currentQuestion && (
-                <div style={{ color: '#9ca3af', fontSize: 12 }}>
-                  Тема: <span style={{ color: '#fbbf24' }}>{gameState.currentQuestion.topic}</span>
+                <div style={{ fontSize: 18, fontWeight: 700, color: '#fbbf24', letterSpacing: '.02em', textAlign: 'center' }}>
+                  {gameState.currentQuestion.topic}
                 </div>
               )}
               <Timer seconds={gameState.phaseTimeLeft} />
             </div>
 
-            {/* ── Center: bank or gladiator label (non-kerri-crowd only) ── */}
-            {!isKerriCrowd && (
+            {/* ── Center: gladiator label (only in kerri mode for the gladiator) ── */}
+            {isGladiator && isKerriMode && (
               <div style={{
                 position: 'absolute',
                 left: FELT_CX, top: FELT_CY,
                 transform: 'translate(-50%,-50%)',
                 textAlign: 'center', pointerEvents: 'none', zIndex: 5,
               }}>
-                {isGladiator && isKerriMode ? (
-                  <>
-                    <div style={{ fontSize: 26, marginBottom: 4 }}>🎯</div>
-                    <div style={{ fontSize: 15, fontWeight: 'bold', color: '#fbbf24' }}>Ты — Керри!</div>
-                    <div style={{ fontSize: 11, color: '#6b7280', marginTop: 4 }}>Жди вопроса…</div>
-                  </>
-                ) : (
-                  <>
-                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,.22)', letterSpacing: '.14em', textTransform: 'uppercase' }}>банк</div>
-                    <div style={{ fontSize: 22, fontWeight: 'bold', color: '#fbbf24', marginTop: 2 }}>{bankTotal}</div>
-                  </>
-                )}
+                <div style={{ fontSize: 26, marginBottom: 4 }}>🎯</div>
+                <div style={{ fontSize: 15, fontWeight: 'bold', color: '#fbbf24' }}>Ты — Керри!</div>
+                <div style={{ fontSize: 11, color: '#6b7280', marginTop: 4 }}>Жди вопроса…</div>
               </div>
             )}
 
@@ -328,10 +329,10 @@ export function BettingTableScreen() {
                     left: Q_CX - Q_W / 2, top: Q_TOP, width: Q_W,
                     textAlign: 'center', zIndex: 5, pointerEvents: 'none',
                   }}>
-                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,.28)', letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 5 }}>
+                    <div style={{ fontSize: 11, color: 'rgba(255,255,255,.55)', letterSpacing: '.14em', textTransform: 'uppercase', marginBottom: 6 }}>
                       ВОПРОС
                     </div>
-                    <div style={{ fontSize: 13, color: '#f3f4f6', lineHeight: 1.55 }}>
+                    <div style={{ fontSize: 18, fontWeight: 600, color: '#f3f4f6', lineHeight: 1.45 }}>
                       {q.text}
                     </div>
                   </div>
