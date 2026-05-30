@@ -4,7 +4,7 @@ import App from './App'
 import { DevPage } from './dev/DevPage'
 import './index.css'
 
-const root = window.location.pathname === '/dev' ? <DevPage /> : <App />
+const root = window.location.pathname.endsWith('/dev') ? <DevPage /> : <App />
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
