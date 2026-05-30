@@ -30,6 +30,20 @@ npx vitest run shared/src/__tests__/chips.test.ts --config server/vitest.config.
 npm run test:watch --workspace=server
 ```
 
+### UI Preview (без сервера)
+
+```bash
+# Запустить клиент и открыть в браузере:
+npm run dev --workspace=client
+# → http://localhost:5173/cumsino/dev
+```
+
+Страница `/dev` позволяет открыть любой экран игры напрямую без сервера и без прохождения игрового цикла. Слева свёрнутая панель `≡` — 22 сценария по всем фазам: LOBBY, ANNOUNCE, BETTING (all / kerri-crowd / kerri-гладиатор), QUESTION_TEXT, QUESTION (6 вариантов), REVEAL, LEADERBOARD, GAME_OVER, LATE JOIN.
+
+Файлы: `client/src/dev/mockStates.ts` (сценарии), `client/src/dev/DevPage.tsx` (страница). Маршрут: `main.tsx` проверяет `window.location.pathname.endsWith('/dev')`.
+
+Чтобы добавить сценарий — добавить элемент в `SCENARIOS` в `mockStates.ts`.
+
 ### TypeScript checks
 
 ```bash
@@ -67,9 +81,9 @@ Single source of truth for types, constants, and chip decomposition. Consumed by
 Pure in-memory state, no database.
 
 - **`index.ts`** — Express + Socket.IO setup. `CLIENT_ORIGIN` defaults to `/^http:\/\/localhost(:\d+)?$/` for local dev; set `CLIENT_ORIGIN` env var in production.
-- **`game/GameRoom.ts`** — Core state machine. Extends EventEmitter. `hostId` = socket id of first `addPlayer` call; `start(requesterId)` rejects if requester is not host. Phase transitions via `schedulePhase()` / `onPhaseEnd()` — **`all` and `kerri` go through BETTING; `closest` skips BETTING** (ANNOUNCE→QUESTION_TEXT directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. `placeBankBet(playerId, optionIndex, amount)` stores crowd's side-bet. `stageChip(playerId, amount)` relays `chip_staged` broadcast to others (no state change — visual preview only). `calculateResults()` calls `applyBankBets()` after main pool distribution. `advanceFromQuestion()` broadcasts `round_results` with `correctAnswer`, `correctNumericAnswer`, `mode`, `gladiatorId`. `submitAnswer()` blocks non-gladiator answers in kerri mode. Emits three events wired by GameEngine: `broadcast`, `broadcastExcept`, `sendToPlayer`. `getStateForPlayer(playerId)` returns personalized state — crowd players receive `gladiatorAnswer` (= correct answer string), kerri player does not. `getPublicState()` strips `bankBet` from player objects.
+- **`game/GameRoom.ts`** — Core state machine. Extends EventEmitter. `hostId` = socket id of first `addPlayer` call; `start(requesterId)` rejects if requester is not host. Phase transitions via `schedulePhase()` / `onPhaseEnd()` — **`all` and `kerri` go through BETTING; `closest` skips BETTING** (ANNOUNCE→QUESTION_TEXT directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. `placeBankBet(playerId, optionIndex, amount)` stores crowd's side-bet. `stageChip(playerId, chips)` relays `chip_staged` broadcast to others (no state change — visual preview only). `calculateResults()` calls `applyBankBets()` after main pool distribution. `advanceFromQuestion()` broadcasts `round_results` with `correctAnswer`, `correctNumericAnswer`, `mode`, `gladiatorId`, then waits **2500ms** before calling `schedulePhase('REVEAL')` — clients remain in QUESTION phase showing the correct answer highlight. `submitAnswer()` blocks non-gladiator answers in kerri mode. Emits three events wired by GameEngine: `broadcast`, `broadcastExcept`, `sendToPlayer`. `getStateForPlayer(playerId)` returns personalized state — crowd players receive `gladiatorAnswer` (= correct answer string), kerri player does not. `getPublicState()` strips `bankBet` from player objects.
 - **`game/GameEngine.ts`** — Manages `rooms: Map<gameCode, GameRoom>` and `playerRoom: Map<socketId, gameCode>`. When last player leaves, calls `room.destroy()` and removes from map.
-- **`game/loadQuestions.ts`** — Reads `scripts/data/questions_db.json` at runtime. MC questions: `correct: 0` in DB (correct always first), options are Fisher-Yates shuffled at load time, `answer` stored as the correct text string. Maps DB mode `'gladiator'` → runtime mode `'kerri'`. Multi-level CN questions (`answers[]`) get a random level picked at startup.
+- **`game/loadQuestions.ts`** — Exports `createQuestionPicker()`: loads 4 flat JSON files from `scripts/data/generated/` at startup, returns a `(mode: GameMode) => Question` function. For `all`/`kerri`: weighted MC pick (5% general_main, 55% abilities_main, 40% items_main); for `closest`: weighted CN pick (30% costs_main, 35% abilities_main, 35% items_main). MC: `options[0]` is always correct in source files (no `correct` field), options are Fisher-Yates shuffled per call, `answer` set to `options[0]` before shuffle. CN: `answer` is always a plain number (no `answers[]` multi-level in generated files).
 - **`game/RoundSelector.ts`** — Simple 3-mode cycle: `['all', 'kerri', 'closest']` repeating. `next()` returns `modes[index % 3]`.
 - **`game/economy/`** — Pure functions (tested): `distributePool`, `distributeClosest`, `distributeTop5`, `applyBankBets`. All return `Map<playerId, delta>`. `applyBankBets(deltas, players, gladiatorAnswerIndex)`: hit = net +3×amount, miss = -amount (x4 total payout). `buildResults()` in GameRoom converts deltas to `RoundResult[]` covering all players.
 - **`socket/handlers.ts`** — Eight handlers: `join_game`, `start_game` (passes `socket.id` as requester), `place_bet`, `place_bank_bet`, `stage_chip` (relays visual staging amount), `submit_answer`, `gladiator_hover`, `disconnect`.
@@ -77,9 +91,9 @@ Pure in-memory state, no database.
 ### Client (`client/src/`)
 
 - **`socket.ts`** — Socket.IO singleton, `autoConnect: false`. URL from `VITE_SERVER_URL` env var, falls back to `http://localhost:3001`.
-- **`store/gameStore.ts`** — Zustand store. All socket listeners live here. `roundResults` cleared on ANNOUNCE. `bankBets: Record<playerId, {optionIndex, amount}>` updated via `bank_bet_updated` events, cleared on ANNOUNCE. `stagedBets: Record<playerId, number>` — live visual chip amounts from opponents before confirm, updated by `chip_staged` events, cleared on ANNOUNCE and when `bet_updated` fires for that player. `isLateJoiner: boolean` — true when player's first `game_state` has phase != LOBBY; reset to false on ANNOUNCE. `roundCorrectAnswer`, `roundMode`, `roundGladiatorId` — set from `round_results` event, used by RevealScreen. Selectors: `selectMe`, `selectIsGladiator`. Betting chip state is component-local in `BettingTableScreen`.
-- **`App.tsx`** — Routes `GamePhase → Screen`. `TableFelt` always rendered behind screens (blurred when `phase !== 'BETTING'`). If `isLateJoiner=true` (joined mid-game), always shows `LateJoinScreen` regardless of phase, until next ANNOUNCE. Full routing: `LOBBY→LobbyScreen`, `ANNOUNCE→AnnounceScreen`, `BETTING→BettingTableScreen`, `QUESTION_TEXT→QuestionTextScreen`, `QUESTION` branches by mode (`closest→ClosestScreen`, `top5→Top5Screen`, `kerri&&isGladiator→GladiatorSelfScreen`, else `QuestionScreen`), `REVEAL→RevealScreen`, `LEADERBOARD→LeaderboardScreen`, `GAME_OVER→GameOverScreen`.
-- **`components/screens/`** — Screen components. `LobbyScreen` shows START button only to host (`myId === gameState.hostId`). `AnnounceScreen` has sequential staggered animation: label (t=0) → mode name + description (t=0.2s) → topic (t=1.0s). Mode names have no emoji. Footer text is mode-specific: closest → "Угадай число — победитель забирает банк", others → "Готовься к ставкам…". `BettingTableScreen` handles all modes; in kerri mode crowd sees the question text + options (correct highlighted green) above the table, plus WIN/LOSE selector + bank bet x4 UI. `QuestionScreen` in kerri crowd mode shows read-only options (disabled) with header "Наблюдай за Керри". `RevealScreen` shows win delta as animated physical chips (`WinChips` component, 60ms stagger) for ALL positive-delta players; player cards have green/red borders based on correct/wrong answer; shows status label per mode. `LateJoinScreen` — shown to players who join mid-game, displays current player list with chip counts.
+- **`store/gameStore.ts`** — Zustand store. All socket listeners live here. `roundResults` cleared on ANNOUNCE. `bankBets: Record<playerId, {optionIndex, amount}>` updated via `bank_bet_updated` events, cleared on ANNOUNCE. `stagedBets: Record<playerId, number[]>` — live visual chip **denominations** from opponents before confirm (array of denom values, not a total), updated by `chip_staged` events, cleared on ANNOUNCE and when `bet_updated` fires for that player. `isLateJoiner: boolean` — true when player's first `game_state` has phase != LOBBY; reset to false on ANNOUNCE. `roundCorrectAnswer`, `roundMode`, `roundGladiatorId` — set from `round_results` event; also used during QUESTION phase (2.5s window) to show correct answer highlight before transitioning to REVEAL. Selectors: `selectMe`, `selectIsGladiator`. Betting chip state is component-local in `BettingTableScreen`.
+- **`App.tsx`** — Routes `GamePhase → Screen`. `TableFelt` always rendered behind screens (blurred when `phase !== 'BETTING'`). AnimatePresence motion.div has explicit `pointerEvents: 'auto'` — required because Framer Motion 11 sets `pointer-events: none` on elements with `initial={{ opacity: 0 }}`, which propagates to all children (inputs, buttons become unclickable). If `isLateJoiner=true` (joined mid-game), always shows `LateJoinScreen` regardless of phase, until next ANNOUNCE. Full routing: `LOBBY→LobbyScreen`, `ANNOUNCE→AnnounceScreen`, `BETTING→BettingTableScreen`, `QUESTION_TEXT→QuestionTextScreen`, `QUESTION` branches by mode (`closest→ClosestScreen`, `top5→Top5Screen`, `kerri&&isGladiator→GladiatorSelfScreen`, else `QuestionScreen`), `REVEAL→RevealScreen`, `LEADERBOARD→LeaderboardScreen`, `GAME_OVER→GameOverScreen`.
+- **`components/screens/`** — Screen components. `LobbyScreen` shows START button only to host (`myId === gameState.hostId`). `AnnounceScreen` has sequential staggered animation: label (t=0) → mode name + description (t=0.2s) → topic (t=1.0s). Mode names have no emoji. Footer text is mode-specific: closest → "Угадай число — победитель забирает банк", others → "Готовься к ставкам…". `BettingTableScreen` handles all modes; in kerri mode crowd sees the question text + options (correct highlighted green) above the table, plus WIN/LOSE selector + bank bet x4 UI. `QuestionScreen` in kerri crowd mode shows read-only options (disabled) with header "Наблюдай за Керри"; when `roundCorrectAnswer` is set (2.5s reveal window), correct option gets green border + glow, others fade to 40% opacity, input disabled. `GladiatorSelfScreen` — same reveal behavior as QuestionScreen when `roundCorrectAnswer` arrives. `ClosestScreen` uses `type="text"` + `inputMode="decimal"` input (not `type="number"` — avoids browser quirks with spin buttons); shows "Правильный ответ: X" when `roundCorrectAnswer` is set. `RevealScreen` shows win delta as animated physical chips (`WinChips` component, 60ms stagger) for ALL positive-delta players; player cards have green/red borders based on correct/wrong answer; shows status label per mode. `LateJoinScreen` — shown to players who join mid-game, displays current player list with chip counts.
 - **`components/ui/`** — `Chip.tsx` (5 denominations), `Timer.tsx`, `PlayerCard.tsx`, `PhysicalChipStack.tsx`, `BetZone.tsx`, `PlayerSlot.tsx`, `TableFelt.tsx`.
 
 ### Physical Chips UI (`client/src/`)
@@ -92,13 +106,13 @@ The betting phase uses a physical chip system on a round poker table (desktop on
 - **`components/ui/BetZone.tsx`** — Absolutely positioned at `landingZone(angle)`. Mine: `layoutId` + recall click. Opponents: `AnimatePresence` + staggered `initial={{opacity:0, y:-8}}` entry animation (delay: `i * 0.04s`).
 - **`components/ui/PlayerSlot.tsx`** — `PhysicalChipStack` + name card at `unitPosition()`. Prop: `onDenomClick?: (denom: ChipValue) => void`.
 - **`components/ui/TableFelt.tsx`** — Always-mounted, reads `gameStore`. Renders green felt ellipse + player name cards. `blurred=true` → `filter:blur(8px), opacity:0.35` (animated). `pointerEvents:none`, `zIndex:0`.
-- **`components/screens/BettingTableScreen.tsx`** — `LayoutGroup` wraps all chip elements. Scene wrapped in 1.25× CSS scale wrapper. Local state: `myStack`, `placedIds`, `pendingTarget`, `bankBetTarget`, `bankBetAmount`. `placeChip(denom)` finds **last** unplaced chip of that denom (top of visual stack). After each place/recall, emits `stage_chip` with new pending amount for real-time opponent preview. Opponent `betChips` uses `stagedBets[player.id] ?? player.currentBet`. Bank bet UI (kerri crowd): shows 4 MC options; correct one (matching `gladiatorAnswer`) has green border + non-clickable; wrong options clickable → select `bankBetTarget` (index); `+10/+20/+50/+100` buttons for `bankBetAmount`. Confirm emits `place_bet` and optionally `place_bank_bet`. Kerri crowd sees question text + options above the table during BETTING phase.
+- **`components/screens/BettingTableScreen.tsx`** — `LayoutGroup` wraps all chip elements. Scene wrapped in 1.25× CSS scale wrapper. Local state: `myStack`, `placedIds`, `pendingTarget`, `bankBetTarget`, `bankBetAmount`. `placeChip(denom)` finds **last** unplaced chip of that denom (top of visual stack). After each place/recall, emits `stage_chip` with array of denominations for real-time opponent preview. Opponent `betChips`: if `stagedBets[player.id]` is defined → maps denoms to `PhysicalChip` with IDs `${i}-${denom}-${player.id}` (variable part first → good chipScatter hash diversity); else `buildChipsForPlayer(player.id, player.currentBet)`. Bank bet UI (kerri crowd): shows 4 MC options; correct one (matching `gladiatorAnswer`) has green border + non-clickable; wrong options clickable → select `bankBetTarget` (index); chips fly into the selected option zone. Confirm emits `place_bet` and optionally `place_bank_bet`. Kerri crowd sees question text + options above the table during BETTING phase.
 
 **Key design decisions:**
 - `myStack` is component-local (not Zustand) — rebuilt from `me.chips` each time BETTING phase starts.
 - `layoutId=chip.id` shared between `PhysicalChipStack` (unplaced) and `BetZone` (placed) → Framer Motion animates chip flight.
 - During kerri BETTING: `gameState.gladiatorAnswer` = correct answer (sent to crowd by server, withheld from kerri).
-- Real-time staging: `stage_chip` socket event relays visual pending amount to opponents before confirm; `stagedBets` in store, cleared on ANNOUNCE and on `bet_updated`.
+- Real-time staging: `stage_chip` socket event relays array of denominations to opponents before confirm; `stagedBets: Record<playerId, number[]>` in store, cleared on ANNOUNCE and on `bet_updated`. Staged chip IDs: `${i}-${denom}-${player.id}` (index and denom first for chipScatter diversity).
 - Chip selection: LIFO — last unplaced chip (top of visual stack) is picked on denom click.
 
 **RevealScreen:** Win delta shown as animated physical chip objects with 60ms stagger (`WinChips` component) for all positive-delta players. Cards have green border (correct) / red border (wrong) per mode logic. `roundCorrectAnswer` / `roundMode` / `roundGladiatorId` come from `round_results` socket event.
@@ -106,10 +120,10 @@ The betting phase uses a physical chip system on a round poker table (desktop on
 ### Phase flow
 
 ```
-LOBBY → ANNOUNCE (5s) → [BETTING (30s) →] QUESTION_TEXT (5s) → QUESTION (40s) → REVEAL (8s) → LEADERBOARD (5s) → [next round or GAME_OVER]
+LOBBY → ANNOUNCE (5s) → [BETTING (30s) →] QUESTION_TEXT (5s) → QUESTION (40s) → [2.5s reveal] → REVEAL (8s) → LEADERBOARD (5s) → [next round or GAME_OVER]
 ```
 
-`all` and `kerri` modes go through BETTING; `closest` skips BETTING (ANNOUNCE→QUESTION_TEXT directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition.
+`all` and `kerri` modes go through BETTING; `closest` skips BETTING (ANNOUNCE→QUESTION_TEXT directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. After all answer (or timer expires), `round_results` is broadcast immediately while phase stays QUESTION for 2.5s — clients show correct answer highlight — then transitions to REVEAL.
 
 Mode rotation: `all → kerri → closest → all → kerri → ...`
 
@@ -121,46 +135,49 @@ Located in `server/src/game/economy/__tests__/` and `server/src/game/__tests__/`
 
 Dota 2 вопросы. Источник данных — GitHub-зеркало OpenDota: `raw.githubusercontent.com/odota/dotaconstants/master/build/`.
 
-### Финальная база — `questions_db.json`
+### Runtime-файлы — `scripts/data/generated/`
 
-Единый файл для сервера. Структура: `{ MC: { items: { scripted, agent, agent_hard }, abilities: {...} }, CN: { ... } }`.
+Сервер читает напрямую эти 4 плоских JSON-массива (не `questions_db.json`):
 
-Итого 3786 вопросов (2026-05-26):
-- `multiple_choice / items / agent`: 128
-- `multiple_choice / abilities / agent`: 107
-- `closest_number / items / scripted`: 641
-- `closest_number / items / agent`: 76
-- `closest_number / items / agent_hard`: 11
-- `closest_number / abilities / scripted`: 2433
-- `closest_number / abilities / agent`: 390
+| Файл | Тип | Кол-во | Назначение |
+|---|---|---|---|
+| `general_main.json` | MC только | 9 | Общие вопросы о Dota 2 |
+| `abilities_main.json` | MC + CN | 406 MC / 281 CN | Способности героев |
+| `items_main.json` | MC + CN | 154 MC / 99 CN | Предметы |
+| `costs_main.json` | CN только | 157 | Цены предметов |
 
-Пересобирать после каждого нового батча: `python scripts/build_questions_db.py`
+### Взвешенный выбор вопросов (`createQuestionPicker`)
 
-### Исходные файлы (не удалять, не перегенерировать)
+**Режимы `all` и `kerri`** — берут только MC:
+- 5% → `general_main.json`
+- 55% → `abilities_main.json` (MC)
+- 40% → `items_main.json` (MC)
 
-| Файл | Описание | Кол-во |
-|---|---|---|
-| `item_questions.json` | Предметы: цена, кд, статы. Структура `{"numeric":[...]}` | 641 |
-| `ability_questions.json` | Способности героев по категориям `{category:[...]}` | 2433 |
-| `active_questions_batch1.json` | Активки предметов, MC+CN | 18 |
-| `active_questions_batch2.json` | Вычислительные производные, CN (agent_hard) | 12 |
-| `active_questions_batch3.json` | Активки всех магазинных предметов, MC+CN | 186 |
-| `ability_questions_new.json` | Эффекты способностей героев, MC+CN | 497 |
+**Режим `closest`** — берут только CN:
+- 30% → `costs_main.json`
+- 35% → `abilities_main.json` (CN)
+- 35% → `items_main.json` (CN)
 
-**`generate_item_questions.py` — не запускать** (пользователь вручную почистил вопросы).
+### Формат вопросов в generated-файлах
 
-### Типы вопросов
+**MC:** поля `type`, `topic`, `question`, `options` (массив 4 вариантов). **`options[0]` всегда правильный** (нет поля `correct`, `answer: null`). Опции перемешиваются при каждом вызове `pickQuestion`.
 
-**`closest_number`** — игроки угадывают число, побеждает ближайший:
 ```json
-{ "type": "closest_number", "question": "...", "answer": 260, "unit": "ед.", "item": "shivas_guard", "category": "active_mechanics" }
+{ "type": "multiple_choice", "topic": "Способность", "question": "...", "options": ["правильный","д1","д2","д3"] }
 ```
-Для многоуровневых способностей — `answers: [v1,v2,v3,v4]` и `{level}` в тексте вопроса.
 
-**`multiple_choice`** — 4 варианта, `correct: 0` в БД (верный всегда первый), **опции перемешиваются при загрузке** в `loadQuestions.ts`:
+**CN:** поля `type`, `topic`, `question`, `answer` (число). Нет `answers[]` и `{level}` — только одно значение.
+
 ```json
-{ "type": "multiple_choice", "question": "...", "options": ["правильный","дистрактор1","д2","д3"], "correct": 0 }
+{ "type": "closest_number", "topic": "Цена", "question": "...", "answer": 2250, "unit": "золото" }
 ```
+
+### Исходные/архивные файлы (`scripts/data/` корень — не трогать)
+
+- `item_questions.json`, `ability_questions.json` — старые CN-базы, вручную почищены
+- `active_questions_batch*.json`, `ability_questions_new.json` — агент-батчи
+- `questions_db.json` — старый единый файл (больше сервером не используется)
+- **`generate_item_questions.py` — не запускать** (пользователь вручную почистил)
 
 ### Фильтры для генерации по предметам
 - `cost > 0` — отсеивает нейтралки и удалённые предметы
