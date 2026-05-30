@@ -54,6 +54,13 @@ const CN_QUESTION = {
   text: 'Сколько стоит Blink Dagger?',
 }
 
+const BET_PLAYERS: Player[] = [
+  { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betChips: [100],     hasAnswered: false },
+  { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [50, 50],  hasAnswered: false },
+  { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, betChips: [100, 50], hasAnswered: false },
+  { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  betChips: [50],      hasAnswered: false },
+]
+
 function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = {}): GameState {
   return {
     id: 'dev-room',
@@ -192,7 +199,7 @@ export const SCENARIOS: Scenario[] = [
     Screen: QuestionScreen,
     state: {
       myId: MY_ID,
-      gameState: base('QUESTION', 'all', { currentQuestion: MC_QUESTION }),
+      gameState: base('QUESTION', 'all', { currentQuestion: MC_QUESTION, players: BET_PLAYERS }),
       roundCorrectAnswer: null,
       answeredIds: new Set<string>(['dev-2', 'dev-3']),
     },
@@ -204,7 +211,7 @@ export const SCENARIOS: Scenario[] = [
     Screen: QuestionScreen,
     state: {
       myId: MY_ID,
-      gameState: base('QUESTION', 'all', { currentQuestion: MC_QUESTION }),
+      gameState: base('QUESTION', 'all', { currentQuestion: MC_QUESTION, players: BET_PLAYERS }),
       roundCorrectAnswer: 'Anti-Mage',
       answeredIds: new Set<string>(['dev-1', 'dev-2', 'dev-3', 'dev-4']),
     },
@@ -220,6 +227,7 @@ export const SCENARIOS: Scenario[] = [
         currentQuestion: MC_QUESTION,
         gladiatorId: 'dev-2',
         gladiatorAnswer: 'Anti-Mage',
+        players: BET_PLAYERS,
       }),
       roundCorrectAnswer: null,
       gladiatorHoverIndex: 0,
@@ -235,6 +243,7 @@ export const SCENARIOS: Scenario[] = [
       gameState: base('QUESTION', 'kerri', {
         currentQuestion: MC_QUESTION,
         gladiatorId: 'dev-1',
+        players: BET_PLAYERS,
       }),
       roundCorrectAnswer: null,
     },
@@ -246,7 +255,7 @@ export const SCENARIOS: Scenario[] = [
     Screen: ClosestScreen,
     state: {
       myId: MY_ID,
-      gameState: base('QUESTION', 'closest', { currentQuestion: CN_QUESTION }),
+      gameState: base('QUESTION', 'closest', { currentQuestion: CN_QUESTION, players: BET_PLAYERS }),
       roundCorrectAnswer: null,
     },
   },
@@ -257,7 +266,7 @@ export const SCENARIOS: Scenario[] = [
     Screen: ClosestScreen,
     state: {
       myId: MY_ID,
-      gameState: base('QUESTION', 'closest', { currentQuestion: CN_QUESTION }),
+      gameState: base('QUESTION', 'closest', { currentQuestion: CN_QUESTION, players: BET_PLAYERS }),
       roundCorrectAnswer: 2250,
     },
   },
@@ -272,10 +281,10 @@ export const SCENARIOS: Scenario[] = [
       myId: MY_ID,
       gameState: base('REVEAL', 'all', {
         players: [
-          { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 100, hasAnswered: true, answer: 'Anti-Mage' },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: true, answer: 'Invoker'   },
-          { id: 'dev-3', name: 'Света',  chips: 890, currentBet: 150, hasAnswered: true, answer: 'Anti-Mage' },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  hasAnswered: true, answer: 'Pugna'     },
+          { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 100, betChips: [100],     hasAnswered: true, answer: 'Anti-Mage' },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [50, 50],  hasAnswered: true, answer: 'Invoker'   },
+          { id: 'dev-3', name: 'Света',  chips: 890, currentBet: 150, betChips: [100, 50], hasAnswered: true, answer: 'Anti-Mage' },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  betChips: [50],      hasAnswered: true, answer: 'Pugna'     },
         ],
       }),
       roundResults: [
@@ -299,10 +308,10 @@ export const SCENARIOS: Scenario[] = [
       gameState: base('REVEAL', 'kerri', {
         gladiatorId: 'dev-2',
         players: [
-          { id: 'dev-1', name: 'Ты',     chips: 680, currentBet: 100, hasAnswered: true, betTarget: 'win'  },
-          { id: 'dev-2', name: 'Артём',  chips: 200, currentBet: 100, hasAnswered: true, answer: 'Invoker' },
-          { id: 'dev-3', name: 'Света',  chips: 690, currentBet: 150, hasAnswered: true, betTarget: 'lose' },
-          { id: 'dev-4', name: 'Никита', chips: 470, currentBet: 50,  hasAnswered: true, betTarget: 'win'  },
+          { id: 'dev-1', name: 'Ты',     chips: 680, currentBet: 100, betChips: [100],     hasAnswered: true, betTarget: 'win'  },
+          { id: 'dev-2', name: 'Артём',  chips: 200, currentBet: 100, betChips: [50, 50],  hasAnswered: true, answer: 'Invoker' },
+          { id: 'dev-3', name: 'Света',  chips: 690, currentBet: 150, betChips: [100, 50], hasAnswered: true, betTarget: 'lose' },
+          { id: 'dev-4', name: 'Никита', chips: 470, currentBet: 50,  betChips: [50],      hasAnswered: true, betTarget: 'win'  },
         ],
       }),
       roundResults: [

@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import {
-  playerAngle, cardAnchor,
+  playerAngle, cardAnchor, landingZone,
   FELT_CX, FELT_CY,
   OUTER_RX, OUTER_RY,
   SCENE_W, SCENE_H,
 } from '../../lib/tableGeometry'
+
+const CHIP_BG: Record<number, string> = {
+  10:  'radial-gradient(circle at 35% 35%, #d1d5db, #6b7280)',
+  20:  'radial-gradient(circle at 35% 35%, #4ade80, #15803d)',
+  50:  'radial-gradient(circle at 35% 35%, #60a5fa, #1d4ed8)',
+  100: 'radial-gradient(circle at 35% 35%, #f87171, #b91c1c)',
+  500: 'radial-gradient(circle at 35% 35%, #374151, #030712)',
+}
 
 interface Props {
   blurred: boolean
@@ -57,6 +65,34 @@ export function TableFelt({ blurred }: Props) {
             ].join(', '),
           }}
         />
+
+        {/* Bet chip stacks */}
+        {players.map((player, i) => {
+          const chips = player.betChips
+          if (!chips?.length) return null
+          const angle = playerAngle(i, N)
+          const zone = landingZone(angle)
+          return (
+            <div key={`chips-${player.id}`} style={{ position: 'absolute', left: zone.cx - 14, top: zone.cy - 14 }}>
+              {chips.map((denom, ci) => (
+                <div
+                  key={ci}
+                  style={{
+                    position: 'absolute',
+                    width: 28,
+                    height: 28,
+                    borderRadius: '50%',
+                    background: CHIP_BG[denom] ?? CHIP_BG[100],
+                    border: '2px solid rgba(255,255,255,0.18)',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.7)',
+                    top: -ci * 5,
+                    left: 0,
+                  }}
+                />
+              ))}
+            </div>
+          )
+        })}
 
         {/* Player name cards */}
         {players.map((player, i) => {
