@@ -108,7 +108,7 @@ export function DevPage() {
       }}>
         {active ? (
           <>
-            {active.withFelt && <TableFelt blurred={false} />}
+            <TableFelt blurred={!active.withFelt} />
             {(() => { const Screen = active.Screen; return <Screen /> })()}
           </>
         ) : (
