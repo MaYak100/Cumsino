@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import {
-  playerAngle, cardAnchor, landingZone,
+  playerAngle, landingZone, unitPosition,
   FELT_CX, FELT_CY,
   OUTER_RX, OUTER_RY,
   SCENE_W, SCENE_H,
 } from '../../lib/tableGeometry'
+import { UNIT_W, CHIP_ROW_H, BALANCE_H, UNIT_H } from './PlayerSlot'
 
 const CHIP_BG: Record<number, string> = {
   10:  'radial-gradient(circle at 35% 35%, #d1d5db, #6b7280)',
@@ -25,7 +26,10 @@ export function TableFelt({ blurred }: Props) {
 
   if (!gameState) return null
 
-  const players = gameState.players
+  const allPlayers = gameState.players
+  const me = allPlayers.find(p => p.id === myId)
+  const others = allPlayers.filter(p => p.id !== myId)
+  const players = me ? [me, ...others] : allPlayers
   const N = players.length
 
   return (
@@ -94,32 +98,41 @@ export function TableFelt({ blurred }: Props) {
           )
         })}
 
-        {/* Player name cards */}
+        {/* Player name cards — same ordering and positioning as BettingTableScreen/PlayerSlot */}
         {players.map((player, i) => {
           const angle = playerAngle(i, N)
-          const anchor = cardAnchor(angle)
+          const { left: unitLeft, top: unitTop } = unitPosition(angle, UNIT_W, UNIT_H, 0)
           const isMe = player.id === myId
           return (
             <div
               key={player.id}
               style={{
                 position: 'absolute',
-                left: anchor.x - 55,
-                top: anchor.y - 15,
+                left: unitLeft,
+                top: unitTop + CHIP_ROW_H + BALANCE_H + 8,
+                width: UNIT_W,
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <div style={{
                 background: isMe ? '#100e00' : 'linear-gradient(135deg,#121212,#0a0a0a)',
                 border: `1.5px solid ${isMe ? '#fbbf24' : '#333'}`,
                 borderRadius: 8,
-                padding: '4px 12px',
+                padding: '5px 14px',
                 color: isMe ? '#fbbf24' : '#aaa',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 600,
                 whiteSpace: 'nowrap',
+                maxWidth: UNIT_W,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
                 boxShadow: isMe
                   ? '0 0 18px rgba(251,191,36,0.12), 0 4px 24px rgba(0,0,0,0.8)'
                   : '0 4px 24px rgba(0,0,0,0.8)',
-              }}
-            >
-              {player.name}
+              }}>
+                {player.name}
+              </div>
             </div>
           )
         })}

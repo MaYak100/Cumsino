@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CHIP_PX = { sm: 20, md: 28 } as const
-const STEP_PX = { sm: 6, md: 8 } as const
+const STEP_PX = { sm: 5, md: 6 } as const
 
 const DENOM_ORDER: ChipValue[] = [500, 100, 50, 20, 10]
 
@@ -75,7 +75,7 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
                 key={chip.id}
                 layoutId={chip.id}
                 className={wrapperClass}
-                style={wrapperStyle}
+                style={{ ...wrapperStyle, borderRadius: '50%' }}
               >
                 {denom}
               </motion.div>

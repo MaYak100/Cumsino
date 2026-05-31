@@ -24,13 +24,13 @@ export class GameRoom extends EventEmitter {
   private phaseTimer?: ReturnType<typeof setTimeout>
   private phaseEndTime = 0
   private selector: RoundSelector
-  private questions: Question[]
+  private questionPicker: (mode: GameMode) => Question
   private bettingConfirmedIds = new Set<string>()
 
-  constructor(id: string, questions: Question[]) {
+  constructor(id: string, questionPicker: (mode: GameMode) => Question) {
     super()
     this.id = id
-    this.questions = questions
+    this.questionPicker = questionPicker
     this.selector = new RoundSelector()
   }
 
@@ -60,15 +60,25 @@ export class GameRoom extends EventEmitter {
     this.nextRound()
   }
 
-  placeBet(playerId: string, amount: number, target?: 'win' | 'lose') {
+  placeBet(playerId: string, amount: number, target?: 'win' | 'lose', chips?: number[], bankBet?: { optionIndex: number; amount: number }) {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'BETTING') return
     if (amount > player.chips) return
 
     player.currentBet = amount
     if (target) player.betTarget = target
+    if (chips && chips.reduce((a, b) => a + b, 0) === amount) player.betChips = chips
 
-    this.broadcast('bet_updated', { playerId, amount, target })
+    if (bankBet && this.currentMode === 'kerri' && this.currentQuestion?.options) {
+      const { optionIndex, amount: bankAmount } = bankBet
+      if (optionIndex >= 0 && optionIndex < this.currentQuestion.options.length
+        && bankAmount > 0 && player.currentBet + bankAmount <= player.chips) {
+        player.bankBet = { optionIndex, amount: bankAmount }
+        this.broadcast('bank_bet_updated', { playerId, optionIndex, amount: bankAmount })
+      }
+    }
+
+    this.broadcast('bet_updated', { playerId, amount, target, chips: player.betChips })
 
     this.bettingConfirmedIds.add(playerId)
     if (this.allBettingConfirmed()) {
@@ -105,10 +115,10 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  stageChip(playerId: string, amount: number) {
+  stageChip(playerId: string, chips: number[]) {
     if (this.phase !== 'BETTING') return
     if (!this.players.has(playerId)) return
-    this.broadcastExcept(playerId, 'chip_staged', { playerId, amount })
+    this.broadcastExcept(playerId, 'chip_staged', { playerId, chips })
   }
 
   relayHover(playerId: string, optionIndex: number | null) {
@@ -138,7 +148,7 @@ export class GameRoom extends EventEmitter {
       hostId: this.hostId,
       players: Array.from(this.players.values()).map(p => ({
         id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
-        betTarget: p.betTarget, answer: p.answer, hasAnswered: p.hasAnswered,
+        betTarget: p.betTarget, betChips: p.betChips, answer: p.answer, hasAnswered: p.hasAnswered,
       })),
       phaseTimeLeft: timeLeft,
     }
@@ -170,6 +180,7 @@ export class GameRoom extends EventEmitter {
     for (const p of this.players.values()) {
       p.currentBet = 0
       p.betTarget = undefined
+      p.betChips = undefined
       p.answer = undefined
       p.hasAnswered = false
       p.bankBet = undefined
@@ -230,6 +241,7 @@ export class GameRoom extends EventEmitter {
   private advanceFromQuestion() {
     const results = this.calculateResults()
     this.applyDeltas(results)
+    this.broadcastState()
     this.broadcast('round_results', {
       results,
       correctAnswer: this.currentQuestion?.answer ?? null,
@@ -237,7 +249,10 @@ export class GameRoom extends EventEmitter {
       mode: this.currentMode,
       gladiatorId: this.gladiatorId,
     })
-    this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
+    clearTimeout(this.phaseTimer)
+    this.phaseTimer = setTimeout(() => {
+      this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
+    }, 2500)
   }
 
   private calculateResults(): RoundResult[] {
@@ -335,9 +350,7 @@ export class GameRoom extends EventEmitter {
   }
 
   private pickQuestion(mode: GameMode): Question {
-    const pool = this.questions.filter(q => q.mode === mode)
-    if (pool.length === 0) throw new Error(`No questions for mode: ${mode}`)
-    return pool[Math.floor(Math.random() * pool.length)]
+    return this.questionPicker(mode)
   }
 
   private broadcast(event: string, data: unknown) {

@@ -4,8 +4,9 @@ export const FELT_RX = 380
 export const FELT_RY = 248
 export const OUTER_RX = 424
 export const OUTER_RY = 285
-export const LAND_INSET = 58
-export const CARD_GAP = 28
+export const LAND_INSET = 20
+export const CARD_GAP_X = 45
+export const CARD_GAP_Y = 45
 export const SCENE_W = 1300
 export const SCENE_H = 820
 
@@ -32,8 +33,8 @@ export function cardAnchor(angle: number): { x: number; y: number } {
   const nx = ex / len
   const ny = ey / len
   return {
-    x: FELT_CX + ex + nx * CARD_GAP,
-    y: FELT_CY + ey + ny * CARD_GAP,
+    x: FELT_CX + ex + nx * CARD_GAP_X,
+    y: FELT_CY + ey + ny * CARD_GAP_Y,
   }
 }
 

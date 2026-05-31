@@ -6,8 +6,10 @@ import { PhysicalChipStack } from './PhysicalChipStack'
 import { unitPosition } from '../../lib/tableGeometry'
 
 const UNIT_W = 170
-const CARD_H = 38
 const CHIP_ROW_H = 48
+const BALANCE_H = 20
+const CARD_H = 38
+const UNIT_H = CHIP_ROW_H + BALANCE_H + CARD_H
 
 interface Props {
   player: Player
@@ -19,7 +21,7 @@ interface Props {
 }
 
 export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomClick }: Props) {
-  const { left, top } = unitPosition(angle, UNIT_W, CHIP_ROW_H, CARD_H)
+  const { left, top } = unitPosition(angle, UNIT_W, UNIT_H, 0)
   const chips = isMe ? (myChips ?? []) : buildPhysicalChips(player.chips)
 
   return (
@@ -34,6 +36,7 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
         alignItems: 'center',
         gap: 4,
         zIndex: 4,
+        paddingBottom: 16,
       }}
     >
       <div style={{ height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end' }}>
@@ -44,6 +47,17 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
           onDenomClick={onDenomClick}
           size="md"
         />
+      </div>
+
+      <div style={{
+        fontSize: 13,
+        fontWeight: 700,
+        color: isMe ? '#fbbf24' : '#d1d5db',
+        fontVariantNumeric: 'tabular-nums',
+        letterSpacing: '0.04em',
+        marginBottom: 3,
+      }}>
+        ${player.chips}
       </div>
 
       <div
@@ -77,4 +91,4 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
   )
 }
 
-export { UNIT_W, CARD_H, CHIP_ROW_H }
+export { UNIT_W, CARD_H, CHIP_ROW_H, BALANCE_H, UNIT_H }

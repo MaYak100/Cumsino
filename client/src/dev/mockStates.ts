@@ -32,6 +32,19 @@ export interface Scenario {
 
 const MY_ID = 'dev-1'
 
+export const PLAYER_POOL: Player[] = [
+  { id: 'dev-1',  name: 'Ты',      chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-2',  name: 'Артём',   chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-3',  name: 'Света',   chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-4',  name: 'Никита',  chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-5',  name: 'Даша',    chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-6',  name: 'Костя',   chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-7',  name: 'Лена',    chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-8',  name: 'Паша',    chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-9',  name: 'Маша',    chips: 500, currentBet: 0, hasAnswered: false },
+  { id: 'dev-10', name: 'Женя',    chips: 500, currentBet: 0, hasAnswered: false },
+]
+
 const BASE_PLAYERS: Player[] = [
   { id: 'dev-1', name: 'Ты',    chips: 580, currentBet: 0, hasAnswered: false },
   { id: 'dev-2', name: 'Артём', chips: 350, currentBet: 0, hasAnswered: false },
@@ -43,8 +56,13 @@ const MC_QUESTION = {
   id: 'q-mc-1',
   mode: 'all' as GameMode,
   topic: 'Способность',
-  text: 'Какой герой использует способность «Mana Void»?',
-  options: ['Anti-Mage', 'Invoker', 'Pugna', 'Rubick'],
+  text: 'Как работает врожденная способность Bone Chill при наличии нескольких стаков на одной цели?',
+  options: [
+    'Стаки имеют независимые длительности и суммируются',
+    'Каждый новый стак перезагружает длительность предыдущего',
+    'Максимум 2 стака действует одновременно',
+    'Эффект не суммируется, только один стак может быть активен',
+  ],
 }
 
 const CN_QUESTION = {
@@ -152,7 +170,7 @@ export const SCENARIOS: Scenario[] = [
       gameState: base('BETTING', 'kerri', {
         currentQuestion: MC_QUESTION,
         gladiatorId: 'dev-2',
-        gladiatorAnswer: 'Anti-Mage',
+        gladiatorAnswer: MC_QUESTION.options[0],
         players: [
           { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0,   betTarget: 'win', hasAnswered: false },
           { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [100],  hasAnswered: false },
@@ -212,7 +230,7 @@ export const SCENARIOS: Scenario[] = [
     state: {
       myId: MY_ID,
       gameState: base('QUESTION', 'all', { currentQuestion: MC_QUESTION, players: BET_PLAYERS }),
-      roundCorrectAnswer: 'Anti-Mage',
+      roundCorrectAnswer: MC_QUESTION.options[0],
       answeredIds: new Set<string>(['dev-1', 'dev-2', 'dev-3', 'dev-4']),
     },
   },
@@ -226,7 +244,7 @@ export const SCENARIOS: Scenario[] = [
       gameState: base('QUESTION', 'kerri', {
         currentQuestion: MC_QUESTION,
         gladiatorId: 'dev-2',
-        gladiatorAnswer: 'Anti-Mage',
+        gladiatorAnswer: MC_QUESTION.options[0],
         players: BET_PLAYERS,
       }),
       roundCorrectAnswer: null,
@@ -293,7 +311,7 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-3', delta: 150, chipBreakdown: { 500: 0, 100: 1, 50: 1, 20: 0, 10: 0 } },
         { playerId: 'dev-4', delta: -50, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
       ] as RoundResult[],
-      roundCorrectAnswer: 'Anti-Mage',
+      roundCorrectAnswer: MC_QUESTION.options[0],
       roundMode: 'all',
       roundGladiatorId: null,
     },
@@ -320,7 +338,7 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-3', delta: -150, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
         { playerId: 'dev-4', delta: 50,   chipBreakdown: { 500: 0, 100: 0, 50: 1, 20: 0, 10: 0 } },
       ] as RoundResult[],
-      roundCorrectAnswer: 'Anti-Mage',
+      roundCorrectAnswer: MC_QUESTION.options[0],
       roundMode: 'kerri',
       roundGladiatorId: 'dev-2',
     },

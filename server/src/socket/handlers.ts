@@ -16,10 +16,10 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
     engine.getRoom(socket.id)?.start(socket.id)
   })
 
-  socket.on('place_bet', ({ amount, target }: PlaceBetPayload) => {
+  socket.on('place_bet', ({ amount, target, chips, bankBet }: PlaceBetPayload) => {
     if (typeof amount !== 'number' || amount < 0) return
     if (target !== undefined && target !== 'win' && target !== 'lose') return
-    engine.getRoom(socket.id)?.placeBet(socket.id, amount, target)
+    engine.getRoom(socket.id)?.placeBet(socket.id, amount, target, chips, bankBet)
   })
 
   socket.on('submit_answer', ({ answer }: SubmitAnswerPayload) => {
@@ -37,9 +37,9 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
     engine.getRoom(socket.id)?.placeBankBet(socket.id, optionIndex, amount)
   })
 
-  socket.on('stage_chip', ({ amount }: { amount: number }) => {
-    if (typeof amount !== 'number' || amount < 0) return
-    engine.getRoom(socket.id)?.stageChip(socket.id, amount)
+  socket.on('stage_chip', ({ chips }: { chips: number[] }) => {
+    if (!Array.isArray(chips)) return
+    engine.getRoom(socket.id)?.stageChip(socket.id, chips)
   })
 
   socket.on('disconnect', () => {

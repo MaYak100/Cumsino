@@ -27,6 +27,7 @@ export interface Player {
   chips: number
   currentBet: number
   betTarget?: 'win' | 'lose'
+  betChips?: number[]
   answer?: string | number | string[]
   hasAnswered: boolean
 }
@@ -65,14 +66,14 @@ export interface RoundResult {
 
 // Socket event payloads — Client → Server
 export interface JoinGamePayload { name: string; gameCode: string }
-export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose' }
+export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose'; chips?: number[]; bankBet?: { optionIndex: number; amount: number } }
 export interface PlaceBankBetPayload { optionIndex: number; amount: number }
 export interface SubmitAnswerPayload { answer: string | number | string[] }
 export interface GladiatorHoverPayload { optionIndex: number | null }
 
 // Socket event payloads — Server → Client
 export interface PhaseChangedPayload { phase: GamePhase; timeLeft: number }
-export interface BetUpdatedPayload { playerId: string; amount: number; target?: 'win' | 'lose' }
+export interface BetUpdatedPayload { playerId: string; amount: number; target?: 'win' | 'lose'; chips?: number[] }
 export interface BankBetUpdatedPayload { playerId: string; optionIndex: number; amount: number }
 export interface PlayerAnsweredPayload { playerId: string }
 export interface GladiatorHoveringPayload { optionIndex: number | null }
@@ -84,4 +85,4 @@ export interface RoundResultsPayload {
   gladiatorId?: string
 }
 export interface GameOverPayload { winner: Player }
-export interface ChipStagedPayload { playerId: string; amount: number }
+export interface ChipStagedPayload { playerId: string; chips: number[] }
