@@ -55,8 +55,10 @@ function ProgressBar({ prevBalance, newBalance, phase }: {
         )}
       </div>
 
-      {/* Marker */}
+      {/* Marker + edge labels */}
       <div style={{ position: 'relative', height: 22, overflow: 'visible' }}>
+        <span style={{ position: 'absolute', bottom: 0, left: 0, color: '#6b7280', fontSize: 9 }}>0</span>
+        <span style={{ position: 'absolute', bottom: 0, right: 0, color: '#6b7280', fontSize: 9 }}>3000</span>
         <motion.div
           style={{ position: 'absolute', top: 2 }}
           animate={{ left: `${animating ? newPct : prevPct}%` }}
@@ -74,12 +76,6 @@ function ProgressBar({ prevBalance, newBalance, phase }: {
             </div>
           </div>
         </motion.div>
-      </div>
-
-      {/* 0 / 3000 labels */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: -2 }}>
-        <span style={{ color: '#6b7280', fontSize: 9 }}>0</span>
-        <span style={{ color: '#6b7280', fontSize: 9 }}>3000</span>
       </div>
     </div>
   )

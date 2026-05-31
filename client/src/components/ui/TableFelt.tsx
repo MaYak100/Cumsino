@@ -38,7 +38,7 @@ export function TableFelt({ blurred }: Props) {
         opacity: blurred ? 0.35 : 1,
         filter: blurred ? 'blur(8px)' : 'blur(0px)',
       }}
-      transition={{ duration: 0.4 }}
+      transition={blurred ? { duration: 0.4 } : { duration: 0.9, delay: 0.35 }}
       style={{
         position: 'absolute',
         inset: 0,

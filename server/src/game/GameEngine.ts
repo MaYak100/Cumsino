@@ -1,9 +1,9 @@
 import type { Server, Socket } from 'socket.io'
 import { GameRoom } from './GameRoom'
-import type { Question } from '@cumsino/shared'
-import { loadQuestions } from './loadQuestions'
+import type { GameMode, Question } from '@cumsino/shared'
+import { createQuestionPicker } from './loadQuestions'
 
-const questions: Question[] = loadQuestions()
+const pickQuestion: (mode: GameMode) => Question = createQuestionPicker()
 
 export class GameEngine {
   private rooms: Map<string, GameRoom> = new Map()
@@ -41,7 +41,7 @@ export class GameEngine {
   }
 
   private createRoom(gameCode: string): GameRoom {
-    const room = new GameRoom(gameCode, questions as Question[])
+    const room = new GameRoom(gameCode, pickQuestion)
 
     room.on('broadcast', ({ event, data }: { event: string; data: unknown }) => {
       this.io.to(gameCode).emit(event, data)

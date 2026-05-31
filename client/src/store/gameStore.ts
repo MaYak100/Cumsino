@@ -20,7 +20,7 @@ interface GameStore {
   gladiatorHoverIndex: number | null
   pendingTarget: 'win' | 'lose' | null
   bankBets: Record<string, { optionIndex: number; amount: number }>
-  stagedBets: Record<string, number>
+  stagedBets: Record<string, number[]>
   isLateJoiner: boolean
 
   connect: (name: string, gameCode: string) => void
@@ -37,35 +37,41 @@ export const useGameStore = create<GameStore>((set) => {
   })
 
   socket.on('game_state', (state: GameState) => {
-    set(prev => ({
-      gameState: state,
-      answeredIds: new Set(),
-      gladiatorHoverIndex: null,
-      roundResults: state.phase === 'ANNOUNCE' ? [] : prev.roundResults,
-      bankBets: state.phase === 'ANNOUNCE' ? {} : prev.bankBets,
-      stagedBets: state.phase === 'ANNOUNCE' ? {} : prev.stagedBets,
-      isLateJoiner: prev.gameState === null
-        ? state.phase !== 'LOBBY'          // first state: late if not in lobby
-        : state.phase === 'ANNOUNCE'
-          ? false                           // new round starting: no longer late
-          : prev.isLateJoiner,              // keep existing value
-    }))
+    set(prev => {
+      const newRound =
+        prev.gameState !== null && state.roundIndex !== prev.gameState.roundIndex
+      const clearRound = state.phase === 'ANNOUNCE' || newRound
+      return {
+        gameState: state,
+        answeredIds: new Set(),
+        gladiatorHoverIndex: null,
+        roundResults: clearRound ? [] : prev.roundResults,
+        roundCorrectAnswer: clearRound ? null : prev.roundCorrectAnswer,
+        roundMode: clearRound ? null : prev.roundMode,
+        roundGladiatorId: clearRound ? null : prev.roundGladiatorId,
+        bankBets: clearRound ? {} : prev.bankBets,
+        stagedBets: clearRound ? {} : prev.stagedBets,
+        isLateJoiner: prev.gameState === null
+          ? state.phase !== 'LOBBY'
+          : state.phase === 'ANNOUNCE'
+            ? false
+            : prev.isLateJoiner,
+      }
+    })
   })
 
-  socket.on('bet_updated', ({ playerId, amount, target }: BetUpdatedPayload) => {
+  socket.on('bet_updated', ({ playerId, amount, target, chips }: BetUpdatedPayload) => {
     set(prev => {
       if (!prev.gameState) return prev
-      const { [playerId]: _, ...restStaged } = prev.stagedBets
       return {
         gameState: {
           ...prev.gameState,
           players: prev.gameState.players.map(p =>
             p.id === playerId
-              ? { ...p, currentBet: amount, ...(target ? { betTarget: target } : {}) }
+              ? { ...p, currentBet: amount, betChips: chips, ...(target ? { betTarget: target } : {}) }
               : p
           ),
         },
-        stagedBets: restStaged,
       }
     })
   })
@@ -93,8 +99,8 @@ export const useGameStore = create<GameStore>((set) => {
     }))
   })
 
-  socket.on('chip_staged', ({ playerId, amount }: ChipStagedPayload) => {
-    set(prev => ({ stagedBets: { ...prev.stagedBets, [playerId]: amount } }))
+  socket.on('chip_staged', ({ playerId, chips }: ChipStagedPayload) => {
+    set(prev => ({ stagedBets: { ...prev.stagedBets, [playerId]: chips } }))
   })
 
   socket.on('game_over', ({ winner }: GameOverPayload) => {

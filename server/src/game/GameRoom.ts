@@ -1,7 +1,7 @@
 // server/src/game/GameRoom.ts
 import { EventEmitter } from 'events'
 import type { GameState, GamePhase, GameMode, Player, RoundResult, Question } from '@cumsino/shared'
-import { STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, PHASE_DURATIONS, decomposeToChips } from '@cumsino/shared'
+import { STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, decomposeToChips } from '@cumsino/shared'
 import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
 import { distributeTop5 } from './economy/distributeTop5'
@@ -83,7 +83,7 @@ export class GameRoom extends EventEmitter {
     this.bettingConfirmedIds.add(playerId)
     if (this.allBettingConfirmed()) {
       clearTimeout(this.phaseTimer)
-      this.schedulePhase('QUESTION_TEXT', PHASE_DURATIONS['QUESTION_TEXT']!)
+      this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
     }
   }
 
@@ -202,17 +202,13 @@ export class GameRoom extends EventEmitter {
       case 'ANNOUNCE':
         if (this.currentMode === 'kerri') this.selectGladiator()
         if (this.currentMode === 'closest') {
-          this.schedulePhase('QUESTION_TEXT', PHASE_DURATIONS['QUESTION_TEXT']!)
+          this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
         } else {
           this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
         }
         break
 
       case 'BETTING':
-        this.schedulePhase('QUESTION_TEXT', PHASE_DURATIONS['QUESTION_TEXT']!)
-        break
-
-      case 'QUESTION_TEXT':
         this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
         break
 
@@ -291,7 +287,12 @@ export class GameRoom extends EventEmitter {
         .map(p => ({ id: p.id, stake: p.currentBet }))
       const losers = crowd.filter(p => correct ? p.betTarget === 'lose' : p.betTarget === 'win')
         .map(p => ({ id: p.id, stake: p.currentBet }))
-      const mainDeltas = distributePool(winners, losers)
+      const allGuessedCorrect = losers.length === 0 && winners.length > 0
+      const noneGuessedCorrect = winners.length === 0 && losers.length > 0
+
+      const mainDeltas = noneGuessedCorrect
+        ? new Map<string, number>()
+        : distributePool(winners, losers)
       mainDeltas.set(gladiator.id, correct ? GLADIATOR_BONUS : 0)
 
       const gladiatorAnswerIndex = this.currentQuestion?.options
@@ -309,7 +310,11 @@ export class GameRoom extends EventEmitter {
           sources = []
           if (p.currentBet > 0) {
             const mainWon = correct ? p.betTarget === 'win' : p.betTarget === 'lose'
-            sources.push({ label: mainWon ? 'Угадал исход' : 'Ошибся с исходом', delta: mainDelta })
+            let label: string
+            if (allGuessedCorrect) label = 'Все угадали исход'
+            else if (noneGuessedCorrect) label = 'Никто не угадал исход'
+            else label = mainWon ? 'Угадал исход' : 'Ошибся с исходом'
+            sources.push({ label, delta: mainDelta })
           }
           if (p.bankBet) {
             const bankHit = gladiatorAnswerIndex !== -1 && gladiatorAnswerIndex === p.bankBet.optionIndex
@@ -322,13 +327,36 @@ export class GameRoom extends EventEmitter {
     }
 
     if (this.currentMode === 'closest') {
+      const correctNum = this.currentQuestion!.numericAnswer!
       const entries = players
         .filter(p => typeof p.answer === 'number')
         .map(p => ({ id: p.id, answer: p.answer as number }))
-      const deltas = distributeClosest(entries, this.currentQuestion!.numericAnswer!)
+      const deltas = distributeClosest(entries, correctNum)
+
+      let isExact = false
+      const winnerIds = new Set<string>()
+      if (entries.length > 0) {
+        const diffs = entries.map(p => ({ id: p.id, diff: Math.abs(p.answer - correctNum), exact: p.answer === correctNum }))
+        const minDiff = Math.min(...diffs.map(d => d.diff))
+        const closest = diffs.filter(d => d.diff === minDiff)
+        isExact = closest.every(w => w.exact)
+        closest.forEach(w => winnerIds.add(w.id))
+      }
+
       return players.map(p => {
         const delta = deltas.get(p.id) ?? 0
-        const sources: Source[] = delta > 0 ? [{ label: 'Ближайший ответ', delta }] : []
+        let sources: Source[] = []
+        if (delta > 0) {
+          if (isExact && winnerIds.has(p.id)) {
+            const basePart = Math.floor(CLOSEST_WINNER_BONUS / winnerIds.size / 10) * 10
+            sources = [
+              { label: 'Ближайший ответ', delta: basePart },
+              { label: 'Угадал точно', delta: delta - basePart },
+            ]
+          } else {
+            sources = [{ label: 'Ближайший ответ', delta }]
+          }
+        }
         return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
       })
     }

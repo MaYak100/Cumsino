@@ -3453,7 +3453,7 @@
         },
         {
           "type": "multiple_choice",
-          "question": "Какой Status Resistance даёт Defense Matrix Tinker?",
+          "question": "Какой Status Resistance давала Defense Matrix Tinker?",
           "options": [
             "30%",
             "15%",

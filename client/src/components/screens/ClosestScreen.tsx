@@ -16,7 +16,7 @@ export function ClosestScreen() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const num = parseFloat(value)
+    const num = parseFloat(value.replace(',', '.'))
     if (isNaN(num)) return
     submitAnswer(num)
   }
@@ -26,7 +26,7 @@ export function ClosestScreen() {
       <Timer seconds={gameState.phaseTimeLeft} />
 
       <div className="w-full max-w-md mt-6 text-center">
-        <div className="text-xs uppercase tracking-widest text-gray-400 mb-2">🎯 КТО БЛИЖЕ</div>
+        <div className="text-xs uppercase tracking-widest text-gray-400 mb-2">КТО БЛИЖЕ</div>
         <div className="text-xl text-white leading-relaxed mb-8">
           {gameState.currentQuestion?.text}
         </div>
@@ -35,7 +35,7 @@ export function ClosestScreen() {
           <input
             type="text"
             inputMode="decimal"
-            pattern="[0-9]*\.?[0-9]*"
+            pattern="[0-9]*[.,]?[0-9]*"
             value={value}
             onChange={e => setValue(e.target.value)}
             disabled={myAnswered || showingCorrect}

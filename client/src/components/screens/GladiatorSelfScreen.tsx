@@ -9,6 +9,7 @@ const OPTION_BORDER_COLORS = [
   'border-yellow-500',
   'border-red-500',
 ]
+const OPTION_BORDER_HEX = ['#3b82f6', '#22c55e', '#eab308', '#ef4444']
 
 export function GladiatorSelfScreen() {
   const gameState = useGameStore(s => s.gameState)!
@@ -24,16 +25,14 @@ export function GladiatorSelfScreen() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <div className="text-center mb-4">
-        <div className="text-2xl text-yellow-400 mb-1">🎯 Ты — Керри!</div>
-        <div className="text-xs text-gray-400">Толпа наблюдает за твоим выбором</div>
-      </div>
-
       <Timer seconds={gameState.phaseTimeLeft} />
 
-      <div className="w-full max-w-lg mt-6">
-        <div className="text-center text-white text-xl mb-6 leading-relaxed">
-          {gameState.currentQuestion?.text}
+      <div className="w-full max-w-lg mt-4">
+        <div className="text-center mb-6">
+          <div className="text-xs uppercase tracking-widest text-gray-400 mb-3">Вопрос</div>
+          <div className="text-xl text-white leading-relaxed">
+            {gameState.currentQuestion?.text}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -58,7 +57,13 @@ export function GladiatorSelfScreen() {
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2a4a2a] border ${isCorrect ? 'border-green-400' : OPTION_BORDER_COLORS[idx]}`}>
+                  <span
+                    className="flex items-center justify-center text-xs font-bold bg-[#2a4a2a]"
+                    style={{
+                      width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                      border: `1.5px solid ${isCorrect ? '#4ade80' : OPTION_BORDER_HEX[idx]}`,
+                    }}
+                  >
                     {OPTION_LABELS[idx]}
                   </span>
                   <span className="text-sm">{option}</span>

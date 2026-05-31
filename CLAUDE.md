@@ -38,7 +38,7 @@ npm run dev --workspace=client
 # → http://localhost:5173/cumsino/dev
 ```
 
-Страница `/dev` позволяет открыть любой экран игры напрямую без сервера и без прохождения игрового цикла. Слева свёрнутая панель `≡` — 22 сценария по всем фазам: LOBBY, ANNOUNCE, BETTING (all / kerri-crowd / kerri-гладиатор), QUESTION_TEXT, QUESTION (6 вариантов), REVEAL, LEADERBOARD, GAME_OVER, LATE JOIN.
+Страница `/dev` позволяет открыть любой экран игры напрямую без сервера и без прохождения игрового цикла. Слева свёрнутая панель `≡` — 22 сценария по всем фазам: LOBBY, ANNOUNCE, BETTING (all / kerri-crowd / kerri-гладиатор), QUESTION_TEXT, QUESTION (6 вариантов), REVEAL, LEADERBOARD, GAME_OVER, LATE JOIN. Вверху панели — слайдер **Игроки 2–10**: меняет количество игроков во всех сценариях в реальном времени. `PLAYER_POOL` из 10 именованных игроков в `mockStates.ts`.
 
 Файлы: `client/src/dev/mockStates.ts` (сценарии), `client/src/dev/DevPage.tsx` (страница). Маршрут: `main.tsx` проверяет `window.location.pathname.endsWith('/dev')`.
 
@@ -93,15 +93,15 @@ Pure in-memory state, no database.
 - **`socket.ts`** — Socket.IO singleton, `autoConnect: false`. URL from `VITE_SERVER_URL` env var, falls back to `http://localhost:3001`.
 - **`store/gameStore.ts`** — Zustand store. All socket listeners live here. `roundResults` cleared on ANNOUNCE. `bankBets: Record<playerId, {optionIndex, amount}>` updated via `bank_bet_updated` events, cleared on ANNOUNCE. `stagedBets: Record<playerId, number[]>` — live visual chip **denominations** from opponents before confirm (array of denom values, not a total), updated by `chip_staged` events, cleared on ANNOUNCE and when `bet_updated` fires for that player. `isLateJoiner: boolean` — true when player's first `game_state` has phase != LOBBY; reset to false on ANNOUNCE. `roundCorrectAnswer`, `roundMode`, `roundGladiatorId` — set from `round_results` event; also used during QUESTION phase (2.5s window) to show correct answer highlight before transitioning to REVEAL. Selectors: `selectMe`, `selectIsGladiator`. Betting chip state is component-local in `BettingTableScreen`.
 - **`App.tsx`** — Routes `GamePhase → Screen`. `TableFelt` always rendered behind screens (blurred when `phase !== 'BETTING'`). AnimatePresence motion.div has explicit `pointerEvents: 'auto'` — required because Framer Motion 11 sets `pointer-events: none` on elements with `initial={{ opacity: 0 }}`, which propagates to all children (inputs, buttons become unclickable). If `isLateJoiner=true` (joined mid-game), always shows `LateJoinScreen` regardless of phase, until next ANNOUNCE. Full routing: `LOBBY→LobbyScreen`, `ANNOUNCE→AnnounceScreen`, `BETTING→BettingTableScreen`, `QUESTION_TEXT→QuestionTextScreen`, `QUESTION` branches by mode (`closest→ClosestScreen`, `top5→Top5Screen`, `kerri&&isGladiator→GladiatorSelfScreen`, else `QuestionScreen`), `REVEAL→RevealScreen`, `LEADERBOARD→LeaderboardScreen`, `GAME_OVER→GameOverScreen`.
-- **`components/screens/`** — Screen components. `LobbyScreen` shows START button only to host (`myId === gameState.hostId`). `AnnounceScreen` has sequential staggered animation: label (t=0) → mode name + description (t=0.2s) → topic (t=1.0s). Mode names have no emoji. Footer text is mode-specific: closest → "Угадай число — победитель забирает банк", others → "Готовься к ставкам…". `BettingTableScreen` handles all modes; in kerri mode crowd sees the question text + options (correct highlighted green) above the table, plus WIN/LOSE selector + bank bet x4 UI. `QuestionScreen` in kerri crowd mode shows read-only options (disabled) with header "Наблюдай за Керри"; when `roundCorrectAnswer` is set (2.5s reveal window), correct option gets green border + glow, others fade to 40% opacity, input disabled. `GladiatorSelfScreen` — same reveal behavior as QuestionScreen when `roundCorrectAnswer` arrives. `ClosestScreen` uses `type="text"` + `inputMode="decimal"` input (not `type="number"` — avoids browser quirks with spin buttons); shows "Правильный ответ: X" when `roundCorrectAnswer` is set. `RevealScreen` shows win delta as animated physical chips (`WinChips` component, 60ms stagger) for ALL positive-delta players; player cards have green/red borders based on correct/wrong answer; shows status label per mode. `LateJoinScreen` — shown to players who join mid-game, displays current player list with chip counts.
-- **`components/ui/`** — `Chip.tsx` (5 denominations), `Timer.tsx`, `PlayerCard.tsx`, `PhysicalChipStack.tsx`, `BetZone.tsx`, `PlayerSlot.tsx`, `TableFelt.tsx`.
+- **`components/screens/`** — Screen components. `LobbyScreen` shows START button only to host; non-host sees "Ожидаем хоста и ждем игроков. Пока не рыпайтесь."; player grid 3 columns with `hideChips` (no chip stacks shown in lobby). `AnnounceScreen` — два последовательных экрана без таймера: **режим** (t=0: лейбл, t=1.2s: название пружиной, t=1.55s: описание) → **тема** (через 5s: лейбл + название пружиной). Переход — старый экран уходит вверх, новый влетает снизу. Нет footer-текста, нет "Готовься к ставкам". `BettingTableScreen` handles all modes; in kerri mode crowd sees the question text + options (correct highlighted green) above the table, plus WIN/LOSE selector + bank bet x4 UI; gladiator sees informационный текст (без вопроса). В режиме `all` — в центре felt: таймер + "Тема" + название темы + "Ставьте ставку на то, что ответите верно". `QuestionScreen` in kerri crowd mode shows read-only options (disabled) with header "Наблюдай за Керри"; when `roundCorrectAnswer` is set (2.5s reveal window), correct option gets green border + glow, others fade to 40% opacity, input disabled. `GladiatorSelfScreen` — same reveal behavior as QuestionScreen when `roundCorrectAnswer` arrives. `ClosestScreen` uses `type="text"` + `inputMode="decimal"` input (not `type="number"` — avoids browser quirks with spin buttons); shows "Правильный ответ: X" when `roundCorrectAnswer` is set. `RevealScreen` shows win delta as animated physical chips (`WinChips` component, 60ms stagger) for ALL positive-delta players; player cards have green/red borders based on correct/wrong answer; shows status label per mode. `LateJoinScreen` — shown to players who join mid-game, displays current player list with chip counts.
+- **`components/ui/`** — `Chip.tsx` (5 denominations), `Timer.tsx` (круговой прогресс, без scale-анимации — только цвет меняется на красный при ≤5s), `PlayerCard.tsx` (проп `hideChips` — скрывает фишки и баланс, используется в LobbyScreen), `PhysicalChipStack.tsx`, `BetZone.tsx` (показывает `$total` под фишками в зоне ставки), `PlayerSlot.tsx` (показывает `$player.chips` баланс между стопкой фишек и карточкой ника), `TableFelt.tsx` (игроки упорядочены так же как в BettingTableScreen: я первый, затем остальные; позиция карточек через `unitPosition` как в PlayerSlot).
 
 ### Physical Chips UI (`client/src/`)
 
-The betting phase uses a physical chip system on a round poker table (desktop only). The geometry constants in `tableGeometry.ts` define a **1040×660** logical scene, but the scene container in `BettingTableScreen` is wrapped in a 1.25× CSS transform (`transform: scale(1.25), transformOrigin: top left`), making the visual size **1300×825**.
+The betting phase uses a physical chip system on a round poker table (desktop only). The geometry constants in `tableGeometry.ts` define a **1300×820** logical scene.
 
 - **`types/chips.ts`** — `PhysicalChip { id, denom }`, `buildPhysicalChips(total)` (random UUIDs), `buildChipsForPlayer(playerId, amount)` (stable IDs for opponents — no scatter jitter), `chipScatter(id, range)` (deterministic hash).
-- **`lib/tableGeometry.ts`** — Ellipse constants: `SCENE_W=1040, SCENE_H=660, FELT_CX=520, FELT_CY=330, FELT_RX=240, FELT_RY=148, OUTER_RX=272, OUTER_RY=182, LAND_INSET=46, CARD_GAP=30`. Functions: `playerAngle(i,N)`, `landingZone(angle)`, `cardAnchor(angle)`, `unitPosition(angle, unitW, chipRowH, cardH)`.
+- **`lib/tableGeometry.ts`** — Ellipse constants: `SCENE_W=1300, SCENE_H=820, FELT_CX=650, FELT_CY=415, FELT_RX=380, FELT_RY=248, OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=28, CARD_GAP_Y=28`. `CARD_GAP_X/Y` — расстояние блока игрока от края стола отдельно по горизонтали и вертикали. `LAND_INSET` — насколько зона ставок утоплена от края felt внутрь. Functions: `playerAngle(i,N)`, `landingZone(angle)`, `cardAnchor(angle)`, `unitPosition(angle, unitW, chipRowH, cardH)`.
 - **`components/ui/PhysicalChipStack.tsx`** — Chips grouped by denom. Clicking the **denomination group container** calls `onDenomClick(denom)` — the parent finds the topmost unplaced chip of that denom. Non-placed chips use `layoutId={chip.id}` for Framer Motion flight animation. Placed chips are static dim placeholders (no layoutId).
 - **`components/ui/BetZone.tsx`** — Absolutely positioned at `landingZone(angle)`. Mine: `layoutId` + recall click. Opponents: `AnimatePresence` + staggered `initial={{opacity:0, y:-8}}` entry animation (delay: `i * 0.04s`).
 - **`components/ui/PlayerSlot.tsx`** — `PhysicalChipStack` + name card at `unitPosition()`. Prop: `onDenomClick?: (denom: ChipValue) => void`.
@@ -120,12 +120,25 @@ The betting phase uses a physical chip system on a round poker table (desktop on
 ### Phase flow
 
 ```
-LOBBY → ANNOUNCE (5s) → [BETTING (30s) →] QUESTION_TEXT (5s) → QUESTION (40s) → [2.5s reveal] → REVEAL (8s) → LEADERBOARD (5s) → [next round or GAME_OVER]
+LOBBY → ANNOUNCE (10s) → [BETTING (30s) →] QUESTION_TEXT (5s) → QUESTION (40s) → [2.5s reveal] → REVEAL (8s) → LEADERBOARD (5s) → [next round or GAME_OVER]
 ```
 
 `all` and `kerri` modes go through BETTING; `closest` skips BETTING (ANNOUNCE→QUESTION_TEXT directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. After all answer (or timer expires), `round_results` is broadcast immediately while phase stays QUESTION for 2.5s — clients show correct answer highlight — then transitions to REVEAL.
 
 Mode rotation: `all → kerri → closest → all → kerri → ...`
+
+### UI Color Standards
+
+Три стандартных цвета для текста во всех экранах:
+
+| Роль | Hex | Применение |
+|---|---|---|
+| Золото / акцент | `#fbbf24` | Заголовки режима, темы, баланс своих фишек, имя в лобби |
+| Белый / основной текст | `#e5e7eb` | Основные фразы, описания, тексты на кнопках |
+| Серый / вспомогательный | `#c4c9d4` | Лейблы ("Режим", "Тема"), подсказки, неактивные элементы |
+| Серый светлый (противники) | `#d1d5db` | Баланс противников в PlayerSlot |
+
+Функциональные цвета не трогаем: `#4ade80` (правильный ответ / победа), `#f87171` (неверный / проигрыш).
 
 ### Tests
 

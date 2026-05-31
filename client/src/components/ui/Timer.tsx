@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 
 interface TimerProps {
@@ -23,11 +22,9 @@ export function Timer({ seconds }: TimerProps) {
   const dash = circ * frac
 
   return (
-    <motion.svg
+    <svg
       width={52} height={52}
       style={{ flexShrink: 0 }}
-      animate={isUrgent ? { scale: [1, 1.15, 1] } : {}}
-      transition={{ repeat: Infinity, duration: 0.7 }}
     >
       <circle cx={26} cy={26} r={r} fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.1)" strokeWidth={3.5} />
       <circle
@@ -50,6 +47,6 @@ export function Timer({ seconds }: TimerProps) {
       >
         {current}
       </text>
-    </motion.svg>
+    </svg>
   )
 }

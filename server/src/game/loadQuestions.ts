@@ -1,43 +1,22 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import type { Question } from '@cumsino/shared'
+import type { Question, GameMode } from '@cumsino/shared'
 
 interface RawMCQuestion {
   type: 'multiple_choice'
+  topic: string
   question: string
   options: string[]
-  correct: number
-  item_name?: string
-  hero_name?: string
-  category?: string
 }
 
 interface RawCNQuestion {
   type: 'closest_number'
+  topic: string
   question: string
-  answer?: number
-  answers?: number[]
-  item_name?: string
-  hero_name?: string
-  category?: string
-}
-
-interface Batches<T> {
-  scripted: T[]
-  agent: T[]
-  agent_hard: T[]
-}
-
-interface QuestionsDB {
-  multiple_choice: { items: Batches<RawMCQuestion>; abilities: Batches<RawMCQuestion> }
-  closest_number: { items: Batches<RawCNQuestion>; abilities: Batches<RawCNQuestion> }
+  answer: number
 }
 
 let idCounter = 0
-
-function topic(q: RawMCQuestion | RawCNQuestion): string {
-  return q.item_name ?? q.hero_name ?? q.category ?? 'Dota 2'
-}
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -48,75 +27,73 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a
 }
 
-function flatMC(db: QuestionsDB): RawMCQuestion[] {
-  const mc = db.multiple_choice
-  return [
-    ...mc.items.scripted, ...mc.items.agent, ...mc.items.agent_hard,
-    ...mc.abilities.scripted, ...mc.abilities.agent, ...mc.abilities.agent_hard,
-  ]
+function loadFile(filename: string): unknown[] {
+  const p = path.join(__dirname, '..', '..', '..', 'scripts', 'data', 'generated', filename)
+  return JSON.parse(fs.readFileSync(p, 'utf-8'))
 }
 
-function flatCN(db: QuestionsDB): RawCNQuestion[] {
-  const cn = db.closest_number
-  return [
-    ...cn.items.scripted, ...cn.items.agent, ...cn.items.agent_hard,
-    ...cn.abilities.scripted, ...cn.abilities.agent, ...cn.abilities.agent_hard,
-  ]
-}
-
-export function loadQuestions(): Question[] {
-  const dbPath = path.join(__dirname, '..', '..', '..', 'scripts', 'data', 'questions_db.json')
-  const db: QuestionsDB = JSON.parse(fs.readFileSync(dbPath, 'utf-8'))
-
-  const questions: Question[] = []
-
-  for (const raw of flatMC(db)) {
-    let text = raw.question
-    let options = raw.options
-
-    if (text.includes('{level}')) {
-      const splitOptions = options.map(o => o.split(' / ').map(s => s.trim()))
-      const numLevels = splitOptions[0].length
-      const lvl = Math.floor(Math.random() * numLevels)
-      text = text.replace('{level}', String(lvl + 1))
-      options = splitOptions.map(o => o[lvl] ?? o[0])
+function weightedPick<T>(pools: Array<{ items: T[]; weight: number }>): T {
+  const total = pools.reduce((s, p) => s + p.weight, 0)
+  let r = Math.random() * total
+  for (const pool of pools) {
+    r -= pool.weight
+    if (r <= 0 && pool.items.length > 0) {
+      return pool.items[Math.floor(Math.random() * pool.items.length)]
     }
-
-    const correctAnswer = options[raw.correct]
-    const shuffledOptions = shuffleArray(options)
-
-    const base = {
-      topic: topic(raw),
-      text,
-      options: shuffledOptions,
-      answer: correctAnswer,
-    }
-    questions.push({ id: `mc_${idCounter++}`, mode: 'all', ...base })
-    questions.push({ id: `mc_${idCounter++}`, mode: 'kerri', ...base })
   }
+  for (const pool of pools) {
+    if (pool.items.length > 0) {
+      return pool.items[Math.floor(Math.random() * pool.items.length)]
+    }
+  }
+  throw new Error('All question pools are empty')
+}
 
-  for (const raw of flatCN(db)) {
-    let numericAnswer: number
-    let text = raw.question
+export function createQuestionPicker(): (mode: GameMode) => Question {
+  const abilitiesAll = loadFile('abilities_main.json') as Array<RawMCQuestion | RawCNQuestion>
+  const itemsAll = loadFile('items_main.json') as Array<RawMCQuestion | RawCNQuestion>
+  const general = loadFile('general_main.json') as RawMCQuestion[]
+  const costs = loadFile('costs_main.json') as RawCNQuestion[]
 
-    if (raw.answers && raw.answers.length > 0) {
-      const lvl = Math.floor(Math.random() * raw.answers.length)
-      numericAnswer = raw.answers[lvl]
-      text = text.replace('{level}', String(lvl + 1))
-    } else if (raw.answer !== undefined) {
-      numericAnswer = raw.answer
+  const abilitiesMC = abilitiesAll.filter((q): q is RawMCQuestion => q.type === 'multiple_choice')
+  const itemsMC = itemsAll.filter((q): q is RawMCQuestion => q.type === 'multiple_choice')
+  const abilitiesCN = abilitiesAll.filter((q): q is RawCNQuestion => q.type === 'closest_number')
+  const itemsCN = itemsAll.filter((q): q is RawCNQuestion => q.type === 'closest_number')
+
+  const mcPools = [
+    { items: general, weight: 5 },
+    { items: abilitiesMC, weight: 55 },
+    { items: itemsMC, weight: 40 },
+  ]
+
+  const cnPools = [
+    { items: costs, weight: 30 },
+    { items: abilitiesCN, weight: 35 },
+    { items: itemsCN, weight: 35 },
+  ]
+
+  return (mode: GameMode): Question => {
+    if (mode === 'all' || mode === 'kerri') {
+      const raw = weightedPick(mcPools)
+      const correct = raw.options[0]
+      const shuffled = shuffleArray(raw.options)
+      return {
+        id: `mc_${idCounter++}`,
+        mode,
+        topic: raw.topic,
+        text: raw.question,
+        options: shuffled,
+        answer: correct,
+      }
     } else {
-      continue
+      const raw = weightedPick(cnPools)
+      return {
+        id: `cn_${idCounter++}`,
+        mode: 'closest',
+        topic: raw.topic,
+        text: raw.question,
+        numericAnswer: raw.answer,
+      }
     }
-
-    questions.push({
-      id: `cn_${idCounter++}`,
-      mode: 'closest',
-      topic: topic(raw),
-      text,
-      numericAnswer,
-    })
   }
-
-  return questions
 }

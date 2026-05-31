@@ -30,7 +30,7 @@ export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
     <div style={{
       position: 'absolute',
       left: cx - 22,
-      top: cy - UNIT_OFFSET + 28,
+      top: cy - UNIT_OFFSET + 38,
       width: 44,
       textAlign: 'center',
       fontSize: 13,

@@ -11,8 +11,7 @@ export const TOP5_PERFECT_BONUS = 150
 export const PHASE_DURATIONS: Partial<Record<GamePhase, number>> = {
   ANNOUNCE: 9,
   BETTING: 30,
-  QUESTION_TEXT: 5,
-  QUESTION: 40,
+  QUESTION: 45,
   REVEAL: 13,
 }
 

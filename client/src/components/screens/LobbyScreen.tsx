@@ -23,17 +23,19 @@ export function LobbyScreen() {
         </div>
       </div>
 
-      <div className="w-full max-w-md mb-6">
-        <div className="text-xs uppercase tracking-widest text-gray-400 mb-3">
+      <div className="w-full max-w-sm mb-6">
+        <div className="text-xs uppercase tracking-widest text-gray-500 mb-2 text-center">
           Игроки ({gameState.players.length})
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-wrap justify-center gap-2">
           {gameState.players.map(player => (
-            <PlayerCard
-              key={player.id}
-              player={player}
-              isMe={player.id === me?.id}
-            />
+            <div key={player.id} style={{ width: 'calc(33.33% - 6px)' }}>
+              <PlayerCard
+                player={player}
+                isMe={player.id === me?.id}
+                hideChips
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -46,13 +48,16 @@ export function LobbyScreen() {
           ▶ НАЧАТЬ ИГРУ
         </button>
       ) : (
-        <div className="text-gray-400 text-sm tracking-widest uppercase">
-          Ожидаем хоста…
+        <div className="text-center">
+          <div className="text-gray-300 text-sm tracking-wide">
+            Ожидаем хоста и ждем игроков. Пока не рыпайтесь.
+          </div>
         </div>
       )}
 
-      <p className="text-gray-500 text-xs mt-4">
-        Стартовый капитал: 500 фишек · Цель: 3000 фишек
+      <p className="text-gray-400 text-xs mt-5 text-center leading-relaxed">
+        Ставьте ставки · Отвечайте на вопросы<br />
+        Начинайте с 500 фишек · Заработайте 3000
       </p>
     </div>
   )

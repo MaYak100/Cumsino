@@ -72,8 +72,8 @@ export default function App() {
           key={phase === 'QUESTION_TEXT' ? 'QUESTION' : phase}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.5 }}
+          exit={{ opacity: 0, y: -12, pointerEvents: 'none', transition: { duration: 0.15 } }}
+          transition={{ duration: 0.4 }}
           style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}
         >
           <Screen />

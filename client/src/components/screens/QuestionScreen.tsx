@@ -9,6 +9,7 @@ const OPTION_BORDER_COLORS = [
   'border-yellow-500',
   'border-red-500',
 ]
+const OPTION_BORDER_HEX = ['#3b82f6', '#22c55e', '#eab308', '#ef4444']
 
 export function QuestionScreen() {
   const gameState = useGameStore(s => s.gameState)!
@@ -83,7 +84,13 @@ export function QuestionScreen() {
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2a4a2a] border ${isCorrect ? 'border-green-400' : OPTION_BORDER_COLORS[idx]}`}>
+                  <span
+                    className="flex items-center justify-center text-xs font-bold bg-[#2a4a2a]"
+                    style={{
+                      width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                      border: `1.5px solid ${isCorrect ? '#4ade80' : OPTION_BORDER_HEX[idx]}`,
+                    }}
+                  >
                     {OPTION_LABELS[idx]}
                   </span>
                   <span className="text-sm">{option}</span>
