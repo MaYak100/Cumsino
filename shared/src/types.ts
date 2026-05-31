@@ -62,6 +62,7 @@ export interface RoundResult {
   playerId: string
   delta: number
   chipBreakdown: ChipBreakdown
+  sources?: Array<{ label: string; delta: number }>
 }
 
 // Socket event payloads — Client → Server

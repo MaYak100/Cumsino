@@ -220,11 +220,7 @@ export class GameRoom extends EventEmitter {
         this.advanceFromQuestion()
         break
 
-      case 'REVEAL':
-        this.schedulePhase('LEADERBOARD', PHASE_DURATIONS['LEADERBOARD']!)
-        break
-
-      case 'LEADERBOARD': {
+      case 'REVEAL': {
         const winner = this.checkWinner()
         if (winner) {
           this.phase = 'GAME_OVER'
@@ -257,15 +253,32 @@ export class GameRoom extends EventEmitter {
 
   private calculateResults(): RoundResult[] {
     const players = Array.from(this.players.values())
+    type Source = { label: string; delta: number }
 
     if (this.currentMode === 'all') {
       const q = this.currentQuestion!
-      const winners = players.filter(p => p.answer === q.answer && p.currentBet > 0)
-        .map(p => ({ id: p.id, stake: p.currentBet }))
-      const losers = players.filter(p => p.answer !== q.answer && p.currentBet > 0)
-        .map(p => ({ id: p.id, stake: p.currentBet }))
-      const deltas = distributePool(winners, losers)
-      return this.buildResults(deltas)
+      const winnerIds = new Set(players.filter(p => p.answer === q.answer && p.currentBet > 0).map(p => p.id))
+      const loserIds = new Set(players.filter(p => p.answer !== q.answer && p.currentBet > 0).map(p => p.id))
+      const allCorrect = loserIds.size === 0 && winnerIds.size > 0
+      const noneCorrect = winnerIds.size === 0 && loserIds.size > 0
+
+      const deltas = noneCorrect
+        ? new Map<string, number>()
+        : distributePool(
+            [...winnerIds].map(id => ({ id, stake: this.players.get(id)!.currentBet })),
+            [...loserIds].map(id => ({ id, stake: this.players.get(id)!.currentBet })),
+          )
+
+      return players.map(p => {
+        const delta = deltas.get(p.id) ?? 0
+        let sources: Source[]
+        if (allCorrect) sources = [{ label: 'Все угадали', delta: 0 }]
+        else if (noneCorrect) sources = [{ label: 'Все ошиблись', delta: 0 }]
+        else if (winnerIds.has(p.id)) sources = [{ label: 'Ответил верно', delta }]
+        else if (loserIds.has(p.id)) sources = [{ label: 'Ответил неверно', delta }]
+        else sources = []
+        return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
+      })
     }
 
     if (this.currentMode === 'kerri') {
@@ -278,16 +291,34 @@ export class GameRoom extends EventEmitter {
         .map(p => ({ id: p.id, stake: p.currentBet }))
       const losers = crowd.filter(p => correct ? p.betTarget === 'lose' : p.betTarget === 'win')
         .map(p => ({ id: p.id, stake: p.currentBet }))
-      let deltas = distributePool(winners, losers)
-      deltas.set(gladiator.id, correct ? GLADIATOR_BONUS : 0)
+      const mainDeltas = distributePool(winners, losers)
+      mainDeltas.set(gladiator.id, correct ? GLADIATOR_BONUS : 0)
 
-      // Bank bets x4
       const gladiatorAnswerIndex = this.currentQuestion?.options
         ? this.currentQuestion.options.indexOf(gladiator.answer as string)
         : -1
-      deltas = applyBankBets(deltas, this.players.values(), gladiatorAnswerIndex)
+      const totalDeltas = applyBankBets(new Map(mainDeltas), this.players.values(), gladiatorAnswerIndex)
 
-      return this.buildResults(deltas)
+      return players.map(p => {
+        const delta = totalDeltas.get(p.id) ?? 0
+        const mainDelta = mainDeltas.get(p.id) ?? 0
+        let sources: Source[]
+        if (p.id === this.gladiatorId) {
+          sources = [{ label: correct ? 'Закеррил' : 'Не закеррил', delta }]
+        } else {
+          sources = []
+          if (p.currentBet > 0) {
+            const mainWon = correct ? p.betTarget === 'win' : p.betTarget === 'lose'
+            sources.push({ label: mainWon ? 'Угадал исход' : 'Ошибся с исходом', delta: mainDelta })
+          }
+          if (p.bankBet) {
+            const bankHit = gladiatorAnswerIndex !== -1 && gladiatorAnswerIndex === p.bankBet.optionIndex
+            const bankDelta = bankHit ? p.bankBet.amount * 3 : -p.bankBet.amount
+            sources.push({ label: bankHit ? 'Прочитал ошибку' : 'Был слишком уверен', delta: bankDelta })
+          }
+        }
+        return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
+      })
     }
 
     if (this.currentMode === 'closest') {
@@ -295,7 +326,11 @@ export class GameRoom extends EventEmitter {
         .filter(p => typeof p.answer === 'number')
         .map(p => ({ id: p.id, answer: p.answer as number }))
       const deltas = distributeClosest(entries, this.currentQuestion!.numericAnswer!)
-      return this.buildResults(deltas)
+      return players.map(p => {
+        const delta = deltas.get(p.id) ?? 0
+        const sources: Source[] = delta > 0 ? [{ label: 'Ближайший ответ', delta }] : []
+        return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
+      })
     }
 
     if (this.currentMode === 'top5') {
@@ -303,17 +338,13 @@ export class GameRoom extends EventEmitter {
         .filter(p => Array.isArray(p.answer))
         .map(p => ({ id: p.id, answer: p.answer as string[] }))
       const deltas = distributeTop5(entries, this.currentQuestion!.orderedItems!)
-      return this.buildResults(deltas)
+      return players.map(p => {
+        const delta = deltas.get(p.id) ?? 0
+        return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources: [] }
+      })
     }
 
     return []
-  }
-
-  private buildResults(deltas: Map<string, number>): RoundResult[] {
-    return Array.from(this.players.keys()).map(playerId => {
-      const delta = deltas.get(playerId) ?? 0
-      return { playerId, delta, chipBreakdown: decomposeToChips(Math.abs(delta)) }
-    })
   }
 
   private applyDeltas(results: RoundResult[]) {

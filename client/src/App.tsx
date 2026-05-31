@@ -8,8 +8,7 @@ import { QuestionScreen } from './components/screens/QuestionScreen'
 import { GladiatorSelfScreen } from './components/screens/GladiatorSelfScreen'
 import { ClosestScreen } from './components/screens/ClosestScreen'
 import { Top5Screen } from './components/screens/Top5Screen'
-import { RevealScreen } from './components/screens/RevealScreen'
-import { LeaderboardScreen } from './components/screens/LeaderboardScreen'
+import { RoundResultsScreen } from './components/screens/RoundResultsScreen'
 import { GameOverScreen } from './components/screens/GameOverScreen'
 import { LateJoinScreen } from './components/screens/LateJoinScreen'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -55,10 +54,8 @@ export default function App() {
       else Screen = QuestionScreen
       break
     case 'REVEAL':
-      Screen = RevealScreen
-      break
     case 'LEADERBOARD':
-      Screen = LeaderboardScreen
+      Screen = RoundResultsScreen
       break
     case 'GAME_OVER':
       Screen = GameOverScreen
@@ -75,8 +72,8 @@ export default function App() {
           key={phase === 'QUESTION_TEXT' ? 'QUESTION' : phase}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.5 }}
           style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}
         >
           <Screen />

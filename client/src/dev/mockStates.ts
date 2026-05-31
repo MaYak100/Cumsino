@@ -8,8 +8,7 @@ import { QuestionTextScreen } from '../components/screens/QuestionTextScreen'
 import { QuestionScreen } from '../components/screens/QuestionScreen'
 import { GladiatorSelfScreen } from '../components/screens/GladiatorSelfScreen'
 import { ClosestScreen } from '../components/screens/ClosestScreen'
-import { RevealScreen } from '../components/screens/RevealScreen'
-import { LeaderboardScreen } from '../components/screens/LeaderboardScreen'
+import { RoundResultsScreen } from '../components/screens/RoundResultsScreen'
 import { GameOverScreen } from '../components/screens/GameOverScreen'
 import { LateJoinScreen } from '../components/screens/LateJoinScreen'
 import { useGameStore } from '../store/gameStore'
@@ -289,27 +288,27 @@ export const SCENARIOS: Scenario[] = [
     },
   },
 
-  // ── REVEAL ──
+  // ── REVEAL / ИТОГИ РАУНДА ──
   {
     id: 'reveal-all',
     group: 'REVEAL',
     label: 'all',
-    Screen: RevealScreen,
+    Screen: RoundResultsScreen,
     state: {
       myId: MY_ID,
       gameState: base('REVEAL', 'all', {
         players: [
-          { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 100, betChips: [100],     hasAnswered: true, answer: 'Anti-Mage' },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [50, 50],  hasAnswered: true, answer: 'Invoker'   },
-          { id: 'dev-3', name: 'Света',  chips: 890, currentBet: 150, betChips: [100, 50], hasAnswered: true, answer: 'Anti-Mage' },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  betChips: [50],      hasAnswered: true, answer: 'Pugna'     },
+          { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 100, hasAnswered: true, answer: MC_QUESTION.options[0] },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: true, answer: MC_QUESTION.options[1] },
+          { id: 'dev-3', name: 'Света',  chips: 890, currentBet: 150, hasAnswered: true, answer: MC_QUESTION.options[0] },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  hasAnswered: true, answer: MC_QUESTION.options[2] },
         ],
       }),
       roundResults: [
-        { playerId: 'dev-1', delta: 200, chipBreakdown: { 500: 0, 100: 2, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-2', delta: -100, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-3', delta: 150, chipBreakdown: { 500: 0, 100: 1, 50: 1, 20: 0, 10: 0 } },
-        { playerId: 'dev-4', delta: -50, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
+        { playerId: 'dev-1', delta: 200,  chipBreakdown: { 500: 0, 100: 2, 50: 0, 20: 0, 10: 0 }, sources: [{ label: 'Ответил верно',   delta: 200  }] },
+        { playerId: 'dev-2', delta: -100, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [{ label: 'Ответил неверно', delta: -100 }] },
+        { playerId: 'dev-3', delta: 150,  chipBreakdown: { 500: 0, 100: 1, 50: 1, 20: 0, 10: 0 }, sources: [{ label: 'Ответил верно',   delta: 150  }] },
+        { playerId: 'dev-4', delta: -50,  chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [{ label: 'Ответил неверно', delta: -50  }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
       roundMode: 'all',
@@ -319,24 +318,28 @@ export const SCENARIOS: Scenario[] = [
   {
     id: 'reveal-kerri',
     group: 'REVEAL',
-    label: 'kerri',
-    Screen: RevealScreen,
+    label: 'kerri + bankbet',
+    Screen: RoundResultsScreen,
     state: {
       myId: MY_ID,
       gameState: base('REVEAL', 'kerri', {
         gladiatorId: 'dev-2',
         players: [
-          { id: 'dev-1', name: 'Ты',     chips: 680, currentBet: 100, betChips: [100],     hasAnswered: true, betTarget: 'win'  },
-          { id: 'dev-2', name: 'Артём',  chips: 200, currentBet: 100, betChips: [50, 50],  hasAnswered: true, answer: 'Invoker' },
-          { id: 'dev-3', name: 'Света',  chips: 690, currentBet: 150, betChips: [100, 50], hasAnswered: true, betTarget: 'lose' },
-          { id: 'dev-4', name: 'Никита', chips: 470, currentBet: 50,  betChips: [50],      hasAnswered: true, betTarget: 'win'  },
+          // Ты: ставил win, угадал (Артём закеррил); bank bet угадал → прочитал ошибку
+          { id: 'dev-1', name: 'Ты',     chips: 880, currentBet: 100, hasAnswered: true, betTarget: 'win' },
+          // Артём — гладиатор, закеррил → +300
+          { id: 'dev-2', name: 'Артём',  chips: 800, currentBet: 0,   hasAnswered: true, answer: MC_QUESTION.options[0] },
+          // Света: ставила lose, проиграла; без bank bet
+          { id: 'dev-3', name: 'Света',  chips: 390, currentBet: 150, hasAnswered: true, betTarget: 'lose' },
+          // Никита: ставил win, угадал; bank bet ошибся → был слишком уверен
+          { id: 'dev-4', name: 'Никита', chips: 430, currentBet: 50,  hasAnswered: true, betTarget: 'win' },
         ],
       }),
       roundResults: [
-        { playerId: 'dev-1', delta: 100,  chipBreakdown: { 500: 0, 100: 1, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-2', delta: -100, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-3', delta: -150, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-4', delta: 50,   chipBreakdown: { 500: 0, 100: 0, 50: 1, 20: 0, 10: 0 } },
+        { playerId: 'dev-1', delta: 280,  chipBreakdown: { 500: 0, 100: 2, 50: 1, 20: 1, 10: 1 }, sources: [{ label: 'Угадал исход', delta: 130 }, { label: 'Прочитал ошибку', delta: 150 }] },
+        { playerId: 'dev-2', delta: 300,  chipBreakdown: { 500: 0, 100: 3, 50: 0, 20: 0, 10: 0 }, sources: [{ label: 'Закеррил', delta: 300 }] },
+        { playerId: 'dev-3', delta: -150, chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [{ label: 'Ошибся с исходом', delta: -150 }] },
+        { playerId: 'dev-4', delta: -30,  chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [{ label: 'Угадал исход', delta: 20 }, { label: 'Был слишком уверен', delta: -50 }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
       roundMode: 'kerri',
@@ -347,7 +350,7 @@ export const SCENARIOS: Scenario[] = [
     id: 'reveal-closest',
     group: 'REVEAL',
     label: 'closest',
-    Screen: RevealScreen,
+    Screen: RoundResultsScreen,
     state: {
       myId: MY_ID,
       gameState: base('REVEAL', 'closest', {
@@ -359,34 +362,14 @@ export const SCENARIOS: Scenario[] = [
         ],
       }),
       roundResults: [
-        { playerId: 'dev-3', delta: 250, chipBreakdown: { 500: 0, 100: 2, 50: 1, 20: 0, 10: 0 } },
-        { playerId: 'dev-1', delta: 0,   chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-2', delta: 0,   chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
-        { playerId: 'dev-4', delta: 0,   chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 } },
+        { playerId: 'dev-3', delta: 250, chipBreakdown: { 500: 0, 100: 2, 50: 1, 20: 0, 10: 0 }, sources: [{ label: 'Ближайший ответ', delta: 250 }] },
+        { playerId: 'dev-1', delta: 0,   chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [] },
+        { playerId: 'dev-2', delta: 0,   chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [] },
+        { playerId: 'dev-4', delta: 0,   chipBreakdown: { 500: 0, 100: 0, 50: 0, 20: 0, 10: 0 }, sources: [] },
       ] as RoundResult[],
       roundCorrectAnswer: 2250,
       roundMode: 'closest',
       roundGladiatorId: null,
-    },
-  },
-
-  // ── LEADERBOARD ──
-  {
-    id: 'leaderboard',
-    group: 'LEADERBOARD',
-    label: 'leaderboard',
-    Screen: LeaderboardScreen,
-    state: {
-      myId: MY_ID,
-      gameState: base('LEADERBOARD', 'all', {
-        roundIndex: 3,
-        players: [
-          { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 0, hasAnswered: false },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0, hasAnswered: false },
-          { id: 'dev-3', name: 'Света',  chips: 990, currentBet: 0, hasAnswered: false },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 0, hasAnswered: false },
-        ],
-      }),
     },
   },
 
@@ -411,6 +394,45 @@ export const SCENARIOS: Scenario[] = [
       myId: MY_ID,
       gameState: base('GAME_OVER', 'all'),
       winner: { id: 'dev-1', name: 'Ты', chips: 3050, currentBet: 0, hasAnswered: false },
+    },
+  },
+
+  {
+    id: 'reveal-10p',
+    group: 'REVEAL',
+    label: '10 игроков',
+    Screen: RoundResultsScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('REVEAL', 'all', {
+        players: [
+          { id: 'dev-1',  name: 'Ты',     chips: 780, currentBet: 100, hasAnswered: true },
+          { id: 'dev-2',  name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: true },
+          { id: 'dev-3',  name: 'Света',  chips: 890, currentBet: 150, hasAnswered: true },
+          { id: 'dev-4',  name: 'Никита', chips: 370, currentBet: 50,  hasAnswered: true },
+          { id: 'dev-5',  name: 'Даша',   chips: 620, currentBet: 80,  hasAnswered: true },
+          { id: 'dev-6',  name: 'Костя',  chips: 480, currentBet: 100, hasAnswered: true },
+          { id: 'dev-7',  name: 'Лена',   chips: 310, currentBet: 60,  hasAnswered: true },
+          { id: 'dev-8',  name: 'Паша',   chips: 550, currentBet: 90,  hasAnswered: true },
+          { id: 'dev-9',  name: 'Маша',   chips: 430, currentBet: 70,  hasAnswered: true },
+          { id: 'dev-10', name: 'Женя',   chips: 700, currentBet: 120, hasAnswered: true },
+        ],
+      }),
+      roundResults: [
+        { playerId: 'dev-1',  delta: 200,  chipBreakdown: { 500:0,100:2,50:0,20:0,10:0 }, sources: [{ label: 'Ответил верно',   delta: 200  }] },
+        { playerId: 'dev-2',  delta: -100, chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -100 }] },
+        { playerId: 'dev-3',  delta: 150,  chipBreakdown: { 500:0,100:1,50:1,20:0,10:0 }, sources: [{ label: 'Ответил верно',   delta: 150  }] },
+        { playerId: 'dev-4',  delta: -50,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -50  }] },
+        { playerId: 'dev-5',  delta: 120,  chipBreakdown: { 500:0,100:1,50:0,20:1,10:0 }, sources: [{ label: 'Ответил верно',   delta: 120  }] },
+        { playerId: 'dev-6',  delta: -100, chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -100 }] },
+        { playerId: 'dev-7',  delta: -60,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -60  }] },
+        { playerId: 'dev-8',  delta: 90,   chipBreakdown: { 500:0,100:0,50:1,20:2,10:0 }, sources: [{ label: 'Ответил верно',   delta: 90   }] },
+        { playerId: 'dev-9',  delta: -70,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -70  }] },
+        { playerId: 'dev-10', delta: 180,  chipBreakdown: { 500:0,100:1,50:1,20:1,10:1 }, sources: [{ label: 'Ответил верно',   delta: 180  }] },
+      ] as RoundResult[],
+      roundCorrectAnswer: MC_QUESTION.options[0],
+      roundMode: 'all',
+      roundGladiatorId: null,
     },
   },
 

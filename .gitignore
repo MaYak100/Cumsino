@@ -4,3 +4,4 @@ server/dist/
 shared/dist/
 *.env
 .env.local
+.superpowers/

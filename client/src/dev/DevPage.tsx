@@ -2,18 +2,37 @@
 import { useState } from 'react'
 import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
-import { SCENARIOS, type Scenario } from './mockStates'
+import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
 
 const GROUPS = [...new Set(SCENARIOS.map(s => s.group))]
+
+function applyCount(scenario: Scenario, count: number): ScenarioState {
+  if (!scenario.state.gameState) return scenario.state
+  const orig = scenario.state.gameState.players ?? []
+  const patched = Array.from({ length: count }, (_, i) =>
+    orig[i] ?? { ...PLAYER_POOL[i] }
+  )
+  return {
+    ...scenario.state,
+    gameState: { ...scenario.state.gameState, players: patched },
+  }
+}
 
 export function DevPage() {
   const [collapsed, setCollapsed] = useState(true)
   const [activeId, setActiveId] = useState<string | null>(null)
+  const [playerCount, setPlayerCount] = useState(4)
 
-  function activate(scenario: Scenario) {
-    useGameStore.setState(scenario.state)
+  function activate(scenario: Scenario, count = playerCount) {
+    useGameStore.setState(applyCount(scenario, count))
     setActiveId(scenario.id)
     setCollapsed(true)
+  }
+
+  function changeCount(count: number) {
+    setPlayerCount(count)
+    const active = SCENARIOS.find(s => s.id === activeId)
+    if (active) useGameStore.setState(applyCount(active, count))
   }
 
   const active = SCENARIOS.find(s => s.id === activeId)
@@ -57,6 +76,54 @@ export function DevPage() {
           transition: 'opacity 0.1s',
           pointerEvents: collapsed ? 'none' : 'auto',
         }}>
+
+          {/* Player count control */}
+          <div style={{
+            padding: '8px 10px 10px',
+            borderBottom: '1px solid #1a2a1a',
+            marginBottom: 6,
+          }}>
+            <div style={{
+              fontSize: 10, fontWeight: 'bold', letterSpacing: 2,
+              textTransform: 'uppercase', color: '#333',
+              fontFamily: 'monospace', marginBottom: 6,
+            }}>
+              Игроки
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <button
+                onClick={() => changeCount(Math.max(2, playerCount - 1))}
+                style={{
+                  width: 22, height: 22, borderRadius: 4,
+                  background: '#111', border: '1px solid #2a2a2a',
+                  color: '#777', fontSize: 14, lineHeight: 1,
+                  cursor: 'pointer', flexShrink: 0,
+                }}
+              >−</button>
+              <div style={{
+                flex: 1, textAlign: 'center',
+                fontFamily: 'monospace', fontSize: 14,
+                fontWeight: 'bold', color: '#fbbf24',
+              }}>
+                {playerCount}
+              </div>
+              <button
+                onClick={() => changeCount(Math.min(10, playerCount + 1))}
+                style={{
+                  width: 22, height: 22, borderRadius: 4,
+                  background: '#111', border: '1px solid #2a2a2a',
+                  color: '#777', fontSize: 14, lineHeight: 1,
+                  cursor: 'pointer', flexShrink: 0,
+                }}
+              >+</button>
+            </div>
+            <input
+              type="range" min={2} max={10} value={playerCount}
+              onChange={e => changeCount(Number(e.target.value))}
+              style={{ width: '100%', marginTop: 6, accentColor: '#fbbf24' }}
+            />
+          </div>
+
           {GROUPS.map(group => (
             <div key={group} style={{ marginBottom: 8 }}>
               <div style={{
