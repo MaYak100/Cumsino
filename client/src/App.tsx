@@ -4,7 +4,6 @@ import { JoinScreen } from './components/screens/JoinScreen'
 import { LobbyScreen } from './components/screens/LobbyScreen'
 import { AnnounceScreen } from './components/screens/AnnounceScreen'
 import { BettingTableScreen } from './components/screens/BettingTableScreen'
-import { QuestionTextScreen } from './components/screens/QuestionTextScreen'
 import { QuestionScreen } from './components/screens/QuestionScreen'
 import { GladiatorSelfScreen } from './components/screens/GladiatorSelfScreen'
 import { ClosestScreen } from './components/screens/ClosestScreen'
@@ -49,8 +48,6 @@ export default function App() {
       Screen = BettingTableScreen
       break
     case 'QUESTION_TEXT':
-      Screen = QuestionTextScreen
-      break
     case 'QUESTION':
       if (mode === 'closest') Screen = ClosestScreen
       else if (mode === 'top5') Screen = Top5Screen
@@ -75,12 +72,12 @@ export default function App() {
       <TableFelt blurred={phase !== 'BETTING'} />
       <AnimatePresence>
         <motion.div
-          key={phase}
+          key={phase === 'QUESTION_TEXT' ? 'QUESTION' : phase}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}
+          style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}
         >
           <Screen />
         </motion.div>

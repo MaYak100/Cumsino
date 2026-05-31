@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
 
@@ -7,9 +8,11 @@ export function ClosestScreen() {
   const myId = useGameStore(s => s.myId)
   const answeredIds = useGameStore(s => s.answeredIds)
   const submitAnswer = useGameStore(s => s.submitAnswer)
+  const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
   const [value, setValue] = useState('')
 
   const myAnswered = myId ? answeredIds.has(myId) : false
+  const showingCorrect = roundCorrectAnswer !== null && typeof roundCorrectAnswer === 'number'
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -30,21 +33,33 @@ export function ClosestScreen() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
+            pattern="[0-9]*\.?[0-9]*"
             value={value}
             onChange={e => setValue(e.target.value)}
-            disabled={myAnswered}
+            disabled={myAnswered || showingCorrect}
             placeholder="Введи число"
             className="w-full bg-[#2a4a2a] border border-[#3a6a3a] rounded-xl px-6 py-4 text-white text-center text-3xl font-mono focus:outline-none focus:border-yellow-400 disabled:opacity-50"
           />
           <button
             type="submit"
-            disabled={myAnswered || !value}
+            disabled={myAnswered || !value || showingCorrect}
             className="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold rounded-xl disabled:opacity-40"
           >
             {myAnswered ? '✓ Ответ принят' : 'ОТВЕТИТЬ'}
           </button>
         </form>
+
+        {showingCorrect && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 text-green-400 text-lg font-semibold"
+          >
+            Правильный ответ: {roundCorrectAnswer}
+          </motion.div>
+        )}
 
         <div className="mt-4 flex justify-center gap-1">
           {gameState.players.map(p => (

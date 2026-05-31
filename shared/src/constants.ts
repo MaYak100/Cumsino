@@ -9,7 +9,7 @@ export const TOP5_SLOT_BONUS = 20
 export const TOP5_PERFECT_BONUS = 150
 
 export const PHASE_DURATIONS: Partial<Record<GamePhase, number>> = {
-  ANNOUNCE: 5,
+  ANNOUNCE: 9,
   BETTING: 30,
   QUESTION_TEXT: 5,
   QUESTION: 40,

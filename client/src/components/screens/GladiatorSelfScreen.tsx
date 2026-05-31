@@ -16,9 +16,11 @@ export function GladiatorSelfScreen() {
   const answeredIds = useGameStore(s => s.answeredIds)
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const sendHover = useGameStore(s => s.sendHover)
+  const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const options = gameState.currentQuestion?.options ?? []
+  const showingCorrect = typeof roundCorrectAnswer === 'string' && roundCorrectAnswer !== null
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -35,33 +37,48 @@ export function GladiatorSelfScreen() {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {options.map((option, idx) => (
-            <motion.button
-              key={idx}
-              onMouseEnter={() => sendHover(idx)}
-              onMouseLeave={() => sendHover(null)}
-              onClick={() => !myAnswered && submitAnswer(option)}
-              disabled={myAnswered}
-              whileHover={!myAnswered ? { scale: 1.02 } : {}}
-              className={`
-                p-4 rounded-xl border-2 text-left transition-colors bg-[#1a3a1a]
-                ${OPTION_BORDER_COLORS[idx]}
-                ${myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]'}
-              `}
-            >
-              <div className="flex items-center gap-3">
-                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2a4a2a] border ${OPTION_BORDER_COLORS[idx]}`}>
-                  {OPTION_LABELS[idx]}
-                </span>
-                <span className="text-sm">{option}</span>
-              </div>
-            </motion.button>
-          ))}
+          {options.map((option, idx) => {
+            const isCorrect = showingCorrect && option === roundCorrectAnswer
+            return (
+              <motion.button
+                key={idx}
+                onMouseEnter={() => { if (!showingCorrect) sendHover(idx) }}
+                onMouseLeave={() => sendHover(null)}
+                onClick={() => !myAnswered && !showingCorrect && submitAnswer(option)}
+                disabled={myAnswered || showingCorrect}
+                whileHover={!myAnswered && !showingCorrect ? { scale: 1.02 } : {}}
+                className={`
+                  p-4 rounded-xl border-2 text-left transition-colors
+                  ${isCorrect
+                    ? 'border-green-400 bg-[#0a3a1a] shadow-[0_0_20px_rgba(74,222,128,0.4)]'
+                    : `bg-[#1a3a1a] ${OPTION_BORDER_COLORS[idx]}`
+                  }
+                  ${showingCorrect && !isCorrect ? 'opacity-40 cursor-not-allowed' : ''}
+                  ${!showingCorrect && (myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]')}
+                `}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2a4a2a] border ${isCorrect ? 'border-green-400' : OPTION_BORDER_COLORS[idx]}`}>
+                    {OPTION_LABELS[idx]}
+                  </span>
+                  <span className="text-sm">{option}</span>
+                </div>
+              </motion.button>
+            )
+          })}
         </div>
 
-        {myAnswered && (
+        {showingCorrect ? (
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center text-green-400 mt-4 text-sm"
+          >
+            Правильный ответ: {roundCorrectAnswer}
+          </motion.p>
+        ) : myAnswered ? (
           <p className="text-center text-green-400 mt-4 text-sm">✓ Ответ отправлен</p>
-        )}
+        ) : null}
       </div>
     </div>
   )
