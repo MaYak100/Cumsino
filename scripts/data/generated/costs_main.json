@@ -1,0 +1,1415 @@
+[
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "blink",
+    "question": "Сколько стоит Blink Dagger?",
+    "answer": 2250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "swift_blink",
+    "question": "Сколько стоит Swift Blink?",
+    "answer": 6800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "blades_of_attack",
+    "question": "Сколько стоит Blades of Attack?",
+    "answer": 450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "broadsword",
+    "question": "Сколько стоит Broadsword?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "chainmail",
+    "question": "Сколько стоит Chainmail?",
+    "answer": 500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "splintmail",
+    "question": "Сколько стоит Splintmail?",
+    "answer": 950,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "claymore",
+    "question": "Сколько стоит Claymore?",
+    "answer": 1350,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "helm_of_iron_will",
+    "question": "Сколько стоит Helm of Iron Will?",
+    "answer": 975,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "javelin",
+    "question": "Сколько стоит Javelin?",
+    "answer": 900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "mithril_hammer",
+    "question": "Сколько стоит Mithril Hammer?",
+    "answer": 1600,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "platemail",
+    "question": "Сколько стоит Platemail?",
+    "answer": 1400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "quelling_blade",
+    "question": "Сколько стоит Quelling Blade? А сколько нервных клеток эта поебота отняла?",
+    "answer": 100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "infused_raindrop",
+    "question": "Сколько стоит Infused Raindrops? МЭ НЭ НЭ Дорого, все равно собьют моментально.",
+    "answer": 225,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "wind_lace",
+    "question": "Сколько стоит Wind Lace?",
+    "answer": 225,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ring_of_protection",
+    "question": "Сколько стоит Ring of Protection?",
+    "answer": 175,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "moon_shard",
+    "question": "Сколько стоит Moon Shard?",
+    "answer": 4000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "gauntlets",
+    "question": "Сколько стоит Gauntlets of Strength?",
+    "answer": 140,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "slippers",
+    "question": "Сколько стоит Slippers of Agility?",
+    "answer": 140,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "mantle",
+    "question": "Сколько стоит Mantle of Intelligence? А сколько людей удалило доту из-за нее?",
+    "answer": 140,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "belt_of_strength",
+    "question": "Сколько стоит Belt of Strength?",
+    "answer": 450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "circlet",
+    "question": "Сколько стоит Circlet?",
+    "answer": 155,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "crown",
+    "question": "Сколько стоит Crown?",
+    "answer": 450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "diadem",
+    "question": "Сколько стоит Diadem?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ogre_axe",
+    "question": "Сколько стоит Ogre Axe?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "blade_of_alacrity",
+    "question": "Сколько стоит Blade of Alacrity?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "staff_of_wizardry",
+    "question": "Сколько стоит Staff of Wizardry?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ultimate_orb",
+    "question": "Сколько стоит Ultimate Orb?",
+    "answer": 2800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "gloves",
+    "question": "Сколько стоит Gloves of Haste?",
+    "answer": 450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "blitz_knuckles",
+    "question": "Сколько стоит Blitz Knuckles?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "lifesteal",
+    "question": "Сколько стоит Morbid Mask?",
+    "answer": 900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "voodoo_mask",
+    "question": "Сколько стоит Voodoo Mask?",
+    "answer": 650,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ring_of_regen",
+    "question": "Сколько стоит Ring of Regen?",
+    "answer": 175,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "sobi_mask",
+    "question": "Сколько стоит Sage's Mask?",
+    "answer": 175,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "boots",
+    "question": "Сколько стоит Boots of Speed?",
+    "answer": 500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "shawl",
+    "question": "Сколько стоит Shawl?",
+    "answer": 450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "cloak",
+    "question": "Сколько стоит Cloak?",
+    "answer": 900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "talisman_of_evasion",
+    "question": "Сколько стоит Talisman of Evasion?",
+    "answer": 1300,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "magic_wand",
+    "question": "Сколько стоит Magic Wand?",
+    "answer": 460,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ghost",
+    "question": "Сколько стоит Ghost Scepter?",
+    "answer": 1500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "phase_boots",
+    "question": "Сколько стоит Phase Boots?",
+    "answer": 1450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "demon_edge",
+    "question": "Сколько стоит Demon Edge?",
+    "answer": 2200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "eagle",
+    "question": "Сколько стоит Eaglesong?",
+    "answer": 2800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "relic",
+    "question": "Сколько стоит Sacred Relic?",
+    "answer": 3400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "hyperstone",
+    "question": "Сколько стоит Hyperstone?",
+    "answer": 2000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ring_of_health",
+    "question": "Сколько стоит Ring of Health?",
+    "answer": 700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ring_of_tarrasque",
+    "question": "Сколько стоит Ring of Tarrasque?",
+    "answer": 1700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "void_stone",
+    "question": "Сколько стоит Void Stone?",
+    "answer": 700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "tiara_of_selemene",
+    "question": "Сколько стоит Tiara of Selemene?",
+    "answer": 1700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "energy_booster",
+    "question": "Сколько стоит Energy Booster?",
+    "answer": 800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "point_booster",
+    "question": "Сколько стоит Point Booster?",
+    "answer": 1200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "vitality_booster",
+    "question": "Сколько стоит Vitality Booster?",
+    "answer": 1000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "fluffy_hat",
+    "question": "Сколько стоит Fluffy Hat?",
+    "answer": 250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "wizard_hat",
+    "question": "Сколько стоит Wizard Hat?",
+    "answer": 250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "power_treads",
+    "question": "Сколько стоит Power Treads?",
+    "answer": 1400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "phylactery",
+    "question": "Сколько стоит Phylactery?",
+    "answer": 2600,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "angels_demise",
+    "question": "Сколько стоит Khanda?",
+    "answer": 5600,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "hand_of_midas",
+    "question": "Сколько стоит Hand of Midas?",
+    "answer": 2200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "oblivion_staff",
+    "question": "Сколько стоит Oblivion Staff?",
+    "answer": 1625,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "witch_blade",
+    "question": "Сколько стоит Witch Blade?",
+    "answer": 2775,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "pers",
+    "question": "Сколько стоит Perseverance?",
+    "answer": 1400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "cornucopia",
+    "question": "Сколько стоиЛА( Cornucopia?",
+    "answer": 1200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "bracer",
+    "question": "Сколько стоит Bracer?",
+    "answer": 505,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "mekansm",
+    "question": "Сколько стоит Mekansm?",
+    "answer": 1775,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "vladmir",
+    "question": "Сколько стоит Vladmir's Offering?",
+    "answer": 2200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "wraith_pact",
+    "question": "Сколько стоиЛ Wraith Pact?",
+    "answer": 3800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "buckler",
+    "question": "Сколько стоит Buckler?",
+    "answer": 425,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ring_of_basilius",
+    "question": "Сколько стоит Ring of Basilius?",
+    "answer": 425,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "holy_locket",
+    "question": "Сколько стоит Holy Locket?",
+    "answer": 2250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "pipe",
+    "question": "Сколько стоит Pipe of Insight?",
+    "answer": 3725,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "urn_of_shadows",
+    "question": "Сколько стоит Urn of Shadows?",
+    "answer": 825,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "headdress",
+    "question": "Сколько стоит Headdress?",
+    "answer": 425,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "sheepstick",
+    "question": "Сколько стоит Scythe of Vyse?",
+    "answer": 5200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "orchid",
+    "question": "Сколько стоит Orchid Malevolence?",
+    "answer": 3275,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "bloodthorn",
+    "question": "Сколько стоит Bloodthorn?",
+    "answer": 6400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "echo_sabre",
+    "question": "Сколько стоит Echo Sabre?",
+    "answer": 2700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "cyclone",
+    "question": "Сколько стоит Eul's Scepter of Divinity?",
+    "answer": 2600,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "wind_waker",
+    "question": "Сколько стоит Wind Waker?",
+    "answer": 6800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "aether_lens",
+    "question": "Сколько стоит Aether Lens?",
+    "answer": 2275,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "force_staff",
+    "question": "Сколько стоит Force Staff?",
+    "answer": 2200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "hurricane_pike",
+    "question": "Сколько стоит Hurricane Pike?",
+    "answer": 4450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ultimate_scepter",
+    "question": "Сколько стоит Aghanim's Scepter?",
+    "answer": 4200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ultimate_scepter_2",
+    "question": "Сколько стоит Aghanim's Blessing?",
+    "answer": 5800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "aghanims_shard",
+    "question": "Сколько стоит Aghanim's Shard?",
+    "answer": 1400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "refresher",
+    "question": "Сколько стоит Refresher Orb?",
+    "answer": 5000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "assault",
+    "question": "Сколько стоит Assault Cuirass?",
+    "answer": 5125,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "heart",
+    "question": "Сколько стоит Heart of Tarrasque?",
+    "answer": 5100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "black_king_bar",
+    "question": "Сколько стоит Black King Bar?",
+    "answer": 4050,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "shivas_guard",
+    "question": "Сколько стоит Shiva's Guard?",
+    "answer": 4500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "bloodstone",
+    "question": "Сколько стоит Bloodstone?",
+    "answer": 4700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "sphere",
+    "question": "Сколько стоит Linken's Sphere?",
+    "answer": 4800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "lotus_orb",
+    "question": "Сколько стоит Lotus Orb?",
+    "answer": 3850,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "meteor_hammer",
+    "question": "Сколько стоит Meteor Hammer?",
+    "answer": 2850,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "nullifier",
+    "question": "Сколько стоит Nullifier?",
+    "answer": 4350,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "aeon_disk",
+    "question": "Сколько стоит Aeon Disk?",
+    "answer": 3000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "kaya",
+    "question": "Сколько стоит Kaya?",
+    "answer": 2100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "spirit_vessel",
+    "question": "Сколько стоит Spirit Vessel?",
+    "answer": 2725,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "essence_distiller",
+    "question": "Сколько стоит Essence Distiller?",
+    "answer": 1775,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "vanguard",
+    "question": "Сколько стоит Vanguard?",
+    "answer": 1700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "crimson_guard",
+    "question": "Сколько стоит Crimson Guard?",
+    "answer": 3725,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "blade_mail",
+    "question": "Сколько стоит Blade Mail?",
+    "answer": 2400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "soul_booster",
+    "question": "Сколько стоит Soul Booster?",
+    "answer": 3000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "eternal_shroud",
+    "question": "Сколько стоиЛ( Eternal Shroud?",
+    "answer": 3900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "consecrated_wraps",
+    "question": "Сколько стоит Consecrated Wraps?",
+    "answer": 2600,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "crellas_crozier",
+    "question": "Сколько стоит Crella's Crozier?",
+    "answer": 4800,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "rapier",
+    "question": "Сколько стоит Divine Rapier?",
+    "answer": 5600,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "monkey_king_bar",
+    "question": "Сколько стоит Monkey King Bar?",
+    "answer": 5000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "radiance",
+    "question": "Сколько стоит Radiance?",
+    "answer": 4700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "butterfly",
+    "question": "Сколько стоит Butterfly?",
+    "answer": 5450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "greater_crit",
+    "question": "Сколько стоит Daedalus?",
+    "answer": 5100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "basher",
+    "question": "Сколько стоит Skull Basher?",
+    "answer": 2875,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "bfury",
+    "question": "Сколько стоит Battle Fury?",
+    "answer": 3900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "manta",
+    "question": "Сколько стоит Manta Style?",
+    "answer": 4650,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "lesser_crit",
+    "question": "Сколько стоит Crystalys?",
+    "answer": 2000,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "dragon_lance",
+    "question": "Сколько стоит Dragon Lance?",
+    "answer": 1900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "armlet",
+    "question": "Сколько стоит Armlet of Mordiggian?",
+    "answer": 2500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "invis_sword",
+    "question": "Сколько стоит Shadow Blade?",
+    "answer": 3250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "silver_edge",
+    "question": "Сколько стоит Silver Edge?",
+    "answer": 5700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "sange_and_yasha",
+    "question": "Сколько стоит Sange and Yasha?",
+    "answer": 4200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "kaya_and_sange",
+    "question": "Сколько стоит Kaya and Sange?",
+    "answer": 4200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "yasha_and_kaya",
+    "question": "Сколько стоит Yasha and Kaya?",
+    "answer": 4200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "satanic",
+    "question": "Сколько стоит Satanic?",
+    "answer": 5050,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "mjollnir",
+    "question": "Сколько стоит Mjollnir?",
+    "answer": 5500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "skadi",
+    "question": "Сколько стоит Eye of Skadi?",
+    "answer": 5900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "sange",
+    "question": "Сколько стоит Sange?",
+    "answer": 2100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "helm_of_the_dominator",
+    "question": "Сколько стоит Helm of the Dominator?",
+    "answer": 2550,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "helm_of_the_overlord",
+    "question": "Сколько стоит Helm of the Overlord?",
+    "answer": 5650,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "maelstrom",
+    "question": "Сколько стоит Maelstrom?",
+    "answer": 2950,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "gungir",
+    "question": "Сколько стоит Gleipnir?",
+    "answer": 4650,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "desolator",
+    "question": "Сколько стоит Desolator?",
+    "answer": 3500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "mask_of_madness",
+    "question": "Сколько стоит Mask of Madness?",
+    "answer": 1900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "diffusal_blade",
+    "question": "Сколько стоит Diffusal Blade?",
+    "answer": 2500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "disperser",
+    "question": "Сколько стоит Disperser?",
+    "answer": 6100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ethereal_blade",
+    "question": "Сколько стоит Ethereal Blade?",
+    "answer": 5200,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "soul_ring",
+    "question": "Сколько стоит Soul Ring?",
+    "answer": 805,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "arcane_boots",
+    "question": "Сколько стоит Arcane Boots?",
+    "answer": 1500,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "octarine_core",
+    "question": "Сколько стоит Octarine Core?",
+    "answer": 4900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "orb_of_venom",
+    "question": "Сколько стоит Orb of Venom?",
+    "answer": 350,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "blight_stone",
+    "question": "Сколько стоит Orb of Blight?",
+    "answer": 300,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "orb_of_corrosion",
+    "question": "Сколько стоит Orb of Corrosion?",
+    "answer": 1050,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "orb_of_frost",
+    "question": "Сколько стоит Orb of Frost?",
+    "answer": 300,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "falcon_blade",
+    "question": "Сколько стоит Falcon Blade?",
+    "answer": 1125,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "mage_slayer",
+    "question": "Сколько стоит Mage Slayer?",
+    "answer": 3100,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "ancient_janggo",
+    "question": "Сколько стоит Drum of Endurance?",
+    "answer": 1625,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "boots_of_bearing",
+    "question": "Сколько стоит Boots of Bearing?",
+    "answer": 4225,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "solar_crest",
+    "question": "Сколько стоит Solar Crest?",
+    "answer": 2575,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "pavise",
+    "question": "Сколько стоит Pavise?",
+    "answer": 1350,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "veil_of_discord",
+    "question": "Сколько стоит Veil of Discord?",
+    "answer": 1700,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "revenants_brooch",
+    "question": "Сколько стоит Revenant's Brooch?",
+    "answer": 3300,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "devastator",
+    "question": "Сколько стоит Parasma?",
+    "answer": 5975,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "guardian_greaves",
+    "question": "Сколько стоит Guardian Greaves?",
+    "answer": 4450,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "rod_of_atos",
+    "question": "Сколько стоит Rod of Atos?",
+    "answer": 2250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "abyssal_blade",
+    "question": "Сколько стоит Abyssal Blade?",
+    "answer": 6250,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "heavens_halberd",
+    "question": "Сколько стоит Heaven's Halberd?",
+    "answer": 3400,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "tranquil_boots",
+    "question": "Сколько стоит Tranquil Boots?",
+    "answer": 900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "shadow_amulet",
+    "question": "Сколько стоит Shadow Amulet?",
+    "answer": 900,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "glimmer_cape",
+    "question": "Сколько стоит Glimmer Cape?",
+    "answer": 2150,
+    "unit": "золото",
+    "difficulty": ""
+  },
+  {
+    "type": "closest_number",
+    "topic": "Цена",
+    "source": "hydras_breath",
+    "question": "Сколько стоит Hydra's Breath?",
+    "answer": 5900,
+    "unit": "золото",
+    "difficulty": ""
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Атрибуты",
+    "source": "marci",
+    "question": "Какой из героев отличается от остальных своим атрибутом?",
+    "options": ["Marci", "Hoodwink", "Viper", "Vengeful Spirit"],
+    "difficulty": "",
+    "comment": "Marci — Universal. Hoodwink, Viper, Vengeful Spirit — Agility."
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Атрибуты",
+    "source": "beastmaster",
+    "question": "Какой из героев отличается от остальных своим атрибутом?",
+    "options": ["Beastmaster", "Earth Spirit", "Phoenix", "Treant Protector"],
+    "difficulty": "",
+    "comment": "Beastmaster — Universal. Earth Spirit, Phoenix, Treant Protector — Strength."
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Атрибуты",
+    "source": "venomancer",
+    "question": "Какой из героев отличается от остальных своим атрибутом?",
+    "options": ["Venomancer", "Outworld Destroyer", "Lina", "Dark Seer"],
+    "difficulty": "",
+    "comment": "Venomancer — Universal. Outworld Destroyer, Lina, Dark Seer — Intelligence."
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Популярность героев",
+    "source": "axe",
+    "question": "На каком из героев сыграно больше всего игр за последний год?",
+    "options": ["Axe", "Rubick", "Earthshaker", "Anti-Mage"],
+    "difficulty": "",
+    "comment": "Axe: 55 201 608 | Rubick: 52 902 622 | Earthshaker: 46 783 120 | Anti-Mage: 43 359 528"
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Популярность героев",
+    "source": "jakiro",
+    "question": "На каком из героев сыграно больше всего игр за последний год?",
+    "options": ["Jakiro", "Weaver", "Hoodwink", "Slardar"],
+    "difficulty": "",
+    "comment": "Jakiro: 35 495 880 | Weaver: 31 346 332 | Hoodwink: 27 511 063 | Slardar: 25 938 562"
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Популярность героев",
+    "source": "storm_spirit",
+    "question": "На каком из героев сыграно больше всего игр за последний год?",
+    "options": ["Storm Spirit", "Dragon Knight", "Bristleback", "Beastmaster"],
+    "difficulty": "",
+    "comment": "Storm Spirit: 22 314 540 | Dragon Knight: 20 288 926 | Bristleback: 19 419 683 | Beastmaster: 14 389 358"
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Кому принадлежит способность",
+    "source": "quick_wit",
+    "question": "Кому принадлежит способность Quick Wit?",
+    "options": ["Dark Seer", "Weaver", "Mirana", "Ringmaster"],
+    "difficulty": "",
+    "comment": ""
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Кому принадлежит способность",
+    "source": "silent_as_the_grave",
+    "question": "Кому принадлежит способность Silent as the Grave?",
+    "options": ["Visage", "Silencer", "Undying", "Necrophos"],
+    "difficulty": "",
+    "comment": ""
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Общие вопросы",
+    "subcategory": "Кому принадлежит способность",
+    "source": "equilibrium",
+    "question": "Кому принадлежит способность Equilibrium?",
+    "options": ["Io", "Chen", "Ember Spirit", "Disruptor"],
+    "difficulty": "",
+    "comment": ""
+  }
+]

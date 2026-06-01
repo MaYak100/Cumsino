@@ -17,7 +17,7 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   })
 
   socket.on('place_bet', ({ amount, target, chips, bankBet }: PlaceBetPayload) => {
-    if (typeof amount !== 'number' || amount < 0) return
+    if (!Number.isFinite(amount) || amount < 0) return
     if (target !== undefined && target !== 'win' && target !== 'lose') return
     engine.getRoom(socket.id)?.placeBet(socket.id, amount, target, chips, bankBet)
   })

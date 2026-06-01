@@ -23,12 +23,10 @@ interface GameStore {
   bankBets: Record<string, { optionIndex: number; amount: number }>
   stagedBets: Record<string, number[]>
   isLateJoiner: boolean
-  bribePrompt: { amount: number; startedAt: number } | null
+  bribePrompt: { amount: number; startedAt: number; cycleIndex: number } | null
   bribeEliminatedIdx: number | null
-  gladiatorBribeMsg: { type: 'helping' | 'betrayed' | 'helped'; key: number } | null
 
   payBribe: () => void
-  clearGladiatorBribeMsg: () => void
 
   connect: (name: string, gameCode: string) => void
   setPendingTarget: (target: 'win' | 'lose' | null) => void
@@ -66,7 +64,6 @@ export const useGameStore = create<GameStore>((set) => {
             : prev.isLateJoiner,
         bribePrompt: clearBribe ? null : prev.bribePrompt,
         bribeEliminatedIdx: clearRound ? null : prev.bribeEliminatedIdx,
-        gladiatorBribeMsg: clearRound ? null : prev.gladiatorBribeMsg,
       }
     })
   })
@@ -114,20 +111,18 @@ export const useGameStore = create<GameStore>((set) => {
     set(prev => ({ stagedBets: { ...prev.stagedBets, [playerId]: chips } }))
   })
 
-  socket.on('bribe_prompt', ({ amount }: BribePromptPayload) => {
-    set({ bribePrompt: { amount, startedAt: Date.now() } })
+  socket.on('bribe_prompt', ({ amount, cycleIndex }: BribePromptPayload) => {
+    set({ bribePrompt: { amount, startedAt: Date.now(), cycleIndex } })
   })
 
   socket.on('bribe_prompt_cancel', () => {
     set({ bribePrompt: null })
   })
 
-  socket.on('bribe_msg', ({ type, eliminatedOptionIndex }: BribeMsgPayload) => {
-    set(prev => ({
-      gladiatorBribeMsg: { type, key: Date.now() },
-      bribeEliminatedIdx:
-        eliminatedOptionIndex !== undefined ? eliminatedOptionIndex : prev.bribeEliminatedIdx,
-    }))
+  socket.on('bribe_msg', ({ eliminatedOptionIndex }: BribeMsgPayload) => {
+    if (eliminatedOptionIndex !== undefined) {
+      set({ bribeEliminatedIdx: eliminatedOptionIndex })
+    }
   })
 
   socket.on('game_over', ({ winner }: GameOverPayload) => {
@@ -150,7 +145,6 @@ export const useGameStore = create<GameStore>((set) => {
     isLateJoiner: false,
     bribePrompt: null,
     bribeEliminatedIdx: null,
-    gladiatorBribeMsg: null,
 
     connect(name, gameCode) {
       if (!socket.connected) socket.connect()
@@ -190,7 +184,6 @@ export const useGameStore = create<GameStore>((set) => {
         isLateJoiner: false,
         bribePrompt: null,
         bribeEliminatedIdx: null,
-        gladiatorBribeMsg: null,
       })
       socket.disconnect()
     },
@@ -198,10 +191,6 @@ export const useGameStore = create<GameStore>((set) => {
     payBribe() {
       socket.emit('pay_bribe')
       set({ bribePrompt: null })
-    },
-
-    clearGladiatorBribeMsg() {
-      set({ gladiatorBribeMsg: null })
     },
   }
 })

@@ -1,4 +1,4 @@
-import { decomposeToChips } from '@cumsino/shared'
+import { decomposeToChips, decomposeStartingChips, STARTING_CHIPS } from '@cumsino/shared'
 import type { ChipValue } from '../components/ui/Chip'
 
 export interface PhysicalChip {
@@ -9,7 +9,7 @@ export interface PhysicalChip {
 /** Decompose a chip total into an ordered array of PhysicalChip objects.
  *  Order: high denominations first, within each denom index 0 = base (bottom of stack). */
 export function buildPhysicalChips(total: number): PhysicalChip[] {
-  const breakdown = decomposeToChips(total)
+  const breakdown = total === STARTING_CHIPS ? decomposeStartingChips() : decomposeToChips(total)
   const chips: PhysicalChip[] = []
   const denoms: ChipValue[] = [500, 100, 50, 20, 10]
   denoms.forEach(denom => {

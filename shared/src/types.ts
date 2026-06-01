@@ -4,10 +4,8 @@ export type GamePhase =
   | 'LOBBY'
   | 'ANNOUNCE'
   | 'BETTING'
-  | 'QUESTION_TEXT'
   | 'QUESTION'
   | 'REVEAL'
-  | 'LEADERBOARD'
   | 'GAME_OVER'
 
 export type GameMode = 'all' | 'kerri' | 'closest' | 'top5'
@@ -90,7 +88,7 @@ export interface RoundResultsPayload {
 export interface GameOverPayload { winner: Player }
 export interface ChipStagedPayload { playerId: string; chips: number[] }
 
-export interface BribePromptPayload { amount: number }
+export interface BribePromptPayload { amount: number; cycleIndex: number }
 export interface BribePromptCancelPayload { dummy?: never }
 export interface BribeMsgPayload {
   type: 'helping' | 'betrayed' | 'helped'

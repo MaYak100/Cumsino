@@ -89,8 +89,6 @@ export function BettingTableScreen() {
 
   useEffect(() => {
     if (gameState.phase !== 'BETTING' || isGladiator) return
-    // Fire 2s before expected server timer to avoid race where server transitions
-    // to QUESTION_TEXT before client timer fires (cleanup would cancel it)
     const delay = Math.max(500, (gameState.phaseTimeLeft - 2) * 1000)
     if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current)
     autoConfirmTimerRef.current = setTimeout(() => handleConfirmRef.current(), delay)

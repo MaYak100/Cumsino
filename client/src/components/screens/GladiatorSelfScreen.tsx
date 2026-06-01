@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
 
@@ -20,8 +19,6 @@ export function GladiatorSelfScreen() {
   const sendHover = useGameStore(s => s.sendHover)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
   const bribeEliminatedIdx = useGameStore(s => s.bribeEliminatedIdx)
-  const gladiatorBribeMsg = useGameStore(s => s.gladiatorBribeMsg)
-  const clearGladiatorBribeMsg = useGameStore(s => s.clearGladiatorBribeMsg)
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const options = gameState.currentQuestion?.options ?? []
@@ -29,16 +26,6 @@ export function GladiatorSelfScreen() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ position: 'relative' }}>
-      <AnimatePresence>
-        {gladiatorBribeMsg && (
-          <DiagonalMessage
-            key={gladiatorBribeMsg.key}
-            type={gladiatorBribeMsg.type}
-            onDone={clearGladiatorBribeMsg}
-          />
-        )}
-      </AnimatePresence>
-
       <Timer seconds={gameState.phaseTimeLeft} />
 
       <div className="w-full max-w-lg mt-4">
@@ -115,41 +102,5 @@ export function GladiatorSelfScreen() {
         ) : null}
       </div>
     </div>
-  )
-}
-
-const BRIBE_MSG_TEXTS: Record<string, string> = {
-  helping: 'Не торопись, тебе пытаются помочь',
-  betrayed: 'Тебя кинули, решай сам',
-  helped: 'Тебе помогли!',
-}
-
-function DiagonalMessage({ type, onDone }: { type: string; onDone: () => void }) {
-  useEffect(() => {
-    const t = setTimeout(onDone, 2500)
-    return () => clearTimeout(t)
-  }, [onDone])
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -24, scale: 0.85 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.35 }}
-      style={{
-        position: 'absolute',
-        top: '20%',
-        left: '50%',
-        transform: 'translateX(-50%) rotate(-8deg)',
-        transformOrigin: 'center center',
-        pointerEvents: 'none',
-        zIndex: 10,
-        whiteSpace: 'nowrap',
-      }}
-    >
-      <span style={{ color: 'white', fontWeight: 700, fontSize: '1.2rem', textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}>
-        {BRIBE_MSG_TEXTS[type] ?? type}
-      </span>
-    </motion.div>
   )
 }

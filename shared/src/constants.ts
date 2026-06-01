@@ -12,7 +12,7 @@ export const PHASE_DURATIONS: Partial<Record<GamePhase, number>> = {
   ANNOUNCE: 9,
   BETTING: 30,
   QUESTION: 45,
-  REVEAL: 13,
+  REVEAL: 14,
 }
 
 export const SPECIAL_MODE_CHANCE = 0.3

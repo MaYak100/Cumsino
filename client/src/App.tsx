@@ -46,7 +46,6 @@ export default function App() {
     case 'BETTING':
       Screen = BettingTableScreen
       break
-    case 'QUESTION_TEXT':
     case 'QUESTION':
       if (mode === 'closest') Screen = ClosestScreen
       else if (mode === 'top5') Screen = Top5Screen
@@ -54,7 +53,6 @@ export default function App() {
       else Screen = QuestionScreen
       break
     case 'REVEAL':
-    case 'LEADERBOARD':
       Screen = RoundResultsScreen
       break
     case 'GAME_OVER':
@@ -69,7 +67,7 @@ export default function App() {
       <TableFelt blurred={phase !== 'BETTING'} />
       <AnimatePresence>
         <motion.div
-          key={phase === 'QUESTION_TEXT' ? 'QUESTION' : phase}
+          key={phase}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, y: -12, pointerEvents: 'none', transition: { duration: 0.15 } }}

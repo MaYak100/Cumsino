@@ -1,0 +1,3297 @@
+[
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "abyssal_blade",
+    "question": "Какой процент шанса баша имеет Abyssal Blade для дальнобойных героев?",
+    "options": [
+      "10%",
+      "15%",
+      "20%",
+      "25%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "aeon_disk",
+    "question": "На каком проценте здоровья срабатывает пассив Combo Breaker у Aeon Disk?",
+    "options": [
+      "70%",
+      "60%",
+      "75%",
+      "80%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "aether_lens",
+    "question": "Сколько единиц дальности заклинания добавляет Aether Lens?",
+    "options": [
+      "225",
+      "200",
+      "250",
+      "275"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "ancient_janggo",
+    "question": "Какой радиус действия у ауры Drum of Endurance?",
+    "options": [
+      "1200",
+      "1000",
+      "900",
+      "1400"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "angels_demise",
+    "question": "На сколько секунд замедляет Khanda целевого врага при активации?",
+    "options": [
+      "4",
+      "3",
+      "5",
+      "6"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "arcane_blink",
+    "question": "На какое время нельзя использовать Arcane Blink после получения урона от врага?",
+    "options": [
+      "3 сек.",
+      "2 сек.",
+      "4 сек.",
+      "5 сек."
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "armlet",
+    "question": "Сколько здоровья в секунду теряет герой при активной способности Unholy Strength у Armlet?",
+    "options": [
+      "45",
+      "40",
+      "50",
+      "55"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "assault",
+    "question": "На сколько снижается броня врагов в ауре Assault Cuirass?",
+    "options": [
+      "-5",
+      "-3",
+      "-10",
+      "-7"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "abyssal_blade",
+    "question": "На сколько единиц дополнительного физического урона происходит срабатывание баша Abyssal Blade?",
+    "answer": 120,
+    "unit": "урона",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "aeon_disk",
+    "question": "Сколько длится статус-резист от Aeon Disk при срабатывании?",
+    "answer": 2.5,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "angels_demise",
+    "question": "Сколько дополнительного магического урона наносит Khanda при активации способности?",
+    "answer": 250,
+    "unit": "урона",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "arcane_blink",
+    "question": "На какое расстояние можно телепортироваться с помощью Arcane Blink?",
+    "answer": 1400,
+    "unit": "единиц",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "arcane_boots",
+    "question": "Сколько маны восстанавливает активная способность Replenish у Arcane Boots для каждого союзника?",
+    "answer": 150,
+    "unit": "маны",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "basher",
+    "question": "Какой процент шанса на Bash у Skull Basher для героев в ближнем бою?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "basher",
+    "question": "Сколько дополнительного урона наносит Bash от Skull Basher?",
+    "options": [
+      "100",
+      "80",
+      "120",
+      "75"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "bfury",
+    "question": "Какой процент урона от атаки наносит Cleave от Battle Fury по врагам?",
+    "options": [
+      "60%",
+      "50%",
+      "70%",
+      "75%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "bfury",
+    "question": "На какое расстояние распространяется эффект Cleave от Battle Fury?",
+    "options": [
+      "650",
+      "600",
+      "700",
+      "750"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "black_king_bar",
+    "question": "Сколько процентов магической защиты даёт Avatar от Black King Bar?",
+    "options": [
+      "60%",
+      "50%",
+      "70%",
+      "75%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "blade_mail",
+    "question": "Какой процент урона отражает активная способность Blade Mail?",
+    "options": [
+      "85%",
+      "75%",
+      "100%",
+      "90%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "blade_mail",
+    "question": "Сколько секунд длится эффект Damage Return при активации Blade Mail?",
+    "options": [
+      "5.5",
+      "5",
+      "6",
+      "4.5"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "blink",
+    "question": "На сколько секунд блокируется Blink Dagger после получения урона от вражеского героя?",
+    "options": [
+      "3.0",
+      "2.0",
+      "4.0",
+      "2.5"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "basher",
+    "question": "Сколько секунд длится оглушение от Bash у Skull Basher?",
+    "answer": 1.2,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "basher",
+    "question": "Какой откат на Bash у Skull Basher?",
+    "answer": 2.3,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "bfury",
+    "question": "Какой процент урона наносит Cleave по крипам от Battle Fury?",
+    "answer": 40,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "bfury",
+    "question": "На какое расстояние увеличивается ширина конуса Cleave в конечной точке от Battle Fury?",
+    "answer": 360,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "blade_mail",
+    "question": "Какой процент от урона атаки отражает пассивная способность Blade Mail?",
+    "answer": 15,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Bloodstone",
+    "source": "bloodstone",
+    "question": "Какой процент увеличения кражи маны из спеллов даёт активная способность Bloodstone «Bloodpact»?",
+    "options": [
+      "60%",
+      "50%",
+      "70%",
+      "55%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Bloodthorn",
+    "source": "bloodthorn",
+    "question": "На сколько секунд Bloodthorn молчит цель способностью «Soul Rend»?",
+    "options": [
+      "5",
+      "4",
+      "6",
+      "7"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Bloodthorn",
+    "source": "bloodthorn",
+    "question": "Какой процент урона, полученного целью во время молчания, добавляется как магический урон в конце способности «Soul Rend»?",
+    "options": [
+      "60%",
+      "50%",
+      "75%",
+      "40%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Blood Grenade",
+    "source": "blood_grenade",
+    "question": "Сколько секунд длится дебафф от активной способности Blood Grenade?",
+    "options": [
+      "5",
+      "4",
+      "6",
+      "3"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Boots of Bearing",
+    "source": "boots_of_bearing",
+    "question": "В течение скольких первых секунд активной способности «Endurance» союзники становятся иммунны к замедлениям?",
+    "options": [
+      "1.5",
+      "1",
+      "2",
+      "2.5"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Bloodstone",
+    "source": "bloodstone",
+    "question": "Какой процент увеличения магического урона даёт аура Bloodstone «Spell Weakness Aura» врагам?",
+    "options": [
+      "12%",
+      "10%",
+      "15%",
+      "20%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Bloodthorn",
+    "source": "bloodthorn",
+    "question": "Какая из этих способностей Bloodthorn НЕ является пассивной?",
+    "options": [
+      "Soul Rend",
+      "Pierce",
+      "Spell Weakness Aura",
+      "Вспомогательная способность"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Blood Grenade",
+    "source": "blood_grenade",
+    "question": "На сколько процентов замедляет Blood Grenade цели при попадании?",
+    "options": [
+      "15%",
+      "20%",
+      "10%",
+      "25%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "Bloodstone",
+    "source": "bloodstone",
+    "question": "Сколько маны даёт Bloodstone?",
+    "answer": 450,
+    "unit": "маны",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Bloodthorn",
+    "source": "bloodthorn",
+    "question": "Какой шанс срабатывания у пассивной способности «Pierce» Bloodthorn?",
+    "answer": 40,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Boots of Bearing",
+    "source": "boots_of_bearing",
+    "question": "На сколько единиц движения увеличивает скорость Boots of Bearing основной персонаж?",
+    "answer": 65,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Bloodstone",
+    "source": "bloodstone",
+    "question": "Сколько здоровья даёт Bloodstone?",
+    "answer": 650,
+    "unit": "ед.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Blood Grenade",
+    "source": "blood_grenade",
+    "question": "Сколько урона в секунду наносит Blood Grenade в течение дебаффа?",
+    "answer": 15,
+    "unit": "урона/сек",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "butterfly",
+    "question": "Сколько процентов уклонения даёт Butterfly?",
+    "options": [
+      "35%",
+      "30%",
+      "40%",
+      "25%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "caster_rapier",
+    "question": "Какой процент усиления заклинаний даёт Caster Rapier?",
+    "options": [
+      "50%",
+      "40%",
+      "60%",
+      "45%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "chainmail",
+    "question": "Сколько брони даёт Chainmail?",
+    "options": [
+      "4",
+      "3",
+      "5",
+      "6"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "cloak",
+    "question": "Какой процент магической защиты даёт Cloak?",
+    "options": [
+      "18%",
+      "15%",
+      "20%",
+      "12%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "consecrated_wraps",
+    "question": "Какой максимальный урон поглощает барьер Consecrated Wraps при трёх стеках?",
+    "options": [
+      "360",
+      "300",
+      "400",
+      "320"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "consecrated_wraps",
+    "question": "Сколько максимум стеков может иметь пассивная способность Consecrated Wraps?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "2"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "clarity",
+    "question": "Сколько секунд длится эффект Clarity?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "15"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "butterfly",
+    "question": "Сколько ловкости даёт Butterfly?",
+    "answer": 35,
+    "unit": "ед.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "butterfly",
+    "question": "Сколько процентов скорости атаки даёт Butterfly?",
+    "answer": 20,
+    "unit": "%",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "consecrated_wraps",
+    "question": "За сколько секунд Consecrated Wraps получает один стек?",
+    "answer": 3,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "consecrated_wraps",
+    "question": "Сколько здоровья даёт Consecrated Wraps?",
+    "answer": 250,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "caster_rapier",
+    "question": "Какова дальность действия ограничения диапазона Caster Rapier?",
+    "answer": 2000,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "crimson_guard",
+    "question": "Сколько секунд длится эффект активной способности Crimson Guard?",
+    "options": [
+      "7",
+      "5",
+      "6",
+      "8"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "crellas_crozier",
+    "question": "На сколько процентов увеличивается уязвимость к магии во время активации Crella's Crozier?",
+    "options": [
+      "30%",
+      "25%",
+      "35%",
+      "40%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "desolator",
+    "question": "На сколько единиц брони снижается броня цели под эффектом Desolator?",
+    "options": [
+      "-6",
+      "-5",
+      "-7",
+      "-8"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "cyclone",
+    "question": "Сколько магического урона наносит Eul's Scepter of Divinity при приземлении врага?",
+    "options": [
+      "50",
+      "40",
+      "60",
+      "75"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "devastator",
+    "question": "Какой множитель интеллекта используется для расчёта урона яда Parasma?",
+    "options": [
+      "0.75x",
+      "0.5x",
+      "1.0x",
+      "0.8x"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "crimson_guard",
+    "question": "Какой шанс блокировки урона даёт пассивная способность Crimson Guard?",
+    "options": [
+      "60%",
+      "50%",
+      "70%",
+      "75%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "crellas_crozier",
+    "question": "Сколько процентов скорости передвижения крадёт Crella's Crozier каждую секунду?",
+    "options": [
+      "5%",
+      "3%",
+      "7%",
+      "10%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "devastator",
+    "question": "На сколько процентов снижается магическая защита врага от способности Parasma?",
+    "options": [
+      "20%",
+      "15%",
+      "25%",
+      "30%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "cornucopia",
+    "question": "Сколько здоровья восстанавливается в секунду от Cornucopia?",
+    "answer": 5,
+    "unit": "ед./сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "cyclone",
+    "question": "Сколько секунд герой находится в циклоне при активации Eul's Scepter of Divinity?",
+    "answer": 2.5,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "desolator",
+    "question": "На сколько секунд действует эффект Corruption от Desolator?",
+    "answer": 7,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "devastator",
+    "question": "Сколько секунд длится эффект замедления от атак Parasma?",
+    "answer": 4,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "crellas_crozier",
+    "question": "Сколько секунд длится эффект воровства скорости в пассивной ауре Crella's Crozier?",
+    "answer": 1.5,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "diffusal_blade",
+    "question": "Сколько маны сжигает пассивная способность Manabreak у Diffusal Blade за атаку?",
+    "options": [
+      "40",
+      "50",
+      "35",
+      "45"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "diffusal_blade_2",
+    "question": "На сколько секунд активная способность Inhibit замедляет врага у Diffusal Blade 2?",
+    "options": [
+      "4",
+      "5",
+      "3",
+      "6"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "disperser",
+    "question": "Какой процент замедления сопротивления даёт активная способность Suppress у Disperser врагам?",
+    "options": [
+      "40%",
+      "50%",
+      "35%",
+      "45%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "dragon_lance",
+    "question": "Сколько дополнительной дальности атаки добавляет Dragon Lance для дальнобойных героев?",
+    "options": [
+      "130",
+      "140",
+      "120",
+      "150"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "dust",
+    "question": "На какой радиус действует Dust of Appearance при активации?",
+    "options": [
+      "1050",
+      "1200",
+      "1000",
+      "900"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "echo_sabre",
+    "question": "На сколько секунд Echo Strike замедляет врага при первом ударе?",
+    "options": [
+      "0.8",
+      "1.0",
+      "0.6",
+      "1.2"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "diadem",
+    "question": "Сколько всех характеристик даёт Diadem?",
+    "options": [
+      "6",
+      "5",
+      "7",
+      "8"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "eagle",
+    "question": "Сколько ловкости даёт Eaglesong?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "35"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "diffusal_blade_2",
+    "question": "Сколько зарядов у Diffusal Blade 2 при полной зарядке?",
+    "answer": 8,
+    "unit": "зарядов",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "dust",
+    "question": "На сколько секунд действует эффект замедления от Dust of Appearance после выхода из зоны?",
+    "answer": 8,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "disperser",
+    "question": "Сколько урона наносит Dust of Appearance при попадании на невидимого врага?",
+    "answer": 25,
+    "unit": "урона",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "diffusal_blade",
+    "question": "На сколько секунд действует замедление от активной способности Inhibit первого уровня Diffusal Blade?",
+    "answer": 4,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "energy_booster",
+    "question": "Сколько маны даёт Energy Booster?",
+    "answer": 250,
+    "unit": "маны",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "essence_distiller",
+    "question": "На каком расстоянии Soul Release может прикрепиться к врагу, если предмет был установлен на земле?",
+    "options": [
+      "400",
+      "500",
+      "600",
+      "800"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "essence_distiller",
+    "question": "Сколько секунд Soul Release может лежать на земле перед тем, как исчезнуть?",
+    "options": [
+      "15",
+      "10",
+      "12",
+      "20"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "eternal_shroud",
+    "question": "Сколько процентов входящего урона заклинаниями восстанавливает Eternal Shroud в виде маны?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "15"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "eternal_shroud",
+    "question": "На сколько процентов каждый стак Eternal Endurance увеличивает магическое сопротивление?",
+    "options": [
+      "3.5",
+      "3",
+      "4",
+      "5"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "ethereal_blade",
+    "question": "На какой процент увеличивается уязвимость к магии цели Ether Blast?",
+    "options": [
+      "30",
+      "25",
+      "35",
+      "40"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "ethereal_blade",
+    "question": "Какой множитель суммы атрибутов используется при расчёте урона Ether Blast?",
+    "options": [
+      "1.0",
+      "1.2",
+      "0.8",
+      "1.5"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "force_staff",
+    "question": "На какое расстояние Force Staff толкает целевого юнита?",
+    "options": [
+      "600",
+      "500",
+      "700",
+      "550"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "healing_salve",
+    "question": "На сколько секунд Healing Salve обеспечивает регенерацию здоровья?",
+    "options": [
+      "13",
+      "10",
+      "15",
+      "12"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "essence_distiller",
+    "question": "На каком радиусе Essence Distiller получает заряды при смерти вражеского героя?",
+    "answer": 1500,
+    "unit": "ед.",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "eternal_shroud",
+    "question": "Сколько урона нужно получить, чтобы получить один стак Eternal Endurance?",
+    "answer": 300,
+    "unit": "ед.",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "ethereal_blade",
+    "question": "Какой перезарядка активной способности Ethereal Blade?",
+    "answer": 22,
+    "unit": "сек.",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "force_staff",
+    "question": "Какая перезарядка способности Force?",
+    "answer": 19,
+    "unit": "сек.",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "essence_distiller",
+    "question": "Сколько урона в секунду наносит Soul Release при прикреплении к врагу?",
+    "answer": 25,
+    "unit": "ед.",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "greater_crit",
+    "question": "Какой множитель крита у Daedalus?",
+    "options": [
+      "225%",
+      "200%",
+      "250%",
+      "180%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "glimmer_cape",
+    "question": "На сколько процентов увеличивается уязвимость к магии при активации Glimmer Cape?",
+    "options": [
+      "30%",
+      "25%",
+      "35%",
+      "20%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "ghost",
+    "question": "Сколько длится эффект Ghost Form от Ghost Scepter?",
+    "options": [
+      "4 сек.",
+      "3 сек.",
+      "5 сек.",
+      "6 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "gungir",
+    "question": "На какой радиус действует способность Eternal Chains у Gleipnir?",
+    "options": [
+      "350",
+      "300",
+      "275",
+      "400"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "guardian_greaves",
+    "question": "Какой процент здоровья необходимо потерять, чтобы активировалась усиленная регенерация от Guardian Aura?",
+    "options": [
+      "25%",
+      "30%",
+      "20%",
+      "15%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "harpoon",
+    "question": "Какой процент расстояния вас приближает способность Draw Forth у Harpoon?",
+    "options": [
+      "35%",
+      "40%",
+      "30%",
+      "50%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "gem",
+    "question": "На какой радиус действует пассивное True Sight у Gem of True Sight?",
+    "options": [
+      "900",
+      "800",
+      "1000",
+      "700"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "harpoon",
+    "question": "Какое замедление движения наносит Echo Strike у Harpoon на первый удар?",
+    "options": [
+      "100%",
+      "80%",
+      "120%",
+      "60%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "guardian_greaves",
+    "question": "Сколько здоровья восстанавливает активная способность Mend у Guardian Greaves?",
+    "answer": 325,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "glimmer_cape",
+    "question": "Сколько урона поглощает магический барьер Glimmer Cape?",
+    "answer": 375,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "gungir",
+    "question": "Сколько секунд действует способность Eternal Chains у Gleipnir?",
+    "answer": 2,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "harpoon",
+    "question": "Какова максимальная дальность способности Draw Forth у Harpoon?",
+    "answer": 1000,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "harpoon",
+    "question": "Сколько длится замедление от Echo Strike у Harpoon?",
+    "answer": 1,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "heart",
+    "question": "Сколько Силы даёт Heart of Tarrasque?",
+    "options": [
+      "40",
+      "35",
+      "45",
+      "50"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "heavens_halberd",
+    "question": "На сколько секунд действует дизарм от Heaven's Halberd?",
+    "options": [
+      "3.5",
+      "3",
+      "4",
+      "4.5"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "helm_of_the_dominator",
+    "question": "Сколько базового урона даёт подконтрольному крипу Helm of the Dominator?",
+    "options": [
+      "25",
+      "30",
+      "20",
+      "35"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "helm_of_the_overlord",
+    "question": "На сколько Силы и Ловкости (суммарно) увеличивается Helm of the Overlord?",
+    "options": [
+      "21",
+      "28",
+      "14",
+      "35"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "holy_locket",
+    "question": "Какой процент усиления исцеления даёт пассивная способность Holy Locket?",
+    "options": [
+      "15%",
+      "10%",
+      "20%",
+      "25%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "hurricane_pike",
+    "question": "Сколько атак без ограничения дальности можно совершить во время Hurricane Thrust?",
+    "options": [
+      "5",
+      "3",
+      "4",
+      "6"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "hydras_breath",
+    "question": "Какой процент шанса срабатывания у способности Polycephaly в Hydra's Breath?",
+    "options": [
+      "30%",
+      "25%",
+      "35%",
+      "40%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "infused_raindrop",
+    "question": "Сколько магического урона блокирует одна активация Infused Raindrops?",
+    "options": [
+      "120",
+      "100",
+      "150",
+      "90"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "heart",
+    "question": "На сколько процентов от потерянного здоровья увеличивается регенерация от пассива Behemoth's Blood в Heart of Tarrasque?",
+    "answer": 1.5,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "helm_of_the_overlord",
+    "question": "На какое расстояние отбрасывает цель активная способность Helm of the Overlord при использовании на союзника?",
+    "answer": 600,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "holy_locket",
+    "question": "Каков откат активной способности Energy Charge в Holy Locket?",
+    "answer": 13,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "hurricane_pike",
+    "question": "На сколько единиц увеличивается дальность атаки для персонажей дальнего боя от Hurricane Pike?",
+    "answer": 130,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "hydras_breath",
+    "question": "На сколько секунд длится эффект отравления от способности Miasma в Hydra's Breath?",
+    "answer": 3,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Shadow Blade",
+    "source": "invis_sword",
+    "question": "Сколько бонусного урона даёт атака после выхода из невидимости Shadow Blade?",
+    "options": [
+      "175",
+      "150",
+      "200",
+      "225"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Javelin",
+    "source": "javelin",
+    "question": "Какой процент шанса на proc у способности Pierce в Javelin?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Kaya and Sange",
+    "source": "kaya_and_sange",
+    "question": "На сколько процентов Kaya and Sange снижает стоимость маны и потери маны?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Crystalys",
+    "source": "lesser_crit",
+    "question": "Какой множитель крита у Crystalys?",
+    "options": [
+      "160%",
+      "175%",
+      "200%",
+      "150%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Lotus Orb",
+    "source": "lotus_orb",
+    "question": "На сколько секунд действует щит Echo Shell от Lotus Orb?",
+    "options": [
+      "5",
+      "6",
+      "4",
+      "7"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Maelstrom",
+    "source": "maelstrom",
+    "question": "Сколько целей максимально может поразить Chain Lightning в Maelstrom?",
+    "options": [
+      "4",
+      "5",
+      "3",
+      "6"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Mage Slayer",
+    "source": "mage_slayer",
+    "question": "На сколько процентов Mage Slayer снижает урон от заклинаний врага при срабатывании дебаффа?",
+    "options": [
+      "40%",
+      "35%",
+      "45%",
+      "50%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "Shadow Blade",
+    "source": "invis_sword",
+    "question": "Сколько секунд длится невидимость от Shadow Walk в Shadow Blade?",
+    "answer": 17,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Kaya",
+    "source": "kaya",
+    "question": "На сколько процентов Kaya усиливает регенерацию маны?",
+    "answer": 30,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Mage Slayer",
+    "source": "mage_slayer",
+    "question": "Сколько физического урона в секунду наносит дебафф Mage Slayer?",
+    "answer": 40,
+    "unit": "урона/сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Magic Stick",
+    "source": "magic_stick",
+    "question": "Сколько здоровья и маны восстанавливает один заряд Magic Stick?",
+    "answer": 15,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Maelstrom",
+    "source": "maelstrom",
+    "question": "Какой радиус действия Chain Lightning у Maelstrom?",
+    "answer": 650,
+    "unit": "единиц",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Magic Wand",
+    "source": "magic_wand",
+    "question": "Сколько здоровья и маны восстанавливает одна порция Magic Wand?",
+    "options": [
+      "15",
+      "12",
+      "20",
+      "10"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Mask of Madness",
+    "source": "mask_of_madness",
+    "question": "На сколько секунд активируется режим Berserk в Mask of Madness?",
+    "options": [
+      "6",
+      "5",
+      "8",
+      "7"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Manta Style",
+    "source": "manta",
+    "question": "Сколько секунд длятся иллюзии, созданные активкой Manta Style?",
+    "options": [
+      "18",
+      "15",
+      "20",
+      "12"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Meteor Hammer",
+    "source": "meteor_hammer",
+    "question": "На сколько секунд накладывается урон от сжигания после удара Meteor Hammer?",
+    "options": [
+      "6",
+      "5",
+      "8",
+      "4"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Mjollnir",
+    "source": "mjollnir",
+    "question": "Сколько секунд длится эффект Static Charge от Mjollnir?",
+    "options": [
+      "15",
+      "12",
+      "18",
+      "20"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Mask of Madness",
+    "source": "mask_of_madness",
+    "question": "Какой процент замедления устойчивости даёт активация Mask of Madness?",
+    "options": [
+      "30%",
+      "25%",
+      "40%",
+      "20%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Manta Style",
+    "source": "manta",
+    "question": "Какой процент урона наносят дальние иллюзии Manta Style от основного урона?",
+    "options": [
+      "28%",
+      "33%",
+      "25%",
+      "30%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Mjollnir",
+    "source": "mjollnir",
+    "question": "Какой шанс срабатывания пассивной способности Chain Lightning в Mjollnir?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "Mjollnir",
+    "source": "mjollnir",
+    "question": "Сколько скорости атаки даёт Mjollnir?",
+    "answer": 90,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Monkey King Bar",
+    "source": "monkey_king_bar",
+    "question": "Сколько бонусного магического урона наносит пробой Pierce из Monkey King Bar?",
+    "answer": 70,
+    "unit": "урона",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Meteor Hammer",
+    "source": "meteor_hammer",
+    "question": "Сколько секунд длится оглушение от удара Meteor Hammer?",
+    "answer": 0.75,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Moon Shard",
+    "source": "moon_shard",
+    "question": "Сколько скорости атаки даёт Moon Shard в обычном состоянии?",
+    "answer": 140,
+    "unit": "ед.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Mekansm",
+    "source": "mekansm",
+    "question": "Сколько здоровья восстанавливает активная способность Restore в Mekansm?",
+    "answer": 250,
+    "unit": "ХП",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "necronomicon",
+    "question": "Сколько секунд длится призыв воинов и лучника от Necronomicon?",
+    "options": [
+      "60",
+      "45",
+      "50",
+      "75"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "nullifier",
+    "question": "Какой урон наносит Nullifier при активации способности?",
+    "options": [
+      "75",
+      "60",
+      "80",
+      "90"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "octarine_core",
+    "question": "Сколько процентов кулдаун-редукции даёт Octarine Core?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "15"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "necronomicon",
+    "question": "Сколько брони теряет враг при каждом ударе воина из Necronomicon уровня 3?",
+    "options": [
+      "40",
+      "30",
+      "50",
+      "45"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "orb_of_corrosion",
+    "question": "На сколько процентов замедляется враг после удара Orb of Corrosion (для дальобойных)?",
+    "options": [
+      "16",
+      "13",
+      "20",
+      "18"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "oblivion_staff",
+    "question": "Сколько скорости атаки даёт Oblivion Staff?",
+    "options": [
+      "35",
+      "30",
+      "40",
+      "25"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "mystic_staff",
+    "question": "Сколько интеллекта даёт Mystic Staff?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "15"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "null_talisman",
+    "question": "Сколько максимальной маны в процентах даёт Null Talisman?",
+    "options": [
+      "3",
+      "5",
+      "2",
+      "4"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "nullifier",
+    "question": "Сколько урона в секунду наносит яд от Orb of Venom?",
+    "answer": 10,
+    "unit": "урона/сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "necronomicon",
+    "question": "Сколько маны сжигает воин из Necronomicon уровня 3 за каждый удар?",
+    "answer": 50,
+    "unit": "маны",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "octarine_core",
+    "question": "Сколько маны восстанавливается в секунду с помощью Octarine Core?",
+    "answer": 6,
+    "unit": "маны/сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "orb_of_corrosion",
+    "question": "Сколько секунд длится эффект замедления от Orb of Corrosion?",
+    "answer": 3,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "nullifier",
+    "question": "Каков откат активной способности Nullifier?",
+    "answer": 10,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "orchid",
+    "question": "Сколько процентов урона, полученного во время молчания, Orchid Malevolence конвертирует в бонусный магический урон?",
+    "options": [
+      "30%",
+      "25%",
+      "35%",
+      "40%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "overwhelming_blink",
+    "question": "На сколько секунд Overwhelming Blink блокирует свою активацию после получения урона от вражеского героя?",
+    "options": [
+      "3.0",
+      "2.0",
+      "2.5",
+      "4.0"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "pavise",
+    "question": "Какой размер магического щита даёт активная способность Pavise?",
+    "options": [
+      "250",
+      "200",
+      "300",
+      "225"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "phylactery",
+    "question": "На сколько процентов Phylactery замедляет врага после применения юнит-таргет спелла?",
+    "options": [
+      "30%",
+      "25%",
+      "35%",
+      "40%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "phase_boots",
+    "question": "На сколько движения в секунду Phase Boots увеличивают скорость для боевых единиц при активации?",
+    "options": [
+      "20%",
+      "15%",
+      "25%",
+      "30%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "orchid",
+    "question": "Сколько скорости атаки даёт Orchid Malevolence?",
+    "options": [
+      "35",
+      "30",
+      "40",
+      "25"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "pipe",
+    "question": "На сколько магического сопротивления аура Pipe of Insight усиливает союзников?",
+    "options": [
+      "8%",
+      "10%",
+      "6%",
+      "12%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "orchid",
+    "question": "Сколько маны регенерации даёт Orchid Malevolence?",
+    "answer": 2.5,
+    "unit": "ед./сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "overwhelming_blink",
+    "question": "Какой радиус эффекта у активной способности Overwhelming Blink?",
+    "answer": 800,
+    "unit": "юнитов",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "phylactery",
+    "question": "Сколько бонусного урона спеллам даёт пассивная способность Phylactery?",
+    "answer": 150,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "pipe",
+    "question": "Сколько магического урона может поглотить барьер Pipe of Insight?",
+    "answer": 425,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "phase_boots",
+    "question": "Сколько урона в ближнем бою даёт Phase Boots?",
+    "answer": 18,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "power_treads",
+    "question": "На сколько скорости атаки увеличивает Power Treads?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "35"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "power_treads",
+    "question": "Какая разница в скорости передвижения между Power Treads для мили и рейнжа?",
+    "options": [
+      "10",
+      "5",
+      "15",
+      "20"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "radiance",
+    "question": "Какой радиус действия у ауры Radiance?",
+    "options": [
+      "650",
+      "600",
+      "700",
+      "750"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "radiance",
+    "question": "Сколько урона в секунду наносит Radiance иллюзиям врагов?",
+    "options": [
+      "35",
+      "30",
+      "40",
+      "45"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "revenants_brooch",
+    "question": "Какой множитель крита у Revenant's Brooch?",
+    "options": [
+      "80%",
+      "70%",
+      "90%",
+      "100%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "rapier",
+    "question": "Какой бонус spell amplification дает Divine Rapier в режиме Transmute?",
+    "options": [
+      "25%",
+      "20%",
+      "30%",
+      "15%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "quelling_blade",
+    "question": "На какое расстояние Quelling Blade может срубить дерево?",
+    "options": [
+      "350",
+      "300",
+      "400",
+      "450"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "radiance",
+    "question": "Сколько урона в секунду наносит Radiance основным юнитам врагов?",
+    "answer": 60,
+    "unit": "урона/сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "radiance",
+    "question": "Какой процент эвэйшена дает Radiance?",
+    "answer": 25,
+    "unit": "%",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "refresher",
+    "question": "Какой откат у Refresher Orb?",
+    "answer": 180,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "revenants_brooch",
+    "question": "Какой процент spell lifesteal дает Revenant's Brooch?",
+    "answer": 15,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "revenants_brooch",
+    "question": "Какой шанс срабатывания у критика Revenant's Brooch?",
+    "answer": 30,
+    "unit": "%",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "ring_of_tarrasque",
+    "question": "Сколько здоровья в секунду восстанавливает Ring of Tarrasque?",
+    "options": [
+      "12",
+      "10",
+      "8",
+      "15"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "sange_and_yasha",
+    "question": "Какой процент статус-резиста даёт Sange and Yasha?",
+    "options": [
+      "16%",
+      "20%",
+      "12%",
+      "25%"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "satanic",
+    "question": "На сколько процентов увеличивается урвоемкость во время активации Unholy Rage у Satanic?",
+    "options": [
+      "175%",
+      "145%",
+      "160%",
+      "185%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "rod_of_atos",
+    "question": "Какой откат у активной способности Rod of Atos?",
+    "options": [
+      "18 сек.",
+      "20 сек.",
+      "15 сек.",
+      "24 сек."
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "sange",
+    "question": "Сколько силы даёт Sange?",
+    "options": [
+      "16",
+      "18",
+      "14",
+      "20"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "shadow_amulet",
+    "question": "На какой процент уменьшается скорость движения во время невидимости Shadow Amulet?",
+    "options": [
+      "35%",
+      "40%",
+      "30%",
+      "45%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "sange_and_yasha",
+    "question": "Какой бонус к чистой скорости атаки даёт Sange and Yasha?",
+    "options": [
+      "20",
+      "25",
+      "15",
+      "18"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "satanic",
+    "question": "Сколько секунд длится эффект Unholy Rage у Satanic?",
+    "options": [
+      "6",
+      "5",
+      "7",
+      "8"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "ring_of_health",
+    "question": "Сколько здоровья в секунду восстанавливает Ring of Health?",
+    "answer": 4.5,
+    "unit": "ед./сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "shadow_amulet",
+    "question": "Сколько секунд длится невидимость от Shadow Amulet?",
+    "answer": 3.5,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "shadow_amulet",
+    "question": "Сколько секунд требуется для активации невидимости в Shadow Amulet (fade time)?",
+    "answer": 1.25,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "satanic",
+    "question": "Сколько процентов дополнительного урвоемкости даёт пассивная способность Lifesteal у Satanic?",
+    "answer": 30,
+    "unit": "%",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "rod_of_atos",
+    "question": "Сколько здоровья даёт Rod of Atos?",
+    "answer": 275,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "sheepstick",
+    "question": "На сколько секунд Scythe of Vyse превращает врага в овечку?",
+    "options": [
+      "2.8",
+      "2.5",
+      "3.0",
+      "3.5"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "shivas_guard",
+    "question": "Какое замедление атаки наносит аура Shiva's Guard врагам в её радиусе?",
+    "options": [
+      "-45",
+      "-40",
+      "-50",
+      "-35"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "silver_edge",
+    "question": "На сколько секунд Silver Edge отключает пассивные способности врага при удаче из Shadow Walk?",
+    "options": [
+      "5",
+      "4",
+      "6",
+      "7"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "skadi",
+    "question": "На какой процент Eye of Skadi замедляет движение дальних врагов при атаке?",
+    "options": [
+      "-50",
+      "-40",
+      "-25",
+      "-60"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "smoke_of_deceit",
+    "question": "Сколько процентов бонуса к скорости передвижения даёт Smoke of Deceit?",
+    "options": [
+      "15",
+      "20",
+      "10",
+      "25"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "solar_crest",
+    "question": "Какой бонус к скорости атаки даёт Solar Crest союзнику при активации?",
+    "options": [
+      "60",
+      "50",
+      "70",
+      "80"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "shivas_guard",
+    "question": "Что НЕ делает активная способность Arctic Blast от Shiva's Guard?",
+    "options": [
+      "Снижает лечение противников",
+      "Замедляет движение на 4 секунды",
+      "Имеет радиус 825",
+      "Наносит магический урон 260"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "silver_edge",
+    "question": "Какой бонус урона даёт Silver Edge при попадании из invisibility?",
+    "options": [
+      "300",
+      "250",
+      "350",
+      "400"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "sheepstick",
+    "question": "На какой скорости передвижения застывает враг, превращённый в овечку Scythe of Vyse?",
+    "answer": 140,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "shivas_guard",
+    "question": "Какой урон наносит Arctic Blast от Shiva's Guard?",
+    "answer": 260,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "silver_edge",
+    "question": "На сколько секунд действует invisibility от Shadow Walk (Silver Edge)?",
+    "answer": 17,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "smoke_of_deceit",
+    "question": "На сколько секунд действует эффект Smoke of Deceit?",
+    "answer": 45,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "solar_crest",
+    "question": "На сколько секунд действует эффект Shine от Solar Crest?",
+    "answer": 7,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Soul Ring",
+    "source": "soul_ring",
+    "question": "Какой откат у активной способности Soul Ring?",
+    "options": [
+      "25 сек.",
+      "20 сек.",
+      "30 сек.",
+      "15 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Specialist's Array",
+    "source": "specialists_array",
+    "question": "Какой процент урона наносят дополнительные снаряды Splitshot от Specialist's Array?",
+    "options": [
+      "75%",
+      "80%",
+      "85%",
+      "70%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Linken's Sphere",
+    "source": "sphere",
+    "question": "Какой откат у способности Spellblock в Linken's Sphere?",
+    "options": [
+      "14 сек.",
+      "12 сек.",
+      "16 сек.",
+      "10 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Spirit Vessel",
+    "source": "spirit_vessel",
+    "question": "На сколько процентов Spirit Vessel снижает восстановление здоровья врага при активации?",
+    "options": [
+      "70%",
+      "60%",
+      "75%",
+      "80%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Stout Shield",
+    "source": "stout_shield",
+    "question": "Сколько урона блокирует Stout Shield при срабатывании для противника в дальнем боя?",
+    "options": [
+      "8 урона",
+      "10 урона",
+      "12 урона",
+      "6 урона"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Swift Blink",
+    "source": "swift_blink",
+    "question": "Сколько секунд длится бафф от активации Swift Blink?",
+    "options": [
+      "6 сек.",
+      "5 сек.",
+      "8 сек.",
+      "7 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Swift Blink",
+    "source": "swift_blink",
+    "question": "На какое расстояние можно телепортироваться с помощью Swift Blink?",
+    "options": [
+      "1200 единиц",
+      "1100 единиц",
+      "1300 единиц",
+      "1000 единиц"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Tango",
+    "source": "tango",
+    "question": "Сколько зарядов идёт в Tango?",
+    "options": [
+      "3 заряда",
+      "2 заряда",
+      "4 заряда",
+      "5 зарядов"
+    ],
+    "difficulty": "easy",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "Soul Ring",
+    "source": "soul_ring",
+    "question": "Сколько маны даёт активация Soul Ring?",
+    "answer": 170,
+    "unit": "маны",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Spirit Vessel",
+    "source": "spirit_vessel",
+    "question": "Сколько секунд действует эффект Soul Release от Spirit Vessel?",
+    "answer": 8,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Spirit Vessel",
+    "source": "spirit_vessel",
+    "question": "В каком радиусе Spirit Vessel получает дополнительные заряды при смерти врага?",
+    "answer": 1500,
+    "unit": "единиц",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Swift Blink",
+    "source": "swift_blink",
+    "question": "На сколько секунд Swift Blink становится неактивной после получения урона от врага?",
+    "answer": 3,
+    "unit": "сек.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "Tango",
+    "source": "tango",
+    "question": "Сколько секунд длится регенерация здоровья от Tango?",
+    "answer": 16,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "tranquil_boots",
+    "question": "На сколько снижается скорость передвижения Tranquil Boots при срабатывании Break?",
+    "options": [
+      "40",
+      "50",
+      "55",
+      "45"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "tranquil_boots",
+    "question": "Сколько длится эффект Break у Tranquil Boots после попадания или удара?",
+    "options": [
+      "13 сек.",
+      "10 сек.",
+      "15 сек.",
+      "12 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "tpscroll",
+    "question": "Какое минимальное расстояние для телепортации Town Portal Scroll?",
+    "options": [
+      "70",
+      "100",
+      "50",
+      "80"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "travel_boots_2",
+    "question": "На сколько секунд сокращено время канала Teleport у Boots of Travel 2 по сравнению со стандартным TP?",
+    "options": [
+      "1 сек.",
+      "0.5 сек.",
+      "1.5 сек.",
+      "2 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "travel_boots",
+    "question": "Какой откат на Town Portal Scroll дают Boots of Travel?",
+    "options": [
+      "40 сек.",
+      "50 сек.",
+      "35 сек.",
+      "45 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "trident",
+    "question": "Сколько процентов усиления регенерации здоровья и lifesteal даёт Trident?",
+    "options": [
+      "30%",
+      "25%",
+      "35%",
+      "40%"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "tome_of_knowledge",
+    "question": "Сколько опыта даёт каждый дополнительный Tome of Knowledge, потреблённый после первых двух?",
+    "options": [
+      "150",
+      "100",
+      "175",
+      "200"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "tango_single",
+    "question": "На сколько длится баф здоровья от Tango при использовании обычного дерева?",
+    "options": [
+      "16 сек.",
+      "20 сек.",
+      "12 сек.",
+      "14 сек."
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "travel_boots",
+    "question": "Сколько скорости передвижения даёт Boots of Travel?",
+    "answer": 90,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "tranquil_boots",
+    "question": "Сколько здоровья восстанавливают Tranquil Boots при активации heal?",
+    "answer": 250,
+    "unit": "ХП",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "tranquil_boots",
+    "question": "Сколько секунд длится эффект лечения Tranquil Boots?",
+    "answer": 20,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "tango_single",
+    "question": "Какова максимальная длительность баффа Tango при использовании Ironwood Tree?",
+    "answer": 32,
+    "unit": "сек.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "ultimate_orb",
+    "question": "Сколько всех атрибутов даёт Ultimate Orb?",
+    "answer": 15,
+    "unit": "ед.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "urn_of_shadows",
+    "question": "Сколько секунд длится эффект Soul Release от Urn of Shadows при активации на врага или союзника?",
+    "options": [
+      "8",
+      "10",
+      "6",
+      "12"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "vanguard",
+    "question": "Какой процент шанса блокировать урон даёт пассивная способность Vanguard?",
+    "options": [
+      "60",
+      "50",
+      "65",
+      "70"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "veil_of_discord",
+    "question": "Сколько секунд длится дебафф увеличенного магического урона от активной способности Veil of Discord?",
+    "options": [
+      "16",
+      "12",
+      "14",
+      "20"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "veil_of_discord",
+    "question": "Сколько процентов спеллового лайфстила даёт Veil of Discord?",
+    "options": [
+      "18",
+      "15",
+      "20",
+      "25"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "ward_sentry",
+    "question": "На каком расстоянии работает True Sight сентри варда?",
+    "options": [
+      "1050",
+      "1200",
+      "900",
+      "1600"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "urn_of_shadows",
+    "question": "Какой радиус сбора душ у Urn of Shadows?",
+    "options": [
+      "1500",
+      "1200",
+      "1600",
+      "2000"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "vladmir",
+    "question": "Сколько процентов лайфстила даёт аура Vladmir's Offering союзникам?",
+    "options": [
+      "20",
+      "15",
+      "25",
+      "18"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "veil_of_discord",
+    "question": "На сколько процентов увеличивается магический урон врагов в радиусе действия Veil of Discord?",
+    "answer": 10,
+    "unit": "%",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "urn_of_shadows",
+    "question": "Сколько урона в секунду наносит Soul Release от Urn of Shadows врагам?",
+    "answer": 25,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "vanguard",
+    "question": "Сколько урона блокирует Vanguard при попадании от дальника?",
+    "answer": 25,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "vladmir",
+    "question": "Сколько процентов бонуса урона даёт аура Vladmir's Offering?",
+    "answer": 18,
+    "unit": "%",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "voodoo_mask",
+    "question": "Сколько процентов спеллового лайфстила даёт Voodoo Mask?",
+    "answer": 15,
+    "unit": "%",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "wind_waker",
+    "question": "Сколько секунд длится эффект Cyclone от Wind Waker?",
+    "options": [
+      "2.5",
+      "2",
+      "3",
+      "3.5"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "Предмет",
+    "source": "wind_waker",
+    "question": "Какой урон наносит цель при приземлении из торнадо Wind Waker?",
+    "options": [
+      "50",
+      "40",
+      "60",
+      "75"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "witch_blade",
+    "question": "На сколько процентов замедляет Witch Blade атакующую цель?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "35"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "witch_blade",
+    "question": "Какой множитель интеллекта используется для урона яда Witch Blade?",
+    "options": [
+      "0.75",
+      "0.5",
+      "1.0",
+      "1.25"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "wraith_pact",
+    "question": "На сколько процентов Wraith Pact снижает урон врагов в меньшем радиусе активной ауры?",
+    "options": [
+      "30",
+      "25",
+      "35",
+      "40"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "yasha_and_kaya",
+    "question": "Какой бонус к скорости заклинаний даёт Yasha and Kaya?",
+    "options": [
+      "25",
+      "20",
+      "30",
+      "15"
+    ],
+    "difficulty": "hard",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "multiple_choice",
+    "topic": "предмет",
+    "source": "yasha_and_kaya",
+    "question": "На сколько процентов Yasha and Kaya усиливает регенерацию маны?",
+    "options": [
+      "40",
+      "30",
+      "50",
+      "35"
+    ],
+    "difficulty": "medium",
+    "answer": null,
+    "unit": null
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "wind_waker",
+    "question": "Какова скорость торнадо, когда вы движетесь на себе с Wind Waker?",
+    "answer": 300,
+    "unit": "ед.",
+    "difficulty": "medium",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "witch_blade",
+    "question": "Сколько секунд длится эффект яда от Witch Blade?",
+    "answer": 4,
+    "unit": "сек.",
+    "difficulty": "easy",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "wraith_pact",
+    "question": "Сколько урона в секунду наносил Wraith Pact враждебным юнитам в ауре?",
+    "answer": 45,
+    "unit": "ед.",
+    "difficulty": "hard",
+    "options": []
+  },
+  {
+    "type": "closest_number",
+    "topic": "предмет",
+    "source": "yasha",
+    "question": "Какой процент бонуса к скорости движения даёт Yasha?",
+    "answer": 10,
+    "unit": "%",
+    "difficulty": "medium",
+    "options": []
+  }
+]

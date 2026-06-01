@@ -14,6 +14,7 @@ interface PlayerWithBankBet extends Player {
 
 interface BribeAuctionState {
   price: number
+  cycleIndex: number       // 0 = first win turn, increments each time Завалит pays
   winQueue: string[]       // rotating Ответит (betTarget='win') player IDs
   loseQueue: string[]      // rotating Завалит (betTarget='lose') player IDs
   winIdx: number           // current position in winQueue (modular)
@@ -61,6 +62,11 @@ export class GameRoom extends EventEmitter {
 
   removePlayer(id: string) {
     this.players.delete(id)
+    if (this.phase === 'QUESTION' && this.currentMode === 'kerri' && id === this.gladiatorId) {
+      clearTimeout(this.phaseTimer)
+      this.advanceFromQuestion()
+      return
+    }
     this.broadcastState()
   }
 
@@ -159,6 +165,7 @@ export class GameRoom extends EventEmitter {
     } else {
       // Завалит paid → price escalates, move to next pair
       a.price += 25
+      a.cycleIndex++
       a.loseIdx++
       a.winIdx++
       a.waitingFor = 'win'
@@ -180,6 +187,8 @@ export class GameRoom extends EventEmitter {
             id: this.currentQuestion.id,
             mode: this.currentQuestion.mode,
             topic: this.currentQuestion.topic,
+            displayTopic: this.currentQuestion.displayTopic,
+            comment: this.currentQuestion.comment,
             text: this.currentQuestion.text,
             options: this.currentQuestion.options,
             items: this.currentQuestion.items,
@@ -200,7 +209,7 @@ export class GameRoom extends EventEmitter {
     const showAnswer =
       this.currentMode === 'kerri' &&
       playerId !== this.gladiatorId &&
-      (this.phase === 'BETTING' || this.phase === 'QUESTION_TEXT' || this.phase === 'QUESTION') &&
+      (this.phase === 'BETTING' || this.phase === 'QUESTION') &&
       this.currentQuestion?.answer !== undefined
     if (showAnswer) {
       base.gladiatorAnswer = this.currentQuestion!.answer
@@ -492,8 +501,8 @@ export class GameRoom extends EventEmitter {
     const queue = a.waitingFor === 'win' ? a.winQueue : a.loseQueue
     const idx = a.waitingFor === 'win' ? a.winIdx : a.loseIdx
     a.currentAsked = queue[idx % queue.length]
-    this.sendToPlayer(a.currentAsked, 'bribe_prompt', { amount: a.price })
-    a.timer = setTimeout(() => this.onBribeTimeout(), 7000)
+    this.sendToPlayer(a.currentAsked, 'bribe_prompt', { amount: a.price, cycleIndex: a.cycleIndex })
+    a.timer = setTimeout(() => this.onBribeTimeout(), 8000)
   }
 
   private onBribeTimeout() {
@@ -531,6 +540,7 @@ export class GameRoom extends EventEmitter {
     }
     this.bribeAuction = {
       price: 50,
+      cycleIndex: 0,
       winQueue: shuffle(winIds),
       loseQueue: shuffle(loseIds),
       winIdx: 0,

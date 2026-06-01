@@ -19,13 +19,18 @@ const MODE_DESCRIPTIONS: Record<string, string> = {
 // Spring preset that gives snappy entry without overshoot (no brightness flicker)
 const SPRING = { type: 'spring' as const, stiffness: 220, damping: 28 }
 
+const seenModes = new Set<string>()
+
 export function AnnounceScreen() {
   const gameState = useGameStore(s => s.gameState)!
   const [step, setStep] = useState<'mode' | 'topic'>('mode')
 
   useEffect(() => {
     setStep('mode')
-    const t = setTimeout(() => setStep('topic'), 4000)
+    const isFirst = !seenModes.has(gameState.mode)
+    seenModes.add(gameState.mode)
+    if (isFirst) return
+    const t = setTimeout(() => setStep('topic'), 5000)
     return () => clearTimeout(t)
   }, [gameState.phase])
 

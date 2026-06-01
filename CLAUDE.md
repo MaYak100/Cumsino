@@ -118,7 +118,7 @@ The betting phase uses a physical chip system on a round poker table (desktop on
 ### Phase flow
 
 ```
-LOBBY → ANNOUNCE (10s) → [BETTING (30s) →] QUESTION_TEXT (5s) → QUESTION (40s) → [2.5s reveal] → REVEAL (8s) → LEADERBOARD (5s) → [next round or GAME_OVER]
+LOBBY → ANNOUNCE (9s) → [BETTING (30s) →] QUESTION (45s) → [2.5s reveal] → REVEAL (14s) → [next round or GAME_OVER]
 ```
 
 `all` and `kerri` modes go through BETTING; `closest` skips BETTING (ANNOUNCE→QUESTION_TEXT directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. After all answer (or timer expires), `round_results` is broadcast immediately while phase stays QUESTION for 2.5s — clients show correct answer highlight — then transitions to REVEAL.

@@ -9,7 +9,6 @@ function refreshDynamic(state: ScenarioState): ScenarioState {
   return {
     ...state,
     ...(state.bribePrompt ? { bribePrompt: { ...state.bribePrompt, startedAt: now } } : {}),
-    ...(state.gladiatorBribeMsg ? { gladiatorBribeMsg: { ...state.gladiatorBribeMsg, key: now } } : {}),
   }
 }
 

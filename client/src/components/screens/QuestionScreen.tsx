@@ -25,11 +25,11 @@ export function QuestionScreen() {
   const payBribe = useGameStore(s => s.payBribe)
   const me = useGameStore(selectMe)
 
-  const [bribeTimeLeft, setBribeTimeLeft] = useState(7)
+  const [bribeTimeLeft, setBribeTimeLeft] = useState(8)
   useEffect(() => {
-    if (!bribePrompt) { setBribeTimeLeft(7); return }
+    if (!bribePrompt) { setBribeTimeLeft(8); return }
     const startedAt = bribePrompt.startedAt
-    const tick = () => setBribeTimeLeft(Math.max(0, 7 - (Date.now() - startedAt) / 1000))
+    const tick = () => setBribeTimeLeft(Math.max(0, 8 - (Date.now() - startedAt) / 1000))
     tick()
     const id = setInterval(tick, 100)
     return () => clearInterval(id)
@@ -124,16 +124,20 @@ export function QuestionScreen() {
               transition={{ duration: 0.3 }}
               className="mt-4 rounded-xl border border-red-500/60 bg-red-950/80 p-4 text-center"
             >
-              <div className="mb-1 text-base font-bold text-red-300">⚡ Срочно!</div>
+              <div className="mb-1 text-base font-bold text-red-300">Срочно!</div>
               <div className="mb-1 text-sm text-white">
                 {me?.betTarget === 'lose'
-                  ? <><b>Заплати {bribePrompt.amount}₽</b>, чтобы не упрощать жизнь керри!</>
-                  : <><b>Заплати {bribePrompt.amount}₽</b>, чтобы упростить жизнь керри!</>}
+                  ? <><b>Заплати {bribePrompt.amount}₽</b>, чтобы НЕ упрощать жизнь керри!</>
+                  : bribePrompt.cycleIndex > 0
+                    ? <><b>Упс, твою попытку отменили!</b> Заплати {bribePrompt.amount}₽, чтобы всё же упростить жизнь керри!</>
+                    : <><b>Заплати {bribePrompt.amount}₽</b>, чтобы упростить жизнь керри!</>}
               </div>
               <div className="mb-3 text-xs" style={{ color: '#c4c9d4' }}>
                 {me?.betTarget === 'lose'
-                  ? 'и мы не уберём 1 неправильный ответ для него, он будет страдать'
-                  : 'и мы уберём 1 неправильный ответ'}
+                  ? 'и мы НЕ уберём 1 неправильный ответ для него, он будет страдать'
+                  : bribePrompt.cycleIndex > 0
+                    ? 'и мы уберём 1 неправильный ответ, наверное...'
+                    : 'и мы уберём 1 неправильный ответ'}
               </div>
               <div className="flex items-center justify-center gap-3">
                 <span
@@ -147,7 +151,7 @@ export function QuestionScreen() {
                   disabled={(me?.chips ?? 0) < bribePrompt.amount || bribeTimeLeft <= 0}
                   className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-bold text-black hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
-                  Заплатить {bribePrompt.amount}₽
+                  {bribePrompt.amount}₽
                 </button>
               </div>
             </motion.div>
