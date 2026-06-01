@@ -15,6 +15,7 @@ import { useGameStore } from '../store/gameStore'
 type GameStoreState = ReturnType<typeof useGameStore.getState>
 export type ScenarioState = Partial<Omit<GameStoreState,
   'connect' | 'setPendingTarget' | 'submitAnswer' | 'sendHover' | 'startGame' | 'reset'
+  | 'payBribe' | 'clearGladiatorBribeMsg'
 >>
 
 export interface Scenario {
@@ -305,6 +306,84 @@ export const SCENARIOS: Scenario[] = [
       myId: MY_ID,
       gameState: base('QUESTION', 'closest', { currentQuestion: CN_QUESTION, players: BET_PLAYERS }),
       roundCorrectAnswer: 2250,
+    },
+  },
+
+  // ── QUESTION — bribe event ──
+  {
+    id: 'question-kerri-crowd-bribe-win',
+    group: 'QUESTION',
+    label: 'kerri — взятка (Ответит)',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'kerri', {
+        currentQuestion: MC_QUESTION,
+        gladiatorId: 'dev-2',
+        gladiatorAnswer: MC_QUESTION.options[0],
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betTarget: 'win',  hasAnswered: false },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0,   hasAnswered: false },
+          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, betTarget: 'lose', hasAnswered: false },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 100, betTarget: 'win',  hasAnswered: false },
+        ],
+      }),
+      bribePrompt: { amount: 50, startedAt: 0 },
+      roundCorrectAnswer: null,
+    },
+  },
+  {
+    id: 'question-kerri-crowd-bribe-lose',
+    group: 'QUESTION',
+    label: 'kerri — взятка (Завалит)',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'kerri', {
+        currentQuestion: MC_QUESTION,
+        gladiatorId: 'dev-2',
+        gladiatorAnswer: MC_QUESTION.options[0],
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betTarget: 'lose', hasAnswered: false },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0,   hasAnswered: false },
+          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, betTarget: 'win',  hasAnswered: false },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 100, betTarget: 'lose', hasAnswered: false },
+        ],
+      }),
+      bribePrompt: { amount: 75, startedAt: 0 },
+      roundCorrectAnswer: null,
+    },
+  },
+  {
+    id: 'question-kerri-gladiator-eliminated',
+    group: 'QUESTION',
+    label: 'керри — гладиатор + убранный вариант',
+    Screen: GladiatorSelfScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'kerri', {
+        currentQuestion: MC_QUESTION,
+        gladiatorId: 'dev-1',
+        players: BET_PLAYERS,
+      }),
+      bribeEliminatedIdx: 2,
+      roundCorrectAnswer: null,
+    },
+  },
+  {
+    id: 'question-kerri-gladiator-bribe-msg',
+    group: 'QUESTION',
+    label: 'керри — гладиатор + сообщение',
+    Screen: GladiatorSelfScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'kerri', {
+        currentQuestion: MC_QUESTION,
+        gladiatorId: 'dev-1',
+        players: BET_PLAYERS,
+      }),
+      gladiatorBribeMsg: { type: 'helping' as const, key: 0 },
+      roundCorrectAnswer: null,
     },
   },
 

@@ -4,6 +4,15 @@ import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
 import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
 
+function refreshDynamic(state: ScenarioState): ScenarioState {
+  const now = Date.now()
+  return {
+    ...state,
+    ...(state.bribePrompt ? { bribePrompt: { ...state.bribePrompt, startedAt: now } } : {}),
+    ...(state.gladiatorBribeMsg ? { gladiatorBribeMsg: { ...state.gladiatorBribeMsg, key: now } } : {}),
+  }
+}
+
 const GROUPS = [...new Set(SCENARIOS.map(s => s.group))]
 
 function applyCount(scenario: Scenario, count: number): ScenarioState {
@@ -24,7 +33,7 @@ export function DevPage() {
   const [playerCount, setPlayerCount] = useState(4)
 
   function activate(scenario: Scenario, count = playerCount) {
-    useGameStore.setState(applyCount(scenario, count))
+    useGameStore.setState(refreshDynamic(applyCount(scenario, count)))
     setActiveId(scenario.id)
     setCollapsed(true)
   }
@@ -32,7 +41,7 @@ export function DevPage() {
   function changeCount(count: number) {
     setPlayerCount(count)
     const active = SCENARIOS.find(s => s.id === activeId)
-    if (active) useGameStore.setState(applyCount(active, count))
+    if (active) useGameStore.setState(refreshDynamic(applyCount(active, count)))
   }
 
   const active = SCENARIOS.find(s => s.id === activeId)
