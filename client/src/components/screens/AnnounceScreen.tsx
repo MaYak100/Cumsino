@@ -29,8 +29,7 @@ export function AnnounceScreen() {
     setStep('mode')
     const isFirst = !seenModes.has(gameState.mode)
     seenModes.add(gameState.mode)
-    if (isFirst) return
-    const t = setTimeout(() => setStep('topic'), 5000)
+    const t = setTimeout(() => setStep('topic'), isFirst ? 7000 : 5000)
     return () => clearTimeout(t)
   }, [gameState.phase])
 

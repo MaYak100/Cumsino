@@ -38,6 +38,7 @@ export class GameRoom extends EventEmitter {
   private selector: RoundSelector
   private questionPicker: (mode: GameMode) => Question
   private bettingConfirmedIds = new Set<string>()
+  private seenModes = new Set<string>()
   private bribeConditionCount = 0   // kerri rounds where both win+lose bettors existed
   private bribeEverFired = false
   private bribeAuction: BribeAuctionState | null = null
@@ -61,12 +62,13 @@ export class GameRoom extends EventEmitter {
   }
 
   removePlayer(id: string) {
-    this.players.delete(id)
     if (this.phase === 'QUESTION' && this.currentMode === 'kerri' && id === this.gladiatorId) {
       clearTimeout(this.phaseTimer)
       this.advanceFromQuestion()
+      this.players.delete(id)
       return
     }
+    this.players.delete(id)
     this.broadcastState()
   }
 
@@ -236,7 +238,9 @@ export class GameRoom extends EventEmitter {
       p.bankBet = undefined
     }
 
-    this.schedulePhase('ANNOUNCE', PHASE_DURATIONS['ANNOUNCE']!)
+    const isFirstMode = !this.seenModes.has(mode)
+    this.seenModes.add(mode)
+    this.schedulePhase('ANNOUNCE', PHASE_DURATIONS['ANNOUNCE']! + (isFirstMode ? 3 : 0))
   }
 
   private schedulePhase(phase: GamePhase, seconds: number) {

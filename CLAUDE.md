@@ -215,6 +215,7 @@ Dota 2 вопросы. Источник данных — GitHub-зеркало O
 
 ## Deployment
 
-- **Server:** Render.com free tier. `render.yaml` at repo root. Build: `npm install && npm run build --workspace=shared && npm run build --workspace=server`. Shared must build first.
-- **Client:** GitHub Actions → GitHub Pages. `.github/workflows/deploy.yml` triggers on push to `main` when `client/**` or `shared/**` change. Set `VITE_SERVER_URL` secret in GitHub repo settings.
-- Render.com free tier sleeps after 15 min idle — open the site ~30s before playing.
+- **Server:** Render.com free tier, Frankfurt region. Service name: `Cumsino`, URL: `https://cumsino.onrender.com`. Build: `npm install && npm run build --workspace=shared && npm run build --workspace=server`. Start: `npm run start --workspace=server`. Env vars: `NODE_ENV=production`, `PORT=10000`, `CLIENT_ORIGIN=https://mayak100.github.io`. render.yaml exists at `server/render.yaml` but was configured manually on first deploy.
+- **Client:** GitHub Actions → GitHub Pages. `.github/workflows/deploy.yml` triggers on push to `main` when `client/**` or `shared/**` change (also supports `workflow_dispatch` for manual trigger). Repo secret: `VITE_SERVER_URL=https://cumsino.onrender.com`. Published to: `https://mayak100.github.io/Cumsino/`. Vite base: `/Cumsino/` (case-sensitive — must match repo name exactly).
+- **Git:** local branch is `master`, remote is `main`. Push with `git push origin HEAD:main`. To fix permanently: `git branch -m master main && git branch --set-upstream-to=origin/main main`.
+- Render.com free tier sleeps after 15 min idle — just open the site ~30s before playing (socket connection on page load wakes it up).

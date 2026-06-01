@@ -20,8 +20,6 @@ export function JoinScreen() {
         }}>
           ♠ CUMSINO ♠
         </h1>
-        <p className="text-center text-gray-400 mb-8 text-sm">Викторина со ставками</p>
-
         <form onSubmit={handleJoin} className="space-y-4">
           <div>
             <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">

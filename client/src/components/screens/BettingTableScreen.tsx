@@ -14,6 +14,7 @@ import {
   FELT_CX, FELT_CY,
   OUTER_RX, OUTER_RY,
   SCENE_W, SCENE_H,
+  useSceneScale,
 } from '../../lib/tableGeometry'
 
 // Zone layout constants — positions in scene coord space
@@ -56,6 +57,7 @@ export function BettingTableScreen() {
   const isGladiator = useGameStore(selectIsGladiator)
   const stagedBets  = useGameStore(s => s.stagedBets)
 
+  const sceneScale = useSceneScale()
   const [myStack, setMyStack]         = useState<PhysicalChip[]>([])
   const [betConfirmed, setBetConfirmed] = useState(false)
 
@@ -246,18 +248,23 @@ export function BettingTableScreen() {
   return (
     <div
       style={{
-        minHeight: '100vh',
+        position: 'relative',
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
         background: 'radial-gradient(ellipse at 50% 35%, #1c1600 0%, #060606 70%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 10,
         userSelect: 'none',
       }}
     >
       {/* Table scene */}
-      <div style={{ width: SCENE_W, height: SCENE_H, flexShrink: 0, position: 'relative' }}>
+      <div style={{
+        position: 'absolute',
+        width: SCENE_W,
+        height: SCENE_H,
+        left: '50%',
+        top: '50%',
+        transform: `translate(-50%, -50%) scale(${sceneScale})`,
+      }}>
         <LayoutGroup>
           <div style={{ width: SCENE_W, height: SCENE_H, position: 'relative' }}>
 

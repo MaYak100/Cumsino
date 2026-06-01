@@ -5,6 +5,7 @@ import {
   FELT_CX, FELT_CY,
   OUTER_RX, OUTER_RY,
   SCENE_W, SCENE_H,
+  useSceneScale,
 } from '../../lib/tableGeometry'
 import { UNIT_W, CHIP_ROW_H, BALANCE_H, UNIT_H } from './PlayerSlot'
 
@@ -23,6 +24,7 @@ interface Props {
 export function TableFelt({ blurred }: Props) {
   const gameState = useGameStore(s => s.gameState)
   const myId = useGameStore(s => s.myId)
+  const scale = useSceneScale()
 
   if (!gameState) return null
 
@@ -43,13 +45,18 @@ export function TableFelt({ blurred }: Props) {
         position: 'absolute',
         inset: 0,
         pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        overflow: 'hidden',
         zIndex: 0,
       }}
     >
-      <div style={{ position: 'relative', width: SCENE_W, height: SCENE_H }}>
+      <div style={{
+        position: 'absolute',
+        width: SCENE_W,
+        height: SCENE_H,
+        left: '50%',
+        top: '50%',
+        transform: `translate(-50%, -50%) scale(${scale})`,
+      }}>
         {/* Green felt ellipse */}
         <div
           style={{

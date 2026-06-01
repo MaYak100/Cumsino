@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 export const FELT_CX = 650
 export const FELT_CY = 415
 export const FELT_RX = 380
@@ -9,6 +11,17 @@ export const CARD_GAP_X = 45
 export const CARD_GAP_Y = 45
 export const SCENE_W = 1300
 export const SCENE_H = 820
+
+export function useSceneScale(): number {
+  const compute = () => Math.min(1, window.innerWidth / SCENE_W, window.innerHeight / SCENE_H)
+  const [scale, setScale] = useState(compute)
+  useEffect(() => {
+    const handler = () => setScale(compute())
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
+  return scale
+}
 
 export function playerAngle(i: number, N: number): number {
   return Math.PI / 2 + i * (2 * Math.PI / N)
