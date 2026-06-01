@@ -42,6 +42,10 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
     engine.getRoom(socket.id)?.stageChip(socket.id, chips)
   })
 
+  socket.on('pay_bribe', () => {
+    engine.getRoom(socket.id)?.payBribe(socket.id)
+  })
+
   socket.on('disconnect', () => {
     engine.leaveRoom(socket.id)
   })
