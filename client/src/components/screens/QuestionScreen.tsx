@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion'
-import { useGameStore, selectIsGladiator } from '../../store/gameStore'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useGameStore, selectIsGladiator, selectMe } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D']
@@ -20,6 +21,19 @@ export function QuestionScreen() {
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const sendHover = useGameStore(s => s.sendHover)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
+  const bribePrompt = useGameStore(s => s.bribePrompt)
+  const payBribe = useGameStore(s => s.payBribe)
+  const me = useGameStore(selectMe)
+
+  const [bribeTimeLeft, setBribeTimeLeft] = useState(7)
+  useEffect(() => {
+    if (!bribePrompt) { setBribeTimeLeft(7); return }
+    const startedAt = bribePrompt.startedAt
+    const tick = () => setBribeTimeLeft(Math.max(0, 7 - (Date.now() - startedAt) / 1000))
+    tick()
+    const id = setInterval(tick, 100)
+    return () => clearInterval(id)
+  }, [bribePrompt])
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const options = gameState.currentQuestion?.options ?? []
@@ -99,6 +113,46 @@ export function QuestionScreen() {
             )
           })}
         </div>
+
+        <AnimatePresence>
+          {bribePrompt && isGladiatorMode && !isGladiator && (
+            <motion.div
+              key="bribe-prompt"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
+              transition={{ duration: 0.3 }}
+              className="mt-4 rounded-xl border border-red-500/60 bg-red-950/80 p-4 text-center"
+            >
+              <div className="mb-1 text-base font-bold text-red-300">⚡ Срочно!</div>
+              <div className="mb-1 text-sm text-white">
+                {me?.betTarget === 'lose'
+                  ? <><b>Заплати {bribePrompt.amount}₽</b>, чтобы не упрощать жизнь керри!</>
+                  : <><b>Заплати {bribePrompt.amount}₽</b>, чтобы упростить жизнь керри!</>}
+              </div>
+              <div className="mb-3 text-xs" style={{ color: '#c4c9d4' }}>
+                {me?.betTarget === 'lose'
+                  ? 'и мы не уберём 1 неправильный ответ для него, он будет страдать'
+                  : 'и мы уберём 1 неправильный ответ'}
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <span
+                  className="font-mono text-xl font-bold w-8 text-right"
+                  style={{ color: bribeTimeLeft <= 2 ? '#f87171' : '#fbbf24' }}
+                >
+                  {Math.ceil(bribeTimeLeft)}
+                </span>
+                <button
+                  onClick={payBribe}
+                  disabled={(me?.chips ?? 0) < bribePrompt.amount || bribeTimeLeft <= 0}
+                  className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-bold text-black hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                >
+                  Заплатить {bribePrompt.amount}₽
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {showingCorrect ? (
           <>
