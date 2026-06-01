@@ -5,3 +5,10 @@ shared/dist/
 *.env
 .env.local
 .superpowers/
+docs/superpowers/
+.claude/
+.playwright-mcp/
+
+# Сырьё и архивы (не нужны для запуска)
+scripts/data/*.json
+scripts/data/active_questions_batch*.json
