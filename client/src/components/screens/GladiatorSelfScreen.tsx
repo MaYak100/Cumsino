@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
 
@@ -18,13 +19,26 @@ export function GladiatorSelfScreen() {
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const sendHover = useGameStore(s => s.sendHover)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
+  const bribeEliminatedIdx = useGameStore(s => s.bribeEliminatedIdx)
+  const gladiatorBribeMsg = useGameStore(s => s.gladiatorBribeMsg)
+  const clearGladiatorBribeMsg = useGameStore(s => s.clearGladiatorBribeMsg)
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const options = gameState.currentQuestion?.options ?? []
   const showingCorrect = typeof roundCorrectAnswer === 'string' && roundCorrectAnswer !== null
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ position: 'relative' }}>
+      <AnimatePresence>
+        {gladiatorBribeMsg && (
+          <DiagonalMessage
+            key={gladiatorBribeMsg.key}
+            type={gladiatorBribeMsg.type}
+            onDone={clearGladiatorBribeMsg}
+          />
+        )}
+      </AnimatePresence>
+
       <Timer seconds={gameState.phaseTimeLeft} />
 
       <div className="w-full max-w-lg mt-4">
@@ -38,22 +52,24 @@ export function GladiatorSelfScreen() {
         <div className="grid grid-cols-2 gap-3">
           {options.map((option, idx) => {
             const isCorrect = showingCorrect && option === roundCorrectAnswer
+            const isEliminated = !showingCorrect && bribeEliminatedIdx === idx
             return (
               <motion.button
                 key={idx}
-                onMouseEnter={() => { if (!showingCorrect) sendHover(idx) }}
+                onMouseEnter={() => { if (!showingCorrect && !isEliminated) sendHover(idx) }}
                 onMouseLeave={() => sendHover(null)}
-                onClick={() => !myAnswered && !showingCorrect && submitAnswer(option)}
-                disabled={myAnswered || showingCorrect}
-                whileHover={!myAnswered && !showingCorrect ? { scale: 1.02 } : {}}
+                onClick={() => !myAnswered && !showingCorrect && !isEliminated && submitAnswer(option)}
+                disabled={myAnswered || showingCorrect || isEliminated}
+                whileHover={!myAnswered && !showingCorrect && !isEliminated ? { scale: 1.02 } : {}}
                 className={`
                   p-4 rounded-xl border-2 text-left transition-colors
                   ${isCorrect
                     ? 'border-green-400 bg-[#0a3a1a] shadow-[0_0_20px_rgba(74,222,128,0.4)]'
                     : `bg-[#1a3a1a] ${OPTION_BORDER_COLORS[idx]}`
                   }
+                  ${isEliminated ? 'opacity-30 cursor-not-allowed line-through' : ''}
                   ${showingCorrect && !isCorrect ? 'opacity-40 cursor-not-allowed' : ''}
-                  ${!showingCorrect && (myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]')}
+                  ${!showingCorrect && !isEliminated && (myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]')}
                 `}
               >
                 <div className="flex items-center gap-3">
@@ -99,5 +115,41 @@ export function GladiatorSelfScreen() {
         ) : null}
       </div>
     </div>
+  )
+}
+
+const BRIBE_MSG_TEXTS: Record<string, string> = {
+  helping: 'Не торопись, тебе пытаются помочь',
+  betrayed: 'Тебя кинули, решай сам',
+  helped: 'Тебе помогли!',
+}
+
+function DiagonalMessage({ type, onDone }: { type: string; onDone: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDone, 2500)
+    return () => clearTimeout(t)
+  }, [onDone])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -24, scale: 0.85 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.7 }}
+      transition={{ duration: 0.35 }}
+      style={{
+        position: 'absolute',
+        top: '20%',
+        left: '50%',
+        transform: 'translateX(-50%) rotate(-8deg)',
+        transformOrigin: 'center center',
+        pointerEvents: 'none',
+        zIndex: 10,
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <span style={{ color: 'white', fontWeight: 700, fontSize: '1.2rem', textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}>
+        {BRIBE_MSG_TEXTS[type] ?? type}
+      </span>
+    </motion.div>
   )
 }
