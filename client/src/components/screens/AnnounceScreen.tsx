@@ -31,7 +31,7 @@ export function AnnounceScreen() {
 
   const modeName = MODE_NAMES[gameState.mode] ?? gameState.mode
   const modeDesc = MODE_DESCRIPTIONS[gameState.mode] ?? ''
-  const topic = gameState.currentQuestion?.topic ?? ''
+  const topic = gameState.currentQuestion?.displayTopic ?? gameState.currentQuestion?.topic ?? ''
 
   return (
     <div style={{
@@ -144,6 +144,7 @@ export function AnnounceScreen() {
             >
               {topic}
             </motion.div>
+
           </motion.div>
         )}
 

@@ -220,6 +220,7 @@ export function RoundResultsScreen() {
         Раунд {gameState.roundIndex}
       </motion.div>
 
+
       <LayoutGroup>
         <div style={{
           width: '100%',

@@ -36,6 +36,8 @@ export interface Question {
   id: string
   mode: GameMode
   topic: string
+  displayTopic?: string
+  comment?: string
   text: string
   options?: string[]
   answer?: string

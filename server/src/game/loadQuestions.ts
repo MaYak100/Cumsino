@@ -7,6 +7,10 @@ interface RawMCQuestion {
   topic: string
   question: string
   options: string[]
+  heroName?: string
+  source?: string
+  subcategory?: string
+  comment?: string
 }
 
 interface RawCNQuestion {
@@ -14,9 +18,23 @@ interface RawCNQuestion {
   topic: string
   question: string
   answer: number
+  heroName?: string
+  source?: string
+  comment?: string
 }
 
 let idCounter = 0
+
+function toTitleCase(s: string): string {
+  return s.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+}
+
+function computeDisplayTopic(raw: RawMCQuestion | RawCNQuestion): string {
+  if (raw.heroName) return raw.heroName
+  if ('subcategory' in raw && raw.subcategory) return raw.subcategory
+  if (raw.source && raw.topic !== 'Цена') return toTitleCase(raw.source)
+  return raw.topic
+}
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -81,6 +99,8 @@ export function createQuestionPicker(): (mode: GameMode) => Question {
         id: `mc_${idCounter++}`,
         mode,
         topic: raw.topic,
+        displayTopic: computeDisplayTopic(raw),
+        comment: raw.comment,
         text: raw.question,
         options: shuffled,
         answer: correct,
@@ -91,6 +111,8 @@ export function createQuestionPicker(): (mode: GameMode) => Question {
         id: `cn_${idCounter++}`,
         mode: 'closest',
         topic: raw.topic,
+        displayTopic: computeDisplayTopic(raw),
+        comment: raw.comment,
         text: raw.question,
         numericAnswer: raw.answer,
       }

@@ -74,13 +74,26 @@ export function GladiatorSelfScreen() {
         </div>
 
         {showingCorrect ? (
-          <motion.p
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center text-green-400 mt-4 text-sm"
-          >
-            Правильный ответ: {roundCorrectAnswer}
-          </motion.p>
+          <>
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center text-green-400 mt-4 text-sm"
+            >
+              Правильный ответ: {roundCorrectAnswer}
+            </motion.p>
+            {gameState.currentQuestion?.comment && (
+              <motion.p
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="text-center mt-2 text-sm"
+                style={{ color: '#c4c9d4' }}
+              >
+                {gameState.currentQuestion.comment}
+              </motion.p>
+            )}
+          </>
         ) : myAnswered ? (
           <p className="text-center text-green-400 mt-4 text-sm">✓ Ответ отправлен</p>
         ) : null}

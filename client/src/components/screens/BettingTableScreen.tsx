@@ -321,7 +321,7 @@ export function BettingTableScreen() {
                   textShadow: '0 0 24px rgba(251,191,36,0.45)',
                   marginBottom: 21,
                 }}>
-                  {gameState.currentQuestion.topic}
+                  {gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic}
                 </div>
                 <div style={{ fontSize: 13, color: '#e5e7eb' }}>
                   Ставьте ставку на то, что ответите верно
