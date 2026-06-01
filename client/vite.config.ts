@@ -12,5 +12,5 @@ export default defineConfig({
   server: {
     port: 5173,
   },
-  base: '/cumsino/',
+  base: '/Cumsino/',
 })
