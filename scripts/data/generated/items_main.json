@@ -2226,8 +2226,8 @@
     "question": "Какой множитель крита у Revenant's Brooch?",
     "options": [
       "80%",
-      "70%",
-      "90%",
+      "220%",
+      "120%",
       "100%"
     ],
     "difficulty": "hard",
@@ -2241,7 +2241,7 @@
     "question": "Какой бонус spell amplification дает Divine Rapier в режиме Transmute?",
     "options": [
       "25%",
-      "20%",
+      "50%",
       "30%",
       "15%"
     ],
@@ -2253,11 +2253,11 @@
     "type": "multiple_choice",
     "topic": "предмет",
     "source": "quelling_blade",
-    "question": "На какое расстояние Quelling Blade может срубить дерево?",
+    "question": "На какое расстояние Quelling Blade может срубить дерево? еще бы вы не знали...",
     "options": [
       "350",
-      "300",
-      "400",
+      "200",
+      "575",
       "450"
     ],
     "difficulty": "hard",
@@ -2278,7 +2278,7 @@
     "type": "closest_number",
     "topic": "предмет",
     "source": "radiance",
-    "question": "Какой процент эвэйшена дает Radiance?",
+    "question": "Какой процент уклонения дает Radiance?",
     "answer": 25,
     "unit": "%",
     "difficulty": "medium",
@@ -2348,12 +2348,12 @@
     "type": "multiple_choice",
     "topic": "предмет",
     "source": "satanic",
-    "question": "На сколько процентов увеличивается урвоемкость во время активации Unholy Rage у Satanic?",
+    "question": "На сколько процентов увеличивается лайвстил во время активации Unholy Rage у Satanic?",
     "options": [
       "175%",
-      "145%",
-      "160%",
-      "185%"
+      "100%",
+      "125%",
+      "75%"
     ],
     "difficulty": "hard",
     "answer": null,
@@ -2381,9 +2381,9 @@
     "question": "Сколько силы даёт Sange?",
     "options": [
       "16",
-      "18",
+      "12",
       "14",
-      "20"
+      "10"
     ],
     "difficulty": "medium",
     "answer": null,
@@ -2398,7 +2398,7 @@
       "35%",
       "40%",
       "30%",
-      "45%"
+      "50%"
     ],
     "difficulty": "hard",
     "answer": null,
@@ -2411,8 +2411,8 @@
     "question": "Какой бонус к чистой скорости атаки даёт Sange and Yasha?",
     "options": [
       "20",
-      "25",
-      "15",
+      "16",
+      "24",
       "18"
     ],
     "difficulty": "medium",
@@ -2427,8 +2427,8 @@
     "options": [
       "6",
       "5",
-      "7",
-      "8"
+      "3",
+      "4"
     ],
     "difficulty": "easy",
     "answer": null,
@@ -2491,24 +2491,9 @@
     "question": "На сколько секунд Scythe of Vyse превращает врага в овечку?",
     "options": [
       "2.8",
-      "2.5",
-      "3.0",
-      "3.5"
-    ],
-    "difficulty": "medium",
-    "answer": null,
-    "unit": null
-  },
-  {
-    "type": "multiple_choice",
-    "topic": "предмет",
-    "source": "shivas_guard",
-    "question": "Какое замедление атаки наносит аура Shiva's Guard врагам в её радиусе?",
-    "options": [
-      "-45",
-      "-40",
-      "-50",
-      "-35"
+      "2.4",
+      "2.0",
+      "3.2"
     ],
     "difficulty": "medium",
     "answer": null,
@@ -2521,7 +2506,7 @@
     "question": "На сколько секунд Silver Edge отключает пассивные способности врага при удаче из Shadow Walk?",
     "options": [
       "5",
-      "4",
+      "8",
       "6",
       "7"
     ],
@@ -2538,7 +2523,7 @@
       "-50",
       "-40",
       "-25",
-      "-60"
+      "-75"
     ],
     "difficulty": "hard",
     "answer": null,
@@ -2551,8 +2536,8 @@
     "question": "Сколько процентов бонуса к скорости передвижения даёт Smoke of Deceit?",
     "options": [
       "15",
-      "20",
-      "10",
+      "35",
+      "50",
       "25"
     ],
     "difficulty": "hard",
@@ -2566,9 +2551,9 @@
     "question": "Какой бонус к скорости атаки даёт Solar Crest союзнику при активации?",
     "options": [
       "60",
-      "50",
-      "70",
-      "80"
+      "40",
+      "35",
+      "100"
     ],
     "difficulty": "medium",
     "answer": null,
@@ -2676,9 +2661,9 @@
     "question": "Какой процент урона наносят дополнительные снаряды Splitshot от Specialist's Array?",
     "options": [
       "75%",
-      "80%",
+      "30%",
       "85%",
-      "70%"
+      "50%"
     ],
     "difficulty": "hard",
     "answer": null,
@@ -2750,25 +2735,10 @@
     "source": "swift_blink",
     "question": "На какое расстояние можно телепортироваться с помощью Swift Blink?",
     "options": [
+      "1400 единиц",
       "1200 единиц",
-      "1100 единиц",
       "1300 единиц",
       "1000 единиц"
-    ],
-    "difficulty": "easy",
-    "answer": null,
-    "unit": null
-  },
-  {
-    "type": "multiple_choice",
-    "topic": "Tango",
-    "source": "tango",
-    "question": "Сколько зарядов идёт в Tango?",
-    "options": [
-      "3 заряда",
-      "2 заряда",
-      "4 заряда",
-      "5 зарядов"
     ],
     "difficulty": "easy",
     "answer": null,
@@ -2846,7 +2816,7 @@
     "question": "Сколько длится эффект Break у Tranquil Boots после попадания или удара?",
     "options": [
       "13 сек.",
-      "10 сек.",
+      "14 сек.",
       "15 сек.",
       "12 сек."
     ],
@@ -2861,9 +2831,9 @@
     "question": "Какое минимальное расстояние для телепортации Town Portal Scroll?",
     "options": [
       "70",
-      "100",
-      "50",
-      "80"
+      "200",
+      "450",
+      "0"
     ],
     "difficulty": "hard",
     "answer": null,
