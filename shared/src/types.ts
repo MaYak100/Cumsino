@@ -89,3 +89,10 @@ export interface RoundResultsPayload {
 }
 export interface GameOverPayload { winner: Player }
 export interface ChipStagedPayload { playerId: string; chips: number[] }
+
+export interface BribePromptPayload { amount: number }
+export interface BribePromptCancelPayload { dummy?: never }
+export interface BribeMsgPayload {
+  type: 'helping' | 'betrayed' | 'helped'
+  eliminatedOptionIndex?: number
+}
