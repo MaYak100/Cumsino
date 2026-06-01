@@ -12,6 +12,17 @@ interface PlayerWithBankBet extends Player {
   bankBet?: { optionIndex: number; amount: number }
 }
 
+interface BribeAuctionState {
+  price: number
+  winQueue: string[]       // rotating Ответит (betTarget='win') player IDs
+  loseQueue: string[]      // rotating Завалит (betTarget='lose') player IDs
+  winIdx: number           // current position in winQueue (modular)
+  loseIdx: number          // current position in loseQueue (modular)
+  waitingFor: 'win' | 'lose'
+  currentAsked: string
+  timer: ReturnType<typeof setTimeout> | null
+}
+
 export class GameRoom extends EventEmitter {
   readonly id: string
   private players: Map<string, PlayerWithBankBet> = new Map()
@@ -26,6 +37,9 @@ export class GameRoom extends EventEmitter {
   private selector: RoundSelector
   private questionPicker: (mode: GameMode) => Question
   private bettingConfirmedIds = new Set<string>()
+  private bribeConditionCount = 0   // kerri rounds where both win+lose bettors existed
+  private bribeEverFired = false
+  private bribeAuction: BribeAuctionState | null = null
 
   constructor(id: string, questionPicker: (mode: GameMode) => Question) {
     super()
@@ -52,6 +66,7 @@ export class GameRoom extends EventEmitter {
 
   destroy() {
     clearTimeout(this.phaseTimer)
+    this.clearBribeAuction()
   }
 
   start(requesterId: string) {
@@ -126,6 +141,31 @@ export class GameRoom extends EventEmitter {
     this.broadcastExcept(playerId, 'gladiator_hovering', { optionIndex })
   }
 
+  payBribe(playerId: string) {
+    const a = this.bribeAuction
+    if (!a || this.phase !== 'QUESTION' || this.currentMode !== 'kerri') return
+    if (a.currentAsked !== playerId) return
+    const player = this.players.get(playerId)
+    if (!player || player.chips < a.price) return
+
+    player.chips -= a.price
+    clearTimeout(a.timer!)
+    a.timer = null
+
+    if (a.waitingFor === 'win') {
+      this.sendToGladiator('bribe_msg', { type: 'helping' })
+      a.waitingFor = 'lose'
+    } else {
+      // Завалит paid → price escalates, move to next pair
+      a.price += 25
+      a.loseIdx++
+      a.winIdx++
+      a.waitingFor = 'win'
+    }
+    this.broadcastState()  // reflect chip deduction immediately
+    this.askBribePlayer()
+  }
+
   getPublicState(): GameState {
     const timeLeft = Math.max(0, Math.ceil((this.phaseEndTime - Date.now()) / 1000))
     return {
@@ -195,6 +235,9 @@ export class GameRoom extends EventEmitter {
     this.phaseEndTime = Date.now() + seconds * 1000
     this.broadcastState()
     this.phaseTimer = setTimeout(() => this.onPhaseEnd(), seconds * 1000)
+    if (phase === 'QUESTION' && this.currentMode === 'kerri') {
+      this.checkAndStartBribeEvent()
+    }
   }
 
   private onPhaseEnd() {
@@ -231,6 +274,7 @@ export class GameRoom extends EventEmitter {
   }
 
   private advanceFromQuestion() {
+    this.clearBribeAuction()
     const results = this.calculateResults()
     this.applyDeltas(results)
     this.broadcastState()
@@ -424,5 +468,97 @@ export class GameRoom extends EventEmitter {
     for (const [playerId] of this.players) {
       this.emit('sendToPlayer', { playerId, event: 'game_state', data: this.getStateForPlayer(playerId) })
     }
+  }
+
+  private sendToPlayer(playerId: string, event: string, data: unknown) {
+    this.emit('sendToPlayer', { playerId, event, data })
+  }
+
+  private sendToGladiator(event: string, data: unknown) {
+    if (this.gladiatorId) this.sendToPlayer(this.gladiatorId, event, data)
+  }
+
+  private clearBribeAuction() {
+    if (!this.bribeAuction) return
+    if (this.bribeAuction.timer) clearTimeout(this.bribeAuction.timer)
+    this.sendToPlayer(this.bribeAuction.currentAsked, 'bribe_prompt_cancel', {})
+    this.bribeAuction = null
+  }
+
+  private askBribePlayer() {
+    const a = this.bribeAuction
+    if (!a) return
+    const queue = a.waitingFor === 'win' ? a.winQueue : a.loseQueue
+    const idx = a.waitingFor === 'win' ? a.winIdx : a.loseIdx
+    a.currentAsked = queue[idx % queue.length]
+    this.sendToPlayer(a.currentAsked, 'bribe_prompt', { amount: a.price })
+    a.timer = setTimeout(() => this.onBribeTimeout(), 7000)
+  }
+
+  private onBribeTimeout() {
+    const a = this.bribeAuction
+    if (!a) return
+    this.bribeAuction = null  // null first to prevent double-cancel in clearBribeAuction
+    this.sendToPlayer(a.currentAsked, 'bribe_prompt_cancel', {})
+
+    if (a.waitingFor === 'win') {
+      // Ответит didn't pay → gladiator betrayed
+      this.sendToGladiator('bribe_msg', { type: 'betrayed' })
+    } else {
+      // Завалит didn't pay → eliminate a random wrong option for gladiator
+      let eliminatedOptionIndex: number | undefined
+      const q = this.currentQuestion
+      if (q?.options && q.answer) {
+        const correctIdx = q.options.indexOf(q.answer as string)
+        const wrongIdxs = q.options.map((_, i) => i).filter(i => i !== correctIdx)
+        if (wrongIdxs.length > 0) {
+          eliminatedOptionIndex = wrongIdxs[Math.floor(Math.random() * wrongIdxs.length)]
+        }
+      }
+      this.sendToGladiator('bribe_msg', { type: 'helped', eliminatedOptionIndex })
+    }
+  }
+
+  private startBribeAuction(winIds: string[], loseIds: string[]) {
+    const shuffle = (arr: string[]): string[] => {
+      const a = [...arr]
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]]
+      }
+      return a
+    }
+    this.bribeAuction = {
+      price: 50,
+      winQueue: shuffle(winIds),
+      loseQueue: shuffle(loseIds),
+      winIdx: 0,
+      loseIdx: 0,
+      waitingFor: 'win',
+      currentAsked: '',
+      timer: null,
+    }
+    this.askBribePlayer()
+  }
+
+  private checkAndStartBribeEvent() {
+    if (!this.gladiatorId) return
+    const players = Array.from(this.players.values())
+    const winBettors = players.filter(p =>
+      p.id !== this.gladiatorId && p.betTarget === 'win' && p.currentBet > 0
+    )
+    const loseBettors = players.filter(p =>
+      p.id !== this.gladiatorId && p.betTarget === 'lose' && p.currentBet > 0
+    )
+    if (winBettors.length === 0 || loseBettors.length === 0) return
+
+    this.bribeConditionCount++
+    const shouldFire =
+      (!this.bribeEverFired && this.bribeConditionCount >= 2) ||
+      (this.bribeEverFired && Math.random() < 0.4)
+    if (!shouldFire) return
+
+    this.bribeEverFired = true
+    this.startBribeAuction(winBettors.map(p => p.id), loseBettors.map(p => p.id))
   }
 }
