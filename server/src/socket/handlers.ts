@@ -6,10 +6,13 @@ import type {
   PlaceBankBetPayload,
 } from '@cumsino/shared'
 
+const VALID_CHIP_DENOMS = new Set([10, 20, 50, 100, 500])
+
 export function registerHandlers(socket: Socket, engine: GameEngine): void {
   socket.on('join_game', ({ name, gameCode }: JoinGamePayload) => {
     if (!name?.trim() || !gameCode?.trim()) return
-    engine.joinRoom(socket, name.trim(), gameCode.trim().toUpperCase())
+    const trimmedName = name.trim().slice(0, 32)
+    engine.joinRoom(socket, trimmedName, gameCode.trim().toUpperCase())
   })
 
   socket.on('start_game', () => {
@@ -38,7 +41,8 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   })
 
   socket.on('stage_chip', ({ chips }: { chips: number[] }) => {
-    if (!Array.isArray(chips)) return
+    if (!Array.isArray(chips) || chips.length > 28) return
+    if (chips.some(c => !VALID_CHIP_DENOMS.has(c))) return
     engine.getRoom(socket.id)?.stageChip(socket.id, chips)
   })
 

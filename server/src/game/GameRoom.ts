@@ -51,6 +51,7 @@ export class GameRoom extends EventEmitter {
   }
 
   addPlayer(id: string, name: string) {
+    if (this.players.size >= 12) return
     if (this.players.size === 0) this.hostId = id
     this.players.set(id, {
       id, name,
@@ -86,7 +87,8 @@ export class GameRoom extends EventEmitter {
   placeBet(playerId: string, amount: number, target?: 'win' | 'lose', chips?: number[], bankBet?: { optionIndex: number; amount: number }) {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'BETTING') return
-    if (amount > player.chips) return
+    const existingBankAmount = player.bankBet?.amount ?? 0
+    if (amount + existingBankAmount > player.chips) return
 
     player.currentBet = amount
     if (target) player.betTarget = target
@@ -95,7 +97,7 @@ export class GameRoom extends EventEmitter {
     if (bankBet && this.currentMode === 'kerri' && this.currentQuestion?.options) {
       const { optionIndex, amount: bankAmount } = bankBet
       if (optionIndex >= 0 && optionIndex < this.currentQuestion.options.length
-        && bankAmount > 0 && player.currentBet + bankAmount <= player.chips) {
+        && bankAmount > 0 && amount + bankAmount <= player.chips) {
         player.bankBet = { optionIndex, amount: bankAmount }
         this.broadcast('bank_bet_updated', { playerId, optionIndex, amount: bankAmount })
       }
