@@ -188,12 +188,16 @@ export const useGameStore = create<GameStore>((set) => {
         bankBets: {},
         stagedBets: {},
         isLateJoiner: false,
+        bribePrompt: null,
+        bribeEliminatedIdx: null,
+        gladiatorBribeMsg: null,
       })
       socket.disconnect()
     },
 
     payBribe() {
       socket.emit('pay_bribe')
+      set({ bribePrompt: null })
     },
 
     clearGladiatorBribeMsg() {
