@@ -79,9 +79,9 @@ export function createQuestionPicker(): (mode: GameMode) => Question {
   const itemsCN = itemsAll.filter((q): q is RawCNQuestion => q.type === 'closest_number')
 
   const mcPools = [
-    { items: general, weight: 5 },
+    { items: general, weight: 7 },
     { items: abilitiesMC, weight: 55 },
-    { items: itemsMC, weight: 40 },
+    { items: itemsMC, weight: 38 },
   ]
 
   const cnPools = [

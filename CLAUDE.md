@@ -174,9 +174,9 @@ Dota 2 вопросы. Источник данных — GitHub-зеркало O
 ### Взвешенный выбор вопросов (`createQuestionPicker`)
 
 **Режимы `all` и `kerri`** — берут только MC:
-- 5% → `general_main.json`
+- 7% → `general_main.json`
 - 55% → `abilities_main.json` (MC)
-- 40% → `items_main.json` (MC)
+- 38% → `items_main.json` (MC)
 
 **Режим `closest`** — берут только CN:
 - 30% → `costs_main.json`
