@@ -151,6 +151,7 @@ export class GameRoom extends EventEmitter {
     player.chips -= a.price
     clearTimeout(a.timer!)
     a.timer = null
+    this.sendToPlayer(playerId, 'bribe_prompt_cancel', {})
 
     if (a.waitingFor === 'win') {
       this.sendToGladiator('bribe_msg', { type: 'helping' })

@@ -194,7 +194,6 @@ export const useGameStore = create<GameStore>((set) => {
 
     payBribe() {
       socket.emit('pay_bribe')
-      set({ bribePrompt: null })
     },
 
     clearGladiatorBribeMsg() {
