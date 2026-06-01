@@ -1054,44 +1054,12 @@
     "type": "multiple_choice",
     "topic": "Способность",
     "heroName": "Centaur Warrunner",
-    "source": "centaur_retaliate",
-    "question": "Какой эффект НЕ срабатывает при активации Retaliate у Centaur Warrunner?",
-    "options": [
-      "Замедление скорости атаки атакующего",
-      "Урон в зависимости от силы героя",
-      "Отражение урона назад",
-      "Уменьшенный урон в отношении башен"
-    ],
-    "difficulty": "hard",
-    "answer": null,
-    "unit": null
-  },
-  {
-    "type": "multiple_choice",
-    "topic": "Способность",
-    "heroName": "Centaur Warrunner",
-    "source": "centaur_hoof_stomp",
-    "question": "Что происходит с Centaur Warrunner во время подготовки Hoof Stomp (фаза windup)?",
-    "options": [
-      "Он обезоружен, но может двигаться",
-      "Он полностью неподвижен и не может атаковать",
-      "Он получает щит от урона",
-      "Он становится невидимым для врагов"
-    ],
-    "difficulty": "medium",
-    "answer": null,
-    "unit": null
-  },
-  {
-    "type": "multiple_choice",
-    "topic": "Способность",
-    "heroName": "Centaur Warrunner",
     "source": "centaur_stampede",
     "question": "Сколько раз враг может быть затоптан во время одного использования Stampede?",
     "options": [
       "Один раз",
-      "Дважды",
-      "Три раза",
+      "Раз в секуду",
+      "Раз за 350 ед расстояния",
       "Неограниченное количество раз"
     ],
     "difficulty": "medium",

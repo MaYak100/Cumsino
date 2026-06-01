@@ -142,6 +142,20 @@ Mode rotation: `all → kerri → closest → all → kerri → ...`
 
 Located in `server/src/game/economy/__tests__/` and `server/src/game/__tests__/` and `shared/src/__tests__/`. vitest resolves `@cumsino/shared` via alias in `server/vitest.config.ts` — no need to build shared before running tests.
 
+**Покрытие (97 тестов):**
+
+| Файл | Что покрыто |
+|---|---|
+| `economy/__tests__/distributePool.test.ts` | пул победителей, пропорции, zero-sum, крайние случаи |
+| `economy/__tests__/distributeClosest.test.ts` | точное попадание, ближайший, ничья |
+| `economy/__tests__/distributeTop5.test.ts` | слоты, несколько игроков |
+| `economy/__tests__/applyBankBets.test.ts` | x3 попадание, -1x промах, суммирование дельт |
+| `game/__tests__/RoundSelector.test.ts` | цикл all→kerri→closest, lastMainMode |
+| `game/__tests__/GameRoom.test.ts` | управление игроками, `calculateResults` (all/kerri/closest), `applyDeltas` (флор 0), `checkWinner`, `getStateForPlayer` (gladiatorAnswer), `allBettingConfirmed`, `submitAnswer`, `removePlayer` (дисконнект гладиатора), **bribe-аукцион** (условия запуска, payBribe обеих сторон, эскалация цены, таймаут→betrayed/helped) |
+| `shared/__tests__/chips.test.ts` | decomposeToChips, decomposeStartingChips |
+
+**Паттерн для GameRoom тестов:** `(room as any)` для доступа к private-полям (phase, currentMode, gladiatorId, currentQuestion, bribeAuction и т.д.) и private-методам (calculateResults, checkAndStartBribeEvent, advanceFromQuestion). `vi.useFakeTimers()` в beforeEach для контроля таймеров bribe-аукциона.
+
 ## Questions System (`scripts/data/`)
 
 Dota 2 вопросы. Источник данных — GitHub-зеркало OpenDota: `raw.githubusercontent.com/odota/dotaconstants/master/build/`.
