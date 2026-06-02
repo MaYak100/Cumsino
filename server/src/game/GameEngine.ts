@@ -15,6 +15,7 @@ export class GameEngine {
     let room = this.rooms.get(gameCode)
     if (!room) {
       room = this.createRoom(gameCode)
+      console.log(`[room] created ${gameCode} | total rooms: ${this.rooms.size}`)
     }
     socket.join(gameCode)
     this.playerRoom.set(socket.id, gameCode)
@@ -30,6 +31,7 @@ export class GameEngine {
       if (room.playerCount === 0) {
         room.destroy()
         this.rooms.delete(gameCode)
+        console.log(`[room] destroyed ${gameCode} | rooms left: ${this.rooms.size}${this.rooms.size === 0 ? ' — сервер можно усыплять' : ''}`)
       }
     }
     this.playerRoom.delete(socketId)

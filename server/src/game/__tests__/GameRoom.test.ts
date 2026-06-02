@@ -15,7 +15,7 @@ import {
 
 const mcQ: Question = {
   id: 'q-mc',
-  mode: 'multiple_choice',
+  mode: 'all',
   topic: 'Test',
   text: 'Q?',
   options: ['A', 'B', 'C', 'D'],
@@ -24,7 +24,7 @@ const mcQ: Question = {
 
 const cnQ: Question = {
   id: 'q-cn',
-  mode: 'closest_number',
+  mode: 'closest',
   topic: 'Test',
   text: 'How much?',
   numericAnswer: 330,
@@ -57,7 +57,7 @@ function addPlayers(room: GameRoom, count: number) {
 // ---------------------------------------------------------------------------
 
 describe('GameRoom', () => {
-  beforeEach(() => vi.useFakeTimers())
+  beforeEach(() => { vi.useFakeTimers() })
   afterEach(() => {
     vi.useRealTimers()
     vi.restoreAllMocks()

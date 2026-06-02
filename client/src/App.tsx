@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useGameStore, selectIsGladiator } from './store/gameStore'
 import { JoinScreen } from './components/screens/JoinScreen'
 import { LobbyScreen } from './components/screens/LobbyScreen'
@@ -18,6 +18,14 @@ export default function App() {
   const gameState = useGameStore(s => s.gameState)
   const isGladiator = useGameStore(selectIsGladiator)
   const isLateJoiner = useGameStore(s => s.isLateJoiner)
+
+  useEffect(() => {
+    if (!gameState) return
+    const id = setInterval(() => {
+      fetch((import.meta.env.VITE_SERVER_URL ?? 'http://localhost:3001') + '/health').catch(() => {})
+    }, 10 * 60 * 1000)
+    return () => clearInterval(id)
+  }, [!!gameState])
 
   if (!gameState) return <JoinScreen />
 

@@ -15,7 +15,10 @@ const io = new Server(httpServer, {
 })
 
 app.use(cors({ origin: CLIENT_ORIGIN }))
-app.get('/health', (_req, res) => res.json({ ok: true }))
+app.get('/health', (_req, res) => {
+  console.log(`[ping] health check — сервер жив`)
+  res.json({ ok: true })
+})
 
 const engine = new GameEngine(io)
 
