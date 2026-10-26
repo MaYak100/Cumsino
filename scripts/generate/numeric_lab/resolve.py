@@ -70,9 +70,9 @@ def resolve_one(q: dict, facts: dict) -> dict:
     multi = len(set(vals)) > 1
     if multi and not _LEVEL_WORDS.search(text):
         flags.append("значение зависит от уровня, а уровень не указан")
-    if multi and fact.get("role") and fact["role"] != "ultimate" and idx not in (0, len(vals) - 1):
-        flags.append(f"уровень {idx + 1}: кроме ультимейтов только 1-й или максимальный")
-    if multi and idx == len(vals) - 1 and _LEVEL_REF.search(text):
+    if multi and idx not in (0, len(vals) - 1):
+        flags.append(f"уровень {idx + 1}: только 1-й или максимальный")
+    if multi and idx == len(vals) - 1 and fact.get("role") not in ("ultimate", "item") and _LEVEL_REF.search(text):
         flags.append("максимальный уровень назван числом")
     if fact.get("hidden"):
         flags.append("скрытое значение (нет в тултипе)")
@@ -151,7 +151,7 @@ def main() -> None:
 
     results: dict[str, list[dict]] = {}
     for path in sorted(run_dir.glob("*.json")):
-        if path.stem in RESERVED:
+        if path.stem in RESERVED or path.stem.startswith("excluded-"):
             continue
         qs = json.loads(path.read_text(encoding="utf-8"))
         results[path.stem] = [resolve_one(q, facts) for q in qs]

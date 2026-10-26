@@ -3,6 +3,10 @@
  "heroes": [
   {
    "hero": "Axe",
+   "aghanim": {
+    "scepter": "Counter Helix now applies a stacking debuff to enemies hit by it that causes them to deal less total attack damage to Axe. Counter Helix no longer has a cooldown and its counter advances when Axe attacks.",
+    "shard": "Multiple instances of Battle Hunger can stack on a single target."
+   },
    "abilities": [
     {
      "key": "axe_berserkers_call",
@@ -119,6 +123,41 @@
         5,
         4
        ]
+      },
+      {
+       "fact_id": "axe_counter_helix:AbilityCooldown@scepter",
+       "label": "COOLDOWN — прибавка от Aghanim's Scepter",
+       "values": [
+        0.3
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:debuff_duration@scepter",
+       "label": "debuff_duration — значение с Aghanim's Scepter",
+       "values": [
+        6
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:damage_reduction@scepter",
+       "label": "damage_reduction — значение с Aghanim's Scepter",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:max_stacks@scepter",
+       "label": "max_stacks — значение с Aghanim's Scepter",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:attacks_increase_counter@scepter",
+       "label": "attacks_increase_counter — значение с Aghanim's Scepter",
+       "values": [
+        1
+       ]
       }
      ]
     },
@@ -203,6 +242,10 @@
   },
   {
    "hero": "Tusk",
+   "aghanim": {
+    "scepter": "Kicks the closest enemy unit in the drawn direction, stunning, damaging, and slowing them. Also deals damage to all heroes within 250 radius of its landing area. Cooldown is reduced by 50% if kicking a creep.",
+    "shard": "Tusk reaches out to tag an allied unit, pulling them closer. Once tagged, both Tusk and his tagged ally gain movement speed and armor."
+   },
    "abilities": [
     {
      "key": "tusk_ice_shards",
@@ -550,6 +593,10 @@
   },
   {
    "hero": "Leshrac",
+   "aghanim": {
+    "scepter": "Causes Leshrac and all nearby enemies to turn ethereal, preventing them from attacking, slowing them, and making them take more magic damage. Increases Leshrac's speed rather than reducing it. Does not cause Leshrac to take amplified damage.",
+    "shard": "Causes Split Earth to repeat in the same location 2 additional times, with a 5 second delay between each one. Each time the radius increases by 45. Split Earth echo location is visible to both teams."
+   },
    "abilities": [
     {
      "key": "leshrac_split_earth",
@@ -585,6 +632,20 @@
         1.6
        ],
        "hidden": true
+      },
+      {
+       "fact_id": "leshrac_split_earth:shard_max_count@shard",
+       "label": "shard_max_count — значение с Aghanim's Shard",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "leshrac_split_earth:shard_secondary_delay@shard",
+       "label": "shard_secondary_delay — значение с Aghanim's Shard",
+       "values": [
+        5
+       ]
       }
      ]
     },
@@ -770,6 +831,10 @@
   },
   {
    "hero": "Bounty Hunter",
+   "aghanim": {
+    "scepter": "Increases cast range and applies Jinada on hit.",
+    "shard": "Applies Shadow Walk and all of its bonuses to the target ally. Allied fade time is 0.5s. Does not break Bounty Hunter's invisibility when cast."
+   },
    "abilities": [
     {
      "key": "bounty_hunter_shuriken_toss",
@@ -806,6 +871,13 @@
        "label": "SLOW",
        "values": [
         100
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_shuriken_toss:scepter_cooldown@scepter",
+       "label": "scepter_cooldown — значение с Aghanim's Scepter",
+       "values": [
+        6
        ]
       }
      ]
@@ -902,6 +974,30 @@
         14,
         17,
         20
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:AbilityCooldown@shard",
+       "label": "COOLDOWN — прибавка от Aghanim's Shard",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:AbilityChargeRestoreTime@shard",
+       "label": "AbilityChargeRestoreTime — значение с Aghanim's Shard",
+       "values": [
+        15,
+        14,
+        13,
+        12
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:ally_fade_time@shard",
+       "label": "ally_fade_time — значение с Aghanim's Shard",
+       "values": [
+        0.5
        ]
       }
      ]
@@ -1010,6 +1106,10 @@
   },
   {
    "hero": "Faceless Void",
+   "aghanim": {
+    "scepter": "Available for 1.5 seconds after landing Time Walk. If used in this period, you will reverse your time walk back to your previous cast location. Does not affect health or proc scepter hits.",
+    "shard": "Increases slow per stack. Provides Faceless Void with stacks that increase his attack and movement speed. Amount of stacks is equal to the total amount of Time Dilation stacks applied to enemies at the moment of the cast and linearly fades out over the duration."
+   },
    "abilities": [
     {
      "key": "faceless_void_time_walk",
@@ -1108,6 +1208,27 @@
         6,
         8,
         10
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:slow@shard",
+       "label": "MOVEMENT SLOW PER STACK — прибавка от Aghanim's Shard",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:attack_slow_tooltip_only@shard",
+       "label": "ATTACK SLOW PER STACK — прибавка от Aghanim's Shard",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:self_buff@shard",
+       "label": "self_buff — значение с Aghanim's Shard",
+       "values": [
+        1
        ]
       }
      ]
@@ -1232,6 +1353,10 @@
   },
   {
    "hero": "Kez",
+   "aghanim": {
+    "scepter": "Casting a weapon ability that would set its alternate weapon ability on cooldown does not do so if it's the first one used within 3 seconds after casting Switch Discipline or if it was already on cooldown.\n\nCasting any weapon ability refreshes the cooldown of Switch Discipline.",
+    "shard": "Parrying creates a stronger Mark that deals additional stun and critical damage."
+   },
    "abilities": [
     {
      "key": "kez_echo_slash",
@@ -1391,6 +1516,41 @@
        "label": "MAX BURST STACKS",
        "values": [
         500
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:bleed_as_rupture_pct@shard",
+       "label": "STACKS AS BURST DAMAGE — прибавка от Aghanim's Shard",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:lifesteal_pct@shard",
+       "label": "LIFESTEAL PCT — значение с Aghanim's Shard",
+       "values": [
+        100
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:creep_lifesteal_reduction_pct@shard",
+       "label": "CREEP LIFESTEAL REDUCTION PCT — значение с Aghanim's Shard",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:max_stacks@shard",
+       "label": "MAX BURST STACKS — прибавка от Aghanim's Shard",
+       "values": [
+        500
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:backstab_angle@shard",
+       "label": "BACKSTAB ANGLE — значение с Aghanim's Shard",
+       "values": [
+        105
        ]
       }
      ]
@@ -1707,6 +1867,20 @@
         1
        ],
        "hidden": true
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_bonus_crit@shard",
+       "label": "PARRY BONUS CRITICAL STRIKE — значение с Aghanim's Shard",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_bonus_stun_duration@shard",
+       "label": "PARRY BONUS MARK STUN — значение с Aghanim's Shard",
+       "values": [
+        0.2
+       ]
       }
      ]
     },
@@ -1789,13 +1963,6 @@
    ],
    "notes": "Static Charge cannot trigger more than once per second.\nStatic Charge's shock deals magical damage centered on hero with the Static Charge. Static Charge's targets cannot be more than 900 range away.\nStatic Charge procs will not bounce to heroes that are invisible or hidden by Fog of War.",
    "facts": [
-    {
-     "fact_id": "mjollnir:cost",
-     "label": "COST (gold)",
-     "values": [
-      5500
-     ]
-    },
     {
      "fact_id": "mjollnir:cd",
      "label": "COOLDOWN",
@@ -1914,13 +2081,6 @@
    "notes": "The wave extends at a speed of 400 to a max size of 825.\nThe Arctic Blast follows its caster.\nMultiple instances of Freezing Aura do not stack.\nAoE bonuses from multiple Chasm Stones or its upgrades do not stack.",
    "facts": [
     {
-     "fact_id": "shivas_guard:cost",
-     "label": "COST (gold)",
-     "values": [
-      4500
-     ]
-    },
-    {
      "fact_id": "shivas_guard:cd",
      "label": "COOLDOWN",
      "values": [
@@ -1981,13 +2141,6 @@
    ],
    "notes": "Spell Weakness Aura does not stack with Veil of Discord's Spell Weakness.",
    "facts": [
-    {
-     "fact_id": "bloodstone:cost",
-     "label": "COST (gold)",
-     "values": [
-      4700
-     ]
-    },
     {
      "fact_id": "bloodstone:cd",
      "label": "COOLDOWN",
@@ -2053,13 +2206,6 @@
    "notes": "",
    "facts": [
     {
-     "fact_id": "kaya:cost",
-     "label": "COST (gold)",
-     "values": [
-      2100
-     ]
-    },
-    {
      "fact_id": "kaya:bonus_intellect",
      "label": "+ {value} Intelligence",
      "values": [
@@ -2099,13 +2245,6 @@
    ],
    "notes": "",
    "facts": [
-    {
-     "fact_id": "satanic:cost",
-     "label": "COST (gold)",
-     "values": [
-      5050
-     ]
-    },
     {
      "fact_id": "satanic:cd",
      "label": "COOLDOWN",
@@ -2174,13 +2313,6 @@
    ],
    "notes": "",
    "facts": [
-    {
-     "fact_id": "boots_of_bearing:cost",
-     "label": "COST (gold)",
-     "values": [
-      4225
-     ]
-    },
     {
      "fact_id": "boots_of_bearing:cd",
      "label": "COOLDOWN",
@@ -2271,13 +2403,6 @@
    "notes": "Barrier does not affect units that have been affected by Barrier within Pipe of Insight's cooldown.\nStacks multiplicatively with other sources of magic resistance.",
    "facts": [
     {
-     "fact_id": "pipe:cost",
-     "label": "COST (gold)",
-     "values": [
-      3725
-     ]
-    },
-    {
      "fact_id": "pipe:cd",
      "label": "COOLDOWN",
      "values": [
@@ -2348,17 +2473,6 @@
    "notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
    "facts": [
     {
-     "fact_id": "dagon:cost",
-     "label": "COST (gold)",
-     "values": [
-      3000,
-      4100,
-      5200,
-      6300,
-      7400
-     ]
-    },
-    {
      "fact_id": "dagon:cd",
      "label": "COOLDOWN",
      "values": [
@@ -2409,6 +2523,13 @@
       800
      ]
     }
+   ],
+   "level_names": [
+    "Dagon 1",
+    "Dagon 2",
+    "Dagon 3",
+    "Dagon 4",
+    "Dagon 5"
    ]
   }
  ]

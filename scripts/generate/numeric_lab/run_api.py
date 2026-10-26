@@ -2,7 +2,8 @@
 """
 Прогон числовых вопросов через Anthropic API — те же технологии, что пойдут в боевую генерацию:
   • Message Batches API (асинхронно, −50% к цене всех токенов)
-  • кэширование системного промпта (cache_control)
+  • без cache_control: схема с enum по fact_id уникальна для каждого запроса и попадает в
+    кэшируемый префикс, поэтому кэш никогда не читается — платить +25% за запись незачем
   • structured outputs: JSON-схема, fact_id ограничен фактами из запроса (enum)
   • effort (глубина размышлений) и count_tokens (оценка цены до запуска)
 
@@ -13,6 +14,7 @@
   python scripts/generate/numeric_lab/run_api.py out/v3               # отправить батч и дождаться
   python scripts/generate/numeric_lab/run_api.py out/v3 --resume      # забрать результаты уже отправленного батча
   python scripts/generate/numeric_lab/run_api.py out/v3s --sync       # обычные вызовы параллельно, без батча (×2 цена)
+  python scripts/generate/numeric_lab/run_api.py out/costs1 --costs --sync --models claude-opus-5-5
   python scripts/generate/numeric_lab/resolve.py out/v3               # отчёт
 
 Выход в папке прогона: <модель>-g<размер>.json (формат resolve.py), usage.json, cost.md,
@@ -41,7 +43,7 @@ CACHE_WRITE_MULT = 1.25   # запись в кэш с TTL 5 минут
 BATCH_MULT = 0.5
 
 
-def schema(fact_ids: list[str]) -> dict:
+def schema(fact_ids: list[str], with_excluded: bool = False) -> dict:
     question = {
         "type": "object",
         "properties": {
@@ -54,12 +56,21 @@ def schema(fact_ids: list[str]) -> dict:
         "required": ["fact_id", "level", "question", "unit", "distractors"],
         "additionalProperties": False,
     }
-    return {
+    root = {
         "type": "object",
         "properties": {"questions": {"type": "array", "items": question}},
         "required": ["questions"],
         "additionalProperties": False,
     }
+    if with_excluded:
+        root["properties"]["excluded"] = {"type": "array", "items": {
+            "type": "object",
+            "properties": {"fact_id": {"type": "string", "enum": fact_ids}, "reason": {"type": "string"}},
+            "required": ["fact_id", "reason"],
+            "additionalProperties": False,
+        }}
+        root["required"].append("excluded")
+    return root
 
 
 def _chunks(xs: list, n: int) -> list[list]:
@@ -76,26 +87,31 @@ def _fact_ids(entities: list[dict]) -> list[str]:
     return ids
 
 
-def build_requests(sample: dict, prompt: str, models: list[str], groups: list[int], effort: str) -> list[dict]:
-    system = [{"type": "text", "text": prompt, "cache_control": {"type": "ephemeral"}}]
+def build_requests(sample: dict, prompt: str, models: list[str], groups: list[int | str], effort: str,
+                   with_excluded: bool = False) -> list[dict]:
+    system = [{"type": "text", "text": prompt}]
     requests = []
     for model in models:
         alias = ALIASES[model]
         for g in groups:
             for kind, entities in (("heroes", sample["heroes"]), ("items", sample["items"])):
-                for i, chunk in enumerate(_chunks(entities, g)):
+                if not entities:
+                    continue
+                size = len(entities) if g == "all" else g
+                for i, chunk in enumerate(_chunks(entities, size)):
                     payload = {"patch": sample["patch"], kind: chunk}
                     requests.append({
                         "custom_id": f"{alias}-g{g}-{kind}-{i}",
                         "params": {
                             "model": model,
-                            "max_tokens": 16000,
+                            "max_tokens": 64000 if g == "all" else 16000,
                             "system": system,
                             "messages": [{"role": "user",
                                           "content": json.dumps(payload, ensure_ascii=False)}],
                             "output_config": {
                                 "effort": effort,
-                                "format": {"type": "json_schema", "schema": schema(_fact_ids(chunk))},
+                                "format": {"type": "json_schema",
+                                           "schema": schema(_fact_ids(chunk), with_excluded)},
                             },
                         },
                     })
@@ -137,6 +153,7 @@ def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], 
     """results: custom_id → {"status", "message"?, "error"?, "seconds"?}"""
     model_of = {r["custom_id"]: r["params"]["model"] for r in requests}
     questions: dict[str, list] = defaultdict(list)
+    excluded: dict[str, list] = defaultdict(list)
     usage_rows = {}
     for cid in sorted(results):
         res = results[cid]
@@ -150,7 +167,9 @@ def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], 
             row["cost"] = round(cost_of(model_of[cid], row["usage"], batch), 5)
             text = next((b.text for b in msg.content if b.type == "text"), "")
             if msg.stop_reason == "end_turn" and text:
-                qs = json.loads(text)["questions"]
+                body = json.loads(text)
+                qs = body["questions"]
+                excluded[_group_key(cid)] += body.get("excluded", [])
                 for q in qs:
                     q["request"] = cid
                 questions[_group_key(cid)] += qs
@@ -163,6 +182,8 @@ def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], 
 
     for key, qs in questions.items():
         (run_dir / f"{key}.json").write_text(json.dumps(qs, ensure_ascii=False, indent=2), encoding="utf-8")
+    for key, ex in excluded.items():
+        (run_dir / f"excluded-{key}.json").write_text(json.dumps(ex, ensure_ascii=False, indent=2), encoding="utf-8")
     (run_dir / "usage.json").write_text(json.dumps(usage_rows, ensure_ascii=False, indent=2), encoding="utf-8")
 
     lines = ["# Стоимость прогона", "", f"Цены: {'Batch API (−50%)' if batch else 'обычные вызовы'}.", ""]
@@ -249,7 +270,10 @@ def run_sync(client, requests: list[dict], workers: int) -> dict[str, dict]:
 def main() -> None:
     ap = argparse.ArgumentParser(description="Числовые вопросы через Anthropic API")
     ap.add_argument("run_dir")
-    ap.add_argument("--prompt", default="prompt_v3.md")
+    ap.add_argument("--prompt", default="prompt_v4.md")
+    ap.add_argument("--sample", default="sample.json")
+    ap.add_argument("--costs", action="store_true",
+                    help="цены: costs_sample.json + prompt_costs_v1.md, все предметы одним запросом, со списком исключённых")
     ap.add_argument("--models", default="claude-sonnet-5-5,claude-opus-5-5")
     ap.add_argument("--groups", default="1,3", help="сколько героев/предметов в одном запросе")
     ap.add_argument("--effort", default="high", choices=["low", "medium", "high", "xhigh", "max"])
@@ -259,23 +283,25 @@ def main() -> None:
     ap.add_argument("--sync", action="store_true", help="обычные вызовы без Batch API (быстро, полная цена)")
     ap.add_argument("--workers", type=int, default=8, help="параллельных запросов в --sync")
     args = ap.parse_args()
+    if args.costs:
+        args.sample, args.prompt, args.groups = "costs_sample.json", "prompt_costs_v1.md", "all"
 
     run_dir = Path(args.run_dir)
     if not run_dir.is_absolute() and not run_dir.parent.exists():
         run_dir = LAB / run_dir
     run_dir.mkdir(parents=True, exist_ok=True)
 
-    sample_src = run_dir / "sample.json" if args.resume else LAB / "sample.json"
+    sample_src = run_dir / "sample.json" if args.resume else LAB / args.sample
     sample = json.loads(sample_src.read_text(encoding="utf-8"))
     prompt_path = run_dir / "prompt.md" if args.resume else LAB / args.prompt
     prompt = prompt_path.read_text(encoding="utf-8")
     if not args.resume:
-        shutil.copy(LAB / "sample.json", run_dir / "sample.json")
+        shutil.copy(LAB / args.sample, run_dir / "sample.json")
         shutil.copy(LAB / args.prompt, run_dir / "prompt.md")
 
     models = args.models.split(",")
-    groups = [int(g) for g in args.groups.split(",")]
-    requests = build_requests(sample, prompt, models, groups, args.effort)
+    groups = [g if g == "all" else int(g) for g in args.groups.split(",")]
+    requests = build_requests(sample, prompt, models, groups, args.effort, with_excluded=args.costs)
     (run_dir / "requests.json").write_text(json.dumps(requests, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(requests)} запросов: модели {', '.join(ALIASES[m] for m in models)}, группы {groups}, "
           f"effort {args.effort} → {run_dir / 'requests.json'}")
