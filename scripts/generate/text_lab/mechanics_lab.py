@@ -242,7 +242,7 @@ def main() -> None:
     ap.add_argument("--heroes", help="ключи героев через запятую (axe,earth_spirit,…)")
     ap.add_argument("--random", type=int, help="столько случайных героев")
     ap.add_argument("--per-request", type=int, default=5)
-    ap.add_argument("--prompt", default="prompt_mechanics_v2.md")
+    ap.add_argument("--prompt", default="prompt_mechanics_v3.md")
     ap.add_argument("--effort", default="high")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--dry-run", action="store_true")
@@ -271,9 +271,18 @@ def main() -> None:
         return
 
     client = _client()
+
+    def safe(a):
+        # упавший запрос не должен терять результаты остальных
+        try:
+            return run_one(client, a[0], a[1], prompt, verify_prompt, args.effort)
+        except Exception as exc:  # noqa: BLE001
+            print(f"  запрос {a[0]}: ошибка {exc}", flush=True)
+            return {"index": a[0], "heroes": [h["hero"] for h in a[1]["heroes"]], "questions": [],
+                    "usage": {"generate": None, "verify": None}, "error": str(exc)}
+
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
-        results = list(pool.map(lambda a: run_one(client, a[0], a[1], prompt, verify_prompt, args.effort),
-                                enumerate(samples)))
+        results = list(pool.map(safe, enumerate(samples)))
     (run_dir / "questions.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
     text = report(results, f"{run_dir.name} ({args.prompt}, effort {args.effort})")
     (run_dir / "report.md").write_text(text, encoding="utf-8")
