@@ -1,0 +1,744 @@
+{
+ "patch": "7.41f",
+ "heroes": [
+  {
+   "hero": "Dark Seer",
+   "abilities": [
+    "Vacuum",
+    "Ion Shell",
+    "Surge",
+    "Normal Punch",
+    "Quick Wit",
+    "Wall of Replica"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_dark_seer_7",
+     "level": 10,
+     "text": "+15% Wall of Replica Illusion Damage"
+    },
+    {
+     "id": "special_bonus_unique_dark_seer_5",
+     "level": 10,
+     "text": "+65 Ion Shell Radius"
+    },
+    {
+     "id": "special_bonus_unique_dark_seer_2",
+     "level": 15,
+     "text": "+75 Vacuum AoE"
+    },
+    {
+     "id": "special_bonus_unique_dark_seer_6",
+     "level": 15,
+     "text": "-1.5s Surge Cooldown"
+    },
+    {
+     "id": "special_bonus_unique_dark_seer_13",
+     "level": 20,
+     "text": "-40s Wall of Replica Cooldown"
+    },
+    {
+     "id": "special_bonus_unique_dark_seer",
+     "level": 20,
+     "text": "+50 Ion Shell Damage"
+    },
+    {
+     "id": "special_bonus_unique_dark_seer_14",
+     "level": 25,
+     "text": "2 Ion Shell Charges "
+    },
+    {
+     "id": "special_bonus_unique_dark_seer_3",
+     "level": 25,
+     "text": "350 AoE Surge"
+    }
+   ],
+   "decoy_pool": [
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_8",
+     "level": 10,
+     "text": "+40% Blinding Light Miss",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_illuminate_cooldown",
+     "level": 10,
+     "text": "-2s Illuminate Cooldown",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_11",
+     "level": 15,
+     "text": "+25% Spirit Form Bright Speed Bonus",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_5",
+     "level": 15,
+     "text": "+90 Blinding Light Damage",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_2",
+     "level": 20,
+     "text": "+15s Spirit Form Duration",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_3",
+     "level": 20,
+     "text": "+10% Solar Bind Magic Resistance Reduction",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light_14",
+     "level": 25,
+     "text": "Chakra Magic Strong Dispels",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_keeper_of_the_light",
+     "level": 25,
+     "text": "+200 Illuminate Damage",
+     "from_hero": "Keeper of the Light"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_7",
+     "level": 10,
+     "text": "+300 Chilling Touch Attack Range",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_cold_feet_dps",
+     "level": 10,
+     "text": "+30 Cold Feet Damage Per Second",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_3",
+     "level": 15,
+     "text": "-2s Ice Vortex Cooldown",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_cold_feet_distance",
+     "level": 15,
+     "text": "+250 Cold Feet Break Distance",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_ice_vortex_duration",
+     "level": 20,
+     "text": "+4s Ice Blast Frostbitten Duration",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_2",
+     "level": 20,
+     "text": "+100 Chilling Touch Damage",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_1",
+     "level": 25,
+     "text": "450 AoE Cold Feet",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_unique_ancient_apparition_5",
+     "level": 25,
+     "text": "+4% Ice Blast Kill Threshold",
+     "from_hero": "Ancient Apparition"
+    },
+    {
+     "id": "special_bonus_attack_speed_25",
+     "level": 10,
+     "text": "+25 Attack Speed",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_mp_regen_150",
+     "level": 10,
+     "text": "+1.5 Mana Regen",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_unique_bristleback_5",
+     "level": 15,
+     "text": "+250 Goo Cast Range",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_unique_bristleback_6",
+     "level": 15,
+     "text": "+8%/4% Bristleback Back/Side Damage Reduction",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_hp_regen_25",
+     "level": 20,
+     "text": "+25 Health Regen",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_unique_bristleback_2",
+     "level": 20,
+     "text": "+20 Quill Stack Damage",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_unique_bristleback",
+     "level": 25,
+     "text": "-30 Bristleback Damage Threshold",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_unique_bristleback_3",
+     "level": 25,
+     "text": "+18 Warpath Damage Per Stack",
+     "from_hero": "Bristleback"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_3",
+     "level": 10,
+     "text": "-5s Venomous Gale CD",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_poisonsting_regen_reduction",
+     "level": 10,
+     "text": "15% Poison Sting Health Regen Reduction",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_plague_spread",
+     "level": 15,
+     "text": "+75 Noxious Plague Spread Radius",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_2",
+     "level": 15,
+     "text": "+10% Poison Sting Slow",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_4",
+     "level": 20,
+     "text": "+100 Snakebite Initial Damage",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_8",
+     "level": 20,
+     "text": "-2s Plague Ward Cooldown",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer_5",
+     "level": 25,
+     "text": "Snakebite Undispellable",
+     "from_hero": "Venomancer"
+    },
+    {
+     "id": "special_bonus_unique_venomancer",
+     "level": 25,
+     "text": "2.5x Plague Ward HP/Damage",
+     "from_hero": "Venomancer"
+    }
+   ]
+  },
+  {
+   "hero": "Winter Wyvern",
+   "abilities": [
+    "Arctic Burn",
+    "Splinter Blast",
+    "Cold Embrace",
+    "Eldwurm's Edda",
+    "Winter's Curse"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_winter_wyvern_5",
+     "level": 10,
+     "text": "+15 Cold Embrace Base Heal Per Second"
+    },
+    {
+     "id": "special_bonus_attack_damage_30",
+     "level": 10,
+     "text": "+30 Damage"
+    },
+    {
+     "id": "special_bonus_unique_winter_wyvern_6",
+     "level": 15,
+     "text": "+3s Arctic Burn Debuff Duration"
+    },
+    {
+     "id": "special_bonus_unique_winter_wyvern_2",
+     "level": 15,
+     "text": "+175 Splinter Blast Shatter Radius"
+    },
+    {
+     "id": "special_bonus_unique_winter_wyvern_1",
+     "level": 20,
+     "text": "+10% Arctic Burn Slow"
+    },
+    {
+     "id": "special_bonus_unique_winter_wyvern_7",
+     "level": 20,
+     "text": "+100 Splinter Blast Damage"
+    },
+    {
+     "id": "special_bonus_unique_winter_wyvern_3",
+     "level": 25,
+     "text": "+60 Winter's Curse Attack Speed "
+    },
+    {
+     "id": "special_bonus_unique_winter_wyvern_4",
+     "level": 25,
+     "text": "Splinter Blast 1s Stun"
+    }
+   ],
+   "decoy_pool": [
+    {
+     "id": "special_bonus_unique_earth_spirit_7",
+     "level": 10,
+     "text": "-2.0s Boulder Smash Cooldown",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit_4",
+     "level": 10,
+     "text": "+150 Rolling Boulder Distance",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit_rolling_boulder_stun",
+     "level": 15,
+     "text": "+0.3s Rolling Boulder Stun Duration",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit_6",
+     "level": 15,
+     "text": "+80 Boulder Smash Damage",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit_8",
+     "level": 20,
+     "text": "+35 Magnetize Damage Per Second",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit_5",
+     "level": 20,
+     "text": "+200 Geomagnetic Grip Remnant Damage",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit_2",
+     "level": 25,
+     "text": "Earth Spirit Magnetizes himself",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_earth_spirit",
+     "level": 25,
+     "text": "+250% Rolling Boulder Damage from Strength",
+     "from_hero": "Earth Spirit"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_5",
+     "level": 10,
+     "text": "-12s Healing Ward Cooldown",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_3",
+     "level": 10,
+     "text": "-1.0s Bladeform Stack Gain Interval",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_omnislash_cooldown",
+     "level": 15,
+     "text": "-15s Omnislash Cooldown",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_blade_fury_movespeed",
+     "level": 15,
+     "text": "45 Movement Speed During Blade Fury",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_4",
+     "level": 20,
+     "text": "+15% Blade Dance Crit Damage",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut",
+     "level": 20,
+     "text": "+120 Blade Fury Damage Per Second",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_omnislash_duration",
+     "level": 25,
+     "text": "+1s Omnislash Duration",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_juggernaut_blade_dance_lifesteal",
+     "level": 25,
+     "text": "+40% Blade Dance Lifesteal",
+     "from_hero": "Juggernaut"
+    },
+    {
+     "id": "special_bonus_unique_bane_8",
+     "level": 10,
+     "text": "+125 Brain Sap Cast Range",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_bane_11",
+     "level": 10,
+     "text": "+20% Enfeeble Cast Range Reduction",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_bane_10",
+     "level": 15,
+     "text": "+13 Enfeeble Damage Per Second",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_bane_9",
+     "level": 15,
+     "text": "+5% Fiend's Grip Max Mana Drain",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_bane_5",
+     "level": 20,
+     "text": "-3s Nightmare Cooldown",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_movement_speed_30",
+     "level": 20,
+     "text": "+30 Movement Speed",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_bane_2",
+     "level": 25,
+     "text": "+275 Brain Sap Damage/Heal",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_bane_3",
+     "level": 25,
+     "text": "+3s Fiend's Grip Duration",
+     "from_hero": "Bane"
+    },
+    {
+     "id": "special_bonus_unique_furion_6",
+     "level": 10,
+     "text": "-10s Nature's Call Cooldown",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion_5",
+     "level": 10,
+     "text": "+25 Wrath of Nature Base Damage",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion_2",
+     "level": 15,
+     "text": "+50 Treant Movement Speed",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion_teleportation_barrier",
+     "level": 15,
+     "text": "+100 Teleportation Barrier",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion_7",
+     "level": 20,
+     "text": "-20s Wrath of Nature Cooldown",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion_4",
+     "level": 20,
+     "text": "+240 Sprout Damage",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion_3",
+     "level": 25,
+     "text": "Removed Teleportation Cooldown",
+     "from_hero": "Nature's Prophet"
+    },
+    {
+     "id": "special_bonus_unique_furion",
+     "level": 25,
+     "text": "3x Treant HP/Damage",
+     "from_hero": "Nature's Prophet"
+    }
+   ]
+  },
+  {
+   "hero": "Io",
+   "abilities": [
+    "Tether",
+    "Spirits",
+    "Overcharge",
+    "Relocate",
+    "Equilibrium"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_wisp_overcharge_duration",
+     "level": 10,
+     "text": "+1.5s Overcharge Duration"
+    },
+    {
+     "id": "special_bonus_strength_8",
+     "level": 10,
+     "text": "+8 Strength"
+    },
+    {
+     "id": "special_bonus_unique_wisp_3",
+     "level": 15,
+     "text": "+5% Tether Movement Speed"
+    },
+    {
+     "id": "special_bonus_unique_wisp",
+     "level": 15,
+     "text": "+40% Spirits Damage"
+    },
+    {
+     "id": "special_bonus_unique_wisp_10",
+     "level": 20,
+     "text": "+0.2% Overcharge Max HP Regen Bonus"
+    },
+    {
+     "id": "special_bonus_unique_wisp_6",
+     "level": 20,
+     "text": "-30s Relocate Cooldown"
+    },
+    {
+     "id": "special_bonus_unique_wisp_relocate_delay",
+     "level": 25,
+     "text": "-2.0s Relocate Cast Delay"
+    },
+    {
+     "id": "special_bonus_unique_wisp_4",
+     "level": 25,
+     "text": "Attack Tethered Ally's Target (50% damage)"
+    }
+   ],
+   "decoy_pool": [
+    {
+     "id": "special_bonus_unique_riki_7",
+     "level": 10,
+     "text": "+50 Smoke Screen Radius",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_8",
+     "level": 10,
+     "text": "+10% Cloak and Dagger Movement Speed",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_tricks_dmg",
+     "level": 15,
+     "text": "15% of Riki's Base damage added to Tricks of the Trade",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_3",
+     "level": 15,
+     "text": "-3s Smoke Screen Cooldown",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_1",
+     "level": 20,
+     "text": "+0.3 Backstab Multiplier",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_5",
+     "level": 20,
+     "text": "-1s Blink Strike Cooldown",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_6",
+     "level": 25,
+     "text": "-4s Tricks of the Trade Cooldown",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_riki_9",
+     "level": 25,
+     "text": "+500 Blink Strike Cast Range",
+     "from_hero": "Riki"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer_astral_castrange",
+     "level": 10,
+     "text": "+100 Astral Imprisonment Cast Range",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_mp_200",
+     "level": 10,
+     "text": "+200 Mana",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer_flux_restore",
+     "level": 15,
+     "text": "+5% Essence Flux Mana Restored",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer_3",
+     "level": 15,
+     "text": "+0.8% of Current Mana as Movement Speed",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer_barrier",
+     "level": 20,
+     "text": "-10s Objurgation Cooldown",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer_4",
+     "level": 20,
+     "text": "+12% Astral Imprisonment Mana Capacity Steal",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer",
+     "level": 25,
+     "text": "+1.5% Arcane Orb Damage",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_outworld_devourer_5",
+     "level": 25,
+     "text": "-60s Sanity's Eclipse Cooldown",
+     "from_hero": "Outworld Devourer"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_9",
+     "level": 10,
+     "text": "-2s Overwhelming Odds Cooldown",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_outfight_them_armor",
+     "level": 10,
+     "text": "+1 Outfight Them! Armor",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_6",
+     "level": 15,
+     "text": "+40 Press The Attack HP Regen",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_4",
+     "level": 15,
+     "text": "+35 Overwhelming Odds Damage per Hero",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_duel_duration",
+     "level": 20,
+     "text": "+0.75s Duel Duration",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_3",
+     "level": 20,
+     "text": "-1 Moment of Courage Attacks To Trigger",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_7",
+     "level": 25,
+     "text": "+100% Moment of Courage Lifesteal",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_legion_commander_duel_refresh_on_victory",
+     "level": 25,
+     "text": "Duel Advances Cooldown by 30s On Victory",
+     "from_hero": "Legion Commander"
+    },
+    {
+     "id": "special_bonus_unique_chen_11",
+     "level": 10,
+     "text": "+75 Penitence Damage",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_zealot",
+     "level": 10,
+     "text": "+25% Zealot Health/Damage",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_5",
+     "level": 15,
+     "text": "+12% Holy Persuasion Damage",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_8",
+     "level": 15,
+     "text": "+15% Penitence Slow",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_divine_favor_healing",
+     "level": 20,
+     "text": "+15% Divine Favor Heal Amplification",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_4",
+     "level": 20,
+     "text": "+1300 Holy Persuasion Minimum Health",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_12",
+     "level": 25,
+     "text": "Hand of God applies a Strong Dispel",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_2",
+     "level": 25,
+     "text": "Hand of God Fully Heals Chen and His Creeps",
+     "from_hero": "Chen"
+    }
+   ]
+  }
+ ]
+}

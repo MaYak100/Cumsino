@@ -1,0 +1,149 @@
+[
+  {
+    "hero": "Dark Seer",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Dark Seer?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_dark_seer_6",
+        "text": "-3s Surge Cooldown"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_dark_seer_2"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_dark_seer",
+        "text": "+50 Vacuum Damage"
+      },
+      {
+        "kind": "decoy",
+        "talent_id": "special_bonus_mp_regen_150"
+      }
+    ]
+  },
+  {
+    "hero": "Dark Seer",
+    "type": "has_not",
+    "question": "Какого таланта нет у Dark Seer?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_dark_seer_14"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_dark_seer_13"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_dark_seer_14",
+        "text": "2 Vacuum Charges"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_dark_seer_3"
+      }
+    ]
+  },
+  {
+    "hero": "Winter Wyvern",
+    "type": "has",
+    "question": "Какой талант реально есть у Winter Wyvern?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_winter_wyvern_3",
+        "text": "+0.75s Winter's Curse Duration"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_winter_wyvern_6",
+        "text": "+1s Cold Embrace Duration"
+      },
+      {
+        "kind": "decoy",
+        "talent_id": "special_bonus_movement_speed_30"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_winter_wyvern_4"
+      }
+    ]
+  },
+  {
+    "hero": "Winter Wyvern",
+    "type": "has_not",
+    "question": "Какого таланта у Winter Wyvern нет?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_winter_wyvern_5"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_winter_wyvern_1",
+        "text": "+20% Splinter Blast Slow"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_winter_wyvern_2"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_winter_wyvern_1"
+      }
+    ]
+  },
+  {
+    "hero": "Io",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Io?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_wisp_overcharge_duration",
+        "text": "+1.5s Tether Duration"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_wisp_10"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_wisp_10",
+        "text": "+10% Overcharge Damage Reduction"
+      },
+      {
+        "kind": "decoy",
+        "talent_id": "special_bonus_mp_200"
+      }
+    ]
+  },
+  {
+    "hero": "Io",
+    "type": "has_not",
+    "question": "Какого таланта нет у Io?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_wisp_relocate_delay"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_wisp_6"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_wisp_3"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_wisp",
+        "text": "+80% Spirits Damage"
+      }
+    ]
+  }
+]
