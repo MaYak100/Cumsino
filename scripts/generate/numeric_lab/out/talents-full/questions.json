@@ -652,11 +652,12 @@
           {
             "kind": "real",
             "talent_id": "special_bonus_unique_clockwerk_4",
-            "text": "Rocket Flare даёт вижн",
+            "text": "Rocket Flare даёт просвет",
             "original": "Rocket Flare True Sight",
             "talent_kind": "mechanic",
             "verdict": "already_default",
-            "verify_note": "Rocket Flare и так даёт обзор на 6 секунд. Настоящий талант — True Sight (истинное зрение), а перевод «даёт вижн» этот смысл теряет."
+            "verify_note": "Rocket Flare и так даёт обзор на 6 секунд. Настоящий талант — True Sight (истинное зрение), а перевод «даёт вижн» этот смысл теряет.",
+            "edited": "вручную: истинное зрение → просвет"
           },
           {
             "kind": "invented",
@@ -665,9 +666,7 @@
             "verify_note": ""
           }
         ],
-        "flags": [
-          "проверка: «Rocket Flare даёт вижн» — already_default (Rocket Flare и так даёт обзор на 6 секунд. Настоящий талант — True Sight (истинное зрение), а перевод «даёт вижн» этот смысл теряет.)"
-        ]
+        "flags": []
       }
     ],
     "usage": {
@@ -1624,43 +1623,6 @@
           }
         ],
         "flags": []
-      },
-      {
-        "hero": "Dawnbreaker",
-        "type": "has",
-        "question": "Какой из этих талантов есть у Dawnbreaker?",
-        "options": [
-          {
-            "kind": "invented",
-            "text": "Starbreaker притягивает врагов к центру удара",
-            "verdict": "not_a_talent",
-            "verify_note": ""
-          },
-          {
-            "kind": "invented",
-            "text": "Celestial Hammer останавливается на первом вражеском герое",
-            "verdict": "not_a_talent",
-            "verify_note": ""
-          },
-          {
-            "kind": "invented",
-            "text": "Solar Guardian можно прервать во время канала",
-            "verdict": "already_default",
-            "verify_note": "Solar Guardian is marked CHANNELED; channeled abilities can already be interrupted during the channel. The restriction only applies after the channel completes."
-          },
-          {
-            "kind": "real",
-            "talent_id": "special_bonus_unique_dawnbreaker_celestial_hammer_targets_allies",
-            "text": "След Celestial Hammer даёт союзникам скорость передвижения",
-            "original": "Celestial Hammer Trail Grants Movement Speed to Allies",
-            "talent_kind": "mechanic",
-            "verdict": "real_talent",
-            "verify_note": ""
-          }
-        ],
-        "flags": [
-          "проверка: «Solar Guardian можно прервать во время канала» — already_default (Solar Guardian is marked CHANNELED; channeled abilities can already be interrupted during the channel. The restriction only applies after the channel completes.)"
-        ]
       },
       {
         "hero": "Io",

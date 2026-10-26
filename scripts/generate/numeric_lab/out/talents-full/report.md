@@ -1,6 +1,6 @@
 # Таланты
 
-Запросов: 13, вопросов: 52, с флагами: 2, стоимость: $1.92
+Запросов: 13, вопросов: 51, с флагами: 0, стоимость: $1.92
 
 **Magnus** — Какой из этих талантов есть у Magnus?
 - · Skewer в конце рывка выпускает Shockwave
@@ -95,9 +95,8 @@
 **Clockwerk** — Какой из этих талантов есть у Clockwerk?
 - · Hookshot притягивает цель к Clockwerk
 - · Power Cogs нельзя разрушить атаками врагов
-- ✔ Rocket Flare даёт вижн ← «Rocket Flare True Sight» (mechanic)
+- ✔ Rocket Flare даёт просвет ← «Rocket Flare True Sight» (mechanic)
 - · Battery Assault бьёт по две цели за разряд
-- ⚠ проверка: «Rocket Flare даёт вижн» — already_default (Rocket Flare и так даёт обзор на 6 секунд. Настоящий талант — True Sight (истинное зрение), а перевод «даёт вижн» этот смысл теряет.)
 
 **Shadow Demon** — Какой из этих талантов есть у Shadow Demon?
 - · Иллюзии от Disruption накладывают Shadow Poison атаками
@@ -230,13 +229,6 @@
 - · Dispose даёт стан в точке приземления
 - ✔ Bodyguard даёт сильный диспел ← «Bodyguard Strong Dispels» (mechanic)
 - · Rebound даёт цели барьер Bodyguard
-
-**Dawnbreaker** — Какой из этих талантов есть у Dawnbreaker?
-- · Starbreaker притягивает врагов к центру удара
-- · Celestial Hammer останавливается на первом вражеском герое
-- · Solar Guardian можно прервать во время канала
-- ✔ След Celestial Hammer даёт союзникам скорость передвижения ← «Celestial Hammer Trail Grants Movement Speed to Allies» (mechanic)
-- ⚠ проверка: «Solar Guardian можно прервать во время канала» — already_default (Solar Guardian is marked CHANNELED; channeled abilities can already be interrupted during the channel. The restriction only applies after the channel completes.)
 
 **Io** — Какой из этих талантов есть у Io?
 - ✔ Атакует цель союзника по Tether (50% урона) ← «Attack Tethered Ally's Target (50% damage)» (mechanic)
