@@ -1,0 +1,278 @@
+[
+  {
+    "index": 0,
+    "heroes": [
+      "Beastmaster",
+      "Invoker",
+      "Outworld Devourer",
+      "Terrorblade",
+      "Shadow Shaman"
+    ],
+    "questions": [
+      {
+        "hero": "Beastmaster",
+        "ability": "Drums of Slom",
+        "format": "how",
+        "question": "Как Primal Roar влияет на аганимный Drums of Slom?",
+        "options": [
+          {
+            "text": "Засчитывается как 10 атак и разгоняет барабан",
+            "correct": true,
+            "evidence": {
+              "ability": "Drums of Slom",
+              "source": "desc"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Сразу разгоняет барабан до максимальной скорости",
+            "correct": false,
+            "evidence": {
+              "ability": "Drums of Slom",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Минимальный интервал достигается после 20 атак, а Primal Roar засчитывается только как 10."
+          },
+          {
+            "text": "Каждый задетый рёвом юнит засчитывается как атака",
+            "correct": false,
+            "evidence": {
+              "ability": "Drums of Slom",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Рёв засчитывается как 10 атак независимо от числа задетых юнитов."
+          },
+          {
+            "text": "Никак, барабан считает только атаки",
+            "correct": false,
+            "evidence": {
+              "ability": "Drums of Slom",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Primal Roar засчитывается как 10 атак."
+          }
+        ],
+        "comment": "Primal Roar засчитывается Drums of Slom как 10 атак: это половина пути до максимального темпа, который барабан набирает после 20 атак.",
+        "flags": []
+      },
+      {
+        "hero": "Invoker",
+        "ability": "E.M.P.",
+        "format": "interaction",
+        "question": "E.M.P. взрывается, пока враг висит в Tornado. Что будет?",
+        "options": [
+          {
+            "text": "Ничего, цель в циклоне его не получает",
+            "correct": true,
+            "evidence": {
+              "ability": "E.M.P.",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Ману сожжёт, но урон не пройдёт из-за неуязвимости",
+            "correct": false,
+            "evidence": {
+              "ability": "E.M.P.",
+              "source": "note0"
+            },
+            "truth": "false",
+            "verify_note": "E.M.P. вообще не действует на цели в циклоне, мана тоже не сжигается."
+          },
+          {
+            "text": "Сработает как обычно: и мана, и урон",
+            "correct": false,
+            "evidence": {
+              "ability": "E.M.P.",
+              "source": "note0"
+            },
+            "truth": "false",
+            "verify_note": "E.M.P. не действует на цели в циклоне."
+          },
+          {
+            "text": "Эффект отложится и сработает при приземлении",
+            "correct": false,
+            "evidence": {
+              "ability": "E.M.P.",
+              "source": "note0"
+            },
+            "truth": "false",
+            "verify_note": "Эффект не откладывается: цель в циклоне просто не задевается."
+          }
+        ],
+        "comment": "E.M.P. полностью игнорирует юнитов в циклоне, будь то Tornado или Eul's, поэтому взрыв нужно рассчитывать на момент приземления.",
+        "flags": []
+      },
+      {
+        "hero": "Outworld Devourer",
+        "ability": "Astral Imprisonment",
+        "format": "how",
+        "question": "Что происходит с маной, когда OD крадёт её через Astral Imprisonment?",
+        "options": [
+          {
+            "text": "Меняется только максимум маны, текущая ни у кого не двигается",
+            "correct": true,
+            "evidence": {
+              "ability": "Astral Imprisonment",
+              "source": "note1"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "OD получает украденное и в максимум, и в текущую ману",
+            "correct": false,
+            "evidence": {
+              "ability": "Astral Imprisonment",
+              "source": "note1"
+            },
+            "truth": "false",
+            "verify_note": "Кража не увеличивает текущую ману OD."
+          },
+          {
+            "text": "У цели сгорает текущая мана, а OD получает только максимум",
+            "correct": false,
+            "evidence": {
+              "ability": "Astral Imprisonment",
+              "source": "note1"
+            },
+            "truth": "false",
+            "verify_note": "Текущая мана цели напрямую не уменьшается."
+          },
+          {
+            "text": "OD получает текущую ману, а у цели падает только максимум",
+            "correct": false,
+            "evidence": {
+              "ability": "Astral Imprisonment",
+              "source": "note1"
+            },
+            "truth": "false",
+            "verify_note": "OD не получает текущую ману."
+          }
+        ],
+        "comment": "Кража из Astral Imprisonment сдвигает только максимальную ману: OD не получает текущую ману, и у цели она напрямую не уменьшается.",
+        "flags": []
+      },
+      {
+        "hero": "Terrorblade",
+        "ability": "Reflection",
+        "format": "false_fact",
+        "question": "Назовите ложный факт про иллюзии Terrorblade.",
+        "options": [
+          {
+            "text": "Иллюзии от Conjure Image выглядят для врага точь-в-точь как Terrorblade",
+            "correct": true,
+            "evidence": {
+              "ability": "Conjure Image",
+              "source": "note0"
+            },
+            "truth": "false",
+            "verify_note": "Иллюзии Conjure Image визуально отличаются для врагов."
+          },
+          {
+            "text": "Отражение исчезнет, если с героя диспелом снять слоу",
+            "correct": false,
+            "evidence": {
+              "ability": "Reflection",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Dark Unity даёт бонус к урону и отражениям от Reflection",
+            "correct": false,
+            "evidence": {
+              "ability": "Dark Unity",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Demon Zeal не действует на отражения от Reflection",
+            "correct": false,
+            "evidence": {
+              "ability": "Demon Zeal",
+              "source": "desc"
+            },
+            "truth": "true",
+            "verify_note": ""
+          }
+        ],
+        "comment": "Иллюзии от Conjure Image для врага выглядят иначе, чем сам Terrorblade. Остальное — правда: отражение живёт, пока висит слоу, Dark Unity его усиливает, а Demon Zeal на него не действует.",
+        "flags": []
+      },
+      {
+        "hero": "Shadow Shaman",
+        "ability": "Fowl Play",
+        "format": "interaction",
+        "question": "Какой летальный урон убьёт Shadow Shaman, даже если Fowl Play готов?",
+        "options": [
+          {
+            "text": "Reaper's Scythe",
+            "correct": true,
+            "evidence": {
+              "ability": "Fowl Play",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Laguna Blade",
+            "correct": false,
+            "evidence": {
+              "ability": "Fowl Play",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Исключения Fowl Play — только Culling Blade и Reaper's Scythe."
+          },
+          {
+            "text": "Finger of Death",
+            "correct": false,
+            "evidence": {
+              "ability": "Fowl Play",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Исключения Fowl Play — только Culling Blade и Reaper's Scythe."
+          },
+          {
+            "text": "Sun Strike",
+            "correct": false,
+            "evidence": {
+              "ability": "Fowl Play",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Исключения Fowl Play — только Culling Blade и Reaper's Scythe."
+          }
+        ],
+        "comment": "Fowl Play не спасает только от двух добиваний: Reaper's Scythe и Culling Blade. От остального урона, даже чистого, Shaman превращается в курицу.",
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 12960,
+        "output_tokens": 4709,
+        "seconds": 47.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9303,
+        "output_tokens": 1246,
+        "seconds": 11.7,
+        "stop": "end_turn"
+      }
+    }
+  }
+]
