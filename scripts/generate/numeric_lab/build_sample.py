@@ -7,12 +7,16 @@
   python scripts/generate/numeric_lab/build_sample.py
     → sample.json        фиксированная выборка героев и предметов (без цен)
     → costs_sample.json  цены всех предметов, которые идут в вопросы (отдельная категория)
+  python scripts/generate/numeric_lab/build_sample.py --random 6 8 --out sample_step.json
+    → случайные герои и предметы (кроме фиксированной выборки), список выбранных — в самом файле
 
 Значения берутся из dotaconstants, а бонусы Aghanim's Scepter / Shard — из сырых файлов
 героев (dotaconstants их не выгружает): fact_id вида "<способность>:<ключ>@scepter".
 """
 
+import argparse
 import json
+import random
 import re
 import sys
 from pathlib import Path
@@ -187,13 +191,25 @@ def cost_packet(ik: str, d: dict) -> dict | None:
     return packet
 
 
-def build() -> dict:
+def build(heroes: list[str] = HEROES, items: list[str] = ITEMS) -> dict:
     d = _load()
     return {
         "patch": d["manifest"]["patch"],
-        "heroes": [hero_packet(f"npc_dota_hero_{hk}", d) for hk in HEROES],
-        "items": [item_packet(ik, d) for ik in ITEMS],
+        "heroes": [hero_packet(f"npc_dota_hero_{hk}", d) for hk in heroes],
+        "items": [item_packet(ik, d) for ik in items],
     }
+
+
+def pick_random(n_heroes: int, n_items: int) -> tuple[list[str], list[str]]:
+    """Случайные герои и предметы из актуальных, кроме фиксированной выборки."""
+    d = _load()
+    rng = random.SystemRandom()
+    heroes = [npc[len("npc_dota_hero_"):] for npc in d["current"]["heroes"]
+              if npc[len("npc_dota_hero_"):] not in HEROES]
+    cats = set(d["current"]["question_item_categories"])
+    items = [k for k, v in d["current"]["items"].items()
+             if v["category"] in cats and k not in ITEMS and item_packet(k, d)["facts"]]
+    return rng.sample(heroes, n_heroes), rng.sample(items, n_items)
 
 
 def build_costs() -> dict:
@@ -210,11 +226,24 @@ def _count(sample: dict) -> int:
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--random", nargs=2, type=int, metavar=("HEROES", "ITEMS"),
+                    help="случайная выборка вместо фиксированной")
+    ap.add_argument("--out", default=OUT.name)
+    args = ap.parse_args()
+    out = Path(__file__).parent / args.out
+    if args.random:
+        heroes, items = pick_random(*args.random)
+        sample = build(heroes, items)
+        out.write_text(json.dumps(sample, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"случайно: {', '.join(h['hero'] for h in sample['heroes'])} | "
+              f"{', '.join(i['name'] for i in sample['items'])} → {out}")
+        return
     sample = build()
-    OUT.write_text(json.dumps(sample, ensure_ascii=False, indent=1), encoding="utf-8")
+    out.write_text(json.dumps(sample, ensure_ascii=False, indent=1), encoding="utf-8")
     upgrades = sum(1 for h in sample["heroes"] for p in h["abilities"] for f in p["facts"] if "@" in f["fact_id"])
     print(f"{len(sample['heroes'])} героев, {len(sample['items'])} предметов, {_count(sample)} фактов "
-          f"(из них аганим/шард: {upgrades}) → {OUT}")
+          f"(из них аганим/шард: {upgrades}) → {out}")
     costs = build_costs()
     COSTS.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"цены: {len(costs['items'])} предметов → {COSTS}")

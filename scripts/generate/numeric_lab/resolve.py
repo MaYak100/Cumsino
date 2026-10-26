@@ -12,10 +12,14 @@
 """
 
 import json
+import random
 import re
 import sys
 from collections import Counter
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from options import make_options
 
 LAB = Path(__file__).parent
 
@@ -48,6 +52,23 @@ def _decimals(x: float) -> int:
 
 def _fmt(x: float) -> str:
     return str(int(x)) if float(x) == int(x) else str(x)
+
+
+def _step_options(q: dict, answer: float, flags: list[str]) -> dict | None:
+    """Режим «модель задаёт шаг»: варианты строит код, как в игре (пример одного показа)."""
+    step = float(q["step"])
+    if step <= 0:
+        flags.append("шаг ≤ 0")
+        return None
+    ratio = step / float(answer)
+    if ratio >= 1:
+        flags.append("шаг ≥ ответа: ответ почти всегда будет самым маленьким")
+    elif ratio < 0.03:
+        flags.append(f"шаг очень мелкий ({ratio:.1%} от ответа)")
+    rng = random.Random(f"{q['fact_id']}|{q.get('question')}")
+    opts, pos = make_options(float(answer), step, rng)
+    return {"options": opts, "position": pos + 1, "spread": round(opts[-1] / opts[0], 2) if opts[0] else 0,
+            "step": step, "step_ratio": round(ratio, 3)}
 
 
 def resolve_one(q: dict, facts: dict) -> dict:
@@ -83,6 +104,10 @@ def resolve_one(q: dict, facts: dict) -> dict:
     leaked = [n for n in _NUM.findall(text_wo_level) if float(n.replace(",", ".")) in sibling_nums]
     if leaked:
         flags.append(f"в тексте числа из данных: {', '.join(leaked)}")
+
+    if "step" in q:
+        return {**q, "answer": answer, "entity": fact["entity"], "all_values": vals,
+                "mc": _step_options(q, answer, flags), "flags": flags}
 
     d = q.get("distractors") or []
     mc = None
@@ -131,7 +156,9 @@ def render(run_dir: Path, results: dict[str, list[dict]]) -> str:
             lines.append(f"- ответ: **{ans} {r.get('unit', '')}**"
                          + (f" (по уровням: {', '.join(map(_fmt, r['all_values']))})"
                             if len(r.get("all_values", [])) > 1 else "")
-                         + (f" · варианты: {opts}" if opts else ""))
+                         + (f" · варианты: {opts}" if opts else "")
+                         + (f" · шаг {_fmt(r['mc']['step'])} ({r['mc']['step_ratio']:.0%} от ответа)"
+                            if r.get("mc") and "step" in r["mc"] else ""))
             if r.get("why"):
                 lines.append(f"- зачем: {r['why']}")
             for f in r["flags"]:

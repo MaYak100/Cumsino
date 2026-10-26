@@ -15,6 +15,7 @@
   python scripts/generate/numeric_lab/run_api.py out/v3 --resume      # забрать результаты уже отправленного батча
   python scripts/generate/numeric_lab/run_api.py out/v3s --sync       # обычные вызовы параллельно, без батча (×2 цена)
   python scripts/generate/numeric_lab/run_api.py out/costs1 --costs --sync --models claude-opus-5-5
+  python scripts/generate/numeric_lab/run_api.py out/step1 --step --sync --models claude-opus-5-5 --groups 3
   python scripts/generate/numeric_lab/resolve.py out/v3               # отчёт
 
 Выход в папке прогона: <модель>-g<размер>.json (формат resolve.py), usage.json, cost.md,
@@ -43,7 +44,7 @@ CACHE_WRITE_MULT = 1.25   # запись в кэш с TTL 5 минут
 BATCH_MULT = 0.5
 
 
-def schema(fact_ids: list[str], with_excluded: bool = False) -> dict:
+def schema(fact_ids: list[str], with_excluded: bool = False, step: bool = False) -> dict:
     question = {
         "type": "object",
         "properties": {
@@ -51,9 +52,10 @@ def schema(fact_ids: list[str], with_excluded: bool = False) -> dict:
             "level": {"anyOf": [{"type": "string", "enum": ["max"]}, {"type": "integer"}]},
             "question": {"type": "string"},
             "unit": {"type": "string"},
-            "distractors": {"type": "array", "items": {"type": "number"}},
+            **({"step": {"type": "number"}} if step else
+               {"distractors": {"type": "array", "items": {"type": "number"}}}),
         },
-        "required": ["fact_id", "level", "question", "unit", "distractors"],
+        "required": ["fact_id", "level", "question", "unit", "step" if step else "distractors"],
         "additionalProperties": False,
     }
     root = {
@@ -88,7 +90,7 @@ def _fact_ids(entities: list[dict]) -> list[str]:
 
 
 def build_requests(sample: dict, prompt: str, models: list[str], groups: list[int | str], effort: str,
-                   with_excluded: bool = False) -> list[dict]:
+                   with_excluded: bool = False, step: bool = False) -> list[dict]:
     system = [{"type": "text", "text": prompt}]
     requests = []
     for model in models:
@@ -111,7 +113,7 @@ def build_requests(sample: dict, prompt: str, models: list[str], groups: list[in
                             "output_config": {
                                 "effort": effort,
                                 "format": {"type": "json_schema",
-                                           "schema": schema(_fact_ids(chunk), with_excluded)},
+                                           "schema": schema(_fact_ids(chunk), with_excluded, step)},
                             },
                         },
                     })
@@ -272,6 +274,8 @@ def main() -> None:
     ap.add_argument("run_dir")
     ap.add_argument("--prompt", default="prompt_v4.md")
     ap.add_argument("--sample", default="sample.json")
+    ap.add_argument("--step", action="store_true",
+                    help="модель задаёт шаг вместо неверных вариантов (prompt_v5.md, sample_step.json)")
     ap.add_argument("--costs", action="store_true",
                     help="цены: costs_sample.json + prompt_costs_v1.md, все предметы одним запросом, со списком исключённых")
     ap.add_argument("--models", default="claude-sonnet-5-5,claude-opus-5-5")
@@ -285,6 +289,8 @@ def main() -> None:
     args = ap.parse_args()
     if args.costs:
         args.sample, args.prompt, args.groups = "costs_sample.json", "prompt_costs_v1.md", "all"
+    if args.step:
+        args.sample, args.prompt = "sample_step.json", "prompt_v5.md"
 
     run_dir = Path(args.run_dir)
     if not run_dir.is_absolute() and not run_dir.parent.exists():
@@ -301,7 +307,8 @@ def main() -> None:
 
     models = args.models.split(",")
     groups = [g if g == "all" else int(g) for g in args.groups.split(",")]
-    requests = build_requests(sample, prompt, models, groups, args.effort, with_excluded=args.costs)
+    requests = build_requests(sample, prompt, models, groups, args.effort, with_excluded=args.costs,
+                              step=args.step)
     (run_dir / "requests.json").write_text(json.dumps(requests, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(requests)} запросов: модели {', '.join(ALIASES[m] for m in models)}, группы {groups}, "
           f"effort {args.effort} → {run_dir / 'requests.json'}")
