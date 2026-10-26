@@ -166,7 +166,7 @@ Dota 2 вопросы. Источник данных — GitHub-зеркало O
 
 **Что есть в игре — `scripts/data/dota/current.json`** (`scripts/build_game_index.py`, вызывается из fetch). Предметы по категориям: `shop` (shops.txt), `upgrade` (Dagon 2–5, BoT 2), `neutral`/`enhancement` (текущие тиры neutral_items.txt), `roshan`, `removed` (IsObsolete или нейтралка вне тиров), `other`. В вопросы идут shop/upgrade/neutral/enhancement. Способности — слоты героя с ролью: basic/ultimate/innate/shard/scepter (в вопросы), sub (служебные кнопки), review (не определилось — решить вручную). Ручные решения — `scripts/data/dota_overrides.json`. Парсер формата игры — `scripts/valve_kv.py`. Старые `scripts/data/{heroes,abilities,items}.json` — устаревший архив.
 
-**Лаборатория числовых вопросов — `scripts/generate/numeric_lab/`**: `build_sample.py` (выборка фактов из current.json), `prompt_v*.md`, `resolve.py out/<run>` (модель выбирает `fact_id`, ответ подставляется из данных, флаги + `report.md`). Модель число не пишет.
+**Лаборатория числовых вопросов — `scripts/generate/numeric_lab/`**: `build_sample.py` (выборка фактов из current.json), `prompt_v*.md`, `resolve.py out/<run>` (модель выбирает `fact_id`, ответ подставляется из данных, флаги + `report.md`). Модель число не пишет. Прогон через API — `run_api.py out/<run>` (`--dry-run` / `--estimate` / без флагов = Batch API / `--resume`): Batch API, кэш системного промпта, structured outputs с enum по `fact_id`, `effort`; пишет `<модель>-g<N>.json`, `usage.json`, `cost.md`. Нужен `ANTHROPIC_API_KEY` (переменная окружения, подхватывается новой сессией). Финальное сравнение: `run_api.py out/v3` (sonnet/opus × 1 и 3 сущности на запрос, `prompt_v3.md`), затем `resolve.py out/v3`.
 
 ### Runtime-файлы — `scripts/data/generated/`
 
