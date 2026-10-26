@@ -2,9 +2,9 @@
 Варианты ответа по шагу: модель задаёт только `step` (насколько ошибается игрок, который
 помнит примерно), а варианты строит код — заново при каждом показе вопроса в игре.
 
-Правильный ответ встаёт на случайную позицию из четырёх (крайнюю или центральную),
-промежутки между соседними вариантами — 1 или 2 шага, поэтому ни позиция, ни шаг
-не выдают ответ. Варианты не уходят в ноль и ниже.
+Позиция правильного ответа среди вариантов по величине выбирается случайно (крайняя или
+центральная), остальные варианты откладываются от него ровно на заданный шаг, затем
+игра перемешивает порядок показа. Варианты не уходят в ноль и ниже.
 
 Эталон для переноса в игру (server/), здесь — для отчётов лаборатории.
 """
@@ -19,14 +19,11 @@ def _decimals(x: float) -> int:
 
 def make_options(answer: float, step: float, rng: random.Random, n: int = 4,
                  floor: float = 0.0) -> tuple[list[float], int]:
-    """→ (варианты по возрастанию, индекс правильного)."""
+    """→ (варианты по возрастанию, индекс правильного). Порядок показа перемешивает игра."""
     step = abs(step)
-    gaps = [rng.choice((1, 1, 2)) * step for _ in range(n - 1)]
     # позиции, при которых самый маленький вариант остаётся выше floor
-    valid = [p for p in range(n) if answer - sum(gaps[:p]) > floor] or [0]
+    valid = [p for p in range(n) if answer - p * step > floor] or [0]
     p = rng.choice(valid)
-    below = [answer - sum(gaps[i:p]) for i in range(p)]
-    above = [answer + sum(gaps[p:p + j]) for j in range(1, n - p)]
     digits = max(_decimals(step), _decimals(answer))
-    options = [round(v, digits) for v in below + [answer] + above]
+    options = [round(answer + (i - p) * step, digits) for i in range(n)]
     return options, p

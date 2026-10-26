@@ -15,15 +15,8 @@
         105,
         140
       ],
-      "mc": {
-        "options": [
-          120.0,
-          140.0,
-          180.0,
-          220.0
-        ],
-        "position": 2,
-        "spread": 1.83,
+      "mc": null,
+      "step_info": {
         "step": 20.0,
         "step_ratio": 0.143
       },
@@ -43,15 +36,8 @@
         38,
         44
       ],
-      "mc": {
-        "options": [
-          20.0,
-          28.0,
-          36.0,
-          44.0
-        ],
-        "position": 4,
-        "spread": 2.2,
+      "mc": null,
+      "step_info": {
         "step": 4.0,
         "step_ratio": 0.091
       },
@@ -69,15 +55,8 @@
       "all_values": [
         38
       ],
-      "mc": {
-        "options": [
-          20.0,
-          26.0,
-          38.0,
-          44.0
-        ],
-        "position": 3,
-        "spread": 2.2,
+      "mc": null,
+      "step_info": {
         "step": 6.0,
         "step_ratio": 0.158
       },
@@ -98,15 +77,8 @@
         220,
         280
       ],
-      "mc": {
-        "options": [
-          280.0,
-          320.0,
-          340.0,
-          380.0
-        ],
-        "position": 1,
-        "spread": 1.36,
+      "mc": null,
+      "step_info": {
         "step": 20.0,
         "step_ratio": 0.071
       },
@@ -126,15 +98,8 @@
         160,
         210
       ],
-      "mc": {
-        "options": [
-          110.0,
-          150.0,
-          170.0,
-          210.0
-        ],
-        "position": 4,
-        "spread": 1.91,
+      "mc": null,
+      "step_info": {
         "step": 20.0,
         "step_ratio": 0.095
       },
@@ -155,15 +120,8 @@
         60,
         70
       ],
-      "mc": {
-        "options": [
-          60.0,
-          70.0,
-          80.0,
-          90.0
-        ],
-        "position": 2,
-        "spread": 1.5,
+      "mc": null,
+      "step_info": {
         "step": 10.0,
         "step_ratio": 0.143
       },
@@ -181,15 +139,8 @@
       "all_values": [
         50
       ],
-      "mc": {
-        "options": [
-          50.0,
-          70.0,
-          80.0,
-          90.0
-        ],
-        "position": 1,
-        "spread": 1.8,
+      "mc": null,
+      "step_info": {
         "step": 10.0,
         "step_ratio": 0.2
       },
@@ -207,15 +158,8 @@
       "all_values": [
         25
       ],
-      "mc": {
-        "options": [
-          10.0,
-          20.0,
-          25.0,
-          30.0
-        ],
-        "position": 3,
-        "spread": 3.0,
+      "mc": null,
+      "step_info": {
         "step": 5.0,
         "step_ratio": 0.2
       },
@@ -233,15 +177,8 @@
       "all_values": [
         3
       ],
-      "mc": {
-        "options": [
-          1.0,
-          2.0,
-          3.0,
-          4.0
-        ],
-        "position": 3,
-        "spread": 4.0,
+      "mc": null,
+      "step_info": {
         "step": 1.0,
         "step_ratio": 0.333
       },
@@ -259,15 +196,8 @@
       "all_values": [
         55
       ],
-      "mc": {
-        "options": [
-          45.0,
-          55.0,
-          60.0,
-          70.0
-        ],
-        "position": 2,
-        "spread": 1.56,
+      "mc": null,
+      "step_info": {
         "step": 5.0,
         "step_ratio": 0.091
       },
@@ -285,15 +215,8 @@
       "all_values": [
         40
       ],
-      "mc": {
-        "options": [
-          25.0,
-          30.0,
-          40.0,
-          50.0
-        ],
-        "position": 3,
-        "spread": 2.0,
+      "mc": null,
+      "step_info": {
         "step": 5.0,
         "step_ratio": 0.125
       },
@@ -311,15 +234,8 @@
       "all_values": [
         35
       ],
-      "mc": {
-        "options": [
-          20.0,
-          25.0,
-          35.0,
-          40.0
-        ],
-        "position": 3,
-        "spread": 2.0,
+      "mc": null,
+      "step_info": {
         "step": 5.0,
         "step_ratio": 0.143
       },
@@ -337,15 +253,8 @@
       "all_values": [
         30
       ],
-      "mc": {
-        "options": [
-          30.0,
-          35.0,
-          45.0,
-          55.0
-        ],
-        "position": 1,
-        "spread": 1.83,
+      "mc": null,
+      "step_info": {
         "step": 5.0,
         "step_ratio": 0.167
       },

@@ -295,7 +295,7 @@ def main() -> None:
     ap.add_argument("--prompt", default="prompt_v4.md")
     ap.add_argument("--sample", default="sample.json")
     ap.add_argument("--step", action="store_true",
-                    help="модель задаёт шаг вместо неверных вариантов (prompt_v5.md, sample_step.json)")
+                    help="модель задаёт шаг вместо неверных вариантов (prompt_v6.md, sample_step.json)")
     ap.add_argument("--mix", action="store_true", help="герои и предметы вперемешку в одном запросе")
     ap.add_argument("--seed", type=int, help="перемешать сущности перед разбивкой (иначе порядок выборки)")
     ap.add_argument("--costs", action="store_true",
@@ -312,7 +312,7 @@ def main() -> None:
     if args.costs:
         args.sample, args.prompt, args.groups = "costs_sample.json", "prompt_costs_v1.md", "all"
     if args.step:
-        args.sample, args.prompt = "sample_step.json", "prompt_v5.md"
+        args.sample, args.prompt = "sample_step.json", "prompt_v6.md"
 
     run_dir = Path(args.run_dir)
     if not run_dir.is_absolute() and not run_dir.parent.exists():

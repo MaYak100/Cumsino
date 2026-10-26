@@ -170,6 +170,9 @@ def item_packet(ik: str, d: dict) -> dict:
     }
     if names := _level_names(ik, d):
         packet["level_names"] = names
+    entry = d["current"]["items"][ik]
+    if entry["category"] == "neutral":
+        packet["call_as"] = f"нейтралка {entry['tier']}-го тира {packet['name']}"
     return packet
 
 

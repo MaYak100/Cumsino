@@ -12,14 +12,12 @@
 """
 
 import json
-import random
 import re
 import sys
 from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from options import make_options
 
 LAB = Path(__file__).parent
 
@@ -55,8 +53,8 @@ def _fmt(x: float) -> str:
     return str(int(x)) if float(x) == int(x) else str(x)
 
 
-def _step_options(q: dict, answer: float, flags: list[str]) -> dict | None:
-    """Режим «модель задаёт шаг»: варианты строит код, как в игре (пример одного показа)."""
+def _step_check(q: dict, answer: float, flags: list[str]) -> dict | None:
+    """Режим шага: варианты строит игра при показе, здесь только проверка самого шага."""
     step = float(q["step"])
     if step <= 0:
         flags.append("шаг ≤ 0")
@@ -66,10 +64,7 @@ def _step_options(q: dict, answer: float, flags: list[str]) -> dict | None:
         flags.append("шаг ≥ ответа: ответ почти всегда будет самым маленьким")
     elif ratio < 0.03:
         flags.append(f"шаг очень мелкий ({ratio:.1%} от ответа)")
-    rng = random.Random(f"{q['fact_id']}|{q.get('question')}")
-    opts, pos = make_options(float(answer), step, rng)
-    return {"options": opts, "position": pos + 1, "spread": round(opts[-1] / opts[0], 2) if opts[0] else 0,
-            "step": step, "step_ratio": round(ratio, 3)}
+    return {"step": step, "step_ratio": round(ratio, 3)}
 
 
 def resolve_one(q: dict, facts: dict) -> dict:
@@ -109,7 +104,7 @@ def resolve_one(q: dict, facts: dict) -> dict:
 
     if "step" in q:
         return {**q, "answer": answer, "entity": fact["entity"], "all_values": vals,
-                "mc": _step_options(q, answer, flags), "flags": flags}
+                "mc": None, "step_info": _step_check(q, answer, flags), "flags": flags}
 
     d = q.get("distractors") or []
     mc = None
@@ -144,6 +139,11 @@ def render(run_dir: Path, results: dict[str, list[dict]]) -> str:
         pos = Counter(r["mc"]["position"] for r in rs if r.get("mc"))
         spreads = [r["mc"]["spread"] for r in rs if r.get("mc") and r["mc"]["spread"] != float("inf")]
         avg = sum(spreads) / len(spreads) if spreads else 0
+        steps = [r["step_info"]["step_ratio"] for r in rs if r.get("step_info")]
+        if steps:   # режим шага: позиции и разброс задаёт игра, показываем шаг
+            lines.append(f"| {model} | {len(rs)} | {flagged} | — (шаг, позицию роллит игра) | "
+                         f"шаг {min(steps):.0%}–{max(steps):.0%} от ответа |")
+            continue
         lines.append(f"| {model} | {len(rs)} | {flagged} | "
                      f"{'/'.join(str(pos.get(i, 0)) for i in range(1, 5))} | {avg:.2f} |")
     for model, rs in results.items():
@@ -159,8 +159,8 @@ def render(run_dir: Path, results: dict[str, list[dict]]) -> str:
                          + (f" (по уровням: {', '.join(map(_fmt, r['all_values']))})"
                             if len(r.get("all_values", [])) > 1 else "")
                          + (f" · варианты: {opts}" if opts else "")
-                         + (f" · шаг {_fmt(r['mc']['step'])} ({r['mc']['step_ratio']:.0%} от ответа)"
-                            if r.get("mc") and "step" in r["mc"] else ""))
+                         + (f" · шаг {_fmt(r['step_info']['step'])} ({r['step_info']['step_ratio']:.0%} от ответа)"
+                            if r.get("step_info") else ""))
             if r.get("why"):
                 lines.append(f"- зачем: {r['why']}")
             for f in r["flags"]:
