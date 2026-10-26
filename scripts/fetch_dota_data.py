@@ -49,6 +49,7 @@ VPK_FILES = [
     "dota/scripts/npc/neutral_items.txt",
     "dota/scripts/shops.txt",
     "dota/resource/localization/abilities_russian.txt",  # официальные русские названия и тултипы
+    "dota/resource/localization/abilities_english.txt",  # полные описания, примечания (Note0…), шард/аганим
 ]
 VPK_HERO_PATH = "dota/scripts/npc/heroes/{hero}.txt"
 

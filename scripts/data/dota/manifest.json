@@ -565,6 +565,10 @@
     "scripts/npc/heroes/npc_dota_hero_zuus.txt": {
       "sha256": "e1a5d9c91fa66a70c233912115244d4ec8c0e388b76770d54a81404c3733a15c",
       "bytes": 22544
+    },
+    "resource/localization/abilities_english.txt": {
+      "sha256": "8668b3945eff0ac07500c08cf9ecd4f677e8557de7709b755e4e2dbd2ab85889",
+      "bytes": 1844970
     }
   }
 }
