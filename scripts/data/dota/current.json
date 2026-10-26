@@ -1,0 +1,6440 @@
+{
+ "patch": "7.41f",
+ "question_item_categories": [
+  "enhancement",
+  "neutral",
+  "shop",
+  "upgrade"
+ ],
+ "question_ability_roles": [
+  "basic",
+  "innate",
+  "scepter",
+  "shard",
+  "ultimate"
+ ],
+ "items": {
+  "blink": {
+   "name": "Blink Dagger",
+   "category": "shop"
+  },
+  "overwhelming_blink": {
+   "name": "Overwhelming Blink",
+   "category": "shop"
+  },
+  "swift_blink": {
+   "name": "Swift Blink",
+   "category": "shop"
+  },
+  "arcane_blink": {
+   "name": "Arcane Blink",
+   "category": "shop"
+  },
+  "blades_of_attack": {
+   "name": "Blades of Attack",
+   "category": "shop"
+  },
+  "broadsword": {
+   "name": "Broadsword",
+   "category": "shop"
+  },
+  "chainmail": {
+   "name": "Chainmail",
+   "category": "shop"
+  },
+  "splintmail": {
+   "name": "Splintmail",
+   "category": "shop"
+  },
+  "claymore": {
+   "name": "Claymore",
+   "category": "shop"
+  },
+  "helm_of_iron_will": {
+   "name": "Helm of Iron Will",
+   "category": "shop"
+  },
+  "javelin": {
+   "name": "Javelin",
+   "category": "shop"
+  },
+  "mithril_hammer": {
+   "name": "Mithril Hammer",
+   "category": "shop"
+  },
+  "platemail": {
+   "name": "Platemail",
+   "category": "shop"
+  },
+  "quarterstaff": {
+   "name": "Quarterstaff",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "quelling_blade": {
+   "name": "Quelling Blade",
+   "category": "shop"
+  },
+  "faerie_fire": {
+   "name": "Faerie Fire",
+   "category": "shop"
+  },
+  "infused_raindrop": {
+   "name": "Infused Raindrops",
+   "category": "shop"
+  },
+  "wind_lace": {
+   "name": "Wind Lace",
+   "category": "shop"
+  },
+  "ring_of_protection": {
+   "name": "Ring of Protection",
+   "category": "shop"
+  },
+  "stout_shield": {
+   "name": "Stout Shield",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "moon_shard": {
+   "name": "Moon Shard",
+   "category": "shop"
+  },
+  "gauntlets": {
+   "name": "Gauntlets of Strength",
+   "category": "shop"
+  },
+  "slippers": {
+   "name": "Slippers of Agility",
+   "category": "shop"
+  },
+  "mantle": {
+   "name": "Mantle of Intelligence",
+   "category": "shop"
+  },
+  "branches": {
+   "name": "Iron Branch",
+   "category": "shop"
+  },
+  "belt_of_strength": {
+   "name": "Belt of Strength",
+   "category": "shop"
+  },
+  "boots_of_elves": {
+   "name": "Band of Elvenskin",
+   "category": "shop"
+  },
+  "robe": {
+   "name": "Robe of the Magi",
+   "category": "shop"
+  },
+  "circlet": {
+   "name": "Circlet",
+   "category": "shop"
+  },
+  "crown": {
+   "name": "Crown",
+   "category": "shop"
+  },
+  "diadem": {
+   "name": "Diadem",
+   "category": "shop"
+  },
+  "ogre_axe": {
+   "name": "Ogre Axe",
+   "category": "shop"
+  },
+  "blade_of_alacrity": {
+   "name": "Blade of Alacrity",
+   "category": "shop"
+  },
+  "staff_of_wizardry": {
+   "name": "Staff of Wizardry",
+   "category": "shop"
+  },
+  "ultimate_orb": {
+   "name": "Ultimate Orb",
+   "category": "shop"
+  },
+  "gloves": {
+   "name": "Gloves of Haste",
+   "category": "shop"
+  },
+  "blitz_knuckles": {
+   "name": "Blitz Knuckles",
+   "category": "shop"
+  },
+  "lifesteal": {
+   "name": "Morbid Mask",
+   "category": "shop"
+  },
+  "voodoo_mask": {
+   "name": "Voodoo Mask",
+   "category": "shop"
+  },
+  "ring_of_regen": {
+   "name": "Ring of Regen",
+   "category": "shop"
+  },
+  "sobi_mask": {
+   "name": "Sage's Mask",
+   "category": "shop"
+  },
+  "boots": {
+   "name": "Boots of Speed",
+   "category": "shop"
+  },
+  "gem": {
+   "name": "Gem of True Sight",
+   "category": "shop"
+  },
+  "shawl": {
+   "name": "Shawl",
+   "category": "shop"
+  },
+  "cloak": {
+   "name": "Cloak",
+   "category": "shop"
+  },
+  "talisman_of_evasion": {
+   "name": "Talisman of Evasion",
+   "category": "shop"
+  },
+  "cheese": {
+   "name": "Cheese",
+   "category": "roshan"
+  },
+  "magic_stick": {
+   "name": "Magic Stick",
+   "category": "shop"
+  },
+  "magic_wand": {
+   "name": "Magic Wand",
+   "category": "shop"
+  },
+  "ghost": {
+   "name": "Ghost Scepter",
+   "category": "shop"
+  },
+  "clarity": {
+   "name": "Clarity",
+   "category": "shop"
+  },
+  "enchanted_mango": {
+   "name": "Enchanted Mango",
+   "category": "shop"
+  },
+  "famango": {
+   "name": "Healing Lotus",
+   "category": "other"
+  },
+  "great_famango": {
+   "name": "Great Healing Lotus",
+   "category": "other"
+  },
+  "greater_famango": {
+   "name": "Greater Healing Lotus",
+   "category": "other"
+  },
+  "blood_grenade": {
+   "name": "Blood Grenade",
+   "category": "shop"
+  },
+  "royale_with_cheese": {
+   "name": "Block of Cheese",
+   "category": "other"
+  },
+  "flask": {
+   "name": "Healing Salve",
+   "category": "shop"
+  },
+  "dust": {
+   "name": "Dust of Appearance",
+   "category": "shop"
+  },
+  "bottle": {
+   "name": "Bottle",
+   "category": "shop"
+  },
+  "ward_observer": {
+   "name": "Observer Ward",
+   "category": "shop"
+  },
+  "ward_sentry": {
+   "name": "Sentry Ward",
+   "category": "shop"
+  },
+  "ward_dispenser": {
+   "name": "Observer and Sentry Wards",
+   "category": "other"
+  },
+  "tango": {
+   "name": "Tango",
+   "category": "shop"
+  },
+  "tango_single": {
+   "name": "Tango (Shared)",
+   "category": "other"
+  },
+  "courier": {
+   "name": "Animal Courier",
+   "category": "other"
+  },
+  "flying_courier": {
+   "name": "Flying Courier",
+   "category": "other"
+  },
+  "tpscroll": {
+   "name": "Town Portal Scroll",
+   "category": "shop"
+  },
+  "travel_boots": {
+   "name": "Boots of Travel",
+   "category": "shop"
+  },
+  "travel_boots_2": {
+   "name": "Boots of Travel 2",
+   "category": "upgrade"
+  },
+  "phase_boots": {
+   "name": "Phase Boots",
+   "category": "shop"
+  },
+  "demon_edge": {
+   "name": "Demon Edge",
+   "category": "shop"
+  },
+  "eagle": {
+   "name": "Eaglesong",
+   "category": "shop"
+  },
+  "reaver": {
+   "name": "Reaver",
+   "category": "shop"
+  },
+  "relic": {
+   "name": "Sacred Relic",
+   "category": "shop"
+  },
+  "hyperstone": {
+   "name": "Hyperstone",
+   "category": "shop"
+  },
+  "ring_of_health": {
+   "name": "Ring of Health",
+   "category": "shop"
+  },
+  "ring_of_tarrasque": {
+   "name": "Ring of Tarrasque",
+   "category": "shop"
+  },
+  "void_stone": {
+   "name": "Void Stone",
+   "category": "shop"
+  },
+  "tiara_of_selemene": {
+   "name": "Tiara of Selemene",
+   "category": "shop"
+  },
+  "mystic_staff": {
+   "name": "Mystic Staff",
+   "category": "shop"
+  },
+  "energy_booster": {
+   "name": "Energy Booster",
+   "category": "shop"
+  },
+  "point_booster": {
+   "name": "Point Booster",
+   "category": "shop"
+  },
+  "vitality_booster": {
+   "name": "Vitality Booster",
+   "category": "shop"
+  },
+  "fluffy_hat": {
+   "name": "Fluffy Hat",
+   "category": "shop"
+  },
+  "wizard_hat": {
+   "name": "Wizard Hat",
+   "category": "shop"
+  },
+  "power_treads": {
+   "name": "Power Treads",
+   "category": "shop"
+  },
+  "phylactery": {
+   "name": "Phylactery",
+   "category": "shop"
+  },
+  "angels_demise": {
+   "name": "Khanda",
+   "category": "shop"
+  },
+  "hand_of_midas": {
+   "name": "Hand of Midas",
+   "category": "shop"
+  },
+  "oblivion_staff": {
+   "name": "Oblivion Staff",
+   "category": "shop"
+  },
+  "witch_blade": {
+   "name": "Witch Blade",
+   "category": "shop"
+  },
+  "pers": {
+   "name": "Perseverance",
+   "category": "shop"
+  },
+  "cornucopia": {
+   "name": "Cornucopia",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "poor_mans_shield": {
+   "name": "Poor Man's Shield",
+   "category": "neutral",
+   "tier": 2
+  },
+  "bracer": {
+   "name": "Bracer",
+   "category": "shop"
+  },
+  "wraith_band": {
+   "name": "Wraith Band",
+   "category": "shop"
+  },
+  "null_talisman": {
+   "name": "Null Talisman",
+   "category": "shop"
+  },
+  "mekansm": {
+   "name": "Mekansm",
+   "category": "shop"
+  },
+  "vladmir": {
+   "name": "Vladmir's Offering",
+   "category": "shop"
+  },
+  "wraith_pact": {
+   "name": "Wraith Pact",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "buckler": {
+   "name": "Buckler",
+   "category": "shop"
+  },
+  "ring_of_basilius": {
+   "name": "Ring of Basilius",
+   "category": "shop"
+  },
+  "holy_locket": {
+   "name": "Holy Locket",
+   "category": "shop"
+  },
+  "pipe": {
+   "name": "Pipe of Insight",
+   "category": "shop"
+  },
+  "urn_of_shadows": {
+   "name": "Urn of Shadows",
+   "category": "shop"
+  },
+  "headdress": {
+   "name": "Headdress",
+   "category": "shop"
+  },
+  "sheepstick": {
+   "name": "Scythe of Vyse",
+   "category": "shop"
+  },
+  "caster_rapier": {
+   "name": "caster_rapier",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "orchid": {
+   "name": "Orchid Malevolence",
+   "category": "shop"
+  },
+  "bloodthorn": {
+   "name": "Bloodthorn",
+   "category": "shop"
+  },
+  "echo_sabre": {
+   "name": "Echo Sabre",
+   "category": "shop"
+  },
+  "cyclone": {
+   "name": "Eul's Scepter of Divinity",
+   "category": "shop"
+  },
+  "wind_waker": {
+   "name": "Wind Waker",
+   "category": "shop"
+  },
+  "aether_lens": {
+   "name": "Aether Lens",
+   "category": "shop"
+  },
+  "force_staff": {
+   "name": "Force Staff",
+   "category": "shop"
+  },
+  "hurricane_pike": {
+   "name": "Hurricane Pike",
+   "category": "shop"
+  },
+  "dagon": {
+   "name": "Dagon",
+   "category": "shop"
+  },
+  "dagon_2": {
+   "name": "Dagon",
+   "category": "upgrade"
+  },
+  "dagon_3": {
+   "name": "Dagon",
+   "category": "upgrade"
+  },
+  "dagon_4": {
+   "name": "Dagon",
+   "category": "upgrade"
+  },
+  "dagon_5": {
+   "name": "Dagon",
+   "category": "upgrade"
+  },
+  "necronomicon": {
+   "name": "Necronomicon",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "necronomicon_2": {
+   "name": "Necronomicon",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "necronomicon_3": {
+   "name": "Necronomicon",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "ultimate_scepter": {
+   "name": "Aghanim's Scepter",
+   "category": "shop"
+  },
+  "ultimate_scepter_2": {
+   "name": "Aghanim's Blessing",
+   "category": "upgrade"
+  },
+  "ultimate_scepter_roshan": {
+   "name": "Aghanim's Blessing - Roshan",
+   "category": "roshan"
+  },
+  "aghanims_shard": {
+   "name": "Aghanim's Shard",
+   "category": "shop"
+  },
+  "aghanims_shard_roshan": {
+   "name": "Aghanim's Shard - Consumable",
+   "category": "roshan"
+  },
+  "eldwurms_edda": {
+   "name": "Eldwurm's Edda",
+   "category": "other"
+  },
+  "refresher": {
+   "name": "Refresher Orb",
+   "category": "shop"
+  },
+  "assault": {
+   "name": "Assault Cuirass",
+   "category": "shop"
+  },
+  "heart": {
+   "name": "Heart of Tarrasque",
+   "category": "shop"
+  },
+  "black_king_bar": {
+   "name": "Black King Bar",
+   "category": "shop"
+  },
+  "aegis": {
+   "name": "Aegis of the Immortal",
+   "category": "roshan"
+  },
+  "shivas_guard": {
+   "name": "Shiva's Guard",
+   "category": "shop"
+  },
+  "bloodstone": {
+   "name": "Bloodstone",
+   "category": "shop"
+  },
+  "sphere": {
+   "name": "Linken's Sphere",
+   "category": "shop"
+  },
+  "lotus_orb": {
+   "name": "Lotus Orb",
+   "category": "shop"
+  },
+  "meteor_hammer": {
+   "name": "Meteor Hammer",
+   "category": "shop"
+  },
+  "nullifier": {
+   "name": "Nullifier",
+   "category": "shop"
+  },
+  "aeon_disk": {
+   "name": "Aeon Disk",
+   "category": "shop"
+  },
+  "kaya": {
+   "name": "Kaya",
+   "category": "shop"
+  },
+  "trident": {
+   "name": "Trident",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "refresher_shard": {
+   "name": "Refresher Shard",
+   "category": "roshan"
+  },
+  "spirit_vessel": {
+   "name": "Spirit Vessel",
+   "category": "shop"
+  },
+  "essence_distiller": {
+   "name": "Essence Distiller",
+   "category": "shop"
+  },
+  "vanguard": {
+   "name": "Vanguard",
+   "category": "shop"
+  },
+  "crimson_guard": {
+   "name": "Crimson Guard",
+   "category": "shop"
+  },
+  "blade_mail": {
+   "name": "Blade Mail",
+   "category": "shop"
+  },
+  "soul_booster": {
+   "name": "Soul Booster",
+   "category": "shop"
+  },
+  "hood_of_defiance": {
+   "name": "Hood of Defiance",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "eternal_shroud": {
+   "name": "Eternal Shroud",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "consecrated_wraps": {
+   "name": "Consecrated Wraps",
+   "category": "shop"
+  },
+  "crellas_crozier": {
+   "name": "Crella's Crozier",
+   "category": "shop"
+  },
+  "rapier": {
+   "name": "Divine Rapier",
+   "category": "shop"
+  },
+  "monkey_king_bar": {
+   "name": "Monkey King Bar",
+   "category": "shop"
+  },
+  "radiance": {
+   "name": "Radiance",
+   "category": "shop"
+  },
+  "butterfly": {
+   "name": "Butterfly",
+   "category": "shop"
+  },
+  "greater_crit": {
+   "name": "Daedalus",
+   "category": "shop"
+  },
+  "basher": {
+   "name": "Skull Basher",
+   "category": "shop"
+  },
+  "bfury": {
+   "name": "Battle Fury",
+   "category": "shop"
+  },
+  "manta": {
+   "name": "Manta Style",
+   "category": "shop"
+  },
+  "lesser_crit": {
+   "name": "Crystalys",
+   "category": "shop"
+  },
+  "dragon_lance": {
+   "name": "Dragon Lance",
+   "category": "shop"
+  },
+  "armlet": {
+   "name": "Armlet of Mordiggian",
+   "category": "shop"
+  },
+  "invis_sword": {
+   "name": "Shadow Blade",
+   "category": "shop"
+  },
+  "silver_edge": {
+   "name": "Silver Edge",
+   "category": "shop"
+  },
+  "sange_and_yasha": {
+   "name": "Sange and Yasha",
+   "category": "shop"
+  },
+  "kaya_and_sange": {
+   "name": "Kaya and Sange",
+   "category": "shop"
+  },
+  "yasha_and_kaya": {
+   "name": "Yasha and Kaya",
+   "category": "shop"
+  },
+  "satanic": {
+   "name": "Satanic",
+   "category": "shop"
+  },
+  "mjollnir": {
+   "name": "Mjollnir",
+   "category": "shop"
+  },
+  "skadi": {
+   "name": "Eye of Skadi",
+   "category": "shop"
+  },
+  "sange": {
+   "name": "Sange",
+   "category": "shop"
+  },
+  "helm_of_the_dominator": {
+   "name": "Helm of the Dominator",
+   "category": "shop"
+  },
+  "helm_of_the_overlord": {
+   "name": "Helm of the Overlord",
+   "category": "shop"
+  },
+  "maelstrom": {
+   "name": "Maelstrom",
+   "category": "shop"
+  },
+  "gungir": {
+   "name": "Gleipnir",
+   "category": "shop"
+  },
+  "desolator": {
+   "name": "Desolator",
+   "category": "shop"
+  },
+  "yasha": {
+   "name": "Yasha",
+   "category": "shop"
+  },
+  "mask_of_madness": {
+   "name": "Mask of Madness",
+   "category": "shop"
+  },
+  "diffusal_blade": {
+   "name": "Diffusal Blade",
+   "category": "shop"
+  },
+  "disperser": {
+   "name": "Disperser",
+   "category": "shop"
+  },
+  "ethereal_blade": {
+   "name": "Ethereal Blade",
+   "category": "shop"
+  },
+  "soul_ring": {
+   "name": "Soul Ring",
+   "category": "shop"
+  },
+  "arcane_boots": {
+   "name": "Arcane Boots",
+   "category": "shop"
+  },
+  "octarine_core": {
+   "name": "Octarine Core",
+   "category": "shop"
+  },
+  "orb_of_venom": {
+   "name": "Orb of Venom",
+   "category": "shop"
+  },
+  "blight_stone": {
+   "name": "Orb of Blight",
+   "category": "shop"
+  },
+  "orb_of_corrosion": {
+   "name": "Orb of Corrosion",
+   "category": "shop"
+  },
+  "orb_of_frost": {
+   "name": "Orb of Frost",
+   "category": "shop"
+  },
+  "falcon_blade": {
+   "name": "Falcon Blade",
+   "category": "shop"
+  },
+  "mage_slayer": {
+   "name": "Mage Slayer",
+   "category": "shop"
+  },
+  "ancient_janggo": {
+   "name": "Drum of Endurance",
+   "category": "shop"
+  },
+  "boots_of_bearing": {
+   "name": "Boots of Bearing",
+   "category": "shop"
+  },
+  "medallion_of_courage": {
+   "name": "Medallion of Courage",
+   "category": "neutral",
+   "tier": 2
+  },
+  "solar_crest": {
+   "name": "Solar Crest",
+   "category": "shop"
+  },
+  "pavise": {
+   "name": "Pavise",
+   "category": "shop"
+  },
+  "smoke_of_deceit": {
+   "name": "Smoke of Deceit",
+   "category": "shop"
+  },
+  "tome_of_knowledge": {
+   "name": "Tome of Knowledge",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "veil_of_discord": {
+   "name": "Veil of Discord",
+   "category": "shop"
+  },
+  "revenants_brooch": {
+   "name": "Revenant's Brooch",
+   "category": "shop"
+  },
+  "devastator": {
+   "name": "Parasma",
+   "category": "shop"
+  },
+  "guardian_greaves": {
+   "name": "Guardian Greaves",
+   "category": "shop"
+  },
+  "rod_of_atos": {
+   "name": "Rod of Atos",
+   "category": "shop"
+  },
+  "iron_talon": {
+   "name": "Iron Talon",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "abyssal_blade": {
+   "name": "Abyssal Blade",
+   "category": "shop"
+  },
+  "heavens_halberd": {
+   "name": "Heaven's Halberd",
+   "category": "shop"
+  },
+  "ring_of_aquila": {
+   "name": "Ring of Aquila",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "tranquil_boots": {
+   "name": "Tranquil Boots",
+   "category": "shop"
+  },
+  "shadow_amulet": {
+   "name": "Shadow Amulet",
+   "category": "shop"
+  },
+  "glimmer_cape": {
+   "name": "Glimmer Cape",
+   "category": "shop"
+  },
+  "river_painter": {
+   "name": "River Vial: Chrome",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "river_painter2": {
+   "name": "River Vial: Dry",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "river_painter3": {
+   "name": "River Vial: Slime",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "river_painter4": {
+   "name": "River Vial: Oil",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "river_painter5": {
+   "name": "River Vial: Electrified",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "river_painter6": {
+   "name": "River Vial: Potion",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "river_painter7": {
+   "name": "River Vial: Blood",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "mutation_tombstone": {
+   "name": "Tombstone",
+   "category": "other"
+  },
+  "super_blink": {
+   "name": "super_blink",
+   "category": "other"
+  },
+  "pocket_tower": {
+   "name": "Pocket Tower",
+   "category": "other"
+  },
+  "pocket_roshan": {
+   "name": "Pocket Roshan",
+   "category": "other"
+  },
+  "keen_optic": {
+   "name": "Keen Optic",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "grove_bow": {
+   "name": "Grove Bow",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "quickening_charm": {
+   "name": "Quickening Charm",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "philosophers_stone": {
+   "name": "Philosopher's Stone",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "force_boots": {
+   "name": "Force Boots",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "desolator_2": {
+   "name": "Stygian Desolator",
+   "category": "neutral",
+   "tier": 5
+  },
+  "phoenix_ash": {
+   "name": "Phoenix Ash",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "seer_stone": {
+   "name": "Seer Stone",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "greater_mango": {
+   "name": "greater_mango",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "elixer": {
+   "name": "Elixir",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "vampire_fangs": {
+   "name": "Vampire Fangs",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "force_field": {
+   "name": "Arcanist's Armor",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "black_powder_bag": {
+   "name": "Blast Rig",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "mechanical_arm": {
+   "name": "mechanical_arm",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "craggy_coat": {
+   "name": "Craggy Coat",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "greater_faerie_fire": {
+   "name": "Greater Faerie Fire",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "timeless_relic": {
+   "name": "Timeless Relic",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "mirror_shield": {
+   "name": "Mirror Shield",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "ironwood_tree": {
+   "name": "Ironwood Tree",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "mango_tree": {
+   "name": "Mango Tree",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "royal_jelly": {
+   "name": "Royal Jelly",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "pupils_gift": {
+   "name": "Pupil's Gift",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "tome_of_aghanim": {
+   "name": "Tome of Aghanim",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "repair_kit": {
+   "name": "Repair Kit",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "mind_breaker": {
+   "name": "Mind Breaker",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "third_eye": {
+   "name": "Third Eye",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "spell_prism": {
+   "name": "Spell Prism",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "princes_knife": {
+   "name": "Prince's Knife",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "witless_shako": {
+   "name": "Witless Shako",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "imp_claw": {
+   "name": "Imp Claw",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "flicker": {
+   "name": "Flicker",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "spy_gadget": {
+   "name": "Telescope",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "spider_legs": {
+   "name": "Spider Legs",
+   "category": "neutral",
+   "tier": 5
+  },
+  "helm_of_the_undying": {
+   "name": "Helm of the Undying",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "vambrace": {
+   "name": "Vambrace",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "horizon": {
+   "name": "horizon",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "fusion_rune": {
+   "name": "Fusion Rune",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "ocean_heart": {
+   "name": "Ocean Heart",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "spark_of_courage": {
+   "name": "Spark of Courage",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "broom_handle": {
+   "name": "Broom Handle",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "trusty_shovel": {
+   "name": "Trusty Shovel",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "nether_shawl": {
+   "name": "Nether Shawl",
+   "category": "removed",
+   "why": "IsObsolete"
+  },
+  "dragon_scale": {
+   "name": "Dragon Scale",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "essence_ring": {
+   "name": "Essence Ring",
+   "category": "neutral",
+   "tier": 2
+  },
+  "clumsy_net": {
+   "name": "Clumsy Net",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enchanted_quiver": {
+   "name": "Enchanted Quiver",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "ninja_gear": {
+   "name": "Ninja Gear",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "illusionsts_cape": {
+   "name": "Illusionist's Cape",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "havoc_hammer": {
+   "name": "Havoc Hammer",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "panic_button": {
+   "name": "Magic Lamp",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "apex": {
+   "name": "Apex",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "ballista": {
+   "name": "Ballista",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "woodland_striders": {
+   "name": "Woodland Striders",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "demonicon": {
+   "name": "Book of the Dead",
+   "category": "neutral",
+   "tier": 5
+  },
+  "fallen_sky": {
+   "name": "Fallen Sky",
+   "category": "neutral",
+   "tier": 5
+  },
+  "pirate_hat": {
+   "name": "Pirate Hat",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "ex_machina": {
+   "name": "Ex Machina",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "faded_broach": {
+   "name": "Faded Broach",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "paladin_sword": {
+   "name": "Paladin Sword",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "minotaur_horn": {
+   "name": "Minotaur Horn",
+   "category": "neutral",
+   "tier": 5
+  },
+  "orb_of_destruction": {
+   "name": "Orb of Destruction",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "the_leveller": {
+   "name": "The Leveller",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "arcane_ring": {
+   "name": "Arcane Ring",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "titan_sliver": {
+   "name": "Titan Sliver",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "chipped_vest": {
+   "name": "Chipped Vest",
+   "category": "neutral",
+   "tier": 1
+  },
+  "elven_tunic": {
+   "name": "Elven Tunic",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "cloak_of_flames": {
+   "name": "Cloak of Flames",
+   "category": "neutral",
+   "tier": 3
+  },
+  "trickster_cloak": {
+   "name": "Trickster Cloak",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "possessed_mask": {
+   "name": "Possessed Mask",
+   "category": "neutral",
+   "tier": 1
+  },
+  "penta_edged_sword": {
+   "name": "Penta-Edged Sword",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "bullwhip": {
+   "name": "Bullwhip",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "psychic_headband": {
+   "name": "Psychic Headband",
+   "category": "neutral",
+   "tier": 3
+  },
+  "ceremonial_robe": {
+   "name": "Ceremonial Robe",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "quicksilver_amulet": {
+   "name": "Quicksilver Amulet",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "book_of_shadows": {
+   "name": "Book of Shadows",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "giants_ring": {
+   "name": "Giant's Ring",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "stormcrafter": {
+   "name": "Stormcrafter",
+   "category": "neutral",
+   "tier": 3
+  },
+  "mysterious_hat": {
+   "name": "Fairy's Trinket",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "ascetic_cap": {
+   "name": "Ascetic's Cap",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "misericorde": {
+   "name": "Brigand's Blade",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "heavy_blade": {
+   "name": "Witchbane",
+   "category": "neutral",
+   "tier": 5
+  },
+  "unstable_wand": {
+   "name": "Pig Pole",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "pogo_stick": {
+   "name": "Tumbler's Toy",
+   "category": "neutral",
+   "tier": 2
+  },
+  "paintball": {
+   "name": "Fae Grenade",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "seeds_of_serenity": {
+   "name": "Seeds of Serenity",
+   "category": "neutral",
+   "tier": 2
+  },
+  "lance_of_pursuit": {
+   "name": "Lance of Pursuit",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "occult_bracelet": {
+   "name": "Occult Bracelet",
+   "category": "neutral",
+   "tier": 1
+  },
+  "ogre_seal_totem": {
+   "name": "Ogre Seal Totem",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "harpoon": {
+   "name": "Harpoon",
+   "category": "shop"
+  },
+  "defiant_shell": {
+   "name": "Defiant Shell",
+   "category": "neutral",
+   "tier": 2
+  },
+  "eye_of_the_vizier": {
+   "name": "Eye of the Vizier",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "bottomless_chalice": {
+   "name": "bottomless_chalice",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "dagger_of_ristul": {
+   "name": "Dagger of Ristul",
+   "category": "neutral",
+   "tier": 1
+  },
+  "ofrenda": {
+   "name": "Beloved Memory",
+   "category": "other"
+  },
+  "ofrenda_shovel": {
+   "name": "Scrying Shovel",
+   "category": "other"
+  },
+  "ofrenda_pledge": {
+   "name": "Forebearer's Fortune",
+   "category": "other"
+  },
+  "muertas_gun": {
+   "name": "Mercy & Grace",
+   "category": "other"
+  },
+  "tier1_token": {
+   "name": "Tier 1 Token",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "tier2_token": {
+   "name": "Tier 2 Token",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "tier3_token": {
+   "name": "Tier 3 Token",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "tier4_token": {
+   "name": "Tier 4 Token",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "tier5_token": {
+   "name": "Tier 5 Token",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "vindicators_axe": {
+   "name": "Vindicator's Axe",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "duelist_gloves": {
+   "name": "Duelist Gloves",
+   "category": "neutral",
+   "tier": 1
+  },
+  "ancient_guardian": {
+   "name": "Ancient Guardian",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "safety_bubble": {
+   "name": "Safety Bubble",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "whisper_of_the_dread": {
+   "name": "Whisper of the Dread",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "nemesis_curse": {
+   "name": "Nemesis Curse",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "avianas_feather": {
+   "name": "Aviana's Feather",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "unwavering_condition": {
+   "name": "Unwavering Condition",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "dandelion_amulet": {
+   "name": "Dandelion Amulet",
+   "category": "neutral",
+   "tier": 4
+  },
+  "martyrs_plate": {
+   "name": "Martyr's Plate",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "gossamer_cape": {
+   "name": "Gossamer Cape",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "light_collector": {
+   "name": "Light Collector",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "rattlecage": {
+   "name": "Rattlecage",
+   "category": "neutral",
+   "tier": 4
+  },
+  "doubloon": {
+   "name": "Doubloon",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "roshans_banner": {
+   "name": "Roshan's Banner",
+   "category": "other"
+  },
+  "black_grimoire": {
+   "name": "Black Grimoire\\n(Warlock)",
+   "category": "other"
+  },
+  "grisgris": {
+   "name": "Gris-Gris",
+   "category": "other"
+  },
+  "enhancement_vast": {
+   "name": "Vast",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_quickened": {
+   "name": "Quickened",
+   "category": "enhancement",
+   "tier": 1
+  },
+  "enhancement_audacious": {
+   "name": "Audacious",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "enhancement_mystical": {
+   "name": "Mystical",
+   "category": "enhancement",
+   "tier": 1
+  },
+  "enhancement_alert": {
+   "name": "Alert",
+   "category": "enhancement",
+   "tier": 1
+  },
+  "enhancement_brawny": {
+   "name": "Brawny",
+   "category": "enhancement",
+   "tier": 1
+  },
+  "enhancement_tough": {
+   "name": "Tough",
+   "category": "enhancement",
+   "tier": 1
+  },
+  "enhancement_feverish": {
+   "name": "Feverish",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "enhancement_fleetfooted": {
+   "name": "Fleetfooted",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "enhancement_crude": {
+   "name": "Crude",
+   "category": "enhancement",
+   "tier": 2
+  },
+  "enhancement_boundless": {
+   "name": "Boundless",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_wise": {
+   "name": "Wise",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_timeless": {
+   "name": "Timeless",
+   "category": "enhancement",
+   "tier": 4
+  },
+  "enhancement_greedy": {
+   "name": "Greedy",
+   "category": "enhancement",
+   "tier": 2
+  },
+  "enhancement_vampiric": {
+   "name": "Vampiric",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "enhancement_keen_eyed": {
+   "name": "Keen-eyed",
+   "category": "enhancement",
+   "tier": 2
+  },
+  "enhancement_evolved": {
+   "name": "Evolved",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "enhancement_titanic": {
+   "name": "Titanic",
+   "category": "enhancement",
+   "tier": 2
+  },
+  "unrelenting_eye": {
+   "name": "Unrelenting Eye",
+   "category": "neutral",
+   "tier": 3
+  },
+  "mana_draught": {
+   "name": "Mana Draught",
+   "category": "neutral",
+   "tier": 2
+  },
+  "rippers_lash": {
+   "name": "Ripper's Lash",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "crippling_crossbow": {
+   "name": "Crippling Crossbow",
+   "category": "neutral",
+   "tier": 2
+  },
+  "gale_guard": {
+   "name": "Gale Guard",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "gunpowder_gauntlets": {
+   "name": "Gunpowder Gauntlet",
+   "category": "neutral",
+   "tier": 3
+  },
+  "searing_signet": {
+   "name": "Searing Signet",
+   "category": "neutral",
+   "tier": 2
+  },
+  "serrated_shiv": {
+   "name": "Serrated Shiv",
+   "category": "neutral",
+   "tier": 3
+  },
+  "polliwog_charm": {
+   "name": "Pollywog Charm",
+   "category": "neutral",
+   "tier": 1
+  },
+  "magnifying_monocle": {
+   "name": "Magnifying Monocle",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "pyrrhic_cloak": {
+   "name": "Pyrrhic Cloak",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "madstone_bundle": {
+   "name": "Madstone Bundle",
+   "category": "other"
+  },
+  "miniboss_minion_summoner": {
+   "name": "miniboss_minion_summoner",
+   "category": "other"
+  },
+  "kobold_cup": {
+   "name": "Kobold Cup",
+   "category": "neutral",
+   "tier": 1
+  },
+  "dormant_curio": {
+   "name": "Dormant Curio",
+   "category": "neutral",
+   "tier": 1
+  },
+  "sisters_shroud": {
+   "name": "Sister's Shroud",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "jidi_pollen_bag": {
+   "name": "Jidi Pollen Bag",
+   "category": "neutral",
+   "tier": 3
+  },
+  "outworld_staff": {
+   "name": "Outworld Staff",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "dezun_bloodrite": {
+   "name": "Dezun Bloodrite",
+   "category": "neutral",
+   "tier": 5
+  },
+  "giant_maul": {
+   "name": "Giant's Maul",
+   "category": "neutral",
+   "tier": 4
+  },
+  "divine_regalia": {
+   "name": "Divine Regalia",
+   "category": "neutral",
+   "tier": 5
+  },
+  "divine_regalia_broken": {
+   "name": "Disgraced Regalia",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_fierce": {
+   "name": "Fierce",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_dominant": {
+   "name": "Dominant",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_restorative": {
+   "name": "Restorative",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_thick": {
+   "name": "Thick",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "enhancement_curious": {
+   "name": "Unleashed",
+   "category": "removed",
+   "why": "нейтралка вне текущих тиров"
+  },
+  "furion_gold_bag": {
+   "name": "Bag of Gold",
+   "category": "other"
+  },
+  "specialists_array": {
+   "name": "Specialist's Array",
+   "category": "shop"
+  },
+  "hydras_breath": {
+   "name": "Hydra's Breath",
+   "category": "shop"
+  },
+  "weighted_dice": {
+   "name": "Weighted Dice",
+   "category": "neutral",
+   "tier": 1
+  },
+  "ash_legion_shield": {
+   "name": "Ash Legion Shield",
+   "category": "neutral",
+   "tier": 1
+  },
+  "riftshadow_prism": {
+   "name": "Riftshadow Prism",
+   "category": "neutral",
+   "tier": 5
+  },
+  "metamorphic_mandible": {
+   "name": "Metamorphic Mandible",
+   "category": "neutral",
+   "tier": 4
+  },
+  "idol_of_screeauk": {
+   "name": "Idol of Scree'auk",
+   "category": "neutral",
+   "tier": 4
+  },
+  "flayers_bota": {
+   "name": "Flayer's Bota",
+   "category": "neutral",
+   "tier": 4
+  },
+  "spellslinger": {
+   "name": "Spellslinger",
+   "category": "neutral",
+   "tier": 3
+  },
+  "prophets_pendulum": {
+   "name": "Prophet's Pendulum",
+   "category": "neutral",
+   "tier": 4
+  },
+  "stonefeather_satchel": {
+   "name": "Stonefeather Satchel",
+   "category": "neutral",
+   "tier": 1
+  },
+  "enchanters_bauble": {
+   "name": "Enchanter's Bauble",
+   "category": "neutral",
+   "tier": 4
+  },
+  "harmonizer": {
+   "name": "Harmonizer",
+   "category": "neutral",
+   "tier": 5
+  },
+  "conjurers_catalyst": {
+   "name": "Conjurer's Catalyst",
+   "category": "neutral",
+   "tier": 4
+  },
+  "enhancement_vital": {
+   "name": "Vital",
+   "category": "enhancement",
+   "tier": 1
+  },
+  "enhancement_hulking": {
+   "name": "Hulking",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "enhancement_manic": {
+   "name": "Manic",
+   "category": "enhancement",
+   "tier": 5
+  },
+  "foragers_kit": {
+   "name": "Forager's Kit",
+   "category": "neutral",
+   "tier": 1
+  },
+  "foragers_health": {
+   "name": "Vital Toadstool",
+   "category": "other"
+  },
+  "foragers_stats": {
+   "name": "Ironwood Nut",
+   "category": "other"
+  },
+  "foragers_mana": {
+   "name": "Tomo'kan Ringcap",
+   "category": "other"
+  },
+  "chasm_stone": {
+   "name": "Chasm Stone",
+   "category": "shop"
+  },
+  "partisans_brand": {
+   "name": "Partisan's Brand",
+   "category": "neutral",
+   "tier": 3
+  },
+  "enhancement_nimble": {
+   "name": "Nimble",
+   "category": "enhancement",
+   "tier": 2
+  },
+  "tidehunter_fish": {
+   "name": "Leviathan's Fish",
+   "category": "other"
+  },
+  "diffusal_blade_2": {
+   "name": "Diffusal Blade",
+   "category": "removed",
+   "why": "нет в items.txt"
+  }
+ },
+ "heroes": {
+  "npc_dota_hero_abaddon": {
+   "name": "Abaddon",
+   "abilities": [
+    {
+     "key": "abaddon_death_coil",
+     "name": "Mist Coil",
+     "role": "basic"
+    },
+    {
+     "key": "abaddon_aphotic_shield",
+     "name": "Aphotic Shield",
+     "role": "basic"
+    },
+    {
+     "key": "abaddon_frostmourne",
+     "name": "Curse of Avernus",
+     "role": "basic"
+    },
+    {
+     "key": "abaddon_withering_mist",
+     "name": "Withering Mist",
+     "role": "innate"
+    },
+    {
+     "key": "abaddon_borrowed_time",
+     "name": "Borrowed Time",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_alchemist": {
+   "name": "Alchemist",
+   "abilities": [
+    {
+     "key": "alchemist_acid_spray",
+     "name": "Acid Spray",
+     "role": "basic"
+    },
+    {
+     "key": "alchemist_unstable_concoction",
+     "name": "Unstable Concoction",
+     "role": "basic"
+    },
+    {
+     "key": "alchemist_corrosive_weaponry",
+     "name": "Corrosive Weaponry",
+     "role": "basic"
+    },
+    {
+     "key": "alchemist_berserk_potion",
+     "name": "Berserk Potion",
+     "role": "shard"
+    },
+    {
+     "key": "alchemist_goblins_greed",
+     "name": "Greevil's Greed",
+     "role": "innate"
+    },
+    {
+     "key": "alchemist_chemical_rage",
+     "name": "Chemical Rage",
+     "role": "ultimate"
+    },
+    {
+     "key": "alchemist_unstable_concoction_throw",
+     "name": "Unstable Concoction Throw",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_ancient_apparition": {
+   "name": "Ancient Apparition",
+   "abilities": [
+    {
+     "key": "ancient_apparition_cold_feet",
+     "name": "Cold Feet",
+     "role": "basic"
+    },
+    {
+     "key": "ancient_apparition_ice_vortex",
+     "name": "Ice Vortex",
+     "role": "basic"
+    },
+    {
+     "key": "ancient_apparition_chilling_touch",
+     "name": "Chilling Touch",
+     "role": "basic"
+    },
+    {
+     "key": "ancient_apparition_bone_chill",
+     "name": "Bone Chill",
+     "role": "innate"
+    },
+    {
+     "key": "ancient_apparition_ice_blast",
+     "name": "Ice Blast",
+     "role": "ultimate"
+    },
+    {
+     "key": "ancient_apparition_ice_blast_release",
+     "name": "Release",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_antimage": {
+   "name": "Anti-Mage",
+   "abilities": [
+    {
+     "key": "antimage_mana_break",
+     "name": "Mana Break",
+     "role": "basic"
+    },
+    {
+     "key": "antimage_blink",
+     "name": "Blink",
+     "role": "basic"
+    },
+    {
+     "key": "antimage_counterspell",
+     "name": "Counterspell",
+     "role": "basic"
+    },
+    {
+     "key": "antimage_persectur",
+     "name": "Persecutor",
+     "role": "innate"
+    },
+    {
+     "key": "antimage_mana_void",
+     "name": "Mana Void",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_arc_warden": {
+   "name": "Arc Warden",
+   "abilities": [
+    {
+     "key": "arc_warden_flux",
+     "name": "Flux",
+     "role": "basic"
+    },
+    {
+     "key": "arc_warden_magnetic_field",
+     "name": "Magnetic Field",
+     "role": "basic"
+    },
+    {
+     "key": "arc_warden_spark_wraith",
+     "name": "Spark Wraith",
+     "role": "basic"
+    },
+    {
+     "key": "arc_warden_runic_infusion",
+     "name": "Runic Infusion",
+     "role": "innate"
+    },
+    {
+     "key": "arc_warden_tempest_double",
+     "name": "Tempest Double",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_axe": {
+   "name": "Axe",
+   "abilities": [
+    {
+     "key": "axe_berserkers_call",
+     "name": "Berserker's Call",
+     "role": "basic"
+    },
+    {
+     "key": "axe_battle_hunger",
+     "name": "Battle Hunger",
+     "role": "basic"
+    },
+    {
+     "key": "axe_counter_helix",
+     "name": "Counter Helix",
+     "role": "basic"
+    },
+    {
+     "key": "axe_culling_blade",
+     "name": "Culling Blade",
+     "role": "ultimate"
+    },
+    {
+     "key": "axe_one_man_army",
+     "name": "One Man Army",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_bane": {
+   "name": "Bane",
+   "abilities": [
+    {
+     "key": "bane_enfeeble",
+     "name": "Enfeeble",
+     "role": "basic"
+    },
+    {
+     "key": "bane_brain_sap",
+     "name": "Brain Sap",
+     "role": "basic"
+    },
+    {
+     "key": "bane_nightmare",
+     "name": "Nightmare",
+     "role": "basic"
+    },
+    {
+     "key": "bane_fiends_grip",
+     "name": "Fiend's Grip",
+     "role": "ultimate"
+    },
+    {
+     "key": "bane_nightmare_end",
+     "name": "Nightmare End",
+     "role": "sub"
+    },
+    {
+     "key": "bane_ichor_of_nyctasha",
+     "name": "Ichor of Nyctasha",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_batrider": {
+   "name": "Batrider",
+   "abilities": [
+    {
+     "key": "batrider_sticky_napalm",
+     "name": "Sticky Napalm",
+     "role": "basic"
+    },
+    {
+     "key": "batrider_flamebreak",
+     "name": "Flamebreak",
+     "role": "basic"
+    },
+    {
+     "key": "batrider_firefly",
+     "name": "Firefly",
+     "role": "basic"
+    },
+    {
+     "key": "batrider_sticky_napalm_application_damage",
+     "name": "APPLICATION DAMAGE:",
+     "role": "sub"
+    },
+    {
+     "key": "batrider_smoldering_resin",
+     "name": "Smoldering Resin",
+     "role": "innate"
+    },
+    {
+     "key": "batrider_flaming_lasso",
+     "name": "Flaming Lasso",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_beastmaster": {
+   "name": "Beastmaster",
+   "abilities": [
+    {
+     "key": "beastmaster_wild_axes",
+     "name": "Wild Axes",
+     "role": "basic"
+    },
+    {
+     "key": "beastmaster_summon_razorback",
+     "name": "Summon Razorback",
+     "role": "basic"
+    },
+    {
+     "key": "beastmaster_summon_raptor",
+     "name": "Summon Raptors",
+     "role": "basic"
+    },
+    {
+     "key": "beastmaster_inner_beast",
+     "name": "Inner Beast",
+     "role": "innate"
+    },
+    {
+     "key": "beastmaster_drums_of_slom",
+     "name": "Drums of Slom",
+     "role": "scepter"
+    },
+    {
+     "key": "beastmaster_primal_roar",
+     "name": "Primal Roar",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_bloodseeker": {
+   "name": "Bloodseeker",
+   "abilities": [
+    {
+     "key": "bloodseeker_bloodrage",
+     "name": "Bloodrage",
+     "role": "basic"
+    },
+    {
+     "key": "bloodseeker_blood_bath",
+     "name": "Blood Rite",
+     "role": "basic"
+    },
+    {
+     "key": "bloodseeker_thirst",
+     "name": "Thirst",
+     "role": "basic"
+    },
+    {
+     "key": "bloodseeker_sanguivore",
+     "name": "Sanguivore",
+     "role": "innate"
+    },
+    {
+     "key": "bloodseeker_rupture",
+     "name": "Rupture",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_bounty_hunter": {
+   "name": "Bounty Hunter",
+   "abilities": [
+    {
+     "key": "bounty_hunter_shuriken_toss",
+     "name": "Shuriken Toss",
+     "role": "basic"
+    },
+    {
+     "key": "bounty_hunter_jinada",
+     "name": "Jinada",
+     "role": "basic"
+    },
+    {
+     "key": "bounty_hunter_wind_walk",
+     "name": "Shadow Walk",
+     "role": "basic"
+    },
+    {
+     "key": "bounty_hunter_wind_walk_ally",
+     "name": "Friendly Shadow",
+     "role": "shard"
+    },
+    {
+     "key": "bounty_hunter_big_game_hunter",
+     "name": "Big Game Hunter",
+     "role": "innate"
+    },
+    {
+     "key": "bounty_hunter_track",
+     "name": "Track",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_brewmaster": {
+   "name": "Brewmaster",
+   "abilities": [
+    {
+     "key": "brewmaster_thunder_clap",
+     "name": "Thunder Clap",
+     "role": "basic"
+    },
+    {
+     "key": "brewmaster_cinder_brew",
+     "name": "Cinder Brew",
+     "role": "basic"
+    },
+    {
+     "key": "brewmaster_drunken_brawler",
+     "name": "Drunken Brawler",
+     "role": "basic"
+    },
+    {
+     "key": "brewmaster_liquid_courage",
+     "name": "Liquid Courage",
+     "role": "innate"
+    },
+    {
+     "key": "brewmaster_primal_split",
+     "name": "Primal Split",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_bristleback": {
+   "name": "Bristleback",
+   "abilities": [
+    {
+     "key": "bristleback_viscous_nasal_goo",
+     "name": "Viscous Nasal Goo",
+     "role": "basic"
+    },
+    {
+     "key": "bristleback_quill_spray",
+     "name": "Quill Spray",
+     "role": "basic"
+    },
+    {
+     "key": "bristleback_bristleback",
+     "name": "Bristleback",
+     "role": "basic"
+    },
+    {
+     "key": "bristleback_hairball",
+     "name": "Hairball",
+     "role": "shard"
+    },
+    {
+     "key": "bristleback_warpath",
+     "name": "Warpath",
+     "role": "ultimate"
+    },
+    {
+     "key": "bristleback_prickly",
+     "name": "Prickly",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_broodmother": {
+   "name": "Broodmother",
+   "abilities": [
+    {
+     "key": "broodmother_insatiable_hunger",
+     "name": "Insatiable Hunger",
+     "role": "basic"
+    },
+    {
+     "key": "broodmother_spin_web",
+     "name": "Spin Web",
+     "role": "basic"
+    },
+    {
+     "key": "broodmother_incapacitating_bite",
+     "name": "Incapacitating Bite",
+     "role": "basic"
+    },
+    {
+     "key": "broodmother_sticky_snare",
+     "name": "Spinner's Snare",
+     "role": "scepter"
+    },
+    {
+     "key": "broodmother_spiders_milk",
+     "name": "Spider's Milk",
+     "role": "innate"
+    },
+    {
+     "key": "broodmother_spawn_spiderlings",
+     "name": "Spawn Spiderlings",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_centaur": {
+   "name": "Centaur Warrunner",
+   "abilities": [
+    {
+     "key": "centaur_hoof_stomp",
+     "name": "Hoof Stomp",
+     "role": "basic"
+    },
+    {
+     "key": "centaur_double_edge",
+     "name": "Double Edge",
+     "role": "basic"
+    },
+    {
+     "key": "centaur_return",
+     "name": "Retaliate",
+     "role": "basic"
+    },
+    {
+     "key": "centaur_work_horse",
+     "name": "Work Horse",
+     "role": "scepter"
+    },
+    {
+     "key": "centaur_mount",
+     "name": "Hitch A Ride",
+     "role": "sub"
+    },
+    {
+     "key": "centaur_stampede",
+     "name": "Stampede",
+     "role": "ultimate"
+    },
+    {
+     "key": "centaur_horsepower",
+     "name": "Horsepower",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_chaos_knight": {
+   "name": "Chaos Knight",
+   "abilities": [
+    {
+     "key": "chaos_knight_chaos_bolt",
+     "name": "Chaos Bolt",
+     "role": "basic"
+    },
+    {
+     "key": "chaos_knight_reality_rift",
+     "name": "Reality Rift",
+     "role": "basic"
+    },
+    {
+     "key": "chaos_knight_chaos_strike",
+     "name": "Chaos Strike",
+     "role": "basic"
+    },
+    {
+     "key": "chaos_knight_fundamental_forging",
+     "name": "Fundamental Forging",
+     "role": "innate"
+    },
+    {
+     "key": "chaos_knight_phantasm",
+     "name": "Phantasm",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_chen": {
+   "name": "Chen",
+   "abilities": [
+    {
+     "key": "chen_penitence",
+     "name": "Penitence",
+     "role": "basic"
+    },
+    {
+     "key": "chen_holy_persuasion",
+     "name": "Holy Persuasion",
+     "role": "basic"
+    },
+    {
+     "key": "chen_divine_favor",
+     "name": "Divine Favor",
+     "role": "basic"
+    },
+    {
+     "key": "chen_zealot",
+     "name": "Zealot",
+     "role": "innate"
+    },
+    {
+     "key": "chen_hand_of_god",
+     "name": "Hand of God",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_clinkz": {
+   "name": "Clinkz",
+   "abilities": [
+    {
+     "key": "clinkz_strafe",
+     "name": "Strafe",
+     "role": "basic"
+    },
+    {
+     "key": "clinkz_searing_arrows",
+     "name": "Searing Arrows",
+     "role": "basic"
+    },
+    {
+     "key": "clinkz_death_pact",
+     "name": "Death Pact",
+     "role": "basic"
+    },
+    {
+     "key": "clinkz_burning_barrage",
+     "name": "Burning Barrage",
+     "role": "shard"
+    },
+    {
+     "key": "clinkz_burning_army",
+     "name": "Burning Army",
+     "role": "scepter"
+    },
+    {
+     "key": "clinkz_wind_walk",
+     "name": "Skeleton Walk",
+     "role": "ultimate"
+    },
+    {
+     "key": "clinkz_infernal_shred",
+     "name": "Infernal Shred",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_rattletrap": {
+   "name": "Clockwerk",
+   "abilities": [
+    {
+     "key": "rattletrap_battery_assault",
+     "name": "Battery Assault",
+     "role": "basic"
+    },
+    {
+     "key": "rattletrap_power_cogs",
+     "name": "Power Cogs",
+     "role": "basic"
+    },
+    {
+     "key": "rattletrap_rocket_flare",
+     "name": "Rocket Flare",
+     "role": "basic"
+    },
+    {
+     "key": "rattletrap_overclocking",
+     "name": "Overclocking",
+     "role": "scepter"
+    },
+    {
+     "key": "rattletrap_jetpack",
+     "name": "Jetpack",
+     "role": "shard"
+    },
+    {
+     "key": "rattletrap_hookshot",
+     "name": "Hookshot",
+     "role": "ultimate"
+    },
+    {
+     "key": "rattletrap_armor_power",
+     "name": "Armor Power",
+     "role": "innate"
+    },
+    {
+     "key": "rattletrap_jetpack_toggle",
+     "name": "Jetpack Toggle",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_crystal_maiden": {
+   "name": "Crystal Maiden",
+   "abilities": [
+    {
+     "key": "crystal_maiden_crystal_nova",
+     "name": "Crystal Nova",
+     "role": "basic"
+    },
+    {
+     "key": "crystal_maiden_frostbite",
+     "name": "Frostbite",
+     "role": "basic"
+    },
+    {
+     "key": "crystal_maiden_brilliance_aura",
+     "name": "Arcane Aura",
+     "role": "basic"
+    },
+    {
+     "key": "crystal_maiden_crystal_clone",
+     "name": "Crystal Clone",
+     "role": "shard"
+    },
+    {
+     "key": "crystal_maiden_glacial_guard",
+     "name": "Glacial Guard",
+     "role": "innate"
+    },
+    {
+     "key": "crystal_maiden_freezing_field",
+     "name": "Freezing Field",
+     "role": "ultimate"
+    },
+    {
+     "key": "crystal_maiden_freezing_field_stop",
+     "name": "Stop Freezing Field",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_dark_seer": {
+   "name": "Dark Seer",
+   "abilities": [
+    {
+     "key": "dark_seer_vacuum",
+     "name": "Vacuum",
+     "role": "basic"
+    },
+    {
+     "key": "dark_seer_ion_shell",
+     "name": "Ion Shell",
+     "role": "basic"
+    },
+    {
+     "key": "dark_seer_surge",
+     "name": "Surge",
+     "role": "basic"
+    },
+    {
+     "key": "dark_seer_normal_punch",
+     "name": "Normal Punch",
+     "role": "scepter"
+    },
+    {
+     "key": "dark_seer_aggrandize",
+     "name": "Quick Wit",
+     "role": "innate"
+    },
+    {
+     "key": "dark_seer_wall_of_replica",
+     "name": "Wall of Replica",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_dark_willow": {
+   "name": "Dark Willow",
+   "abilities": [
+    {
+     "key": "dark_willow_bramble_maze",
+     "name": "Bramble Maze",
+     "role": "basic"
+    },
+    {
+     "key": "dark_willow_shadow_realm",
+     "name": "Shadow Realm",
+     "role": "basic"
+    },
+    {
+     "key": "dark_willow_cursed_crown",
+     "name": "Cursed Crown",
+     "role": "basic"
+    },
+    {
+     "key": "dark_willow_bedlam",
+     "name": "Bedlam",
+     "role": "ultimate"
+    },
+    {
+     "key": "dark_willow_pixie_dust",
+     "name": "Pixie Dust",
+     "role": "innate"
+    },
+    {
+     "key": "dark_willow_terrorize",
+     "name": "Terrorize",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_dawnbreaker": {
+   "name": "Dawnbreaker",
+   "abilities": [
+    {
+     "key": "dawnbreaker_fire_wreath",
+     "name": "Starbreaker",
+     "role": "basic"
+    },
+    {
+     "key": "dawnbreaker_celestial_hammer",
+     "name": "Celestial Hammer",
+     "role": "basic"
+    },
+    {
+     "key": "dawnbreaker_luminosity",
+     "name": "Luminosity",
+     "role": "basic"
+    },
+    {
+     "key": "dawnbreaker_converge",
+     "name": "Converge",
+     "role": "sub"
+    },
+    {
+     "key": "dawnbreaker_break_of_dawn",
+     "name": "Break of Dawn",
+     "role": "innate"
+    },
+    {
+     "key": "dawnbreaker_solar_guardian",
+     "name": "Solar Guardian",
+     "role": "ultimate"
+    },
+    {
+     "key": "dawnbreaker_land",
+     "name": "dawnbreaker_land",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_dazzle": {
+   "name": "Dazzle",
+   "abilities": [
+    {
+     "key": "dazzle_poison_touch",
+     "name": "Poison Touch",
+     "role": "basic"
+    },
+    {
+     "key": "dazzle_shallow_grave",
+     "name": "Shallow Grave",
+     "role": "basic"
+    },
+    {
+     "key": "dazzle_shadow_wave",
+     "name": "Shadow Wave",
+     "role": "basic"
+    },
+    {
+     "key": "dazzle_innate_weave",
+     "name": "Weave",
+     "role": "innate"
+    },
+    {
+     "key": "dazzle_nothl_projection",
+     "name": "Nothl Projection",
+     "role": "ultimate"
+    },
+    {
+     "key": "dazzle_nothl_projection_end",
+     "name": "End Projection",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_death_prophet": {
+   "name": "Death Prophet",
+   "abilities": [
+    {
+     "key": "death_prophet_carrion_swarm",
+     "name": "Crypt Swarm",
+     "role": "basic"
+    },
+    {
+     "key": "death_prophet_silence",
+     "name": "Silence",
+     "role": "basic"
+    },
+    {
+     "key": "death_prophet_spirit_siphon",
+     "name": "Spirit Siphon",
+     "role": "basic"
+    },
+    {
+     "key": "death_prophet_witchcraft",
+     "name": "Witchcraft",
+     "role": "innate"
+    },
+    {
+     "key": "death_prophet_exorcism",
+     "name": "Exorcism",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_disruptor": {
+   "name": "Disruptor",
+   "abilities": [
+    {
+     "key": "disruptor_thunder_strike",
+     "name": "Thunder Strike",
+     "role": "basic"
+    },
+    {
+     "key": "disruptor_glimpse",
+     "name": "Glimpse",
+     "role": "basic"
+    },
+    {
+     "key": "disruptor_kinetic_field",
+     "name": "Kinetic Field",
+     "role": "basic"
+    },
+    {
+     "key": "disruptor_kinetic_fence",
+     "name": "Kinetic Fence",
+     "role": "shard"
+    },
+    {
+     "key": "disruptor_electromagnetic_repulsion",
+     "name": "Electromagnetic Repulsion",
+     "role": "innate"
+    },
+    {
+     "key": "disruptor_static_storm",
+     "name": "Static Storm",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_doom_bringer": {
+   "name": "Doom",
+   "abilities": [
+    {
+     "key": "doom_bringer_devour",
+     "name": "Devour",
+     "role": "basic"
+    },
+    {
+     "key": "doom_bringer_scorched_earth",
+     "name": "Scorched Earth",
+     "role": "basic"
+    },
+    {
+     "key": "doom_bringer_infernal_blade",
+     "name": "Infernal Blade",
+     "role": "basic"
+    },
+    {
+     "key": "doom_bringer_doom",
+     "name": "Doom",
+     "role": "ultimate"
+    },
+    {
+     "key": "doom_bringer_lvl_pain",
+     "name": "Lvl ? Pain",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_dragon_knight": {
+   "name": "Dragon Knight",
+   "abilities": [
+    {
+     "key": "dragon_knight_breathe_fire",
+     "name": "Breathe Fire",
+     "role": "basic"
+    },
+    {
+     "key": "dragon_knight_dragon_tail",
+     "name": "Dragon Tail",
+     "role": "basic"
+    },
+    {
+     "key": "dragon_knight_wyrms_wrath",
+     "name": "Wyrm's Wrath",
+     "role": "basic"
+    },
+    {
+     "key": "dragon_knight_fireball",
+     "name": "Fireball",
+     "role": "shard"
+    },
+    {
+     "key": "dragon_knight_dragon_blood",
+     "name": "Dragon Blood",
+     "role": "innate"
+    },
+    {
+     "key": "dragon_knight_elder_dragon_form",
+     "name": "Elder Dragon Form",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_drow_ranger": {
+   "name": "Drow Ranger",
+   "abilities": [
+    {
+     "key": "drow_ranger_frost_arrows",
+     "name": "Frost Arrows",
+     "role": "basic"
+    },
+    {
+     "key": "drow_ranger_wave_of_silence",
+     "name": "Gust",
+     "role": "basic"
+    },
+    {
+     "key": "drow_ranger_multishot",
+     "name": "Multishot",
+     "role": "basic"
+    },
+    {
+     "key": "drow_ranger_glacier",
+     "name": "Glacier",
+     "role": "shard"
+    },
+    {
+     "key": "drow_ranger_trueshot",
+     "name": "Precision Aura",
+     "role": "innate"
+    },
+    {
+     "key": "drow_ranger_marksmanship",
+     "name": "Marksmanship",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_earth_spirit": {
+   "name": "Earth Spirit",
+   "abilities": [
+    {
+     "key": "earth_spirit_boulder_smash",
+     "name": "Boulder Smash",
+     "role": "basic"
+    },
+    {
+     "key": "earth_spirit_rolling_boulder",
+     "name": "Rolling Boulder",
+     "role": "basic"
+    },
+    {
+     "key": "earth_spirit_geomagnetic_grip",
+     "name": "Geomagnetic Grip",
+     "role": "basic"
+    },
+    {
+     "key": "earth_spirit_stone_caller",
+     "name": "Stone Remnant",
+     "role": "innate"
+    },
+    {
+     "key": "earth_spirit_petrify",
+     "name": "Enchant Remnant",
+     "role": "scepter"
+    },
+    {
+     "key": "earth_spirit_magnetize",
+     "name": "Magnetize",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_earthshaker": {
+   "name": "Earthshaker",
+   "abilities": [
+    {
+     "key": "earthshaker_fissure",
+     "name": "Fissure",
+     "role": "basic"
+    },
+    {
+     "key": "earthshaker_enchant_totem",
+     "name": "Enchant Totem",
+     "role": "basic"
+    },
+    {
+     "key": "earthshaker_aftershock",
+     "name": "Aftershock",
+     "role": "basic"
+    },
+    {
+     "key": "earthshaker_echo_slam",
+     "name": "Echo Slam",
+     "role": "ultimate"
+    },
+    {
+     "key": "earthshaker_slugger",
+     "name": "Slugger",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_elder_titan": {
+   "name": "Elder Titan",
+   "abilities": [
+    {
+     "key": "elder_titan_echo_stomp",
+     "name": "Echo Stomp",
+     "role": "basic"
+    },
+    {
+     "key": "elder_titan_ancestral_spirit",
+     "name": "Astral Spirit",
+     "role": "basic"
+    },
+    {
+     "key": "elder_titan_natural_order",
+     "name": "Natural Order",
+     "role": "basic"
+    },
+    {
+     "key": "elder_titan_move_spirit",
+     "name": "Move Astral Spirit",
+     "role": "sub"
+    },
+    {
+     "key": "elder_titan_momentum",
+     "name": "Momentum",
+     "role": "innate"
+    },
+    {
+     "key": "elder_titan_earth_splitter",
+     "name": "Earth Splitter",
+     "role": "ultimate"
+    },
+    {
+     "key": "elder_titan_return_spirit",
+     "name": "Return Astral Spirit",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_ember_spirit": {
+   "name": "Ember Spirit",
+   "abilities": [
+    {
+     "key": "ember_spirit_searing_chains",
+     "name": "Searing Chains",
+     "role": "basic"
+    },
+    {
+     "key": "ember_spirit_sleight_of_fist",
+     "name": "Sleight of Fist",
+     "role": "basic"
+    },
+    {
+     "key": "ember_spirit_flame_guard",
+     "name": "Flame Guard",
+     "role": "basic"
+    },
+    {
+     "key": "ember_spirit_activate_fire_remnant",
+     "name": "Activate Fire Remnant",
+     "role": "basic"
+    },
+    {
+     "key": "ember_spirit_immolation",
+     "name": "Immolation",
+     "role": "innate"
+    },
+    {
+     "key": "ember_spirit_fire_remnant",
+     "name": "Fire Remnant",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_enchantress": {
+   "name": "Enchantress",
+   "abilities": [
+    {
+     "key": "enchantress_impetus",
+     "name": "Impetus",
+     "role": "basic"
+    },
+    {
+     "key": "enchantress_enchant",
+     "name": "Enchant",
+     "role": "basic"
+    },
+    {
+     "key": "enchantress_natures_attendants",
+     "name": "Nature's Attendants",
+     "role": "basic"
+    },
+    {
+     "key": "enchantress_bunny_hop",
+     "name": "Sproink",
+     "role": "shard"
+    },
+    {
+     "key": "enchantress_little_friends",
+     "name": "Little Friends",
+     "role": "scepter"
+    },
+    {
+     "key": "enchantress_untouchable",
+     "name": "Untouchable",
+     "role": "ultimate"
+    },
+    {
+     "key": "enchantress_rabblerouser",
+     "name": "Rabble-Rouser",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_enigma": {
+   "name": "Enigma",
+   "abilities": [
+    {
+     "key": "enigma_malefice",
+     "name": "Malefice",
+     "role": "basic"
+    },
+    {
+     "key": "enigma_demonic_conversion",
+     "name": "Demonic Summoning",
+     "role": "basic"
+    },
+    {
+     "key": "enigma_midnight_pulse",
+     "name": "Midnight Pulse",
+     "role": "basic"
+    },
+    {
+     "key": "enigma_event_horizon",
+     "name": "Event Horizon",
+     "role": "innate"
+    },
+    {
+     "key": "enigma_black_hole",
+     "name": "Black Hole",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_faceless_void": {
+   "name": "Faceless Void",
+   "abilities": [
+    {
+     "key": "faceless_void_time_walk",
+     "name": "Time Walk",
+     "role": "basic"
+    },
+    {
+     "key": "faceless_void_time_dilation",
+     "name": "Time Dilation",
+     "role": "basic"
+    },
+    {
+     "key": "faceless_void_time_lock",
+     "name": "Time Lock",
+     "role": "basic"
+    },
+    {
+     "key": "faceless_void_time_walk_reverse",
+     "name": "Reverse Time Walk",
+     "role": "scepter"
+    },
+    {
+     "key": "faceless_void_distortion_field",
+     "name": "Distortion Field",
+     "role": "innate"
+    },
+    {
+     "key": "faceless_void_chronosphere",
+     "name": "Chronosphere",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_grimstroke": {
+   "name": "Grimstroke",
+   "abilities": [
+    {
+     "key": "grimstroke_dark_artistry",
+     "name": "Stroke of Fate",
+     "role": "basic"
+    },
+    {
+     "key": "grimstroke_ink_creature",
+     "name": "Phantom's Embrace",
+     "role": "basic"
+    },
+    {
+     "key": "grimstroke_spirit_walk",
+     "name": "Ink Swell",
+     "role": "basic"
+    },
+    {
+     "key": "grimstroke_dark_portrait",
+     "name": "Dark Portrait",
+     "role": "scepter"
+    },
+    {
+     "key": "grimstroke_soul_chain",
+     "name": "Soulbind",
+     "role": "ultimate"
+    },
+    {
+     "key": "grimstroke_ink_trail",
+     "name": "Ink Trail",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_gyrocopter": {
+   "name": "Gyrocopter",
+   "abilities": [
+    {
+     "key": "gyrocopter_rocket_barrage",
+     "name": "Rocket Barrage",
+     "role": "basic"
+    },
+    {
+     "key": "gyrocopter_homing_missile",
+     "name": "Homing Missile",
+     "role": "basic"
+    },
+    {
+     "key": "gyrocopter_flak_cannon",
+     "name": "Flak Cannon",
+     "role": "basic"
+    },
+    {
+     "key": "gyrocopter_afterburner",
+     "name": "Afterburner",
+     "role": "innate"
+    },
+    {
+     "key": "gyrocopter_side_gunner_spawn_ability",
+     "name": "Side Gunner",
+     "role": "scepter"
+    },
+    {
+     "key": "gyrocopter_call_down",
+     "name": "Call Down",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_hoodwink": {
+   "name": "Hoodwink",
+   "abilities": [
+    {
+     "key": "hoodwink_acorn_shot",
+     "name": "Acorn Shot",
+     "role": "basic"
+    },
+    {
+     "key": "hoodwink_bushwhack",
+     "name": "Bushwhack",
+     "role": "basic"
+    },
+    {
+     "key": "hoodwink_scurry",
+     "name": "Scurry",
+     "role": "basic"
+    },
+    {
+     "key": "hoodwink_decoy",
+     "name": "Decoy",
+     "role": "scepter"
+    },
+    {
+     "key": "hoodwink_hunters_boomerang",
+     "name": "Hunter's Boomerang",
+     "role": "shard"
+    },
+    {
+     "key": "hoodwink_sharpshooter",
+     "name": "Sharpshooter",
+     "role": "ultimate"
+    },
+    {
+     "key": "hoodwink_sharpshooter_release",
+     "name": "End Sharpshooter",
+     "role": "ultimate"
+    },
+    {
+     "key": "hoodwink_mistwoods_wayfarer",
+     "name": "Mistwoods Wayfarer",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_huskar": {
+   "name": "Huskar",
+   "abilities": [
+    {
+     "key": "huskar_inner_fire",
+     "name": "Inner Fire",
+     "role": "basic"
+    },
+    {
+     "key": "huskar_burning_spear",
+     "name": "Burning Spear",
+     "role": "basic"
+    },
+    {
+     "key": "huskar_berserkers_blood",
+     "name": "Berserker's Blood",
+     "role": "basic"
+    },
+    {
+     "key": "huskar_blood_magic",
+     "name": "Blood Magic",
+     "role": "innate"
+    },
+    {
+     "key": "huskar_life_break",
+     "name": "Life Break",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_invoker": {
+   "name": "Invoker",
+   "abilities": [
+    {
+     "key": "invoker_quas",
+     "name": "Quas",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_wex",
+     "name": "Wex",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_exort",
+     "name": "Exort",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_invoke",
+     "name": "Invoke",
+     "role": "innate"
+    },
+    {
+     "key": "invoker_cold_snap",
+     "name": "Cold Snap",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_ghost_walk",
+     "name": "Ghost Walk",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_tornado",
+     "name": "Tornado",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_emp",
+     "name": "E.M.P.",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_alacrity",
+     "name": "Alacrity",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_chaos_meteor",
+     "name": "Chaos Meteor",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_sun_strike",
+     "name": "Sun Strike",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_forge_spirit",
+     "name": "Forge Spirit",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_ice_wall",
+     "name": "Ice Wall",
+     "role": "basic"
+    },
+    {
+     "key": "invoker_deafening_blast",
+     "name": "Deafening Blast",
+     "role": "basic"
+    }
+   ]
+  },
+  "npc_dota_hero_wisp": {
+   "name": "Io",
+   "abilities": [
+    {
+     "key": "wisp_tether",
+     "name": "Tether",
+     "role": "basic"
+    },
+    {
+     "key": "wisp_spirits",
+     "name": "Spirits",
+     "role": "basic"
+    },
+    {
+     "key": "wisp_overcharge",
+     "name": "Overcharge",
+     "role": "basic"
+    },
+    {
+     "key": "wisp_spirits_in",
+     "name": "Spirits In",
+     "role": "sub"
+    },
+    {
+     "key": "wisp_spirits_out",
+     "name": "Spirits Out",
+     "role": "sub"
+    },
+    {
+     "key": "wisp_relocate",
+     "name": "Relocate",
+     "role": "ultimate"
+    },
+    {
+     "key": "wisp_tether_break",
+     "name": "Break Tether",
+     "role": "sub"
+    },
+    {
+     "key": "wisp_equilibrium",
+     "name": "Equilibrium",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_jakiro": {
+   "name": "Jakiro",
+   "abilities": [
+    {
+     "key": "jakiro_dual_breath",
+     "name": "Dual Breath",
+     "role": "basic"
+    },
+    {
+     "key": "jakiro_ice_path",
+     "name": "Ice Path",
+     "role": "basic"
+    },
+    {
+     "key": "jakiro_liquid_fire",
+     "name": "Liquid Fire",
+     "role": "basic"
+    },
+    {
+     "key": "jakiro_liquid_ice",
+     "name": "Liquid Frost",
+     "role": "basic"
+    },
+    {
+     "key": "jakiro_double_trouble",
+     "name": "Double Trouble",
+     "role": "innate"
+    },
+    {
+     "key": "jakiro_macropyre",
+     "name": "Macropyre",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_juggernaut": {
+   "name": "Juggernaut",
+   "abilities": [
+    {
+     "key": "juggernaut_blade_fury",
+     "name": "Blade Fury",
+     "role": "basic"
+    },
+    {
+     "key": "juggernaut_healing_ward",
+     "name": "Healing Ward",
+     "role": "basic"
+    },
+    {
+     "key": "juggernaut_blade_dance",
+     "name": "Blade Dance",
+     "role": "basic"
+    },
+    {
+     "key": "juggernaut_swift_slash",
+     "name": "Swiftslash",
+     "role": "scepter"
+    },
+    {
+     "key": "juggernaut_bladeform",
+     "name": "Bladeform",
+     "role": "innate"
+    },
+    {
+     "key": "juggernaut_omni_slash",
+     "name": "Omnislash",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_keeper_of_the_light": {
+   "name": "Keeper of the Light",
+   "abilities": [
+    {
+     "key": "keeper_of_the_light_illuminate",
+     "name": "Illuminate",
+     "role": "basic"
+    },
+    {
+     "key": "keeper_of_the_light_blinding_light",
+     "name": "Blinding Light",
+     "role": "basic"
+    },
+    {
+     "key": "keeper_of_the_light_chakra_magic",
+     "name": "Chakra Magic",
+     "role": "basic"
+    },
+    {
+     "key": "keeper_of_the_light_radiant_bind",
+     "name": "Solar Bind",
+     "role": "basic"
+    },
+    {
+     "key": "keeper_of_the_light_will_o_wisp",
+     "name": "Will-O-Wisp",
+     "role": "scepter"
+    },
+    {
+     "key": "keeper_of_the_light_spirit_form",
+     "name": "Spirit Form",
+     "role": "ultimate"
+    },
+    {
+     "key": "keeper_of_the_light_illuminate_end",
+     "name": "Release Illuminate",
+     "role": "sub"
+    },
+    {
+     "key": "keeper_of_the_light_bright_speed",
+     "name": "Bright Speed",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_kez": {
+   "name": "Kez",
+   "abilities": [
+    {
+     "key": "kez_echo_slash",
+     "name": "Echo Slash",
+     "role": "basic"
+    },
+    {
+     "key": "kez_grappling_claw",
+     "name": "Grappling Claw",
+     "role": "basic"
+    },
+    {
+     "key": "kez_kazurai_katana",
+     "name": "Kazurai Katana",
+     "role": "basic"
+    },
+    {
+     "key": "kez_switch_weapons",
+     "name": "Switch Discipline",
+     "role": "innate"
+    },
+    {
+     "key": "kez_raptor_dance",
+     "name": "Raptor Dance",
+     "role": "ultimate"
+    },
+    {
+     "key": "kez_falcon_rush",
+     "name": "Falcon Rush",
+     "role": "basic"
+    },
+    {
+     "key": "kez_talon_toss",
+     "name": "Talon Toss",
+     "role": "basic"
+    },
+    {
+     "key": "kez_shodo_sai",
+     "name": "Shodo Sai",
+     "role": "basic"
+    },
+    {
+     "key": "kez_ravens_veil",
+     "name": "Raven's Veil",
+     "role": "ultimate"
+    },
+    {
+     "key": "kez_shodo_sai_parry_cancel",
+     "name": "Cancel",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_kunkka": {
+   "name": "Kunkka",
+   "abilities": [
+    {
+     "key": "kunkka_torrent",
+     "name": "Torrent",
+     "role": "basic"
+    },
+    {
+     "key": "kunkka_tidebringer",
+     "name": "Tidebringer",
+     "role": "basic"
+    },
+    {
+     "key": "kunkka_x_marks_the_spot",
+     "name": "X Marks the Spot",
+     "role": "basic"
+    },
+    {
+     "key": "kunkka_admirals_rum",
+     "name": "Admiral's Rum",
+     "role": "innate"
+    },
+    {
+     "key": "kunkka_tidal_wave",
+     "name": "Tidal Wave",
+     "role": "shard"
+    },
+    {
+     "key": "kunkka_ghostship",
+     "name": "Ghostship",
+     "role": "ultimate"
+    },
+    {
+     "key": "kunkka_return",
+     "name": "Return",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_largo": {
+   "name": "Largo",
+   "abilities": [
+    {
+     "key": "largo_catchy_lick",
+     "name": "Catchy Lick",
+     "role": "basic"
+    },
+    {
+     "key": "largo_frogstomp",
+     "name": "Frogstomp",
+     "role": "basic"
+    },
+    {
+     "key": "largo_croak_of_genius",
+     "name": "Croak of Genius",
+     "role": "basic"
+    },
+    {
+     "key": "largo_encore",
+     "name": "Encore",
+     "role": "innate"
+    },
+    {
+     "key": "largo_amphibian_rhapsody",
+     "name": "Amphibian Rhapsody",
+     "role": "ultimate"
+    },
+    {
+     "key": "largo_song_fight_song",
+     "name": "Bullbelly Blitz",
+     "role": "basic"
+    },
+    {
+     "key": "largo_song_double_time",
+     "name": "Hotfeet Hustle",
+     "role": "basic"
+    },
+    {
+     "key": "largo_song_good_vibrations",
+     "name": "Island Elixir",
+     "role": "basic"
+    }
+   ]
+  },
+  "npc_dota_hero_legion_commander": {
+   "name": "Legion Commander",
+   "abilities": [
+    {
+     "key": "legion_commander_overwhelming_odds",
+     "name": "Overwhelming Odds",
+     "role": "basic"
+    },
+    {
+     "key": "legion_commander_press_the_attack",
+     "name": "Press The Attack",
+     "role": "basic"
+    },
+    {
+     "key": "legion_commander_moment_of_courage",
+     "name": "Moment of Courage",
+     "role": "basic"
+    },
+    {
+     "key": "legion_commander_outfight_them",
+     "name": "Outfight Them!",
+     "role": "innate"
+    },
+    {
+     "key": "legion_commander_duel",
+     "name": "Duel",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_leshrac": {
+   "name": "Leshrac",
+   "abilities": [
+    {
+     "key": "leshrac_split_earth",
+     "name": "Split Earth",
+     "role": "basic"
+    },
+    {
+     "key": "leshrac_diabolic_edict",
+     "name": "Diabolic Edict",
+     "role": "basic"
+    },
+    {
+     "key": "leshrac_lightning_storm",
+     "name": "Lightning Storm",
+     "role": "basic"
+    },
+    {
+     "key": "leshrac_greater_lightning_storm",
+     "name": "Nihilism",
+     "role": "scepter"
+    },
+    {
+     "key": "leshrac_defilement",
+     "name": "Defilement",
+     "role": "innate"
+    },
+    {
+     "key": "leshrac_pulse_nova",
+     "name": "Pulse Nova",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_lich": {
+   "name": "Lich",
+   "abilities": [
+    {
+     "key": "lich_frost_nova",
+     "name": "Frost Blast",
+     "role": "basic"
+    },
+    {
+     "key": "lich_frost_shield",
+     "name": "Frost Shield",
+     "role": "basic"
+    },
+    {
+     "key": "lich_sinister_gaze",
+     "name": "Sinister Gaze",
+     "role": "basic"
+    },
+    {
+     "key": "lich_ice_spire",
+     "name": "Ice Spire",
+     "role": "shard"
+    },
+    {
+     "key": "lich_death_charge",
+     "name": "Sacrifice",
+     "role": "innate"
+    },
+    {
+     "key": "lich_chain_frost",
+     "name": "Chain Frost",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_life_stealer": {
+   "name": "Lifestealer",
+   "abilities": [
+    {
+     "key": "life_stealer_rage",
+     "name": "Rage",
+     "role": "basic"
+    },
+    {
+     "key": "life_stealer_open_wounds",
+     "name": "Open Wounds",
+     "role": "basic"
+    },
+    {
+     "key": "life_stealer_feast",
+     "name": "Feast",
+     "role": "basic"
+    },
+    {
+     "key": "life_stealer_ghoul_frenzy",
+     "name": "Ghoul Frenzy",
+     "role": "innate"
+    },
+    {
+     "key": "life_stealer_infest",
+     "name": "Infest",
+     "role": "ultimate"
+    },
+    {
+     "key": "life_stealer_consume",
+     "name": "Consume",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_lina": {
+   "name": "Lina",
+   "abilities": [
+    {
+     "key": "lina_dragon_slave",
+     "name": "Dragon Slave",
+     "role": "basic"
+    },
+    {
+     "key": "lina_light_strike_array",
+     "name": "Light Strike Array",
+     "role": "basic"
+    },
+    {
+     "key": "lina_fiery_soul",
+     "name": "Fiery Soul",
+     "role": "basic"
+    },
+    {
+     "key": "lina_flame_cloak",
+     "name": "Flame Cloak",
+     "role": "scepter"
+    },
+    {
+     "key": "lina_slow_burn",
+     "name": "Slow Burn",
+     "role": "innate"
+    },
+    {
+     "key": "lina_laguna_blade",
+     "name": "Laguna Blade",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_lion": {
+   "name": "Lion",
+   "abilities": [
+    {
+     "key": "lion_impale",
+     "name": "Earth Spike",
+     "role": "basic"
+    },
+    {
+     "key": "lion_voodoo",
+     "name": "Hex",
+     "role": "basic"
+    },
+    {
+     "key": "lion_mana_drain",
+     "name": "Mana Drain",
+     "role": "basic"
+    },
+    {
+     "key": "lion_to_hell_and_back",
+     "name": "To Hell and Back",
+     "role": "innate"
+    },
+    {
+     "key": "lion_finger_of_death",
+     "name": "Finger of Death",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_lone_druid": {
+   "name": "Lone Druid",
+   "abilities": [
+    {
+     "key": "lone_druid_entangle",
+     "name": "Entangle",
+     "role": "basic"
+    },
+    {
+     "key": "lone_druid_spirit_link",
+     "name": "Spirit Link",
+     "role": "basic"
+    },
+    {
+     "key": "lone_druid_savage_roar",
+     "name": "Savage Roar",
+     "role": "basic"
+    },
+    {
+     "key": "lone_druid_spirit_bear",
+     "name": "Summon Spirit Bear",
+     "role": "innate"
+    },
+    {
+     "key": "lone_druid_true_form",
+     "name": "True Form",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_luna": {
+   "name": "Luna",
+   "abilities": [
+    {
+     "key": "luna_lucent_beam",
+     "name": "Lucent Beam",
+     "role": "basic"
+    },
+    {
+     "key": "luna_lunar_orbit",
+     "name": "Lunar Orbit",
+     "role": "basic"
+    },
+    {
+     "key": "luna_moon_glaive",
+     "name": "Moon Glaives",
+     "role": "basic"
+    },
+    {
+     "key": "luna_lunar_blessing",
+     "name": "Lunar Blessing",
+     "role": "innate"
+    },
+    {
+     "key": "luna_eclipse",
+     "name": "Eclipse",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_lycan": {
+   "name": "Lycan",
+   "abilities": [
+    {
+     "key": "lycan_summon_wolves",
+     "name": "Summon Wolves",
+     "role": "basic"
+    },
+    {
+     "key": "lycan_howl",
+     "name": "Howl",
+     "role": "basic"
+    },
+    {
+     "key": "lycan_feral_impulse",
+     "name": "Feral Impulse",
+     "role": "basic"
+    },
+    {
+     "key": "lycan_wolf_bite",
+     "name": "Wolf Bite",
+     "role": "scepter"
+    },
+    {
+     "key": "lycan_apex_predator",
+     "name": "Apex Predator",
+     "role": "innate"
+    },
+    {
+     "key": "lycan_shapeshift",
+     "name": "Shapeshift",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_magnataur": {
+   "name": "Magnus",
+   "abilities": [
+    {
+     "key": "magnataur_shockwave",
+     "name": "Shockwave",
+     "role": "basic"
+    },
+    {
+     "key": "magnataur_empower",
+     "name": "Empower",
+     "role": "basic"
+    },
+    {
+     "key": "magnataur_skewer",
+     "name": "Skewer",
+     "role": "basic"
+    },
+    {
+     "key": "magnataur_horn_toss",
+     "name": "Horn Toss",
+     "role": "scepter"
+    },
+    {
+     "key": "magnataur_solid_core",
+     "name": "Solid Core",
+     "role": "innate"
+    },
+    {
+     "key": "magnataur_reverse_polarity",
+     "name": "Reverse Polarity",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_marci": {
+   "name": "Marci",
+   "abilities": [
+    {
+     "key": "marci_grapple",
+     "name": "Dispose",
+     "role": "basic"
+    },
+    {
+     "key": "marci_companion_run",
+     "name": "Rebound",
+     "role": "basic"
+    },
+    {
+     "key": "marci_bodyguard",
+     "name": "Bodyguard",
+     "role": "basic"
+    },
+    {
+     "key": "marci_special_delivery",
+     "name": "Special Delivery",
+     "role": "innate"
+    },
+    {
+     "key": "marci_unleash",
+     "name": "Unleash",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_mars": {
+   "name": "Mars",
+   "abilities": [
+    {
+     "key": "mars_spear",
+     "name": "Spear of Mars",
+     "role": "basic"
+    },
+    {
+     "key": "mars_gods_rebuke",
+     "name": "God's Rebuke",
+     "role": "basic"
+    },
+    {
+     "key": "mars_bulwark",
+     "name": "Bulwark",
+     "role": "basic"
+    },
+    {
+     "key": "mars_dauntless",
+     "name": "Dauntless",
+     "role": "innate"
+    },
+    {
+     "key": "mars_arena_of_blood",
+     "name": "Arena Of Blood",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_medusa": {
+   "name": "Medusa",
+   "abilities": [
+    {
+     "key": "medusa_split_shot",
+     "name": "Split Shot",
+     "role": "basic"
+    },
+    {
+     "key": "medusa_mystic_snake",
+     "name": "Mystic Snake",
+     "role": "basic"
+    },
+    {
+     "key": "medusa_gorgon_grasp",
+     "name": "Gorgon's Grasp",
+     "role": "basic"
+    },
+    {
+     "key": "medusa_cold_blooded",
+     "name": "Cold Blooded",
+     "role": "shard"
+    },
+    {
+     "key": "medusa_mana_shield",
+     "name": "Mana Shield",
+     "role": "innate"
+    },
+    {
+     "key": "medusa_stone_gaze",
+     "name": "Stone Gaze",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_meepo": {
+   "name": "Meepo",
+   "abilities": [
+    {
+     "key": "meepo_earthbind",
+     "name": "Earthbind",
+     "role": "basic"
+    },
+    {
+     "key": "meepo_poof",
+     "name": "Poof",
+     "role": "basic"
+    },
+    {
+     "key": "meepo_ransack",
+     "name": "Ransack",
+     "role": "basic"
+    },
+    {
+     "key": "meepo_petrify",
+     "name": "Dig",
+     "role": "shard"
+    },
+    {
+     "key": "meepo_megameepo",
+     "name": "MegaMeepo",
+     "role": "scepter"
+    },
+    {
+     "key": "meepo_divided_we_stand",
+     "name": "Divided We Stand",
+     "role": "ultimate"
+    },
+    {
+     "key": "meepo_geomancy",
+     "name": "Geomancy",
+     "role": "innate"
+    },
+    {
+     "key": "meepo_megameepo_fling",
+     "name": "MegaMeepo Fling",
+     "role": "scepter"
+    }
+   ]
+  },
+  "npc_dota_hero_mirana": {
+   "name": "Mirana",
+   "abilities": [
+    {
+     "key": "mirana_starfall",
+     "name": "Starstorm",
+     "role": "basic"
+    },
+    {
+     "key": "mirana_arrow",
+     "name": "Sacred Arrow",
+     "role": "basic"
+    },
+    {
+     "key": "mirana_leap",
+     "name": "Leap",
+     "role": "basic"
+    },
+    {
+     "key": "mirana_celestial_quiver",
+     "name": "Celestial Quiver",
+     "role": "innate"
+    },
+    {
+     "key": "mirana_invis",
+     "name": "Moonlight Shadow",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_monkey_king": {
+   "name": "Monkey King",
+   "abilities": [
+    {
+     "key": "monkey_king_boundless_strike",
+     "name": "Boundless Strike",
+     "role": "basic"
+    },
+    {
+     "key": "monkey_king_tree_dance",
+     "name": "Tree Dance",
+     "role": "basic"
+    },
+    {
+     "key": "monkey_king_primal_spring",
+     "name": "Primal Spring",
+     "role": "basic"
+    },
+    {
+     "key": "monkey_king_jingu_mastery",
+     "name": "Jingu Mastery",
+     "role": "basic"
+    },
+    {
+     "key": "monkey_king_mischief",
+     "name": "Mischief",
+     "role": "innate"
+    },
+    {
+     "key": "monkey_king_wukongs_command",
+     "name": "Wukong's Command",
+     "role": "ultimate"
+    },
+    {
+     "key": "monkey_king_primal_spring_early",
+     "name": "Spring Early",
+     "role": "sub"
+    },
+    {
+     "key": "monkey_king_untransform",
+     "name": "Revert Form",
+     "role": "sub"
+    },
+    {
+     "key": "monkey_king_transfiguration",
+     "name": "Changing of the Guard",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_morphling": {
+   "name": "Morphling",
+   "abilities": [
+    {
+     "key": "morphling_waveform",
+     "name": "Waveform",
+     "role": "basic"
+    },
+    {
+     "key": "morphling_adaptive_strike_agi",
+     "name": "Adaptive Strike",
+     "role": "basic"
+    },
+    {
+     "key": "morphling_morph_agi",
+     "name": "Attribute Shift (Agility Gain)",
+     "role": "basic"
+    },
+    {
+     "key": "morphling_morph_str",
+     "name": "Attribute Shift (Strength Gain)",
+     "role": "basic"
+    },
+    {
+     "key": "morphling_replicate",
+     "name": "Morph",
+     "role": "ultimate"
+    },
+    {
+     "key": "morphling_morph_replicate",
+     "name": "Morph Replicate",
+     "role": "ultimate"
+    },
+    {
+     "key": "morphling_ebb_and_flow",
+     "name": "Ebb and Flow",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_muerta": {
+   "name": "Muerta",
+   "abilities": [
+    {
+     "key": "muerta_dead_shot",
+     "name": "Dead Shot",
+     "role": "basic"
+    },
+    {
+     "key": "muerta_the_calling",
+     "name": "The Calling",
+     "role": "basic"
+    },
+    {
+     "key": "muerta_gunslinger",
+     "name": "Gunslinger",
+     "role": "basic"
+    },
+    {
+     "key": "muerta_spectral_slug",
+     "name": "Spectral Slug",
+     "role": "shard"
+    },
+    {
+     "key": "muerta_pierce_the_veil",
+     "name": "Pierce the Veil",
+     "role": "ultimate"
+    },
+    {
+     "key": "muerta_supernatural",
+     "name": "Supernatural",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_naga_siren": {
+   "name": "Naga Siren",
+   "abilities": [
+    {
+     "key": "naga_siren_mirror_image",
+     "name": "Mirror Image",
+     "role": "basic"
+    },
+    {
+     "key": "naga_siren_ensnare",
+     "name": "Ensnare",
+     "role": "basic"
+    },
+    {
+     "key": "naga_siren_rip_tide",
+     "name": "Rip Tide",
+     "role": "basic"
+    },
+    {
+     "key": "naga_siren_reel_in",
+     "name": "Reel In",
+     "role": "basic"
+    },
+    {
+     "key": "naga_siren_eelskin",
+     "name": "Eelskin",
+     "role": "innate"
+    },
+    {
+     "key": "naga_siren_song_of_the_siren",
+     "name": "Song of the Siren",
+     "role": "ultimate"
+    },
+    {
+     "key": "naga_siren_song_of_the_siren_cancel",
+     "name": "Song of the Siren End",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_furion": {
+   "name": "Nature's Prophet",
+   "abilities": [
+    {
+     "key": "furion_sprout",
+     "name": "Sprout",
+     "role": "basic"
+    },
+    {
+     "key": "furion_teleportation",
+     "name": "Teleportation",
+     "role": "basic"
+    },
+    {
+     "key": "furion_force_of_nature",
+     "name": "Nature's Call",
+     "role": "basic"
+    },
+    {
+     "key": "furion_curse_of_the_forest",
+     "name": "Curse of the Oldgrowth",
+     "role": "shard"
+    },
+    {
+     "key": "furion_spirit_of_the_forest",
+     "name": "Spirit of the Forest",
+     "role": "innate"
+    },
+    {
+     "key": "furion_wrath_of_nature",
+     "name": "Wrath of Nature",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_necrolyte": {
+   "name": "Necrophos",
+   "abilities": [
+    {
+     "key": "necrolyte_death_pulse",
+     "name": "Death Pulse",
+     "role": "basic"
+    },
+    {
+     "key": "necrolyte_ghost_shroud",
+     "name": "Ghost Shroud",
+     "role": "basic"
+    },
+    {
+     "key": "necrolyte_heartstopper_aura",
+     "name": "Heartstopper Aura",
+     "role": "basic"
+    },
+    {
+     "key": "necrolyte_death_seeker",
+     "name": "Death Seeker",
+     "role": "shard"
+    },
+    {
+     "key": "necrolyte_sadist",
+     "name": "Sadist",
+     "role": "innate"
+    },
+    {
+     "key": "necrolyte_reapers_scythe",
+     "name": "Reaper's Scythe",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_night_stalker": {
+   "name": "Night Stalker",
+   "abilities": [
+    {
+     "key": "night_stalker_void",
+     "name": "Void",
+     "role": "basic"
+    },
+    {
+     "key": "night_stalker_crippling_fear",
+     "name": "Crippling Fear",
+     "role": "basic"
+    },
+    {
+     "key": "night_stalker_midnight_feast",
+     "name": "Midnight Feast",
+     "role": "basic"
+    },
+    {
+     "key": "night_stalker_hunter_in_the_night",
+     "name": "Hunter in the Night",
+     "role": "innate"
+    },
+    {
+     "key": "night_stalker_darkness",
+     "name": "Dark Ascension",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_nyx_assassin": {
+   "name": "Nyx Assassin",
+   "abilities": [
+    {
+     "key": "nyx_assassin_impale",
+     "name": "Impale",
+     "role": "basic"
+    },
+    {
+     "key": "nyx_assassin_jolt",
+     "name": "Mind Flare",
+     "role": "basic"
+    },
+    {
+     "key": "nyx_assassin_spiked_carapace",
+     "name": "Spiked Carapace",
+     "role": "basic"
+    },
+    {
+     "key": "nyx_assassin_burrow",
+     "name": "Burrow",
+     "role": "scepter"
+    },
+    {
+     "key": "nyx_assassin_neuro_sting",
+     "name": "Mana Burn",
+     "role": "innate"
+    },
+    {
+     "key": "nyx_assassin_vendetta",
+     "name": "Vendetta",
+     "role": "ultimate"
+    },
+    {
+     "key": "nyx_assassin_unburrow",
+     "name": "Unburrow",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_ogre_magi": {
+   "name": "Ogre Magi",
+   "abilities": [
+    {
+     "key": "ogre_magi_fireblast",
+     "name": "Fireblast",
+     "role": "basic"
+    },
+    {
+     "key": "ogre_magi_ignite",
+     "name": "Ignite",
+     "role": "basic"
+    },
+    {
+     "key": "ogre_magi_bloodlust",
+     "name": "Bloodlust",
+     "role": "basic"
+    },
+    {
+     "key": "ogre_magi_unrefined_fireblast",
+     "name": "Unrefined Fireblast",
+     "role": "scepter"
+    },
+    {
+     "key": "ogre_magi_smash",
+     "name": "Fire Shield",
+     "role": "shard"
+    },
+    {
+     "key": "ogre_magi_dumb_luck",
+     "name": "Dumb Luck",
+     "role": "innate"
+    },
+    {
+     "key": "ogre_magi_multicast",
+     "name": "Multicast",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_omniknight": {
+   "name": "Omniknight",
+   "abilities": [
+    {
+     "key": "omniknight_purification",
+     "name": "Purification",
+     "role": "basic"
+    },
+    {
+     "key": "omniknight_martyr",
+     "name": "Repel",
+     "role": "basic"
+    },
+    {
+     "key": "omniknight_hammer_of_purity",
+     "name": "Hammer of Purity",
+     "role": "basic"
+    },
+    {
+     "key": "omniknight_degen_aura",
+     "name": "Degen Aura",
+     "role": "innate"
+    },
+    {
+     "key": "omniknight_guardian_angel",
+     "name": "Guardian Angel",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_oracle": {
+   "name": "Oracle",
+   "abilities": [
+    {
+     "key": "oracle_fortunes_end",
+     "name": "Fortune's End",
+     "role": "basic"
+    },
+    {
+     "key": "oracle_fates_edict",
+     "name": "Fate's Edict",
+     "role": "basic"
+    },
+    {
+     "key": "oracle_purifying_flames",
+     "name": "Purifying Flames",
+     "role": "basic"
+    },
+    {
+     "key": "oracle_rain_of_destiny",
+     "name": "Rain of Destiny",
+     "role": "shard"
+    },
+    {
+     "key": "oracle_diviners_deck",
+     "name": "Diviner's Deck",
+     "role": "basic"
+    },
+    {
+     "key": "oracle_false_promise",
+     "name": "False Promise",
+     "role": "ultimate"
+    },
+    {
+     "key": "oracle_prognosticate",
+     "name": "Prognosticate",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_obsidian_destroyer": {
+   "name": "Outworld Devourer",
+   "abilities": [
+    {
+     "key": "obsidian_destroyer_arcane_orb",
+     "name": "Arcane Orb",
+     "role": "basic"
+    },
+    {
+     "key": "obsidian_destroyer_astral_imprisonment",
+     "name": "Astral Imprisonment",
+     "role": "basic"
+    },
+    {
+     "key": "obsidian_destroyer_objurgation",
+     "name": "Objurgation",
+     "role": "basic"
+    },
+    {
+     "key": "obsidian_destroyer_equilibrium",
+     "name": "Essence Flux",
+     "role": "innate"
+    },
+    {
+     "key": "obsidian_destroyer_sanity_eclipse",
+     "name": "Sanity's Eclipse",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_pangolier": {
+   "name": "Pangolier",
+   "abilities": [
+    {
+     "key": "pangolier_swashbuckle",
+     "name": "Swashbuckle",
+     "role": "basic"
+    },
+    {
+     "key": "pangolier_shield_crash",
+     "name": "Shield Crash",
+     "role": "basic"
+    },
+    {
+     "key": "pangolier_lucky_shot",
+     "name": "Lucky Shot",
+     "role": "basic"
+    },
+    {
+     "key": "pangolier_rollup",
+     "name": "Roll Up",
+     "role": "shard"
+    },
+    {
+     "key": "pangolier_gyroshell",
+     "name": "Rolling Thunder",
+     "role": "ultimate"
+    },
+    {
+     "key": "pangolier_gyroshell_stop",
+     "name": "Stop Rolling",
+     "role": "ultimate"
+    },
+    {
+     "key": "pangolier_rollup_stop",
+     "name": "End Roll Up",
+     "role": "sub"
+    },
+    {
+     "key": "pangolier_fortune_favors_the_bold",
+     "name": "Fortune Favors the Bold",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_phantom_assassin": {
+   "name": "Phantom Assassin",
+   "abilities": [
+    {
+     "key": "phantom_assassin_stifling_dagger",
+     "name": "Stifling Dagger",
+     "role": "basic"
+    },
+    {
+     "key": "phantom_assassin_phantom_strike",
+     "name": "Phantom Strike",
+     "role": "basic"
+    },
+    {
+     "key": "phantom_assassin_blur",
+     "name": "Blur",
+     "role": "innate"
+    },
+    {
+     "key": "phantom_assassin_fan_of_knives",
+     "name": "Fan of Knives",
+     "role": "scepter"
+    },
+    {
+     "key": "phantom_assassin_immaterial",
+     "name": "Immaterial",
+     "role": "basic"
+    },
+    {
+     "key": "phantom_assassin_coup_de_grace",
+     "name": "Coup de Grace",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_phantom_lancer": {
+   "name": "Phantom Lancer",
+   "abilities": [
+    {
+     "key": "phantom_lancer_spirit_lance",
+     "name": "Spirit Lance",
+     "role": "basic"
+    },
+    {
+     "key": "phantom_lancer_doppelwalk",
+     "name": "Doppelganger",
+     "role": "basic"
+    },
+    {
+     "key": "phantom_lancer_phantom_edge",
+     "name": "Phantom Rush",
+     "role": "basic"
+    },
+    {
+     "key": "phantom_lancer_illusory_armaments",
+     "name": "Illusory Armaments",
+     "role": "innate"
+    },
+    {
+     "key": "phantom_lancer_juxtapose",
+     "name": "Juxtapose",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_phoenix": {
+   "name": "Phoenix",
+   "abilities": [
+    {
+     "key": "phoenix_icarus_dive",
+     "name": "Icarus Dive",
+     "role": "basic"
+    },
+    {
+     "key": "phoenix_fire_spirits",
+     "name": "Fire Spirits",
+     "role": "basic"
+    },
+    {
+     "key": "phoenix_sun_ray",
+     "name": "Sun Ray",
+     "role": "basic"
+    },
+    {
+     "key": "phoenix_sun_ray_toggle_move",
+     "name": "Toggle Movement",
+     "role": "sub"
+    },
+    {
+     "key": "phoenix_dying_light",
+     "name": "Dying Light",
+     "role": "innate"
+    },
+    {
+     "key": "phoenix_supernova",
+     "name": "Supernova",
+     "role": "ultimate"
+    },
+    {
+     "key": "phoenix_launch_fire_spirit",
+     "name": "Launch Fire Spirit",
+     "role": "sub"
+    },
+    {
+     "key": "phoenix_icarus_dive_stop",
+     "name": "Stop Icarus Dive",
+     "role": "sub"
+    },
+    {
+     "key": "phoenix_sun_ray_stop",
+     "name": "Stop Sun Ray",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_primal_beast": {
+   "name": "Primal Beast",
+   "abilities": [
+    {
+     "key": "primal_beast_onslaught",
+     "name": "Onslaught",
+     "role": "basic"
+    },
+    {
+     "key": "primal_beast_trample",
+     "name": "Trample",
+     "role": "basic"
+    },
+    {
+     "key": "primal_beast_uproar",
+     "name": "Uproar",
+     "role": "basic"
+    },
+    {
+     "key": "primal_beast_rock_throw",
+     "name": "Rock Throw",
+     "role": "shard"
+    },
+    {
+     "key": "primal_beast_onslaught_release",
+     "name": "Begin Onslaught",
+     "role": "sub"
+    },
+    {
+     "key": "primal_beast_pulverize",
+     "name": "Pulverize",
+     "role": "ultimate"
+    },
+    {
+     "key": "primal_beast_colossal",
+     "name": "Colossal",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_puck": {
+   "name": "Puck",
+   "abilities": [
+    {
+     "key": "puck_illusory_orb",
+     "name": "Illusory Orb",
+     "role": "basic"
+    },
+    {
+     "key": "puck_waning_rift",
+     "name": "Waning Rift",
+     "role": "basic"
+    },
+    {
+     "key": "puck_phase_shift",
+     "name": "Phase Shift",
+     "role": "basic"
+    },
+    {
+     "key": "puck_ethereal_jaunt",
+     "name": "Ethereal Jaunt",
+     "role": "sub"
+    },
+    {
+     "key": "puck_puckish",
+     "name": "Puckish",
+     "role": "innate"
+    },
+    {
+     "key": "puck_dream_coil",
+     "name": "Dream Coil",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_pudge": {
+   "name": "Pudge",
+   "abilities": [
+    {
+     "key": "pudge_meat_hook",
+     "name": "Meat Hook",
+     "role": "basic"
+    },
+    {
+     "key": "pudge_rot",
+     "name": "Rot",
+     "role": "basic"
+    },
+    {
+     "key": "pudge_flesh_heap",
+     "name": "Meat Shield",
+     "role": "basic"
+    },
+    {
+     "key": "pudge_innate_graft_flesh",
+     "name": "Flesh Heap",
+     "role": "innate"
+    },
+    {
+     "key": "pudge_dismember",
+     "name": "Dismember",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_pugna": {
+   "name": "Pugna",
+   "abilities": [
+    {
+     "key": "pugna_nether_blast",
+     "name": "Nether Blast",
+     "role": "basic"
+    },
+    {
+     "key": "pugna_decrepify",
+     "name": "Decrepify",
+     "role": "basic"
+    },
+    {
+     "key": "pugna_nether_ward",
+     "name": "Nether Ward",
+     "role": "basic"
+    },
+    {
+     "key": "pugna_oblivion_savant",
+     "name": "Oblivion Savant",
+     "role": "innate"
+    },
+    {
+     "key": "pugna_life_drain",
+     "name": "Life Drain",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_queenofpain": {
+   "name": "Queen of Pain",
+   "abilities": [
+    {
+     "key": "queenofpain_shadow_strike",
+     "name": "Shadow Strike",
+     "role": "basic"
+    },
+    {
+     "key": "queenofpain_blink",
+     "name": "Blink",
+     "role": "basic"
+    },
+    {
+     "key": "queenofpain_scream_of_pain",
+     "name": "Scream Of Pain",
+     "role": "basic"
+    },
+    {
+     "key": "queenofpain_succubus",
+     "name": "Succubus",
+     "role": "innate"
+    },
+    {
+     "key": "queenofpain_sonic_wave",
+     "name": "Sonic Wave",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_razor": {
+   "name": "Razor",
+   "abilities": [
+    {
+     "key": "razor_plasma_field",
+     "name": "Plasma Field",
+     "role": "basic"
+    },
+    {
+     "key": "razor_static_link",
+     "name": "Static Link",
+     "role": "basic"
+    },
+    {
+     "key": "razor_storm_surge",
+     "name": "Storm Surge",
+     "role": "basic"
+    },
+    {
+     "key": "razor_unstable_current",
+     "name": "Unstable Current",
+     "role": "innate"
+    },
+    {
+     "key": "razor_eye_of_the_storm",
+     "name": "Eye of the Storm",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_riki": {
+   "name": "Riki",
+   "abilities": [
+    {
+     "key": "riki_smoke_screen",
+     "name": "Smoke Screen",
+     "role": "basic"
+    },
+    {
+     "key": "riki_blink_strike",
+     "name": "Blink Strike",
+     "role": "basic"
+    },
+    {
+     "key": "riki_tricks_of_the_trade",
+     "name": "Tricks of the Trade",
+     "role": "basic"
+    },
+    {
+     "key": "riki_innate_backstab",
+     "name": "Backstab",
+     "role": "innate"
+    },
+    {
+     "key": "riki_backstab",
+     "name": "Cloak and Dagger",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_ringmaster": {
+   "name": "Ring Master",
+   "abilities": [
+    {
+     "key": "ringmaster_tame_the_beasts",
+     "name": "Tame the Beasts",
+     "role": "basic"
+    },
+    {
+     "key": "ringmaster_the_box",
+     "name": "Escape Act",
+     "role": "basic"
+    },
+    {
+     "key": "ringmaster_impalement",
+     "name": "Impalement Arts",
+     "role": "basic"
+    },
+    {
+     "key": "ringmaster_empty_souvenir",
+     "name": "Souvenir Slot",
+     "role": "basic"
+    },
+    {
+     "key": "ringmaster_spotlight",
+     "name": "Spotlight",
+     "role": "shard"
+    },
+    {
+     "key": "ringmaster_wheel",
+     "name": "Wheel of Wonder",
+     "role": "ultimate"
+    },
+    {
+     "key": "ringmaster_tame_the_beasts_crack",
+     "name": "Crack",
+     "role": "sub"
+    },
+    {
+     "key": "ringmaster_dark_carnival_souvenirs",
+     "name": "Dark Carnival Barker",
+     "role": "innate"
+    },
+    {
+     "key": "ringmaster_funhouse_mirror",
+     "name": "Funhouse Mirror",
+     "role": "sub"
+    },
+    {
+     "key": "ringmaster_strongman_tonic",
+     "name": "Strongman Tonic",
+     "role": "sub"
+    },
+    {
+     "key": "ringmaster_whoopee_cushion",
+     "name": "Whoopee Cushion",
+     "role": "sub"
+    },
+    {
+     "key": "ringmaster_summon_unicycle",
+     "name": "Unicycle",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_rubick": {
+   "name": "Rubick",
+   "abilities": [
+    {
+     "key": "rubick_telekinesis",
+     "name": "Telekinesis",
+     "role": "basic"
+    },
+    {
+     "key": "rubick_fade_bolt",
+     "name": "Fade Bolt",
+     "role": "basic"
+    },
+    {
+     "key": "rubick_arcane_supremacy",
+     "name": "Arcane Supremacy",
+     "role": "basic"
+    },
+    {
+     "key": "rubick_spell_steal",
+     "name": "Spell Steal",
+     "role": "ultimate"
+    },
+    {
+     "key": "rubick_telekinesis_land",
+     "name": "Telekinesis Land",
+     "role": "sub"
+    },
+    {
+     "key": "rubick_curiosity",
+     "name": "Curiosity",
+     "role": "innate"
+    },
+    {
+     "key": "rubick_telekinesis_land_self",
+     "name": "Telekinesis Land",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_sand_king": {
+   "name": "Sand King",
+   "abilities": [
+    {
+     "key": "sandking_burrowstrike",
+     "name": "Burrowstrike",
+     "role": "basic"
+    },
+    {
+     "key": "sandking_sand_storm",
+     "name": "Sand Storm",
+     "role": "basic"
+    },
+    {
+     "key": "sandking_scorpion_strike",
+     "name": "Stinger",
+     "role": "basic"
+    },
+    {
+     "key": "sandking_caustic_finale",
+     "name": "Caustic Finale",
+     "role": "innate"
+    },
+    {
+     "key": "sandking_epicenter",
+     "name": "Epicenter",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_shadow_demon": {
+   "name": "Shadow Demon",
+   "abilities": [
+    {
+     "key": "shadow_demon_disruption",
+     "name": "Disruption",
+     "role": "basic"
+    },
+    {
+     "key": "shadow_demon_disseminate",
+     "name": "Disseminate",
+     "role": "basic"
+    },
+    {
+     "key": "shadow_demon_shadow_poison",
+     "name": "Shadow Poison",
+     "role": "basic"
+    },
+    {
+     "key": "shadow_demon_shadow_poison_release",
+     "name": "Shadow Poison Release",
+     "role": "sub"
+    },
+    {
+     "key": "shadow_demon_demonic_cleanse",
+     "name": "Demonic Cleanse",
+     "role": "shard"
+    },
+    {
+     "key": "shadow_demon_demonic_purge",
+     "name": "Demonic Purge",
+     "role": "ultimate"
+    },
+    {
+     "key": "shadow_demon_menace",
+     "name": "Menace",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_nevermore": {
+   "name": "Shadow Fiend",
+   "abilities": [
+    {
+     "key": "nevermore_shadowraze1",
+     "name": "Shadowraze",
+     "role": "basic"
+    },
+    {
+     "key": "nevermore_shadowraze2",
+     "name": "Shadowraze",
+     "role": "basic"
+    },
+    {
+     "key": "nevermore_shadowraze3",
+     "name": "Shadowraze",
+     "role": "basic"
+    },
+    {
+     "key": "nevermore_frenzy",
+     "name": "Feast of Souls",
+     "role": "basic"
+    },
+    {
+     "key": "nevermore_dark_lord",
+     "name": "Presence of the Dark Lord",
+     "role": "basic"
+    },
+    {
+     "key": "nevermore_requiem",
+     "name": "Requiem of Souls",
+     "role": "ultimate"
+    },
+    {
+     "key": "nevermore_necromastery",
+     "name": "Necromastery",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_shadow_shaman": {
+   "name": "Shadow Shaman",
+   "abilities": [
+    {
+     "key": "shadow_shaman_ether_shock",
+     "name": "Ether Shock",
+     "role": "basic"
+    },
+    {
+     "key": "shadow_shaman_voodoo",
+     "name": "Hex",
+     "role": "basic"
+    },
+    {
+     "key": "shadow_shaman_shackles",
+     "name": "Shackles",
+     "role": "basic"
+    },
+    {
+     "key": "shadow_shaman_fowl_play",
+     "name": "Fowl Play",
+     "role": "innate"
+    },
+    {
+     "key": "shadow_shaman_urnaconda",
+     "name": "Urnaconda",
+     "role": "shard"
+    },
+    {
+     "key": "shadow_shaman_mass_serpent_ward",
+     "name": "Mass Serpent Ward",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_silencer": {
+   "name": "Silencer",
+   "abilities": [
+    {
+     "key": "silencer_curse_of_the_silent",
+     "name": "Arcane Curse",
+     "role": "basic"
+    },
+    {
+     "key": "silencer_glaives_of_wisdom",
+     "name": "Glaives of Wisdom",
+     "role": "basic"
+    },
+    {
+     "key": "silencer_last_word",
+     "name": "Last Word",
+     "role": "basic"
+    },
+    {
+     "key": "silencer_brain_drain",
+     "name": "Suffer In Silence",
+     "role": "innate"
+    },
+    {
+     "key": "silencer_global_silence",
+     "name": "Global Silence",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_skywrath_mage": {
+   "name": "Skywrath Mage",
+   "abilities": [
+    {
+     "key": "skywrath_mage_arcane_bolt",
+     "name": "Arcane Bolt",
+     "role": "basic"
+    },
+    {
+     "key": "skywrath_mage_concussive_shot",
+     "name": "Concussive Shot",
+     "role": "basic"
+    },
+    {
+     "key": "skywrath_mage_ancient_seal",
+     "name": "Ancient Seal",
+     "role": "basic"
+    },
+    {
+     "key": "skywrath_mage_shield_of_the_scion",
+     "name": "Shield of the Scion",
+     "role": "innate"
+    },
+    {
+     "key": "skywrath_mage_mystic_flare",
+     "name": "Mystic Flare",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_slardar": {
+   "name": "Slardar",
+   "abilities": [
+    {
+     "key": "slardar_sprint",
+     "name": "Guardian Sprint",
+     "role": "basic"
+    },
+    {
+     "key": "slardar_slithereen_crush",
+     "name": "Slithereen Crush",
+     "role": "basic"
+    },
+    {
+     "key": "slardar_bash",
+     "name": "Bash of the Deep",
+     "role": "basic"
+    },
+    {
+     "key": "slardar_seaborn_sentinel",
+     "name": "Seaborn Sentinel",
+     "role": "innate"
+    },
+    {
+     "key": "slardar_amplify_damage",
+     "name": "Corrosive Haze",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_slark": {
+   "name": "Slark",
+   "abilities": [
+    {
+     "key": "slark_dark_pact",
+     "name": "Dark Pact",
+     "role": "basic"
+    },
+    {
+     "key": "slark_pounce",
+     "name": "Pounce",
+     "role": "basic"
+    },
+    {
+     "key": "slark_saltwater_shiv",
+     "name": "Saltwater Shiv",
+     "role": "basic"
+    },
+    {
+     "key": "slark_depth_shroud",
+     "name": "Depth Shroud",
+     "role": "shard"
+    },
+    {
+     "key": "slark_essence_shift",
+     "name": "Essence Shift",
+     "role": "innate"
+    },
+    {
+     "key": "slark_shadow_dance",
+     "name": "Shadow Dance",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_snapfire": {
+   "name": "Snapfire",
+   "abilities": [
+    {
+     "key": "snapfire_scatterblast",
+     "name": "Scatterblast",
+     "role": "basic"
+    },
+    {
+     "key": "snapfire_firesnap_cookie",
+     "name": "Firesnap Cookie",
+     "role": "basic"
+    },
+    {
+     "key": "snapfire_lil_shredder",
+     "name": "Lil' Shredder",
+     "role": "basic"
+    },
+    {
+     "key": "snapfire_gobble_up",
+     "name": "Gobble Up",
+     "role": "scepter"
+    },
+    {
+     "key": "snapfire_spit_creep",
+     "name": "Spit Out",
+     "role": "scepter"
+    },
+    {
+     "key": "snapfire_mortimer_kisses",
+     "name": "Mortimer Kisses",
+     "role": "ultimate"
+    },
+    {
+     "key": "snapfire_boomstick",
+     "name": "Boomstick",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_sniper": {
+   "name": "Sniper",
+   "abilities": [
+    {
+     "key": "sniper_shrapnel",
+     "name": "Shrapnel",
+     "role": "basic"
+    },
+    {
+     "key": "sniper_headshot",
+     "name": "Headshot",
+     "role": "basic"
+    },
+    {
+     "key": "sniper_take_aim",
+     "name": "Take Aim",
+     "role": "basic"
+    },
+    {
+     "key": "sniper_concussive_grenade",
+     "name": "Concussive Grenade",
+     "role": "shard"
+    },
+    {
+     "key": "sniper_keen_scope",
+     "name": "Keen Scope",
+     "role": "innate"
+    },
+    {
+     "key": "sniper_assassinate",
+     "name": "Assassinate",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_spectre": {
+   "name": "Spectre",
+   "abilities": [
+    {
+     "key": "spectre_spectral_dagger",
+     "name": "Spectral Dagger",
+     "role": "basic"
+    },
+    {
+     "key": "spectre_shadow_step",
+     "name": "Shadow Step",
+     "role": "basic"
+    },
+    {
+     "key": "spectre_dispersion",
+     "name": "Dispersion",
+     "role": "basic"
+    },
+    {
+     "key": "spectre_reality",
+     "name": "Reality",
+     "role": "basic"
+    },
+    {
+     "key": "spectre_desolate",
+     "name": "Desolate",
+     "role": "innate"
+    },
+    {
+     "key": "spectre_haunt",
+     "name": "Haunt",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_spirit_breaker": {
+   "name": "Spirit Breaker",
+   "abilities": [
+    {
+     "key": "spirit_breaker_charge_of_darkness",
+     "name": "Charge of Darkness",
+     "role": "basic"
+    },
+    {
+     "key": "spirit_breaker_bulldoze",
+     "name": "Bulldoze",
+     "role": "basic"
+    },
+    {
+     "key": "spirit_breaker_greater_bash",
+     "name": "Greater Bash",
+     "role": "basic"
+    },
+    {
+     "key": "spirit_breaker_planar_pocket",
+     "name": "Planar Pocket",
+     "role": "shard"
+    },
+    {
+     "key": "spirit_breaker_bull_rush",
+     "name": "Empowering Haste",
+     "role": "innate"
+    },
+    {
+     "key": "spirit_breaker_nether_strike",
+     "name": "Nether Strike",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_storm_spirit": {
+   "name": "Storm Spirit",
+   "abilities": [
+    {
+     "key": "storm_spirit_static_remnant",
+     "name": "Static Remnant",
+     "role": "basic"
+    },
+    {
+     "key": "storm_spirit_electric_vortex",
+     "name": "Electric Vortex",
+     "role": "basic"
+    },
+    {
+     "key": "storm_spirit_overload",
+     "name": "Overload",
+     "role": "basic"
+    },
+    {
+     "key": "storm_spirit_ball_lightning",
+     "name": "Ball Lightning",
+     "role": "ultimate"
+    },
+    {
+     "key": "storm_spirit_galvanized",
+     "name": "Galvanized",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_sven": {
+   "name": "Sven",
+   "abilities": [
+    {
+     "key": "sven_storm_bolt",
+     "name": "Storm Hammer",
+     "role": "basic"
+    },
+    {
+     "key": "sven_great_cleave",
+     "name": "Great Cleave",
+     "role": "basic"
+    },
+    {
+     "key": "sven_warcry",
+     "name": "Warcry",
+     "role": "basic"
+    },
+    {
+     "key": "sven_gods_strength",
+     "name": "God's Strength",
+     "role": "ultimate"
+    },
+    {
+     "key": "sven_wrath_of_god",
+     "name": "Wrath of God",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_techies": {
+   "name": "Techies",
+   "abilities": [
+    {
+     "key": "techies_sticky_bomb",
+     "name": "Sticky Bomb",
+     "role": "basic"
+    },
+    {
+     "key": "techies_reactive_tazer",
+     "name": "Reactive Tazer",
+     "role": "basic"
+    },
+    {
+     "key": "techies_suicide",
+     "name": "Blast Off!",
+     "role": "basic"
+    },
+    {
+     "key": "techies_mutually_assured_destruction",
+     "name": "M.A.D.",
+     "role": "innate"
+    },
+    {
+     "key": "techies_minefield_sign",
+     "name": "Minefield Sign",
+     "role": "scepter"
+    },
+    {
+     "key": "techies_land_mines",
+     "name": "Proximity Mines",
+     "role": "ultimate"
+    },
+    {
+     "key": "techies_reactive_tazer_stop",
+     "name": "Detonate Tazer",
+     "role": "sub"
+    },
+    {
+     "key": "techies_focused_detonate",
+     "name": "Detonate M.A.D.",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_templar_assassin": {
+   "name": "Templar Assassin",
+   "abilities": [
+    {
+     "key": "templar_assassin_refraction",
+     "name": "Refraction",
+     "role": "basic"
+    },
+    {
+     "key": "templar_assassin_meld",
+     "name": "Meld",
+     "role": "basic"
+    },
+    {
+     "key": "templar_assassin_psi_blades",
+     "name": "Psi Blades",
+     "role": "basic"
+    },
+    {
+     "key": "templar_assassin_trap",
+     "name": "Trap",
+     "role": "basic"
+    },
+    {
+     "key": "templar_assassin_trap_teleport",
+     "name": "Psionic Projection",
+     "role": "scepter"
+    },
+    {
+     "key": "templar_assassin_psionic_trap",
+     "name": "Psionic Trap",
+     "role": "ultimate"
+    },
+    {
+     "key": "templar_assassin_inner_peace",
+     "name": "Inner Peace",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_terrorblade": {
+   "name": "Terrorblade",
+   "abilities": [
+    {
+     "key": "terrorblade_reflection",
+     "name": "Reflection",
+     "role": "basic"
+    },
+    {
+     "key": "terrorblade_conjure_image",
+     "name": "Conjure Image",
+     "role": "basic"
+    },
+    {
+     "key": "terrorblade_metamorphosis",
+     "name": "Metamorphosis",
+     "role": "basic"
+    },
+    {
+     "key": "terrorblade_demon_zeal",
+     "name": "Demon Zeal",
+     "role": "shard"
+    },
+    {
+     "key": "terrorblade_terror_wave",
+     "name": "Terror Wave",
+     "role": "scepter"
+    },
+    {
+     "key": "terrorblade_sunder",
+     "name": "Sunder",
+     "role": "ultimate"
+    },
+    {
+     "key": "terrorblade_dark_unity",
+     "name": "Dark Unity",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_tidehunter": {
+   "name": "Tidehunter",
+   "abilities": [
+    {
+     "key": "tidehunter_gush",
+     "name": "Gush",
+     "role": "basic"
+    },
+    {
+     "key": "tidehunter_kraken_shell",
+     "name": "Kraken Shell",
+     "role": "basic"
+    },
+    {
+     "key": "tidehunter_anchor_smash",
+     "name": "Anchor Smash",
+     "role": "basic"
+    },
+    {
+     "key": "tidehunter_dead_in_the_water",
+     "name": "Dead in the Water",
+     "role": "shard"
+    },
+    {
+     "key": "tidehunter_ravage",
+     "name": "Ravage",
+     "role": "ultimate"
+    },
+    {
+     "key": "tidehunter_leviathans_catch",
+     "name": "Leviathan's Catch",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_shredder": {
+   "name": "Timbersaw",
+   "abilities": [
+    {
+     "key": "shredder_whirling_death",
+     "name": "Whirling Death",
+     "role": "basic"
+    },
+    {
+     "key": "shredder_timber_chain",
+     "name": "Timber Chain",
+     "role": "basic"
+    },
+    {
+     "key": "shredder_reactive_armor",
+     "name": "Reactive Armor",
+     "role": "basic"
+    },
+    {
+     "key": "shredder_flamethrower",
+     "name": "Flamethrower",
+     "role": "shard"
+    },
+    {
+     "key": "shredder_chakram",
+     "name": "Chakram",
+     "role": "ultimate"
+    },
+    {
+     "key": "shredder_return_chakram",
+     "name": "Return Chakram",
+     "role": "ultimate"
+    },
+    {
+     "key": "shredder_exposure_therapy",
+     "name": "Exposure Therapy",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_tinker": {
+   "name": "Tinker",
+   "abilities": [
+    {
+     "key": "tinker_laser",
+     "name": "Laser",
+     "role": "basic"
+    },
+    {
+     "key": "tinker_march_of_the_machines",
+     "name": "March of the Machines",
+     "role": "basic"
+    },
+    {
+     "key": "tinker_deploy_turrets",
+     "name": "Deploy Turrets",
+     "role": "basic"
+    },
+    {
+     "key": "tinker_warp_grenade",
+     "name": "Warp Flare",
+     "role": "shard"
+    },
+    {
+     "key": "tinker_keen_teleport",
+     "name": "Keen Conveyance",
+     "role": "basic"
+    },
+    {
+     "key": "tinker_rearm",
+     "name": "Rearm",
+     "role": "ultimate"
+    },
+    {
+     "key": "tinker_eureka",
+     "name": "Eureka!",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_tiny": {
+   "name": "Tiny",
+   "abilities": [
+    {
+     "key": "tiny_avalanche",
+     "name": "Avalanche",
+     "role": "basic"
+    },
+    {
+     "key": "tiny_toss",
+     "name": "Toss",
+     "role": "basic"
+    },
+    {
+     "key": "tiny_tree_grab",
+     "name": "Tree Grab",
+     "role": "basic"
+    },
+    {
+     "key": "tiny_tree_channel",
+     "name": "Tree Volley",
+     "role": "scepter"
+    },
+    {
+     "key": "tiny_insurmountable",
+     "name": "Insurmountable",
+     "role": "innate"
+    },
+    {
+     "key": "tiny_grow",
+     "name": "Grow",
+     "role": "ultimate"
+    },
+    {
+     "key": "tiny_toss_tree",
+     "name": "Tree Throw",
+     "role": "sub"
+    }
+   ]
+  },
+  "npc_dota_hero_treant": {
+   "name": "Treant Protector",
+   "abilities": [
+    {
+     "key": "treant_natures_grasp",
+     "name": "Nature's Grasp",
+     "role": "basic"
+    },
+    {
+     "key": "treant_leech_seed",
+     "name": "Leech Seed",
+     "role": "basic"
+    },
+    {
+     "key": "treant_living_armor",
+     "name": "Living Armor",
+     "role": "basic"
+    },
+    {
+     "key": "treant_eyes_in_the_forest",
+     "name": "Eyes In The Forest",
+     "role": "shard"
+    },
+    {
+     "key": "treant_natures_guise",
+     "name": "Nature's Guise",
+     "role": "innate"
+    },
+    {
+     "key": "treant_overgrowth",
+     "name": "Overgrowth",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_troll_warlord": {
+   "name": "Troll Warlord",
+   "abilities": [
+    {
+     "key": "troll_warlord_switch_stance",
+     "name": "Battle Stance",
+     "role": "innate"
+    },
+    {
+     "key": "troll_warlord_whirling_axes_ranged",
+     "name": "Whirling Axes (Ranged)",
+     "role": "basic"
+    },
+    {
+     "key": "troll_warlord_whirling_axes_melee",
+     "name": "Whirling Axes (Melee)",
+     "role": "basic"
+    },
+    {
+     "key": "troll_warlord_fervor",
+     "name": "Fervor",
+     "role": "basic"
+    },
+    {
+     "key": "troll_warlord_berserkers_rage",
+     "name": "Berserker's Rage",
+     "role": "basic"
+    },
+    {
+     "key": "troll_warlord_battle_trance",
+     "name": "Battle Trance",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_tusk": {
+   "name": "Tusk",
+   "abilities": [
+    {
+     "key": "tusk_ice_shards",
+     "name": "Ice Shards",
+     "role": "basic"
+    },
+    {
+     "key": "tusk_snowball",
+     "name": "Snowball",
+     "role": "basic"
+    },
+    {
+     "key": "tusk_tag_team",
+     "name": "Tag Team",
+     "role": "basic"
+    },
+    {
+     "key": "tusk_drinking_buddies",
+     "name": "Drinking Buddies",
+     "role": "shard"
+    },
+    {
+     "key": "tusk_walrus_kick",
+     "name": "Walrus Kick",
+     "role": "scepter"
+    },
+    {
+     "key": "tusk_walrus_punch",
+     "name": "Walrus PUNCH!",
+     "role": "ultimate"
+    },
+    {
+     "key": "tusk_launch_snowball",
+     "name": "Launch Snowball",
+     "role": "sub"
+    },
+    {
+     "key": "tusk_bitter_chill",
+     "name": "Bitter Chill",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_abyssal_underlord": {
+   "name": "Underlord",
+   "abilities": [
+    {
+     "key": "abyssal_underlord_firestorm",
+     "name": "Firestorm",
+     "role": "basic"
+    },
+    {
+     "key": "abyssal_underlord_pit_of_malice",
+     "name": "Pit of Malice",
+     "role": "basic"
+    },
+    {
+     "key": "abyssal_underlord_atrophy_aura",
+     "name": "Atrophy Aura",
+     "role": "basic"
+    },
+    {
+     "key": "abyssal_underlord_raid_boss",
+     "name": "Invading Force",
+     "role": "innate"
+    },
+    {
+     "key": "abyssal_underlord_dark_portal",
+     "name": "Fiend's Gate",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_undying": {
+   "name": "Undying",
+   "abilities": [
+    {
+     "key": "undying_decay",
+     "name": "Decay",
+     "role": "basic"
+    },
+    {
+     "key": "undying_soul_rip",
+     "name": "Soul Rip",
+     "role": "basic"
+    },
+    {
+     "key": "undying_tombstone",
+     "name": "Tombstone",
+     "role": "basic"
+    },
+    {
+     "key": "undying_ceaseless_dirge",
+     "name": "Ceaseless Dirge",
+     "role": "innate"
+    },
+    {
+     "key": "undying_flesh_golem",
+     "name": "Flesh Golem",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_ursa": {
+   "name": "Ursa",
+   "abilities": [
+    {
+     "key": "ursa_earthshock",
+     "name": "Earthshock",
+     "role": "basic"
+    },
+    {
+     "key": "ursa_overpower",
+     "name": "Overpower",
+     "role": "basic"
+    },
+    {
+     "key": "ursa_fury_swipes",
+     "name": "Fury Swipes",
+     "role": "basic"
+    },
+    {
+     "key": "ursa_maul",
+     "name": "Maul",
+     "role": "innate"
+    },
+    {
+     "key": "ursa_enrage",
+     "name": "Enrage",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_vengefulspirit": {
+   "name": "Vengeful Spirit",
+   "abilities": [
+    {
+     "key": "vengefulspirit_magic_missile",
+     "name": "Magic Missile",
+     "role": "basic"
+    },
+    {
+     "key": "vengefulspirit_wave_of_terror",
+     "name": "Wave of Terror",
+     "role": "basic"
+    },
+    {
+     "key": "vengefulspirit_command_aura",
+     "name": "Vengeance Aura",
+     "role": "basic"
+    },
+    {
+     "key": "vengefulspirit_retribution",
+     "name": "Retribution",
+     "role": "innate"
+    },
+    {
+     "key": "vengefulspirit_nether_swap",
+     "name": "Nether Swap",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_venomancer": {
+   "name": "Venomancer",
+   "abilities": [
+    {
+     "key": "venomancer_venomous_gale",
+     "name": "Venomous Gale",
+     "role": "basic"
+    },
+    {
+     "key": "venomancer_snakebite",
+     "name": "Snakebite",
+     "role": "basic"
+    },
+    {
+     "key": "venomancer_plague_ward",
+     "name": "Plague Ward",
+     "role": "basic"
+    },
+    {
+     "key": "venomancer_poison_sting",
+     "name": "Poison Sting",
+     "role": "innate"
+    },
+    {
+     "key": "venomancer_noxious_plague",
+     "name": "Noxious Plague",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_viper": {
+   "name": "Viper",
+   "abilities": [
+    {
+     "key": "viper_poison_attack",
+     "name": "Poison Attack",
+     "role": "basic"
+    },
+    {
+     "key": "viper_nethertoxin",
+     "name": "Nethertoxin",
+     "role": "basic"
+    },
+    {
+     "key": "viper_corrosive_skin",
+     "name": "Corrosive Skin",
+     "role": "basic"
+    },
+    {
+     "key": "viper_nose_dive",
+     "name": "Nosedive",
+     "role": "scepter"
+    },
+    {
+     "key": "viper_predator",
+     "name": "Predator",
+     "role": "innate"
+    },
+    {
+     "key": "viper_viper_strike",
+     "name": "Viper Strike",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_visage": {
+   "name": "Visage",
+   "abilities": [
+    {
+     "key": "visage_grave_chill",
+     "name": "Grave Chill",
+     "role": "basic"
+    },
+    {
+     "key": "visage_soul_assumption",
+     "name": "Soul Assumption",
+     "role": "basic"
+    },
+    {
+     "key": "visage_gravekeepers_cloak",
+     "name": "Gravekeeper's Cloak",
+     "role": "basic"
+    },
+    {
+     "key": "visage_stone_form_self_cast",
+     "name": "Stone Form",
+     "role": "basic"
+    },
+    {
+     "key": "visage_silent_as_the_grave",
+     "name": "Silent as the Grave",
+     "role": "innate"
+    },
+    {
+     "key": "visage_summon_familiars",
+     "name": "Summon Familiars",
+     "role": "ultimate"
+    },
+    {
+     "key": "visage_summon_familiars_stone_form",
+     "name": "Stone Form",
+     "role": "basic"
+    }
+   ]
+  },
+  "npc_dota_hero_void_spirit": {
+   "name": "Void Spirit",
+   "abilities": [
+    {
+     "key": "void_spirit_aether_remnant",
+     "name": "Aether Remnant",
+     "role": "basic"
+    },
+    {
+     "key": "void_spirit_dissimilate",
+     "name": "Dissimilate",
+     "role": "basic"
+    },
+    {
+     "key": "void_spirit_resonant_pulse",
+     "name": "Resonant Pulse",
+     "role": "basic"
+    },
+    {
+     "key": "void_spirit_intrinsic_edge",
+     "name": "Intrinsic Edge",
+     "role": "innate"
+    },
+    {
+     "key": "void_spirit_astral_step",
+     "name": "Astral Step",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_warlock": {
+   "name": "Warlock",
+   "abilities": [
+    {
+     "key": "warlock_fatal_bonds",
+     "name": "Fatal Bonds",
+     "role": "basic"
+    },
+    {
+     "key": "warlock_shadow_word",
+     "name": "Shadow Word",
+     "role": "basic"
+    },
+    {
+     "key": "warlock_upheaval",
+     "name": "Upheaval",
+     "role": "basic"
+    },
+    {
+     "key": "warlock_eldritch_summoning",
+     "name": "Eldritch Summoning",
+     "role": "innate"
+    },
+    {
+     "key": "warlock_rain_of_chaos",
+     "name": "Chaotic Offering",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_weaver": {
+   "name": "Weaver",
+   "abilities": [
+    {
+     "key": "weaver_the_swarm",
+     "name": "The Swarm",
+     "role": "basic"
+    },
+    {
+     "key": "weaver_shukuchi",
+     "name": "Shukuchi",
+     "role": "basic"
+    },
+    {
+     "key": "weaver_geminate_attack",
+     "name": "Geminate Attack",
+     "role": "basic"
+    },
+    {
+     "key": "weaver_time_lapse",
+     "name": "Time Lapse",
+     "role": "ultimate"
+    },
+    {
+     "key": "weaver_threads_of_fate",
+     "name": "Threads of Fate",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_windrunner": {
+   "name": "Windranger",
+   "abilities": [
+    {
+     "key": "windrunner_shackleshot",
+     "name": "Shackleshot",
+     "role": "basic"
+    },
+    {
+     "key": "windrunner_powershot",
+     "name": "Powershot",
+     "role": "basic"
+    },
+    {
+     "key": "windrunner_windrun",
+     "name": "Windrun",
+     "role": "basic"
+    },
+    {
+     "key": "windrunner_gale_force",
+     "name": "Gale Force",
+     "role": "shard"
+    },
+    {
+     "key": "windrunner_focusfire_cancel",
+     "name": "Focus Fire Cancel",
+     "role": "sub"
+    },
+    {
+     "key": "windrunner_focusfire",
+     "name": "Focus Fire",
+     "role": "ultimate"
+    },
+    {
+     "key": "windrunner_tailwind",
+     "name": "Tailwind",
+     "role": "innate"
+    }
+   ]
+  },
+  "npc_dota_hero_winter_wyvern": {
+   "name": "Winter Wyvern",
+   "abilities": [
+    {
+     "key": "winter_wyvern_arctic_burn",
+     "name": "Arctic Burn",
+     "role": "basic"
+    },
+    {
+     "key": "winter_wyvern_splinter_blast",
+     "name": "Splinter Blast",
+     "role": "basic"
+    },
+    {
+     "key": "winter_wyvern_cold_embrace",
+     "name": "Cold Embrace",
+     "role": "basic"
+    },
+    {
+     "key": "winter_wyvern_eldwurms_edda",
+     "name": "Eldwurm's Edda",
+     "role": "innate"
+    },
+    {
+     "key": "winter_wyvern_winters_curse",
+     "name": "Winter's Curse",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_witch_doctor": {
+   "name": "Witch Doctor",
+   "abilities": [
+    {
+     "key": "witch_doctor_paralyzing_cask",
+     "name": "Paralyzing Cask",
+     "role": "basic"
+    },
+    {
+     "key": "witch_doctor_voodoo_restoration",
+     "name": "Voodoo Restoration",
+     "role": "basic"
+    },
+    {
+     "key": "witch_doctor_maledict",
+     "name": "Maledict",
+     "role": "basic"
+    },
+    {
+     "key": "witch_doctor_voodoo_switcheroo",
+     "name": "Voodoo Switcheroo",
+     "role": "shard"
+    },
+    {
+     "key": "witch_doctor_gris_gris",
+     "name": "Gris-Gris",
+     "role": "innate"
+    },
+    {
+     "key": "witch_doctor_death_ward",
+     "name": "Death Ward",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_skeleton_king": {
+   "name": "Wraith King",
+   "abilities": [
+    {
+     "key": "skeleton_king_hellfire_blast",
+     "name": "Wraithfire Blast",
+     "role": "basic"
+    },
+    {
+     "key": "skeleton_king_bone_guard",
+     "name": "Bone Guard",
+     "role": "basic"
+    },
+    {
+     "key": "skeleton_king_mortal_strike",
+     "name": "Mortal Strike",
+     "role": "basic"
+    },
+    {
+     "key": "skeleton_king_vampiric_spirit",
+     "name": "Vampiric Spirit",
+     "role": "innate"
+    },
+    {
+     "key": "skeleton_king_reincarnation",
+     "name": "Reincarnation",
+     "role": "ultimate"
+    }
+   ]
+  },
+  "npc_dota_hero_zuus": {
+   "name": "Zeus",
+   "abilities": [
+    {
+     "key": "zuus_arc_lightning",
+     "name": "Arc Lightning",
+     "role": "basic"
+    },
+    {
+     "key": "zuus_lightning_bolt",
+     "name": "Lightning Bolt",
+     "role": "basic"
+    },
+    {
+     "key": "zuus_heavenly_jump",
+     "name": "Heavenly Jump",
+     "role": "basic"
+    },
+    {
+     "key": "zuus_cloud",
+     "name": "Nimbus",
+     "role": "scepter"
+    },
+    {
+     "key": "zuus_lightning_hands",
+     "name": "Lightning Hands",
+     "role": "shard"
+    },
+    {
+     "key": "zuus_thundergods_wrath",
+     "name": "Thundergod's Wrath",
+     "role": "ultimate"
+    },
+    {
+     "key": "zuus_static_field",
+     "name": "Static Field",
+     "role": "innate"
+    }
+   ]
+  }
+ }
+}

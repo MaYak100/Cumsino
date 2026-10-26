@@ -1,0 +1,2773 @@
+{
+  "fable": [
+    {
+      "fact_id": "axe_counter_helix:damage",
+      "level": "max",
+      "question": "Сколько чистого урона наносит Counter Helix у Axe на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        120,
+        140,
+        180
+      ],
+      "why": "Все умирают от него по крипам, но точное число вертится на языке",
+      "answer": 160,
+      "entity": "Axe · Counter Helix",
+      "all_values": [
+        100,
+        120,
+        140,
+        160
+      ],
+      "mc": {
+        "options": [
+          120.0,
+          140.0,
+          160.0,
+          180.0
+        ],
+        "position": 3,
+        "spread": 1.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "axe_culling_blade:damage",
+      "level": 1,
+      "question": "Какой порог урона у Culling Blade у Axe на 1-м уровне?",
+      "unit": "урона",
+      "distractors": [
+        225,
+        250,
+        325
+      ],
+      "why": "Порог первого уровня решает ранние драки, но его часто путают с более поздними",
+      "answer": 275,
+      "entity": "Axe · Culling Blade",
+      "all_values": [
+        275,
+        375,
+        475
+      ],
+      "mc": {
+        "options": [
+          225.0,
+          250.0,
+          275.0,
+          325.0
+        ],
+        "position": 3,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "tusk_walrus_kick:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Walrus Kick у Tusk?",
+      "unit": "урона",
+      "distractors": [
+        450,
+        500,
+        600
+      ],
+      "why": "Пинок все видели, а что он ещё и больно бьёт — помнят не все",
+      "answer": 550,
+      "entity": "Tusk · Walrus Kick",
+      "all_values": [
+        550
+      ],
+      "mc": {
+        "options": [
+          450.0,
+          500.0,
+          550.0,
+          600.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "tusk_snowball:snowball_damage_bonus",
+      "level": "max",
+      "question": "Сколько урона добавляет каждый союзник в Snowball у Tusk на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        90,
+        105,
+        130
+      ],
+      "why": "Союзников в снежок катают постоянно, но бонус за каждого мало кто считал",
+      "answer": 115,
+      "entity": "Tusk · Snowball",
+      "all_values": [
+        40,
+        65,
+        90,
+        115
+      ],
+      "mc": {
+        "options": [
+          90.0,
+          105.0,
+          115.0,
+          130.0
+        ],
+        "position": 3,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "leshrac_lightning_storm:jump_count",
+      "level": "max",
+      "question": "Сколько ударов делает Lightning Storm у Leshrac на максимальном уровне?",
+      "unit": "раз",
+      "distractors": [
+        7,
+        9,
+        13
+      ],
+      "why": "Молния прыгает по всей пачке крипов, но считать удары никто не успевает",
+      "answer": 11,
+      "entity": "Leshrac · Lightning Storm",
+      "all_values": [
+        5,
+        7,
+        9,
+        11
+      ],
+      "mc": {
+        "options": [
+          7.0,
+          9.0,
+          11.0,
+          13.0
+        ],
+        "position": 3,
+        "spread": 1.86
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "leshrac_pulse_nova:damage",
+      "level": "max",
+      "question": "Сколько урона наносит каждая волна Pulse Nova у Leshrac на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        150,
+        165,
+        200
+      ],
+      "why": "Под новой стоять больно, а вот точное число за тик мало кто назовёт",
+      "answer": 180,
+      "entity": "Leshrac · Pulse Nova",
+      "all_values": [
+        80,
+        135,
+        180
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          165.0,
+          180.0,
+          200.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bounty_hunter_jinada:gold_steal",
+      "level": "max",
+      "question": "Сколько золота ворует Jinada у Bounty Hunter за удар на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        29,
+        32,
+        40
+      ],
+      "why": "Все видят, как золото утекает, но сумму за удар помнят смутно",
+      "answer": 36,
+      "entity": "Bounty Hunter · Jinada",
+      "all_values": [
+        15,
+        22,
+        29,
+        36
+      ],
+      "mc": {
+        "options": [
+          29.0,
+          32.0,
+          36.0,
+          40.0
+        ],
+        "position": 3,
+        "spread": 1.38
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bounty_hunter_track:bonus_gold_self",
+      "level": "max",
+      "question": "Сколько бонусного золота получает сам Bounty Hunter за смерть цели под Track на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        180,
+        200,
+        280
+      ],
+      "why": "Главный источник дохода героя, а цифру в тултипе смотрят редко",
+      "answer": 240,
+      "entity": "Bounty Hunter · Track",
+      "all_values": [
+        80,
+        160,
+        240
+      ],
+      "mc": {
+        "options": [
+          180.0,
+          200.0,
+          240.0,
+          280.0
+        ],
+        "position": 3,
+        "spread": 1.56
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "faceless_void_chronosphere:duration",
+      "level": "max",
+      "question": "Сколько длится Chronosphere у Faceless Void на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        4.25,
+        5.25,
+        5.75
+      ],
+      "why": "Все знают, что это вечность, но не все знают, сколько именно",
+      "answer": 4.75,
+      "entity": "Faceless Void · Chronosphere",
+      "all_values": [
+        3.75,
+        4.25,
+        4.75
+      ],
+      "mc": {
+        "options": [
+          4.25,
+          4.75,
+          5.25,
+          5.75
+        ],
+        "position": 2,
+        "spread": 1.35
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faceless_void_time_lock:chance_pct",
+      "level": "max",
+      "question": "Какой шанс срабатывания у Time Lock у Faceless Void на максимальном уровне?",
+      "unit": "%",
+      "distractors": [
+        18,
+        20,
+        28
+      ],
+      "why": "Бэши ощущаются постоянными, но реальный процент удивляет",
+      "answer": 24,
+      "entity": "Faceless Void · Time Lock",
+      "all_values": [
+        12,
+        16,
+        20,
+        24
+      ],
+      "mc": {
+        "options": [
+          18.0,
+          20.0,
+          24.0,
+          28.0
+        ],
+        "position": 3,
+        "spread": 1.56
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kez_talon_toss:silence_duration",
+      "level": "max",
+      "question": "На сколько секунд молчит цель после Talon Toss у Kez на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        2.25,
+        2.5,
+        3.25
+      ],
+      "why": "Сайленс решает исход драки, а его длительность помнят приблизительно",
+      "answer": 2.75,
+      "entity": "Kez · Talon Toss",
+      "all_values": [
+        2,
+        2.25,
+        2.5,
+        2.75
+      ],
+      "mc": {
+        "options": [
+          2.25,
+          2.5,
+          2.75,
+          3.25
+        ],
+        "position": 3,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kez_kazurai_katana:katana_bleed_attack_damage_pct",
+      "level": "max",
+      "question": "Сколько процентов от урона атаки наносит в секунду кровотечение Kazurai Katana у Kez на максимальном уровне?",
+      "unit": "%",
+      "distractors": [
+        8,
+        10,
+        15
+      ],
+      "why": "Новый герой, механику поняли все, а цифры ещё не выучили",
+      "answer": 12,
+      "entity": "Kez · Kazurai Katana",
+      "all_values": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "mc": {
+        "options": [
+          8.0,
+          10.0,
+          12.0,
+          15.0
+        ],
+        "position": 3,
+        "spread": 1.88
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mjollnir:chain_damage",
+      "level": "max",
+      "question": "Сколько урона наносит каждый удар Chain Lightning у Mjollnir?",
+      "unit": "урона",
+      "distractors": [
+        150,
+        160,
+        200
+      ],
+      "why": "Молнии летят каждую драку, но цифра за удар стёрлась из памяти",
+      "answer": 180,
+      "entity": "Mjollnir",
+      "all_values": [
+        180
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          160.0,
+          180.0,
+          200.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mjollnir:static_chance",
+      "level": "max",
+      "question": "С каким шансом Static Charge у Mjollnir бьёт током атакующего?",
+      "unit": "%",
+      "distractors": [
+        15,
+        25,
+        30
+      ],
+      "why": "Шанс активки все путают с шансом пассивки",
+      "answer": 20,
+      "entity": "Mjollnir",
+      "all_values": [
+        20
+      ],
+      "mc": {
+        "options": [
+          15.0,
+          20.0,
+          25.0,
+          30.0
+        ],
+        "position": 2,
+        "spread": 2.0
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "shivas_guard:bonus_armor",
+      "level": "max",
+      "question": "Сколько брони даёт Shiva's Guard?",
+      "unit": "ед.",
+      "distractors": [
+        15,
+        16,
+        18
+      ],
+      "why": "Главный стат предмета, но после ребалансов число плавает в голове",
+      "answer": 17,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        17
+      ],
+      "mc": {
+        "options": [
+          15.0,
+          16.0,
+          17.0,
+          18.0
+        ],
+        "position": 3,
+        "spread": 1.2
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "shivas_guard:blast_damage",
+      "level": "max",
+      "question": "Сколько урона наносит Arctic Blast у Shiva's Guard?",
+      "unit": "урона",
+      "distractors": [
+        200,
+        250,
+        275
+      ],
+      "why": "Волну жмут ради замедления, урон на ней замечают редко",
+      "answer": 225,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        225
+      ],
+      "mc": {
+        "options": [
+          200.0,
+          225.0,
+          250.0,
+          275.0
+        ],
+        "position": 2,
+        "spread": 1.38
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "bloodstone:bonus_health",
+      "level": "max",
+      "question": "Сколько здоровья даёт Bloodstone?",
+      "unit": "ед.",
+      "distractors": [
+        575,
+        600,
+        675
+      ],
+      "why": "Некруглое число, которое все видели в тултипе и тут же забыли",
+      "answer": 625,
+      "entity": "Bloodstone",
+      "all_values": [
+        625
+      ],
+      "mc": {
+        "options": [
+          575.0,
+          600.0,
+          625.0,
+          675.0
+        ],
+        "position": 3,
+        "spread": 1.17
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodstone:spell_lifesteal_while_active",
+      "level": "max",
+      "question": "До скольки процентов поднимается вампиризм от заклинаний при активации Bloodpact у Bloodstone?",
+      "unit": "%",
+      "distractors": [
+        50,
+        75,
+        80
+      ],
+      "why": "Активку жмут на автомате, не глядя на цифру",
+      "answer": 60,
+      "entity": "Bloodstone",
+      "all_values": [
+        60
+      ],
+      "mc": {
+        "options": [
+          50.0,
+          60.0,
+          75.0,
+          80.0
+        ],
+        "position": 2,
+        "spread": 1.6
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya:bonus_intellect",
+      "level": "max",
+      "question": "Сколько интеллекта даёт Kaya?",
+      "unit": "ед.",
+      "distractors": [
+        14,
+        15,
+        18
+      ],
+      "why": "Базовый стат, который помнят примерно, но не точно",
+      "answer": 16,
+      "entity": "Kaya",
+      "all_values": [
+        16
+      ],
+      "mc": {
+        "options": [
+          14.0,
+          15.0,
+          16.0,
+          18.0
+        ],
+        "position": 3,
+        "spread": 1.29
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya:mana_regen_multiplier",
+      "level": "max",
+      "question": "На сколько процентов Kaya усиливает регенерацию маны?",
+      "unit": "%",
+      "distractors": [
+        15,
+        24,
+        25
+      ],
+      "why": "Второй бонус предмета, который путают с усилением заклинаний",
+      "answer": 20,
+      "entity": "Kaya",
+      "all_values": [
+        20
+      ],
+      "mc": {
+        "options": [
+          15.0,
+          20.0,
+          24.0,
+          25.0
+        ],
+        "position": 2,
+        "spread": 1.67
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+      "level": "max",
+      "question": "До скольки процентов вырастает вампиризм при активации Unholy Rage у Satanic?",
+      "unit": "%",
+      "distractors": [
+        150,
+        200,
+        225
+      ],
+      "why": "Все знают, что сатаник лечит с нуля до фулла, а на сколько процентов — вопрос",
+      "answer": 175,
+      "entity": "Satanic",
+      "all_values": [
+        175
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          175.0,
+          200.0,
+          225.0
+        ],
+        "position": 2,
+        "spread": 1.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "satanic:bonus_strength",
+      "level": "max",
+      "question": "Сколько силы даёт Satanic?",
+      "unit": "ед.",
+      "distractors": [
+        20,
+        22,
+        30
+      ],
+      "why": "Стат-часть предмета, которую смотрят реже активки",
+      "answer": 25,
+      "entity": "Satanic",
+      "all_values": [
+        25
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          22.0,
+          25.0,
+          30.0
+        ],
+        "position": 3,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "boots_of_bearing:bonus_movement_speed",
+      "level": "max",
+      "question": "Сколько скорости передвижения дают Boots of Bearing самому владельцу?",
+      "unit": "ед.",
+      "distractors": [
+        55,
+        60,
+        70
+      ],
+      "why": "Отличается от обычных ботинок, и мало кто помнит на сколько",
+      "answer": 65,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        65
+      ],
+      "mc": {
+        "options": [
+          55.0,
+          60.0,
+          65.0,
+          70.0
+        ],
+        "position": 3,
+        "spread": 1.27
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "boots_of_bearing:bonus_health_regen",
+      "level": "max",
+      "question": "Сколько регенерации здоровья дают Boots of Bearing владельцу?",
+      "unit": "ед.",
+      "distractors": [
+        14,
+        16,
+        20
+      ],
+      "why": "Наследие Tranquil Boots, но числа давно поменялись",
+      "answer": 18,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        18
+      ],
+      "mc": {
+        "options": [
+          14.0,
+          16.0,
+          18.0,
+          20.0
+        ],
+        "position": 3,
+        "spread": 1.43
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "pipe:barrier_block",
+      "level": "max",
+      "question": "Сколько магического урона поглощает барьер Pipe of Insight?",
+      "unit": "урона",
+      "distractors": [
+        375,
+        400,
+        450
+      ],
+      "why": "Пайп жмут каждую драку, но сколько он держит — помнят неточно",
+      "answer": 425,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          375.0,
+          400.0,
+          425.0,
+          450.0
+        ],
+        "position": 3,
+        "spread": 1.2
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "pipe:health_regen",
+      "level": "max",
+      "question": "Сколько регенерации здоровья даёт Pipe of Insight?",
+      "unit": "ед.",
+      "distractors": [
+        12,
+        16,
+        18
+      ],
+      "why": "Второстепенный стат, который редко читают в тултипе",
+      "answer": 14,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        14
+      ],
+      "mc": {
+        "options": [
+          12.0,
+          14.0,
+          16.0,
+          18.0
+        ],
+        "position": 2,
+        "spread": 1.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    }
+  ],
+  "haiku": [
+    {
+      "fact_id": "axe_culling_blade:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Culling Blade на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        275,
+        375,
+        425
+      ],
+      "why": "Все видели, как Culling Blade добивает, но цифру урона мало кто помнит",
+      "answer": 475,
+      "entity": "Axe · Culling Blade",
+      "all_values": [
+        275,
+        375,
+        475
+      ],
+      "mc": {
+        "options": [
+          275.0,
+          375.0,
+          425.0,
+          475.0
+        ],
+        "position": 4,
+        "spread": 1.73
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "axe_counter_helix:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Counter Helix на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        120,
+        180,
+        200
+      ],
+      "why": "Контрудар Axe срабатывает постоянно, а его урон обычно угадывают на глаз",
+      "answer": 160,
+      "entity": "Axe · Counter Helix",
+      "all_values": [
+        100,
+        120,
+        140,
+        160
+      ],
+      "mc": {
+        "options": [
+          120.0,
+          160.0,
+          180.0,
+          200.0
+        ],
+        "position": 2,
+        "spread": 1.67
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "tusk_ice_shards:shard_damage",
+      "level": "max",
+      "question": "Сколько урона наносят осколки Ice Shards на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        150,
+        225,
+        375
+      ],
+      "why": "Осколки прилетают в конце каста, но их урон в голове держат немногие",
+      "answer": 300,
+      "entity": "Tusk · Ice Shards",
+      "all_values": [
+        75,
+        150,
+        225,
+        300
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          225.0,
+          300.0,
+          375.0
+        ],
+        "position": 3,
+        "spread": 2.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "tusk_walrus_kick:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Walrus Kick?",
+      "unit": "урона",
+      "distractors": [
+        450,
+        600,
+        650
+      ],
+      "why": "Кик знают все, а цифру урона вспоминают с трудом",
+      "answer": 550,
+      "entity": "Tusk · Walrus Kick",
+      "all_values": [
+        550
+      ],
+      "mc": {
+        "options": [
+          450.0,
+          550.0,
+          600.0,
+          650.0
+        ],
+        "position": 2,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "leshrac_lightning_storm:damage",
+      "level": 1,
+      "question": "Сколько урона наносит Lightning Storm по цели на 1-м уровне?",
+      "unit": "урона",
+      "distractors": [
+        140,
+        190,
+        240
+      ],
+      "why": "Молния летает постоянно, но на низких уровнях цифра ускользает",
+      "answer": 90,
+      "entity": "Leshrac · Lightning Storm",
+      "all_values": [
+        90,
+        140,
+        190,
+        240
+      ],
+      "mc": {
+        "options": [
+          90.0,
+          140.0,
+          190.0,
+          240.0
+        ],
+        "position": 1,
+        "spread": 2.67
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "leshrac_pulse_nova:damage",
+      "level": "max",
+      "question": "Сколько урона за один импульс Pulse Nova на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        80,
+        135,
+        225
+      ],
+      "why": "Пульс держат все Лешраки, но точную цифру за импульс знают немногие",
+      "answer": 180,
+      "entity": "Leshrac · Pulse Nova",
+      "all_values": [
+        80,
+        135,
+        180
+      ],
+      "mc": {
+        "options": [
+          80.0,
+          135.0,
+          180.0,
+          225.0
+        ],
+        "position": 3,
+        "spread": 2.81
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bounty_hunter_shuriken_toss:bonus_damage",
+      "level": "max",
+      "question": "Сколько урона наносит Shuriken Toss на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        240,
+        380,
+        420
+      ],
+      "why": "Сюрикен бросают все, но точный урон на максимуме помнят единицы",
+      "answer": 310,
+      "entity": "Bounty Hunter · Shuriken Toss",
+      "all_values": [
+        100,
+        170,
+        240,
+        310
+      ],
+      "mc": {
+        "options": [
+          240.0,
+          310.0,
+          380.0,
+          420.0
+        ],
+        "position": 2,
+        "spread": 1.75
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bounty_hunter_track:bonus_gold",
+      "level": "max",
+      "question": "Сколько бонусного золота получают союзники рядом, когда цель Track умирает, на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        40,
+        80,
+        160
+      ],
+      "why": "Все ловят Track, но сколько золота сыплется союзникам, мало кто считает",
+      "answer": 120,
+      "entity": "Bounty Hunter · Track",
+      "all_values": [
+        40,
+        80,
+        120
+      ],
+      "mc": {
+        "options": [
+          40.0,
+          80.0,
+          120.0,
+          160.0
+        ],
+        "position": 3,
+        "spread": 4.0
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faceless_void_chronosphere:duration",
+      "level": "max",
+      "question": "Сколько секунд длится Chronosphere на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        4.25,
+        3.75,
+        5.25
+      ],
+      "why": "Внутри сферы все понимают, что происходит, но точную длительность знают не все",
+      "answer": 4.75,
+      "entity": "Faceless Void · Chronosphere",
+      "all_values": [
+        3.75,
+        4.25,
+        4.75
+      ],
+      "mc": {
+        "options": [
+          3.75,
+          4.25,
+          4.75,
+          5.25
+        ],
+        "position": 3,
+        "spread": 1.4
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faceless_void_time_lock:chance_pct",
+      "level": 1,
+      "question": "С каким шансом срабатывает Time Lock на 1-м уровне?",
+      "unit": "%",
+      "distractors": [
+        16,
+        20,
+        24
+      ],
+      "why": "Все видели, как Void замораживает врага, но шанс на 1-м уровне знают немногие",
+      "answer": 12,
+      "entity": "Faceless Void · Time Lock",
+      "all_values": [
+        12,
+        16,
+        20,
+        24
+      ],
+      "mc": {
+        "options": [
+          12.0,
+          16.0,
+          20.0,
+          24.0
+        ],
+        "position": 1,
+        "spread": 2.0
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "kez_talon_toss:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Talon Toss на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        60,
+        120,
+        180
+      ],
+      "why": "Бросок сая быстрый, а цифра урона сильно зависит от уровня",
+      "answer": 240,
+      "entity": "Kez · Talon Toss",
+      "all_values": [
+        60,
+        120,
+        180,
+        240
+      ],
+      "mc": {
+        "options": [
+          60.0,
+          120.0,
+          180.0,
+          240.0
+        ],
+        "position": 4,
+        "spread": 4.0
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "kez_raptor_dance:base_damage",
+      "level": "max",
+      "question": "Сколько базового урона наносит Raptor Dance на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        40,
+        130,
+        150
+      ],
+      "why": "Ультимейт с кучей ударов, а базовая цифра урона мало у кого в голове",
+      "answer": 100,
+      "entity": "Kez · Raptor Dance",
+      "all_values": [
+        40,
+        70,
+        100
+      ],
+      "mc": {
+        "options": [
+          40.0,
+          100.0,
+          130.0,
+          150.0
+        ],
+        "position": 2,
+        "spread": 3.75
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mjollnir:bonus_attack_speed",
+      "level": "max",
+      "question": "Сколько скорости атаки даёт Mjollnir?",
+      "unit": "ед.",
+      "distractors": [
+        60,
+        80,
+        120
+      ],
+      "why": "Все знают, что Mjollnir разгоняет атаки, но точную цифру назовёт не каждый",
+      "answer": 90,
+      "entity": "Mjollnir",
+      "all_values": [
+        90
+      ],
+      "mc": {
+        "options": [
+          60.0,
+          80.0,
+          90.0,
+          120.0
+        ],
+        "position": 3,
+        "spread": 2.0
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mjollnir:chain_damage",
+      "level": "max",
+      "question": "Сколько урона получает каждая цель Chain Lightning у Mjollnir?",
+      "unit": "урона",
+      "distractors": [
+        150,
+        200,
+        240
+      ],
+      "why": "Цепная молния видна в каждой драке, но урон на цель помнят немногие",
+      "answer": 180,
+      "entity": "Mjollnir",
+      "all_values": [
+        180
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          180.0,
+          200.0,
+          240.0
+        ],
+        "position": 2,
+        "spread": 1.6
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shivas_guard:blast_damage",
+      "level": "max",
+      "question": "Сколько урона наносит Arctic Blast у Shiva's Guard?",
+      "unit": "урона",
+      "distractors": [
+        175,
+        250,
+        300
+      ],
+      "why": "Волну видно в каждом файте, но её урон обычно угадывают на глаз",
+      "answer": 225,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        225
+      ],
+      "mc": {
+        "options": [
+          175.0,
+          225.0,
+          250.0,
+          300.0
+        ],
+        "position": 2,
+        "spread": 1.71
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodstone:bonus_health",
+      "level": "max",
+      "question": "Сколько здоровья прибавляет Bloodstone?",
+      "unit": "ед.",
+      "distractors": [
+        550,
+        575,
+        700
+      ],
+      "why": "Bloodstone берут часто, а точный бонус здоровья помнят немногие",
+      "answer": 625,
+      "entity": "Bloodstone",
+      "all_values": [
+        625
+      ],
+      "mc": {
+        "options": [
+          550.0,
+          575.0,
+          625.0,
+          700.0
+        ],
+        "position": 3,
+        "spread": 1.27
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya:spell_amp",
+      "level": "max",
+      "question": "Сколько процентов усиления заклинаний даёт Kaya?",
+      "unit": "%",
+      "distractors": [
+        8,
+        12,
+        15
+      ],
+      "why": "Усиление знают все, но точный процент часто путают с соседними предметами",
+      "answer": 10,
+      "entity": "Kaya",
+      "all_values": [
+        10
+      ],
+      "mc": {
+        "options": [
+          8.0,
+          10.0,
+          12.0,
+          15.0
+        ],
+        "position": 2,
+        "spread": 1.88
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "satanic:unholy_duration",
+      "level": "max",
+      "question": "Сколько секунд длится Unholy Rage у Satanic?",
+      "unit": "сек.",
+      "distractors": [
+        4,
+        8,
+        10
+      ],
+      "why": "Активку включают в самый жаркий момент, но её длительность помнят не все",
+      "answer": 6,
+      "entity": "Satanic",
+      "all_values": [
+        6
+      ],
+      "mc": {
+        "options": [
+          4.0,
+          6.0,
+          8.0,
+          10.0
+        ],
+        "position": 2,
+        "spread": 2.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "boots_of_bearing:aura_health_regen",
+      "level": "max",
+      "question": "Сколько здоровья в секунду восстанавливает союзникам Swiftness Aura у Boots of Bearing?",
+      "unit": "ед.",
+      "distractors": [
+        1.5,
+        2.0,
+        3.5
+      ],
+      "why": "Аура работает постоянно, но точное значение регена мало кто знает",
+      "answer": 2.5,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        2.5
+      ],
+      "mc": {
+        "options": [
+          1.5,
+          2.0,
+          2.5,
+          3.5
+        ],
+        "position": 3,
+        "spread": 2.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "pipe:barrier_block",
+      "level": "max",
+      "question": "Сколько урона поглощает Barrier у Pipe of Insight?",
+      "unit": "урона",
+      "distractors": [
+        375,
+        400,
+        500
+      ],
+      "why": "Барьер все ставят в тимфайт, но порог поглощения знают не все",
+      "answer": 425,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          375.0,
+          400.0,
+          425.0,
+          500.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    }
+  ],
+  "opus": [
+    {
+      "fact_id": "axe_counter_helix:trigger_attacks",
+      "level": "max",
+      "question": "Сколько атак нужно для срабатывания Counter Helix у Axe на максимальном уровне?",
+      "unit": "шт.",
+      "distractors": [
+        5,
+        6,
+        7
+      ],
+      "why": "Хеликс крутится постоянно, но порог по атакам мало кто помнит точно",
+      "answer": 4,
+      "entity": "Axe · Counter Helix",
+      "all_values": [
+        7,
+        6,
+        5,
+        4
+      ],
+      "mc": {
+        "options": [
+          4.0,
+          5.0,
+          6.0,
+          7.0
+        ],
+        "position": 1,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "axe_culling_blade:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Culling Blade у Axe на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        375,
+        425,
+        525
+      ],
+      "why": "Все прикидывают порог добивания на глаз, а точное число знают не все",
+      "answer": 475,
+      "entity": "Axe · Culling Blade",
+      "all_values": [
+        275,
+        375,
+        475
+      ],
+      "mc": {
+        "options": [
+          375.0,
+          425.0,
+          475.0,
+          525.0
+        ],
+        "position": 3,
+        "spread": 1.4
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "tusk_walrus_kick:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Walrus Kick у Tusk?",
+      "unit": "урона",
+      "distractors": [
+        350,
+        450,
+        650
+      ],
+      "why": "Кик часто решает исход драки, но про его урон забывают",
+      "answer": 550,
+      "entity": "Tusk · Walrus Kick",
+      "all_values": [
+        550
+      ],
+      "mc": {
+        "options": [
+          350.0,
+          450.0,
+          550.0,
+          650.0
+        ],
+        "position": 3,
+        "spread": 1.86
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "tusk_snowball:snowball_damage",
+      "level": "max",
+      "question": "Какой базовый урон у Snowball у Tusk на максимальном уровне, без союзников внутри?",
+      "unit": "урона",
+      "distractors": [
+        200,
+        240,
+        300
+      ],
+      "why": "Снежок видели все, но базовый урон обычно теряется за бонусом от союзников",
+      "answer": 260,
+      "entity": "Tusk · Snowball",
+      "all_values": [
+        80,
+        140,
+        200,
+        260
+      ],
+      "mc": {
+        "options": [
+          200.0,
+          240.0,
+          260.0,
+          300.0
+        ],
+        "position": 3,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "leshrac_diabolic_edict:num_explosions",
+      "level": "max",
+      "question": "Сколько взрывов делает Diabolic Edict у Leshrac за один каст?",
+      "unit": "шт.",
+      "distractors": [
+        30,
+        35,
+        50
+      ],
+      "why": "Классическое число, которое все примерно чувствуют, но путают",
+      "answer": 40,
+      "entity": "Leshrac · Diabolic Edict",
+      "all_values": [
+        40
+      ],
+      "mc": {
+        "options": [
+          30.0,
+          35.0,
+          40.0,
+          50.0
+        ],
+        "position": 3,
+        "spread": 1.67
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "leshrac_lightning_storm:jump_count",
+      "level": "max",
+      "question": "Сколько целей бьёт Lightning Storm у Leshrac на максимальном уровне?",
+      "unit": "шт.",
+      "distractors": [
+        7,
+        9,
+        13
+      ],
+      "why": "Молния прыгает по крипам постоянно, но количество прыжков мало кто считал",
+      "answer": 11,
+      "entity": "Leshrac · Lightning Storm",
+      "all_values": [
+        5,
+        7,
+        9,
+        11
+      ],
+      "mc": {
+        "options": [
+          7.0,
+          9.0,
+          11.0,
+          13.0
+        ],
+        "position": 3,
+        "spread": 1.86
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "bounty_hunter_jinada:gold_steal",
+      "level": "max",
+      "question": "Сколько золота крадёт Jinada у Bounty Hunter на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        29,
+        40,
+        45
+      ],
+      "why": "Все видят всплывающее золото, но точную цифру помнят немногие",
+      "answer": 36,
+      "entity": "Bounty Hunter · Jinada",
+      "all_values": [
+        15,
+        22,
+        29,
+        36
+      ],
+      "mc": {
+        "options": [
+          29.0,
+          36.0,
+          40.0,
+          45.0
+        ],
+        "position": 2,
+        "spread": 1.55
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bounty_hunter_track:bonus_gold_self",
+      "level": "max",
+      "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        160,
+        200,
+        300
+      ],
+      "why": "Главная фишка героя, а точную награду себе путают с наградой союзникам",
+      "answer": 240,
+      "entity": "Bounty Hunter · Track",
+      "all_values": [
+        80,
+        160,
+        240
+      ],
+      "mc": {
+        "options": [
+          160.0,
+          200.0,
+          240.0,
+          300.0
+        ],
+        "position": 3,
+        "spread": 1.88
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "faceless_void_chronosphere:duration",
+      "level": "max",
+      "question": "Сколько длится Chronosphere у Faceless Void на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        4.25,
+        5.25,
+        5.75
+      ],
+      "why": "Каждая доля секунды в хроне важна, но дробное значение помнят единицы",
+      "answer": 4.75,
+      "entity": "Faceless Void · Chronosphere",
+      "all_values": [
+        3.75,
+        4.25,
+        4.75
+      ],
+      "mc": {
+        "options": [
+          4.25,
+          4.75,
+          5.25,
+          5.75
+        ],
+        "position": 2,
+        "spread": 1.35
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faceless_void_time_lock:chance_pct",
+      "level": "max",
+      "question": "Какой шанс срабатывания Time Lock у Faceless Void на максимальном уровне?",
+      "unit": "%",
+      "distractors": [
+        18,
+        20,
+        28
+      ],
+      "why": "Баши Войда все ощущали на себе, а шанс многие называют наугад",
+      "answer": 24,
+      "entity": "Faceless Void · Time Lock",
+      "all_values": [
+        12,
+        16,
+        20,
+        24
+      ],
+      "mc": {
+        "options": [
+          18.0,
+          20.0,
+          24.0,
+          28.0
+        ],
+        "position": 3,
+        "spread": 1.56
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kez_raptor_dance:max_health_damage_pct",
+      "level": "max",
+      "question": "Сколько процентов от максимального здоровья цели наносит каждый удар Raptor Dance у Kez?",
+      "unit": "%",
+      "distractors": [
+        1.5,
+        3.5,
+        4.5
+      ],
+      "why": "Новый герой, ульту видели часто, а процент от здоровья знают мало кто",
+      "answer": 2.5,
+      "entity": "Kez · Raptor Dance",
+      "all_values": [
+        2.5
+      ],
+      "mc": {
+        "options": [
+          1.5,
+          2.5,
+          3.5,
+          4.5
+        ],
+        "position": 2,
+        "spread": 3.0
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "kez_talon_toss:silence_duration",
+      "level": "max",
+      "question": "Сколько длится сайленс от Talon Toss у Kez на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        2.25,
+        3.25,
+        3.75
+      ],
+      "why": "Сайленс важен в драке, а дробную длительность легко перепутать",
+      "answer": 2.75,
+      "entity": "Kez · Talon Toss",
+      "all_values": [
+        2,
+        2.25,
+        2.5,
+        2.75
+      ],
+      "mc": {
+        "options": [
+          2.25,
+          2.75,
+          3.25,
+          3.75
+        ],
+        "position": 2,
+        "spread": 1.67
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "mjollnir:chain_strikes",
+      "level": "max",
+      "question": "Сколько целей поражает Chain Lightning у Mjollnir?",
+      "unit": "шт.",
+      "distractors": [
+        8,
+        10,
+        14
+      ],
+      "why": "Все видели, как молния бегает по крипам, но число целей не считали",
+      "answer": 12,
+      "entity": "Mjollnir",
+      "all_values": [
+        12
+      ],
+      "mc": {
+        "options": [
+          8.0,
+          10.0,
+          12.0,
+          14.0
+        ],
+        "position": 3,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "mjollnir:chain_damage",
+      "level": "max",
+      "question": "Сколько урона наносит каждая молния Chain Lightning у Mjollnir?",
+      "unit": "урона",
+      "distractors": [
+        150,
+        200,
+        225
+      ],
+      "why": "Пассивка, которая фармит лес и волны, а её урон часто путают",
+      "answer": 180,
+      "entity": "Mjollnir",
+      "all_values": [
+        180
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          180.0,
+          200.0,
+          225.0
+        ],
+        "position": 2,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shivas_guard:bonus_armor",
+      "level": "max",
+      "question": "Сколько брони даёт Shiva's Guard?",
+      "unit": "ед.",
+      "distractors": [
+        14,
+        15,
+        20
+      ],
+      "why": "Броню от Шивы собирают постоянно, но точное число плывёт",
+      "answer": 17,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        17
+      ],
+      "mc": {
+        "options": [
+          14.0,
+          15.0,
+          17.0,
+          20.0
+        ],
+        "position": 3,
+        "spread": 1.43
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodstone:bonus_health",
+      "level": "max",
+      "question": "Сколько здоровья даёт Bloodstone?",
+      "unit": "ед.",
+      "distractors": [
+        525,
+        575,
+        700
+      ],
+      "why": "Предмет пересобирали много раз, и статы легко спутать со старыми",
+      "answer": 625,
+      "entity": "Bloodstone",
+      "all_values": [
+        625
+      ],
+      "mc": {
+        "options": [
+          525.0,
+          575.0,
+          625.0,
+          700.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodstone:spell_lifesteal_while_active",
+      "level": "max",
+      "question": "До скольких процентов поднимается спелл-лайфстил при активации Bloodpact у Bloodstone?",
+      "unit": "%",
+      "distractors": [
+        40,
+        50,
+        75
+      ],
+      "why": "Активку жмут в каждой драке, но точный процент помнят немногие",
+      "answer": 60,
+      "entity": "Bloodstone",
+      "all_values": [
+        60
+      ],
+      "mc": {
+        "options": [
+          40.0,
+          50.0,
+          60.0,
+          75.0
+        ],
+        "position": 3,
+        "spread": 1.88
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya:bonus_intellect",
+      "level": "max",
+      "question": "Сколько интеллекта даёт Kaya?",
+      "unit": "ед.",
+      "distractors": [
+        12,
+        14,
+        18
+      ],
+      "why": "Базовый предмет, который собирают постоянно, а статы не круглые",
+      "answer": 16,
+      "entity": "Kaya",
+      "all_values": [
+        16
+      ],
+      "mc": {
+        "options": [
+          12.0,
+          14.0,
+          16.0,
+          18.0
+        ],
+        "position": 3,
+        "spread": 1.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+      "level": "max",
+      "question": "Какой суммарный лайфстил даёт Satanic во время Unholy Rage?",
+      "unit": "%",
+      "distractors": [
+        125,
+        150,
+        200
+      ],
+      "why": "Активку все видели, а итоговый процент путают с бонусом",
+      "answer": 175,
+      "entity": "Satanic",
+      "all_values": [
+        175
+      ],
+      "mc": {
+        "options": [
+          125.0,
+          150.0,
+          175.0,
+          200.0
+        ],
+        "position": 3,
+        "spread": 1.6
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "boots_of_bearing:bonus_movement_speed",
+      "level": "max",
+      "question": "Сколько скорости передвижения дают Boots of Bearing?",
+      "unit": "ед.",
+      "distractors": [
+        45,
+        55,
+        75
+      ],
+      "why": "Сапоги разных видов дают разную скорость, и их легко перепутать",
+      "answer": 65,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        65
+      ],
+      "mc": {
+        "options": [
+          45.0,
+          55.0,
+          65.0,
+          75.0
+        ],
+        "position": 3,
+        "spread": 1.67
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "pipe:barrier_block",
+      "level": "max",
+      "question": "Сколько магического урона поглощает барьер от Pipe of Insight?",
+      "unit": "урона",
+      "distractors": [
+        350,
+        400,
+        475
+      ],
+      "why": "Пайп решает драки против магов, но объём барьера помнят приблизительно",
+      "answer": 425,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          350.0,
+          400.0,
+          425.0,
+          475.0
+        ],
+        "position": 3,
+        "spread": 1.36
+      },
+      "flags": []
+    }
+  ],
+  "sonnet": [
+    {
+      "fact_id": "axe_counter_helix:trigger_attacks",
+      "level": 1,
+      "question": "Сколько атак нужно Axe для срабатывания Counter Helix на 1-м уровне?",
+      "unit": "атак",
+      "distractors": [
+        5,
+        6,
+        9
+      ],
+      "why": "Все слышат характерный звук хеликса, но мало кто считает атаки до него",
+      "answer": 7,
+      "entity": "Axe · Counter Helix",
+      "all_values": [
+        7,
+        6,
+        5,
+        4
+      ],
+      "mc": {
+        "options": [
+          5.0,
+          6.0,
+          7.0,
+          9.0
+        ],
+        "position": 3,
+        "spread": 1.8
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "axe_culling_blade:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Culling Blade у Axe на максимальном уровне?",
+      "unit": "урона",
+      "distractors": [
+        425,
+        450,
+        500
+      ],
+      "why": "Цифру порога добивания знают все, а вот урон в сотнях легко перепутать",
+      "answer": 475,
+      "entity": "Axe · Culling Blade",
+      "all_values": [
+        275,
+        375,
+        475
+      ],
+      "mc": {
+        "options": [
+          425.0,
+          450.0,
+          475.0,
+          500.0
+        ],
+        "position": 3,
+        "spread": 1.18
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "tusk_walrus_kick:damage",
+      "level": "max",
+      "question": "Сколько урона наносит Walrus Kick у Tusk?",
+      "unit": "урона",
+      "distractors": [
+        500,
+        600,
+        650
+      ],
+      "why": "У пинка нет уровней, поэтому приходится вспоминать конкретное число",
+      "answer": 550,
+      "entity": "Tusk · Walrus Kick",
+      "all_values": [
+        550
+      ],
+      "mc": {
+        "options": [
+          500.0,
+          550.0,
+          600.0,
+          650.0
+        ],
+        "position": 2,
+        "spread": 1.3
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "tusk_snowball:stun_duration",
+      "level": "max",
+      "question": "Сколько секунд оглушает Snowball у Tusk на максимальном уровне, если в шаре нет союзников?",
+      "unit": "сек.",
+      "distractors": [
+        0.8,
+        1.0,
+        1.4
+      ],
+      "why": "Стан снежка ощущается долгим, но по цифре он короче, чем кажется",
+      "answer": 1.2,
+      "entity": "Tusk · Snowball",
+      "all_values": [
+        0.6,
+        0.8,
+        1,
+        1.2
+      ],
+      "mc": {
+        "options": [
+          0.8,
+          1.0,
+          1.2,
+          1.4
+        ],
+        "position": 3,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "leshrac_lightning_storm:jump_count",
+      "level": "max",
+      "question": "Сколько ударов молний делает Lightning Storm у Leshrac на максимальном уровне?",
+      "unit": "шт.",
+      "distractors": [
+        7,
+        9,
+        13
+      ],
+      "why": "Видно по экрану, но считать вспышки в драке никто не успевает",
+      "answer": 11,
+      "entity": "Leshrac · Lightning Storm",
+      "all_values": [
+        5,
+        7,
+        9,
+        11
+      ],
+      "mc": {
+        "options": [
+          7.0,
+          9.0,
+          11.0,
+          13.0
+        ],
+        "position": 3,
+        "spread": 1.86
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "leshrac_split_earth:duration",
+      "level": "max",
+      "question": "Сколько секунд длится оглушение от Split Earth у Leshrac?",
+      "unit": "сек.",
+      "distractors": [
+        1.3,
+        1.5,
+        1.9
+      ],
+      "why": "Нестандартная длительность, которую легко округлить не в ту сторону",
+      "answer": 1.7,
+      "entity": "Leshrac · Split Earth",
+      "all_values": [
+        1.7
+      ],
+      "mc": {
+        "options": [
+          1.3,
+          1.5,
+          1.7,
+          1.9
+        ],
+        "position": 3,
+        "spread": 1.46
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "bounty_hunter_jinada:gold_steal",
+      "level": "max",
+      "question": "Сколько золота ворует Jinada у Bounty Hunter на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        29,
+        40,
+        45
+      ],
+      "why": "Золото капает на каждом ударе, но сколько именно за один, мало кто помнит",
+      "answer": 36,
+      "entity": "Bounty Hunter · Jinada",
+      "all_values": [
+        15,
+        22,
+        29,
+        36
+      ],
+      "mc": {
+        "options": [
+          29.0,
+          36.0,
+          40.0,
+          45.0
+        ],
+        "position": 2,
+        "spread": 1.55
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bounty_hunter_track:bonus_gold_self",
+      "level": "max",
+      "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на максимальном уровне?",
+      "unit": "золота",
+      "distractors": [
+        160,
+        200,
+        280
+      ],
+      "why": "Знаем, что Track приносит золото, но порядок цифры для самого охотника не очевиден",
+      "answer": 240,
+      "entity": "Bounty Hunter · Track",
+      "all_values": [
+        80,
+        160,
+        240
+      ],
+      "mc": {
+        "options": [
+          160.0,
+          200.0,
+          240.0,
+          280.0
+        ],
+        "position": 3,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faceless_void_time_lock:chance_pct",
+      "level": "max",
+      "question": "Какой шанс срабатывания Time Lock у Faceless Void на максимальном уровне?",
+      "unit": "%",
+      "distractors": [
+        20,
+        28,
+        32
+      ],
+      "why": "Все видели, как Войд клочит врагов, но шанс по цифре многие недооценивают",
+      "answer": 24,
+      "entity": "Faceless Void · Time Lock",
+      "all_values": [
+        12,
+        16,
+        20,
+        24
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          24.0,
+          28.0,
+          32.0
+        ],
+        "position": 2,
+        "spread": 1.6
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faceless_void_chronosphere:duration",
+      "level": "max",
+      "question": "Сколько секунд длится Chronosphere у Faceless Void на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        4.25,
+        5.25,
+        5.75
+      ],
+      "why": "Главная ультимейт-способность игры, но точную длительность помнят единицы",
+      "answer": 4.75,
+      "entity": "Faceless Void · Chronosphere",
+      "all_values": [
+        3.75,
+        4.25,
+        4.75
+      ],
+      "mc": {
+        "options": [
+          4.25,
+          4.75,
+          5.25,
+          5.75
+        ],
+        "position": 2,
+        "spread": 1.35
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "kez_talon_toss:silence_duration",
+      "level": "max",
+      "question": "Сколько секунд длится безмолвие от Talon Toss у Kez на максимальном уровне?",
+      "unit": "сек.",
+      "distractors": [
+        2.25,
+        3.25,
+        3.5
+      ],
+      "why": "Новый герой, и точные цифры его способностей ещё не осели в памяти",
+      "answer": 2.75,
+      "entity": "Kez · Talon Toss",
+      "all_values": [
+        2,
+        2.25,
+        2.5,
+        2.75
+      ],
+      "mc": {
+        "options": [
+          2.25,
+          2.75,
+          3.25,
+          3.5
+        ],
+        "position": 2,
+        "spread": 1.56
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kez_raptor_dance:strikes",
+      "level": "max",
+      "question": "Сколько радиальных ударов наносит Raptor Dance у Kez?",
+      "unit": "шт.",
+      "distractors": [
+        3,
+        5,
+        6
+      ],
+      "why": "Серия мелькает очень быстро, и посчитать удары глазами почти нереально",
+      "answer": 4,
+      "entity": "Kez · Raptor Dance",
+      "all_values": [
+        4
+      ],
+      "mc": {
+        "options": [
+          3.0,
+          4.0,
+          5.0,
+          6.0
+        ],
+        "position": 2,
+        "spread": 2.0
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "mjollnir:chain_strikes",
+      "level": "max",
+      "question": "Между сколькими целями прыгает молния Chain Lightning у Mjollnir?",
+      "unit": "шт.",
+      "distractors": [
+        8,
+        10,
+        16
+      ],
+      "why": "Все видели цепочку молний, но число прыжков мало кто держит в голове",
+      "answer": 12,
+      "entity": "Mjollnir",
+      "all_values": [
+        12
+      ],
+      "mc": {
+        "options": [
+          8.0,
+          10.0,
+          12.0,
+          16.0
+        ],
+        "position": 3,
+        "spread": 2.0
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mjollnir:bonus_attack_speed",
+      "level": "max",
+      "question": "Сколько скорости атаки даёт Mjollnir?",
+      "unit": "ед.",
+      "distractors": [
+        70,
+        80,
+        110
+      ],
+      "why": "Предмет покупают постоянно, а точный бонус скорости атаки вспоминается не сразу",
+      "answer": 90,
+      "entity": "Mjollnir",
+      "all_values": [
+        90
+      ],
+      "mc": {
+        "options": [
+          70.0,
+          80.0,
+          90.0,
+          110.0
+        ],
+        "position": 3,
+        "spread": 1.57
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shivas_guard:bonus_armor",
+      "level": "max",
+      "question": "Сколько брони даёт Shiva's Guard?",
+      "unit": "ед.",
+      "distractors": [
+        14,
+        15,
+        20
+      ],
+      "why": "Броня Шивы запоминается как «много», но точная цифра ускользает",
+      "answer": 17,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        17
+      ],
+      "mc": {
+        "options": [
+          14.0,
+          15.0,
+          17.0,
+          20.0
+        ],
+        "position": 3,
+        "spread": 1.43
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shivas_guard:blast_damage",
+      "level": "max",
+      "question": "Сколько магического урона наносит Arctic Blast у Shiva's Guard?",
+      "unit": "урона",
+      "distractors": [
+        175,
+        250,
+        275
+      ],
+      "why": "Волну Шивы жмут в каждой драке, но урон от неё редко кто проверяет",
+      "answer": 225,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        225
+      ],
+      "mc": {
+        "options": [
+          175.0,
+          225.0,
+          250.0,
+          275.0
+        ],
+        "position": 2,
+        "spread": 1.57
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodstone:bonus_health",
+      "level": "max",
+      "question": "Сколько здоровья даёт Bloodstone?",
+      "unit": "ед.",
+      "distractors": [
+        525,
+        575,
+        700
+      ],
+      "why": "Прибавка больших предметов к здоровью обычно знакома лишь на уровне ощущений",
+      "answer": 625,
+      "entity": "Bloodstone",
+      "all_values": [
+        625
+      ],
+      "mc": {
+        "options": [
+          525.0,
+          575.0,
+          625.0,
+          700.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodstone:spell_lifesteal_while_active",
+      "level": "max",
+      "question": "Какой лайфстил заклинаний даёт Bloodstone во время активного Bloodpact?",
+      "unit": "%",
+      "distractors": [
+        40,
+        75,
+        80
+      ],
+      "why": "Активку жмут ради лечения, а размер лайфстила в цифрах никто не помнит",
+      "answer": 60,
+      "entity": "Bloodstone",
+      "all_values": [
+        60
+      ],
+      "mc": {
+        "options": [
+          40.0,
+          60.0,
+          75.0,
+          80.0
+        ],
+        "position": 2,
+        "spread": 2.0
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya:bonus_intellect",
+      "level": "max",
+      "question": "Сколько интеллекта даёт Kaya?",
+      "unit": "ед.",
+      "distractors": [
+        12,
+        15,
+        18
+      ],
+      "why": "Базовый предмет на интеллект, а точный бонус путают с соседними",
+      "answer": 16,
+      "entity": "Kaya",
+      "all_values": [
+        16
+      ],
+      "mc": {
+        "options": [
+          12.0,
+          15.0,
+          16.0,
+          18.0
+        ],
+        "position": 3,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+      "level": "max",
+      "question": "Каким становится лайфстил у Satanic во время активного Unholy Rage?",
+      "unit": "%",
+      "distractors": [
+        145,
+        200,
+        225
+      ],
+      "why": "Лайфстил больше сотни процентов выглядит странно и поэтому запоминается плохо",
+      "answer": 175,
+      "entity": "Satanic",
+      "all_values": [
+        175
+      ],
+      "mc": {
+        "options": [
+          145.0,
+          175.0,
+          200.0,
+          225.0
+        ],
+        "position": 2,
+        "spread": 1.55
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "satanic:lifesteal_percent",
+      "level": "max",
+      "question": "Сколько процентов лайфстила даёт Satanic в пассивном состоянии?",
+      "unit": "%",
+      "distractors": [
+        20,
+        30,
+        35
+      ],
+      "why": "Все знают, что Satanic лечит, но базовый процент вспоминается не сразу",
+      "answer": 25,
+      "entity": "Satanic",
+      "all_values": [
+        25
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          25.0,
+          30.0,
+          35.0
+        ],
+        "position": 2,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "boots_of_bearing:bonus_health_regen",
+      "level": "max",
+      "question": "Сколько регенерации здоровья даёт Boots of Bearing самому владельцу?",
+      "unit": "ед.",
+      "distractors": [
+        12,
+        15,
+        21
+      ],
+      "why": "Ботинки берут ради аур, а их собственные статы забываются",
+      "answer": 18,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        18
+      ],
+      "mc": {
+        "options": [
+          12.0,
+          15.0,
+          18.0,
+          21.0
+        ],
+        "position": 3,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "boots_of_bearing:bonus_movement_speed",
+      "level": "max",
+      "question": "Сколько скорости передвижения даёт Boots of Bearing?",
+      "unit": "ед.",
+      "distractors": [
+        50,
+        60,
+        75
+      ],
+      "why": "Ботинки покупают в каждой игре, но точное значение скорости помнят не все",
+      "answer": 65,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        65
+      ],
+      "mc": {
+        "options": [
+          50.0,
+          60.0,
+          65.0,
+          75.0
+        ],
+        "position": 3,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "pipe:barrier_block",
+      "level": "max",
+      "question": "Сколько магического урона поглощает барьер Pipe of Insight?",
+      "unit": "урона",
+      "distractors": [
+        375,
+        475,
+        500
+      ],
+      "why": "Барьер Пайпа спасает команду, но сколько он держит, знают единицы",
+      "answer": 425,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          375.0,
+          425.0,
+          475.0,
+          500.0
+        ],
+        "position": 2,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "pipe:magic_resistance_aura",
+      "level": "max",
+      "question": "Сколько процентов сопротивления магии даёт союзникам Insight Aura у Pipe of Insight?",
+      "unit": "%",
+      "distractors": [
+        5,
+        10,
+        12
+      ],
+      "why": "Аура вроде небольшая, и именно поэтому точное число легко забывается",
+      "answer": 8,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        8
+      ],
+      "mc": {
+        "options": [
+          5.0,
+          8.0,
+          10.0,
+          12.0
+        ],
+        "position": 2,
+        "spread": 2.4
+      },
+      "flags": []
+    }
+  ]
+}

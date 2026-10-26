@@ -160,7 +160,13 @@ Located in `server/src/game/economy/__tests__/` and `server/src/game/__tests__/`
 
 Dota 2 вопросы. Источник данных — GitHub-зеркало OpenDota: `raw.githubusercontent.com/odota/dotaconstants/master/build/`.
 
-**Источник истины — снимок `scripts/data/dota/`** (heroes, hero_abilities, abilities, aghs_desc, items, patch, patchnotes) + `manifest.json` с версией патча и sha коммита dotaconstants. Обновление: `python scripts/fetch_dota_data.py` (печатает diff со старым снимком). `gen_questions.py` читает этот снимок и проставляет `patch` в каждый вопрос. Старые `scripts/data/{heroes,abilities,items}.json` — устаревший архив.
+**Источник истины — снимок `scripts/data/dota/`**, обновляется `python scripts/fetch_dota_data.py` (печатает diff со старым снимком). Два источника на зафиксированных коммитах (`manifest.json`: патч, sha, контрольные суммы):
+- `odota/dotaconstants` → `scripts/data/dota/*.json` — разобранные значения и описания (heroes, hero_abilities, abilities, aghs_desc, items, patch, patchnotes). **Не удаляет вырезанное**: старые предметы/способности остаются с замороженными полями.
+- `dotabuff/d2vpkr` → `scripts/data/dota/game/` — сырые файлы игры (items.txt, neutral_items.txt, shops.txt, файлы героев, abilities_russian.txt).
+
+**Что есть в игре — `scripts/data/dota/current.json`** (`scripts/build_game_index.py`, вызывается из fetch). Предметы по категориям: `shop` (shops.txt), `upgrade` (Dagon 2–5, BoT 2), `neutral`/`enhancement` (текущие тиры neutral_items.txt), `roshan`, `removed` (IsObsolete или нейтралка вне тиров), `other`. В вопросы идут shop/upgrade/neutral/enhancement. Способности — слоты героя с ролью: basic/ultimate/innate/shard/scepter (в вопросы), sub (служебные кнопки), review (не определилось — решить вручную). Ручные решения — `scripts/data/dota_overrides.json`. Парсер формата игры — `scripts/valve_kv.py`. Старые `scripts/data/{heroes,abilities,items}.json` — устаревший архив.
+
+**Лаборатория числовых вопросов — `scripts/generate/numeric_lab/`**: `build_sample.py` (выборка фактов из current.json), `prompt_v*.md`, `resolve.py out/<run>` (модель выбирает `fact_id`, ответ подставляется из данных, флаги + `report.md`). Модель число не пишет.
 
 ### Runtime-файлы — `scripts/data/generated/`
 
@@ -206,11 +212,8 @@ Dota 2 вопросы. Источник данных — GitHub-зеркало O
 - `questions_db.json` — старый единый файл (больше сервером не используется)
 - **`generate_item_questions.py` — не запускать** (пользователь вручную почистил)
 
-### Фильтры для генерации по предметам
-- `cost > 0` — отсеивает нейтралки и удалённые предметы
-- Не `recipe_` префикс
-- Roshan blacklist: `cheese, royale_with_cheese, refresher_shard, aghanims_shard_roshan, ultimate_scepter_roshan, ultimate_scepter_2, aegis`
-- Версионные дубли (оставить только base): `dagon_2-5, necronomicon_2-3`. Boots of Travel 1 и 2 — оба.
+### Фильтры предметов
+Устарели: фильтр `cost > 0` пропускал 15 вырезанных предметов и терял все текущие нейтралки. Теперь — категории из `current.json` (см. выше).
 
 ### Стандартный сетап героя для производных вопросов
 300 МС, 200 базовый урон, 10 брони, 150 скорость атаки, BAT 1.7.

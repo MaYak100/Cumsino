@@ -3,9 +3,12 @@
 Подставляет правильные ответы в вопросы моделей из sample.json (по fact_id + level),
 проверяет их и собирает сравнительный отчёт.
 
-  python scripts/generate/numeric_lab/resolve.py out/v1   → out/v1/report.md + out/v1/<model>.resolved.json
+  python scripts/generate/numeric_lab/resolve.py out/v2
 
-Вход: out/<run>/<model>.json — JSON-массив в формате из prompt_*.md.
+Вход:  out/<run>/<model>.json — сырой ответ модели (JSON-массив в формате из prompt_*.md)
+       out/<run>/sample.json  — копия выборки, на которой шёл прогон (иначе берётся текущая)
+Выход: out/<run>/resolved.json — ответы моделей + подставленный ответ + флаги, по моделям
+       out/<run>/report.md     — сравнительный отчёт для чтения
 """
 
 import json
@@ -21,14 +24,17 @@ _NUM = re.compile(r"\d+(?:[.,]\d+)?")
 _LEVEL_REF = re.compile(r"\d+\s*-?\s*(?:м|й|ом)?\s*уровн\w*", re.I)
 
 
-def load_facts() -> dict[str, dict]:
-    sample = json.loads((LAB / "sample.json").read_text(encoding="utf-8"))
+RESERVED = {"sample", "resolved"}
+
+
+def load_facts(sample_path: Path) -> dict[str, dict]:
+    sample = json.loads(sample_path.read_text(encoding="utf-8"))
     facts = {}
     for h in sample["heroes"]:
         for ab in h["abilities"]:
             for f in ab["facts"]:
                 facts[f["fact_id"]] = {**f, "entity": f"{h['hero']} · {ab['name']}",
-                                       "siblings": ab["facts"]}
+                                       "role": ab.get("role"), "siblings": ab["facts"]}
     for it in sample["items"]:
         for f in it["facts"]:
             facts[f["fact_id"]] = {**f, "entity": it["name"], "siblings": it["facts"]}
@@ -61,8 +67,13 @@ def resolve_one(q: dict, facts: dict) -> dict:
     answer = vals[idx]
 
     text = q.get("question", "")
-    if len(set(vals)) > 1 and not _LEVEL_WORDS.search(text):
+    multi = len(set(vals)) > 1
+    if multi and not _LEVEL_WORDS.search(text):
         flags.append("значение зависит от уровня, а уровень не указан")
+    if multi and fact.get("role") and fact["role"] != "ultimate" and idx not in (0, len(vals) - 1):
+        flags.append(f"уровень {idx + 1}: у не-ультимейта только 1-й или максимальный")
+    if multi and idx == len(vals) - 1 and _LEVEL_REF.search(text):
+        flags.append("максимальный уровень назван числом")
     if fact.get("hidden"):
         flags.append("скрытое значение (нет в тултипе)")
 
@@ -88,6 +99,8 @@ def resolve_one(q: dict, facts: dict) -> dict:
             flags.append("ответ выделяется точностью (знаки после запятой)")
         if round5.count(float(answer) % 5 == 0) == 1:
             flags.append("ответ выделяется «круглостью»")
+        if len({round(opts[i + 1] - opts[i], 6) for i in range(3)}) == 1:
+            flags.append("варианты с одинаковым шагом")
         spread = opts[-1] / opts[0] if opts[0] else float("inf")
         mc = {"options": opts, "position": pos, "spread": round(spread, 2)}
 
@@ -133,17 +146,17 @@ def main() -> None:
     run_dir = Path(sys.argv[1])
     if not run_dir.is_absolute() and not run_dir.exists():
         run_dir = LAB / run_dir
-    facts = load_facts()
+    sample_path = run_dir / "sample.json"
+    facts = load_facts(sample_path if sample_path.exists() else LAB / "sample.json")
 
     results: dict[str, list[dict]] = {}
     for path in sorted(run_dir.glob("*.json")):
-        if path.name.endswith(".resolved.json"):
+        if path.stem in RESERVED:
             continue
         qs = json.loads(path.read_text(encoding="utf-8"))
-        rs = [resolve_one(q, facts) for q in qs]
-        results[path.stem] = rs
-        (run_dir / f"{path.stem}.resolved.json").write_text(
-            json.dumps(rs, ensure_ascii=False, indent=2), encoding="utf-8")
+        results[path.stem] = [resolve_one(q, facts) for q in qs]
+    (run_dir / "resolved.json").write_text(
+        json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
 
     report = render(run_dir, results)
     (run_dir / "report.md").write_text(report, encoding="utf-8")

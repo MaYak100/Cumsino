@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Собирает фиксированную выборку героев и предметов со списком числовых фактов
-из снимка scripts/data/dota/. Модель получает только эти факты и ссылается на них
+из снимка scripts/data/dota/. Что есть в игре и роль способности — из current.json. Модель получает только эти факты и ссылается на них
 по fact_id — само число в вопрос подставляет resolve.py, а не модель.
 
   python scripts/generate/numeric_lab/build_sample.py   → numeric_lab/sample.json
@@ -55,7 +55,7 @@ def _fact(fact_id: str, label: str, raw, hidden: bool = False) -> dict | None:
     return f
 
 
-def ability_packet(key: str, ab: dict) -> dict | None:
+def ability_packet(key: str, ab: dict, role: str) -> dict | None:
     facts = []
     if ab.get("cd"):
         facts.append(_fact(f"{key}:cd", "COOLDOWN", ab["cd"]))
@@ -70,7 +70,7 @@ def ability_packet(key: str, ab: dict) -> dict | None:
     return {
         "key": key,
         "name": ab.get("dname"),
-        "innate": bool(ab.get("is_innate")),
+        "role": role,   # basic / ultimate / innate / shard / scepter
         "desc": ab.get("desc", ""),
         "facts": facts,
     }
@@ -78,7 +78,7 @@ def ability_packet(key: str, ab: dict) -> dict | None:
 
 def build() -> dict:
     heroes_raw = json.loads((DOTA / "heroes.json").read_text(encoding="utf-8"))
-    hero_abs   = json.loads((DOTA / "hero_abilities.json").read_text(encoding="utf-8"))
+    current    = json.loads((DOTA / "current.json").read_text(encoding="utf-8"))
     abilities  = json.loads((DOTA / "abilities.json").read_text(encoding="utf-8"))
     items      = json.loads((DOTA / "items.json").read_text(encoding="utf-8"))
     manifest   = json.loads((DOTA / "manifest.json").read_text(encoding="utf-8"))
@@ -89,19 +89,22 @@ def build() -> dict:
     for hk in HEROES:
         npc = f"npc_dota_hero_{hk}"
         packets = []
-        for ak in hero_abs[npc]["abilities"]:
-            ab = abilities.get(ak)
-            if not ab or not ab.get("dname") or ak.startswith("generic_"):
+        for entry in current["heroes"][npc]["abilities"]:
+            ab = abilities.get(entry["key"])
+            if not ab or entry["role"] not in current["question_ability_roles"]:
                 continue
-            p = ability_packet(ak, ab)
+            p = ability_packet(entry["key"], ab, entry["role"])
             if p:
                 packets.append(p)
         heroes.append({"hero": names[npc], "abilities": packets})
 
     item_packets = []
     for ik in ITEMS:
+        assert current["items"][ik]["category"] in current["question_item_categories"], ik
         it = items[ik]
         facts = []
+        if it.get("cost"):
+            facts.append(_fact(f"{ik}:cost", "COST (gold)", it["cost"]))
         if it.get("cd"):
             facts.append(_fact(f"{ik}:cd", "COOLDOWN", it["cd"]))
         for at in it.get("attrib", []):

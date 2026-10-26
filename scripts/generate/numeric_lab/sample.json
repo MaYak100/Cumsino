@@ -7,7 +7,7 @@
     {
      "key": "axe_berserkers_call",
      "name": "Berserker's Call",
-     "innate": false,
+     "role": "basic",
      "desc": "Axe taunts nearby enemy units, forcing them to attack him while he gains bonus armor during the duration.",
      "facts": [
       {
@@ -45,7 +45,7 @@
     {
      "key": "axe_battle_hunger",
      "name": "Battle Hunger",
-     "innate": false,
+     "role": "basic",
      "desc": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The enemy is slowed as long as they are facing away from Axe.",
      "facts": [
       {
@@ -90,7 +90,7 @@
     {
      "key": "axe_counter_helix",
      "name": "Counter Helix",
-     "innate": false,
+     "role": "basic",
      "desc": "After a set number of attacks, Axe will perform a helix counter attack, dealing pure damage to all nearby enemies.",
      "facts": [
       {
@@ -125,7 +125,7 @@
     {
      "key": "axe_culling_blade",
      "name": "Culling Blade",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Axe spots a weakness and strikes, dealing pure damage. When an enemy hero is killed with Culling Blade, its cooldown is reset, and all nearby allied units gain bonus movement speed and armor.\n\nAxe permanently drenches his blade every time he kills an enemy Hero with Culling Blade, gaining bonus armor for each stack.",
      "facts": [
       {
@@ -178,7 +178,7 @@
     {
      "key": "axe_one_man_army",
      "name": "One Man Army",
-     "innate": true,
+     "role": "innate",
      "desc": "Axe gains Strength based on 50% of his Armor as long as there are no allied heroes within 700 distance from Axe. The effect fades over 3s after approaching an ally.",
      "facts": [
       {
@@ -207,7 +207,7 @@
     {
      "key": "tusk_ice_shards",
      "name": "Ice Shards",
-     "innate": false,
+     "role": "basic",
      "desc": "Tusk compresses shards of ice into a ball of frozen energy that damages all enemies it comes in contact with. When the ball reaches its target destination the shards are released, creating a barrier that lasts for 4 seconds.",
      "facts": [
       {
@@ -261,7 +261,7 @@
     {
      "key": "tusk_snowball",
      "name": "Snowball",
-     "innate": false,
+     "role": "basic",
      "desc": "Tusk begins rolling into a snowball. Allies within a 325 radius can also be added to the snowball by right-clicking on them, even while the snowball is moving. Once launched, any enemies caught in the snowball's path will be stunned and take damage. Each allied Hero in the snowball will add to its damage and stun duration.",
      "facts": [
       {
@@ -339,7 +339,7 @@
     {
      "key": "tusk_tag_team",
      "name": "Tag Team",
-     "innate": false,
+     "role": "basic",
      "desc": "Activate to temporarily apply a negative debuff aura around you, causing enemies that are attacked under it to take bonus physical damage and reduced movement speed. Lasts 6 seconds.",
      "facts": [
       {
@@ -388,7 +388,7 @@
     {
      "key": "tusk_drinking_buddies",
      "name": "Drinking Buddies",
-     "innate": false,
+     "role": "shard",
      "desc": "Tusk reaches out to tag an allied unit, pulling them closer. Once tagged, both Tusk and his tagged ally gain movement speed and armor.",
      "facts": [
       {
@@ -432,7 +432,7 @@
     {
      "key": "tusk_walrus_kick",
      "name": "Walrus Kick",
-     "innate": false,
+     "role": "scepter",
      "desc": "Kicks the closest enemy unit in the drawn direction, stunning, damaging, and slowing them. Also deals damage to all heroes within 250 radius of its landing area. Cooldown is reduced by 50% if kicking a creep.",
      "facts": [
       {
@@ -484,7 +484,7 @@
     {
      "key": "tusk_walrus_punch",
      "name": "Walrus PUNCH!",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Tusk connects with his mighty Walrus Punch, a critical strike with bonus damage so powerful it launches its victim into the air.",
      "facts": [
       {
@@ -534,7 +534,7 @@
     {
      "key": "tusk_bitter_chill",
      "name": "Bitter Chill",
-     "innate": true,
+     "role": "innate",
      "desc": "Passively slows the attack speed of all enemy heroes within a 350 unit radius.",
      "facts": [
       {
@@ -554,7 +554,7 @@
     {
      "key": "leshrac_split_earth",
      "name": "Split Earth",
-     "innate": false,
+     "role": "basic",
      "desc": "Splits the earth under enemies. Deals damage and stuns for a short duration.",
      "facts": [
       {
@@ -591,7 +591,7 @@
     {
      "key": "leshrac_diabolic_edict",
      "name": "Diabolic Edict",
-     "innate": false,
+     "role": "basic",
      "desc": "Saturates the area around Leshrac with magical explosions that deal pure damage to enemy units and buildings. The fewer units available to attack, the more damage those units will take.",
      "facts": [
       {
@@ -649,7 +649,7 @@
     {
      "key": "leshrac_lightning_storm",
      "name": "Lightning Storm",
-     "innate": false,
+     "role": "basic",
      "desc": "Summons a lightning storm that blasts the target enemy unit, then strikes any nearby enemy units. Struck enemies have their move speed slowed.",
      "facts": [
       {
@@ -709,7 +709,7 @@
     {
      "key": "leshrac_greater_lightning_storm",
      "name": "Nihilism",
-     "innate": false,
+     "role": "scepter",
      "desc": "Causes Leshrac and all nearby enemies to turn ethereal, preventing them from attacking, slowing them, and making them take more magic damage. Increases Leshrac's speed rather than reducing it. Does not cause Leshrac to take amplified damage.",
      "facts": [
       {
@@ -745,7 +745,7 @@
     {
      "key": "leshrac_pulse_nova",
      "name": "Pulse Nova",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Creates waves of damaging energy around Leshrac, one per second, to damage nearby enemy units. Drains Leshrac's mana with each pulse.",
      "facts": [
       {
@@ -783,7 +783,7 @@
     {
      "key": "bounty_hunter_shuriken_toss",
      "name": "Shuriken Toss",
-     "innate": false,
+     "role": "basic",
      "desc": "Hurls a deadly shuriken at an enemy unit, dealing damage and slowing the target's movement speed. The shuriken will bounce to any Tracked units who are within a 1200 radius of each other.",
      "facts": [
       {
@@ -822,7 +822,7 @@
     {
      "key": "bounty_hunter_jinada",
      "name": "Jinada",
-     "innate": false,
+     "role": "basic",
      "desc": "Bounty Hunter plans his next hit, dealing bonus damage and stealing some unreliable gold.",
      "facts": [
       {
@@ -860,7 +860,7 @@
     {
      "key": "bounty_hunter_wind_walk",
      "name": "Shadow Walk",
-     "innate": false,
+     "role": "basic",
      "desc": "Bounty Hunter becomes invisible and gains bonus movement speed and the ability to move through other units until he attacks or casts a spell. If he breaks the invisibility with an attack, that attack will stun the target for a short duration.",
      "facts": [
       {
@@ -918,7 +918,7 @@
     {
      "key": "bounty_hunter_wind_walk_ally",
      "name": "Friendly Shadow",
-     "innate": false,
+     "role": "shard",
      "desc": "Applies Shadow Walk and all of its bonuses to the target ally. Allied fade time is 0.5s. Does not break Bounty Hunter's invisibility when cast.",
      "facts": [
       {
@@ -941,7 +941,7 @@
     {
      "key": "bounty_hunter_big_game_hunter",
      "name": "Big Game Hunter",
-     "innate": true,
+     "role": "innate",
      "desc": "Bounty Hunter receives 20% more kill and assist gold if the dying enemy hero is Big Game. An enemy hero is considered Big Game if they are one of the top 3 net worth heroes on the enemy team.",
      "facts": [
       {
@@ -957,7 +957,7 @@
     {
      "key": "bounty_hunter_track",
      "name": "Track",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Tracks an enemy hero, granting True Sight of the target, increasing the damage they take and providing information on how much gold it is carrying. If the target dies, Bounty Hunter and nearby heroes collect a bonus bounty of gold. Casting Track does not take you out of invisibility.",
      "facts": [
       {
@@ -1023,7 +1023,7 @@
     {
      "key": "faceless_void_time_walk",
      "name": "Time Walk",
-     "innate": false,
+     "role": "basic",
      "desc": "Rushes to a target location while backtracking any damage taken the last 2 seconds.",
      "facts": [
       {
@@ -1056,7 +1056,7 @@
     {
      "key": "faceless_void_time_dilation",
      "name": "Time Dilation",
-     "innate": false,
+     "role": "basic",
      "desc": "Faceless Void envelops nearby enemies with time dilating fields to slow cooldown progression of their abilities. Each enveloped enemy gains one Time Dilation stack when applied, and one stack per ability they have on cooldown. Each stack deals damage per second and slows movement and attack speed. The duration is paused while affected by Chronosphere.",
      "facts": [
       {
@@ -1124,7 +1124,7 @@
     {
      "key": "faceless_void_time_lock",
      "name": "Time Lock",
-     "innate": false,
+     "role": "basic",
      "desc": "Adds the chance for an attack to lock an enemy unit in time while attacking it a second time.",
      "facts": [
       {
@@ -1175,7 +1175,7 @@
     {
      "key": "faceless_void_time_walk_reverse",
      "name": "Reverse Time Walk",
-     "innate": false,
+     "role": "scepter",
      "desc": "Available for 1.5 seconds after landing Time Walk. If used in this period, you will reverse your time walk back to your previous cast location. Does not affect health or proc scepter hits.",
      "facts": [
       {
@@ -1198,7 +1198,7 @@
     {
      "key": "faceless_void_distortion_field",
      "name": "Distortion Field",
-     "innate": true,
+     "role": "innate",
      "desc": "Enemy Attack Projectiles targetting Faceless Void or allied heroes within a 1200 radius of him get slowed by 40%, when they get within 500 distance of their target.",
      "facts": [
       {
@@ -1214,7 +1214,7 @@
     {
      "key": "faceless_void_chronosphere",
      "name": "Chronosphere",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Creates a blister in spacetime, trapping all units caught in its sphere of influence and causes you to move very quickly inside it. Only Faceless Void and any units he controls are unaffected. Invisible enemies in the sphere will be revealed.",
      "facts": [
       {
@@ -1245,7 +1245,7 @@
     {
      "key": "kez_echo_slash",
      "name": "Echo Slash",
-     "innate": false,
+     "role": "basic",
      "desc": "Kez slashes forward in a 800 distance line with his Katana, attacking enemies in an area and applying a brief 100% impact slow. After a short delay, the area is attacked again. Heroes take bonus damage.",
      "facts": [
       {
@@ -1313,7 +1313,7 @@
     {
      "key": "kez_grappling_claw",
      "name": "Grappling Claw",
-     "innate": false,
+     "role": "basic",
      "desc": "Kez swings on a grappling hook towards the target unit or tree. When the grappling hook collides with the target, that unit has slowed movement speed. Upon reaching the enemy target, Kez lands an attack on them.",
      "facts": [
       {
@@ -1351,7 +1351,7 @@
     {
      "key": "kez_kazurai_katana",
      "name": "Kazurai Katana",
-     "innate": false,
+     "role": "basic",
      "desc": "Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of the original attack's damage as additional damage over time. \n\nKez may activate the ability to impale the target with his attack, preventing them from moving or turning. The target's Katana debuff bursts, causing some of the stacks to deal damage instantly.",
      "facts": [
       {
@@ -1407,7 +1407,7 @@
     {
      "key": "kez_switch_weapons",
      "name": "Switch Discipline",
-     "innate": true,
+     "role": "innate",
      "desc": "Kez switches between his Kazurai Katana and Shodo Sai.\n\nHe gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown.\n\nKez deals extra damage on the first Katana hit or ability after switching to Katana, and gains bonus speed after switching to Sai.",
      "facts": [
       {
@@ -1465,7 +1465,7 @@
     {
      "key": "kez_raptor_dance",
      "name": "Raptor Dance",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Kez enters into an uncontrollable state for 1 second, becoming invulnerable for 0.2s and receiving a basic dispel.\n\nIf the cast completes successfully, Kez performs a series of deadly radial slashes around him that deal damage based on the max health of the target and heal Kez for a percentage of all damage dealt.",
      "facts": [
       {
@@ -1545,7 +1545,7 @@
     {
      "key": "kez_falcon_rush",
      "name": "Falcon Rush",
-     "innate": false,
+     "role": "basic",
      "desc": "Kez gains the ability to rush towards enemy targets to deliver echoing secondary attacks. While in this state, Kez has phased collision and slow resistance.",
      "facts": [
       {
@@ -1600,7 +1600,7 @@
     {
      "key": "kez_talon_toss",
      "name": "Talon Toss",
-     "innate": false,
+     "role": "basic",
      "desc": "Kez throws a Sai at the target unit, applying a fixed damage attack and silence.",
      "facts": [
       {
@@ -1638,7 +1638,7 @@
     {
      "key": "kez_shodo_sai",
      "name": "Shodo Sai",
-     "innate": false,
+     "role": "basic",
      "desc": "Kez has a chance to critically strike the target when attacking with Sais.\n\nKez may activate the ability to disarm himself, lock his facing, and parry attacks and attack effects from the targeted direction for 1.5 seconds. If an attack is parried from an enemy Hero in this way, that Hero is stunned for 0.4s and gains a Mark. When a Marked target is attacked by Kez, it will guarantee a critical strike and stun the target.\n\nThe sub-ability may be used to cancel the blocking early.",
      "facts": [
       {
@@ -1722,7 +1722,7 @@
     {
      "key": "kez_ravens_veil",
      "name": "Raven's Veil",
-     "innate": false,
+     "role": "ultimate",
      "desc": "Kez releases a wave of smoke that applies his Mark to nearby enemy heroes, briefly reducing their vision. Kez receives a basic dispel and gains bonus movement speed and invisibility until he attacks or casts a spell.",
      "facts": [
       {
@@ -1798,6 +1798,13 @@
    ],
    "notes": "Static Charge cannot trigger more than once per second.\nStatic Charge's shock deals magical damage centered on hero with the Static Charge. Static Charge's targets cannot be more than 900 range away.\nStatic Charge procs will not bounce to heroes that are invisible or hidden by Fog of War.",
    "facts": [
+    {
+     "fact_id": "mjollnir:cost",
+     "label": "COST (gold)",
+     "values": [
+      5500
+     ]
+    },
     {
      "fact_id": "mjollnir:cd",
      "label": "COOLDOWN",
@@ -1916,6 +1923,13 @@
    "notes": "The wave extends at a speed of 400 to a max size of 825.\nThe Arctic Blast follows its caster.\nMultiple instances of Freezing Aura do not stack.\nAoE bonuses from multiple Chasm Stones or its upgrades do not stack.",
    "facts": [
     {
+     "fact_id": "shivas_guard:cost",
+     "label": "COST (gold)",
+     "values": [
+      4500
+     ]
+    },
+    {
      "fact_id": "shivas_guard:cd",
      "label": "COOLDOWN",
      "values": [
@@ -1976,6 +1990,13 @@
    ],
    "notes": "Spell Weakness Aura does not stack with Veil of Discord's Spell Weakness.",
    "facts": [
+    {
+     "fact_id": "bloodstone:cost",
+     "label": "COST (gold)",
+     "values": [
+      4700
+     ]
+    },
     {
      "fact_id": "bloodstone:cd",
      "label": "COOLDOWN",
@@ -2041,6 +2062,13 @@
    "notes": "",
    "facts": [
     {
+     "fact_id": "kaya:cost",
+     "label": "COST (gold)",
+     "values": [
+      2100
+     ]
+    },
+    {
      "fact_id": "kaya:bonus_intellect",
      "label": "+ {value} Intelligence",
      "values": [
@@ -2080,6 +2108,13 @@
    ],
    "notes": "",
    "facts": [
+    {
+     "fact_id": "satanic:cost",
+     "label": "COST (gold)",
+     "values": [
+      5050
+     ]
+    },
     {
      "fact_id": "satanic:cd",
      "label": "COOLDOWN",
@@ -2148,6 +2183,13 @@
    ],
    "notes": "",
    "facts": [
+    {
+     "fact_id": "boots_of_bearing:cost",
+     "label": "COST (gold)",
+     "values": [
+      4225
+     ]
+    },
     {
      "fact_id": "boots_of_bearing:cd",
      "label": "COOLDOWN",
@@ -2237,6 +2279,13 @@
    ],
    "notes": "Barrier does not affect units that have been affected by Barrier within Pipe of Insight's cooldown.\nStacks multiplicatively with other sources of magic resistance.",
    "facts": [
+    {
+     "fact_id": "pipe:cost",
+     "label": "COST (gold)",
+     "values": [
+      3725
+     ]
+    },
     {
      "fact_id": "pipe:cd",
      "label": "COOLDOWN",

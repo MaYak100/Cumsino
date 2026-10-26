@@ -1,11 +1,16 @@
 {
   "patch": "7.41f",
-  "source": {
-    "repo": "odota/dotaconstants",
-    "commit": "5c0242df9057848fa2036ca3fafe9f2bd4508163",
-    "url": "https://github.com/odota/dotaconstants/tree/5c0242df9057848fa2036ca3fafe9f2bd4508163/build"
+  "fetched_at": "2026-10-26T15:36:26+00:00",
+  "sources": {
+    "dotaconstants": {
+      "repo": "odota/dotaconstants",
+      "commit": "5c0242df9057848fa2036ca3fafe9f2bd4508163"
+    },
+    "d2vpkr": {
+      "repo": "dotabuff/d2vpkr",
+      "commit": "76b9920bc73a1b8cac7e5d4d61a953d9b246d71c"
+    }
   },
-  "fetched_at": "2026-10-26T14:13:45+00:00",
   "files": {
     "heroes.json": {
       "sha256": "520a3ae33260593f54d5d749a92022d7d5af0ed60d8bebec8e81ff7eb12104ad",
@@ -34,6 +39,532 @@
     "patchnotes.json": {
       "sha256": "61149ca7c824103cd46c286aeaff1d570a9bcbfe054bc9adf0aa50510f3ac01d",
       "bytes": 2640903
+    }
+  },
+  "game_files": {
+    "scripts/npc/items.txt": {
+      "sha256": "04c432155f6c89c7277a76c8cfb72ff96a6b0d908969a03efc15f41ac1694d6e",
+      "bytes": 666552
+    },
+    "scripts/npc/neutral_items.txt": {
+      "sha256": "0935ad39d72909cd2800d62d083e55406b2a8eb85049373c1a4392bcf907a8d5",
+      "bytes": 5924
+    },
+    "scripts/shops.txt": {
+      "sha256": "c9a71989c3404b0b646ee434cc98ad0a9fdd8ea078b1aede284dd8a22eb26c02",
+      "bytes": 13717
+    },
+    "resource/localization/abilities_russian.txt": {
+      "sha256": "0723a1e58cd13de0823d5d1f7d00b41283d99e2c35d997e56467c162cf7b0e4c",
+      "bytes": 2404123
+    },
+    "scripts/npc/heroes/npc_dota_hero_abaddon.txt": {
+      "sha256": "11675d9923948833b336123ba5aa5ef8667e65dd6663a2e07934d557363419ad",
+      "bytes": 20702
+    },
+    "scripts/npc/heroes/npc_dota_hero_abyssal_underlord.txt": {
+      "sha256": "31060e5fdf53b01592b172f9f40a1113f9b8af09b3494750bbe881f34461a5d8",
+      "bytes": 24645
+    },
+    "scripts/npc/heroes/npc_dota_hero_alchemist.txt": {
+      "sha256": "865e2108c580ac9ea8819c4378d16bf49031d71b2fe9dbdd64a7f5951e1a6ba3",
+      "bytes": 21793
+    },
+    "scripts/npc/heroes/npc_dota_hero_ancient_apparition.txt": {
+      "sha256": "cf50b6f14b62e4c62d9419b84569d22dbb046625ac126da43ca4a8aa1515cc91",
+      "bytes": 26560
+    },
+    "scripts/npc/heroes/npc_dota_hero_antimage.txt": {
+      "sha256": "9869855c4c0eabf440c00c8bf677ceb4fc14cb518084fe7eb01406238caa3f36",
+      "bytes": 26777
+    },
+    "scripts/npc/heroes/npc_dota_hero_arc_warden.txt": {
+      "sha256": "9eff62939f7cc439a0a90359ced120628eea70bd677ed624a23cda9674337298",
+      "bytes": 25361
+    },
+    "scripts/npc/heroes/npc_dota_hero_axe.txt": {
+      "sha256": "c91a8721a951d45c5c010769f68a650474d512819bae6a191306b652c71b999f",
+      "bytes": 20492
+    },
+    "scripts/npc/heroes/npc_dota_hero_bane.txt": {
+      "sha256": "08156714cc63132d9beb80f54237b687652603e543658ae173fc2314b35d51d8",
+      "bytes": 17653
+    },
+    "scripts/npc/heroes/npc_dota_hero_batrider.txt": {
+      "sha256": "8d253dc40baad8501940fbf185e99f91ed242256a7931bca589fd0265b1b0313",
+      "bytes": 23333
+    },
+    "scripts/npc/heroes/npc_dota_hero_beastmaster.txt": {
+      "sha256": "b03b2f69c23df5889473952e0b2e86b1b4c453b973169625430229b7b504768b",
+      "bytes": 34681
+    },
+    "scripts/npc/heroes/npc_dota_hero_bloodseeker.txt": {
+      "sha256": "9cb2d954bea2e0f7ad47e0d1833e6ed8a4679eba5d8fa8bd6c93ada412d227c5",
+      "bytes": 22556
+    },
+    "scripts/npc/heroes/npc_dota_hero_bounty_hunter.txt": {
+      "sha256": "92e67485426f711ee9c1563e9d4675b34f0cebed416267de616d2894f6b2eb3e",
+      "bytes": 22031
+    },
+    "scripts/npc/heroes/npc_dota_hero_brewmaster.txt": {
+      "sha256": "f02e14baf4a85b34c1b04809b06972285a66f4c8435de1d6375b78a2a9d37dd5",
+      "bytes": 36458
+    },
+    "scripts/npc/heroes/npc_dota_hero_bristleback.txt": {
+      "sha256": "2d8ca6edbae9a580a2faa49f798848d7beef87109dbac8c00e59f34bd68f7a34",
+      "bytes": 22265
+    },
+    "scripts/npc/heroes/npc_dota_hero_broodmother.txt": {
+      "sha256": "baf0dc374e952800e7b9683363232d8ceddaf7450352c3a9f2cdca65edc18035",
+      "bytes": 23081
+    },
+    "scripts/npc/heroes/npc_dota_hero_centaur.txt": {
+      "sha256": "33c8ac9381898217373bea1d5deea95c33504e9e40505d64c64f3b8f0bac6404",
+      "bytes": 20799
+    },
+    "scripts/npc/heroes/npc_dota_hero_chaos_knight.txt": {
+      "sha256": "d0288fc845f81f0445018401e8d35e4b615ce95656f9024078e1643f083aab47",
+      "bytes": 20186
+    },
+    "scripts/npc/heroes/npc_dota_hero_chen.txt": {
+      "sha256": "81f0702a568829e578a059acc18a7982c1e42728940507c6b57ba9e06f3e7383",
+      "bytes": 22329
+    },
+    "scripts/npc/heroes/npc_dota_hero_clinkz.txt": {
+      "sha256": "8ec8b4e009b38fccf305d3303575cc9bef7c564856b7a12572c94bf64379b4af",
+      "bytes": 25654
+    },
+    "scripts/npc/heroes/npc_dota_hero_crystal_maiden.txt": {
+      "sha256": "829bf43fd2414b591765c3dfb97876936a3b9701f57474535c2e699668474cdb",
+      "bytes": 25890
+    },
+    "scripts/npc/heroes/npc_dota_hero_dark_seer.txt": {
+      "sha256": "36ae05c637f1dfabb457ae45510f73e52cfff890897329114eae2934c6a98ba3",
+      "bytes": 20297
+    },
+    "scripts/npc/heroes/npc_dota_hero_dark_willow.txt": {
+      "sha256": "a98d88b30e37f3eb1c41b9758f5e2211aad7acc078be3bd7a490f8438efea97f",
+      "bytes": 19236
+    },
+    "scripts/npc/heroes/npc_dota_hero_dawnbreaker.txt": {
+      "sha256": "e48cc34a54eba8f94f49c31b39b40f81f93be5e4e20dd714dda6a8755f015419",
+      "bytes": 23185
+    },
+    "scripts/npc/heroes/npc_dota_hero_dazzle.txt": {
+      "sha256": "63068fe4bb9160f4f325ed30aa675a3506f8a6c4396cb7fc2fee3a7ce595a8b0",
+      "bytes": 29566
+    },
+    "scripts/npc/heroes/npc_dota_hero_death_prophet.txt": {
+      "sha256": "fcd2c1609213c825851672b1a14db6ed5501119a88ed348aab77dcd18eb4cffc",
+      "bytes": 21800
+    },
+    "scripts/npc/heroes/npc_dota_hero_disruptor.txt": {
+      "sha256": "cdb3a0cd22ba230b6114f0de07e35afd74dd292f8b71a49896b9d0bf13947b52",
+      "bytes": 26247
+    },
+    "scripts/npc/heroes/npc_dota_hero_doom_bringer.txt": {
+      "sha256": "fcfd0f36839a30217b482a7e9aa12d21b18482c0fcc3a3a5dba9c19c6d473b64",
+      "bytes": 18622
+    },
+    "scripts/npc/heroes/npc_dota_hero_dragon_knight.txt": {
+      "sha256": "3dcfc11fbe634effac91207ead048537ffdda6b22ad030c7c097c1d43b3b2043",
+      "bytes": 23069
+    },
+    "scripts/npc/heroes/npc_dota_hero_drow_ranger.txt": {
+      "sha256": "5a86a5e2e4cb143a4aca515a38a98076c709a08044d342e6c7bf623038866e0f",
+      "bytes": 28105
+    },
+    "scripts/npc/heroes/npc_dota_hero_earth_spirit.txt": {
+      "sha256": "c2aebda190fbc46d113e26cfd11517c218da8f89df0db1a3890c2336c9ea9f65",
+      "bytes": 26531
+    },
+    "scripts/npc/heroes/npc_dota_hero_earthshaker.txt": {
+      "sha256": "02ab57cafbcd70c18ea93b5e283a30cb9445db7839c37e329a4e322f0cf7b71c",
+      "bytes": 25155
+    },
+    "scripts/npc/heroes/npc_dota_hero_elder_titan.txt": {
+      "sha256": "8b14ccca63907596520a2c549886df5b2a1e617fc367f48e05e7ea03ec198295",
+      "bytes": 26550
+    },
+    "scripts/npc/heroes/npc_dota_hero_ember_spirit.txt": {
+      "sha256": "00c8e8281c82609ad774b05197c1ff354f11df953de1bc197dacd5fa91eea650",
+      "bytes": 22776
+    },
+    "scripts/npc/heroes/npc_dota_hero_enchantress.txt": {
+      "sha256": "21d188f1df0d31bb713229dcabfc1f29b651d10a7580270881855802bbab8a23",
+      "bytes": 18982
+    },
+    "scripts/npc/heroes/npc_dota_hero_enigma.txt": {
+      "sha256": "82b1997cef2722aed8a519723a1379d6cf90ca4fc3c07c4202aa992a350d643a",
+      "bytes": 22427
+    },
+    "scripts/npc/heroes/npc_dota_hero_faceless_void.txt": {
+      "sha256": "8813f14acfc6a229872961dba2c9997feae3fbb84644b83b1b983e9b8e1b4117",
+      "bytes": 21158
+    },
+    "scripts/npc/heroes/npc_dota_hero_furion.txt": {
+      "sha256": "15643ed715f694ea69ab16d70bd2e76021948c51582f5827386a2606275b725d",
+      "bytes": 30987
+    },
+    "scripts/npc/heroes/npc_dota_hero_grimstroke.txt": {
+      "sha256": "3bc0e0e3b97fdc40e856730b4a9deb79a69693551922130999976380573c970e",
+      "bytes": 22936
+    },
+    "scripts/npc/heroes/npc_dota_hero_gyrocopter.txt": {
+      "sha256": "bb8f454981262054bfd7b706b68012668173dc5ac5536dd31350c1515a8b8b49",
+      "bytes": 19508
+    },
+    "scripts/npc/heroes/npc_dota_hero_hoodwink.txt": {
+      "sha256": "874fd7408f441015bd5a47c18a9d2677e2786065e3a349a891bc40610166f82c",
+      "bytes": 24813
+    },
+    "scripts/npc/heroes/npc_dota_hero_huskar.txt": {
+      "sha256": "08a9a56368395aa482cf4bb69b5b1d87e01b0e9ea0a3795e9ed2ef3ef809b308",
+      "bytes": 19778
+    },
+    "scripts/npc/heroes/npc_dota_hero_invoker.txt": {
+      "sha256": "72046fa3d6f49ce24e6c126ff93983ae859900039799b30895c95df9a8b17229",
+      "bytes": 60111
+    },
+    "scripts/npc/heroes/npc_dota_hero_jakiro.txt": {
+      "sha256": "da0a519bfad3795e143cd0f8e595d83ed20ea1354a8391beed27400aadcc0f34",
+      "bytes": 24146
+    },
+    "scripts/npc/heroes/npc_dota_hero_juggernaut.txt": {
+      "sha256": "00260da4289144a9cda71ff0fceffddde5df7d2f86c9edb063fbd5dbafc02469",
+      "bytes": 31136
+    },
+    "scripts/npc/heroes/npc_dota_hero_keeper_of_the_light.txt": {
+      "sha256": "1c5a920a22c5f0c16c4d58430b0ae34504a241be27cbabbd824eecdd738f367b",
+      "bytes": 28796
+    },
+    "scripts/npc/heroes/npc_dota_hero_kez.txt": {
+      "sha256": "24928e5081473724824eec0381f4404c44cc7bf069ab86d1cc1259bc13d73f7f",
+      "bytes": 28997
+    },
+    "scripts/npc/heroes/npc_dota_hero_kunkka.txt": {
+      "sha256": "485e9962fe1fbbc1e59986924f4c6692630309296de25e4eaf1ed77883c0c8fe",
+      "bytes": 25719
+    },
+    "scripts/npc/heroes/npc_dota_hero_largo.txt": {
+      "sha256": "df497f4f7f5ead7bdd9ce28902006ed117ca0872ddc40c754d745c7dd633438e",
+      "bytes": 23293
+    },
+    "scripts/npc/heroes/npc_dota_hero_legion_commander.txt": {
+      "sha256": "ec4970ab8aebc3af95058990e28ee967f8f4735677fc7e8805ccfaff373b976a",
+      "bytes": 21336
+    },
+    "scripts/npc/heroes/npc_dota_hero_leshrac.txt": {
+      "sha256": "d28c42a4598c5a75717569cb970ade97839c4d07dc98ecee8b8d09d861df8b5f",
+      "bytes": 18371
+    },
+    "scripts/npc/heroes/npc_dota_hero_lich.txt": {
+      "sha256": "b2ec9e1aa401185354c4f685e5db97994b00816a8a915bbf52f63dbe9128be75",
+      "bytes": 26644
+    },
+    "scripts/npc/heroes/npc_dota_hero_life_stealer.txt": {
+      "sha256": "719ac762a3a40c9d5c99ada3b38759b9a0bc6666497f9938e9e8928c215fafe9",
+      "bytes": 27430
+    },
+    "scripts/npc/heroes/npc_dota_hero_lina.txt": {
+      "sha256": "f360660bedce58d9561e0bd92422b1ecef48ba9b9a5c152793f3670b9430c504",
+      "bytes": 25255
+    },
+    "scripts/npc/heroes/npc_dota_hero_lion.txt": {
+      "sha256": "8734daf1360ea784a2cb81a3afcac9f4e3d3d128f5ed0dabe47897a80e01c1c6",
+      "bytes": 19164
+    },
+    "scripts/npc/heroes/npc_dota_hero_lone_druid.txt": {
+      "sha256": "22c9b0cc64dc7a9036fb905ef1f22e58973e987a4e694e565c3b8ea45ffeb926",
+      "bytes": 41552
+    },
+    "scripts/npc/heroes/npc_dota_hero_luna.txt": {
+      "sha256": "96f7fb3388afcc02ac071da9beeb97f53ae5ea2ae41b95c172c16434fa60e747",
+      "bytes": 19967
+    },
+    "scripts/npc/heroes/npc_dota_hero_lycan.txt": {
+      "sha256": "ac015ee69c0123f0051d40fb934b13ec3dea38f19fcc485d2aac9fbcd0f97b38",
+      "bytes": 22307
+    },
+    "scripts/npc/heroes/npc_dota_hero_magnataur.txt": {
+      "sha256": "4438a73d05d4d3fdb257b90ae5678077555c581886c092713f9fbcf3b8b9aa96",
+      "bytes": 23757
+    },
+    "scripts/npc/heroes/npc_dota_hero_marci.txt": {
+      "sha256": "043531f0c5b315c6d57251181eddd179cd5c1e6639e8ad9cb0cb54db0a2e7190",
+      "bytes": 25377
+    },
+    "scripts/npc/heroes/npc_dota_hero_mars.txt": {
+      "sha256": "56f70cf9f7b6086ee1155d3868113b65ab310b1567326ff80c2aa36deaf89423",
+      "bytes": 18070
+    },
+    "scripts/npc/heroes/npc_dota_hero_medusa.txt": {
+      "sha256": "2e0ca286f7164f1160c2295eaa10dabffe7101f628c06c16b84a044ea63c6f53",
+      "bytes": 19330
+    },
+    "scripts/npc/heroes/npc_dota_hero_meepo.txt": {
+      "sha256": "bb58f171042bc0a686ceae28d52a051f197cf7f043349d49846389890decc67f",
+      "bytes": 24539
+    },
+    "scripts/npc/heroes/npc_dota_hero_mirana.txt": {
+      "sha256": "e73af694e0b980fdcbfbf15c6c47379069be062b39eb9c09956f37beb22748b8",
+      "bytes": 30822
+    },
+    "scripts/npc/heroes/npc_dota_hero_monkey_king.txt": {
+      "sha256": "6d7a10c3601871804fe1a69420f26192f09ff2267e138eb9799371bd448313a6",
+      "bytes": 24377
+    },
+    "scripts/npc/heroes/npc_dota_hero_morphling.txt": {
+      "sha256": "f45b2aa29db738a48e50f6d345913f609a74068bf14bb93818159121543741bb",
+      "bytes": 26130
+    },
+    "scripts/npc/heroes/npc_dota_hero_muerta.txt": {
+      "sha256": "1829b058cd7b681db9cf1e044c676bcfc854c16b6e5f812329512afca0585b0c",
+      "bytes": 24582
+    },
+    "scripts/npc/heroes/npc_dota_hero_naga_siren.txt": {
+      "sha256": "d92fae03aab80e520c37b53e82102e54cb5df74d8438547acd22168704825ef9",
+      "bytes": 22866
+    },
+    "scripts/npc/heroes/npc_dota_hero_necrolyte.txt": {
+      "sha256": "bf947f0cd4fbf34360751a57ba0196dcb5ac22ece9e52456822d55c41111854c",
+      "bytes": 21146
+    },
+    "scripts/npc/heroes/npc_dota_hero_nevermore.txt": {
+      "sha256": "67de2fc73b3bddf8c2b3bf7943aa1c9c10d3de5e8c9e219a6762cbe37dae3371",
+      "bytes": 24628
+    },
+    "scripts/npc/heroes/npc_dota_hero_night_stalker.txt": {
+      "sha256": "84d87307cbfa65fa2ad11da4de879bab64440197e9697afaa9f3ed8e3bc7e0b4",
+      "bytes": 18758
+    },
+    "scripts/npc/heroes/npc_dota_hero_nyx_assassin.txt": {
+      "sha256": "2a98584ea9078a9e1e30e300ecac68a8b42c85822a94d1977b9cb8d763bbbda1",
+      "bytes": 21247
+    },
+    "scripts/npc/heroes/npc_dota_hero_obsidian_destroyer.txt": {
+      "sha256": "e17b41eabff8bf88724d79dfaab93b7d71f7fdfb7585e5fe11a415d642d89e78",
+      "bytes": 17776
+    },
+    "scripts/npc/heroes/npc_dota_hero_ogre_magi.txt": {
+      "sha256": "764bd9e0e3b357f09ef25c8af1118aaee40cac48a8b31a4349c292fb80b71ad6",
+      "bytes": 22059
+    },
+    "scripts/npc/heroes/npc_dota_hero_omniknight.txt": {
+      "sha256": "c8f030c542ace2c12940d6e7c768557f23be9962051569014db4009d4108ceab",
+      "bytes": 30141
+    },
+    "scripts/npc/heroes/npc_dota_hero_oracle.txt": {
+      "sha256": "6ccb632fb7fcbc410e00f040014daabfeccddba5518c5240516e8e47cf13e83d",
+      "bytes": 23909
+    },
+    "scripts/npc/heroes/npc_dota_hero_pangolier.txt": {
+      "sha256": "5ae02ae8296de9b5b2395dd0f3b3209c952d58a2cdba767ecbea4e16b1348e54",
+      "bytes": 26614
+    },
+    "scripts/npc/heroes/npc_dota_hero_phantom_assassin.txt": {
+      "sha256": "78f9c1ae238b3ecd2e41288478fb9c545fd8ab8476f2309b6a0a4c46a70b4b88",
+      "bytes": 23568
+    },
+    "scripts/npc/heroes/npc_dota_hero_phantom_lancer.txt": {
+      "sha256": "14eeb5b8335bc9c506ed87836724d9c240ef9c6e0f8f95e1726d9dd4a16988d3",
+      "bytes": 17511
+    },
+    "scripts/npc/heroes/npc_dota_hero_phoenix.txt": {
+      "sha256": "543777021974e6f751f62484457fb9c9345fe9b3d9dd3cded762883af425fe8f",
+      "bytes": 27239
+    },
+    "scripts/npc/heroes/npc_dota_hero_primal_beast.txt": {
+      "sha256": "9ac4c8241f38989266ea86c60aa87744ba1c1c03025f52b08c7fe607dd1f01e8",
+      "bytes": 28693
+    },
+    "scripts/npc/heroes/npc_dota_hero_puck.txt": {
+      "sha256": "f46e4f17fb0fab23f7d39ff60ea11a7e0dc61cfda5c6b60e30bc20313a4f3b62",
+      "bytes": 17136
+    },
+    "scripts/npc/heroes/npc_dota_hero_pudge.txt": {
+      "sha256": "02699def2c099461c04e39030a0188d29e6bfc63224c695fe41144a3442801f5",
+      "bytes": 22847
+    },
+    "scripts/npc/heroes/npc_dota_hero_pugna.txt": {
+      "sha256": "a15342f72afec6b2344247496e323865a50b44b45a4090f23dad52069ce795df",
+      "bytes": 16457
+    },
+    "scripts/npc/heroes/npc_dota_hero_queenofpain.txt": {
+      "sha256": "f8030278b45490cb471c96f102c6412e29bd79850cbca7a8cbf85f52bf3ebe25",
+      "bytes": 17587
+    },
+    "scripts/npc/heroes/npc_dota_hero_rattletrap.txt": {
+      "sha256": "f02ec8cb68002dd8f95b8b01c16f70748148cce1e93f2e08459e2f1f3f4f1980",
+      "bytes": 23462
+    },
+    "scripts/npc/heroes/npc_dota_hero_razor.txt": {
+      "sha256": "3ea4b82a81217cd4851343215ef5b7254e768cef3190c27ecef7ece5cb3d2dab",
+      "bytes": 19968
+    },
+    "scripts/npc/heroes/npc_dota_hero_riki.txt": {
+      "sha256": "e3a04044357727cc923c8eeac1d4b1d9ced4b8f9cb03a86d4ba33ca4e68e80c8",
+      "bytes": 20694
+    },
+    "scripts/npc/heroes/npc_dota_hero_ringmaster.txt": {
+      "sha256": "fa3b8bd3692fbe4b7616d30bb8acdc75eae621a74fad2139e3094d480d33e270",
+      "bytes": 38961
+    },
+    "scripts/npc/heroes/npc_dota_hero_rubick.txt": {
+      "sha256": "71355bd507105b5ecf11b42019c452e43a4fdbb2cb4fa1745e1f73cb6cd9b7ba",
+      "bytes": 24672
+    },
+    "scripts/npc/heroes/npc_dota_hero_sand_king.txt": {
+      "sha256": "afac0562cc1f4f06da37cc4d95ce39591cc69867765985e331a5d2ae74c7521a",
+      "bytes": 19766
+    },
+    "scripts/npc/heroes/npc_dota_hero_shadow_demon.txt": {
+      "sha256": "c8fd2fc5e3d43052feb85d7a09a4ebd026857ce7c615088bc9f45a7134e4cecc",
+      "bytes": 22788
+    },
+    "scripts/npc/heroes/npc_dota_hero_shadow_shaman.txt": {
+      "sha256": "8318d1021e0e289d066396f965c3273807169ba6e4e1902a3c10b6f9af4bd8b3",
+      "bytes": 25661
+    },
+    "scripts/npc/heroes/npc_dota_hero_shredder.txt": {
+      "sha256": "7eb19bdbb9e681ee0191405e4539174d79ff52526df665e3d9af989a185c75df",
+      "bytes": 25886
+    },
+    "scripts/npc/heroes/npc_dota_hero_silencer.txt": {
+      "sha256": "fd08daf8692f57bc35f654b055c4cc95496e7ea2a75853fdd22e37bb190d0bb1",
+      "bytes": 18565
+    },
+    "scripts/npc/heroes/npc_dota_hero_skeleton_king.txt": {
+      "sha256": "dea472e68d3c6b427b7342a5798afa66a19b3be3a8272a9ee29c74071d4d409d",
+      "bytes": 21123
+    },
+    "scripts/npc/heroes/npc_dota_hero_skywrath_mage.txt": {
+      "sha256": "789359b121f3035323319a0bccb9ca97b49cd068540846cd3aadbea31abb54f9",
+      "bytes": 21202
+    },
+    "scripts/npc/heroes/npc_dota_hero_slardar.txt": {
+      "sha256": "06b818604122f6e18c88cd01a52ce9c766aa5b0b1b2e622897ba49a6388c0619",
+      "bytes": 16957
+    },
+    "scripts/npc/heroes/npc_dota_hero_slark.txt": {
+      "sha256": "c3bf34ff95deb386eaa918b14920ecd76b5a2a6060d7c07868ac39b8047cc752",
+      "bytes": 18345
+    },
+    "scripts/npc/heroes/npc_dota_hero_snapfire.txt": {
+      "sha256": "dd46946d21a9bcdbf2c606ab276c5a1721ed62d28f7d3089344caab73225caf2",
+      "bytes": 23853
+    },
+    "scripts/npc/heroes/npc_dota_hero_sniper.txt": {
+      "sha256": "ffa8d1a8132d40f3c48e4a0ff093ee3973dc5b627a9bd370e7273b53afe900db",
+      "bytes": 21319
+    },
+    "scripts/npc/heroes/npc_dota_hero_spectre.txt": {
+      "sha256": "9584e0d51320a6032595c8b808593815dcc7591f350e060d6c0b70a08048daba",
+      "bytes": 18376
+    },
+    "scripts/npc/heroes/npc_dota_hero_spirit_breaker.txt": {
+      "sha256": "5b906de593730ec8d1b906af62f6b916ea115a08e241fb32b76a3037d6db278e",
+      "bytes": 21931
+    },
+    "scripts/npc/heroes/npc_dota_hero_storm_spirit.txt": {
+      "sha256": "02996ee5b413c86b193d109253e723ed3dabe87cbbe5002362f863b1b02c823c",
+      "bytes": 18150
+    },
+    "scripts/npc/heroes/npc_dota_hero_sven.txt": {
+      "sha256": "2e82f619775e4b747282ec4150126e56dfbbf898687869c012c2c93c0dac527c",
+      "bytes": 18915
+    },
+    "scripts/npc/heroes/npc_dota_hero_techies.txt": {
+      "sha256": "d5971d8c271433460e11b696f0dc123cf1eb9815cf2c14f98a7f1ab0a951cc60",
+      "bytes": 32727
+    },
+    "scripts/npc/heroes/npc_dota_hero_templar_assassin.txt": {
+      "sha256": "2ca248e87d7ee36084946e53795a25d6c8e849725db5d6799deec8d8991d7c63",
+      "bytes": 24277
+    },
+    "scripts/npc/heroes/npc_dota_hero_terrorblade.txt": {
+      "sha256": "6f5a2ec4226a492398e8aa3667ee2fc71dfb36b7035039f0063facb5e822f530",
+      "bytes": 20103
+    },
+    "scripts/npc/heroes/npc_dota_hero_tidehunter.txt": {
+      "sha256": "6f9cbbaabdd03bcdb954cbfea073482cd87bf25a73cb55fbcfbc5793e5ceae90",
+      "bytes": 24589
+    },
+    "scripts/npc/heroes/npc_dota_hero_tinker.txt": {
+      "sha256": "8f0eba9be66697dd5a8486e8eee630fc98fb2d20d9253011221b677f8f380c02",
+      "bytes": 30391
+    },
+    "scripts/npc/heroes/npc_dota_hero_tiny.txt": {
+      "sha256": "ce12f32f1f9d1888c94d531d74064ead5ffc465780ef1b0c8ae0a4b7436152dd",
+      "bytes": 24305
+    },
+    "scripts/npc/heroes/npc_dota_hero_treant.txt": {
+      "sha256": "7aad6c9552b3e5038f0857e8ab7775e7fb985cdf9e90b6e22554713b7d1efab5",
+      "bytes": 20607
+    },
+    "scripts/npc/heroes/npc_dota_hero_troll_warlord.txt": {
+      "sha256": "e0ee0f9b42f07cc6924e422f831d85dde557cb40dccbd4a9eea1c058c894f722",
+      "bytes": 24317
+    },
+    "scripts/npc/heroes/npc_dota_hero_tusk.txt": {
+      "sha256": "d3da9432175b268fafe3e0e74be0a8152c9a3659de85ae4a2ab7d51524ccce37",
+      "bytes": 23738
+    },
+    "scripts/npc/heroes/npc_dota_hero_undying.txt": {
+      "sha256": "d255f5796fc346b8ca694ca8acdff70d18bf617cc860c3601f1e2b2697610503",
+      "bytes": 22055
+    },
+    "scripts/npc/heroes/npc_dota_hero_ursa.txt": {
+      "sha256": "613c2cefe0a70e0a5582c5dd9def317fb93da2a346d0da650070a147b4faad9a",
+      "bytes": 14579
+    },
+    "scripts/npc/heroes/npc_dota_hero_vengefulspirit.txt": {
+      "sha256": "3853993f2cdf388a31d6c5e4bdf60a6904a0431496ffef278995e5a40298739b",
+      "bytes": 18505
+    },
+    "scripts/npc/heroes/npc_dota_hero_venomancer.txt": {
+      "sha256": "ed804aac34d79bb90da333af43ee7dd29481e7e622e6d980b7676f7a51aecf27",
+      "bytes": 23626
+    },
+    "scripts/npc/heroes/npc_dota_hero_viper.txt": {
+      "sha256": "1b8df453d84e4107199dde0f13a4107e6030ebad56f6f259beceded88ac056ca",
+      "bytes": 21273
+    },
+    "scripts/npc/heroes/npc_dota_hero_visage.txt": {
+      "sha256": "a4f1e1932a55cce670298791e4d2c6d1ee65310550f963bfdd8db8f865115123",
+      "bytes": 24267
+    },
+    "scripts/npc/heroes/npc_dota_hero_void_spirit.txt": {
+      "sha256": "25fa3af6f39a93b4aa1a964dfdd7596f813da3a6827c370b6152c3d714134a3b",
+      "bytes": 20356
+    },
+    "scripts/npc/heroes/npc_dota_hero_warlock.txt": {
+      "sha256": "175304bf3cb299f8dd67429f44a44ad411e2005e827c3eddd8c7317f3b77553c",
+      "bytes": 25862
+    },
+    "scripts/npc/heroes/npc_dota_hero_weaver.txt": {
+      "sha256": "e2579ede6833706e48202a7c84889f979a8dbf7c4d75de83b2dcfe6d8b5c0d28",
+      "bytes": 14971
+    },
+    "scripts/npc/heroes/npc_dota_hero_windrunner.txt": {
+      "sha256": "16ee6d99ff21c90328a04e04d16f7bbb4bc9d281ba853454d58b2d3b4fed0263",
+      "bytes": 24380
+    },
+    "scripts/npc/heroes/npc_dota_hero_winter_wyvern.txt": {
+      "sha256": "fc42a7c61ac296cfa85936c12b8402aa6d23c85dd4e1edd071523db41fff6f4f",
+      "bytes": 23691
+    },
+    "scripts/npc/heroes/npc_dota_hero_wisp.txt": {
+      "sha256": "8686a091ec2739935175691a8606fbf75ffb0b67dfb6d2d620c02530cc2dfdab",
+      "bytes": 17833
+    },
+    "scripts/npc/heroes/npc_dota_hero_witch_doctor.txt": {
+      "sha256": "9bf79ef6a42ed2f24f5b26e558799eb54a5ef048e82a5fda063ed99f3561f213",
+      "bytes": 23118
+    },
+    "scripts/npc/heroes/npc_dota_hero_zuus.txt": {
+      "sha256": "e1a5d9c91fa66a70c233912115244d4ec8c0e388b76770d54a81404c3733a15c",
+      "bytes": 22544
     }
   }
 }
