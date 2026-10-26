@@ -1,0 +1,38 @@
+[
+  {
+    "fact_id": "tango:cost",
+    "reason": "Стартовый расходник, цену знает каждый"
+  },
+  {
+    "fact_id": "branches:cost",
+    "reason": "Iron Branch покупают каждую игру, цена очевидна"
+  },
+  {
+    "fact_id": "boots:cost",
+    "reason": "Boots of Speed — базовая цена, известная всем"
+  },
+  {
+    "fact_id": "tpscroll:cost",
+    "reason": "TP покупают постоянно, цену знают все"
+  },
+  {
+    "fact_id": "ward_sentry:cost",
+    "reason": "Цену сентри знает любой саппорт"
+  },
+  {
+    "fact_id": "flask:cost",
+    "reason": "Healing Salve — стартовый расходник, цена очевидна"
+  },
+  {
+    "fact_id": "clarity:cost",
+    "reason": "Стартовый расходник, цена общеизвестна"
+  },
+  {
+    "fact_id": "smoke_of_deceit:cost",
+    "reason": "Дешёвый расходник, цена известна всем"
+  },
+  {
+    "fact_id": "quelling_blade:cost",
+    "reason": "Стартовый предмет с круглой общеизвестной ценой"
+  }
+]

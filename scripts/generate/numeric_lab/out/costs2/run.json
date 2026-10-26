@@ -1,0 +1,14 @@
+{
+  "prompt": "prompt_costs_v2.md",
+  "sample": "costs_sample.json",
+  "models": [
+    "claude-opus-5-5"
+  ],
+  "groups": [
+    "all"
+  ],
+  "effort": "high",
+  "step": true,
+  "mix": true,
+  "seed": 7417
+}

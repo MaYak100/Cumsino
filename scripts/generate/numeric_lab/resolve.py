@@ -26,7 +26,7 @@ _NUM = re.compile(r"\d+(?:[.,]\d+)?")
 _LEVEL_REF = re.compile(r"\d+\s*-?\s*(?:м|й|ом|го)?\s*уровн\w*", re.I)
 
 
-RESERVED = {"sample", "resolved", "usage", "requests", "batch"}
+RESERVED = {"sample", "resolved", "usage", "requests", "batch", "run"}
 
 
 def load_facts(sample_path: Path) -> dict[str, dict]:

@@ -1,0 +1,15 @@
+{
+  "opus-gall-mix-0": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 22252,
+      "output_tokens": 12600,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.34101,
+    "questions": 173,
+    "seconds": 90.6
+  }
+}

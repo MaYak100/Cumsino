@@ -1,0 +1,1386 @@
+[
+  {
+    "fact_id": "heart:cost",
+    "level": "max",
+    "question": "Сколько стоит Heart of Tarrasque?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "hand_of_midas:cost",
+    "level": "max",
+    "question": "Сколько стоит Hand of Midas?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "invis_sword:cost",
+    "level": "max",
+    "question": "Сколько стоит Shadow Blade?",
+    "unit": "золота",
+    "step": 250,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "basher:cost",
+    "level": "max",
+    "question": "Сколько стоит Skull Basher?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ring_of_protection:cost",
+    "level": "max",
+    "question": "Сколько стоит Ring of Protection?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "enchanted_mango:cost",
+    "level": "max",
+    "question": "Сколько стоит Enchanted Mango?",
+    "unit": "золота",
+    "step": 10,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "oblivion_staff:cost",
+    "level": "max",
+    "question": "Сколько стоит Oblivion Staff?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "refresher:cost",
+    "level": "max",
+    "question": "Сколько стоит Refresher Orb?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "voodoo_mask:cost",
+    "level": "max",
+    "question": "Сколько стоит Voodoo Mask?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "buckler:cost",
+    "level": "max",
+    "question": "Сколько стоит Buckler целиком?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "abyssal_blade:cost",
+    "level": "max",
+    "question": "Сколько стоит Abyssal Blade?",
+    "unit": "золота",
+    "step": 250,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blood_grenade:cost",
+    "level": "max",
+    "question": "Сколько стоит Blood Grenade?",
+    "unit": "золота",
+    "step": 10,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "chainmail:cost",
+    "level": "max",
+    "question": "Сколько стоит Chainmail?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blade_mail:cost",
+    "level": "max",
+    "question": "Сколько стоит Blade Mail?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "slippers:cost",
+    "level": "max",
+    "question": "Сколько стоят Slippers of Agility?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "vitality_booster:cost",
+    "level": "max",
+    "question": "Сколько стоит Vitality Booster?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "force_staff:cost",
+    "level": "max",
+    "question": "Сколько стоит Force Staff?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ogre_axe:cost",
+    "level": "max",
+    "question": "Сколько стоит Ogre Axe?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "crimson_guard:cost",
+    "level": "max",
+    "question": "Сколько стоит Crimson Guard?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "staff_of_wizardry:cost",
+    "level": "max",
+    "question": "Сколько стоит Staff of Wizardry?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "gloves:cost",
+    "level": "max",
+    "question": "Сколько стоят Gloves of Haste?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "manta:cost",
+    "level": "max",
+    "question": "Сколько стоит Manta Style?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "armlet:cost",
+    "level": "max",
+    "question": "Сколько стоит Armlet of Mordiggian?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "travel_boots:cost",
+    "level": "max",
+    "question": "Сколько стоят Boots of Travel (первого уровня, целиком)?",
+    "unit": "золота",
+    "step": 250,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "bloodthorn:cost",
+    "level": "max",
+    "question": "Сколько стоит Bloodthorn?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ring_of_health:cost",
+    "level": "max",
+    "question": "Сколько стоит Ring of Health?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "swift_blink:cost",
+    "level": "max",
+    "question": "Сколько стоит Swift Blink целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "consecrated_wraps:cost",
+    "level": "max",
+    "question": "Сколько стоят Consecrated Wraps?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "devastator:cost",
+    "level": "max",
+    "question": "Сколько стоит Parasma?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "wind_lace:cost",
+    "level": "max",
+    "question": "Сколько стоит Wind Lace?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blitz_knuckles:cost",
+    "level": "max",
+    "question": "Сколько стоят Blitz Knuckles?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "magic_stick:cost",
+    "level": "max",
+    "question": "Сколько стоит Magic Stick?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "satanic:cost",
+    "level": "max",
+    "question": "Сколько стоит Satanic?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "bfury:cost",
+    "level": "max",
+    "question": "Сколько стоит Battle Fury?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "orb_of_frost:cost",
+    "level": "max",
+    "question": "Сколько стоит Orb of Frost?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "helm_of_iron_will:cost",
+    "level": "max",
+    "question": "Сколько стоит Helm of Iron Will?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "circlet:cost",
+    "level": "max",
+    "question": "Сколько стоит Circlet?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "dragon_lance:cost",
+    "level": "max",
+    "question": "Сколько стоит Dragon Lance?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ghost:cost",
+    "level": "max",
+    "question": "Сколько стоит Ghost Scepter?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "shadow_amulet:cost",
+    "level": "max",
+    "question": "Сколько стоит Shadow Amulet?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "essence_distiller:cost",
+    "level": "max",
+    "question": "Сколько стоит Essence Distiller?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "dagon:cost",
+    "level": "max",
+    "question": "Сколько в сумме стоит Dagon 5?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "arcane_blink:cost",
+    "level": "max",
+    "question": "Сколько стоит Arcane Blink целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "splintmail:cost",
+    "level": "max",
+    "question": "Сколько стоит Splintmail?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "eagle:cost",
+    "level": "max",
+    "question": "Сколько стоит Eaglesong?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "soul_booster:cost",
+    "level": "max",
+    "question": "Сколько стоит Soul Booster?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "yasha:cost",
+    "level": "max",
+    "question": "Сколько стоит Yasha?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "heavens_halberd:cost",
+    "level": "max",
+    "question": "Сколько стоит Heaven's Halberd?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "radiance:cost",
+    "level": "max",
+    "question": "Сколько стоит Radiance?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "infused_raindrop:cost",
+    "level": "max",
+    "question": "Сколько стоят Infused Raindrops?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "wind_waker:cost",
+    "level": "max",
+    "question": "Сколько стоит Wind Waker целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ring_of_regen:cost",
+    "level": "max",
+    "question": "Сколько стоит Ring of Regen?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "diadem:cost",
+    "level": "max",
+    "question": "Сколько стоит Diadem?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blink:cost",
+    "level": "max",
+    "question": "Сколько стоит Blink Dagger?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "echo_sabre:cost",
+    "level": "max",
+    "question": "Сколько стоит Echo Sabre?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ultimate_orb:cost",
+    "level": "max",
+    "question": "Сколько стоит Ultimate Orb?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "pers:cost",
+    "level": "max",
+    "question": "Сколько стоит Perseverance?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "orchid:cost",
+    "level": "max",
+    "question": "Сколько стоит Orchid Malevolence?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "null_talisman:cost",
+    "level": "max",
+    "question": "Сколько стоит Null Talisman?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "diffusal_blade:cost",
+    "level": "max",
+    "question": "Сколько стоит Diffusal Blade?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "cyclone:cost",
+    "level": "max",
+    "question": "Сколько стоит Eul's Scepter of Divinity?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "solar_crest:cost",
+    "level": "max",
+    "question": "Сколько стоит Solar Crest?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "arcane_boots:cost",
+    "level": "max",
+    "question": "Сколько стоят Arcane Boots?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "demon_edge:cost",
+    "level": "max",
+    "question": "Сколько стоит Demon Edge?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mage_slayer:cost",
+    "level": "max",
+    "question": "Сколько стоит Mage Slayer?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "dust:cost",
+    "level": "max",
+    "question": "Сколько стоит Dust of Appearance?",
+    "unit": "золота",
+    "step": 10,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "rod_of_atos:cost",
+    "level": "max",
+    "question": "Сколько стоит Rod of Atos?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "soul_ring:cost",
+    "level": "max",
+    "question": "Сколько стоит Soul Ring?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blight_stone:cost",
+    "level": "max",
+    "question": "Сколько стоит Orb of Blight?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "bloodstone:cost",
+    "level": "max",
+    "question": "Сколько стоит Bloodstone?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "butterfly:cost",
+    "level": "max",
+    "question": "Сколько стоит Butterfly?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "energy_booster:cost",
+    "level": "max",
+    "question": "Сколько стоит Energy Booster?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "cloak:cost",
+    "level": "max",
+    "question": "Сколько стоит Cloak?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "relic:cost",
+    "level": "max",
+    "question": "Сколько стоит Sacred Relic?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "moon_shard:cost",
+    "level": "max",
+    "question": "Сколько стоит Moon Shard?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "wraith_band:cost",
+    "level": "max",
+    "question": "Сколько стоит Wraith Band?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "sphere:cost",
+    "level": "max",
+    "question": "Сколько стоит Linken's Sphere?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "aether_lens:cost",
+    "level": "max",
+    "question": "Сколько стоит Aether Lens?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "crellas_crozier:cost",
+    "level": "max",
+    "question": "Сколько стоит Crella's Crozier?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "hydras_breath:cost",
+    "level": "max",
+    "question": "Сколько стоит Hydra's Breath?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "shawl:cost",
+    "level": "max",
+    "question": "Сколько стоит Shawl?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "bottle:cost",
+    "level": "max",
+    "question": "Сколько стоит Bottle?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "angels_demise:cost",
+    "level": "max",
+    "question": "Сколько стоит Khanda?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "void_stone:cost",
+    "level": "max",
+    "question": "Сколько стоит Void Stone?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ring_of_tarrasque:cost",
+    "level": "max",
+    "question": "Сколько стоит Ring of Tarrasque?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "hurricane_pike:cost",
+    "level": "max",
+    "question": "Сколько стоит Hurricane Pike?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "platemail:cost",
+    "level": "max",
+    "question": "Сколько стоит Platemail?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "sange:cost",
+    "level": "max",
+    "question": "Сколько стоит Sange?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blade_of_alacrity:cost",
+    "level": "max",
+    "question": "Сколько стоит Blade of Alacrity?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "sheepstick:cost",
+    "level": "max",
+    "question": "Сколько стоит Scythe of Vyse?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "nullifier:cost",
+    "level": "max",
+    "question": "Сколько стоит Nullifier?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "boots_of_bearing:cost",
+    "level": "max",
+    "question": "Сколько стоят Boots of Bearing целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ancient_janggo:cost",
+    "level": "max",
+    "question": "Сколько стоит Drum of Endurance?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "broadsword:cost",
+    "level": "max",
+    "question": "Сколько стоит Broadsword?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "skadi:cost",
+    "level": "max",
+    "question": "Сколько стоит Eye of Skadi?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "faerie_fire:cost",
+    "level": "max",
+    "question": "Сколько стоит Faerie Fire?",
+    "unit": "золота",
+    "step": 10,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "guardian_greaves:cost",
+    "level": "max",
+    "question": "Сколько стоят Guardian Greaves целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "urn_of_shadows:cost",
+    "level": "max",
+    "question": "Сколько стоит Urn of Shadows?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "tranquil_boots:cost",
+    "level": "max",
+    "question": "Сколько стоят Tranquil Boots?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "aghanims_shard:cost",
+    "level": "max",
+    "question": "Сколько стоит Aghanim's Shard?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "point_booster:cost",
+    "level": "max",
+    "question": "Сколько стоит Point Booster?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "revenants_brooch:cost",
+    "level": "max",
+    "question": "Сколько стоит Revenant's Brooch?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "shivas_guard:cost",
+    "level": "max",
+    "question": "Сколько стоит Shiva's Guard?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "belt_of_strength:cost",
+    "level": "max",
+    "question": "Сколько стоит Belt of Strength?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "black_king_bar:cost",
+    "level": "max",
+    "question": "Сколько стоит Black King Bar?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "gauntlets:cost",
+    "level": "max",
+    "question": "Сколько стоят Gauntlets of Strength?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "maelstrom:cost",
+    "level": "max",
+    "question": "Сколько стоит Maelstrom?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "greater_crit:cost",
+    "level": "max",
+    "question": "Сколько стоит Daedalus?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "veil_of_discord:cost",
+    "level": "max",
+    "question": "Сколько стоит Veil of Discord?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "wizard_hat:cost",
+    "level": "max",
+    "question": "Сколько стоит Wizard Hat?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "crown:cost",
+    "level": "max",
+    "question": "Сколько стоит Crown?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mantle:cost",
+    "level": "max",
+    "question": "Сколько стоит Mantle of Intelligence?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "vladmir:cost",
+    "level": "max",
+    "question": "Сколько стоит Vladmir's Offering?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "gungir:cost",
+    "level": "max",
+    "question": "Сколько стоит Gleipnir?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "magic_wand:cost",
+    "level": "max",
+    "question": "Сколько стоит Magic Wand целиком?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "fluffy_hat:cost",
+    "level": "max",
+    "question": "Сколько стоит Fluffy Hat?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "robe:cost",
+    "level": "max",
+    "question": "Сколько стоит Robe of the Magi?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "orb_of_venom:cost",
+    "level": "max",
+    "question": "Сколько стоит Orb of Venom?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "gem:cost",
+    "level": "max",
+    "question": "Сколько стоит Gem of True Sight?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "silver_edge:cost",
+    "level": "max",
+    "question": "Сколько стоит Silver Edge?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mask_of_madness:cost",
+    "level": "max",
+    "question": "Сколько стоит Mask of Madness?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "kaya:cost",
+    "level": "max",
+    "question": "Сколько стоит Kaya?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mithril_hammer:cost",
+    "level": "max",
+    "question": "Сколько стоит Mithril Hammer?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "spirit_vessel:cost",
+    "level": "max",
+    "question": "Сколько стоит Spirit Vessel?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "phase_boots:cost",
+    "level": "max",
+    "question": "Сколько стоят Phase Boots?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "orb_of_corrosion:cost",
+    "level": "max",
+    "question": "Сколько стоит Orb of Corrosion?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "headdress:cost",
+    "level": "max",
+    "question": "Сколько стоит Headdress?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "phylactery:cost",
+    "level": "max",
+    "question": "Сколько стоит Phylactery?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "monkey_king_bar:cost",
+    "level": "max",
+    "question": "Сколько стоит Monkey King Bar?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mekansm:cost",
+    "level": "max",
+    "question": "Сколько стоит Mekansm?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "vanguard:cost",
+    "level": "max",
+    "question": "Сколько стоит Vanguard?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "aeon_disk:cost",
+    "level": "max",
+    "question": "Сколько стоит Aeon Disk?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "javelin:cost",
+    "level": "max",
+    "question": "Сколько стоит Javelin?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "holy_locket:cost",
+    "level": "max",
+    "question": "Сколько стоит Holy Locket?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "harpoon:cost",
+    "level": "max",
+    "question": "Сколько стоит Harpoon?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "rapier:cost",
+    "level": "max",
+    "question": "Сколько стоит Divine Rapier?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "disperser:cost",
+    "level": "max",
+    "question": "Сколько стоит Disperser?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "sange_and_yasha:cost",
+    "level": "max",
+    "question": "Сколько стоит Sange and Yasha?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "sobi_mask:cost",
+    "level": "max",
+    "question": "Сколько стоит Sage's Mask?",
+    "unit": "золота",
+    "step": 25,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "overwhelming_blink:cost",
+    "level": "max",
+    "question": "Сколько стоит Overwhelming Blink целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ring_of_basilius:cost",
+    "level": "max",
+    "question": "Сколько стоит Ring of Basilius?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "yasha_and_kaya:cost",
+    "level": "max",
+    "question": "Сколько стоит Yasha and Kaya?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "witch_blade:cost",
+    "level": "max",
+    "question": "Сколько стоит Witch Blade?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "hyperstone:cost",
+    "level": "max",
+    "question": "Сколько стоит Hyperstone?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "kaya_and_sange:cost",
+    "level": "max",
+    "question": "Сколько стоит Kaya and Sange?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "power_treads:cost",
+    "level": "max",
+    "question": "Сколько стоят Power Treads?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "bracer:cost",
+    "level": "max",
+    "question": "Сколько стоит Bracer?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "reaver:cost",
+    "level": "max",
+    "question": "Сколько стоит Reaver?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "glimmer_cape:cost",
+    "level": "max",
+    "question": "Сколько стоит Glimmer Cape?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "boots_of_elves:cost",
+    "level": "max",
+    "question": "Сколько стоит Band of Elvenskin?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "claymore:cost",
+    "level": "max",
+    "question": "Сколько стоит Claymore?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mystic_staff:cost",
+    "level": "max",
+    "question": "Сколько стоит Mystic Staff?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "specialists_array:cost",
+    "level": "max",
+    "question": "Сколько стоит Specialist's Array?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "lesser_crit:cost",
+    "level": "max",
+    "question": "Сколько стоит Crystalys?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "mjollnir:cost",
+    "level": "max",
+    "question": "Сколько стоит Mjollnir?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "lotus_orb:cost",
+    "level": "max",
+    "question": "Сколько стоит Lotus Orb?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "helm_of_the_overlord:cost",
+    "level": "max",
+    "question": "Сколько стоит Helm of the Overlord целиком?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "falcon_blade:cost",
+    "level": "max",
+    "question": "Сколько стоит Falcon Blade?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "desolator:cost",
+    "level": "max",
+    "question": "Сколько стоит Desolator?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ultimate_scepter:cost",
+    "level": "max",
+    "question": "Сколько стоит Aghanim's Scepter?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "assault:cost",
+    "level": "max",
+    "question": "Сколько стоит Assault Cuirass?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "octarine_core:cost",
+    "level": "max",
+    "question": "Сколько стоит Octarine Core?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "helm_of_the_dominator:cost",
+    "level": "max",
+    "question": "Сколько стоит Helm of the Dominator?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "lifesteal:cost",
+    "level": "max",
+    "question": "Сколько стоит Morbid Mask?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "travel_boots_2:cost",
+    "level": "max",
+    "question": "Сколько в сумме стоят Boots of Travel 2?",
+    "unit": "золота",
+    "step": 250,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "meteor_hammer:cost",
+    "level": "max",
+    "question": "Сколько стоит Meteor Hammer?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "ethereal_blade:cost",
+    "level": "max",
+    "question": "Сколько стоит Ethereal Blade?",
+    "unit": "золота",
+    "step": 200,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "blades_of_attack:cost",
+    "level": "max",
+    "question": "Сколько стоят Blades of Attack?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "tiara_of_selemene:cost",
+    "level": "max",
+    "question": "Сколько стоит Tiara of Selemene?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "pipe:cost",
+    "level": "max",
+    "question": "Сколько стоит Pipe of Insight?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "chasm_stone:cost",
+    "level": "max",
+    "question": "Сколько стоит Chasm Stone?",
+    "unit": "золота",
+    "step": 50,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "talisman_of_evasion:cost",
+    "level": "max",
+    "question": "Сколько стоит Talisman of Evasion?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  },
+  {
+    "fact_id": "pavise:cost",
+    "level": "max",
+    "question": "Сколько стоит Pavise?",
+    "unit": "золота",
+    "step": 100,
+    "request": "opus-gall-mix-0"
+  }
+]

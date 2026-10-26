@@ -145,9 +145,27 @@ def hero_packet(npc: str, d: dict) -> dict:
     }
 
 
+def _enhancement_tiers() -> dict[str, dict[int, int]]:
+    """Чара → {уровень чары: тир нейтралок}, из neutral_items.txt (каждый уровень — ровно в одном тире)."""
+    tiers = valve_kv.parse_file(GAME / "scripts/npc/neutral_items.txt")["neutral_items"]["neutral_tiers"]
+    out: dict[str, dict[int, int]] = {}
+    for tier, spec in tiers.items():
+        for group in spec.get("enhancements", {}).values():
+            for name, level in group.items():
+                out.setdefault(name[len("item_"):], {}).setdefault(int(level), int(tier))
+    return out
+
+
 def _level_names(ik: str, d: dict) -> list[str] | None:
-    levels = d["current"]["items"][ik].get("levels")
-    return [f"{d['items'][ik].get('dname')} {i + 1}" for i in range(len(levels))] if levels else None
+    entry = d["current"]["items"][ik]
+    name = d["items"][ik].get("dname")
+    if entry["category"] == "enhancement":
+        by_level = _enhancement_tiers().get(ik, {})
+        if len(by_level) > 1:
+            return [f"чара на нейтралки {by_level[lvl]}-го тира {name}" for lvl in sorted(by_level)]
+        return None
+    levels = entry.get("levels")
+    return [f"{name} {i + 1}" for i in range(len(levels))] if levels else None
 
 
 def item_packet(ik: str, d: dict) -> dict:
@@ -173,6 +191,9 @@ def item_packet(ik: str, d: dict) -> dict:
     entry = d["current"]["items"][ik]
     if entry["category"] == "neutral":
         packet["call_as"] = f"нейтралка {entry['tier']}-го тира {packet['name']}"
+    elif entry["category"] == "enhancement" and "level_names" not in packet:
+        tier = next(iter(_enhancement_tiers().get(ik, {}).values()), entry.get("tier"))
+        packet["call_as"] = f"чара на нейтралки {tier}-го тира {packet['name']}"
     return packet
 
 

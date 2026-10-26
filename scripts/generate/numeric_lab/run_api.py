@@ -16,6 +16,7 @@
   python scripts/generate/numeric_lab/run_api.py out/v3s --sync       # обычные вызовы параллельно, без батча (×2 цена)
   python scripts/generate/numeric_lab/run_api.py out/costs1 --costs --sync --models claude-opus-5-5
   python scripts/generate/numeric_lab/run_api.py out/step1 --step --sync --models claude-opus-5-5 --groups 3
+    (по умолчанию герои и предметы вперемешку и в случайном порядке; seed пишется в run.json)
   python scripts/generate/numeric_lab/resolve.py out/v3               # отчёт
 
 Выход в папке прогона: <модель>-g<размер>.json (формат resolve.py), usage.json, cost.md,
@@ -296,10 +297,12 @@ def main() -> None:
     ap.add_argument("--sample", default="sample.json")
     ap.add_argument("--step", action="store_true",
                     help="модель задаёт шаг вместо неверных вариантов (prompt_v6.md, sample_step.json)")
-    ap.add_argument("--mix", action="store_true", help="герои и предметы вперемешку в одном запросе")
-    ap.add_argument("--seed", type=int, help="перемешать сущности перед разбивкой (иначе порядок выборки)")
+    ap.add_argument("--separate", action="store_true",
+                    help="герои и предметы отдельными запросами (по умолчанию — вперемешку)")
+    ap.add_argument("--seed", type=int,
+                    help="seed перемешивания (по умолчанию случайный, пишется в run.json); -1 — порядок выборки")
     ap.add_argument("--costs", action="store_true",
-                    help="цены: costs_sample.json + prompt_costs_v1.md, все предметы одним запросом, со списком исключённых")
+                    help="цены: costs_sample.json + prompt_costs_v2.md (шаг), все предметы одним запросом, со списком исключённых")
     ap.add_argument("--models", default="claude-sonnet-5-5,claude-opus-5-5")
     ap.add_argument("--groups", default="1,3", help="сколько героев/предметов в одном запросе")
     ap.add_argument("--effort", default="high", choices=["low", "medium", "high", "xhigh", "max"])
@@ -310,9 +313,13 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=8, help="параллельных запросов в --sync")
     args = ap.parse_args()
     if args.costs:
-        args.sample, args.prompt, args.groups = "costs_sample.json", "prompt_costs_v1.md", "all"
-    if args.step:
+        args.sample, args.prompt, args.groups, args.step = "costs_sample.json", "prompt_costs_v2.md", "all", True
+    elif args.step:
         args.sample, args.prompt = "sample_step.json", "prompt_v6.md"
+    mix = not args.separate
+    if args.seed is None:
+        args.seed = random.SystemRandom().randrange(10_000)
+    seed = None if args.seed == -1 else args.seed
 
     run_dir = Path(args.run_dir)
     if not run_dir.is_absolute() and not run_dir.parent.exists():
@@ -330,15 +337,20 @@ def main() -> None:
     models = args.models.split(",")
     groups = [g if g == "all" else int(g) for g in args.groups.split(",")]
     requests = build_requests(sample, prompt, models, groups, args.effort, with_excluded=args.costs,
-                              step=args.step, mix=args.mix, seed=args.seed)
+                              step=args.step, mix=mix, seed=seed)
     (run_dir / "requests.json").write_text(json.dumps(requests, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(requests)} запросов: модели {', '.join(ALIASES[m] for m in models)}, группы {groups}, "
-          f"effort {args.effort}, {'вперемешку' if args.mix else 'герои и предметы отдельно'}, "
-          f"{'seed ' + str(args.seed) if args.seed is not None else 'порядок выборки'} → {run_dir / 'requests.json'}")
+          f"effort {args.effort}, {'вперемешку' if mix else 'герои и предметы отдельно'}, "
+          f"{'seed ' + str(seed) if seed is not None else 'порядок выборки'} → {run_dir / 'requests.json'}")
+    if not args.resume:
+        (run_dir / "run.json").write_text(json.dumps(
+            {"prompt": args.prompt, "sample": args.sample, "models": models, "groups": groups, "effort": args.effort,
+             "step": args.step, "mix": mix, "seed": seed}, ensure_ascii=False, indent=2), encoding="utf-8")
     for r in requests:
         body = json.loads(r["params"]["messages"][0]["content"])
         names = [h["hero"] for h in body.get("heroes", [])] + [i["name"] for i in body.get("items", [])]
-        print(f"  {r['custom_id']}: {', '.join(names)}")
+        shown = ", ".join(names[:8]) + (f" … ещё {len(names) - 8}" if len(names) > 8 else "")
+        print(f"  {r['custom_id']}: {shown}")
     if args.dry_run:
         return
 
