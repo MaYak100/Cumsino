@@ -1,0 +1,6293 @@
+[
+  {
+    "fact_id": "enhancement_greedy:bonus_gpm",
+    "level": "max",
+    "question": "Сколько бонусного GPM даёт чара на нейтралки 3-го тира Greedy?",
+    "unit": "золота в минуту",
+    "step": 10,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_evolved:primary_stat_universal",
+    "level": "max",
+    "question": "Сколько к каждому атрибуту даёт универсальному герою чара на нейтралки 5-го тира Evolved?",
+    "unit": "ед.",
+    "step": 4,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_fleetfooted:movespeed",
+    "level": "max",
+    "question": "Сколько скорости передвижения даёт чара на нейтралки 5-го тира Fleetfooted?",
+    "unit": "ед.",
+    "step": 15,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_audacious:magic_damage",
+    "level": "max",
+    "question": "Сколько магического урона к атаке даёт чара на нейтралки 5-го тира Audacious?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_feverish:cooldown_reduction",
+    "level": "max",
+    "question": "Сколько процентов снижения кд даёт чара на нейтралки 5-го тира Feverish?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_manic:bat_reduce",
+    "level": "max",
+    "question": "На сколько процентов снижает базовое время атаки (BAT) чара на нейтралки 5-го тира Manic?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_vampiric:spell_lifesteal",
+    "level": "max",
+    "question": "Сколько процентов спелл-лайфстила даёт чара на нейтралки 5-го тира Vampiric?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_brawny:health_bonus",
+    "level": "max",
+    "question": "Сколько здоровья даёт чара на нейтралки 4-го тира Brawny?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_timeless:spell_amp",
+    "level": "max",
+    "question": "Сколько процентов спелл-ампа даёт чара на нейтралки 5-го тира Timeless?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "enhancement_titanic:base_attack_damage",
+    "level": "max",
+    "question": "На сколько процентов увеличивает базовый урон атаки чара на нейтралки 4-го тира Titanic?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-enhancements-67",
+    "category": "enhancements"
+  },
+  {
+    "fact_id": "lion_voodoo:duration",
+    "level": "max",
+    "question": "Сколько длится хекс от Hex у Lion на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lion_mana_drain:mana_per_second",
+    "level": "max",
+    "question": "Сколько маны в секунду высасывает Mana Drain у Lion на максимальном уровне?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lion_finger_of_death:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Finger of Death у Lion на 3-м уровне без аганима и без стаков за убийства?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lion_mana_drain:magic_resist@shard",
+    "level": "max",
+    "question": "Сколько маг. резиста получает Lion во время ченнела Mana Drain с Aghanim's Shard?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_assassin_coup_de_grace:crit_bonus",
+    "level": "max",
+    "question": "Какой урон крита у Coup de Grace у Phantom Assassin на 3-м уровне?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_assassin_immaterial:evasion",
+    "level": "max",
+    "question": "Сколько уклонения даёт Immaterial у Phantom Assassin на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_assassin_blur:cooldown_refund_pct@shard",
+    "level": "max",
+    "question": "С Aghanim's Shard после убийства героя кд способностей Phantom Assassin откатываются на какой процент от их максимального кд?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "juggernaut_blade_fury:blade_fury_damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Blade Fury у Juggernaut на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "juggernaut_blade_dance:blade_dance_crit_chance",
+    "level": "max",
+    "question": "Какой шанс крита у Blade Dance у Juggernaut?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "juggernaut_omni_slash:duration",
+    "level": "max",
+    "question": "Сколько длится Omnislash у Juggernaut на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "juggernaut_healing_ward:healing_ward_heal_amount@shard",
+    "level": "max",
+    "question": "На сколько процентов от макс. здоровья в секунду Aghanim's Shard увеличивает лечение Healing Ward у Juggernaut?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "disruptor_glimpse:max_damage",
+    "level": "max",
+    "question": "Какой максимальный урон может нанести Glimpse у Disruptor на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "disruptor_static_storm:damage_max",
+    "level": "max",
+    "question": "Сколько максимального урона в секунду наносит Static Storm у Disruptor на 3-м уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "disruptor_kinetic_field:duration",
+    "level": "max",
+    "question": "Сколько секунд держится Kinetic Field у Disruptor на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "disruptor_thunder_strike:strike_damage",
+    "level": "max",
+    "question": "Сколько урона наносит один удар Thunder Strike у Disruptor на максимальном уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "brewmaster_thunder_clap:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Thunder Clap у Brewmaster на максимальном уровне?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "brewmaster_primal_split:tooltip_earth_brewling_hp",
+    "level": 3,
+    "question": "Сколько HP у Earth-бревлинга от Primal Split у Brewmaster на 3-м уровне ульты без аганима?",
+    "unit": "HP",
+    "step": 300,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "brewmaster_drunken_brawler:crit_multiplier",
+    "level": "max",
+    "question": "Какой урон крита (в %) даёт Fire-стойка Drunken Brawler у Brewmaster на максимальном уровне?",
+    "unit": "%",
+    "step": 20,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lich_chain_frost:damage",
+    "level": "max",
+    "question": "Сколько урона наносит каждый отскок Chain Frost у Lich на 3-м уровне (без учёта прибавки за отскоки)?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lich_frost_shield:damage_reduction",
+    "level": "max",
+    "question": "На сколько процентов Frost Shield у Lich снижает урон от атак на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lich_death_charge:active_mana_restore_pct_of_health",
+    "level": "max",
+    "question": "Какой процент текущего HP союзного крипа Lich превращает в ману через Sacrifice?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-1",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tinker_rearm:abilitychanneltime",
+    "level": "max",
+    "question": "Сколько длится каст Rearm у Tinker на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tinker_laser:laser_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Laser у Tinker на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tinker_deploy_turrets:turret_duration",
+    "level": "max",
+    "question": "Сколько секунд живут турели от Deploy Turrets у Tinker?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tinker_warp_grenade:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Warp Flare, которую Tinker получает с Aghanim's Shard?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "puck_phase_shift:duration",
+    "level": "max",
+    "question": "Сколько длится Phase Shift у Puck на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "puck_dream_coil:coil_stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан при разрыве Dream Coil у Puck на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "puck_dream_coil:coil_initial_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Dream Coil у Puck в момент применения на 3-м уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "puck_phase_shift:shard_bonus_damage@shard",
+    "level": "max",
+    "question": "Сколько бонусного магического урона дают атаки Puck с Aghanim's Shard?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chaos_knight_chaos_bolt:stun_max",
+    "level": "max",
+    "question": "Какой максимальный стан может дать Chaos Bolt у Chaos Knight на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chaos_knight_reality_rift:armor_reduction",
+    "level": "max",
+    "question": "Сколько брони снимает Reality Rift у Chaos Knight на максимальном уровне?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chaos_knight_chaos_strike:crit_max",
+    "level": "max",
+    "question": "Какой максимальный крит может выдать Chaos Strike у Chaos Knight на максимальном уровне?",
+    "unit": "%",
+    "step": 20,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chaos_knight_phantasm:incoming_damage_tooltip",
+    "level": "max",
+    "question": "Сколько процентов урона получают иллюзии от Phantasm у Chaos Knight?",
+    "unit": "%",
+    "step": 50,
+    "request": "opus-gauto-heroes-10",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dazzle_shallow_grave:duration",
+    "level": "max",
+    "question": "Сколько длится Shallow Grave у Dazzle на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dazzle_innate_weave:duration",
+    "level": "max",
+    "question": "Сколько длится один стак Weave у Dazzle?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dazzle_nothl_projection:poison_touch_hex",
+    "level": "max",
+    "question": "На сколько хексит Poison Touch во время Nothl Projection на 3-м уровне ульты?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dazzle_innate_weave:ally_heal@shard",
+    "level": "max",
+    "question": "Сколько хп за каждый стак Weave лечит союзника Dazzle с Aghanim's Shard?",
+    "unit": "ед.",
+    "step": 15,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tidehunter_ravage:duration",
+    "level": "max",
+    "question": "Сколько длится стан от Ravage у Tidehunter на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tidehunter_kraken_shell:damage_reduction",
+    "level": "max",
+    "question": "Сколько урона от атак блокирует пассивка Kraken Shell у Tidehunter на максимальном уровне (без активации)?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tidehunter_kraken_shell:damage_cleanse",
+    "level": "max",
+    "question": "Сколько урона должен получить Tidehunter, чтобы Kraken Shell сделал ему диспел, на максимальном уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tidehunter_gush:cooldown_scepter@scepter",
+    "level": "max",
+    "question": "Какой кд у Gush у Tidehunter с Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "invoker_sun_strike:delay",
+    "level": "max",
+    "question": "Через сколько секунд после каста падает Sun Strike у Invoker?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "invoker_cold_snap:cd",
+    "level": "max",
+    "question": "Какой кд у Cold Snap у Invoker?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "invoker_alacrity:duration",
+    "level": "max",
+    "question": "Сколько длится бафф Alacrity у Invoker?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "invoker_emp:damage_per_mana_pct",
+    "level": "max",
+    "question": "Сколько процентов от сожжённой маны E.M.P. у Invoker наносит уроном?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-11",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "death_prophet_exorcism:spirits",
+    "level": "max",
+    "question": "Сколько духов выпускает Exorcism у Death Prophet на 3-м уровне?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "death_prophet_carrion_swarm:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Crypt Swarm у Death Prophet на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "death_prophet_exorcism:cd",
+    "level": "max",
+    "question": "Какое кд у Exorcism у Death Prophet?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "winter_wyvern_splinter_blast:damage",
+    "level": "max",
+    "question": "Сколько урона наносят осколки Splinter Blast у Winter Wyvern на максимальном уровне?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "winter_wyvern_cold_embrace:heal_percentage",
+    "level": "max",
+    "question": "Сколько процентов от максимального HP в секунду лечит Cold Embrace у Winter Wyvern на максимальном уровне?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "winter_wyvern_winters_curse:max_duration",
+    "level": "max",
+    "question": "Какая максимальная длительность у Winter's Curse у Winter Wyvern с учётом продления от вошедших героев?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "winter_wyvern_arctic_burn:cd",
+    "level": 1,
+    "question": "Какое кд у Arctic Burn у Winter Wyvern на 1-м уровне (без аганима)?",
+    "unit": "сек.",
+    "step": 3,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_earth_splitter:damage_pct",
+    "level": 1,
+    "question": "Сколько процентов от максимального HP наносит урона Earth Splitter у Elder Titan на 1-м уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_echo_stomp:sleep_duration",
+    "level": "max",
+    "question": "Сколько секунд длится сон от Echo Stomp у Elder Titan на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_ancestral_spirit:damage_heroes",
+    "level": "max",
+    "question": "Сколько бонусного урона получает Elder Titan за каждого героя, через которого прошёл Astral Spirit, на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-12",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ogre_magi_multicast:multicast_4_times",
+    "level": "max",
+    "question": "Какой базовый шанс 4x каста у Multicast у Ogre Magi на 3-м уровне (без бонуса от силы)?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ogre_magi_bloodlust:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Bloodlust у Ogre Magi союзнику (не самому Ogre) на максимальном уровне?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ogre_magi_smash:damage_absorb_pct",
+    "level": "max",
+    "question": "Какой процент урона от атаки вражеского героя поглощает Fire Shield (Aghanim's Shard) у Ogre Magi?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kunkka_torrent:delay",
+    "level": "max",
+    "question": "Через сколько секунд после каста срабатывает Torrent у Kunkka?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kunkka_tidebringer:cleave_damage",
+    "level": "max",
+    "question": "Какой процент урона атаки наносит клив Tidebringer у Kunkka?",
+    "unit": "%",
+    "step": 15,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kunkka_ghostship:cannon_ball_damage_pct@scepter",
+    "level": "max",
+    "question": "Какой процент урона Ghostship наносит каждое ядро из пушек кораблей с Aghanim's Scepter у Kunkka?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kunkka_tidal_wave:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Tidal Wave (Aghanim's Shard) у Kunkka?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "huskar_berserkers_blood:maximum_attack_speed",
+    "level": "max",
+    "question": "Сколько максимум скорости атаки даёт Berserker's Blood у Huskar на максимальном уровне?",
+    "unit": "ед.",
+    "step": 30,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "huskar_life_break:tooltip_health_damage",
+    "level": "max",
+    "question": "Какой процент текущего здоровья цели сносит Life Break у Huskar на 3-м уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "huskar_burning_spear:burn_damage_max_pct",
+    "level": "max",
+    "question": "Какой процент от максимального здоровья цели добавляет к горению Burning Spear у Huskar?",
+    "unit": "%",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-13",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "beastmaster_primal_roar:duration",
+    "level": "max",
+    "question": "Сколько длится стан от Primal Roar у Beastmaster на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "beastmaster_wild_axes:damage_amp",
+    "level": "max",
+    "question": "На сколько процентов усиливает получаемый урон от Beastmaster и его юнитов один стак Wild Axes на максимальном уровне?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "beastmaster_drums_of_slom:base_damage",
+    "level": "max",
+    "question": "Сколько урона наносит один удар в барабан Drums of Slom, которые Beastmaster получает с Aghanim's Scepter?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "beastmaster_summon_raptor:dive_damage",
+    "level": "max",
+    "question": "Сколько урона наносит пикирование одного хоука из Summon Raptors у Beastmaster на максимальном уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "warlock_fatal_bonds:damage_share_percentage",
+    "level": "max",
+    "question": "Какой процент урона передаётся остальным связанным целям через Fatal Bonds у Warlock на максимальном уровне?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "warlock_rain_of_chaos:cd",
+    "level": "max",
+    "question": "Какое кд у Chaotic Offering у Warlock?",
+    "unit": "сек.",
+    "step": 15,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "warlock_upheaval:abilitychanneltime",
+    "level": "max",
+    "question": "Сколько максимум можно чаннелить Upheaval у Warlock на максимальном уровне?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "warlock_rain_of_chaos:golem_dmg_scepter@scepter",
+    "level": "max",
+    "question": "Какой урон атаки у каждого голема Warlock с Aghanim's Scepter, когда Chaotic Offering на 3-м уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "silencer_global_silence:abilityduration",
+    "level": 1,
+    "question": "Сколько длится Global Silence у Silencer на 1-м уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "silencer_last_word:int_multiplier",
+    "level": "max",
+    "question": "Какой множитель разницы в интеллекте у Last Word у Silencer на максимальном уровне?",
+    "unit": "x",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "silencer_glaives_of_wisdom:intellect_damage_pct",
+    "level": "max",
+    "question": "Какой процент интеллекта Silencer добавляется к урону атаки через Glaives of Wisdom на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "silencer_curse_of_the_silent:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Arcane Curse у Silencer на максимальном уровне?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-14",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "clinkz_strafe:attack_speed_bonus",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Strafe у Clinkz на максимальном уровне?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "clinkz_death_pact:health_gain",
+    "level": "max",
+    "question": "Сколько бонусного макс. здоровья даёт Death Pact у Clinkz на максимальном уровне?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "clinkz_burning_barrage:damage_pct",
+    "level": "max",
+    "question": "Сколько процентов урона атаки Clinkz наносит каждая стрела Burning Barrage (способность от Aghanim's Shard)?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "clinkz_wind_walk:damage_percent",
+    "level": "max",
+    "question": "Какой процент урона Clinkz наносят Skeleton Archers из Skeleton Walk?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Culling Blade у Axe на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "axe_counter_helix:trigger_attacks",
+    "level": 1,
+    "question": "Сколько атак нужно для срабатывания Counter Helix у Axe на 1-м уровне?",
+    "unit": "атак",
+    "step": 1,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "axe_counter_helix:damage_reduction@scepter",
+    "level": "max",
+    "question": "На сколько процентов за стак снижает урон атак врага по Axe дебафф Counter Helix с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "axe_battle_hunger:damage_per_second",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Battle Hunger у Axe на максимальном уровне?",
+    "unit": "урона",
+    "step": 4,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "meepo_poof:poof_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Poof у Meepo на максимальном уровне (за одно срабатывание в точке)?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "meepo_ransack:health_steal_heroes",
+    "level": "max",
+    "question": "Сколько здоровья за удар крадёт Ransack у Meepo с героев на максимальном уровне?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "meepo_petrify:hp_restore",
+    "level": "max",
+    "question": "Сколько процентов макс. здоровья восстанавливает Dig у Meepo (способность от Aghanim's Shard)?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "meepo_megameepo_fling:fling_damage",
+    "level": "max",
+    "question": "Сколько урона наносит MegaMeepo Fling у Meepo с Aghanim's Scepter?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-15",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sven_storm_bolt:bolt_stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Storm Hammer у Sven на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sven_gods_strength:gods_strength_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона даёт God's Strength у Sven на 3-м уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sven_warcry:base_barrier_amount@shard",
+    "level": "max",
+    "question": "Какой барьер от физического урона даёт Warcry у Sven с Aghanim's Shard?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sven_great_cleave:great_cleave_damage",
+    "level": "max",
+    "question": "Какой процент урона атаки наносит клив от Great Cleave у Sven на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "life_stealer_feast:hp_damage_percent",
+    "level": "max",
+    "question": "Сколько процентов от макс. HP цели наносит Feast у Lifestealer за атаку на максимальном уровне?",
+    "unit": "%",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "life_stealer_rage:magic_resist",
+    "level": "max",
+    "question": "Сколько маг. резиста даёт Rage у Lifestealer?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "life_stealer_infest:infest_duration_enemy@scepter",
+    "level": "max",
+    "question": "Сколько секунд Lifestealer может сидеть во вражеском герое через Infest с Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "life_stealer_infest:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Lifestealer при выходе из Infest на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "hoodwink_sharpshooter:max_damage",
+    "level": "max",
+    "question": "Какой максимальный урон у полностью заряженного Sharpshooter у Hoodwink на 3-м уровне?",
+    "unit": "урона",
+    "step": 100,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "hoodwink_bushwhack:debuff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Bushwhack у Hoodwink на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "hoodwink_acorn_shot:bounce_count",
+    "level": "max",
+    "question": "Сколько отскоков делает Acorn Shot у Hoodwink на максимальном уровне?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "hoodwink_hunters_boomerang:spell_amp",
+    "level": "max",
+    "question": "На сколько процентов увеличивается входящий магический урон по цели под дебаффом Hunter's Boomerang (Aghanim's Shard) у Hoodwink?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-16",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "marci_companion_run:debuff_duration",
+    "level": "max",
+    "question": "Сколько длится стан от приземления Rebound у Marci на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "marci_unleash:flurry_bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько бонусной скорости атаки получает Marci во время серии ударов Unleash на 3-м уровне?",
+    "unit": "ед.",
+    "step": 100,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "marci_special_delivery:cd",
+    "level": "max",
+    "question": "Какое кд у врождённой способности Marci Special Delivery, которая призывает курьера?",
+    "unit": "сек.",
+    "step": 20,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "marci_grapple:impact_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Dispose у Marci на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pangolier_lucky_shot:chance_pct",
+    "level": "max",
+    "question": "Какой шанс срабатывания у Lucky Shot у Pangolier?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pangolier_gyroshell:forward_move_speed",
+    "level": "max",
+    "question": "С какой скоростью катится Pangolier в Rolling Thunder?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pangolier_swashbuckle:damage",
+    "level": "max",
+    "question": "Сколько урона наносит один удар Swashbuckle у Pangolier на максимальном уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pangolier_rollup:duration",
+    "level": "max",
+    "question": "Сколько длится Roll Up, которую Pangolier получает от Aghanim's Shard?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "queenofpain_succubus:spell_lifesteal_close",
+    "level": "max",
+    "question": "Какой максимальный спелл-лайфстил даёт Succubus у Queen of Pain, когда враг совсем рядом?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "queenofpain_blink:shard_duration@shard",
+    "level": "max",
+    "question": "Сколько длится сайленс от звуковой волны Blink у Queen of Pain с Aghanim's Shard?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "queenofpain_sonic_wave:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Sonic Wave у Queen of Pain на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "queenofpain_scream_of_pain:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Scream Of Pain у Queen of Pain на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-17",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bloodseeker_blood_bath:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Blood Rite у Bloodseeker на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bloodseeker_bloodrage:attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Bloodrage у Bloodseeker на максимальном уровне?",
+    "unit": "ед.",
+    "step": 15,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bloodseeker_rupture:movement_damage_pct",
+    "level": "max",
+    "question": "Какой процент пройденного расстояния наносится уроном от Rupture у Bloodseeker на 3-м уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bloodseeker_thirst:bonus_movement_speed",
+    "level": "max",
+    "question": "Какой максимальный бонус к скорости передвижения в процентах даёт Thirst у Bloodseeker на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "treant_overgrowth:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Overgrowth у Treant Protector?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "treant_living_armor:damage_block_base",
+    "level": "max",
+    "question": "Сколько урона максимум блокирует Living Armor у Treant Protector на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "treant_leech_seed:duration",
+    "level": "max",
+    "question": "Сколько секунд длятся рут и дизарм от Leech Seed у Treant Protector на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "treant_overgrowth:movement_speed@scepter",
+    "level": "max",
+    "question": "Какая фиксированная скорость передвижения у увеличенного Treant Protector после Overgrowth с Aghanim's Scepter?",
+    "unit": "ед.",
+    "step": 15,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lycan_shapeshift:crit_multiplier",
+    "level": "max",
+    "question": "Какой урон крита в процентах даёт Shapeshift у Lycan на 3-м уровне?",
+    "unit": "%",
+    "step": 20,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lycan_howl:armor",
+    "level": "max",
+    "question": "Сколько брони снимает Howl у Lycan на максимальном уровне?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lycan_apex_predator:damage_amp",
+    "level": "max",
+    "question": "На сколько процентов больше урона наносят нейтральным крипам Lycan и его юниты благодаря Apex Predator?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lycan_shapeshift:health_bonus",
+    "level": "max",
+    "question": "Сколько бонусного здоровья даёт Shapeshift у Lycan на 3-м уровне?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-18",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "zuus_thundergods_wrath:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Thundergod's Wrath у Zeus на 3-м уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "zuus_arc_lightning:jump_count",
+    "level": "max",
+    "question": "Сколько отскоков у Arc Lightning у Zeus на максимальном уровне?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "zuus_static_field:damage_health_pct",
+    "level": "max",
+    "question": "Какой процент от текущего здоровья цели снимает врождённая Static Field у Zeus?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "zuus_cloud:hits_to_kill_tooltip",
+    "level": "max",
+    "question": "Сколько атак героев нужно, чтобы сломать Nimbus от Aghanim's Scepter у Zeus?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_willow_bedlam:attack_damage",
+    "level": "max",
+    "question": "Сколько урона наносит одна атака огонька из Bedlam у Dark Willow на 3-м уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_willow_terrorize:destination_status_duration",
+    "level": "max",
+    "question": "Сколько секунд длится фир от Terrorize у Dark Willow на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_willow_cursed_crown:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Cursed Crown у Dark Willow на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.3,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_willow_cursed_crown:shard_bramble_amount@shard",
+    "level": "max",
+    "question": "Сколько колючек вокруг цели создаёт Cursed Crown у Dark Willow с Aghanim's Shard?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_seer_ion_shell:damage_per_second",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Ion Shell у Dark Seer на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_seer_normal_punch:max_damage",
+    "level": "max",
+    "question": "Какой максимальный урон у Normal Punch от Aghanim's Scepter у Dark Seer?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_seer_wall_of_replica:tooltip_outgoing",
+    "level": "max",
+    "question": "Какой процент урона оригинала наносят реплики от Wall of Replica у Dark Seer на 3-м уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dark_seer_aggrandize:heal_pct",
+    "level": "max",
+    "question": "Какой процент макс. здоровья и маны восстанавливает Dark Seer при получении уровня благодаря Quick Wit?",
+    "unit": "%",
+    "step": 1.5,
+    "request": "opus-gauto-heroes-19",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ancient_apparition_ice_blast:kill_pct",
+    "level": "max",
+    "question": "Ниже какого процента здоровья враг под Frostbite от Ice Blast у Ancient Apparition разлетается на осколки на 3-м уровне ульты?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ancient_apparition_ice_vortex:spell_resist_pct",
+    "level": "max",
+    "question": "На сколько процентов Ice Vortex у Ancient Apparition увеличивает получаемый магический урон на максимальном уровне?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ancient_apparition_bone_chill:str_reduction@scepter",
+    "level": "max",
+    "question": "На сколько Aghanim's Scepter увеличивает снижение силы за один стак Bone Chill у Ancient Apparition?",
+    "unit": "силы",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ancient_apparition_chilling_touch:damage",
+    "level": "max",
+    "question": "Сколько дополнительного магического урона наносит Chilling Touch у Ancient Apparition на максимальном уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "batrider_flaming_lasso:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Flaming Lasso у Batrider на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "batrider_sticky_napalm:turn_rate_pct",
+    "level": "max",
+    "question": "На сколько процентов Sticky Napalm у Batrider замедляет скорость поворота на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "batrider_flamebreak:cd",
+    "level": "max",
+    "question": "Какое кд у Flamebreak у Batrider на максимальном уровне?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "batrider_sticky_napalm:building_damage_pct@shard",
+    "level": "max",
+    "question": "Какой процент урона Sticky Napalm у Batrider наносит строениям с Aghanim's Shard?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earthshaker_echo_slam:echo_slam_echo_damage",
+    "level": "max",
+    "question": "Сколько урона наносит одно эхо от Echo Slam у Earthshaker на 3-м уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earthshaker_fissure:stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Fissure у Earthshaker на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earthshaker_slugger:projectile_body_damage_hero",
+    "level": "max",
+    "question": "Сколько базового урона наносит улетевшее тело врага от Slugger у Earthshaker, если оно попадает в героя?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earthshaker_enchant_totem:scepter_cleave_pct@scepter",
+    "level": "max",
+    "question": "Какой процент клива получает удар Enchant Totem у Earthshaker с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-2",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick у Tusk (с Aghanim's Scepter)?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tusk_drinking_buddies:armor_bonus",
+    "level": "max",
+    "question": "Сколько брони дают Drinking Buddies (Aghanim's Shard у Tusk) самому Tusk и союзнику?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tusk_tag_team:movement_slow",
+    "level": "max",
+    "question": "Какой слоу скорости передвижения накладывает Tag Team у Tusk при атаке по врагу?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tusk_bitter_chill:attack_speed_slow",
+    "level": "max",
+    "question": "На сколько врубленный innate Bitter Chill у Tusk режет скорость атаки вражеским героям рядом?",
+    "unit": "ед.",
+    "step": 3,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ember_spirit_searing_chains:duration",
+    "level": "max",
+    "question": "Сколько длится рут от Searing Chains у Ember Spirit на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ember_spirit_sleight_of_fist:bonus_hero_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона по героям даёт Sleight of Fist у Ember Spirit на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ember_spirit_flame_guard:absorb_amount",
+    "level": "max",
+    "question": "Сколько маг. урона может поглотить Flame Guard у Ember Spirit на максимальном уровне?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ember_spirit_fire_remnant:scepter_max_charges@scepter",
+    "level": "max",
+    "question": "Сколько максимум зарядов Fire Remnant у Ember Spirit с Aghanim's Scepter?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "arc_warden_spark_wraith:spark_damage_base",
+    "level": "max",
+    "question": "Сколько урона наносит Spark Wraith у Arc Warden на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "arc_warden_tempest_double:duration",
+    "level": "max",
+    "question": "Сколько живёт Tempest Double у Arc Warden на 3-м уровне ульты?",
+    "unit": "сек.",
+    "step": 3,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "arc_warden_tempest_double:max_blind_chance",
+    "level": "max",
+    "question": "Какой максимальный шанс промаха набирает Tempest Double у Arc Warden к концу своего времени жизни?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "arc_warden_tempest_double:bounty_gold",
+    "level": "max",
+    "question": "Сколько золота получает враг за убийство Tempest Double у Arc Warden?",
+    "unit": "золота",
+    "step": 10,
+    "request": "opus-gauto-heroes-20",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lina_laguna_blade:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Laguna Blade у Lina на 3-м уровне?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lina_light_strike_array:light_strike_array_stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Light Strike Array у Lina на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lina_laguna_blade:supercharge_stacks@shard",
+    "level": "max",
+    "question": "Сколько стаков Fiery Soul даёт Lina каст Laguna Blade с Aghanim's Shard?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lina_flame_cloak:spell_amp",
+    "level": "max",
+    "question": "Сколько спелл-ампа даёт Flame Cloak у Lina с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "night_stalker_void:duration_night",
+    "level": "max",
+    "question": "Сколько длится слоу от Void у Night Stalker ночью на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.3,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "night_stalker_hunter_in_the_night:bonus_movement_speed_pct_night",
+    "level": "max",
+    "question": "Сколько процентов скорости передвижения даёт Night Stalker ночью Hunter in the Night (без Aghanim's Scepter)?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "night_stalker_darkness:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона даёт Dark Ascension у Night Stalker на 3-м уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "night_stalker_crippling_fear:dps",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Crippling Fear у Night Stalker на максимальном уровне?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sandking_epicenter:epicenter_pulses",
+    "level": "max",
+    "question": "Сколько пульсов делает Epicenter у Sand King на 3-м уровне?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sandking_burrowstrike:burrow_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Burrowstrike у Sand King на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sandking_caustic_finale:caustic_finale_damage_pct",
+    "level": "max",
+    "question": "Какой процент от макс. здоровья умершего юнита наносит взрыв Caustic Finale у Sand King (сверх базового урона)?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sandking_sand_storm:sand_storm_damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Sand Storm у Sand King на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-21",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_adaptive_strike_agi:stun_max",
+    "level": "max",
+    "question": "Какой максимальный стан у Adaptive Strike от Morphling на максимальном уровне, если сила сильно перевешивает ловкость?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_adaptive_strike_agi:damage_max",
+    "level": "max",
+    "question": "Какой максимальный множитель урона от ловкости у Adaptive Strike от Morphling на максимальном уровне?",
+    "unit": "x",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_replicate:cd",
+    "level": 1,
+    "question": "Какое кд у ультимейта Morph от Morphling на 1-м уровне?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_waveform:cd",
+    "level": "max",
+    "question": "Какое кд у Waveform от Morphling на максимальном уровне?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "viper_nethertoxin:max_damage",
+    "level": "max",
+    "question": "Какой максимальный урон в секунду наносит Nethertoxin от Viper на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "viper_viper_strike:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Viper Strike на 3-м уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "viper_corrosive_skin:bonus_magic_resistance",
+    "level": "max",
+    "question": "Сколько маг. резиста даёт Viper пассивка Corrosive Skin на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "viper_poison_attack:shard_building_dmg_pct@shard",
+    "level": "max",
+    "question": "С Aghanim's Shard Poison Attack от Viper бьёт по зданиям. Какой процент от обычного урона яда получают здания?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "luna_lucent_beam:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Lucent Beam у Luna?",
+    "unit": "сек.",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "luna_moon_glaive:damage_reduction_percent",
+    "level": "max",
+    "question": "На сколько процентов падает урон с каждым отскоком Moon Glaives у Luna на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "luna_eclipse:hit_count",
+    "level": "max",
+    "question": "Сколько максимум лучей Eclipse может попасть в одну цель без Aghanim's Scepter?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "luna_lunar_orbit:rotating_glaives_collision_damage",
+    "level": "max",
+    "question": "Какой процент от урона атаки Luna наносит глефа Lunar Orbit при столкновении на максимальном уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-22",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "furion_force_of_nature:treant_health",
+    "level": "max",
+    "question": "Сколько здоровья у трента от Nature's Call у Nature's Prophet?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "furion_teleportation:cd",
+    "level": 1,
+    "question": "Какое кд у Teleportation у Nature's Prophet на 1-м уровне?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "furion_wrath_of_nature:damage",
+    "level": "max",
+    "question": "Какой базовый урон у Wrath of Nature у Nature's Prophet на 3-м уровне (по первой цели, без прибавки за отскоки)?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "furion_curse_of_the_forest:damage_per_tree",
+    "level": "max",
+    "question": "Сколько урона в секунду за каждое дерево наносит Curse of the Oldgrowth от Aghanim's Shard у Nature's Prophet?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ursa_fury_swipes:damage_per_stack",
+    "level": "max",
+    "question": "Сколько урона даёт один стак Fury Swipes у Ursa на максимальном уровне?",
+    "unit": "урона",
+    "step": 4,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ursa_maul:health_as_damage_pct",
+    "level": "max",
+    "question": "Какой процент от текущего здоровья Ursa получает в виде бонусного урона от врождённой Maul?",
+    "unit": "%",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ursa_enrage:damage_reduction",
+    "level": "max",
+    "question": "Сколько процентов снижения урона даёт Enrage у Ursa?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ursa_overpower:attack_speed_bonus_pct",
+    "level": "max",
+    "question": "Сколько бонусной скорости атаки даёт Overpower у Ursa?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "windrunner_shackleshot:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от удачного Shackleshot у Windranger на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "windrunner_powershot:powershot_damage",
+    "level": "max",
+    "question": "Какой урон у полностью заряженного Powershot у Windranger на максимальном уровне (по первой цели)?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "windrunner_focusfire:focusfire_damage_reduction",
+    "level": "max",
+    "question": "На сколько процентов снижается урон атак Windranger во время Focus Fire?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "windrunner_tailwind:movespeed_bonus",
+    "level": "max",
+    "question": "Сколько скорости передвижения даёт один стак врождённой Tailwind у Windranger?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-heroes-23",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "jakiro_double_trouble:attack_damage_reduction",
+    "level": "max",
+    "question": "На сколько процентов срезается урон каждой атаки головы Jakiro из-за врождённой Double Trouble?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "jakiro_macropyre:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Macropyre у Jakiro на 3-м уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "jakiro_liquid_fire:cd",
+    "level": "max",
+    "question": "Какое кд у Liquid Fire у Jakiro на максимальном уровне?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "jakiro_ice_path:stun_duration",
+    "level": 1,
+    "question": "Какой максимальный стан от Ice Path у Jakiro на 1-м уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "naga_siren_mirror_image:illusion_duration",
+    "level": "max",
+    "question": "Сколько секунд живут иллюзии от Mirror Image у Naga Siren?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "naga_siren_rip_tide:armor_reduction",
+    "level": "max",
+    "question": "Сколько брони снимает Rip Tide у Naga Siren на максимальном уровне?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "naga_siren_song_of_the_siren:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Song of the Siren у Naga Siren, если не отменять её раньше?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "naga_siren_song_of_the_siren:mana_pct@shard",
+    "level": "max",
+    "question": "Сколько процентов маны в секунду восстанавливают союзники в радиусе Song of the Siren с Aghanim's Shard у Naga Siren?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slark_pounce:leash_duration",
+    "level": "max",
+    "question": "Сколько секунд длится привязка от Pounce у Slark на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slark_shadow_dance:bonus_regen",
+    "level": "max",
+    "question": "Сколько хп в секунду даёт пассивка Shadow Dance у Slark на 3-м уровне?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slark_dark_pact:delay",
+    "level": "max",
+    "question": "Через сколько секунд после каста срабатывает Dark Pact у Slark?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slark_depth_shroud:cd",
+    "level": "max",
+    "question": "Какое кд у Depth Shroud — способности Slark от Aghanim's Shard?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-24",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "omniknight_purification:recast_effectiveness_pct@shard",
+    "level": "max",
+    "question": "С Aghanim's Shard Purification у Omniknight срабатывает на цель повторно. С какой эффективностью проходит этот повторный каст?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "omniknight_guardian_angel:duration",
+    "level": "max",
+    "question": "Сколько длится Guardian Angel у Omniknight на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "omniknight_hammer_of_purity:cd",
+    "level": 1,
+    "question": "Какое кд у Hammer of Purity у Omniknight на 1-м уровне?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "omniknight_degen_aura:speed_bonus",
+    "level": "max",
+    "question": "Какой слоу скорости передвижения даёт врагам врождённая Degen Aura у Omniknight?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spectre_desolate:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного чистого урона наносит Desolate у Spectre по одинокой цели?",
+    "unit": "урона",
+    "step": 2.5,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spectre_dispersion:damage_reflection_pct",
+    "level": "max",
+    "question": "Какой процент получаемого урона отражает Dispersion у Spectre на максимальном уровне?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spectre_haunt:cd",
+    "level": 1,
+    "question": "Какое кд у Haunt у Spectre на 1-м уровне (без Aghanim's Scepter)?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spectre_shadow_step:duration",
+    "level": "max",
+    "question": "Сколько живёт иллюзия от Shadow Step у Spectre на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "obsidian_destroyer_equilibrium:mana_restore",
+    "level": "max",
+    "question": "Какой процент от максимальной маны восстанавливает Essence Flux у Outworld Destroyer при срабатывании от обычного заклинания?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "obsidian_destroyer_astral_imprisonment:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Astral Imprisonment у Outworld Destroyer на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "obsidian_destroyer_objurgation:mana_to_barrier",
+    "level": "max",
+    "question": "Какой процент максимальной маны Outworld Destroyer добавляется к барьеру Objurgation (без Aghanim's Scepter)?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "obsidian_destroyer_objurgation:automatic_trigger_cd@scepter",
+    "level": "max",
+    "question": "С Aghanim's Scepter Objurgation у Outworld Destroyer автоматически срабатывает при низком HP. Как часто максимум может происходить это срабатывание?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-25",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shredder_whirling_death:stat_loss_pct",
+    "level": "max",
+    "question": "Сколько процентов основного атрибута теряет вражеский герой (не универсал) от Whirling Death у Timbersaw?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shredder_reactive_armor:stack_limit",
+    "level": "max",
+    "question": "Сколько максимум стаков набирает Reactive Armor у Timbersaw на максимальном уровне?",
+    "unit": "шт.",
+    "step": 5,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shredder_reactive_armor:max_shield@scepter",
+    "level": "max",
+    "question": "До какого максимума может вырасти барьер от активного Reactive Armor с Aghanim's Scepter у Timbersaw?",
+    "unit": "ед.",
+    "step": 100,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shredder_flamethrower:damage_per_second",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Flamethrower у Timbersaw (Aghanim's Shard)?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "undying_decay:decay_duration",
+    "level": "max",
+    "question": "Сколько секунд держится украденная сила от Decay у Undying?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "undying_decay:str_steal@scepter",
+    "level": "max",
+    "question": "На сколько Aghanim's Scepter увеличивает кражу силы за одно попадание Decay у Undying?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "undying_tombstone:hits_to_destroy_tooltip",
+    "level": "max",
+    "question": "Сколько атак героев нужно, чтобы сломать Tombstone у Undying на максимальном уровне?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "undying_flesh_golem:damage_amp",
+    "level": "max",
+    "question": "Какой процент усиления урона вешают атаки Undying в Flesh Golem на 3-м уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "gyrocopter_rocket_barrage:rocket_damage",
+    "level": "max",
+    "question": "Сколько урона наносит одна ракета Rocket Barrage у Gyrocopter на максимальном уровне?",
+    "unit": "урона",
+    "step": 3,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "gyrocopter_homing_missile:stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Homing Missile у Gyrocopter на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "gyrocopter_flak_cannon:max_attacks",
+    "level": "max",
+    "question": "Сколько атак даёт Flak Cannon у Gyrocopter на максимальном уровне?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "gyrocopter_call_down:slow",
+    "level": "max",
+    "question": "Какой процент слоу накладывает ракета Call Down у Gyrocopter?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-26",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "vengefulspirit_magic_missile:magic_missile_stun",
+    "level": "max",
+    "question": "Сколько длится стан от Magic Missile у Vengeful Spirit на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "vengefulspirit_wave_of_terror:armor_reduction",
+    "level": "max",
+    "question": "Сколько брони снимает Wave of Terror у Vengeful Spirit на максимальном уровне?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "vengefulspirit_nether_swap:damage",
+    "level": "max",
+    "question": "Сколько урона наносит врагу Nether Swap у Vengeful Spirit на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "alchemist_unstable_concoction:max_stun",
+    "level": "max",
+    "question": "Какой максимальный стан у полностью сваренного Unstable Concoction у Alchemist на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "alchemist_corrosive_weaponry:max_stacks",
+    "level": "max",
+    "question": "Сколько максимум стаков набирает Corrosive Weaponry у Alchemist на максимальном уровне?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "alchemist_berserk_potion:hp_regen",
+    "level": "max",
+    "question": "Сколько регенерации HP даёт Berserk Potion у Alchemist (способность от Aghanim's Shard)?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "alchemist_chemical_rage:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько бонусной регенерации HP даёт Chemical Rage у Alchemist на 3-м уровне?",
+    "unit": "ед.",
+    "step": 15,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phoenix_icarus_dive:dash_length",
+    "level": "max",
+    "question": "Какая дальность рывка у Icarus Dive у Phoenix на максимальном уровне?",
+    "unit": "ед.",
+    "step": 100,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phoenix_fire_spirits:attackspeed_slow",
+    "level": "max",
+    "question": "Сколько скорости атаки отнимает Fire Spirits у Phoenix на максимальном уровне?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phoenix_sun_ray:hp_perc_damage",
+    "level": "max",
+    "question": "Какой процент от макс. HP цели наносит в секунду Sun Ray у Phoenix на максимальном уровне?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phoenix_supernova:max_hero_attacks_scepter@scepter",
+    "level": "max",
+    "question": "Сколько атак героев нужно, чтобы разбить Supernova у Phoenix на 3-м уровне с Aghanim's Scepter?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-27",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "muerta_gunslinger:double_shot_chance",
+    "level": "max",
+    "question": "Какой шанс двойного выстрела даёт Gunslinger у Muerta на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "muerta_dead_shot:damage@scepter",
+    "level": "max",
+    "question": "На сколько Aghanim's Scepter увеличивает урон Dead Shot у Muerta?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "muerta_pierce_the_veil:cd",
+    "level": 1,
+    "question": "Какое кд у Pierce the Veil (ульт Muerta) на 1-м уровне?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "muerta_spectral_slug:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Spectral Slug — способность Muerta от Aghanim's Shard?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tiny_avalanche:avalanche_damage",
+    "level": "max",
+    "question": "Сколько суммарного урона наносит Avalanche у Tiny на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tiny_tree_grab:attack_count",
+    "level": "max",
+    "question": "Сколько атак даёт одно дерево от Tree Grab у Tiny на максимальном уровне?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tiny_grow:attack_speed_reduction",
+    "level": "max",
+    "question": "На сколько Grow у Tiny режет его скорость атаки?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "tiny_grow:land_movement_slow@shard",
+    "level": "max",
+    "question": "Какой слоу скорости передвижения накладывает приземление Toss или дерева у Tiny с Aghanim's Shard?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "doom_bringer_infernal_blade:burn_damage_pct",
+    "level": "max",
+    "question": "Какой процент от макс. HP цели в секунду жжёт Infernal Blade у Doom на максимальном уровне?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "doom_bringer_doom:duration",
+    "level": "max",
+    "question": "Сколько длится Doom на 3-м уровне?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "doom_bringer_devour:bonus_gold",
+    "level": "max",
+    "question": "Сколько бонусного золота даёт Devour у Doom на максимальном уровне?",
+    "unit": "золота",
+    "step": 15,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "doom_bringer_scorched_earth:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько бонусного реген HP в секунду даёт Doom его Scorched Earth?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-28",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_shaman_ether_shock:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Ether Shock у Shadow Shaman на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_shaman_voodoo:duration",
+    "level": "max",
+    "question": "Сколько длится Hex у Shadow Shaman на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.3,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_shaman_shackles:scepter_shock_interval@scepter",
+    "level": "max",
+    "question": "С Aghanim's Scepter цель Shackles у Shadow Shaman периодически выпускает Ether Shock вокруг себя. Раз во сколько секунд это происходит?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_shaman_urnaconda:impact_damage",
+    "level": "max",
+    "question": "Сколько урона наносит при падении банка Urnaconda (способность с Aghanim's Shard) у Shadow Shaman?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spirit_breaker_greater_bash:chance_pct",
+    "level": "max",
+    "question": "Какой шанс баша у Greater Bash у Spirit Breaker?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spirit_breaker_charge_of_darkness:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Charge of Darkness у Spirit Breaker на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.3,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spirit_breaker_bulldoze:status_resistance",
+    "level": "max",
+    "question": "Сколько статус-резиста даёт Bulldoze у Spirit Breaker на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "spirit_breaker_nether_strike:cd",
+    "level": "max",
+    "question": "Какое кд у Nether Strike у Spirit Breaker на 3-м уровне?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "keeper_of_the_light_blinding_light:miss_rate",
+    "level": "max",
+    "question": "Какой шанс промаха накладывает Blinding Light у Keeper of the Light?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "keeper_of_the_light_chakra_magic:cooldown_reduction",
+    "level": "max",
+    "question": "На сколько секунд Chakra Magic у Keeper of the Light сокращает кд способностей на максимальном уровне (при касте на союзника)?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "keeper_of_the_light_will_o_wisp:hit_count",
+    "level": "max",
+    "question": "Сколько ударов героев нужно, чтобы уничтожить Will-O-Wisp (способность с Aghanim's Scepter) у Keeper of the Light?",
+    "unit": "ударов",
+    "step": 1,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "keeper_of_the_light_spirit_form:illuminate_heal@shard",
+    "level": "max",
+    "question": "На сколько процентов Aghanim's Shard увеличивает лечение от Illuminate в Spirit Form у Keeper of the Light?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-29",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enchantress_untouchable:slow_attack_speed",
+    "level": "max",
+    "question": "Насколько Untouchable у Enchantress режет скорость атаки врагу на 3-м уровне?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enchantress_natures_attendants:heal",
+    "level": "max",
+    "question": "Сколько HP в секунду лечит Nature's Attendants у Enchantress на максимальном уровне?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enchantress_enchant:slow_movement_speed",
+    "level": "max",
+    "question": "Какой слоу скорости передвижения накладывает Enchant у Enchantress на героя на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enchantress_little_friends:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки получают крипы от Little Friends у Enchantress (способность с Aghanim's Scepter)?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "templar_assassin_meld:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона наносит удар из Meld у Templar Assassin на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "templar_assassin_refraction:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Refraction у Templar Assassin?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "templar_assassin_psionic_trap:trap_bonus_damage",
+    "level": "max",
+    "question": "Сколько урона наносит полностью заряженная Psionic Trap у Templar Assassin на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "templar_assassin_psionic_trap:max_silence_duration@scepter",
+    "level": "max",
+    "question": "Какой максимальный сайленс накладывает Psionic Trap у Templar Assassin с Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rattletrap_battery_assault:interval",
+    "level": "max",
+    "question": "С каким интервалом бьёт Battery Assault у Clockwerk?",
+    "unit": "сек.",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rattletrap_hookshot:duration",
+    "level": "max",
+    "question": "Сколько длится стан от Hookshot у Clockwerk на 3-м уровне (без аганима)?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rattletrap_overclocking:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится Overclocking у Clockwerk (способность с Aghanim's Scepter)?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rattletrap_power_cogs:damage",
+    "level": "max",
+    "question": "Сколько базового урона наносит удар Power Cogs у Clockwerk на максимальном уровне (без учёта сжигания маны)?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-3",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "grimstroke_ink_creature:pop_damage",
+    "level": "max",
+    "question": "Сколько урона наносит финальный рывок Phantom's Embrace у Grimstroke на максимальном уровне, если фантом продержится всё время?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "grimstroke_spirit_walk:max_stun",
+    "level": "max",
+    "question": "Какой максимальный стан даёт Ink Swell у Grimstroke на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "grimstroke_dark_artistry:slow_duration",
+    "level": "max",
+    "question": "Сколько длится слоу от Stroke of Fate у Grimstroke?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "grimstroke_dark_portrait:images_do_damage_percent_tooltip",
+    "level": "max",
+    "question": "Сколько процентов урона наносит иллюзия от Dark Portrait (Aghanim's Scepter у Grimstroke)?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "medusa_split_shot:damage_modifier_tooltip",
+    "level": "max",
+    "question": "Какой процент от урона атаки наносят доп. стрелы Split Shot у Medusa на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "medusa_stone_gaze:bonus_physical_damage",
+    "level": "max",
+    "question": "На сколько процентов больше физического урона от атак получают окаменевшие от Stone Gaze на 3-м уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "medusa_mystic_snake:snake_mana_steal",
+    "level": "max",
+    "question": "Какой процент от максимальной маны цели возвращает Medusa змейка Mystic Snake?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "medusa_gorgon_grasp:damage",
+    "level": "max",
+    "question": "Сколько мгновенного урона наносит залп Gorgon's Grasp у Medusa на максимальном уровне (без учёта урона в секунду)?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abaddon_aphotic_shield:damage_absorb",
+    "level": "max",
+    "question": "Сколько урона поглощает Aphotic Shield у Abaddon на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abaddon_borrowed_time:ally_threshold_scepter@scepter",
+    "level": "max",
+    "question": "Сколько урона должен получить союзник, чтобы во время Borrowed Time с Aghanim's Scepter у Abaddon в него автоматически полетел Mist Coil?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abaddon_death_coil:damage_heal",
+    "level": "max",
+    "question": "Сколько урона или лечения даёт Mist Coil у Abaddon на максимальном уровне?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abaddon_frostmourne:curse_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки получают все, кто бьёт цель под Curse of Avernus у Abaddon на максимальном уровне?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-30",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dragon_knight_dragon_tail:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Dragon Tail у Dragon Knight на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dragon_knight_breathe_fire:reduction",
+    "level": "max",
+    "question": "На сколько процентов Breathe Fire у Dragon Knight снижает урон от атак врагов на максимальном уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dragon_knight_fireball:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Fireball, который Dragon Knight получает с Aghanim's Shard?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "oracle_fortunes_end:maximum_purge_duration",
+    "level": "max",
+    "question": "Какой максимальный рут даёт Fortune's End у Oracle при полном ченнелинге?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "oracle_purifying_flames:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Purifying Flames у Oracle на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "oracle_rain_of_destiny:heal_amp",
+    "level": "max",
+    "question": "На сколько процентов меняется усиление лечения у целей в зоне Rain of Destiny — способности Oracle от Aghanim's Shard?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "troll_warlord_battle_trance:trance_duration",
+    "level": "max",
+    "question": "Сколько длится Battle Trance у Troll Warlord?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "troll_warlord_fervor:attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт один стак Fervor у Troll Warlord на максимальном уровне?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "troll_warlord_fervor:base_chance@shard",
+    "level": "max",
+    "question": "Какой базовый шанс (без учёта стаков Fervor) выпустить дополнительную атаку даёт Aghanim's Shard у Troll Warlord?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "troll_warlord_whirling_axes_melee:blind_pct",
+    "level": "max",
+    "question": "Какой шанс промаха накладывают Whirling Axes (Melee) у Troll Warlord?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-31",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько длится Chronosphere у Faceless Void на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "faceless_void_time_lock:chance_pct",
+    "level": "max",
+    "question": "Какой шанс прока Time Lock у Faceless Void на максимальном уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "faceless_void_time_dilation:cooldown_percentage",
+    "level": "max",
+    "question": "На сколько процентов Time Dilation у Faceless Void замедляет откат кд способностей врагов на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "faceless_void_time_dilation:slow@shard",
+    "level": "max",
+    "question": "На сколько Aghanim's Shard увеличивает слоу скорости передвижения за один стак Time Dilation у Faceless Void?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lone_druid_entangle:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду получает враг, зарученный Entangle у Lone Druid?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lone_druid_true_form:bonus_attack_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона атаки даёт True Form у Lone Druid на 3-м уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lone_druid_spirit_bear:bear_bat",
+    "level": "max",
+    "question": "Какое базовое время атаки (BAT) у Spirit Bear?",
+    "unit": "сек.",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "lone_druid_savage_roar:shard_attack_speed@shard",
+    "level": "max",
+    "question": "Сколько скорости атаки получают союзники от Savage Roar у Lone Druid с Aghanim's Shard?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "wisp_tether:damage@shard",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Tether у Io врагам, касающимся связи, с Aghanim's Shard?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "wisp_overcharge:hp_regen",
+    "level": "max",
+    "question": "Сколько процентов от макс. здоровья в секунду регенерирует Overcharge у Io на максимальном уровне?",
+    "unit": "%",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "wisp_relocate:return_time",
+    "level": "max",
+    "question": "Через сколько секунд Relocate у Io возвращает его и союзника обратно?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "wisp_spirits:hero_damage",
+    "level": "max",
+    "question": "Сколько урона героям наносит взрыв одного Spirits у Io на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-32",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_demon_disruption:disruption_duration",
+    "level": "max",
+    "question": "Сколько секунд длится бан от Disruption у Shadow Demon?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_demon_demonic_purge:purge_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Demonic Purge у Shadow Demon в конце действия на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_demon_demonic_cleanse:purge_damage",
+    "level": "max",
+    "question": "Сколько HP восстанавливает союзнику Demonic Cleanse (способность с Aghanim's Shard у Shadow Demon) в конце действия?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "shadow_demon_menace:stack",
+    "level": "max",
+    "question": "На сколько процентов увеличивает получаемый урон один стак врождённой способности Menace у Shadow Demon?",
+    "unit": "%",
+    "step": 0.3,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "visage_soul_assumption:soul_charge_damage",
+    "level": "max",
+    "question": "Сколько урона добавляет каждый заряд Soul Assumption у Visage?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "visage_grave_chill:attackspeed_bonus",
+    "level": "max",
+    "question": "Сколько скорости атаки ворует Grave Chill у Visage на максимальном уровне?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "visage_summon_familiars:familiar_hp",
+    "level": "max",
+    "question": "Сколько HP у одного фамильяра Visage на 3-м уровне Summon Familiars?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "visage_gravekeepers_cloak:shard_cooldown@shard",
+    "level": "max",
+    "question": "Какое кд у активного Stone Form самого Visage, который даёт Aghanim's Shard?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slardar_amplify_damage:armor_reduction",
+    "level": "max",
+    "question": "Сколько брони снимает Corrosive Haze у Slardar на 3-м уровне?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slardar_bash:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона наносит удар-баш Bash of the Deep у Slardar на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "slardar_seaborn_sentinel:puddle_status_resistance@scepter",
+    "level": "max",
+    "question": "Сколько статус-резиста получает Slardar в луже, следе или реке с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-33",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kez_talon_toss:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Talon Toss у Kez на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kez_raptor_dance:max_health_damage_pct",
+    "level": "max",
+    "question": "Какой процент от макс. здоровья цели наносит каждый удар Raptor Dance у Kez?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kez_shodo_sai:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от удара Kez по цели с Mark (Shodo Sai) на максимальном уровне, без шарда?",
+    "unit": "сек.",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "kez_falcon_rush:duration",
+    "level": "max",
+    "question": "Сколько длится Falcon Rush у Kez на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.75,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sniper_headshot:proc_chance",
+    "level": "max",
+    "question": "Какой шанс срабатывания Headshot у Sniper?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sniper_assassinate:scepter_stun_duration@scepter",
+    "level": "max",
+    "question": "Сколько длится стан от Assassinate у Sniper с Aghanim's Scepter на 3-м уровне ульты?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "sniper_shrapnel:shrapnel_damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Shrapnel у Sniper на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skywrath_mage_mystic_flare:damage",
+    "level": "max",
+    "question": "Сколько суммарного урона наносит Mystic Flare у Skywrath Mage на 3-м уровне?",
+    "unit": "урона",
+    "step": 200,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skywrath_mage_ancient_seal:resist_debuff",
+    "level": "max",
+    "question": "На сколько процентов Ancient Seal у Skywrath Mage увеличивает получаемый магический урон на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skywrath_mage_shield_of_the_scion:damage_barrier",
+    "level": "max",
+    "question": "Сколько маг. барьера даёт один стак Shield of the Scion у Skywrath Mage?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skywrath_mage_arcane_bolt:int_multiplier",
+    "level": "max",
+    "question": "На какой множитель интеллекта умножается урон Arcane Bolt у Skywrath Mage?",
+    "unit": "×",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-34",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "monkey_king_boundless_strike:strike_crit_mult",
+    "level": "max",
+    "question": "Какой крит наносит Boundless Strike у Monkey King на максимальном уровне?",
+    "unit": "%",
+    "step": 20,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "monkey_king_jingu_mastery:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона дают заряженные атаки Jingu Mastery у Monkey King на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "monkey_king_wukongs_command:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Wukong's Command у Monkey King?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "monkey_king_wukongs_command:scepter_spawn_interval@scepter",
+    "level": "max",
+    "question": "Раз во сколько секунд с Aghanim's Scepter рядом с Monkey King появляется новый солдат?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_reverse_polarity:hero_stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Reverse Polarity у Magnus на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_horn_toss:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Horn Toss — способность Magnus от Aghanim's Scepter?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_skewer:cliff_hit_damage@shard",
+    "level": "max",
+    "question": "Сколько дополнительного урона с Aghanim's Shard получает враг, которого Magnus впечатал Skewer'ом в клифф?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_solid_core:slow_resistance",
+    "level": "max",
+    "question": "Сколько сопротивления слоу даёт Magnus его врождённая Solid Core?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "riki_innate_backstab:damage_multiplier",
+    "level": "max",
+    "question": "Какой множитель ловкости даёт Backstab у Riki при ударе в спину?",
+    "unit": "× ловкости",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "riki_smoke_screen:miss_rate",
+    "level": "max",
+    "question": "Какой шанс промаха у врагов в Smoke Screen от Riki на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "riki_blink_strike:cd",
+    "level": "max",
+    "question": "Какое кд у Blink Strike у Riki на максимальном уровне?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "riki_backstab:bonus_xp_kill",
+    "level": "max",
+    "question": "Сколько бонусного опыта получает Riki за убийство героя с Cloak and Dagger на 3-м уровне?",
+    "unit": "опыта",
+    "step": 40,
+    "request": "opus-gauto-heroes-35",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "witch_doctor_paralyzing_cask:bounces",
+    "level": "max",
+    "question": "Сколько раз отскакивает Paralyzing Cask у Witch Doctor на максимальном уровне?",
+    "unit": "раз",
+    "step": 1,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "witch_doctor_death_ward:damage",
+    "level": "max",
+    "question": "Сколько урона наносит одна атака Death Ward у Witch Doctor на 3-м уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "witch_doctor_maledict:abilityduration",
+    "level": "max",
+    "question": "Сколько секунд длится проклятие Maledict у Witch Doctor?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "witch_doctor_voodoo_switcheroo:duration",
+    "level": "max",
+    "question": "Сколько секунд Witch Doctor остаётся Death Ward'ом при касте Voodoo Switcheroo от Aghanim's Shard?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mars_spear:stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Spear of Mars, когда героя прибивает к дереву или стене, на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.3,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mars_bulwark:physical_damage_reduction",
+    "level": "max",
+    "question": "Какой процент физического урона от атак спереди блокирует Bulwark у Mars на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mars_arena_of_blood:duration",
+    "level": "max",
+    "question": "Сколько секунд стоит Arena of Blood у Mars без Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mars_arena_of_blood:arena_kill_buff_heal_pct@scepter",
+    "level": "max",
+    "question": "Сколько процентов от макс. здоровья и маны восстанавливают Mars и союзники при убийстве врага внутри Arena of Blood с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "centaur_hoof_stomp:stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Hoof Stomp у Centaur Warrunner на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "centaur_return:return_damage_str",
+    "level": "max",
+    "question": "Какой процент силы Centaur Warrunner возвращает урона за каждую атаку через Retaliate на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "centaur_double_edge:cd",
+    "level": "max",
+    "question": "Какое кд у Double Edge у Centaur Warrunner?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "centaur_double_edge:shard_str_pct@shard",
+    "level": "max",
+    "question": "На сколько процентов увеличивается сила Centaur Warrunner за каждый стак от попадания Double Edge по герою с Aghanim's Shard?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-heroes-36",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pugna_nether_blast:blast_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Nether Blast у Pugna на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pugna_nether_ward:mana_multiplier",
+    "level": "max",
+    "question": "Сколько урона за каждую потраченную единицу маны наносит Nether Ward у Pugna на максимальном уровне?",
+    "unit": "урона",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pugna_decrepify:bonus_movement_speed",
+    "level": "max",
+    "question": "Какой слоу накладывает Decrepify у Pugna на врага на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pugna_life_drain:spell_amp_drain_rate@scepter",
+    "level": "max",
+    "question": "С Aghanim's Scepter Life Drain у Pugna режет исходящий урон от заклинаний вражеского героя. На сколько процентов в секунду, если тянуть напрямую с героя?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earth_spirit_geomagnetic_grip:duration",
+    "level": "max",
+    "question": "Сколько длится сайленс от Geomagnetic Grip у Earth Spirit на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earth_spirit_petrify:damage",
+    "level": "max",
+    "question": "Сколько урона наносит раскол камня от Enchant Remnant у Earth Spirit (способность от Aghanim's Scepter)?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "earth_spirit_magnetize:damage_per_second",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Magnetize у Earth Spirit на 3-м уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dawnbreaker_fire_wreath:smash_stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от финального удара Starbreaker у Dawnbreaker на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dawnbreaker_celestial_hammer:move_slow",
+    "level": "max",
+    "question": "Какой слоу даёт огненный след от Celestial Hammer у Dawnbreaker на максимальном уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dawnbreaker_solar_guardian:base_heal",
+    "level": "max",
+    "question": "Сколько хп лечит союзникам каждый пульс Solar Guardian у Dawnbreaker на 3-м уровне?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "dawnbreaker_fire_wreath:shard_movement_penalty@shard",
+    "level": "max",
+    "question": "С Aghanim's Shard Dawnbreaker может двигаться во время Starbreaker. Какой слоу она при этом получает?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-37",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "razor_plasma_field:damage_max",
+    "level": "max",
+    "question": "Сколько максимального урона (на краю радиуса) наносит Plasma Field у Razor за одно касание на максимальном уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "razor_static_link:drain_rate",
+    "level": "max",
+    "question": "Сколько урона в секунду ворует Static Link у Razor на максимальном уровне?",
+    "unit": "урона",
+    "step": 3,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "razor_storm_surge:strike_internal_cd",
+    "level": "max",
+    "question": "Какой внутренний кд у молнии Storm Surge у Razor (без шарда)?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "razor_eye_of_the_storm:strike_interval",
+    "level": 1,
+    "question": "С каким интервалом бьёт молния Eye of the Storm у Razor на 1-м уровне?",
+    "unit": "сек.",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "techies_sticky_bomb:damage",
+    "level": "max",
+    "question": "Сколько урона наносит взрыв Sticky Bomb у Techies на максимальном уровне?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "techies_suicide:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от Blast Off! у Techies на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "techies_land_mines:mres_reduction",
+    "level": "max",
+    "question": "На сколько процентов Proximity Mines у Techies снижают маг. резист цели на 3-м уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "techies_minefield_sign:scepter_move_damage",
+    "level": "max",
+    "question": "Сколько урона наносит минное поле от Minefield Sign (Aghanim's Scepter у Techies) за каждый пройденный отрезок пути?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "largo_frogstomp:total_ticks",
+    "level": "max",
+    "question": "Сколько раз топают лягушата из Frogstomp у Largo на максимальном уровне?",
+    "unit": "раз",
+    "step": 1,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "largo_croak_of_genius:damage_portion_pct",
+    "level": "max",
+    "question": "Какой процент урона повторяется (реверб) под Croak of Genius у Largo на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "largo_encore:buff_amplification",
+    "level": "max",
+    "question": "На сколько процентов врождённая Encore у Largo продлевает его баффы?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "largo_song_fight_song:damage_per_stack@scepter",
+    "level": "max",
+    "question": "Сколько доп. маг. урона за каждый стак Groovin' даёт Bullbelly Blitz у Largo с Aghanim's Scepter при двойном страме на 3-м уровне ульты?",
+    "unit": "урона",
+    "step": 2,
+    "request": "opus-gauto-heroes-38",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "weaver_the_swarm:destroy_attacks",
+    "level": "max",
+    "question": "Сколько атак нужно, чтобы убить одного жука из The Swarm у Weaver на максимальном уровне?",
+    "unit": "атак",
+    "step": 1,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "weaver_shukuchi:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Shukuchi у Weaver на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "weaver_geminate_attack:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона получает вторая атака от Geminate Attack у Weaver на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "weaver_time_lapse:cd",
+    "level": 1,
+    "question": "Какое кд у Time Lapse у Weaver на 1-м уровне (без аганима)?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ringmaster_tame_the_beasts:damage_max",
+    "level": "max",
+    "question": "Сколько урона наносит Tame the Beasts у Ring Master при полном ченнеле на максимальном уровне?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ringmaster_the_box:invis_duration",
+    "level": "max",
+    "question": "Сколько длится Escape Act у Ring Master на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ringmaster_impalement:bleed_health_pct",
+    "level": "max",
+    "question": "Какой процент от максимального здоровья в секунду снимает кровотечение от Impalement Arts у Ring Master с героев на максимальном уровне?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ringmaster_wheel:explosion_damage",
+    "level": "max",
+    "question": "Сколько урона наносит взрыв Wheel of Wonder у Ring Master на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_lancer_juxtapose:illusion_proc_chance_pct",
+    "level": "max",
+    "question": "С каким шансом иллюзия Phantom Lancer создаёт новую иллюзию от Juxtapose при атаке?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_lancer_spirit_lance:lance_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Spirit Lance у Phantom Lancer на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_lancer_illusory_armaments:outgoing_floor",
+    "level": "max",
+    "question": "Ниже какого процента не может опуститься исходящий урон свежесозданной иллюзии Phantom Lancer благодаря Illusory Armaments?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "phantom_lancer_juxtapose:AbilityCooldown@shard",
+    "level": "max",
+    "question": "Какое кд у активки Juxtapose (инвиз), которую даёт Aghanim's Shard у Phantom Lancer?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-39",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "storm_spirit_static_remnant:static_remnant_damage",
+    "level": "max",
+    "question": "Сколько урона наносит взрыв Static Remnant у Storm Spirit на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "storm_spirit_ball_lightning:ball_lightning_move_speed",
+    "level": "max",
+    "question": "С какой скоростью летит Ball Lightning у Storm Spirit на 3-м уровне?",
+    "unit": "ед.",
+    "step": 150,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "storm_spirit_electric_vortex:cd",
+    "level": "max",
+    "question": "Какое кд у Electric Vortex у Storm Spirit на максимальном уровне?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "storm_spirit_overload:shard_attack_speed_bonus@shard",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт активация Overload с Aghanim's Shard у Storm Spirit?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "snapfire_mortimer_kisses:damage_per_impact",
+    "level": "max",
+    "question": "Сколько урона наносит один плевок Mortimer Kisses у Snapfire при попадании на 3-м уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "snapfire_firesnap_cookie:target_heal@shard",
+    "level": "max",
+    "question": "Сколько здоровья восстанавливает Firesnap Cookie у Snapfire с Aghanim's Shard?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "snapfire_scatterblast:shard_stun_duration@shard",
+    "level": "max",
+    "question": "Сколько длится стан от Scatterblast у Snapfire с Aghanim's Shard?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "snapfire_boomstick:damage_amp_max",
+    "level": "max",
+    "question": "Какой максимальный бонус к урону по близким врагам даёт врождённая способность Boomstick у Snapfire?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pudge_meat_hook:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Meat Hook у Pudge на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pudge_dismember:abilitychanneltime",
+    "level": "max",
+    "question": "Сколько секунд длится каст Dismember у Pudge?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pudge_rot:rot_damage@scepter",
+    "level": "max",
+    "question": "На сколько Aghanim's Scepter увеличивает урон Rot у Pudge?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "pudge_flesh_heap:damage_block",
+    "level": "max",
+    "question": "Сколько урона блокирует Meat Shield у Pudge с каждого инстанса на максимальном уровне?",
+    "unit": "урона",
+    "step": 4,
+    "request": "opus-gauto-heroes-4",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bane_fiends_grip:abilitychanneltime",
+    "level": "max",
+    "question": "Сколько секунд длится Fiend's Grip у Bane на 3-м уровне, если ченнел не сбили?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bane_enfeeble:damage_reduction",
+    "level": "max",
+    "question": "На сколько процентов Enfeeble у Bane режет урон от атак цели на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bane_fiends_grip:scepter_incoming_illusion_damage@scepter",
+    "level": "max",
+    "question": "Сколько процентов входящего урона получают иллюзии Bane, которые с Aghanim's Scepter тоже ченнелят Fiend's Grip?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bane_ichor_of_nyctasha:status_resistance",
+    "level": "max",
+    "question": "На сколько процентов снижается статус-резист к дебаффам Bane за каждый Terror от Ichor of Nyctasha?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "void_spirit_aether_remnant:pull_duration",
+    "level": "max",
+    "question": "Сколько секунд Aether Remnant у Void Spirit тянет пойманного врага на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "void_spirit_resonant_pulse:silence_duration_scepter@scepter",
+    "level": "max",
+    "question": "Сколько секунд длится сайленс от Resonant Pulse у Void Spirit с Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "void_spirit_astral_step:pop_damage",
+    "level": "max",
+    "question": "Сколько урона наносит взрыв метки от Astral Step у Void Spirit на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "void_spirit_resonant_pulse:absorb_per_hero_hit",
+    "level": "max",
+    "question": "Сколько щита добавляет Resonant Pulse у Void Spirit за каждого задетого вражеского героя на максимальном уровне?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bounty_hunter_jinada:gold_steal",
+    "level": "max",
+    "question": "Сколько золота ворует Jinada у Bounty Hunter за удар на максимальном уровне?",
+    "unit": "золота",
+    "step": 5,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold_self",
+    "level": "max",
+    "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на 3-м уровне?",
+    "unit": "золота",
+    "step": 40,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bounty_hunter_wind_walk:stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от атаки из Shadow Walk у Bounty Hunter на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bounty_hunter_shuriken_toss:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Shuriken Toss у Bounty Hunter на максимальном уровне?",
+    "unit": "урона",
+    "step": 30,
+    "request": "opus-gauto-heroes-40",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "terrorblade_sunder:hit_point_minimum_pct",
+    "level": 1,
+    "question": "Какой минимальный процент HP оставляет Sunder у Terrorblade на 1-м уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "terrorblade_conjure_image:illusion_incoming_damage_total_tooltip",
+    "level": "max",
+    "question": "Сколько процентов урона получает иллюзия от Conjure Image у Terrorblade?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "terrorblade_terror_wave:scepter_meta_duration",
+    "level": "max",
+    "question": "На сколько секунд Terror Wave с Aghanim's Scepter даёт Terrorblade Metamorphosis?",
+    "unit": "сек.",
+    "step": 3,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "terrorblade_metamorphosis:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона даёт Metamorphosis у Terrorblade на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bristleback_quill_spray:quill_stack_damage",
+    "level": "max",
+    "question": "Сколько дополнительного урона даёт каждый стак Quill Spray у Bristleback?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bristleback_bristleback:back_damage_reduction",
+    "level": "max",
+    "question": "На сколько процентов Bristleback режет урон, прилетающий в спину, на максимальном уровне пассивки Bristleback?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bristleback_warpath:max_stacks",
+    "level": "max",
+    "question": "Сколько максимум стаков Warpath может набрать Bristleback на 3-м уровне ульты?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "bristleback_prickly:amp_pct",
+    "level": "max",
+    "question": "На сколько процентов врождённая Prickly у Bristleback усиливает урон и длительность дебаффов по героям за его спиной?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "broodmother_spawn_spiderlings:tooltip_spiderling_hp",
+    "level": "max",
+    "question": "Сколько HP у паучка из Spawn Spiderlings у Broodmother?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "broodmother_incapacitating_bite:miss_chance",
+    "level": "max",
+    "question": "Какой шанс промаха вешает Incapacitating Bite у Broodmother на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "broodmother_spin_web:count",
+    "level": "max",
+    "question": "Сколько паутин Spin Web может одновременно держать Broodmother на максимальном уровне?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "broodmother_sticky_snare:root_duration",
+    "level": "max",
+    "question": "Сколько секунд длится рут от Spinner's Snare, который Broodmother получает с Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-41",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "antimage_mana_break:percent_damage_per_burn",
+    "level": "max",
+    "question": "Какой процент сожжённой маны Mana Break у Anti-Mage наносит как урон?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-42",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "antimage_mana_break:empowered_mana_break_debuff_duration@scepter",
+    "level": "max",
+    "question": "Сколько секунд цель не может восстанавливать и получать ману после усиленного Mana Break от Aghanim's Scepter у Anti-Mage?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-42",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "antimage_persectur:move_slow_max",
+    "level": "max",
+    "question": "Какой максимальный слоу скорости передвижения даёт Persecutor у Anti-Mage по цели с нулевой маной?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-42",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "antimage_mana_void:cd",
+    "level": "max",
+    "question": "Какое кд у Mana Void у Anti-Mage на 3-м уровне?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-42",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "crystal_maiden_crystal_nova:nova_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Crystal Nova у Crystal Maiden на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "crystal_maiden_frostbite:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Frostbite у Crystal Maiden на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "crystal_maiden_freezing_field:damage",
+    "level": "max",
+    "question": "Сколько урона наносит один взрыв Freezing Field у Crystal Maiden на 3-м уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "crystal_maiden_brilliance_aura:mana_regen_amp",
+    "level": "max",
+    "question": "На сколько процентов Arcane Aura усиливает реген маны самой Crystal Maiden на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "venomancer_plague_ward:ward_hp_tooltip",
+    "level": "max",
+    "question": "Сколько HP у Plague Ward Venomancer на максимальном уровне способности?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "venomancer_noxious_plague:damage_per_second",
+    "level": "max",
+    "question": "Какой процент от макс. HP цели в секунду наносит Noxious Plague у Venomancer на 3-м уровне?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "venomancer_noxious_plague:mres_reduce@scepter",
+    "level": "max",
+    "question": "На сколько процентов снижается маг. резист у целей, заражённых Noxious Plague, если у Venomancer есть Aghanim's Scepter?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "venomancer_snakebite:base_damage",
+    "level": "max",
+    "question": "Сколько начального урона наносит Snakebite у Venomancer на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nyx_assassin_spiked_carapace:damage_reflect_pct",
+    "level": "max",
+    "question": "Какой процент урона отражает Spiked Carapace у Nyx Assassin обратно в атакующего?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nyx_assassin_vendetta:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона даёт удар из Vendetta у Nyx Assassin на 3-м уровне?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nyx_assassin_burrow:damage_reduction",
+    "level": "max",
+    "question": "Какое снижение входящего урона получает Nyx Assassin в Burrow с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nyx_assassin_jolt:max_mana_as_damage_pct",
+    "level": "max",
+    "question": "Какой процент от макс. маны цели наносит уроном Mind Flare у Nyx Assassin на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-5",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rubick_telekinesis:lift_duration",
+    "level": "max",
+    "question": "Сколько секунд враг висит в воздухе от Telekinesis у Rubick на максимальном уровне (без учёта стана после падения)?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rubick_fade_bolt:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Fade Bolt у Rubick первой цели на максимальном уровне?",
+    "unit": "урона",
+    "step": 40,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "rubick_arcane_supremacy:spell_amp",
+    "level": "max",
+    "question": "Сколько спелл-ампа даёт Arcane Supremacy у Rubick на максимальном уровне?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mirana_arrow:arrow_max_stun",
+    "level": "max",
+    "question": "Какой максимальный стан от Sacred Arrow у Mirana на максимальном уровне (стрела с максимальной дистанции)?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mirana_starfall:secondary_starfall_damage_percent",
+    "level": "max",
+    "question": "Сколько процентов от урона основной волны наносит второй метеор Starstorm у Mirana по ближайшему врагу?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "mirana_invis:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Moonlight Shadow у Mirana?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "necrolyte_heartstopper_aura:aura_damage",
+    "level": "max",
+    "question": "Сколько процентов от максимального HP в секунду отнимает Heartstopper Aura у Necrophos на максимальном уровне?",
+    "unit": "%",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "necrolyte_ghost_shroud:heal_bonus",
+    "level": "max",
+    "question": "На сколько процентов Ghost Shroud у Necrophos усиливает его лечение и реген на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "necrolyte_reapers_scythe:damage_per_health",
+    "level": "max",
+    "question": "Сколько урона за каждую единицу недостающего HP наносит Reaper's Scythe у Necrophos на 3-м уровне?",
+    "unit": "урона",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-6",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "leshrac_diabolic_edict:num_explosions",
+    "level": "max",
+    "question": "Сколько взрывов делает Diabolic Edict у Leshrac за время действия?",
+    "unit": "шт.",
+    "step": 5,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "leshrac_lightning_storm:jump_count",
+    "level": "max",
+    "question": "Сколько ударов молнии даёт Lightning Storm у Leshrac на максимальном уровне?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "leshrac_split_earth:duration",
+    "level": "max",
+    "question": "Сколько длится стан от Split Earth у Leshrac?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "leshrac_pulse_nova:damage",
+    "level": "max",
+    "question": "Сколько урона наносит каждый импульс Pulse Nova у Leshrac на 3-м уровне?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "primal_beast_trample:duration",
+    "level": "max",
+    "question": "Сколько длится Trample у Primal Beast?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "primal_beast_rock_throw:base_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Rock Throw у Primal Beast (способность от Aghanim's Shard)?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "primal_beast_uproar:projectile_damage@scepter",
+    "level": "max",
+    "question": "Сколько урона наносит один снаряд Uproar у Primal Beast с Aghanim's Scepter?",
+    "unit": "урона",
+    "step": 15,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "primal_beast_pulverize:damage",
+    "level": "max",
+    "question": "Сколько урона наносит один удар Pulverize у Primal Beast на 3-м уровне (без бонуса за последовательные удары)?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abyssal_underlord_firestorm:burn_damage",
+    "level": "max",
+    "question": "Какой процент от макс. HP в секунду сжигает горение от Firestorm у Underlord на максимальном уровне?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abyssal_underlord_pit_of_malice:pit_duration",
+    "level": "max",
+    "question": "Сколько секунд держится Pit of Malice у Underlord?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abyssal_underlord_atrophy_aura:bonus_damage_from_hero",
+    "level": "max",
+    "question": "Сколько бонусного урона получает Underlord от Atrophy Aura за смерть вражеского героя на максимальном уровне?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "abyssal_underlord_dark_portal:AbilityCooldown@scepter",
+    "level": "max",
+    "question": "На сколько секунд Aghanim's Scepter уменьшает кд Fiend's Gate у Underlord?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-7",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chen_penitence:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки получают союзники по цели под Penitence у Chen на максимальном уровне?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chen_hand_of_god:heal_amount",
+    "level": "max",
+    "question": "Сколько HP мгновенно восстанавливает Hand of God у Chen на 3-м уровне (начальный хил, без хила со временем)?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chen_divine_favor:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт союзнику активный каст Divine Favor у Chen на максимальном уровне?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "chen_hand_of_god:debuff_immune_resist@scepter",
+    "level": "max",
+    "question": "Сколько маг. резиста получают союзники рядом с Chen, пока он ченнелит Hand of God с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nevermore_shadowraze1:shadowraze_damage",
+    "level": "max",
+    "question": "Какой базовый урон у одного Shadowraze у Shadow Fiend на максимальном уровне (без душ и стаков)?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nevermore_dark_lord:presence_armor_reduction",
+    "level": "max",
+    "question": "На сколько снижает броню врагов Presence of the Dark Lord у Shadow Fiend на максимальном уровне?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nevermore_requiem:requiem_slow_duration_max",
+    "level": "max",
+    "question": "Какова максимальная длительность фира от Requiem of Souls у Shadow Fiend, если цель словила много линий?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "nevermore_requiem:AbilityCooldown@scepter",
+    "level": "max",
+    "question": "На сколько секунд Aghanim's Scepter уменьшает кд Requiem of Souls у Shadow Fiend?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enigma_malefice:stun_duration",
+    "level": "max",
+    "question": "Сколько длится один стан от Malefice у Enigma на максимальном уровне (без шарда)?",
+    "unit": "сек.",
+    "step": 0.1,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enigma_demonic_conversion:split_attack_count",
+    "level": "max",
+    "question": "Сколько атак должен сделать эйдолон Enigma, чтобы размножиться?",
+    "unit": "атак",
+    "step": 1,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enigma_black_hole:cd",
+    "level": 1,
+    "question": "Какое кд у Black Hole у Enigma на 1-м уровне?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "enigma_black_hole:scepter_pct_damage@scepter",
+    "level": "max",
+    "question": "Какой процент от максимального здоровья цели в секунду наносит Black Hole у Enigma дополнительно с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-heroes-8",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skeleton_king_mortal_strike:crit_mult",
+    "level": "max",
+    "question": "Какой крит в процентах даёт Mortal Strike у Wraith King на максимальном уровне?",
+    "unit": "%",
+    "step": 20,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skeleton_king_hellfire_blast:blast_stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от Wraithfire Blast у Wraith King на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skeleton_king_vampiric_spirit:duration",
+    "level": "max",
+    "question": "Сколько секунд Wraith King проводит в форме призрака после смерти (Vampiric Spirit) без Aghanim's Scepter?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "skeleton_king_mortal_strike:curse_damage_pct@shard",
+    "level": "max",
+    "question": "С Aghanim's Shard удар Mortal Strike у Wraith King накладывает проклятие. Какой процент от урона исходной атаки цель получит повторно чистым уроном?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "legion_commander_moment_of_courage:hp_leech_percent",
+    "level": "max",
+    "question": "Какой процент лайфстила даёт контратака Moment of Courage у Legion Commander на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "legion_commander_duel:reward_damage",
+    "level": "max",
+    "question": "Сколько постоянного урона получает Legion Commander за выигранную Duel на 3-м уровне ультимейта?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "legion_commander_overwhelming_odds:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Overwhelming Odds у Legion Commander на максимальном уровне?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "drow_ranger_marksmanship:chance",
+    "level": "max",
+    "question": "Какой шанс срабатывания у Marksmanship (Drow Ranger) на 3-м уровне ультимейта?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "drow_ranger_wave_of_silence:silence_duration",
+    "level": "max",
+    "question": "Сколько секунд длится сайленс от Gust у Drow Ranger на максимальном уровне?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "drow_ranger_frost_arrows:shard_max_stacks@scepter",
+    "level": "max",
+    "question": "С Aghanim's Scepter Frost Arrows у Drow Ranger вешают стаки Hypothermia. Сколько максимум стаков можно накопить на цели?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "drow_ranger_glacier:damage_bonus",
+    "level": "max",
+    "question": "На сколько процентов больше урона наносит Drow Ranger с Glacier (Aghanim's Shard) по целям ниже неё?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-heroes-9",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "quelling_blade:damage_bonus",
+    "level": "max",
+    "question": "Сколько дополнительного урона по крипам даёт Quelling Blade мили-герою?",
+    "unit": "урона",
+    "step": 2,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "devastator:active_mres_reduction",
+    "level": "max",
+    "question": "На сколько процентов атаки с Parasma снижают маг. резист врага?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "travel_boots_2:tp_cooldown",
+    "level": "max",
+    "question": "Какое кд у телепорта с Boots of Travel 2?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "point_booster:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Point Booster?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "bfury:cleave_damage_percent_creep",
+    "level": "max",
+    "question": "Какой процент урона атаки наносит клив Battle Fury по крипам?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "bfury:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт Battle Fury?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "power_treads:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки дают Power Treads?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "branches:tree_duration",
+    "level": "max",
+    "question": "Сколько секунд стоит дерево, посаженное с Iron Branch?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "fluffy_hat:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Fluffy Hat?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "orb_of_corrosion:heal_reduction",
+    "level": "max",
+    "question": "На сколько процентов Orb of Corrosion режет восстановление здоровья цели?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "oblivion_staff:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Oblivion Staff?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-43",
+    "category": "items"
+  },
+  {
+    "fact_id": "invis_sword:windwalk_bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного физ. урона даёт удар, которым выходишь из инвиза Shadow Blade?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "invis_sword:windwalk_duration",
+    "level": "max",
+    "question": "Сколько секунд длится инвиз от Shadow Walk у Shadow Blade, если ничего не делать?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "shadow_amulet:fade_time",
+    "level": "max",
+    "question": "За сколько секунд герой полностью уходит в инвиз после активации Shadow Amulet?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "ring_of_tarrasque:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регена здоровья даёт Ring of Tarrasque?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "hurricane_pike:max_attacks",
+    "level": "max",
+    "question": "Сколько атак без ограничения дальности можно сделать по врагу после Hurricane Thrust у Hurricane Pike?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "orchid:silence_duration",
+    "level": "max",
+    "question": "Сколько секунд длится сайленс от Soul Burn у Orchid Malevolence?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "vanguard:block_chance",
+    "level": "max",
+    "question": "С каким шансом Vanguard блокирует урон от атаки?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-44",
+    "category": "items"
+  },
+  {
+    "fact_id": "vladmir:damage_aura",
+    "level": "max",
+    "question": "Сколько процентов бонусного урона даёт союзникам аура Vladmir's Offering?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "ring_of_regen:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт Ring of Regen?",
+    "unit": "ед.",
+    "step": 0.25,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "disperser:feedback_mana_burn",
+    "level": "max",
+    "question": "Сколько маны сжигает за атаку пассивка Manabreak у Disperser?",
+    "unit": "маны",
+    "step": 5,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "falcon_blade:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт Falcon Blade?",
+    "unit": "урона",
+    "step": 2,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "tiara_of_selemene:bonus_mana_regen",
+    "level": "max",
+    "question": "Сколько регенерации маны даёт Tiara of Selemene?",
+    "unit": "ед.",
+    "step": 0.5,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "aeon_disk:health_threshold_pct",
+    "level": "max",
+    "question": "Ниже какого процента здоровья срабатывает Aeon Disk?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "aeon_disk:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится бафф Combo Breaker после срабатывания Aeon Disk?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "heavens_halberd:disarm_melee",
+    "level": "max",
+    "question": "Сколько секунд длится дизарм от Heaven's Halberd?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-items-45",
+    "category": "items"
+  },
+  {
+    "fact_id": "manta:bonus_agility",
+    "level": "max",
+    "question": "Сколько ловкости даёт Manta Style?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "manta:cd",
+    "level": "max",
+    "question": "Какой кд у активки Manta Style?",
+    "unit": "сек.",
+    "step": 3,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "helm_of_the_dominator:creep_bonus_damage",
+    "level": "max",
+    "question": "Сколько базового урона добавляет Helm of the Dominator подчинённому крипу?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "lesser_crit:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт Crystalys?",
+    "unit": "урона",
+    "step": 4,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "witch_blade:int_damage_multiplier",
+    "level": "max",
+    "question": "Какой множитель от интеллекта у урона в секунду от яда Witch Blade?",
+    "unit": "× интеллект",
+    "step": 0.25,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "witch_blade:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Witch Blade?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "tpscroll:cd",
+    "level": "max",
+    "question": "Какой кд у Town Portal Scroll?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "blood_grenade:damage_over_time",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Blood Grenade после попадания (периодический урон)?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "sphere:bonus_all_stats",
+    "level": "max",
+    "question": "Сколько ко всем атрибутам даёт Linken's Sphere?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-46",
+    "category": "items"
+  },
+  {
+    "fact_id": "faerie_fire:hp_restore",
+    "level": "max",
+    "question": "Сколько здоровья мгновенно восстанавливает Faerie Fire?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "blitz_knuckles:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Blitz Knuckles?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "gungir:cd",
+    "level": "max",
+    "question": "Какое кд у активки Eternal Chains на Gleipnir?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "urn_of_shadows:soul_damage_amount",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Urn of Shadows, если прожать её на врага?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "black_king_bar:cd",
+    "level": "max",
+    "question": "Какое кд у Black King Bar?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "abyssal_blade:stun_duration",
+    "level": "max",
+    "question": "Сколько длится стан от активки Overwhelm у Abyssal Blade?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "abyssal_blade:bonus_chance_damage",
+    "level": "max",
+    "question": "Сколько бонусного физического урона наносит баш Abyssal Blade?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "harpoon:cd",
+    "level": "max",
+    "question": "Какое кд у активки Draw Forth на Harpoon?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "infused_raindrop:magic_damage_block",
+    "level": "max",
+    "question": "Сколько магического урона блокирует один заряд Infused Raindrops?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-47",
+    "category": "items"
+  },
+  {
+    "fact_id": "radiance:aura_damage",
+    "level": "max",
+    "question": "Сколько маг. урона в секунду наносит аура Burn у Radiance, если его носит сам герой?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "radiance:evasion",
+    "level": "max",
+    "question": "Сколько процентов уклонения даёт Radiance?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "monkey_king_bar:bonus_chance_damage",
+    "level": "max",
+    "question": "Сколько бонусного маг. урона наносит атака при срабатывании Pierce у Monkey King Bar?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько маг. урона поглощает барьер от активки Pipe of Insight?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "phase_boots:bonus_damage_melee",
+    "level": "max",
+    "question": "Сколько урона дают Phase Boots герою ближнего боя?",
+    "unit": "урона",
+    "step": 3,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "lotus_orb:cd",
+    "level": "max",
+    "question": "Какое кд у Lotus Orb?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "arcane_boots:replenish_amount",
+    "level": "max",
+    "question": "Сколько маны восстанавливает союзникам активка Replenish у Arcane Boots?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-48",
+    "category": "items"
+  },
+  {
+    "fact_id": "relic:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт Sacred Relic?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "octarine_core:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Octarine Core?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "clarity:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится реген маны от Clarity, если тебя не бьют?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "enchanted_mango:hp_regen",
+    "level": "max",
+    "question": "Сколько пассивного регена здоровья даёт Enchanted Mango, пока лежит в инвентаре?",
+    "unit": "ед.",
+    "step": 0.1,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "mekansm:heal_amount",
+    "level": "max",
+    "question": "Сколько здоровья восстанавливает активка Mekansm?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "soul_ring:mana_gain",
+    "level": "max",
+    "question": "Сколько временной маны даёт активка Soul Ring?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "pers:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регена здоровья даёт Perseverance?",
+    "unit": "ед.",
+    "step": 0.5,
+    "request": "opus-gauto-items-49",
+    "category": "items"
+  },
+  {
+    "fact_id": "mithril_hammer:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт Mithril Hammer?",
+    "unit": "урона",
+    "step": 3,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "kaya_and_sange:spell_amp",
+    "level": "max",
+    "question": "Сколько процентов спелл-ампа даёт Kaya and Sange?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "kaya:mana_regen_multiplier",
+    "level": "max",
+    "question": "На сколько процентов Kaya усиливает реген маны?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "glimmer_cape:barrier_block",
+    "level": "max",
+    "question": "Сколько магического урона поглощает барьер от активки Glimmer Cape?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "bloodthorn:silence_damage_percent",
+    "level": "max",
+    "question": "Какой процент урона, полученного за время сайленса от Bloodthorn, наносится цели дополнительно в конце сайленса?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "bloodthorn:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Bloodthorn?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "refresher:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт Refresher Orb?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-50",
+    "category": "items"
+  },
+  {
+    "fact_id": "tango:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится реген от одного Tango, если съесть обычное дерево?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "smoke_of_deceit:duration",
+    "level": "max",
+    "question": "Сколько секунд длится инвиз от Smoke of Deceit, если его ничего не сбивает?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "pavise:absorb_amount",
+    "level": "max",
+    "question": "Сколько физического урона поглощает барьер от активки Pavise?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "maelstrom:chain_damage",
+    "level": "max",
+    "question": "Сколько магического урона наносит молния Maelstrom каждой цели?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "magic_stick:cd",
+    "level": "max",
+    "question": "Какое кд у Magic Stick?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "tranquil_boots:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регена HP дают Tranquil Boots, пока они не сломаны?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "hand_of_midas:bonus_gold",
+    "level": "max",
+    "question": "Сколько золота даёт одно использование Hand of Midas на крипа?",
+    "unit": "золота",
+    "step": 10,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "boots_of_bearing:duration",
+    "level": "max",
+    "question": "Сколько секунд длится бафф от активки Endurance у Boots of Bearing?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "ultimate_orb:bonus_all_stats",
+    "level": "max",
+    "question": "Сколько ко всем атрибутам даёт Ultimate Orb?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "meteor_hammer:impact_damage_units",
+    "level": "max",
+    "question": "Сколько урона наносит Meteor Hammer юнитам (не зданиям) в момент падения метеора?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-51",
+    "category": "items"
+  },
+  {
+    "fact_id": "cloak:tooltip_resist",
+    "level": "max",
+    "question": "Сколько маг. резиста даёт Cloak?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "arcane_blink:heal_amount",
+    "level": "max",
+    "question": "Сколько здоровья восстанавливает Arcane Blink после телепорта?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "flask:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится эффект Healing Salve, если его не сбить?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "armlet:unholy_health_drain_per_second",
+    "level": "max",
+    "question": "Сколько здоровья в секунду сжигает включённый Armlet of Mordiggian (Unholy Strength)?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "armlet:unholy_bonus_damage",
+    "level": "max",
+    "question": "Сколько дополнительного урона даёт включённый Unholy Strength у Armlet of Mordiggian (сверх пассивного бонуса)?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "wraith_band:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт Wraith Band?",
+    "unit": "ед.",
+    "step": 0.25,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "sheepstick:sheep_duration",
+    "level": "max",
+    "question": "Сколько секунд длится хекс от Scythe of Vyse?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "sheepstick:bonus_mana_regen",
+    "level": "max",
+    "question": "Сколько регенерации маны даёт Scythe of Vyse?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "essence_distiller:soul_damage_amount",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Soul Release от Essence Distiller, прицепившись к врагу?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "swift_blink:bonus_agi_active",
+    "level": "max",
+    "question": "Сколько ловкости временно даёт Swift Blink после телепорта?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-52",
+    "category": "items"
+  },
+  {
+    "fact_id": "orb_of_frost:heal_reduction",
+    "level": "max",
+    "question": "На сколько процентов Orb of Frost режет восстановление здоровья цели атаки?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "assault:aura_negative_armor",
+    "level": "max",
+    "question": "Сколько брони снимает аура Assault Cuirass с врагов поблизости?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "soul_booster:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Soul Booster?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "sobi_mask:bonus_mana_regen",
+    "level": "max",
+    "question": "Сколько регенерации маны даёт Sage's Mask?",
+    "unit": "ед.",
+    "step": 0.1,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "reaver:bonus_strength",
+    "level": "max",
+    "question": "Сколько силы даёт Reaver?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "ancient_janggo:bonus_movement_speed_pct",
+    "level": "max",
+    "question": "Сколько процентов скорости передвижения даёт активка Endurance у Drum of Endurance?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "ancient_janggo:aura_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт союзникам пассивная аура Drum of Endurance?",
+    "unit": "ед.",
+    "step": 0.5,
+    "request": "opus-gauto-items-53",
+    "category": "items"
+  },
+  {
+    "fact_id": "javelin:bonus_chance_damage",
+    "level": "max",
+    "question": "Сколько бонусного магического урона наносит срабатывание Pierce у Javelin?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "crellas_crozier:movespeed_steal_pct",
+    "level": "max",
+    "question": "Сколько процентов скорости передвижения каждую секунду крадёт у вражеских героев актив Rite of Rumusque у Crella's Crozier?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "ultimate_scepter:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Aghanim's Scepter?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "mage_slayer:spell_amp_debuff",
+    "level": "max",
+    "question": "На сколько процентов дебафф Mage Slayer снижает урон от заклинаний у цели?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "yasha_and_kaya:spell_amp",
+    "level": "max",
+    "question": "Сколько процентов спелл-ампа даёт Yasha and Kaya?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "silver_edge:windwalk_bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного физического урона наносит атака из инвиза Shadow Walk у Silver Edge?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "silver_edge:cd",
+    "level": "max",
+    "question": "Какое кд у Silver Edge?",
+    "unit": "сек.",
+    "step": 3,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "consecrated_wraps:barrier_per_stack",
+    "level": "max",
+    "question": "Сколько урона поглощает барьер Consecrated Wraps за каждый заряд?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "guardian_greaves:replenish_health",
+    "level": "max",
+    "question": "Сколько здоровья восстанавливает союзникам Mend у Guardian Greaves?",
+    "unit": "ед.",
+    "step": 25,
+    "request": "opus-gauto-items-54",
+    "category": "items"
+  },
+  {
+    "fact_id": "lifesteal:lifesteal_percent",
+    "level": "max",
+    "question": "Сколько процентов лайфстила даёт Morbid Mask?",
+    "unit": "%",
+    "step": 3,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "bottle:health_restore",
+    "level": "max",
+    "question": "Сколько здоровья восстанавливает один заряд Bottle?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "angels_demise:bonus_spell_damage",
+    "level": "max",
+    "question": "Сколько дополнительного урона наносит Empower Spell у Khanda?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "dust:duration",
+    "level": "max",
+    "question": "Сколько секунд держится зона Dust of Appearance?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "cyclone:cd",
+    "level": "max",
+    "question": "Какое кд у Cyclone на Eul's Scepter of Divinity?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "specialists_array:proc_dmg_pct",
+    "level": "max",
+    "question": "Какой процент урона обычной атаки наносят дополнительные снаряды Splitshot у Specialist's Array (не считая фиксированной прибавки)?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "basher:bash_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан от баша Skull Basher?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "rapier:bonus_spell_amp",
+    "level": "max",
+    "question": "Сколько процентов спелл-ампа даёт Divine Rapier в режиме магии (Transmute)?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "dragon_lance:bonus_agility",
+    "level": "max",
+    "question": "Сколько ловкости даёт Dragon Lance?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-55",
+    "category": "items"
+  },
+  {
+    "fact_id": "holy_locket:health_restore_per_charge",
+    "level": "max",
+    "question": "Сколько здоровья восстанавливает Holy Locket за каждый заряд при использовании Energy Charge?",
+    "unit": "ед.",
+    "step": 3,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "heart:missing_health_regen",
+    "level": "max",
+    "question": "Какой процент от недостающего здоровья добавляет к регену пассивка Behemoth's Blood у Heart of Tarrasque?",
+    "unit": "%",
+    "step": 0.25,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "mjollnir:chain_strikes",
+    "level": "max",
+    "question": "Сколько максимум целей поражает Chain Lightning у Mjollnir?",
+    "unit": "шт.",
+    "step": 2,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "mjollnir:static_damage",
+    "level": "max",
+    "question": "Сколько урона наносит один разряд Static Charge у Mjollnir?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "rod_of_atos:cd",
+    "level": "max",
+    "question": "Какое кд у Rod of Atos?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "dagon:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Energy Burst у Dagon 5?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "ghost:cd",
+    "level": "max",
+    "question": "Какое кд у Ghost Form на Ghost Scepter?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-56",
+    "category": "items"
+  },
+  {
+    "fact_id": "revenants_brooch:crit_multiplier",
+    "level": "max",
+    "question": "Какой процент от урона атаки Revenant's Brooch наносит дополнительным магическим уроном при срабатывании Phantom Critical?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "shivas_guard:blast_damage",
+    "level": "max",
+    "question": "Сколько магического урона наносит Arctic Blast у Shiva's Guard?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "voodoo_mask:spell_lifesteal",
+    "level": "max",
+    "question": "Сколько процентов спелл-лайфстила даёт Voodoo Mask?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "desolator:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт Desolator без стаков Soul Stealer?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "travel_boots:tp_cooldown",
+    "level": "max",
+    "question": "Какое кд у телепорта с Boots of Travel?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "diffusal_blade:feedback_mana_burn",
+    "level": "max",
+    "question": "Сколько маны сжигает Diffusal Blade за одну атаку?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "wind_waker:cd",
+    "level": "max",
+    "question": "Какое кд у Cyclone на Wind Waker?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "helm_of_the_overlord:health_min",
+    "level": "max",
+    "question": "До какого минимального запаса здоровья Helm of the Overlord поднимает доминированного крипа?",
+    "unit": "ед.",
+    "step": 100,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "helm_of_the_overlord:creep_bonus_damage",
+    "level": "max",
+    "question": "Сколько базового урона атаки получает крип, захваченный Helm of the Overlord?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-57",
+    "category": "items"
+  },
+  {
+    "fact_id": "greater_crit:crit_multiplier",
+    "level": "max",
+    "question": "Какой множитель урона у крита Daedalus?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "greater_crit:bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного урона даёт Daedalus?",
+    "unit": "урона",
+    "step": 8,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "hydras_breath:poison_damage_per_second",
+    "level": "max",
+    "question": "Какой процент от макс. HP цели в секунду наносит яд Miasma у Hydra's Breath?",
+    "unit": "%",
+    "step": 0.5,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "hydras_breath:proc_dmg_pct",
+    "level": "max",
+    "question": "Какой процент от урона обычной атаки наносят дополнительные снаряды Polycephaly у Hydra's Breath (без учёта плоской прибавки)?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "orb_of_venom:damage",
+    "level": "max",
+    "question": "Сколько маг. урона в секунду наносит яд Orb of Venom?",
+    "unit": "урона",
+    "step": 2,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "sange:slow_resistance",
+    "level": "max",
+    "question": "Сколько сопротивления слоу даёт Sange?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "moon_shard:consumed_bonus",
+    "level": "max",
+    "question": "Сколько скорости атаки навсегда даёт съеденный Moon Shard?",
+    "unit": "ед.",
+    "step": 10,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "ring_of_health:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт Ring of Health?",
+    "unit": "HP/сек.",
+    "step": 0.5,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "sange_and_yasha:status_resistance",
+    "level": "max",
+    "question": "Сколько статус-резиста даёт Sange and Yasha?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "force_staff:cd",
+    "level": "max",
+    "question": "Какое кд у Force Staff?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-58",
+    "category": "items"
+  },
+  {
+    "fact_id": "solar_crest:absorb_amount",
+    "level": "max",
+    "question": "Какой барьер от физического урона даёт Shine у Solar Crest?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "skadi:bonus_all_stats",
+    "level": "max",
+    "question": "Сколько ко всем атрибутам даёт Eye of Skadi?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "bloodstone:spell_lifesteal_while_active",
+    "level": "max",
+    "question": "До скольких процентов поднимается спелл-лайфстил Bloodstone при активации Bloodpact?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "bloodstone:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Bloodstone?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "overwhelming_blink:bonus_strength",
+    "level": "max",
+    "question": "Сколько силы даёт Overwhelming Blink?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "spirit_vessel:enemy_hp_drain",
+    "level": "max",
+    "question": "Сколько процентов текущего здоровья в секунду отнимает активка Spirit Vessel у врага?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "spirit_vessel:soul_heal_amount",
+    "level": "max",
+    "question": "Сколько регенерации здоровья в секунду даёт Spirit Vessel союзнику?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "blade_mail:duration",
+    "level": "max",
+    "question": "Сколько длится активка Blade Mail?",
+    "unit": "сек.",
+    "step": 0.5,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "phylactery:bonus_spell_damage",
+    "level": "max",
+    "question": "Сколько дополнительного урона наносит Empower Spell у Phylactery?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "nullifier:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт Nullifier?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-items-59",
+    "category": "items"
+  },
+  {
+    "fact_id": "crimson_guard:block_damage_active",
+    "level": "max",
+    "question": "Сколько урона блокирует активка Guard у Crimson Guard герою ближнего боя, не считая бонуса от макс. здоровья кастера?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "ethereal_blade:bonus_agility",
+    "level": "max",
+    "question": "Сколько ко всем атрибутам даёт Ethereal Blade?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "butterfly:bonus_evasion",
+    "level": "max",
+    "question": "Сколько процентов уклонения даёт Butterfly?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "mask_of_madness:berserk_armor_reduction",
+    "level": "max",
+    "question": "На сколько снижается броня владельца во время Berserk от Mask of Madness?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "echo_sabre:slow_duration",
+    "level": "max",
+    "question": "Сколько секунд длится слоу от двойной атаки Echo Sabre?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "veil_of_discord:spell_lifesteal",
+    "level": "max",
+    "question": "Сколько процентов спелл-лайфстила даёт Veil of Discord?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+    "level": "max",
+    "question": "До скольки процентов поднимается лайфстил во время Unholy Rage у Satanic?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-items-60",
+    "category": "items"
+  },
+  {
+    "fact_id": "headdress:aura_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт союзникам аура Headdress?",
+    "unit": "ед.",
+    "step": 0.5,
+    "request": "opus-gauto-items-61",
+    "category": "items"
+  },
+  {
+    "fact_id": "defiant_shell:counter_damage",
+    "level": "max",
+    "question": "Какой процент от обычного урона атаки наносит контратака от нейтралки 2-го тира Defiant Shell?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "dezun_bloodrite:health_pct",
+    "level": "max",
+    "question": "Какой процент от стоимости заклинания по мане нейтралка 5-го тира Dezun Bloodrite дополнительно снимает здоровьем?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "essence_ring:health_gain",
+    "level": "max",
+    "question": "Сколько текущего и максимального здоровья даёт активка нейтралки 2-го тира Essence Ring?",
+    "unit": "ед.",
+    "step": 40,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "divine_regalia:outgoing_damage",
+    "level": "max",
+    "question": "На сколько процентов нейтралка 5-го тира Divine Regalia увеличивает исходящий урон?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "mana_draught:mana_restore",
+    "level": "max",
+    "question": "Сколько маны восстанавливает нейтралка 2-го тира Mana Draught помимо процента от максимальной маны?",
+    "unit": "маны",
+    "step": 10,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "polliwog_charm:duration",
+    "level": "max",
+    "question": "Сколько секунд длится бафф реги от нейтралки 1-го тира Pollywog Charm?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "seeds_of_serenity:cd",
+    "level": "max",
+    "question": "Какое кд у нейтралки 2-го тира Seeds of Serenity?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "dandelion_amulet:magic_block",
+    "level": "max",
+    "question": "Сколько магического урона блокирует нейтралка 4-го тира Dandelion Amulet за одно срабатывание?",
+    "unit": "урона",
+    "step": 50,
+    "request": "opus-gauto-neutrals-62",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "idol_of_screeauk:evasion",
+    "level": "max",
+    "question": "Сколько уклонения даёт актив False Flight у нейтралки 4-го тира Idol of Scree'auk?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "psychic_headband:push_length",
+    "level": "max",
+    "question": "На какое расстояние отталкивает цель актив нейтралки 3-го тира Psychic Headband?",
+    "unit": "ед.",
+    "step": 50,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "cloak_of_flames:damage",
+    "level": "max",
+    "question": "Сколько урона в секунду наносит Immolate у нейтралки 3-го тира Cloak of Flames, если её носит сам герой, а не иллюзия?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "desolator_2:corruption_armor",
+    "level": "max",
+    "question": "Сколько брони снимает атака с нейтралкой 5-го тира Stygian Desolator?",
+    "unit": "брони",
+    "step": 1,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "riftshadow_prism:health_cost",
+    "level": "max",
+    "question": "Какой процент текущего здоровья тратит актив нейтралки 5-го тира Riftshadow Prism на создание иллюзии?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "rattlecage:damage_threshold",
+    "level": "max",
+    "question": "Сколько урона нужно получить владельцу нейтралки 4-го тира Rattlecage, чтобы она выпустила снаряды?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "demonicon:summon_duration",
+    "level": "max",
+    "question": "Сколько секунд живут демоны, призванные нейтралкой 5-го тира Book of the Dead?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "fallen_sky:stun_duration",
+    "level": "max",
+    "question": "На сколько секунд станит врагов приземление нейтралки 5-го тира Fallen Sky?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "fallen_sky:impact_damage_units",
+    "level": "max",
+    "question": "Сколько урона при приземлении наносит нейтралка 5-го тира Fallen Sky по юнитам (не зданиям)?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-neutrals-63",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "duelist_gloves:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт нейтралка 1-го тира Duelist Gloves, когда рядом есть вражеские герои?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "occult_bracelet:stack_limit",
+    "level": "max",
+    "question": "Сколько максимум стаков реги маны можно накопить с нейтралкой 1-го тира Occult Bracelet?",
+    "unit": "шт.",
+    "step": 1,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "gunpowder_gauntlets:bonus_damage",
+    "level": "max",
+    "question": "Сколько дополнительного магического урона наносит усиленная атака от нейтралки 3-го тира Gunpowder Gauntlet?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "ash_legion_shield:block_amount",
+    "level": "max",
+    "question": "Сколько физического урона поглощает барьер от активки нейтралки 1-го тира Ash Legion Shield?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "flayers_bota:cd",
+    "level": "max",
+    "question": "Какое кд у активки Bloodthirst нейтралки 4-го тира Flayer's Bota?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "heavy_blade:damage",
+    "level": "max",
+    "question": "Какой процент от максимальной маны цели наносит атака магическим уроном с нейтралкой 5-го тира Witchbane?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "dagger_of_ristul:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона даёт активка нейтралки 1-го тира Dagger of Ristul?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "stormcrafter:damage",
+    "level": "max",
+    "question": "Сколько урона наносит каждый разряд нейтралки 3-го тира Stormcrafter?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "foragers_kit:gold_amount",
+    "level": "max",
+    "question": "Сколько золота лежит в мешке, найденном на дереве с нейтралкой 1-го тира Forager's Kit?",
+    "unit": "золота",
+    "step": 5,
+    "request": "opus-gauto-neutrals-64",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "enchanters_bauble:enchantment_bonus_growth",
+    "level": "max",
+    "question": "На сколько процентов растёт усиление чара у нейтралки 4-го тира Enchanter's Bauble за каждый повторный крафт?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "stonefeather_satchel:feather_movespeed",
+    "level": "max",
+    "question": "Сколько скорости передвижения даёт нейтралка 1-го тира Stonefeather Satchel в режиме Feathers?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "spellslinger:mana_pct",
+    "level": "max",
+    "question": "Какой процент потраченной на способности маны возвращает нейтралка 3-го тира Spellslinger?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "minotaur_horn:magic_resist",
+    "level": "max",
+    "question": "Сколько маг. резиста даёт активка нейтралки 5-го тира Minotaur Horn?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "crippling_crossbow:heal_reduce",
+    "level": "max",
+    "question": "На сколько процентов режет регенерацию здоровья активка нейтралки 2-го тира Crippling Crossbow?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "giant_maul:cast_slow",
+    "level": "max",
+    "question": "На сколько процентов нейтралка 4-го тира Giant's Maul замедляет скорость каста цели после усиленной атаки?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "metamorphic_mandible:armor_decrease",
+    "level": "max",
+    "question": "На сколько процентов снижается броня в форме насекомого от нейтралки 4-го тира Metamorphic Mandible?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "partisans_brand:bonus_damage_pct",
+    "level": "max",
+    "question": "На сколько процентов нейтралка 3-го тира Partisan's Brand увеличивает урон заклинаний по целям под контролем игроков?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "poor_mans_shield:damage_block_melee",
+    "level": "max",
+    "question": "Сколько урона от атак блокирует нейтралка 2-го тира Poor Man's Shield у героя ближнего боя?",
+    "unit": "урона",
+    "step": 5,
+    "request": "opus-gauto-neutrals-65",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "harmonizer:spell_amp",
+    "level": "max",
+    "question": "Сколько спелл-ампа даёт нейтралка 5-го тира Harmonizer за каждую способность в кд?",
+    "unit": "%",
+    "step": 1,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "serrated_shiv:hp_dmg",
+    "level": "max",
+    "question": "Какой процент от текущего здоровья цели наносит бонусным физическим уроном срабатывание нейтралки 3-го тира Serrated Shiv?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "prophets_pendulum:delay_time",
+    "level": "max",
+    "question": "За сколько секунд растягивается отложенный урон у нейтралки 4-го тира Prophet's Pendulum?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "medallion_of_courage:ally_armor",
+    "level": "max",
+    "question": "Сколько брони даёт союзнику актив нейтралки 2-го тира Medallion of Courage?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "jidi_pollen_bag:hp_damage",
+    "level": "max",
+    "question": "Какой процент от максимального здоровья суммарно снимает за всё время действия актив нейтралки 3-го тира Jidi Pollen Bag?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "conjurers_catalyst:damage",
+    "level": "max",
+    "question": "Сколько урона наносит союзникам вражеский герой, «перегретый» нейтралкой 4-го тира Conjurer's Catalyst?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "searing_signet:burn_damage",
+    "level": "max",
+    "question": "Сколько суммарного магического урона наносит горение от нейтралки 2-го тира Searing Signet по герою?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "spider_legs:bonus_movement_speed_active",
+    "level": "max",
+    "question": "Сколько процентов скорости передвижения даёт актив нейтралки 5-го тира Spider Legs?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  },
+  {
+    "fact_id": "possessed_mask:lifesteal",
+    "level": "max",
+    "question": "Сколько HP лечит за каждую атаку нейтралка 1-го тира Possessed Mask?",
+    "unit": "ед.",
+    "step": 1,
+    "request": "opus-gauto-neutrals-66",
+    "category": "neutrals"
+  }
+]

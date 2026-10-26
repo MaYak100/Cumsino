@@ -1,0 +1,886 @@
+{
+  "opus-gauto-enhancements-67": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 7978,
+      "output_tokens": 1409,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.06009,
+    "questions": 10,
+    "seconds": 13.6
+  },
+  "opus-gauto-heroes-0": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12094,
+      "output_tokens": 1878,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08594,
+    "questions": 11,
+    "seconds": 19.8
+  },
+  "opus-gauto-heroes-1": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13732,
+      "output_tokens": 1589,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08671,
+    "questions": 10,
+    "seconds": 17.7
+  },
+  "opus-gauto-heroes-10": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12508,
+      "output_tokens": 1523,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08049,
+    "questions": 12,
+    "seconds": 15.4
+  },
+  "opus-gauto-heroes-11": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 18060,
+      "output_tokens": 2044,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.11312,
+    "questions": 12,
+    "seconds": 20.9
+  },
+  "opus-gauto-heroes-12": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 11951,
+      "output_tokens": 1702,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08184,
+    "questions": 10,
+    "seconds": 17.0
+  },
+  "opus-gauto-heroes-13": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13088,
+      "output_tokens": 1587,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08409,
+    "questions": 10,
+    "seconds": 17.8
+  },
+  "opus-gauto-heroes-14": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14296,
+      "output_tokens": 1644,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09006,
+    "questions": 12,
+    "seconds": 17.0
+  },
+  "opus-gauto-heroes-15": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12205,
+      "output_tokens": 1560,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08002,
+    "questions": 12,
+    "seconds": 15.6
+  },
+  "opus-gauto-heroes-16": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12125,
+      "output_tokens": 1743,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08336,
+    "questions": 12,
+    "seconds": 17.6
+  },
+  "opus-gauto-heroes-17": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14742,
+      "output_tokens": 1739,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09375,
+    "questions": 12,
+    "seconds": 17.9
+  },
+  "opus-gauto-heroes-18": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12429,
+      "output_tokens": 1581,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08134,
+    "questions": 12,
+    "seconds": 14.6
+  },
+  "opus-gauto-heroes-19": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12718,
+      "output_tokens": 1735,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08557,
+    "questions": 12,
+    "seconds": 16.1
+  },
+  "opus-gauto-heroes-2": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 11636,
+      "output_tokens": 1998,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0865,
+    "questions": 12,
+    "seconds": 19.6
+  },
+  "opus-gauto-heroes-20": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13042,
+      "output_tokens": 1922,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09061,
+    "questions": 12,
+    "seconds": 21.1
+  },
+  "opus-gauto-heroes-21": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 10729,
+      "output_tokens": 1577,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.07446,
+    "questions": 12,
+    "seconds": 15.1
+  },
+  "opus-gauto-heroes-22": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12093,
+      "output_tokens": 1650,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08137,
+    "questions": 12,
+    "seconds": 17.6
+  },
+  "opus-gauto-heroes-23": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 10834,
+      "output_tokens": 1487,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.07308,
+    "questions": 12,
+    "seconds": 14.8
+  },
+  "opus-gauto-heroes-24": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 11953,
+      "output_tokens": 1783,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08347,
+    "questions": 12,
+    "seconds": 18.1
+  },
+  "opus-gauto-heroes-25": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 11454,
+      "output_tokens": 1814,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0821,
+    "questions": 12,
+    "seconds": 19.1
+  },
+  "opus-gauto-heroes-26": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13144,
+      "output_tokens": 1757,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08772,
+    "questions": 12,
+    "seconds": 18.2
+  },
+  "opus-gauto-heroes-27": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12620,
+      "output_tokens": 1639,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08326,
+    "questions": 11,
+    "seconds": 16.1
+  },
+  "opus-gauto-heroes-28": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 11132,
+      "output_tokens": 1776,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08005,
+    "questions": 12,
+    "seconds": 18.4
+  },
+  "opus-gauto-heroes-29": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 15686,
+      "output_tokens": 2156,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.10586,
+    "questions": 12,
+    "seconds": 23.4
+  },
+  "opus-gauto-heroes-3": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14595,
+      "output_tokens": 1580,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08998,
+    "questions": 12,
+    "seconds": 16.2
+  },
+  "opus-gauto-heroes-30": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14116,
+      "output_tokens": 1805,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09256,
+    "questions": 12,
+    "seconds": 27.3
+  },
+  "opus-gauto-heroes-31": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13052,
+      "output_tokens": 1487,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08195,
+    "questions": 10,
+    "seconds": 15.5
+  },
+  "opus-gauto-heroes-32": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12485,
+      "output_tokens": 1768,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0853,
+    "questions": 12,
+    "seconds": 18.5
+  },
+  "opus-gauto-heroes-33": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14230,
+      "output_tokens": 1743,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09178,
+    "questions": 11,
+    "seconds": 18.0
+  },
+  "opus-gauto-heroes-34": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14476,
+      "output_tokens": 1612,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09014,
+    "questions": 11,
+    "seconds": 16.0
+  },
+  "opus-gauto-heroes-35": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13584,
+      "output_tokens": 1821,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09076,
+    "questions": 12,
+    "seconds": 18.7
+  },
+  "opus-gauto-heroes-36": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 12629,
+      "output_tokens": 1569,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0819,
+    "questions": 12,
+    "seconds": 15.3
+  },
+  "opus-gauto-heroes-37": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14233,
+      "output_tokens": 2012,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09717,
+    "questions": 11,
+    "seconds": 20.1
+  },
+  "opus-gauto-heroes-38": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13477,
+      "output_tokens": 1663,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08717,
+    "questions": 12,
+    "seconds": 16.7
+  },
+  "opus-gauto-heroes-39": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14411,
+      "output_tokens": 1802,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09368,
+    "questions": 12,
+    "seconds": 18.3
+  },
+  "opus-gauto-heroes-4": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14567,
+      "output_tokens": 1611,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09049,
+    "questions": 12,
+    "seconds": 16.7
+  },
+  "opus-gauto-heroes-40": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 11577,
+      "output_tokens": 1898,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08427,
+    "questions": 12,
+    "seconds": 18.4
+  },
+  "opus-gauto-heroes-41": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13419,
+      "output_tokens": 1922,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09212,
+    "questions": 12,
+    "seconds": 18.6
+  },
+  "opus-gauto-heroes-42": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 5373,
+      "output_tokens": 780,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.03709,
+    "questions": 4,
+    "seconds": 9.7
+  },
+  "opus-gauto-heroes-5": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13693,
+      "output_tokens": 1823,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09123,
+    "questions": 12,
+    "seconds": 20.2
+  },
+  "opus-gauto-heroes-6": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 10499,
+      "output_tokens": 1493,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.07186,
+    "questions": 9,
+    "seconds": 16.5
+  },
+  "opus-gauto-heroes-7": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13080,
+      "output_tokens": 1849,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0893,
+    "questions": 12,
+    "seconds": 17.9
+  },
+  "opus-gauto-heroes-8": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 15469,
+      "output_tokens": 2062,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.10312,
+    "questions": 12,
+    "seconds": 21.7
+  },
+  "opus-gauto-heroes-9": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13511,
+      "output_tokens": 1860,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.09124,
+    "questions": 11,
+    "seconds": 18.0
+  },
+  "opus-gauto-items-43": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6501,
+      "output_tokens": 1358,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05316,
+    "questions": 11,
+    "seconds": 13.9
+  },
+  "opus-gauto-items-44": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6231,
+      "output_tokens": 931,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04354,
+    "questions": 7,
+    "seconds": 11.4
+  },
+  "opus-gauto-items-45": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6823,
+      "output_tokens": 1245,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05219,
+    "questions": 8,
+    "seconds": 13.0
+  },
+  "opus-gauto-items-46": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 7732,
+      "output_tokens": 1204,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05501,
+    "questions": 9,
+    "seconds": 14.0
+  },
+  "opus-gauto-items-47": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 7493,
+      "output_tokens": 1068,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05133,
+    "questions": 9,
+    "seconds": 12.5
+  },
+  "opus-gauto-items-48": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6612,
+      "output_tokens": 1077,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04799,
+    "questions": 7,
+    "seconds": 11.9
+  },
+  "opus-gauto-items-49": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 5159,
+      "output_tokens": 957,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.03978,
+    "questions": 7,
+    "seconds": 11.3
+  },
+  "opus-gauto-items-50": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6073,
+      "output_tokens": 1077,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04583,
+    "questions": 7,
+    "seconds": 11.8
+  },
+  "opus-gauto-items-51": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 8264,
+      "output_tokens": 1548,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.06402,
+    "questions": 10,
+    "seconds": 17.0
+  },
+  "opus-gauto-items-52": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 7237,
+      "output_tokens": 1387,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05669,
+    "questions": 10,
+    "seconds": 17.3
+  },
+  "opus-gauto-items-53": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 5035,
+      "output_tokens": 1008,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0403,
+    "questions": 7,
+    "seconds": 11.2
+  },
+  "opus-gauto-items-54": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 8537,
+      "output_tokens": 1215,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05845,
+    "questions": 9,
+    "seconds": 13.2
+  },
+  "opus-gauto-items-55": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 7497,
+      "output_tokens": 1312,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05623,
+    "questions": 9,
+    "seconds": 15.2
+  },
+  "opus-gauto-items-56": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6660,
+      "output_tokens": 992,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04648,
+    "questions": 7,
+    "seconds": 10.9
+  },
+  "opus-gauto-items-57": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 8023,
+      "output_tokens": 1221,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05651,
+    "questions": 9,
+    "seconds": 12.7
+  },
+  "opus-gauto-items-58": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6407,
+      "output_tokens": 1198,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04959,
+    "questions": 10,
+    "seconds": 12.8
+  },
+  "opus-gauto-items-59": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 8386,
+      "output_tokens": 1306,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05966,
+    "questions": 10,
+    "seconds": 14.0
+  },
+  "opus-gauto-items-60": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 7633,
+      "output_tokens": 1262,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05577,
+    "questions": 7,
+    "seconds": 14.2
+  },
+  "opus-gauto-items-61": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 3051,
+      "output_tokens": 502,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.02224,
+    "questions": 1,
+    "seconds": 7.3
+  },
+  "opus-gauto-neutrals-62": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 5867,
+      "output_tokens": 1212,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04771,
+    "questions": 8,
+    "seconds": 13.7
+  },
+  "opus-gauto-neutrals-63": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6842,
+      "output_tokens": 1144,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05025,
+    "questions": 9,
+    "seconds": 13.5
+  },
+  "opus-gauto-neutrals-64": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6076,
+      "output_tokens": 1339,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05108,
+    "questions": 9,
+    "seconds": 13.8
+  },
+  "opus-gauto-neutrals-65": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6618,
+      "output_tokens": 1421,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05489,
+    "questions": 9,
+    "seconds": 16.6
+  },
+  "opus-gauto-neutrals-66": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6133,
+      "output_tokens": 1532,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05517,
+    "questions": 9,
+    "seconds": 16.7
+  }
+}

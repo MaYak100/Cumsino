@@ -1,0 +1,149 @@
+[
+  {
+    "hero": "Silencer",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Silencer?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_silencer_7",
+        "text": "-25s Global Silence Cooldown"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_silencer_4"
+      },
+      {
+        "kind": "decoy",
+        "talent_id": "special_bonus_hp_150"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_silencer_brain_drain_damage",
+        "text": "+15% Suffer In Silence Silenced Target Damage"
+      }
+    ]
+  },
+  {
+    "hero": "Silencer",
+    "type": "has_not",
+    "question": "Какого таланта нет у Silencer?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_attack_speed_25"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_silencer_arcane_curse_duration"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_silencer_5",
+        "text": "+80s Glaives of Wisdom Int Steal Duration"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_silencer_global_duration"
+      }
+    ]
+  },
+  {
+    "hero": "Visage",
+    "type": "has",
+    "question": "Какой талант реально есть у Visage?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_visage_6",
+        "text": "+2 Familiars"
+      },
+      {
+        "kind": "decoy",
+        "talent_id": "special_bonus_magic_resistance_15"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_visage_3"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_visage_1",
+        "text": "+3 Armor Corruption to Visage and Familiars"
+      }
+    ]
+  },
+  {
+    "hero": "Visage",
+    "type": "has_not",
+    "question": "Какого таланта у Visage нет?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_visage_7"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_visage_grave_chill_duration",
+        "text": "+4s Grave Chill Duration"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_visage_cloak_recovery_time"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_visage_4"
+      }
+    ]
+  },
+  {
+    "hero": "Naga Siren",
+    "type": "has",
+    "question": "Какой из талантов есть у Naga Siren?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_naga_siren",
+        "text": "+2 Mirror Image Illusions"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_naga_siren_5",
+        "text": "-40s Song of the Siren Cooldown"
+      },
+      {
+        "kind": "decoy",
+        "talent_id": "special_bonus_armor_5"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_naga_siren_3"
+      }
+    ]
+  },
+  {
+    "hero": "Naga Siren",
+    "type": "has_not",
+    "question": "Какого таланта нет у Naga Siren?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_naga_siren_reel_in_speed"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_naga_siren_2"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_agility_25"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "special_bonus_unique_naga_siren_4",
+        "text": "+20% Mirror Image Damage"
+      }
+    ]
+  }
+]

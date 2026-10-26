@@ -1,0 +1,747 @@
+{
+ "patch": "7.41f",
+ "heroes": [
+  {
+   "hero": "Silencer",
+   "abilities": [
+    "Arcane Curse",
+    "Glaives of Wisdom",
+    "Last Word",
+    "Suffer In Silence",
+    "Global Silence"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_attack_speed_25",
+     "level": 10,
+     "text": "+25 Attack Speed"
+    },
+    {
+     "id": "special_bonus_unique_silencer_brain_drain_damage",
+     "level": 10,
+     "text": "+7% Suffer In Silence Silenced Target Damage"
+    },
+    {
+     "id": "special_bonus_unique_silencer_7",
+     "level": 15,
+     "text": "-15s Global Silence Cooldown"
+    },
+    {
+     "id": "special_bonus_unique_silencer_arcane_curse_duration",
+     "level": 15,
+     "text": "+2s/+1s Arcane Curse Base/Penalty Duration"
+    },
+    {
+     "id": "special_bonus_unique_silencer_5",
+     "level": 20,
+     "text": "+40s Glaives of Wisdom Int Steal Duration"
+    },
+    {
+     "id": "special_bonus_unique_silencer_4",
+     "level": 20,
+     "text": "250 AoE Last Word"
+    },
+    {
+     "id": "special_bonus_unique_silencer_3",
+     "level": 25,
+     "text": "+30% Glaives of Wisdom Damage"
+    },
+    {
+     "id": "special_bonus_unique_silencer_global_duration",
+     "level": 25,
+     "text": "+2s Global Silence Duration"
+    }
+   ],
+   "decoy_pool": [
+    {
+     "id": "special_bonus_unique_gyrocopter_homing_missile_damage",
+     "level": 10,
+     "text": "+25% Homing Missile Damage",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_hp_150",
+     "level": 10,
+     "text": "+150 Health",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_6",
+     "level": 15,
+     "text": "+0.3s Homing Missile Stun Duration",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_flak_cannon_bonus_damage",
+     "level": 15,
+     "text": "+25 Flak Cannon Damage",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_2",
+     "level": 20,
+     "text": "+3 Flak Cannon Attacks",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_3",
+     "level": 20,
+     "text": "+14 Rocket Barrage Damage",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_1",
+     "level": 25,
+     "text": "-6s Flak Cannon Cooldown",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_5",
+     "level": 25,
+     "text": "-40s Call Down Cooldown",
+     "from_hero": "Gyrocopter"
+    },
+    {
+     "id": "special_bonus_mp_regen_150",
+     "level": 10,
+     "text": "+1.5 Mana Regen",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus_6",
+     "level": 10,
+     "text": "+1.25s Skewer Slow Duration",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus_reverse_polarity_stats",
+     "level": 15,
+     "text": "+14 All Attributes per hero hit with Reverse Polarity",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus_7",
+     "level": 15,
+     "text": "-5s Skewer Cooldown",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus",
+     "level": 20,
+     "text": "+125 Shockwave Damage",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus_skewer_damage_distance",
+     "level": 20,
+     "text": "+15% Skewer Damage Per Distance Travelled",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus_2",
+     "level": 25,
+     "text": "Shockwave Returns to Magnus",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_magnus_5",
+     "level": 25,
+     "text": "+0.8s Reverse Polarity Stun Duration",
+     "from_hero": "Magnus"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_4",
+     "level": 10,
+     "text": "-25% Voodoo Restoration Mana Per Second",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_hp_200",
+     "level": 10,
+     "text": "+200 Health",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_6",
+     "level": 15,
+     "text": "-3.0s Paralyzing Cask Cooldown",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_7",
+     "level": 15,
+     "text": "+4s Maledict Duration",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_maledict_spread",
+     "level": 20,
+     "text": "Maledict bursts deal 75% damage in a 800 AoE ",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_2",
+     "level": 20,
+     "text": "+1% Target Max Health Voodoo Restoration Heal",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_3",
+     "level": 25,
+     "text": "+6 Paralyzing Cask Bounces",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_witch_doctor_5",
+     "level": 25,
+     "text": "+40 Death Ward Damage",
+     "from_hero": "Witch Doctor"
+    },
+    {
+     "id": "special_bonus_unique_undying_8",
+     "level": 10,
+     "text": "+30 Decay Damage",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying_7",
+     "level": 10,
+     "text": "-15s Tombstone Cooldown",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying_6",
+     "level": 15,
+     "text": "+12 Soul Rip Damage/Heal",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying",
+     "level": 15,
+     "text": "+20 Zombie Damage",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying_2",
+     "level": 20,
+     "text": "-2s Decay Cooldown",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying_5",
+     "level": 20,
+     "text": "+4 Tombstone Attacks to Destroy",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying_4",
+     "level": 25,
+     "text": "+50% Flesh Golem Strength Bonus",
+     "from_hero": "Undying"
+    },
+    {
+     "id": "special_bonus_unique_undying_3",
+     "level": 25,
+     "text": "Tombstone On Death",
+     "from_hero": "Undying"
+    }
+   ]
+  },
+  {
+   "hero": "Visage",
+   "abilities": [
+    "Grave Chill",
+    "Soul Assumption",
+    "Gravekeeper's Cloak",
+    "Stone Form",
+    "Silent as the Grave",
+    "Summon Familiars",
+    "Stone Form"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_visage_soul_assumption_cooldown",
+     "level": 10,
+     "text": "-1s Soul Assumption Cooldown"
+    },
+    {
+     "id": "special_bonus_unique_visage_7",
+     "level": 10,
+     "text": "+6 Visage and Familiars Base Damage"
+    },
+    {
+     "id": "special_bonus_unique_visage_grave_chill_duration",
+     "level": 15,
+     "text": "+2s Grave Chill Duration"
+    },
+    {
+     "id": "special_bonus_unique_visage_3",
+     "level": 15,
+     "text": "Soul Assumption Hits 3 Targets"
+    },
+    {
+     "id": "special_bonus_unique_visage_4",
+     "level": 20,
+     "text": "+30 Soul Assumption Damage Per Charge"
+    },
+    {
+     "id": "special_bonus_unique_visage_1",
+     "level": 20,
+     "text": "+1 Armor Corruption to Visage and Familiars"
+    },
+    {
+     "id": "special_bonus_unique_visage_cloak_recovery_time",
+     "level": 25,
+     "text": "-2s Gravekeeper's Cloak Recovery Time"
+    },
+    {
+     "id": "special_bonus_unique_visage_6",
+     "level": 25,
+     "text": "+1 Familiar"
+    }
+   ],
+   "decoy_pool": [
+    {
+     "id": "special_bonus_unique_ogre_magi_4",
+     "level": 10,
+     "text": "+10 Ignite Burn Damage",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_unique_ogre_magi_dumb_luck_mana",
+     "level": 10,
+     "text": "+2/0.01 Dumb Luck Mana/Mana Regen Per Strength",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_attack_damage_80",
+     "level": 15,
+     "text": "+80 Damage",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_unique_ogre_magi",
+     "level": 15,
+     "text": "+20/35 Bloodlust / Self Attack Speed",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_strength_30",
+     "level": 20,
+     "text": "+30 Strength",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_unique_ogre_magi_2",
+     "level": 20,
+     "text": "+175 Fireblast Damage",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_unique_ogre_magi_3",
+     "level": 25,
+     "text": "17% Fireblast chance on attack",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_unique_ogre_magi_multicast_chance",
+     "level": 25,
+     "text": "+10% Multicast Chance",
+     "from_hero": "Ogre Magi"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_7",
+     "level": 10,
+     "text": "+300 Tree Dance Cast Range",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_9",
+     "level": 10,
+     "text": "+0.2s Boundless Strike Stun Duration",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_8",
+     "level": 15,
+     "text": "0 Cooldown Primal Spring",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_2",
+     "level": 15,
+     "text": "+110 Jingu Mastery Damage",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_3",
+     "level": 20,
+     "text": "Jingu Mastery Undispellable",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_10",
+     "level": 20,
+     "text": "+60% Boundless Strike Critical Damage",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_11",
+     "level": 25,
+     "text": "-1 Jingu Mastery Required Hits",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_6",
+     "level": 25,
+     "text": "Additional Wukong's Command Ring",
+     "from_hero": "Monkey King"
+    },
+    {
+     "id": "special_bonus_magic_resistance_15",
+     "level": 10,
+     "text": "+15% Magic Resistance",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_unique_techies_3",
+     "level": 10,
+     "text": "-2s Proximity Mines Cooldown",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_unique_techies",
+     "level": 15,
+     "text": "+175 Blast Off! Damage",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_unique_techies_tazer_duration",
+     "level": 15,
+     "text": "+25% Reactive Tazer Buff and Disarm Duration",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_unique_techies_2",
+     "level": 20,
+     "text": "+160 Sticky Bomb Damage",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_unique_techies_5",
+     "level": 20,
+     "text": "-15s Blast Off! Cooldown",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_attack_damage_253",
+     "level": 25,
+     "text": "+253 Damage",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_unique_techies_4",
+     "level": 25,
+     "text": "-0.8s Proximity Mines Activation Delay",
+     "from_hero": "Techies"
+    },
+    {
+     "id": "special_bonus_attack_damage_25",
+     "level": 10,
+     "text": "+25 Damage",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_1",
+     "level": 10,
+     "text": "-3s Dragon Slave Cooldown",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_4",
+     "level": 15,
+     "text": "5% Fiery Soul Magic Resist Per Stack",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_3",
+     "level": 15,
+     "text": "+110 Light Strike Array Damage",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_6",
+     "level": 20,
+     "text": "-20s Laguna Blade Cooldown",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_2",
+     "level": 20,
+     "text": "+10/1% Fiery Soul Per Stack",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_7",
+     "level": 25,
+     "text": "+1s Slow Burn Duration",
+     "from_hero": "Lina"
+    },
+    {
+     "id": "special_bonus_unique_lina_crit_debuff",
+     "level": 25,
+     "text": "150% Attack Crit On Targets Affected By Slow Burn",
+     "from_hero": "Lina"
+    }
+   ]
+  },
+  {
+   "hero": "Naga Siren",
+   "abilities": [
+    "Mirror Image",
+    "Ensnare",
+    "Rip Tide",
+    "Reel In",
+    "Eelskin",
+    "Song of the Siren",
+    "Song of the Siren End"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_naga_siren_reel_in_speed",
+     "level": 10,
+     "text": "+125 Reel In Pull Speed"
+    },
+    {
+     "id": "special_bonus_unique_naga_siren_2",
+     "level": 10,
+     "text": "+30% Rip Tide Damage"
+    },
+    {
+     "id": "special_bonus_unique_naga_siren_4",
+     "level": 15,
+     "text": "+10% Mirror Image Damage"
+    },
+    {
+     "id": "special_bonus_unique_naga_siren_3",
+     "level": 15,
+     "text": "-75% Mirror Image Illusion Damage Taken"
+    },
+    {
+     "id": "special_bonus_unique_naga_siren_5",
+     "level": 20,
+     "text": "-25s Song of the Siren Cooldown"
+    },
+    {
+     "id": "special_bonus_unique_naga_siren",
+     "level": 20,
+     "text": "+1 Mirror Image Illusion"
+    },
+    {
+     "id": "special_bonus_unique_naga_siren_6",
+     "level": 25,
+     "text": "-10s Mirror Image Cooldown"
+    },
+    {
+     "id": "special_bonus_agility_25",
+     "level": 25,
+     "text": "+25 Agility"
+    }
+   ],
+   "decoy_pool": [
+    {
+     "id": "special_bonus_unique_viper_4",
+     "level": 10,
+     "text": "+1s Viper Strike Duration",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_1",
+     "level": 10,
+     "text": "+15 Corrosive Skin Damage Per Second",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_3",
+     "level": 15,
+     "text": "+20/40 Nethertoxin Min/Max Damage",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_7",
+     "level": 15,
+     "text": "+15% Poison Attack Slow / Damage",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_2",
+     "level": 20,
+     "text": "+70 Viper Strike DPS",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_predator_damage",
+     "level": 20,
+     "text": "+0.35 Predator Damage Per Missing Health",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_nethertoxin_radius",
+     "level": 25,
+     "text": "Nethertoxin Radius increases by 25 every 0.5s",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_unique_viper_8",
+     "level": 25,
+     "text": "-50% Viper Strike Mana Cost / Cooldown",
+     "from_hero": "Viper"
+    },
+    {
+     "id": "special_bonus_armor_5",
+     "level": 10,
+     "text": "+5 Armor",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_pudge_4",
+     "level": 10,
+     "text": "+10% Rot Slow",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_spell_lifesteal_8",
+     "level": 15,
+     "text": "+8% Spell Lifesteal",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_pudge_7",
+     "level": 15,
+     "text": "+150 Meat Hook Damage",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_pudge_6",
+     "level": 20,
+     "text": "+0.75s Dismember Duration",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_pudge_5",
+     "level": 20,
+     "text": "-4s Meat Hook Cooldown",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_pudge_3",
+     "level": 25,
+     "text": "1.5x Dismember Damage/Heal",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_pudge_1",
+     "level": 25,
+     "text": "1.5x Flesh Heap and Meat Shield bonuses",
+     "from_hero": "Pudge"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_6",
+     "level": 10,
+     "text": "+170 Shackles Total Damage",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_mp_regen_175",
+     "level": 10,
+     "text": "+1.75 Mana Regen",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_8",
+     "level": 15,
+     "text": "+160 Serpent Wards Attack Range",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_7",
+     "level": 15,
+     "text": "Hex Breaks",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_2",
+     "level": 20,
+     "text": "+1.5s Shackles Duration",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_1",
+     "level": 20,
+     "text": "+50% Serpent Wards Max HP",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_3",
+     "level": 25,
+     "text": "+250 Ether Shock Damage",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_4",
+     "level": 25,
+     "text": "+1 Ward Attack Targets",
+     "from_hero": "Shadow Shaman"
+    },
+    {
+     "id": "special_bonus_unique_chen_11",
+     "level": 10,
+     "text": "+75 Penitence Damage",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_zealot",
+     "level": 10,
+     "text": "+25% Zealot Health/Damage",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_5",
+     "level": 15,
+     "text": "+12% Holy Persuasion Damage",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_8",
+     "level": 15,
+     "text": "+15% Penitence Slow",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_divine_favor_healing",
+     "level": 20,
+     "text": "+15% Divine Favor Heal Amplification",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_4",
+     "level": 20,
+     "text": "+1300 Holy Persuasion Minimum Health",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_12",
+     "level": 25,
+     "text": "Hand of God applies a Strong Dispel",
+     "from_hero": "Chen"
+    },
+    {
+     "id": "special_bonus_unique_chen_2",
+     "level": 25,
+     "text": "Hand of God Fully Heals Chen and His Creeps",
+     "from_hero": "Chen"
+    }
+   ]
+  }
+ ]
+}
