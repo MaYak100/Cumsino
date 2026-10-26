@@ -44,10 +44,12 @@ SLEEP_BETWEEN    = 2  # секунд между запросами (защита
 
 OUTPUT_DIR       = Path("scripts/data/generated")
 
-# ─── Пути к исходным данным ────────────────────────────────
-_HEROES_PATH    = Path("scripts/data/heroes.json")
-_ABILITIES_PATH = Path("scripts/data/abilities.json")
-_ITEMS_PATH     = Path("scripts/data/items.json")
+# ─── Пути к исходным данным (снимок из scripts/fetch_dota_data.py) ───
+_DOTA_DIR       = Path("scripts/data/dota")
+_HEROES_PATH    = _DOTA_DIR / "heroes.json"
+_ABILITIES_PATH = _DOTA_DIR / "abilities.json"
+_ITEMS_PATH     = _DOTA_DIR / "items.json"
+_MANIFEST_PATH  = _DOTA_DIR / "manifest.json"
 
 # ─── Фильтры предметов (из export_batch_data.py) ───────────
 _ROSHAN_BLACKLIST = {
@@ -386,8 +388,13 @@ def _extract_json(text: str) -> list:
     return json.loads(text[start : end + 1])
 
 
-def _normalize(q: dict) -> dict:
-    """Делает поля одинаковыми: options=[] у CN, answer=null у MC."""
+def _current_patch() -> str:
+    return json.loads(_MANIFEST_PATH.read_text(encoding="utf-8"))["patch"]
+
+
+def _normalize(q: dict, patch: str) -> dict:
+    """Делает поля одинаковыми: options=[] у CN, answer=null у MC. Ставит патч данных."""
+    q["patch"] = patch
     qtype = q.get("type", "")
     if qtype == "multiple_choice":
         q.setdefault("options", [])
@@ -454,6 +461,9 @@ def cmd_generate(mode: str, from_batch: int, to_batch: int) -> None:
         print(f"Вопросов на батч: {N_MC} MC + {N_CN} CN = {N_MC + N_CN}")
     print()
 
+    patch = _current_patch()
+    print(f"Данные: патч {patch}")
+
     client = anthropic.Anthropic(api_key=api_key)
     all_questions: list[dict] = []
     skipped: list[int] = []
@@ -480,7 +490,7 @@ def cmd_generate(mode: str, from_batch: int, to_batch: int) -> None:
         try:
             raw = _call_api(client, system_prompt, build_user(batch))
             questions = _extract_json(raw)
-            questions = [_normalize(q) for q in questions]
+            questions = [_normalize(q, patch) for q in questions]
             all_questions.extend(questions)
             print(f"  → {len(questions)} вопросов получено")
         except Exception as exc:

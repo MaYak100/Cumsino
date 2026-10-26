@@ -1,0 +1,39 @@
+{
+  "patch": "7.41f",
+  "source": {
+    "repo": "odota/dotaconstants",
+    "commit": "5c0242df9057848fa2036ca3fafe9f2bd4508163",
+    "url": "https://github.com/odota/dotaconstants/tree/5c0242df9057848fa2036ca3fafe9f2bd4508163/build"
+  },
+  "fetched_at": "2026-10-26T14:13:45+00:00",
+  "files": {
+    "heroes.json": {
+      "sha256": "520a3ae33260593f54d5d749a92022d7d5af0ed60d8bebec8e81ff7eb12104ad",
+      "bytes": 122679
+    },
+    "hero_abilities.json": {
+      "sha256": "4eeb1b14407295affd0fafccc6c3201abec104f9e490c6ebfa6b0a2881fb7c1a",
+      "bytes": 249796
+    },
+    "abilities.json": {
+      "sha256": "4485483325656b9a52d74556fdd095ec30bff6908b72b7e61894d62f5b362760",
+      "bytes": 1953034
+    },
+    "aghs_desc.json": {
+      "sha256": "ad8b4950a145610bbfa3fdac9560f79d82b15178878919787cfe4064f633fd1a",
+      "bytes": 79956
+    },
+    "items.json": {
+      "sha256": "6b88515596307cf66e222d94b415d1ad8d4bd35809919f00da5cc074fd583a2f",
+      "bytes": 474191
+    },
+    "patch.json": {
+      "sha256": "78eda94740a8064d01acc73be25a2ac7058ab42ae976d404eef063ae4553dc23",
+      "bytes": 4883
+    },
+    "patchnotes.json": {
+      "sha256": "61149ca7c824103cd46c286aeaff1d570a9bcbfe054bc9adf0aa50510f3ac01d",
+      "bytes": 2640903
+    }
+  }
+}

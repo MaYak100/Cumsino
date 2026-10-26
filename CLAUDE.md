@@ -160,6 +160,8 @@ Located in `server/src/game/economy/__tests__/` and `server/src/game/__tests__/`
 
 Dota 2 вопросы. Источник данных — GitHub-зеркало OpenDota: `raw.githubusercontent.com/odota/dotaconstants/master/build/`.
 
+**Источник истины — снимок `scripts/data/dota/`** (heroes, hero_abilities, abilities, aghs_desc, items, patch, patchnotes) + `manifest.json` с версией патча и sha коммита dotaconstants. Обновление: `python scripts/fetch_dota_data.py` (печатает diff со старым снимком). `gen_questions.py` читает этот снимок и проставляет `patch` в каждый вопрос. Старые `scripts/data/{heroes,abilities,items}.json` — устаревший архив.
+
 ### Runtime-файлы — `scripts/data/generated/`
 
 Сервер читает напрямую эти 4 плоских JSON-массива (не `questions_db.json`):
