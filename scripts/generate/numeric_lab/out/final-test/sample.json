@@ -1,0 +1,1517 @@
+{
+ "patch": "7.41f",
+ "heroes": [
+  {
+   "hero": "Magnus",
+   "aghanim": {
+    "scepter": "Magnus tosses any enemies in front of him, launching them to his rear. Enemies take damage, spend 0.6 seconds in the air, and are stunned while in the air and an additional amount of time after landing.",
+    "shard": "Increases range and deals additional damage when skewering enemies into trees or cliffs."
+   },
+   "abilities": [
+    {
+     "key": "magnataur_shockwave",
+     "name": "Shockwave",
+     "role": "basic",
+     "desc": "Magnus sends out a wave of force, damaging enemy units in a line, pulling them towards him, and slowing them for a brief period.",
+     "facts": [
+      {
+       "fact_id": "magnataur_shockwave:cd",
+       "label": "COOLDOWN",
+       "values": [
+        13,
+        12,
+        11,
+        10
+       ]
+      },
+      {
+       "fact_id": "magnataur_shockwave:shock_damage",
+       "label": "DAMAGE",
+       "values": [
+        75,
+        150,
+        225,
+        300
+       ]
+      },
+      {
+       "fact_id": "magnataur_shockwave:movement_slow",
+       "label": "MOVEMENT SLOW",
+       "values": [
+        75
+       ]
+      },
+      {
+       "fact_id": "magnataur_shockwave:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_shockwave:pull_duration",
+       "label": "PULL DURATION",
+       "values": [
+        0.2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_shockwave:max_level",
+       "label": "MAX LEVEL",
+       "values": [
+        4
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_shockwave:basic_slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        0.55,
+        0.7,
+        0.85,
+        1
+       ]
+      },
+      {
+       "fact_id": "magnataur_shockwave:abilityduration",
+       "label": "DURATION",
+       "values": [
+        0.6875
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "magnataur_empower",
+     "name": "Empower",
+     "role": "basic",
+     "desc": "When cast on an ally, grants them bonus damage and cleave on attack. \n\n Empower is always on Magnus with 30% larger bonus.",
+     "facts": [
+      {
+       "fact_id": "magnataur_empower:cd",
+       "label": "COOLDOWN",
+       "values": [
+        8
+       ]
+      },
+      {
+       "fact_id": "magnataur_empower:empower_duration",
+       "label": "DURATION",
+       "values": [
+        30,
+        33,
+        36,
+        39
+       ]
+      },
+      {
+       "fact_id": "magnataur_empower:bonus_damage_pct",
+       "label": "BONUS DAMAGE",
+       "values": [
+        16,
+        24,
+        32,
+        40
+       ]
+      },
+      {
+       "fact_id": "magnataur_empower:cleave_damage_pct",
+       "label": "CLEAVE DAMAGE",
+       "values": [
+        16,
+        24,
+        32,
+        40
+       ]
+      },
+      {
+       "fact_id": "magnataur_empower:self_multiplier",
+       "label": "SELF MULTIPLIER",
+       "values": [
+        30
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_empower:always_on",
+       "label": "ALWAYS ON",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_empower:self_multiplier_bonus_max_stacks",
+       "label": "SELF MULTIPLIER BONUS MAX STACKS",
+       "values": [
+        25,
+        30,
+        35,
+        40
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_empower:self_multiplier_bonus_per_stack",
+       "label": "SELF MULTIPLIER BONUS PER STACK",
+       "values": [
+        5,
+        6,
+        7,
+        8
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "magnataur_skewer",
+     "name": "Skewer",
+     "role": "basic",
+     "desc": "Magnus rushes forward, goring enemy units on his massive tusk. Heroes hit on the way will be dragged to the destination, then damaged and affected by slowed movement speed. The damage is increased based on distance traveled.",
+     "facts": [
+      {
+       "fact_id": "magnataur_skewer:cd",
+       "label": "COOLDOWN",
+       "values": [
+        22,
+        20,
+        18,
+        16
+       ]
+      },
+      {
+       "fact_id": "magnataur_skewer:slow_pct",
+       "label": "SLOW",
+       "values": [
+        20,
+        30,
+        40,
+        50
+       ]
+      },
+      {
+       "fact_id": "magnataur_skewer:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        3.25
+       ]
+      },
+      {
+       "fact_id": "magnataur_skewer:skewer_damage",
+       "label": "DAMAGE",
+       "values": [
+        80,
+        160,
+        240,
+        320
+       ]
+      },
+      {
+       "fact_id": "magnataur_skewer:terrain_hit_cooldown",
+       "label": "TERRAIN HIT COOLDOWN",
+       "values": [
+        0.5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_skewer:tree_hit_damage@shard",
+       "label": "TREE HIT DAMAGE — значение с Aghanim's Shard",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "magnataur_skewer:cliff_hit_damage@shard",
+       "label": "CLIFF HIT DAMAGE — значение с Aghanim's Shard",
+       "values": [
+        150
+       ]
+      }
+     ]
+    },
+    {
+     "key": "magnataur_horn_toss",
+     "name": "Horn Toss",
+     "role": "scepter",
+     "desc": "Magnus tosses any enemies in front of him, launching them to his rear. Enemies take damage, spend 0.6 seconds in the air, and are stunned while in the air and an additional amount of time after landing.",
+     "facts": [
+      {
+       "fact_id": "magnataur_horn_toss:cd",
+       "label": "COOLDOWN",
+       "values": [
+        30
+       ]
+      },
+      {
+       "fact_id": "magnataur_horn_toss:damage",
+       "label": "DAMAGE",
+       "values": [
+        325
+       ]
+      },
+      {
+       "fact_id": "magnataur_horn_toss:air_duration",
+       "label": "AIR DURATION",
+       "values": [
+        0.6
+       ]
+      },
+      {
+       "fact_id": "magnataur_horn_toss:air_height",
+       "label": "AIR HEIGHT",
+       "values": [
+        300
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_horn_toss:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_horn_toss:pull_offset",
+       "label": "PULL OFFSET",
+       "values": [
+        75
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_horn_toss:destination_offset",
+       "label": "DESTINATION OFFSET",
+       "values": [
+        175
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_horn_toss:pull_angle",
+       "label": "PULL ANGLE",
+       "values": [
+        230
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_horn_toss:horn_toss_slow_pct",
+       "label": "HORN TOSS SLOW PCT",
+       "values": [
+        100
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "magnataur_horn_toss:stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        0.75
+       ]
+      }
+     ]
+    },
+    {
+     "key": "magnataur_solid_core",
+     "name": "Solid Core",
+     "role": "innate",
+     "desc": "Magnus has increased slow resistance and suffers less knockback from enemy's abilities and items.",
+     "facts": [
+      {
+       "fact_id": "magnataur_solid_core:knockback_reduction",
+       "label": "KNOCKBACK RESISTANCE",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "magnataur_solid_core:slow_resistance",
+       "label": "SLOW RESISTANCE",
+       "values": [
+        24
+       ]
+      }
+     ]
+    },
+    {
+     "key": "magnataur_reverse_polarity",
+     "name": "Reverse Polarity",
+     "role": "ultimate",
+     "desc": "",
+     "facts": [
+      {
+       "fact_id": "magnataur_reverse_polarity:cd",
+       "label": "COOLDOWN",
+       "values": [
+        115
+       ]
+      },
+      {
+       "fact_id": "magnataur_reverse_polarity:polarity_damage",
+       "label": "DAMAGE",
+       "values": [
+        100,
+        200,
+        300
+       ]
+      },
+      {
+       "fact_id": "magnataur_reverse_polarity:hero_stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        2.5,
+        3,
+        3.5
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Morphling",
+   "aghanim": {
+    "scepter": "Adds an alt-cast to Morph. When enabled, a strong illusion is created of the target hero that can cast all of the hero's basic abilities. If the illusion is alive when Morphling toggles the ability, he will take the place of the illusion, destroying it.",
+    "shard": "Morphling can shift attributes while stunned. Reduces mana cost."
+   },
+   "abilities": [
+    {
+     "key": "morphling_waveform",
+     "name": "Waveform",
+     "role": "basic",
+     "desc": "Morphling dissolves into liquid and surges forward, damaging enemy units in his path. Morphling is invulnerable during Waveform.",
+     "facts": [
+      {
+       "fact_id": "morphling_waveform:cd",
+       "label": "COOLDOWN",
+       "values": [
+        21,
+        18,
+        15,
+        12
+       ]
+      }
+     ]
+    },
+    {
+     "key": "morphling_adaptive_strike_agi",
+     "name": "Adaptive Strike",
+     "role": "basic",
+     "desc": "Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on Morphling's agility times a multiplier. If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used.\n\nKnockback distance and stun duration are based on Morphling's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun duration is used.",
+     "facts": [
+      {
+       "fact_id": "morphling_adaptive_strike_agi:cd",
+       "label": "COOLDOWN",
+       "values": [
+        17,
+        14,
+        11,
+        8
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:damage_base",
+       "label": "BASE DAMAGE",
+       "values": [
+        50,
+        70,
+        90,
+        110
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:damage_min",
+       "label": "DAMAGE MIN AGI MULTIPLIER",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:damage_max",
+       "label": "DAMAGE MAX AGI MULTIPLIER",
+       "values": [
+        1,
+        1.5,
+        2,
+        2.5
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:stun_min",
+       "label": "STUN MIN",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:stun_max",
+       "label": "STUN MAX",
+       "values": [
+        1.4,
+        1.8,
+        2.2,
+        2.6
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:knockback_min",
+       "label": "KNOCKBACK MIN",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:knockback_max",
+       "label": "KNOCKBACK MAX",
+       "values": [
+        350
+       ]
+      },
+      {
+       "fact_id": "morphling_adaptive_strike_agi:knockback_duration",
+       "label": "KNOCKBACK DURATION",
+       "values": [
+        0.5
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "morphling_morph_agi",
+     "name": "Attribute Shift (Agility Gain)",
+     "role": "basic",
+     "desc": "Morphling shifts its form, pulling points from Strength and pouring them into Agility at a rate of 4. The process is reversible.",
+     "facts": [
+      {
+       "fact_id": "morphling_morph_agi:points_per_tick",
+       "label": "POINTS PER TICK",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_morph_agi:morph_rate",
+       "label": "MORPH RATE",
+       "values": [
+        4,
+        8,
+        12,
+        16
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_morph_agi:castable_while_stunned@shard",
+       "label": "CASTABLE WHILE STUNNED — значение с Aghanim's Shard",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "morphling_morph_str",
+     "name": "Attribute Shift (Strength Gain)",
+     "role": "basic",
+     "desc": "Morphling shifts its form, pulling points from Agility and pouring them into Strength at a rate of 4. The process is reversible.",
+     "facts": [
+      {
+       "fact_id": "morphling_morph_str:points_per_tick",
+       "label": "POINTS PER TICK",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_morph_str:morph_rate",
+       "label": "MORPH RATE",
+       "values": [
+        4,
+        8,
+        12,
+        16
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_morph_str:castable_while_stunned@shard",
+       "label": "CASTABLE WHILE STUNNED — значение с Aghanim's Shard",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "morphling_replicate",
+     "name": "Morph",
+     "role": "ultimate",
+     "desc": "Morphling changes his form to match the targeted enemy, gaining their basic abilities and changing his primary attribute based on his target. Can be toggled for the duration of the ability.",
+     "facts": [
+      {
+       "fact_id": "morphling_replicate:cd",
+       "label": "COOLDOWN",
+       "values": [
+        125,
+        90,
+        55
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:duration",
+       "label": "DURATION",
+       "values": [
+        24
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_stat_steal@scepter",
+       "label": "scepter_stat_steal — значение с Aghanim's Scepter",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_spell_amplify@scepter",
+       "label": "scepter_spell_amplify — значение с Aghanim's Scepter",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_attack_speed@scepter",
+       "label": "scepter_attack_speed — значение с Aghanim's Scepter",
+       "values": [
+        70
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_status_resist@scepter",
+       "label": "scepter_status_resist — значение с Aghanim's Scepter",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_additional_stats@scepter",
+       "label": "scepter_additional_stats — значение с Aghanim's Scepter",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_illusion_outgoing@scepter",
+       "label": "scepter_illusion_outgoing — значение с Aghanim's Scepter",
+       "values": [
+        100
+       ]
+      },
+      {
+       "fact_id": "morphling_replicate:scepter_illusion_incoming@scepter",
+       "label": "scepter_illusion_incoming — значение с Aghanim's Scepter",
+       "values": [
+        200
+       ]
+      }
+     ]
+    },
+    {
+     "key": "morphling_morph_replicate",
+     "name": "Morph Replicate",
+     "role": "ultimate",
+     "desc": "Toggles Morphling's form between his own and the replicated enemy.",
+     "facts": [
+      {
+       "fact_id": "morphling_morph_replicate:cd",
+       "label": "COOLDOWN",
+       "values": [
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "morphling_ebb_and_flow",
+     "name": "Ebb and Flow",
+     "role": "innate",
+     "desc": "Morphling receives bonus cast range and slow resistance based on his current Strength, and attack range and movement speed based on his current Agility. These bonuses persist if he is morphed into another hero.",
+     "facts": [
+      {
+       "fact_id": "morphling_ebb_and_flow:swell_up_duration",
+       "label": "SWELL UP DURATION",
+       "values": [
+        1.5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:swell_down_duration",
+       "label": "SWELL DOWN DURATION",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:swell_duration",
+       "label": "SWELL DURATION",
+       "values": [
+        5.2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:max_swell_duration",
+       "label": "MAX SWELL DURATION",
+       "values": [
+        2.7
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:model_scale",
+       "label": "MODEL SCALE",
+       "values": [
+        40
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:stats_pct",
+       "label": "STATS PCT",
+       "values": [
+        25
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:move_speed_per_agi",
+       "label": "AGILITY TO MOVEMENT SPEED",
+       "values": [
+        15
+       ]
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:slow_resist_per_str",
+       "label": "STRENGTH TO SLOW RESISTANCE",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "morphling_ebb_and_flow:model_scale_max",
+       "label": "MODEL SCALE MAX",
+       "values": [
+        20
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Elder Titan",
+   "aghanim": {
+    "scepter": "Causes Elder Titan to become debuff immune and gain 50% magic resistance for 2 seconds per affected enemy Hero when the spirit returns.",
+    "shard": "Lowers Cooldown. Echo Stomp may be placed on alt-cast to allow Elder Titan to take the place of the Astral Spirit as it completes its stomp."
+   },
+   "abilities": [
+    {
+     "key": "elder_titan_echo_stomp",
+     "name": "Echo Stomp",
+     "role": "basic",
+     "desc": "CHANNELED - Elder Titan and his Astral Spirit both stomp the ground, damaging and knocking nearby enemy units unconscious around their locations. The Elder Titan stomp deals physical damage, while the Spirit stomp deals magical damage.",
+     "facts": [
+      {
+       "fact_id": "elder_titan_echo_stomp:cd",
+       "label": "COOLDOWN",
+       "values": [
+        14,
+        13,
+        12,
+        11
+       ]
+      },
+      {
+       "fact_id": "elder_titan_echo_stomp:sleep_duration",
+       "label": "SLEEP DURATION",
+       "values": [
+        2,
+        2.8,
+        3.6,
+        4.4
+       ]
+      },
+      {
+       "fact_id": "elder_titan_echo_stomp:stomp_damage",
+       "label": "STOMP DAMAGE",
+       "values": [
+        65,
+        110,
+        155,
+        200
+       ]
+      },
+      {
+       "fact_id": "elder_titan_echo_stomp:initial_stun_duration",
+       "label": "INITIAL STUN DURATION",
+       "values": [
+        0.2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_echo_stomp:wake_damage_limit",
+       "label": "WAKEUP DAMAGE THRESHOLD",
+       "values": [
+        100,
+        150,
+        200,
+        250
+       ]
+      },
+      {
+       "fact_id": "elder_titan_echo_stomp:abilitychanneltime",
+       "label": "CHANNEL TIME",
+       "values": [
+        1.3
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_echo_stomp:AbilityCooldown@shard",
+       "label": "COOLDOWN — прибавка от Aghanim's Shard",
+       "values": [
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "elder_titan_ancestral_spirit",
+     "name": "Astral Spirit",
+     "role": "basic",
+     "desc": "Elder Titan sends forth his Astral Spirit, damaging any units it passes through. When the spirit rejoins the Titan, it grants bonus damage and movement speed for each unit it passed through.\n\nThe Astral Spirit possesses the Echo Stomp, Return Spirit, and Natural Order abilities.",
+     "facts": [
+      {
+       "fact_id": "elder_titan_ancestral_spirit:cd",
+       "label": "COOLDOWN",
+       "values": [
+        23,
+        21,
+        19,
+        17
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:pass_damage",
+       "label": "DAMAGE",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:spirit_duration",
+       "label": "DURATION",
+       "values": [
+        10
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:buff_duration",
+       "label": "BUFF DURATION",
+       "values": [
+        10
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:controllable",
+       "label": "CONTROLLABLE",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:move_pct_creeps",
+       "label": "BONUS SPEED (CREEPS)",
+       "values": [
+        1.5
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:move_pct_heroes",
+       "label": "BONUS SPEED (HEROES)",
+       "values": [
+        4,
+        5,
+        6,
+        7
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:damage_creeps",
+       "label": "BONUS DAMAGE (CREEPS)",
+       "values": [
+        3,
+        7,
+        11,
+        15
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:damage_heroes",
+       "label": "BONUS DAMAGE (HEROES)",
+       "values": [
+        17,
+        38,
+        59,
+        80
+       ]
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:move_pct_cap",
+       "label": "MOVE PCT CAP",
+       "values": [
+        40
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:immunity_resist",
+       "label": "IMMUNITY RESIST",
+       "values": [
+        50
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_ancestral_spirit:scepter_magic_immune_per_hero@scepter",
+       "label": "scepter_magic_immune_per_hero — значение с Aghanim's Scepter",
+       "values": [
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "elder_titan_natural_order",
+     "name": "Natural Order",
+     "role": "basic",
+     "desc": "Reduces all elements to their basic levels, removing base armor and magic damage resistance from nearby enemy units. The armor reduction is centered around the hero, while the magic armor reduction is centered around Astral Spirit.",
+     "facts": [
+      {
+       "fact_id": "elder_titan_natural_order:armor_reduction_pct",
+       "label": "BASE ARMOR REDUCTION",
+       "values": [
+        40,
+        60,
+        80,
+        100
+       ]
+      },
+      {
+       "fact_id": "elder_titan_natural_order:magic_resistance_pct",
+       "label": "BASE RESIST REDUCTION",
+       "values": [
+        40,
+        60,
+        80,
+        100
+       ]
+      }
+     ]
+    },
+    {
+     "key": "elder_titan_momentum",
+     "name": "Momentum",
+     "role": "innate",
+     "desc": "Elder Titan gains armor equal to a percentage of his bonus movement speed.",
+     "facts": [
+      {
+       "fact_id": "elder_titan_momentum:armor_from_movespeed",
+       "label": "BONUS SPEED TO ARMOR",
+       "values": [
+        7
+       ]
+      }
+     ]
+    },
+    {
+     "key": "elder_titan_earth_splitter",
+     "name": "Earth Splitter",
+     "role": "ultimate",
+     "desc": "Sends forth a jagged crack in front of Elder Titan. After 3 seconds, the crack implodes, slowing movement while dealing damage to each enemy based on their maximum life. Half of the damage dealt is Magical damage, while the other half is Physical damage.",
+     "facts": [
+      {
+       "fact_id": "elder_titan_earth_splitter:cd",
+       "label": "COOLDOWN",
+       "values": [
+        100,
+        95,
+        90
+       ]
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:crack_time",
+       "label": "IMPLODE DELAY",
+       "values": [
+        2.7182
+       ]
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:slow_pct",
+       "label": "MOVEMENT SLOW",
+       "values": [
+        40,
+        45,
+        50
+       ]
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        3,
+        4,
+        5
+       ]
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:damage_pct",
+       "label": "MAX HP AS DAMAGE",
+       "values": [
+        34,
+        42,
+        50
+       ]
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:vision_interval",
+       "label": "VISION INTERVAL",
+       "values": [
+        0.22
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:vision_duration",
+       "label": "VISION DURATION",
+       "values": [
+        4
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:vision_step",
+       "label": "VISION STEP",
+       "values": [
+        200
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "elder_titan_earth_splitter:total_steps",
+       "label": "TOTAL STEPS",
+       "values": [
+        12
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "key": "blade_of_alacrity",
+   "name": "Blade of Alacrity",
+   "abilities": [],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "blade_of_alacrity:bonus_agility",
+     "label": "+ {value} Agility",
+     "values": [
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mekansm",
+   "name": "Mekansm",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Restore",
+     "description": "Restores 250 health to allied units in a 1200 radius."
+    },
+    {
+     "type": "passive",
+     "title": "Mekansm Aura",
+     "description": "Grants 2.5 health regeneration to allied units in a 1200 radius."
+    }
+   ],
+   "notes": "Restore does not affect units that have been affected by Restore or Guardian Greaves Mend within Mekansm's cooldown.\nMultiple instances of Mekansm Aura do not stack.",
+   "facts": [
+    {
+     "fact_id": "mekansm:cd",
+     "label": "COOLDOWN",
+     "values": [
+      50
+     ]
+    },
+    {
+     "fact_id": "mekansm:bonus_armor",
+     "label": "+ {value} Armor",
+     "values": [
+      5
+     ]
+    },
+    {
+     "fact_id": "mekansm:aura_health_regen",
+     "label": "aura_health_regen",
+     "values": [
+      2.5
+     ]
+    },
+    {
+     "fact_id": "mekansm:heal_amount",
+     "label": "heal_amount",
+     "values": [
+      250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "invis_sword",
+   "name": "Shadow Blade",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Shadow Walk",
+     "description": "Makes you invisible for 17 seconds, or until you attack or cast a spell. While Shadow Walk is active, you move 20% faster and can move through units. \n\nIf attacking to end the invisibility, you gain 175 bonus physical damage on that attack."
+    }
+   ],
+   "notes": "Has a 0.3 second fade time.\nIf the invisibility ends without attacking, the bonus damage is lost.",
+   "facts": [
+    {
+     "fact_id": "invis_sword:cd",
+     "label": "COOLDOWN",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "invis_sword:bonus_damage",
+     "label": "+ {value} Damage",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "invis_sword:bonus_attack_speed",
+     "label": "+ {value} Attack Speed",
+     "values": [
+      35
+     ]
+    },
+    {
+     "fact_id": "invis_sword:windwalk_duration",
+     "label": "windwalk_duration",
+     "values": [
+      17
+     ]
+    },
+    {
+     "fact_id": "invis_sword:windwalk_movement_speed",
+     "label": "windwalk_movement_speed",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "invis_sword:windwalk_fade_time",
+     "label": "windwalk_fade_time",
+     "values": [
+      0.3
+     ]
+    },
+    {
+     "fact_id": "invis_sword:windwalk_bonus_damage",
+     "label": "windwalk_bonus_damage",
+     "values": [
+      175
+     ]
+    }
+   ]
+  },
+  {
+   "key": "eagle",
+   "name": "Eaglesong",
+   "abilities": [],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "eagle:bonus_agility",
+     "label": "+ {value} Agility",
+     "values": [
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "key": "vladmir",
+   "name": "Vladmir's Offering",
+   "abilities": [
+    {
+     "type": "passive",
+     "title": "Vladmir's Aura",
+     "description": "Grants 20% lifesteal, 18% bonus damage, 1 mana regeneration, and 2 armor to nearby allies.\n\nRadius: 1200"
+    }
+   ],
+   "notes": "Lifesteal on attacks against creeps is reduced to 12%.",
+   "facts": [
+    {
+     "fact_id": "vladmir:armor",
+     "label": "+ {value} Armor",
+     "values": [
+      1
+     ]
+    },
+    {
+     "fact_id": "vladmir:mana_regen",
+     "label": "+ {value} Mana Regeneration",
+     "values": [
+      0.75
+     ]
+    },
+    {
+     "fact_id": "vladmir:armor_aura",
+     "label": "armor_aura",
+     "values": [
+      2
+     ]
+    },
+    {
+     "fact_id": "vladmir:mana_regen_aura",
+     "label": "mana_regen_aura",
+     "values": [
+      1
+     ]
+    },
+    {
+     "fact_id": "vladmir:lifesteal_aura",
+     "label": "lifesteal_aura",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "vladmir:damage_aura",
+     "label": "damage_aura",
+     "values": [
+      18
+     ]
+    },
+    {
+     "fact_id": "vladmir:lifesteal_creeps_tooltip",
+     "label": "lifesteal_creeps_tooltip",
+     "values": [
+      12
+     ]
+    }
+   ]
+  },
+  {
+   "key": "phylactery",
+   "name": "Phylactery",
+   "abilities": [
+    {
+     "type": "passive",
+     "title": "Empower Spell",
+     "description": "The next Unit Target spell you cast on an enemy deals a separate 150 bonus damage to the target and slows them by 30% for 3s."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "phylactery:cd",
+     "label": "COOLDOWN",
+     "values": [
+      9
+     ]
+    },
+    {
+     "fact_id": "phylactery:bonus_all_stats",
+     "label": "+ {value} All Attributes",
+     "values": [
+      6
+     ]
+    },
+    {
+     "fact_id": "phylactery:bonus_health_regen",
+     "label": "+ {value} Health Regeneration",
+     "values": [
+      5.5
+     ]
+    },
+    {
+     "fact_id": "phylactery:bonus_mana_regen",
+     "label": "+ {value} Mana Regeneration",
+     "values": [
+      2.25
+     ]
+    },
+    {
+     "fact_id": "phylactery:slow",
+     "label": "slow",
+     "values": [
+      30
+     ]
+    },
+    {
+     "fact_id": "phylactery:bonus_spell_damage",
+     "label": "bonus_spell_damage",
+     "values": [
+      150
+     ]
+    },
+    {
+     "fact_id": "phylactery:slow_duration",
+     "label": "slow_duration",
+     "values": [
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "key": "sobi_mask",
+   "name": "Sage's Mask",
+   "abilities": [],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "sobi_mask:bonus_mana_regen",
+     "label": "+ {value} Mana Regeneration",
+     "values": [
+      0.7
+     ]
+    }
+   ]
+  },
+  {
+   "key": "tranquil_boots",
+   "name": "Tranquil Boots",
+   "abilities": [
+    {
+     "type": "passive",
+     "title": "Break",
+     "description": "Whenever you attack a hero or are attacked by any unit, the bonus 14 HP regen is lost and the movement speed bonus is reduced to 40 for 13 seconds."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "tranquil_boots:cd",
+     "label": "COOLDOWN",
+     "values": [
+      13
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:bonus_movement_speed",
+     "label": "+ {value} Movement Speed",
+     "values": [
+      65
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:bonus_health_regen",
+     "label": "+ {value} Health Regeneration",
+     "values": [
+      14
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:heal_duration",
+     "label": "heal_duration",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:heal_amount",
+     "label": "heal_amount",
+     "values": [
+      250
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:heal_interval",
+     "label": "heal_interval",
+     "values": [
+      0.334
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:break_time",
+     "label": "break_time",
+     "values": [
+      13
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:break_count",
+     "label": "break_count",
+     "values": [
+      1
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:break_threshold",
+     "label": "break_threshold",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "tranquil_boots:broken_movement_speed",
+     "label": "broken_movement_speed",
+     "values": [
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ancient_janggo",
+   "name": "Drum of Endurance",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Endurance",
+     "description": "Gives +35 attack speed and +13% movement speed to nearby allies for 6 seconds.\n\nRadius: 1200"
+    },
+    {
+     "type": "passive",
+     "title": "Swiftness Aura",
+     "description": "Grants 15 movement speed and 2.5 health regeneration to allies. \n\nRadius: 1200"
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "ancient_janggo:cd",
+     "label": "COOLDOWN",
+     "values": [
+      45
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:aura_movement_speed",
+     "label": "aura_movement_speed",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:aura_health_regen",
+     "label": "aura_health_regen",
+     "values": [
+      2.5
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:bonus_str",
+     "label": "+ {value} Strength",
+     "values": [
+      8
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:bonus_attack_speed_pct",
+     "label": "bonus_attack_speed_pct",
+     "values": [
+      35
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:bonus_movement_speed_pct",
+     "label": "bonus_movement_speed_pct",
+     "values": [
+      13
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:duration",
+     "label": "duration",
+     "values": [
+      6
+     ]
+    },
+    {
+     "fact_id": "ancient_janggo:charges_tooltip",
+     "label": "charges_tooltip",
+     "values": [
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "key": "flask",
+   "name": "Healing Salve",
+   "abilities": [
+    {
+     "type": "use",
+     "title": "Salve",
+     "description": "Grants 30 health regeneration to the target for 13 seconds.\n\nIf the unit is attacked by an enemy hero or Roshan, the effect is lost.\n\nHeals for half the amount per second when cast on an ally."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "flask:buff_duration",
+     "label": "buff_duration",
+     "values": [
+      13
+     ]
+    },
+    {
+     "fact_id": "flask:health_regen",
+     "label": "health_regen",
+     "values": [
+      30
+     ]
+    },
+    {
+     "fact_id": "flask:break_on_hero_damage",
+     "label": "break_on_hero_damage",
+     "values": [
+      1
+     ]
+    }
+   ]
+  }
+ ],
+ "neutrals": [],
+ "enhancements": []
+}

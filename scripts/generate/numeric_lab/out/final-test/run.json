@@ -1,0 +1,14 @@
+{
+  "prompt": "prompt_v7.md",
+  "sample": "sample_final.json",
+  "models": [
+    "claude-opus-5-5"
+  ],
+  "groups": [
+    "auto"
+  ],
+  "effort": "high",
+  "step": true,
+  "mix": false,
+  "seed": 6399
+}

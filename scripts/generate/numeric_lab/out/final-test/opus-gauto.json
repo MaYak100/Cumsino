@@ -1,0 +1,164 @@
+[
+  {
+    "fact_id": "magnataur_reverse_polarity:hero_stun_duration",
+    "level": "max",
+    "question": "Сколько секунд длится стан героев от Reverse Polarity у Magnus на 3-м уровне?",
+    "unit": "сек.",
+    "step": 0.25,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_horn_toss:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Horn Toss, который Magnus получает с Aghanim's Scepter?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_skewer:cliff_hit_damage@shard",
+    "level": "max",
+    "question": "Сколько дополнительного урона наносит Skewer у Magnus с Aghanim's Shard, если впечатать врага в утёс?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "magnataur_solid_core:slow_resistance",
+    "level": "max",
+    "question": "Сколько процентов сопротивления слоу даёт Magnus врождённая способность Solid Core?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_adaptive_strike_agi:stun_max",
+    "level": "max",
+    "question": "Какой максимальный стан от Adaptive Strike у Morphling на максимальном уровне способности (при перевесе силы)?",
+    "unit": "сек.",
+    "step": 0.2,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_replicate:cd",
+    "level": 1,
+    "question": "Какое кд у ультимейта Morph у Morphling на 1-м уровне?",
+    "unit": "сек.",
+    "step": 10,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "morphling_replicate:scepter_illusion_incoming@scepter",
+    "level": "max",
+    "question": "Сколько процентов входящего урона получает иллюзия, которую Morphling создаёт через Morph с Aghanim's Scepter?",
+    "unit": "%",
+    "step": 25,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_earth_splitter:damage_pct",
+    "level": 1,
+    "question": "Какой процент от максимального HP наносит Earth Splitter у Elder Titan на 1-м уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_ancestral_spirit:damage_heroes",
+    "level": "max",
+    "question": "Сколько бонусного урона получает Elder Titan за каждого вражеского героя, задетого Astral Spirit, на максимальном уровне?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_echo_stomp:sleep_duration",
+    "level": "max",
+    "question": "Сколько секунд длится сон от Echo Stomp у Elder Titan на максимальном уровне?",
+    "unit": "сек.",
+    "step": 0.4,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "elder_titan_momentum:armor_from_movespeed",
+    "level": "max",
+    "question": "Какой процент бонусной скорости передвижения Elder Titan превращается в броню через врождённую способность Momentum?",
+    "unit": "%",
+    "step": 2,
+    "request": "opus-gauto-heroes-0",
+    "category": "heroes"
+  },
+  {
+    "fact_id": "ancient_janggo:bonus_attack_speed_pct",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт союзникам активка Endurance у Drum of Endurance?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  },
+  {
+    "fact_id": "flask:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится реген от Healing Salve, если его не сбить?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  },
+  {
+    "fact_id": "phylactery:cd",
+    "level": "max",
+    "question": "Какое кд у пассивки Empower Spell у Phylactery?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  },
+  {
+    "fact_id": "tranquil_boots:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регена здоровья дают Tranquil Boots, пока они не сломаны?",
+    "unit": "ед.",
+    "step": 2,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  },
+  {
+    "fact_id": "vladmir:damage_aura",
+    "level": "max",
+    "question": "Сколько процентов бонусного урона даёт аура Vladmir's Offering?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  },
+  {
+    "fact_id": "invis_sword:windwalk_bonus_damage",
+    "level": "max",
+    "question": "Сколько бонусного физического урона наносит атака, которой выходишь из инвиза Shadow Blade?",
+    "unit": "урона",
+    "step": 25,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  },
+  {
+    "fact_id": "invis_sword:windwalk_duration",
+    "level": "max",
+    "question": "Сколько секунд максимум длится инвиз от Shadow Blade?",
+    "unit": "сек.",
+    "step": 2,
+    "request": "opus-gauto-items-1",
+    "category": "items"
+  }
+]

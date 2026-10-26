@@ -1,0 +1,28 @@
+{
+  "opus-gauto-heroes-0": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 13426,
+      "output_tokens": 1674,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.08718,
+    "questions": 11,
+    "seconds": 17.5
+  },
+  "opus-gauto-items-1": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 6973,
+      "output_tokens": 1076,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.04941,
+    "questions": 7,
+    "seconds": 13.4
+  }
+}

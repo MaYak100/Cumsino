@@ -37,7 +37,7 @@ def load_facts(sample_path: Path) -> dict[str, dict]:
             for f in ab["facts"]:
                 facts[f["fact_id"]] = {**f, "entity": f"{h['hero']} · {ab['name']}",
                                        "role": ab.get("role"), "siblings": ab["facts"]}
-    for it in (e for k in ("items", "neutrals", "costs") for e in sample.get(k, [])):
+    for it in (e for k in ("items", "neutrals", "enhancements", "costs") for e in sample.get(k, [])):
         for f in it["facts"]:
             facts[f["fact_id"]] = {**f, "entity": it["name"], "role": "item", "siblings": it["facts"],
                                    "level_names": it.get("level_names", [])}
@@ -130,6 +130,22 @@ def resolve_one(q: dict, facts: dict) -> dict:
             "mc": mc, "flags": flags}
 
 
+QUOTA_MAX = {"heroes": 4, "items": 2, "neutrals": 2, "enhancements": 1, "costs": 1}
+
+
+def _check_quota(rs: list[dict]) -> list[dict]:
+    """Флаг на вопросы сверх квоты категории (на одного героя / предмет)."""
+    seen: Counter = Counter()
+    for r in rs:
+        cat, entity = r.get("category"), (r.get("entity") or "").split(" · ")[0]
+        if not cat or not entity:
+            continue
+        seen[(cat, entity)] += 1
+        if seen[(cat, entity)] > QUOTA_MAX.get(cat, 99):
+            r["flags"].append(f"сверх квоты: {seen[(cat, entity)]}-й вопрос про {entity}")
+    return rs
+
+
 def render(run_dir: Path, results: dict[str, list[dict]]) -> str:
     lines = [f"# Числовые вопросы: {run_dir.name}", ""]
     lines += ["| Модель | Вопросов | С флагами | Позиция ответа 1/2/3/4 | Средний разброс max/min |",
@@ -184,7 +200,7 @@ def main() -> None:
         if path.stem in RESERVED or path.stem.startswith("excluded-"):
             continue
         qs = json.loads(path.read_text(encoding="utf-8"))
-        results[path.stem] = [resolve_one(q, facts) for q in qs]
+        results[path.stem] = _check_quota([resolve_one(q, facts) for q in qs])
     (run_dir / "resolved.json").write_text(
         json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
 

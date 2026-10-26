@@ -92,10 +92,26 @@ def _fact_ids(entities: list[dict]) -> list[str]:
     return ids
 
 
-CATEGORIES = ("heroes", "items", "neutrals", "costs")
+CATEGORIES = ("heroes", "items", "neutrals", "enhancements", "costs")
+
+# Размер запроса и квота по категориям («auto» в --groups). Квота подставляется в {QUOTA} промпта.
+CATEGORY_SETUP = {
+    "heroes": (3, "Сделай **от 2 до 4 вопросов на каждого героя**, из разных способностей "
+                  "(бонусы аганима и шарда — отдельная тема). Лучше 2 сильных, чем 4 средних."),
+    "items": (10, "Обычно **по одному вопросу на предмет**, для особенно интересного можно два. "
+                  "Предметы, про которые нечего интересно спросить, пропускай — в среднем выйдет "
+                  "6–7 вопросов на 10 предметов."),
+    "neutrals": (10, "Обычно **по одному вопросу на нейтралку**, для особенно интересной можно два. "
+                     "Нейтралки, про которые нечего интересно спросить, пропускай — в среднем выйдет "
+                     "6–7 вопросов на 10 нейтралок."),
+    "enhancements": ("all", "Это все чары разом. Сделай примерно **по полвопроса на чару** — около "
+                            "10 вопросов на всю категорию: бери самые интересные, не больше одного на чару."),
+    "costs": ("all", ""),
+}
 
 
 def _groups_of(sample: dict, size_spec: int | str, mix: bool, rng: random.Random | None) -> list[dict]:
+    """size_spec: число, "all" или "auto" (размер из CATEGORY_SETUP)."""
     """Разбивка на запросы: по умолчанию каждая категория (CATEGORIES) отдельно, --mix — вперемешку.
     Порядок внутри — случайный (rng) или как в выборке. Payload: {"<категория>": [...]}."""
     tagged = [(k, e) for k in CATEGORIES for e in sample.get(k, [])]
@@ -107,7 +123,8 @@ def _groups_of(sample: dict, size_spec: int | str, mix: bool, rng: random.Random
         if rng:
             stream = stream[:]
             rng.shuffle(stream)
-        size = len(stream) if size_spec == "all" else size_spec
+        spec = CATEGORY_SETUP[stream[0][0]][0] if size_spec == "auto" else size_spec
+        size = len(stream) if spec == "all" else spec
         for chunk in _chunks(stream, size):
             payload = {"patch": sample["patch"]}
             for kind, e in chunk:
@@ -119,7 +136,6 @@ def _groups_of(sample: dict, size_spec: int | str, mix: bool, rng: random.Random
 def build_requests(sample: dict, prompt: str, models: list[str], groups: list[int | str], effort: str,
                    with_excluded: bool = False, step: bool = False, mix: bool = False,
                    seed: int | None = None) -> list[dict]:
-    system = [{"type": "text", "text": prompt}]
     requests = []
     for model in models:
         alias = ALIASES[model]
@@ -129,11 +145,14 @@ def build_requests(sample: dict, prompt: str, models: list[str], groups: list[in
                 kinds = [k for k in CATEGORIES if k in payload]
                 kind = kinds[0] if len(kinds) == 1 else "mix"
                 entities = [e for k in kinds for e in payload[k]]
+                quota = CATEGORY_SETUP.get(kind, (None, ""))[1]
+                system = [{"type": "text", "text": prompt.replace("{QUOTA}", quota)}]
+                big = g == "all" or (g == "auto" and CATEGORY_SETUP[kind][0] == "all")
                 requests.append({
                     "custom_id": f"{alias}-g{g}-{kind}-{i}",
                     "params": {
                         "model": model,
-                        "max_tokens": 64000 if g == "all" else 16000,
+                        "max_tokens": 64000 if big else 16000,
                         "system": system,
                         "messages": [{"role": "user", "content": json.dumps(payload, ensure_ascii=False)}],
                         "output_config": {
@@ -299,10 +318,10 @@ def run_sync(client, requests: list[dict], workers: int) -> dict[str, dict]:
 def main() -> None:
     ap = argparse.ArgumentParser(description="Числовые вопросы через Anthropic API")
     ap.add_argument("run_dir")
-    ap.add_argument("--prompt", default="prompt_v4.md")
+    ap.add_argument("--prompt", default="prompt_v7.md")
     ap.add_argument("--sample", default="sample.json")
     ap.add_argument("--step", action="store_true",
-                    help="модель задаёт шаг вместо неверных вариантов (prompt_v6.md, sample_step.json)")
+                    help="модель задаёт шаг вместо неверных вариантов (схема со step)")
     ap.add_argument("--mix", action="store_true",
                     help="категории вперемешку в одном запросе (по умолчанию каждая категория отдельно)")
     ap.add_argument("--seed", type=int,
@@ -310,7 +329,8 @@ def main() -> None:
     ap.add_argument("--costs", action="store_true",
                     help="цены: costs_sample.json + prompt_costs_v2.md (шаг), все предметы одним запросом, со списком исключённых")
     ap.add_argument("--models", default="claude-sonnet-5-5,claude-opus-5-5")
-    ap.add_argument("--groups", default="1,3", help="сколько героев/предметов в одном запросе")
+    ap.add_argument("--groups", default="auto",
+                    help="сущностей в запросе: auto (по категории), число, all; через запятую — сравнение")
     ap.add_argument("--effort", default="high", choices=["low", "medium", "high", "xhigh", "max"])
     ap.add_argument("--dry-run", action="store_true", help="только собрать запросы")
     ap.add_argument("--estimate", action="store_true", help="count_tokens и оценка цены, без генерации")
@@ -320,8 +340,8 @@ def main() -> None:
     args = ap.parse_args()
     if args.costs:
         args.sample, args.prompt, args.groups, args.step = "costs_sample.json", "prompt_costs_v2.md", "all", True
-    elif args.step:
-        args.sample, args.prompt = "sample_step.json", "prompt_v6.md"
+    elif args.step and args.sample == "sample.json":
+        args.sample = "sample_step.json"
     mix = args.mix
     if args.seed is None:
         args.seed = random.SystemRandom().randrange(10_000)
@@ -341,7 +361,7 @@ def main() -> None:
         shutil.copy(LAB / args.prompt, run_dir / "prompt.md")
 
     models = args.models.split(",")
-    groups = [g if g == "all" else int(g) for g in args.groups.split(",")]
+    groups = [g if g in ("all", "auto") else int(g) for g in args.groups.split(",")]
     requests = build_requests(sample, prompt, models, groups, args.effort, with_excluded=args.costs,
                               step=args.step, mix=mix, seed=seed)
     (run_dir / "requests.json").write_text(json.dumps(requests, ensure_ascii=False, indent=1), encoding="utf-8")

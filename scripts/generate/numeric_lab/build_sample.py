@@ -10,8 +10,11 @@
   python scripts/generate/numeric_lab/build_sample.py --random 6 6 3 --out sample_step.json
     → случайные герои, предметы и нейтралки (кроме фиксированной выборки)
 
+  python scripts/generate/numeric_lab/build_sample.py --full --out full_sample.json
+    → все актуальные герои, предметы, нейтралки и чары (для полного прогона)
+
 Категории — отдельные ключи выборки и отдельные запросы: heroes, items (магазин и улучшения
-по рецепту), neutrals (нейтралки и чары), costs (цены, в costs_sample.json).
+по рецепту), neutrals (нейтралки), enhancements (чары), costs (цены, в costs_sample.json).
 
 Значения берутся из dotaconstants, а бонусы Aghanim's Scepter / Shard — из сырых файлов
 героев (dotaconstants их не выгружает): fact_id вида "<способность>:<ключ>@scepter".
@@ -219,15 +222,15 @@ def cost_packet(ik: str, d: dict) -> dict | None:
 
 
 NEUTRAL_CATEGORIES = {"neutral", "enhancement"}
+SAMPLE_KEY = {"neutral": "neutrals", "enhancement": "enhancements"}   # остальное → items
 
 
 def build(heroes: list[str] = HEROES, items: list[str] = ITEMS) -> dict:
-    """items может содержать и нейтралки/чары — они уходят в отдельный ключ neutrals."""
+    """items может содержать нейтралки и чары — они уходят в свои ключи neutrals / enhancements."""
     d = _load()
-    packets = {"items": [], "neutrals": []}
+    packets = {"items": [], "neutrals": [], "enhancements": []}
     for ik in items:
-        cat = "neutrals" if d["current"]["items"][ik]["category"] in NEUTRAL_CATEGORIES else "items"
-        packets[cat].append(item_packet(ik, d))
+        packets[SAMPLE_KEY.get(d["current"]["items"][ik]["category"], "items")].append(item_packet(ik, d))
     return {
         "patch": d["manifest"]["patch"],
         "heroes": [hero_packet(f"npc_dota_hero_{hk}", d) for hk in heroes],
@@ -245,7 +248,7 @@ def pick_random(n_heroes: int, n_items: int, n_neutrals: int) -> tuple[list[str]
     pool = [k for k, v in d["current"]["items"].items()
             if v["category"] in cats and k not in ITEMS and item_packet(k, d)["facts"]]
     items = [k for k in pool if d["current"]["items"][k]["category"] not in NEUTRAL_CATEGORIES]
-    neutrals = [k for k in pool if d["current"]["items"][k]["category"] in NEUTRAL_CATEGORIES]
+    neutrals = [k for k in pool if d["current"]["items"][k]["category"] == "neutral"]
     return rng.sample(heroes, n_heroes), rng.sample(items, n_items) + rng.sample(neutrals, n_neutrals)
 
 
@@ -258,16 +261,27 @@ def build_costs() -> dict:
 
 def _count(sample: dict) -> int:
     return sum(len(p["facts"]) for h in sample.get("heroes", []) for p in h["abilities"]) + \
-        sum(len(i["facts"]) for k in ("items", "neutrals") for i in sample.get(k, []))
+        sum(len(i["facts"]) for k in ("items", "neutrals", "enhancements") for i in sample.get(k, []))
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--random", nargs=3, type=int, metavar=("HEROES", "ITEMS", "NEUTRALS"),
                     help="случайная выборка вместо фиксированной")
+    ap.add_argument("--full", action="store_true", help="все актуальные сущности всех категорий")
     ap.add_argument("--out", default=OUT.name)
     args = ap.parse_args()
     out = Path(__file__).parent / args.out
+    if args.full:
+        d = _load()
+        cats = set(d["current"]["question_item_categories"])
+        heroes = sorted(npc[len("npc_dota_hero_"):] for npc in d["current"]["heroes"])
+        items = sorted(k for k, v in d["current"]["items"].items()
+                       if v["category"] in cats and item_packet(k, d)["facts"])
+        sample = build(heroes, items)
+        out.write_text(json.dumps(sample, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(", ".join(f"{k}: {len(v)}" for k, v in sample.items() if k != "patch") + f" → {out}")
+        return
     if args.random:
         heroes, items = pick_random(*args.random)
         sample = build(heroes, items)
