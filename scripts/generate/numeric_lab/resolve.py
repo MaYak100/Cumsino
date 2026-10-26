@@ -18,6 +18,7 @@ LAB = Path(__file__).parent
 
 _LEVEL_WORDS = re.compile(r"уров|макс|ранг|прокач", re.I)
 _NUM = re.compile(r"\d+(?:[.,]\d+)?")
+_LEVEL_REF = re.compile(r"\d+\s*-?\s*(?:м|й|ом)?\s*уровн\w*", re.I)
 
 
 def load_facts() -> dict[str, dict]:
@@ -67,7 +68,8 @@ def resolve_one(q: dict, facts: dict) -> dict:
 
     # Числа в тексте вопроса, совпадающие с данными способности/предмета, — возможная подсказка
     sibling_nums = {float(v) for f in fact["siblings"] for v in f["values"]}
-    leaked = [n for n in _NUM.findall(text) if float(n.replace(",", ".")) in sibling_nums]
+    text_wo_level = _LEVEL_REF.sub("", text)
+    leaked = [n for n in _NUM.findall(text_wo_level) if float(n.replace(",", ".")) in sibling_nums]
     if leaked:
         flags.append(f"в тексте числа из данных: {', '.join(leaked)}")
 

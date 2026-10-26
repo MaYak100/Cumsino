@@ -1,0 +1,162 @@
+[
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Culling Blade на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [275, 375, 425],
+    "why": "Все видели, как Culling Blade добивает, но цифру урона мало кто помнит"
+  },
+  {
+    "fact_id": "axe_counter_helix:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Counter Helix на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [120, 180, 200],
+    "why": "Контрудар Axe срабатывает постоянно, а его урон обычно угадывают на глаз"
+  },
+  {
+    "fact_id": "tusk_ice_shards:shard_damage",
+    "level": "max",
+    "question": "Сколько урона наносят осколки Ice Shards на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [150, 225, 375],
+    "why": "Осколки прилетают в конце каста, но их урон в голове держат немногие"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick?",
+    "unit": "урона",
+    "distractors": [450, 600, 650],
+    "why": "Кик знают все, а цифру урона вспоминают с трудом"
+  },
+  {
+    "fact_id": "leshrac_lightning_storm:damage",
+    "level": 1,
+    "question": "Сколько урона наносит Lightning Storm по цели на 1-м уровне?",
+    "unit": "урона",
+    "distractors": [140, 190, 240],
+    "why": "Молния летает постоянно, но на низких уровнях цифра ускользает"
+  },
+  {
+    "fact_id": "leshrac_pulse_nova:damage",
+    "level": "max",
+    "question": "Сколько урона за один импульс Pulse Nova на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [80, 135, 225],
+    "why": "Пульс держат все Лешраки, но точную цифру за импульс знают немногие"
+  },
+  {
+    "fact_id": "bounty_hunter_shuriken_toss:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Shuriken Toss на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [240, 380, 420],
+    "why": "Сюрикен бросают все, но точный урон на максимуме помнят единицы"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold",
+    "level": "max",
+    "question": "Сколько бонусного золота получают союзники рядом, когда цель Track умирает, на максимальном уровне?",
+    "unit": "золота",
+    "distractors": [40, 80, 160],
+    "why": "Все ловят Track, но сколько золота сыплется союзникам, мало кто считает"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Chronosphere на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [4.25, 3.75, 5.25],
+    "why": "Внутри сферы все понимают, что происходит, но точную длительность знают не все"
+  },
+  {
+    "fact_id": "faceless_void_time_lock:chance_pct",
+    "level": 1,
+    "question": "С каким шансом срабатывает Time Lock на 1-м уровне?",
+    "unit": "%",
+    "distractors": [16, 20, 24],
+    "why": "Все видели, как Void замораживает врага, но шанс на 1-м уровне знают немногие"
+  },
+  {
+    "fact_id": "kez_talon_toss:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Talon Toss на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [60, 120, 180],
+    "why": "Бросок сая быстрый, а цифра урона сильно зависит от уровня"
+  },
+  {
+    "fact_id": "kez_raptor_dance:base_damage",
+    "level": "max",
+    "question": "Сколько базового урона наносит Raptor Dance на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [40, 130, 150],
+    "why": "Ультимейт с кучей ударов, а базовая цифра урона мало у кого в голове"
+  },
+  {
+    "fact_id": "mjollnir:bonus_attack_speed",
+    "level": "max",
+    "question": "Сколько скорости атаки даёт Mjollnir?",
+    "unit": "ед.",
+    "distractors": [60, 80, 120],
+    "why": "Все знают, что Mjollnir разгоняет атаки, но точную цифру назовёт не каждый"
+  },
+  {
+    "fact_id": "mjollnir:chain_damage",
+    "level": "max",
+    "question": "Сколько урона получает каждая цель Chain Lightning у Mjollnir?",
+    "unit": "урона",
+    "distractors": [150, 200, 240],
+    "why": "Цепная молния видна в каждой драке, но урон на цель помнят немногие"
+  },
+  {
+    "fact_id": "shivas_guard:blast_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Arctic Blast у Shiva's Guard?",
+    "unit": "урона",
+    "distractors": [175, 250, 300],
+    "why": "Волну видно в каждом файте, но её урон обычно угадывают на глаз"
+  },
+  {
+    "fact_id": "bloodstone:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья прибавляет Bloodstone?",
+    "unit": "ед.",
+    "distractors": [550, 575, 700],
+    "why": "Bloodstone берут часто, а точный бонус здоровья помнят немногие"
+  },
+  {
+    "fact_id": "kaya:spell_amp",
+    "level": "max",
+    "question": "Сколько процентов усиления заклинаний даёт Kaya?",
+    "unit": "%",
+    "distractors": [8, 12, 15],
+    "why": "Усиление знают все, но точный процент часто путают с соседними предметами"
+  },
+  {
+    "fact_id": "satanic:unholy_duration",
+    "level": "max",
+    "question": "Сколько секунд длится Unholy Rage у Satanic?",
+    "unit": "сек.",
+    "distractors": [4, 8, 10],
+    "why": "Активку включают в самый жаркий момент, но её длительность помнят не все"
+  },
+  {
+    "fact_id": "boots_of_bearing:aura_health_regen",
+    "level": "max",
+    "question": "Сколько здоровья в секунду восстанавливает союзникам Swiftness Aura у Boots of Bearing?",
+    "unit": "ед.",
+    "distractors": [1.5, 2.0, 3.5],
+    "why": "Аура работает постоянно, но точное значение регена мало кто знает"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько урона поглощает Barrier у Pipe of Insight?",
+    "unit": "урона",
+    "distractors": [375, 400, 500],
+    "why": "Барьер все ставят в тимфайт, но порог поглощения знают не все"
+  }
+]
