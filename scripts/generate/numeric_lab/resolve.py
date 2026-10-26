@@ -41,7 +41,8 @@ def load_facts(sample_path: Path) -> dict[str, dict]:
                                        "role": ab.get("role"), "siblings": ab["facts"]}
     for it in sample["items"]:
         for f in it["facts"]:
-            facts[f["fact_id"]] = {**f, "entity": it["name"], "role": "item", "siblings": it["facts"]}
+            facts[f["fact_id"]] = {**f, "entity": it["name"], "role": "item", "siblings": it["facts"],
+                                   "level_names": it.get("level_names", [])}
     return facts
 
 
@@ -89,7 +90,8 @@ def resolve_one(q: dict, facts: dict) -> dict:
 
     text = q.get("question", "")
     multi = len(set(vals)) > 1
-    if multi and not _LEVEL_WORDS.search(text):
+    named_level = any(name in text for name in fact.get("level_names", []))
+    if multi and not named_level and not _LEVEL_WORDS.search(text):
         flags.append("значение зависит от уровня, а уровень не указан")
     if multi and idx not in (0, len(vals) - 1):
         flags.append(f"уровень {idx + 1}: только 1-й или максимальный")

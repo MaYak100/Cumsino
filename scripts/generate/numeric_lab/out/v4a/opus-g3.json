@@ -1,0 +1,170 @@
+[
+  {
+    "fact_id": "axe_counter_helix:damage_reduction@scepter",
+    "level": "max",
+    "question": "С Aghanim's Scepter Counter Helix у Axe вешает стакающийся дебафф. На сколько процентов один стак снижает урон атак врага по Axe?",
+    "unit": "%",
+    "distractors": [
+      8,
+      10,
+      15
+    ],
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick у Tusk, который даёт Aghanim's Scepter?",
+    "unit": "урона",
+    "distractors": [
+      450,
+      500,
+      650
+    ],
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "leshrac_diabolic_edict:num_explosions",
+    "level": "max",
+    "question": "Сколько всего взрывов делает Diabolic Edict у Leshrac за время действия?",
+    "unit": "шт.",
+    "distractors": [
+      45,
+      50,
+      60
+    ],
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold_self",
+    "level": "max",
+    "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на 3-м уровне ульты?",
+    "unit": "золота",
+    "distractors": [
+      200,
+      280,
+      320
+    ],
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько длится Chronosphere у Faceless Void на 3-м уровне?",
+    "unit": "сек.",
+    "distractors": [
+      3.75,
+      4.25,
+      4.5
+    ],
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "kez_raptor_dance:max_health_damage_pct",
+    "level": "max",
+    "question": "Какой процент от макс. здоровья цели наносит каждый удар Raptor Dance у Kez?",
+    "unit": "%",
+    "distractors": [
+      1.5,
+      3,
+      3.5
+    ],
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "mjollnir:chain_strikes",
+    "level": "max",
+    "question": "По скольким целям прыгает Chain Lightning у Mjollnir?",
+    "unit": "шт.",
+    "distractors": [
+      8,
+      10,
+      15
+    ],
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "shivas_guard:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт Shiva's Guard?",
+    "unit": "ед.",
+    "distractors": [
+      12,
+      14,
+      15
+    ],
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "bloodstone:spell_lifesteal_while_active",
+    "level": "max",
+    "question": "До скольких процентов поднимается спелл-лайфстил Bloodstone во время активки Bloodpact?",
+    "unit": "%",
+    "distractors": [
+      70,
+      80,
+      100
+    ],
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "kaya:mana_regen_multiplier",
+    "level": "max",
+    "question": "Насколько процентов Kaya усиливает реген маны?",
+    "unit": "%",
+    "distractors": [
+      15,
+      25,
+      30
+    ],
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+    "level": "max",
+    "question": "Какой суммарный процент лайфстила у Satanic во время активки Unholy Rage?",
+    "unit": "%",
+    "distractors": [
+      200,
+      225,
+      250
+    ],
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "boots_of_bearing:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регена здоровья дают сами Boots of Bearing своему владельцу, без учёта ауры?",
+    "unit": "ед.",
+    "distractors": [
+      10,
+      12,
+      15
+    ],
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько магического урона поглощает барьер от Pipe of Insight на герое?",
+    "unit": "урона",
+    "distractors": [
+      375,
+      400,
+      450
+    ],
+    "request": "opus-g3-items-2"
+  },
+  {
+    "fact_id": "dagon:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Energy Burst у Dagon 5?",
+    "unit": "урона",
+    "distractors": [
+      700,
+      900,
+      1000
+    ],
+    "request": "opus-g3-items-2"
+  }
+]

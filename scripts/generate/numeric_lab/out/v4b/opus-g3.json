@@ -1,0 +1,170 @@
+[
+  {
+    "fact_id": "axe_counter_helix:damage_reduction@scepter",
+    "level": "max",
+    "question": "Counter Helix с Aghanim's Scepter вешает на врагов стакающийся дебафф. На сколько процентов один стак снижает урон от атак врага по Axe?",
+    "unit": "%",
+    "distractors": [
+      8,
+      10,
+      15
+    ],
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick, который Tusk получает с Aghanim's Scepter?",
+    "unit": "урона",
+    "distractors": [
+      350,
+      450,
+      600
+    ],
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "leshrac_diabolic_edict:num_explosions",
+    "level": "max",
+    "question": "Сколько взрывов всего делает Diabolic Edict у Leshrac за одно применение?",
+    "unit": "шт.",
+    "distractors": [
+      24,
+      32,
+      36
+    ],
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold_self",
+    "level": "max",
+    "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на 3-м уровне ульты?",
+    "unit": "золота",
+    "distractors": [
+      200,
+      280,
+      300
+    ],
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько длится Chronosphere у Faceless Void на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [
+      4.25,
+      5.25,
+      5.5
+    ],
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "kez_raptor_dance:max_health_damage_pct",
+    "level": "max",
+    "question": "Сколько % от макс. здоровья цели наносит каждый удар Raptor Dance у Kez?",
+    "unit": "%",
+    "distractors": [
+      1.5,
+      2,
+      3
+    ],
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "mjollnir:chain_strikes",
+    "level": "max",
+    "question": "Сколько целей максимум задевает Chain Lightning от пассивки Mjollnir?",
+    "unit": "шт.",
+    "distractors": [
+      8,
+      10,
+      15
+    ],
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "shivas_guard:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт Shiva's Guard?",
+    "unit": "ед.",
+    "distractors": [
+      20,
+      22,
+      25
+    ],
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "bloodstone:spell_lifesteal_while_active",
+    "level": "max",
+    "question": "До скольких процентов поднимается спелл-лайфстил Bloodstone во время активки Bloodpact?",
+    "unit": "%",
+    "distractors": [
+      40,
+      45,
+      50
+    ],
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "kaya:mana_regen_multiplier",
+    "level": "max",
+    "question": "На сколько процентов Kaya усиливает реген маны?",
+    "unit": "%",
+    "distractors": [
+      10,
+      15,
+      25
+    ],
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+    "level": "max",
+    "question": "До скольки процентов поднимается лайфстил при активации Unholy Rage у Satanic?",
+    "unit": "%",
+    "distractors": [
+      125,
+      150,
+      200
+    ],
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "boots_of_bearing:bonus_attack_speed_pct",
+    "level": "max",
+    "question": "Сколько скорости атаки получают союзники от активки Endurance у Boots of Bearing?",
+    "unit": "ед.",
+    "distractors": [
+      60,
+      70,
+      80
+    ],
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько магического урона поглощает барьер от активки Pipe of Insight у героя?",
+    "unit": "урона",
+    "distractors": [
+      375,
+      400,
+      450
+    ],
+    "request": "opus-g3-items-2"
+  },
+  {
+    "fact_id": "dagon:damage",
+    "level": 5,
+    "question": "Сколько урона наносит Energy Burst у Dagon 5?",
+    "unit": "урона",
+    "distractors": [
+      700,
+      750,
+      900
+    ],
+    "request": "opus-g3-items-2"
+  }
+]

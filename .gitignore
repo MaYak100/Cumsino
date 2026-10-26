@@ -14,3 +14,5 @@ scripts/data/*.json
 scripts/data/active_questions_batch*.json
 
 __pycache__/
+
+scripts/generate/numeric_lab/out/*/requests.json

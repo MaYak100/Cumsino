@@ -1,0 +1,2226 @@
+{
+ "patch": "7.41f",
+ "heroes": [
+  {
+   "hero": "Kunkka",
+   "aghanim": {
+    "scepter": "Ghostship creates a fleet of 2 ships at the target point on a 2.5 second interval. Each ship now also fires 3 waves of cannonballs from the port and starboard side that deal 40% of Ghostship's damage as they pass through enemies.",
+    "shard": "Releases a Tidal Wave that spawns behind Kunkka. Deals damage and drags enemies along it. Enemies cannot attack while being dragged."
+   },
+   "abilities": [
+    {
+     "key": "kunkka_torrent",
+     "name": "Torrent",
+     "role": "basic",
+     "desc": "Summons a rising torrent that, after a short delay, hurls enemy units into the sky, stunning, dealing damage and slowing movement speed.",
+     "facts": [
+      {
+       "fact_id": "kunkka_torrent:cd",
+       "label": "COOLDOWN",
+       "values": [
+        16,
+        14,
+        12,
+        10
+       ]
+      },
+      {
+       "fact_id": "kunkka_torrent:movespeed_bonus",
+       "label": "MOVE SLOW",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "kunkka_torrent:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        1,
+        2,
+        3,
+        4
+       ]
+      },
+      {
+       "fact_id": "kunkka_torrent:stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        1.4
+       ]
+      },
+      {
+       "fact_id": "kunkka_torrent:delay",
+       "label": "DELAY",
+       "values": [
+        1.6
+       ]
+      },
+      {
+       "fact_id": "kunkka_torrent:torrent_damage",
+       "label": "DAMAGE",
+       "values": [
+        110,
+        180,
+        250,
+        320
+       ]
+      },
+      {
+       "fact_id": "kunkka_torrent:damage_tick_interval",
+       "label": "DAMAGE TICK INTERVAL",
+       "values": [
+        0.2
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "kunkka_tidebringer",
+     "name": "Tidebringer",
+     "role": "basic",
+     "desc": "Kunkka's legendary sword grants increased damage and cleaves a large area of effect in front of him for a single strike.",
+     "facts": [
+      {
+       "fact_id": "kunkka_tidebringer:cd",
+       "label": "COOLDOWN",
+       "values": [
+        13,
+        10,
+        7,
+        4
+       ]
+      },
+      {
+       "fact_id": "kunkka_tidebringer:damage_bonus",
+       "label": "DAMAGE BONUS",
+       "values": [
+        35,
+        70,
+        105,
+        140
+       ]
+      },
+      {
+       "fact_id": "kunkka_tidebringer:cleave_damage",
+       "label": "CLEAVE DAMAGE",
+       "values": [
+        150
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kunkka_x_marks_the_spot",
+     "name": "X Marks the Spot",
+     "role": "basic",
+     "desc": "Targets a friendly or enemy Hero, marks their position with an X, and returns them to it after several seconds. Kunkka can trigger the return at any time during the duration. Lasts twice as long on allied heroes.",
+     "facts": [
+      {
+       "fact_id": "kunkka_x_marks_the_spot:cd",
+       "label": "COOLDOWN",
+       "values": [
+        24,
+        20,
+        16,
+        12
+       ]
+      },
+      {
+       "fact_id": "kunkka_x_marks_the_spot:duration",
+       "label": "ENEMY DELAY",
+       "values": [
+        3
+       ]
+      },
+      {
+       "fact_id": "kunkka_x_marks_the_spot:allied_duration",
+       "label": "ALLIED DELAY",
+       "values": [
+        6
+       ]
+      },
+      {
+       "fact_id": "kunkka_x_marks_the_spot:fow_duration",
+       "label": "FOW DURATION",
+       "values": [
+        5.94
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_x_marks_the_spot:movespeed_bonus",
+       "label": "MOVESPEED BONUS",
+       "values": [
+        15
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_x_marks_the_spot:ghostship_absorb",
+       "label": "GHOSTSHIP ABSORB",
+       "values": [
+        35
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "kunkka_admirals_rum",
+     "name": "Admiral's Rum",
+     "role": "innate",
+     "desc": "",
+     "facts": [
+      {
+       "fact_id": "kunkka_admirals_rum:cd",
+       "label": "COOLDOWN",
+       "values": [
+        50.5
+       ]
+      },
+      {
+       "fact_id": "kunkka_admirals_rum:damage_threshold",
+       "label": "DAMAGE THRESHOLD",
+       "values": [
+        65
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_admirals_rum:ghostship_absorb",
+       "label": "GHOSTSHIP ABSORB",
+       "values": [
+        18
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_admirals_rum:buff_duration",
+       "label": "BUFF DURATION",
+       "values": [
+        5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_admirals_rum:movespeed_bonus",
+       "label": "MOVESPEED BONUS",
+       "values": [
+        7.75
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "kunkka_tidal_wave",
+     "name": "Tidal Wave",
+     "role": "shard",
+     "desc": "Releases a Tidal Wave that spawns behind Kunkka. Deals damage and drags enemies along it. Enemies cannot attack while being dragged.",
+     "facts": [
+      {
+       "fact_id": "kunkka_tidal_wave:cd",
+       "label": "COOLDOWN",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "kunkka_tidal_wave:damage",
+       "label": "DAMAGE",
+       "values": [
+        180
+       ]
+      },
+      {
+       "fact_id": "kunkka_tidal_wave:duration",
+       "label": "DRAG DURATION",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kunkka_ghostship",
+     "name": "Ghostship",
+     "role": "ultimate",
+     "desc": "Summons a ghostly ship that sails through the battle before smashing apart, damaging and stunning all enemies caught near the wreckage.\n\nAllied heroes touched by the Ghostship are given a 2x strong swig of The Admiral's Rum.",
+     "facts": [
+      {
+       "fact_id": "kunkka_ghostship:cd",
+       "label": "COOLDOWN",
+       "values": [
+        90,
+        80,
+        70
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:tooltip_delay",
+       "label": "IMPACT DELAY",
+       "values": [
+        3.1
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        1.2
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:rum_factor",
+       "label": "RUM FACTOR",
+       "values": [
+        2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_ghostship:num_cannon_volleys",
+       "label": "NUM CANNON VOLLEYS",
+       "values": [
+        3
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_ghostship:base_cannon_rotation",
+       "label": "BASE CANNON ROTATION",
+       "values": [
+        20
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_ghostship:rotation_per_cannon",
+       "label": "ROTATION PER CANNON",
+       "values": [
+        12
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_ghostship:initial_cannon_offset",
+       "label": "INITIAL CANNON OFFSET",
+       "values": [
+        150
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kunkka_ghostship:fleet_interval@scepter",
+       "label": "fleet_interval — значение с Aghanim's Scepter",
+       "values": [
+        2.5
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:fleet_count@scepter",
+       "label": "fleet_count — значение с Aghanim's Scepter",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:fire_cannons@scepter",
+       "label": "fire_cannons — значение с Aghanim's Scepter",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:cannon_ball_damage_pct@scepter",
+       "label": "cannon_ball_damage_pct — значение с Aghanim's Scepter",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:cannon_count@scepter",
+       "label": "cannon_count — значение с Aghanim's Scepter",
+       "values": [
+        4
+       ]
+      },
+      {
+       "fact_id": "kunkka_ghostship:cannon_fire_interval@scepter",
+       "label": "cannon_fire_interval — значение с Aghanim's Scepter",
+       "values": [
+        0.78
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Huskar",
+   "aghanim": {
+    "scepter": "Forces the enemy target to attack Huskar and increases cast range.",
+    "shard": "Huskar can activate Berserker's Blood for a health cost to cauterize himself. Dispels Huskar, then after a delay, heals for the amount of health consumed plus an additional bonus per debuff dispelled.<br/><br/>DISPEL TYPE: Basic Dispel"
+   },
+   "abilities": [
+    {
+     "key": "huskar_inner_fire",
+     "name": "Inner Fire",
+     "role": "basic",
+     "desc": "In a fiery rage, knocks all nearby enemies away from you to a fixed distance, dealing damage and silencing them.",
+     "facts": [
+      {
+       "fact_id": "huskar_inner_fire:cd",
+       "label": "COOLDOWN",
+       "values": [
+        17,
+        15,
+        13,
+        11
+       ]
+      },
+      {
+       "fact_id": "huskar_inner_fire:health_cost",
+       "label": "HEALTH COST",
+       "values": [
+        75,
+        100,
+        125,
+        150
+       ]
+      },
+      {
+       "fact_id": "huskar_inner_fire:damage",
+       "label": "DAMAGE",
+       "values": [
+        110,
+        180,
+        250,
+        320
+       ]
+      },
+      {
+       "fact_id": "huskar_inner_fire:disarm_duration",
+       "label": "DURATION",
+       "values": [
+        1.5,
+        2,
+        2.5,
+        3
+       ]
+      },
+      {
+       "fact_id": "huskar_inner_fire:knockback_duration",
+       "label": "KNOCKBACK DURATION",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "huskar_inner_fire:min_knockback_duration",
+       "label": "MIN KNOCKBACK DURATION",
+       "values": [
+        0.4
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "huskar_burning_spear",
+     "name": "Burning Spear",
+     "role": "basic",
+     "desc": "Huskar sets his spears aflame, dealing damage over time with his regular attack. Multiple attacks will stack additional damage. Each attack drains some of Huskar's health.",
+     "facts": [
+      {
+       "fact_id": "huskar_burning_spear:max_health_cost",
+       "label": "MAX HEALTH COST",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "huskar_burning_spear:burn_damage",
+       "label": "BURN DAMAGE",
+       "values": [
+        4,
+        8,
+        12,
+        16
+       ]
+      },
+      {
+       "fact_id": "huskar_burning_spear:burn_damage_max_pct",
+       "label": "MAX HEALTH BURN",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "huskar_burning_spear:duration",
+       "label": "DURATION",
+       "values": [
+        9
+       ]
+      }
+     ]
+    },
+    {
+     "key": "huskar_berserkers_blood",
+     "name": "Berserker's Blood",
+     "role": "basic",
+     "desc": "Huskar's injuries feed his power, giving increased attack speed, magic resistance and health regen based on missing health. Health regen is a percentage of your strength.",
+     "facts": [
+      {
+       "fact_id": "huskar_berserkers_blood:maximum_attack_speed",
+       "label": "MAX ATTACK SPEED",
+       "values": [
+        170,
+        220,
+        270,
+        320
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:maximum_health_regen",
+       "label": "MAX STR REGEN",
+       "values": [
+        25,
+        40,
+        55,
+        70
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:maximum_magic_resist",
+       "label": "MAX MAGIC RESIST",
+       "values": [
+        15,
+        20,
+        25,
+        30
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:hp_threshold_max",
+       "label": "HP FOR MAX BONUS",
+       "values": [
+        10
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:activatable@shard",
+       "label": "ACTIVATABLE — значение с Aghanim's Shard",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:activation_healthcost_pct@shard",
+       "label": "CURRENT HP COST — значение с Aghanim's Shard",
+       "values": [
+        30
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:activation_cooldown@shard",
+       "label": "COOLDOWN — значение с Aghanim's Shard",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:activation_delay@shard",
+       "label": "CAUTERIZE DELAY — значение с Aghanim's Shard",
+       "values": [
+        3
+       ]
+      },
+      {
+       "fact_id": "huskar_berserkers_blood:activation_heal_pct_per_debuff@shard",
+       "label": "MAX HP HEAL PER DEBUFF — значение с Aghanim's Shard",
+       "values": [
+        3
+       ]
+      }
+     ]
+    },
+    {
+     "key": "huskar_life_break",
+     "name": "Life Break",
+     "role": "ultimate",
+     "desc": "Huskar draws upon his health to break an enemy's life, leaping at a target to shatter a percentage of that hero's current health and slow both their movement and attack speed. While leaping, Huskar is Debuff Immune with 60% magic resistance.\n\nDISPEL TYPE: Basic Dispel",
+     "facts": [
+      {
+       "fact_id": "huskar_life_break:cd",
+       "label": "COOLDOWN",
+       "values": [
+        16,
+        14,
+        12
+       ]
+      },
+      {
+       "fact_id": "huskar_life_break:health_cost_percent",
+       "label": "HEALTH COST PERCENT",
+       "values": [
+        0.32,
+        0.38,
+        0.44
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "huskar_life_break:health_damage",
+       "label": "HEALTH DAMAGE",
+       "values": [
+        0.32,
+        0.38,
+        0.44
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "huskar_life_break:tooltip_health_damage",
+       "label": "DAMAGE DEALT",
+       "values": [
+        32,
+        38,
+        44
+       ]
+      },
+      {
+       "fact_id": "huskar_life_break:tooltip_health_cost_percent",
+       "label": "DAMAGE TAKEN",
+       "values": [
+        32,
+        38,
+        44
+       ]
+      },
+      {
+       "fact_id": "huskar_life_break:movespeed",
+       "label": "MOVEMENT SLOW",
+       "values": [
+        60
+       ]
+      },
+      {
+       "fact_id": "huskar_life_break:attack_speed",
+       "label": "ATTACK SPEED SLOW",
+       "values": [
+        60,
+        100,
+        140
+       ]
+      },
+      {
+       "fact_id": "huskar_life_break:abilityduration",
+       "label": "DURATION",
+       "values": [
+        3,
+        4,
+        5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "huskar_life_break:slow_duration_tooltip",
+       "label": "SLOW DURATION",
+       "values": [
+        3,
+        4,
+        5
+       ]
+      },
+      {
+       "fact_id": "huskar_life_break:immunity_resist",
+       "label": "IMMUNITY RESIST",
+       "values": [
+        60
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "huskar_life_break:taunt_duration@scepter",
+       "label": "TAUNT DURATION — значение с Aghanim's Scepter",
+       "values": [
+        3
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Night Stalker",
+   "aghanim": {
+    "scepter": "Increases bonus movement speed by %bonus_bonus_movement_speed_pct_night% and attack speed by %bonus_bonus_attack_speed_night%. Killing an enemy hero resets all basic ability cooldowns.",
+    "shard": "Void now affects all units in a radius around the target."
+   },
+   "abilities": [
+    {
+     "key": "night_stalker_void",
+     "name": "Void",
+     "role": "basic",
+     "desc": "Creates a damaging void that slows an enemy unit and deals damage. At night, Void also mini-stuns, interrupting channeling abilities, and its effects lasts longer.",
+     "facts": [
+      {
+       "fact_id": "night_stalker_void:cd",
+       "label": "COOLDOWN",
+       "values": [
+        11,
+        10,
+        9,
+        8
+       ]
+      },
+      {
+       "fact_id": "night_stalker_void:damage",
+       "label": "DAMAGE",
+       "values": [
+        80,
+        160,
+        240,
+        320
+       ]
+      },
+      {
+       "fact_id": "night_stalker_void:duration_day",
+       "label": "DAY DURATION",
+       "values": [
+        1.25
+       ]
+      },
+      {
+       "fact_id": "night_stalker_void:duration_night",
+       "label": "NIGHT DURATION",
+       "values": [
+        1.6,
+        2.2,
+        2.8,
+        3.4
+       ]
+      },
+      {
+       "fact_id": "night_stalker_void:movespeed_slow",
+       "label": "MOVE SLOW",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "night_stalker_void:attackspeed_slow",
+       "label": "ATTACK SLOW",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "night_stalker_void:invisible_damage_tickrate",
+       "label": "INVISIBLE DAMAGE TICKRATE",
+       "values": [
+        0.1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "night_stalker_void:max_level",
+       "label": "MAX LEVEL",
+       "values": [
+        4
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "night_stalker_crippling_fear",
+     "name": "Crippling Fear",
+     "role": "basic",
+     "desc": "Night Stalker horrifies all nearby enemies, causing them to become silenced and take damage over time while near him. The effect lasts longer at night.",
+     "facts": [
+      {
+       "fact_id": "night_stalker_crippling_fear:cd",
+       "label": "COOLDOWN",
+       "values": [
+        30,
+        25,
+        20,
+        15
+       ]
+      },
+      {
+       "fact_id": "night_stalker_crippling_fear:duration_day",
+       "label": "DAY DURATION",
+       "values": [
+        3
+       ]
+      },
+      {
+       "fact_id": "night_stalker_crippling_fear:duration_night",
+       "label": "NIGHT DURATION",
+       "values": [
+        4.5,
+        5,
+        5.5,
+        6
+       ]
+      },
+      {
+       "fact_id": "night_stalker_crippling_fear:mana_interval",
+       "label": "MANA INTERVAL",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "night_stalker_crippling_fear:dps",
+       "label": "DAMAGE PER SECOND",
+       "values": [
+        25,
+        30,
+        35,
+        40
+       ]
+      },
+      {
+       "fact_id": "night_stalker_crippling_fear:tick_rate",
+       "label": "TICK RATE",
+       "values": [
+        0.1
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "night_stalker_midnight_feast",
+     "name": "Midnight Feast",
+     "role": "basic",
+     "desc": "",
+     "facts": [
+      {
+       "fact_id": "night_stalker_midnight_feast:cd",
+       "label": "COOLDOWN",
+       "values": [
+        39,
+        36,
+        33,
+        30
+       ]
+      },
+      {
+       "fact_id": "night_stalker_midnight_feast:attack_heal",
+       "label": "ATTACK HEAL",
+       "values": [
+        12,
+        16,
+        20,
+        24
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "night_stalker_midnight_feast:hp_restore",
+       "label": "HP RESTORE",
+       "values": [
+        10,
+        15,
+        20,
+        25
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "night_stalker_midnight_feast:mp_restore",
+       "label": "MP RESTORE",
+       "values": [
+        10,
+        12,
+        14,
+        16
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "night_stalker_hunter_in_the_night",
+     "name": "Hunter in the Night",
+     "role": "innate",
+     "desc": "Night Stalker is in his element at night, attacking and moving with great swiftness.",
+     "facts": [
+      {
+       "fact_id": "night_stalker_hunter_in_the_night:bonus_movement_speed_pct_night",
+       "label": "MOVE SPEED",
+       "values": [
+        24
+       ]
+      },
+      {
+       "fact_id": "night_stalker_hunter_in_the_night:bonus_attack_speed_night",
+       "label": "ATTACK SPEED",
+       "values": [
+        38
+       ]
+      },
+      {
+       "fact_id": "night_stalker_hunter_in_the_night:bonus_movement_speed_pct_night@scepter",
+       "label": "MOVE SPEED — прибавка от Aghanim's Scepter",
+       "values": [
+        15
+       ]
+      },
+      {
+       "fact_id": "night_stalker_hunter_in_the_night:bonus_attack_speed_night@scepter",
+       "label": "ATTACK SPEED — прибавка от Aghanim's Scepter",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "night_stalker_hunter_in_the_night:reset_cooldowns@scepter",
+       "label": "reset_cooldowns — значение с Aghanim's Scepter",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "night_stalker_darkness",
+     "name": "Dark Ascension",
+     "role": "ultimate",
+     "desc": "Night Stalker smothers the sun and summons instant darkness, so that he might use his powers at their fullest. Night Stalker gains flight and bonus damage during this time. Has unobstructed vision.",
+     "facts": [
+      {
+       "fact_id": "night_stalker_darkness:cd",
+       "label": "COOLDOWN",
+       "values": [
+        140,
+        135,
+        130
+       ]
+      },
+      {
+       "fact_id": "night_stalker_darkness:duration",
+       "label": "DURATION",
+       "values": [
+        30
+       ]
+      },
+      {
+       "fact_id": "night_stalker_darkness:bonus_damage",
+       "label": "BONUS DAMAGE",
+       "values": [
+        50,
+        100,
+        150
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Disruptor",
+   "aghanim": {
+    "scepter": "Mutes items.",
+    "shard": "After a short formation time, creates a wall out of kinetic energy that enemies cannot pass."
+   },
+   "abilities": [
+    {
+     "key": "disruptor_thunder_strike",
+     "name": "Thunder Strike",
+     "role": "basic",
+     "desc": "Repeatedly strikes the targeted unit with lightning. Each strike damages nearby enemy units in a small radius and slows enemy movement and attack speed by 100% for x1.75 seconds. Provides vision of its target.",
+     "facts": [
+      {
+       "fact_id": "disruptor_thunder_strike:cd",
+       "label": "COOLDOWN",
+       "values": [
+        18,
+        15,
+        12,
+        9
+       ]
+      },
+      {
+       "fact_id": "disruptor_thunder_strike:strikes",
+       "label": "STRIKES",
+       "values": [
+        4
+       ]
+      },
+      {
+       "fact_id": "disruptor_thunder_strike:strike_interval",
+       "label": "STRIKE INTERVAL",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "disruptor_thunder_strike:strike_damage",
+       "label": "STRIKE DAMAGE",
+       "values": [
+        30,
+        60,
+        90,
+        120
+       ]
+      },
+      {
+       "fact_id": "disruptor_thunder_strike:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        0.3
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_thunder_strike:slow_amount",
+       "label": "SLOW AMOUNT",
+       "values": [
+        100
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_thunder_strike:shard_ground_delay",
+       "label": "SHARD GROUND DELAY",
+       "values": [
+        4
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "disruptor_glimpse",
+     "name": "Glimpse",
+     "role": "basic",
+     "desc": "Teleports the target hero back to where it was 4 seconds ago. Instantly kills illusions. Deals damage equal to a percentage of the distance glimpsed, that cannot go over a damage maximum.",
+     "facts": [
+      {
+       "fact_id": "disruptor_glimpse:cd",
+       "label": "COOLDOWN",
+       "values": [
+        24,
+        22,
+        20,
+        18
+       ]
+      },
+      {
+       "fact_id": "disruptor_glimpse:backtrack_time",
+       "label": "BACKTRACK TIME",
+       "values": [
+        4
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_glimpse:min_damage",
+       "label": "MIN DAMAGE",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "disruptor_glimpse:max_damage",
+       "label": "MAX DAMAGE",
+       "values": [
+        100,
+        160,
+        220,
+        280
+       ]
+      }
+     ]
+    },
+    {
+     "key": "disruptor_kinetic_field",
+     "name": "Kinetic Field",
+     "role": "basic",
+     "desc": "After a short formation time, creates a circular barrier of kinetic energy that enemies can't pass.",
+     "facts": [
+      {
+       "fact_id": "disruptor_kinetic_field:cd",
+       "label": "COOLDOWN",
+       "values": [
+        20,
+        18,
+        16,
+        14
+       ]
+      },
+      {
+       "fact_id": "disruptor_kinetic_field:formation_time",
+       "label": "FORMATION DELAY",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "disruptor_kinetic_field:duration",
+       "label": "DURATION",
+       "values": [
+        2.6,
+        3.2,
+        3.8,
+        4.4
+       ]
+      },
+      {
+       "fact_id": "disruptor_kinetic_field:wall_thickness",
+       "label": "WALL THICKNESS",
+       "values": [
+        100
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_kinetic_field:tick_rate",
+       "label": "TICK RATE",
+       "values": [
+        0.1
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "disruptor_kinetic_fence",
+     "name": "Kinetic Fence",
+     "role": "shard",
+     "desc": "After a short formation time, creates a wall out of kinetic energy that enemies cannot pass.",
+     "facts": [
+      {
+       "fact_id": "disruptor_kinetic_fence:wall_thickness",
+       "label": "WALL THICKNESS",
+       "values": [
+        100
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_kinetic_fence:formation_time",
+       "label": "FORMATION DELAY",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "disruptor_kinetic_fence:duration",
+       "label": "DURATION",
+       "values": [
+        4.4
+       ]
+      },
+      {
+       "fact_id": "disruptor_kinetic_fence:tick_rate",
+       "label": "TICK RATE",
+       "values": [
+        0.1
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "disruptor_electromagnetic_repulsion",
+     "name": "Electromagnetic Repulsion",
+     "role": "innate",
+     "desc": "Whenever Disruptor takes more than 250 damage from any source within 400 radius, all nearby enemies within take damage equal to 1.5x of Disruptor's Intelligence, and are pushed back up to a 400 distance away.",
+     "facts": [
+      {
+       "fact_id": "disruptor_electromagnetic_repulsion:cd",
+       "label": "COOLDOWN",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "disruptor_electromagnetic_repulsion:damage_threshold",
+       "label": "DAMAGE THRESHOLD",
+       "values": [
+        250
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_electromagnetic_repulsion:knockback_duration",
+       "label": "KNOCKBACK DURATION",
+       "values": [
+        0.2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_electromagnetic_repulsion:damage_reset_interval",
+       "label": "DAMAGE RESET INTERVAL",
+       "values": [
+        7
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "disruptor_electromagnetic_repulsion:damage_per_int",
+       "label": "DAMAGE PER INT",
+       "values": [
+        1.5
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "disruptor_static_storm",
+     "name": "Static Storm",
+     "role": "ultimate",
+     "desc": "Creates a damaging static storm that also silences all enemy units in the area for the duration. The damage starts off weak, but increases in power over the duration.",
+     "facts": [
+      {
+       "fact_id": "disruptor_static_storm:cd",
+       "label": "COOLDOWN",
+       "values": [
+        100,
+        85,
+        70
+       ]
+      },
+      {
+       "fact_id": "disruptor_static_storm:pulses",
+       "label": "PULSES",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "disruptor_static_storm:damage_max",
+       "label": "MAX DAMAGE PER SECOND",
+       "values": [
+        200,
+        275,
+        350
+       ]
+      },
+      {
+       "fact_id": "disruptor_static_storm:duration",
+       "label": "DURATION",
+       "values": [
+        6
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Enchantress",
+   "aghanim": {
+    "scepter": "Enchantress roots an enemy unit. All creeps, ally, enemy and neutral within a radius will gain bonus movement and attack speed and attack the chosen target for 6 seconds.",
+    "shard": "Leaps backward, dodges incoming projectiles, and launches an Impetus attack on the 2 furthest enemy units within Enchantress' attack range + 100."
+   },
+   "abilities": [
+    {
+     "key": "enchantress_impetus",
+     "name": "Impetus",
+     "role": "basic",
+     "desc": "Places an enchantment on each attack while activated, causing it to deal additional damage based on how far away the target is. The farther the target, the greater the damage dealt. Deals double damage to illusions.",
+     "facts": [
+      {
+       "fact_id": "enchantress_impetus:cd",
+       "label": "COOLDOWN",
+       "values": [
+        6,
+        4,
+        2,
+        0
+       ]
+      },
+      {
+       "fact_id": "enchantress_impetus:illusion_damage_multiplier",
+       "label": "ILLUSION DAMAGE MULTIPLIER",
+       "values": [
+        2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_impetus:abilityduration",
+       "label": "DURATION",
+       "values": [
+        1.5
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "enchantress_enchant",
+     "name": "Enchant",
+     "role": "basic",
+     "desc": "Enchantress charms an enemy. If the enemy is a hero, they are dispelled and slowed for 3.5s, and Enchantress and her units gain bonus attack range against the target.\n\n If the enemy is a creep, she brings it under her control and receives 40% of their experience bounty. Enchantress can control creeps for up to 30s. \n\nDISPEL TYPE: Basic Dispel",
+     "facts": [
+      {
+       "fact_id": "enchantress_enchant:cd",
+       "label": "COOLDOWN",
+       "values": [
+        30,
+        24,
+        18,
+        12
+       ]
+      },
+      {
+       "fact_id": "enchantress_enchant:slow_movement_speed",
+       "label": "HERO MOVE SLOW",
+       "values": [
+        30,
+        40,
+        50,
+        60
+       ]
+      },
+      {
+       "fact_id": "enchantress_enchant:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        3.5,
+        4,
+        4.5,
+        5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_enchant:dominate_duration",
+       "label": "DOMINATE DURATION",
+       "values": [
+        30,
+        60,
+        90,
+        120
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_enchant:enchant_health",
+       "label": "CREEP MAX HEALTH BONUS",
+       "values": [
+        150,
+        250,
+        350,
+        450
+       ]
+      },
+      {
+       "fact_id": "enchantress_enchant:enchant_damage",
+       "label": "CREEP ATTACK DAMAGE BONUS",
+       "values": [
+        0,
+        20,
+        40,
+        60
+       ]
+      },
+      {
+       "fact_id": "enchantress_enchant:xp_gain_pct",
+       "label": "XP GAIN PCT",
+       "values": [
+        40
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_enchant:level_req",
+       "label": "CREEP MAX LEVEL",
+       "values": [
+        4,
+        5,
+        6,
+        6
+       ]
+      },
+      {
+       "fact_id": "enchantress_enchant:max_creeps",
+       "label": "MAX ENCHANTED CREEPS",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "enchantress_enchant:max_creeps@scepter",
+       "label": "MAX ENCHANTED CREEPS — прибавка от Aghanim's Scepter",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "enchantress_natures_attendants",
+     "name": "Nature's Attendants",
+     "role": "basic",
+     "desc": "A cloud of wisps heals Enchantress and any friendly units nearby.",
+     "facts": [
+      {
+       "fact_id": "enchantress_natures_attendants:cd",
+       "label": "COOLDOWN",
+       "values": [
+        35
+       ]
+      },
+      {
+       "fact_id": "enchantress_natures_attendants:heal_duration",
+       "label": "DURATION",
+       "values": [
+        7,
+        9,
+        11,
+        13
+       ]
+      },
+      {
+       "fact_id": "enchantress_natures_attendants:heal_interval",
+       "label": "HEAL INTERVAL",
+       "values": [
+        0.5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_natures_attendants:heal",
+       "label": "HEAL PER SECOND",
+       "values": [
+        4,
+        8,
+        12,
+        16
+       ]
+      },
+      {
+       "fact_id": "enchantress_natures_attendants:wisp_count",
+       "label": "WISPS",
+       "values": [
+        9
+       ]
+      }
+     ]
+    },
+    {
+     "key": "enchantress_bunny_hop",
+     "name": "Sproink",
+     "role": "shard",
+     "desc": "Leaps backward, dodges incoming projectiles, and launches an Impetus attack on the 2 furthest enemy units within Enchantress' attack range + 100.",
+     "facts": [
+      {
+       "fact_id": "enchantress_bunny_hop:cd",
+       "label": "COOLDOWN",
+       "values": [
+        10
+       ]
+      },
+      {
+       "fact_id": "enchantress_bunny_hop:hop_duration",
+       "label": "HOP DURATION",
+       "values": [
+        0.4
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_bunny_hop:hop_height",
+       "label": "HOP HEIGHT",
+       "values": [
+        150
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_bunny_hop:attack_targets",
+       "label": "TARGETS",
+       "values": [
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "enchantress_little_friends",
+     "name": "Little Friends",
+     "role": "scepter",
+     "desc": "Enchantress roots an enemy unit. All creeps, ally, enemy and neutral within a radius will gain bonus movement and attack speed and attack the chosen target for 6 seconds.",
+     "facts": [
+      {
+       "fact_id": "enchantress_little_friends:cd",
+       "label": "COOLDOWN",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "enchantress_little_friends:duration",
+       "label": "DURATION",
+       "values": [
+        6
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "enchantress_little_friends:bonus_attack_speed",
+       "label": "BONUS ATTACK SPEED",
+       "values": [
+        70
+       ]
+      },
+      {
+       "fact_id": "enchantress_little_friends:bonus_move_speed",
+       "label": "BONUS MOVE SPEED",
+       "values": [
+        100
+       ]
+      },
+      {
+       "fact_id": "enchantress_little_friends:root_base_duration",
+       "label": "MINIMUM ROOT DURATION",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "enchantress_little_friends:root_per_target",
+       "label": "ROOT DURATION PER UNIT",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "enchantress_little_friends:max_root",
+       "label": "MAX ROOT",
+       "values": [
+        5
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "enchantress_untouchable",
+     "name": "Untouchable",
+     "role": "ultimate",
+     "desc": "Enchantress beguiles her enemies, slowing their attacks when she is attacked.",
+     "facts": [
+      {
+       "fact_id": "enchantress_untouchable:slow_attack_speed",
+       "label": "ATTACK SLOW",
+       "values": [
+        110,
+        160,
+        210
+       ]
+      },
+      {
+       "fact_id": "enchantress_untouchable:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        4
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Spirit Breaker",
+   "aghanim": {
+    "scepter": "Greatly increases knockback.",
+    "shard": "Barathrum gains magic resistance and distorts reality around the selected hero, making any unit-targeted spells cast by enemy heroes get redirected towards Spirit Breaker. Can be cast on both allied and enemy heroes, but only spells cast by enemies of Spirit Breaker will be redirected."
+   },
+   "abilities": [
+    {
+     "key": "spirit_breaker_charge_of_darkness",
+     "name": "Charge of Darkness",
+     "role": "basic",
+     "desc": "Spirit Breaker fixes his sight on an enemy unit and starts charging through all objects, starting at 25% of the bonus speed and reaching his max speed after 1.5s.\n\nAll enemy units passed through and the targeted unit will be hit by a Greater Bash. If the targeted unit dies, Spirit Breaker will change his target to the nearest enemy unit to that location.",
+     "facts": [
+      {
+       "fact_id": "spirit_breaker_charge_of_darkness:cd",
+       "label": "COOLDOWN",
+       "values": [
+        22,
+        19,
+        16,
+        13
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_charge_of_darkness:movement_speed",
+       "label": "CHARGE BONUS SPEED",
+       "values": [
+        275,
+        325,
+        375,
+        425
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_charge_of_darkness:stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        1.3,
+        1.6,
+        1.9,
+        2.2
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_charge_of_darkness:vision_duration",
+       "label": "VISION DURATION",
+       "values": [
+        0.94
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_charge_of_darkness:windup_time",
+       "label": "WINDUP TIME",
+       "values": [
+        1.5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_charge_of_darkness:min_movespeed_bonus_pct",
+       "label": "MIN MOVESPEED BONUS PCT",
+       "values": [
+        25
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "spirit_breaker_bulldoze",
+     "name": "Bulldoze",
+     "role": "basic",
+     "desc": "Spirit Breaker gains movement speed and status resistance to ram through enemies. Can be used while charging.",
+     "facts": [
+      {
+       "fact_id": "spirit_breaker_bulldoze:cd",
+       "label": "COOLDOWN",
+       "values": [
+        22,
+        20,
+        18,
+        16
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_bulldoze:movement_speed",
+       "label": "MOVEMENT SPEED",
+       "values": [
+        8,
+        12,
+        16,
+        20
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_bulldoze:status_resistance",
+       "label": "STATUS RESISTANCE",
+       "values": [
+        40,
+        50,
+        60,
+        70
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_bulldoze:duration",
+       "label": "DURATION",
+       "values": [
+        8
+       ]
+      }
+     ]
+    },
+    {
+     "key": "spirit_breaker_greater_bash",
+     "name": "Greater Bash",
+     "role": "basic",
+     "desc": "Gives a chance to stun and knockback an enemy unit on an attack. Deals a percentage of movement speed as damage.",
+     "facts": [
+      {
+       "fact_id": "spirit_breaker_greater_bash:cd",
+       "label": "COOLDOWN",
+       "values": [
+        1.2
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:chance_pct",
+       "label": "CHANCE TO BASH",
+       "values": [
+        17
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:damage",
+       "label": "MOVEMENT SPEED AS DAMAGE",
+       "values": [
+        25,
+        30,
+        35,
+        40
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:duration",
+       "label": "STUN DURATION",
+       "values": [
+        0.9,
+        1.1,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:knockback_duration",
+       "label": "KNOCKBACK DURATION",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:knockback_height",
+       "label": "KNOCKBACK HEIGHT",
+       "values": [
+        50
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:bonus_knockback_multiplier",
+       "label": "BONUS KNOCKBACK MULTIPLIER",
+       "values": [
+        2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:bonus_movespeed_pct",
+       "label": "BONUS MOVESPEED PCT",
+       "values": [
+        17
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:movespeed_duration",
+       "label": "MOVESPEED DURATION",
+       "values": [
+        3
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:creep_multiplier",
+       "label": "CREEP MULTIPLIER",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:cascading_bash_cooldown@scepter",
+       "label": "CASCADING BASH COOLDOWN — значение с Aghanim's Scepter",
+       "values": [
+        0.6
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:cascading_bashes_damage_multiplier@scepter",
+       "label": "CASCADING BASHES DAMAGE MULTIPLIER — значение с Aghanim's Scepter",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:cascading_bashes_creep_penalty@scepter",
+       "label": "CASCADING BASHES CREEP PENALTY — значение с Aghanim's Scepter",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:cascading_bashes_nether_strike_additional_cooldown@scepter",
+       "label": "CASCADING BASHES NETHER STRIKE ADDITIONAL COOLDOWN — значение с Aghanim's Scepter",
+       "values": [
+        0.6
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:cascading_bashes_hero_hitbox@scepter",
+       "label": "CASCADING BASHES HERO HITBOX — значение с Aghanim's Scepter",
+       "values": [
+        185
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:cascading_bashes_creep_hitbox@scepter",
+       "label": "CASCADING BASHES CREEP HITBOX — значение с Aghanim's Scepter",
+       "values": [
+        100
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:knockback_height@scepter",
+       "label": "KNOCKBACK HEIGHT — прибавка от Aghanim's Scepter",
+       "values": [
+        30
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_greater_bash:bonus_knockback_multiplier@scepter",
+       "label": "BONUS KNOCKBACK MULTIPLIER — прибавка от Aghanim's Scepter",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "spirit_breaker_planar_pocket",
+     "name": "Planar Pocket",
+     "role": "shard",
+     "desc": "Barathrum gains magic resistance and distorts reality around the selected hero, making any unit-targeted spells cast by enemy heroes get redirected towards Spirit Breaker. Can be cast on both allied and enemy heroes, but only spells cast by enemies of Spirit Breaker will be redirected.",
+     "facts": [
+      {
+       "fact_id": "spirit_breaker_planar_pocket:cd",
+       "label": "COOLDOWN",
+       "values": [
+        30
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_planar_pocket:duration",
+       "label": "DURATION",
+       "values": [
+        6
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_planar_pocket:magic_resistance",
+       "label": "SELF MAGIC RESISTANCE",
+       "values": [
+        40
+       ]
+      }
+     ]
+    },
+    {
+     "key": "spirit_breaker_bull_rush",
+     "name": "Empowering Haste",
+     "role": "innate",
+     "desc": "Spirit Breaker gains bonus Movement Speed for a duration whenever he stuns an enemy. Effects from multiple stuns stack and have independent durations. Duration pauses during Charge of Darkness.",
+     "facts": [
+      {
+       "fact_id": "spirit_breaker_bull_rush:hero_duration",
+       "label": "HERO DURATION",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_bull_rush:creep_duration",
+       "label": "CREEP DURATION",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_bull_rush:hero_movespeed_percent",
+       "label": "HERO MOVESPEED",
+       "values": [
+        8
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_bull_rush:creep_movespeed_percent",
+       "label": "CREEP MOVESPEED",
+       "values": [
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "spirit_breaker_nether_strike",
+     "name": "Nether Strike",
+     "role": "ultimate",
+     "desc": "Spirit Breaker slips into the nether realm, reappearing next to his hapless victim. Upon reappearing, a Greater Bash of the current level occurs and deals bonus damage. Knocks back for double the normal distance.",
+     "facts": [
+      {
+       "fact_id": "spirit_breaker_nether_strike:cd",
+       "label": "COOLDOWN",
+       "values": [
+        75,
+        55,
+        35
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_nether_strike:damage",
+       "label": "BONUS DAMAGE",
+       "values": [
+        150,
+        250,
+        350
+       ]
+      },
+      {
+       "fact_id": "spirit_breaker_nether_strike:fade_time",
+       "label": "FADE TIME",
+       "values": [
+        1
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "key": "blood_grenade",
+   "name": "Blood Grenade",
+   "abilities": [
+    {
+     "type": "use",
+     "title": "Throw Grenade",
+     "description": "Throw a grenade at the target area. Enemies in the area will take 50 damage on impact, and be slowed by -15% and take 15 damage every 1s for 5 seconds. Radius 300."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "blood_grenade:cd",
+     "label": "COOLDOWN",
+     "values": [
+      10
+     ]
+    },
+    {
+     "fact_id": "blood_grenade:movespeed_slow",
+     "label": "movespeed_slow",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "blood_grenade:bonus_health",
+     "label": "+ {value} Health",
+     "values": [
+      50
+     ]
+    },
+    {
+     "fact_id": "blood_grenade:damage_over_time",
+     "label": "damage_over_time",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "blood_grenade:impact_damage",
+     "label": "impact_damage",
+     "values": [
+      50
+     ]
+    },
+    {
+     "fact_id": "blood_grenade:tick_rate",
+     "label": "tick_rate",
+     "values": [
+      1
+     ]
+    },
+    {
+     "fact_id": "blood_grenade:debuff_duration",
+     "label": "debuff_duration",
+     "values": [
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "key": "clarity",
+   "name": "Clarity",
+   "abilities": [
+    {
+     "type": "use",
+     "title": "Replenish",
+     "description": "Grants 6 mana regeneration to the target for 25 seconds.\n\nIf the unit is attacked by an enemy hero or Roshan, the effect is lost."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "clarity:mana_regen",
+     "label": "mana_regen",
+     "values": [
+      6
+     ]
+    },
+    {
+     "fact_id": "clarity:buff_duration",
+     "label": "buff_duration",
+     "values": [
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blight_stone",
+   "name": "Orb of Blight",
+   "abilities": [
+    {
+     "type": "passive",
+     "title": "Lesser Corruption",
+     "description": "Your attacks reduce the target's armor by -2 for 3 seconds."
+    }
+   ],
+   "notes": "Does not stack with its upgrades, Desolator, or Stygian Desolator.",
+   "facts": [
+    {
+     "fact_id": "blight_stone:corruption_armor",
+     "label": "corruption_armor",
+     "values": [
+      2
+     ]
+    },
+    {
+     "fact_id": "blight_stone:corruption_duration",
+     "label": "corruption_duration",
+     "values": [
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "key": "power_treads",
+   "name": "Power Treads",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Switch Attribute",
+     "description": "Switches between +10 Strength, +10 Agility, or +10 Intelligence."
+    }
+   ],
+   "notes": "Power Treads can be built using a Belt of Strength, Band of Elvenskin, or a Robe of the Magi.",
+   "facts": [
+    {
+     "fact_id": "power_treads:bonus_movement_speed_melee",
+     "label": "+ {value} Move Speed (Melee Heroes)",
+     "values": [
+      55
+     ]
+    },
+    {
+     "fact_id": "power_treads:bonus_stat",
+     "label": "+ {value} Selected Attribute",
+     "values": [
+      10
+     ]
+    },
+    {
+     "fact_id": "power_treads:bonus_attack_speed",
+     "label": "+ {value} Attack Speed",
+     "values": [
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "key": "kobold_cup",
+   "name": "Kobold Cup",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "One for the Road",
+     "description": "Increases movement speed of all allied units by 10% in a 1000 unit radius around the caster for 6 seconds."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "kobold_cup:cd",
+     "label": "COOLDOWN",
+     "values": [
+      40
+     ]
+    },
+    {
+     "fact_id": "kobold_cup:movespeed_pct",
+     "label": "movespeed_pct",
+     "values": [
+      10
+     ]
+    },
+    {
+     "fact_id": "kobold_cup:buff_duration",
+     "label": "buff_duration",
+     "values": [
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "key": "skadi",
+   "name": "Eye of Skadi",
+   "abilities": [
+    {
+     "type": "passive",
+     "title": "Cold Attack",
+     "description": "Attacks lower enemy movement by -25% if they are melee and -50% if they are ranged. Attacks also lower enemy attack speed by -25% and Health Restoration by 50%. Lasts for 3 seconds."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "skadi:bonus_all_stats",
+     "label": "+ {value} All Attributes",
+     "values": [
+      35
+     ]
+    },
+    {
+     "fact_id": "skadi:cold_slow_melee",
+     "label": "cold_slow_melee",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "skadi:cold_attack_slow_melee",
+     "label": "cold_attack_slow_melee",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "skadi:cold_duration",
+     "label": "cold_duration",
+     "values": [
+      3
+     ]
+    },
+    {
+     "fact_id": "skadi:restoration_reduction",
+     "label": "restoration_reduction",
+     "values": [
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "key": "specialists_array",
+   "name": "Specialist's Array",
+   "abilities": [
+    {
+     "type": "passive",
+     "title": "Splitshot",
+     "description": "Ranged attacks have a 30% chance to fire additional projectiles at up to 2 nearby enemies with 150 extra range and within a 120 degree angle in front of the attacker. The additional projectiles deal 20 + 75% damage of a normal attack and do not trigger on hit effects. The primary attack deals 20 + 100% damage of a normal attack."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "specialists_array:agility",
+     "label": "+ {value} Agility",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "specialists_array:damage",
+     "label": "+ {value} Damage",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "specialists_array:count",
+     "label": "count",
+     "values": [
+      2
+     ]
+    },
+    {
+     "fact_id": "specialists_array:secondary_target_angle",
+     "label": "secondary_target_angle",
+     "values": [
+      120
+     ]
+    },
+    {
+     "fact_id": "specialists_array:proc_chance",
+     "label": "proc_chance",
+     "values": [
+      30
+     ]
+    },
+    {
+     "fact_id": "specialists_array:base_proc_dmg",
+     "label": "base_proc_dmg",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "specialists_array:proc_dmg_pct",
+     "label": "proc_dmg_pct",
+     "values": [
+      75
+     ]
+    },
+    {
+     "fact_id": "specialists_array:proc_dmg_pct_primary_tooltip",
+     "label": "proc_dmg_pct_primary_tooltip",
+     "values": [
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "platemail",
+   "name": "Platemail",
+   "abilities": [],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "platemail:bonus_armor",
+     "label": "+ {value} Armor",
+     "values": [
+      10
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,3120 @@
+{
+ "patch": "7.41f",
+ "heroes": [],
+ "items": [
+  {
+   "key": "abyssal_blade",
+   "name": "Abyssal Blade",
+   "category": "shop",
+   "components": [
+    "basher",
+    "sange"
+   ],
+   "facts": [
+    {
+     "fact_id": "abyssal_blade:cost",
+     "label": "COST (gold)",
+     "values": [
+      6250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "aeon_disk",
+   "name": "Aeon Disk",
+   "category": "shop",
+   "components": [
+    "vitality_booster",
+    "energy_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "aeon_disk:cost",
+     "label": "COST (gold)",
+     "values": [
+      3000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "aether_lens",
+   "name": "Aether Lens",
+   "category": "shop",
+   "components": [
+    "energy_booster",
+    "void_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "aether_lens:cost",
+     "label": "COST (gold)",
+     "values": [
+      2275
+     ]
+    }
+   ]
+  },
+  {
+   "key": "aghanims_shard",
+   "name": "Aghanim's Shard",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "aghanims_shard:cost",
+     "label": "COST (gold)",
+     "values": [
+      1400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ancient_janggo",
+   "name": "Drum of Endurance",
+   "category": "shop",
+   "components": [
+    "headdress",
+    "belt_of_strength",
+    "wind_lace"
+   ],
+   "facts": [
+    {
+     "fact_id": "ancient_janggo:cost",
+     "label": "COST (gold)",
+     "values": [
+      1625
+     ]
+    }
+   ]
+  },
+  {
+   "key": "angels_demise",
+   "name": "Khanda",
+   "category": "shop",
+   "components": [
+    "phylactery",
+    "soul_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "angels_demise:cost",
+     "label": "COST (gold)",
+     "values": [
+      5600
+     ]
+    }
+   ]
+  },
+  {
+   "key": "arcane_blink",
+   "name": "Arcane Blink",
+   "category": "shop",
+   "components": [
+    "blink",
+    "mystic_staff"
+   ],
+   "facts": [
+    {
+     "fact_id": "arcane_blink:cost",
+     "label": "COST (gold)",
+     "values": [
+      6800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "arcane_boots",
+   "name": "Arcane Boots",
+   "category": "shop",
+   "components": [
+    "boots",
+    "ring_of_basilius",
+    "wizard_hat"
+   ],
+   "facts": [
+    {
+     "fact_id": "arcane_boots:cost",
+     "label": "COST (gold)",
+     "values": [
+      1500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "armlet",
+   "name": "Armlet of Mordiggian",
+   "category": "shop",
+   "components": [
+    "helm_of_iron_will",
+    "gloves",
+    "blades_of_attack"
+   ],
+   "facts": [
+    {
+     "fact_id": "armlet:cost",
+     "label": "COST (gold)",
+     "values": [
+      2500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "assault",
+   "name": "Assault Cuirass",
+   "category": "shop",
+   "components": [
+    "buckler",
+    "hyperstone",
+    "platemail"
+   ],
+   "facts": [
+    {
+     "fact_id": "assault:cost",
+     "label": "COST (gold)",
+     "values": [
+      5125
+     ]
+    }
+   ]
+  },
+  {
+   "key": "basher",
+   "name": "Skull Basher",
+   "category": "shop",
+   "components": [
+    "mithril_hammer",
+    "belt_of_strength"
+   ],
+   "facts": [
+    {
+     "fact_id": "basher:cost",
+     "label": "COST (gold)",
+     "values": [
+      2875
+     ]
+    }
+   ]
+  },
+  {
+   "key": "belt_of_strength",
+   "name": "Belt of Strength",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "belt_of_strength:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bfury",
+   "name": "Battle Fury",
+   "category": "shop",
+   "components": [
+    "pers",
+    "broadsword",
+    "broadsword",
+    "quelling_blade"
+   ],
+   "facts": [
+    {
+     "fact_id": "bfury:cost",
+     "label": "COST (gold)",
+     "values": [
+      3900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "black_king_bar",
+   "name": "Black King Bar",
+   "category": "shop",
+   "components": [
+    "mithril_hammer",
+    "ogre_axe"
+   ],
+   "facts": [
+    {
+     "fact_id": "black_king_bar:cost",
+     "label": "COST (gold)",
+     "values": [
+      4050
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blade_mail",
+   "name": "Blade Mail",
+   "category": "shop",
+   "components": [
+    "broadsword",
+    "splintmail"
+   ],
+   "facts": [
+    {
+     "fact_id": "blade_mail:cost",
+     "label": "COST (gold)",
+     "values": [
+      2400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blade_of_alacrity",
+   "name": "Blade of Alacrity",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "blade_of_alacrity:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blades_of_attack",
+   "name": "Blades of Attack",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "blades_of_attack:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blight_stone",
+   "name": "Orb of Blight",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "blight_stone:cost",
+     "label": "COST (gold)",
+     "values": [
+      300
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blink",
+   "name": "Blink Dagger",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "blink:cost",
+     "label": "COST (gold)",
+     "values": [
+      2250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blitz_knuckles",
+   "name": "Blitz Knuckles",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "blitz_knuckles:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "blood_grenade",
+   "name": "Blood Grenade",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "blood_grenade:cost",
+     "label": "COST (gold)",
+     "values": [
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bloodstone",
+   "name": "Bloodstone",
+   "category": "shop",
+   "components": [
+    "veil_of_discord",
+    "soul_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "bloodstone:cost",
+     "label": "COST (gold)",
+     "values": [
+      4700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bloodthorn",
+   "name": "Bloodthorn",
+   "category": "shop",
+   "components": [
+    "orchid",
+    "oblivion_staff",
+    "javelin"
+   ],
+   "facts": [
+    {
+     "fact_id": "bloodthorn:cost",
+     "label": "COST (gold)",
+     "values": [
+      6400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "boots",
+   "name": "Boots of Speed",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "boots:cost",
+     "label": "COST (gold)",
+     "values": [
+      500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "boots_of_bearing",
+   "name": "Boots of Bearing",
+   "category": "shop",
+   "components": [
+    "tranquil_boots",
+    "ancient_janggo",
+    "ring_of_tarrasque"
+   ],
+   "facts": [
+    {
+     "fact_id": "boots_of_bearing:cost",
+     "label": "COST (gold)",
+     "values": [
+      4225
+     ]
+    }
+   ]
+  },
+  {
+   "key": "boots_of_elves",
+   "name": "Band of Elvenskin",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "boots_of_elves:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bottle",
+   "name": "Bottle",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "bottle:cost",
+     "label": "COST (gold)",
+     "values": [
+      675
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bracer",
+   "name": "Bracer",
+   "category": "shop",
+   "components": [
+    "circlet",
+    "gauntlets"
+   ],
+   "facts": [
+    {
+     "fact_id": "bracer:cost",
+     "label": "COST (gold)",
+     "values": [
+      505
+     ]
+    }
+   ]
+  },
+  {
+   "key": "branches",
+   "name": "Iron Branch",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "branches:cost",
+     "label": "COST (gold)",
+     "values": [
+      55
+     ]
+    }
+   ]
+  },
+  {
+   "key": "broadsword",
+   "name": "Broadsword",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "broadsword:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "buckler",
+   "name": "Buckler",
+   "category": "shop",
+   "components": [
+    "ring_of_protection"
+   ],
+   "facts": [
+    {
+     "fact_id": "buckler:cost",
+     "label": "COST (gold)",
+     "values": [
+      425
+     ]
+    }
+   ]
+  },
+  {
+   "key": "butterfly",
+   "name": "Butterfly",
+   "category": "shop",
+   "components": [
+    "eagle",
+    "claymore",
+    "talisman_of_evasion"
+   ],
+   "facts": [
+    {
+     "fact_id": "butterfly:cost",
+     "label": "COST (gold)",
+     "values": [
+      5450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "chainmail",
+   "name": "Chainmail",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "chainmail:cost",
+     "label": "COST (gold)",
+     "values": [
+      500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "chasm_stone",
+   "name": "Chasm Stone",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "chasm_stone:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "circlet",
+   "name": "Circlet",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "circlet:cost",
+     "label": "COST (gold)",
+     "values": [
+      155
+     ]
+    }
+   ]
+  },
+  {
+   "key": "clarity",
+   "name": "Clarity",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "clarity:cost",
+     "label": "COST (gold)",
+     "values": [
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "key": "claymore",
+   "name": "Claymore",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "claymore:cost",
+     "label": "COST (gold)",
+     "values": [
+      1350
+     ]
+    }
+   ]
+  },
+  {
+   "key": "cloak",
+   "name": "Cloak",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "cloak:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "consecrated_wraps",
+   "name": "Consecrated Wraps",
+   "category": "shop",
+   "components": [
+    "vitality_booster",
+    "shawl",
+    "crown"
+   ],
+   "facts": [
+    {
+     "fact_id": "consecrated_wraps:cost",
+     "label": "COST (gold)",
+     "values": [
+      2600
+     ]
+    }
+   ]
+  },
+  {
+   "key": "crellas_crozier",
+   "name": "Crella's Crozier",
+   "category": "shop",
+   "components": [
+    "ghost",
+    "soul_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "crellas_crozier:cost",
+     "label": "COST (gold)",
+     "values": [
+      4800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "crimson_guard",
+   "name": "Crimson Guard",
+   "category": "shop",
+   "components": [
+    "vanguard",
+    "helm_of_iron_will"
+   ],
+   "facts": [
+    {
+     "fact_id": "crimson_guard:cost",
+     "label": "COST (gold)",
+     "values": [
+      3725
+     ]
+    }
+   ]
+  },
+  {
+   "key": "crown",
+   "name": "Crown",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "crown:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "cyclone",
+   "name": "Eul's Scepter of Divinity",
+   "category": "shop",
+   "components": [
+    "staff_of_wizardry",
+    "void_stone",
+    "wind_lace"
+   ],
+   "facts": [
+    {
+     "fact_id": "cyclone:cost",
+     "label": "COST (gold)",
+     "values": [
+      2600
+     ]
+    }
+   ]
+  },
+  {
+   "key": "dagon",
+   "name": "Dagon",
+   "category": "shop",
+   "components": [
+    "point_booster",
+    "crown",
+    "wizard_hat"
+   ],
+   "facts": [
+    {
+     "fact_id": "dagon:cost",
+     "label": "COST (gold)",
+     "values": [
+      3000,
+      4100,
+      5200,
+      6300,
+      7400
+     ]
+    }
+   ],
+   "level_names": [
+    "Dagon 1",
+    "Dagon 2",
+    "Dagon 3",
+    "Dagon 4",
+    "Dagon 5"
+   ]
+  },
+  {
+   "key": "demon_edge",
+   "name": "Demon Edge",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "demon_edge:cost",
+     "label": "COST (gold)",
+     "values": [
+      2200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "desolator",
+   "name": "Desolator",
+   "category": "shop",
+   "components": [
+    "mithril_hammer",
+    "mithril_hammer",
+    "blight_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "desolator:cost",
+     "label": "COST (gold)",
+     "values": [
+      3500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "devastator",
+   "name": "Parasma",
+   "category": "shop",
+   "components": [
+    "witch_blade",
+    "mystic_staff"
+   ],
+   "facts": [
+    {
+     "fact_id": "devastator:cost",
+     "label": "COST (gold)",
+     "values": [
+      5975
+     ]
+    }
+   ]
+  },
+  {
+   "key": "diadem",
+   "name": "Diadem",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "diadem:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "diffusal_blade",
+   "name": "Diffusal Blade",
+   "category": "shop",
+   "components": [
+    "blade_of_alacrity",
+    "robe"
+   ],
+   "facts": [
+    {
+     "fact_id": "diffusal_blade:cost",
+     "label": "COST (gold)",
+     "values": [
+      2500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "disperser",
+   "name": "Disperser",
+   "category": "shop",
+   "components": [
+    "diffusal_blade",
+    "eagle"
+   ],
+   "facts": [
+    {
+     "fact_id": "disperser:cost",
+     "label": "COST (gold)",
+     "values": [
+      6100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "dragon_lance",
+   "name": "Dragon Lance",
+   "category": "shop",
+   "components": [
+    "blade_of_alacrity",
+    "belt_of_strength"
+   ],
+   "facts": [
+    {
+     "fact_id": "dragon_lance:cost",
+     "label": "COST (gold)",
+     "values": [
+      2000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "dust",
+   "name": "Dust of Appearance",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "dust:cost",
+     "label": "COST (gold)",
+     "values": [
+      80
+     ]
+    }
+   ]
+  },
+  {
+   "key": "eagle",
+   "name": "Eaglesong",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "eagle:cost",
+     "label": "COST (gold)",
+     "values": [
+      2800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "echo_sabre",
+   "name": "Echo Sabre",
+   "category": "shop",
+   "components": [
+    "ogre_axe",
+    "broadsword",
+    "void_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "echo_sabre:cost",
+     "label": "COST (gold)",
+     "values": [
+      2700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "enchanted_mango",
+   "name": "Enchanted Mango",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "enchanted_mango:cost",
+     "label": "COST (gold)",
+     "values": [
+      65
+     ]
+    }
+   ]
+  },
+  {
+   "key": "energy_booster",
+   "name": "Energy Booster",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "energy_booster:cost",
+     "label": "COST (gold)",
+     "values": [
+      800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "essence_distiller",
+   "name": "Essence Distiller",
+   "category": "shop",
+   "components": [
+    "urn_of_shadows",
+    "chainmail",
+    "wizard_hat"
+   ],
+   "facts": [
+    {
+     "fact_id": "essence_distiller:cost",
+     "label": "COST (gold)",
+     "values": [
+      1775
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ethereal_blade",
+   "name": "Ethereal Blade",
+   "category": "shop",
+   "components": [
+    "ultimate_orb",
+    "ghost"
+   ],
+   "facts": [
+    {
+     "fact_id": "ethereal_blade:cost",
+     "label": "COST (gold)",
+     "values": [
+      5200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "faerie_fire",
+   "name": "Faerie Fire",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "faerie_fire:cost",
+     "label": "COST (gold)",
+     "values": [
+      65
+     ]
+    }
+   ]
+  },
+  {
+   "key": "falcon_blade",
+   "name": "Falcon Blade",
+   "category": "shop",
+   "components": [
+    "blades_of_attack",
+    "fluffy_hat",
+    "sobi_mask"
+   ],
+   "facts": [
+    {
+     "fact_id": "falcon_blade:cost",
+     "label": "COST (gold)",
+     "values": [
+      1125
+     ]
+    }
+   ]
+  },
+  {
+   "key": "flask",
+   "name": "Healing Salve",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "flask:cost",
+     "label": "COST (gold)",
+     "values": [
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "fluffy_hat",
+   "name": "Fluffy Hat",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "fluffy_hat:cost",
+     "label": "COST (gold)",
+     "values": [
+      250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "force_staff",
+   "name": "Force Staff",
+   "category": "shop",
+   "components": [
+    "staff_of_wizardry",
+    "fluffy_hat"
+   ],
+   "facts": [
+    {
+     "fact_id": "force_staff:cost",
+     "label": "COST (gold)",
+     "values": [
+      2200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gauntlets",
+   "name": "Gauntlets of Strength",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "gauntlets:cost",
+     "label": "COST (gold)",
+     "values": [
+      140
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gem",
+   "name": "Gem of True Sight",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "gem:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ghost",
+   "name": "Ghost Scepter",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ghost:cost",
+     "label": "COST (gold)",
+     "values": [
+      1500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "glimmer_cape",
+   "name": "Glimmer Cape",
+   "category": "shop",
+   "components": [
+    "shadow_amulet",
+    "shawl"
+   ],
+   "facts": [
+    {
+     "fact_id": "glimmer_cape:cost",
+     "label": "COST (gold)",
+     "values": [
+      2150
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gloves",
+   "name": "Gloves of Haste",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "gloves:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "greater_crit",
+   "name": "Daedalus",
+   "category": "shop",
+   "components": [
+    "lesser_crit",
+    "demon_edge"
+   ],
+   "facts": [
+    {
+     "fact_id": "greater_crit:cost",
+     "label": "COST (gold)",
+     "values": [
+      5200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "guardian_greaves",
+   "name": "Guardian Greaves",
+   "category": "shop",
+   "components": [
+    "arcane_boots",
+    "mekansm"
+   ],
+   "facts": [
+    {
+     "fact_id": "guardian_greaves:cost",
+     "label": "COST (gold)",
+     "values": [
+      4450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gungir",
+   "name": "Gleipnir",
+   "category": "shop",
+   "components": [
+    "rod_of_atos",
+    "point_booster",
+    "chasm_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "gungir:cost",
+     "label": "COST (gold)",
+     "values": [
+      4650
+     ]
+    }
+   ]
+  },
+  {
+   "key": "hand_of_midas",
+   "name": "Hand of Midas",
+   "category": "shop",
+   "components": [
+    "gloves"
+   ],
+   "facts": [
+    {
+     "fact_id": "hand_of_midas:cost",
+     "label": "COST (gold)",
+     "values": [
+      2200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "harpoon",
+   "name": "Harpoon",
+   "category": "shop",
+   "components": [
+    "echo_sabre",
+    "diadem"
+   ],
+   "facts": [
+    {
+     "fact_id": "harpoon:cost",
+     "label": "COST (gold)",
+     "values": [
+      4700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "headdress",
+   "name": "Headdress",
+   "category": "shop",
+   "components": [
+    "ring_of_regen"
+   ],
+   "facts": [
+    {
+     "fact_id": "headdress:cost",
+     "label": "COST (gold)",
+     "values": [
+      425
+     ]
+    }
+   ]
+  },
+  {
+   "key": "heart",
+   "name": "Heart of Tarrasque",
+   "category": "shop",
+   "components": [
+    "reaver",
+    "ring_of_tarrasque"
+   ],
+   "facts": [
+    {
+     "fact_id": "heart:cost",
+     "label": "COST (gold)",
+     "values": [
+      5300
+     ]
+    }
+   ]
+  },
+  {
+   "key": "heavens_halberd",
+   "name": "Heaven's Halberd",
+   "category": "shop",
+   "components": [
+    "talisman_of_evasion",
+    "splintmail",
+    "ring_of_health"
+   ],
+   "facts": [
+    {
+     "fact_id": "heavens_halberd:cost",
+     "label": "COST (gold)",
+     "values": [
+      3300
+     ]
+    }
+   ]
+  },
+  {
+   "key": "helm_of_iron_will",
+   "name": "Helm of Iron Will",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "helm_of_iron_will:cost",
+     "label": "COST (gold)",
+     "values": [
+      975
+     ]
+    }
+   ]
+  },
+  {
+   "key": "helm_of_the_dominator",
+   "name": "Helm of the Dominator",
+   "category": "shop",
+   "components": [
+    "helm_of_iron_will",
+    "crown"
+   ],
+   "facts": [
+    {
+     "fact_id": "helm_of_the_dominator:cost",
+     "label": "COST (gold)",
+     "values": [
+      2550
+     ]
+    }
+   ]
+  },
+  {
+   "key": "helm_of_the_overlord",
+   "name": "Helm of the Overlord",
+   "category": "shop",
+   "components": [
+    "helm_of_the_dominator",
+    "ultimate_orb"
+   ],
+   "facts": [
+    {
+     "fact_id": "helm_of_the_overlord:cost",
+     "label": "COST (gold)",
+     "values": [
+      5650
+     ]
+    }
+   ]
+  },
+  {
+   "key": "holy_locket",
+   "name": "Holy Locket",
+   "category": "shop",
+   "components": [
+    "magic_wand",
+    "crown"
+   ],
+   "facts": [
+    {
+     "fact_id": "holy_locket:cost",
+     "label": "COST (gold)",
+     "values": [
+      2250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "hurricane_pike",
+   "name": "Hurricane Pike",
+   "category": "shop",
+   "components": [
+    "force_staff",
+    "dragon_lance"
+   ],
+   "facts": [
+    {
+     "fact_id": "hurricane_pike:cost",
+     "label": "COST (gold)",
+     "values": [
+      4550
+     ]
+    }
+   ]
+  },
+  {
+   "key": "hydras_breath",
+   "name": "Hydra's Breath",
+   "category": "shop",
+   "components": [
+    "specialists_array",
+    "dragon_lance",
+    "orb_of_venom",
+    ""
+   ],
+   "facts": [
+    {
+     "fact_id": "hydras_breath:cost",
+     "label": "COST (gold)",
+     "values": [
+      5900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "hyperstone",
+   "name": "Hyperstone",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "hyperstone:cost",
+     "label": "COST (gold)",
+     "values": [
+      2000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "infused_raindrop",
+   "name": "Infused Raindrops",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "infused_raindrop:cost",
+     "label": "COST (gold)",
+     "values": [
+      225
+     ]
+    }
+   ]
+  },
+  {
+   "key": "invis_sword",
+   "name": "Shadow Blade",
+   "category": "shop",
+   "components": [
+    "claymore",
+    "blitz_knuckles",
+    "shadow_amulet"
+   ],
+   "facts": [
+    {
+     "fact_id": "invis_sword:cost",
+     "label": "COST (gold)",
+     "values": [
+      3250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "javelin",
+   "name": "Javelin",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "javelin:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "kaya",
+   "name": "Kaya",
+   "category": "shop",
+   "components": [
+    "staff_of_wizardry",
+    "robe"
+   ],
+   "facts": [
+    {
+     "fact_id": "kaya:cost",
+     "label": "COST (gold)",
+     "values": [
+      2100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "kaya_and_sange",
+   "name": "Kaya and Sange",
+   "category": "shop",
+   "components": [
+    "kaya",
+    "sange"
+   ],
+   "facts": [
+    {
+     "fact_id": "kaya_and_sange:cost",
+     "label": "COST (gold)",
+     "values": [
+      4200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "lesser_crit",
+   "name": "Crystalys",
+   "category": "shop",
+   "components": [
+    "claymore",
+    "blades_of_attack"
+   ],
+   "facts": [
+    {
+     "fact_id": "lesser_crit:cost",
+     "label": "COST (gold)",
+     "values": [
+      2000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "lifesteal",
+   "name": "Morbid Mask",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "lifesteal:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "lotus_orb",
+   "name": "Lotus Orb",
+   "category": "shop",
+   "components": [
+    "pers",
+    "platemail",
+    "energy_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "lotus_orb:cost",
+     "label": "COST (gold)",
+     "values": [
+      3850
+     ]
+    }
+   ]
+  },
+  {
+   "key": "maelstrom",
+   "name": "Maelstrom",
+   "category": "shop",
+   "components": [
+    "mithril_hammer",
+    "javelin",
+    "gloves"
+   ],
+   "facts": [
+    {
+     "fact_id": "maelstrom:cost",
+     "label": "COST (gold)",
+     "values": [
+      2950
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mage_slayer",
+   "name": "Mage Slayer",
+   "category": "shop",
+   "components": [
+    "pers",
+    "cloak",
+    "blades_of_attack",
+    "orb_of_venom"
+   ],
+   "facts": [
+    {
+     "fact_id": "mage_slayer:cost",
+     "label": "COST (gold)",
+     "values": [
+      3100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "magic_stick",
+   "name": "Magic Stick",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "magic_stick:cost",
+     "label": "COST (gold)",
+     "values": [
+      200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "magic_wand",
+   "name": "Magic Wand",
+   "category": "shop",
+   "components": [
+    "magic_stick",
+    "branches",
+    "branches"
+   ],
+   "facts": [
+    {
+     "fact_id": "magic_wand:cost",
+     "label": "COST (gold)",
+     "values": [
+      460
+     ]
+    }
+   ]
+  },
+  {
+   "key": "manta",
+   "name": "Manta Style",
+   "category": "shop",
+   "components": [
+    "yasha",
+    "diadem"
+   ],
+   "facts": [
+    {
+     "fact_id": "manta:cost",
+     "label": "COST (gold)",
+     "values": [
+      4650
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mantle",
+   "name": "Mantle of Intelligence",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "mantle:cost",
+     "label": "COST (gold)",
+     "values": [
+      140
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mask_of_madness",
+   "name": "Mask of Madness",
+   "category": "shop",
+   "components": [
+    "broadsword",
+    "lifesteal"
+   ],
+   "facts": [
+    {
+     "fact_id": "mask_of_madness:cost",
+     "label": "COST (gold)",
+     "values": [
+      1900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mekansm",
+   "name": "Mekansm",
+   "category": "shop",
+   "components": [
+    "headdress",
+    "chainmail"
+   ],
+   "facts": [
+    {
+     "fact_id": "mekansm:cost",
+     "label": "COST (gold)",
+     "values": [
+      1775
+     ]
+    }
+   ]
+  },
+  {
+   "key": "meteor_hammer",
+   "name": "Meteor Hammer",
+   "category": "shop",
+   "components": [
+    "kaya",
+    "crown"
+   ],
+   "facts": [
+    {
+     "fact_id": "meteor_hammer:cost",
+     "label": "COST (gold)",
+     "values": [
+      2850
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mithril_hammer",
+   "name": "Mithril Hammer",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "mithril_hammer:cost",
+     "label": "COST (gold)",
+     "values": [
+      1600
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mjollnir",
+   "name": "Mjollnir",
+   "category": "shop",
+   "components": [
+    "maelstrom",
+    "hyperstone"
+   ],
+   "facts": [
+    {
+     "fact_id": "mjollnir:cost",
+     "label": "COST (gold)",
+     "values": [
+      5500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "monkey_king_bar",
+   "name": "Monkey King Bar",
+   "category": "shop",
+   "components": [
+    "demon_edge",
+    "blitz_knuckles",
+    "javelin"
+   ],
+   "facts": [
+    {
+     "fact_id": "monkey_king_bar:cost",
+     "label": "COST (gold)",
+     "values": [
+      5000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "moon_shard",
+   "name": "Moon Shard",
+   "category": "shop",
+   "components": [
+    "hyperstone",
+    "hyperstone"
+   ],
+   "facts": [
+    {
+     "fact_id": "moon_shard:cost",
+     "label": "COST (gold)",
+     "values": [
+      4000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "mystic_staff",
+   "name": "Mystic Staff",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "mystic_staff:cost",
+     "label": "COST (gold)",
+     "values": [
+      2800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "null_talisman",
+   "name": "Null Talisman",
+   "category": "shop",
+   "components": [
+    "circlet",
+    "mantle"
+   ],
+   "facts": [
+    {
+     "fact_id": "null_talisman:cost",
+     "label": "COST (gold)",
+     "values": [
+      505
+     ]
+    }
+   ]
+  },
+  {
+   "key": "nullifier",
+   "name": "Nullifier",
+   "category": "shop",
+   "components": [
+    "relic",
+    "splintmail"
+   ],
+   "facts": [
+    {
+     "fact_id": "nullifier:cost",
+     "label": "COST (gold)",
+     "values": [
+      4350
+     ]
+    }
+   ]
+  },
+  {
+   "key": "oblivion_staff",
+   "name": "Oblivion Staff",
+   "category": "shop",
+   "components": [
+    "blitz_knuckles",
+    "robe",
+    "sobi_mask"
+   ],
+   "facts": [
+    {
+     "fact_id": "oblivion_staff:cost",
+     "label": "COST (gold)",
+     "values": [
+      1625
+     ]
+    }
+   ]
+  },
+  {
+   "key": "octarine_core",
+   "name": "Octarine Core",
+   "category": "shop",
+   "components": [
+    "soul_booster",
+    "tiara_of_selemene",
+    ""
+   ],
+   "facts": [
+    {
+     "fact_id": "octarine_core:cost",
+     "label": "COST (gold)",
+     "values": [
+      5100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ogre_axe",
+   "name": "Ogre Axe",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ogre_axe:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "orb_of_corrosion",
+   "name": "Orb of Corrosion",
+   "category": "shop",
+   "components": [
+    "boots_of_elves",
+    "orb_of_frost",
+    "blight_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "orb_of_corrosion:cost",
+     "label": "COST (gold)",
+     "values": [
+      1050
+     ]
+    }
+   ]
+  },
+  {
+   "key": "orb_of_frost",
+   "name": "Orb of Frost",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "orb_of_frost:cost",
+     "label": "COST (gold)",
+     "values": [
+      300
+     ]
+    }
+   ]
+  },
+  {
+   "key": "orb_of_venom",
+   "name": "Orb of Venom",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "orb_of_venom:cost",
+     "label": "COST (gold)",
+     "values": [
+      350
+     ]
+    }
+   ]
+  },
+  {
+   "key": "orchid",
+   "name": "Orchid Malevolence",
+   "category": "shop",
+   "components": [
+    "oblivion_staff",
+    "claymore"
+   ],
+   "facts": [
+    {
+     "fact_id": "orchid:cost",
+     "label": "COST (gold)",
+     "values": [
+      3275
+     ]
+    }
+   ]
+  },
+  {
+   "key": "overwhelming_blink",
+   "name": "Overwhelming Blink",
+   "category": "shop",
+   "components": [
+    "blink",
+    "reaver"
+   ],
+   "facts": [
+    {
+     "fact_id": "overwhelming_blink:cost",
+     "label": "COST (gold)",
+     "values": [
+      6800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "pavise",
+   "name": "Pavise",
+   "category": "shop",
+   "components": [
+    "wizard_hat",
+    "fluffy_hat",
+    "ring_of_protection"
+   ],
+   "facts": [
+    {
+     "fact_id": "pavise:cost",
+     "label": "COST (gold)",
+     "values": [
+      1350
+     ]
+    }
+   ]
+  },
+  {
+   "key": "pers",
+   "name": "Perseverance",
+   "category": "shop",
+   "components": [
+    "ring_of_health",
+    "void_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "pers:cost",
+     "label": "COST (gold)",
+     "values": [
+      1400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "phase_boots",
+   "name": "Phase Boots",
+   "category": "shop",
+   "components": [
+    "boots",
+    "chainmail",
+    "blades_of_attack"
+   ],
+   "facts": [
+    {
+     "fact_id": "phase_boots:cost",
+     "label": "COST (gold)",
+     "values": [
+      1450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "phylactery",
+   "name": "Phylactery",
+   "category": "shop",
+   "components": [
+    "pers",
+    "diadem"
+   ],
+   "facts": [
+    {
+     "fact_id": "phylactery:cost",
+     "label": "COST (gold)",
+     "values": [
+      2600
+     ]
+    }
+   ]
+  },
+  {
+   "key": "pipe",
+   "name": "Pipe of Insight",
+   "category": "shop",
+   "components": [
+    "ring_of_tarrasque",
+    "cloak",
+    "shawl",
+    ""
+   ],
+   "facts": [
+    {
+     "fact_id": "pipe:cost",
+     "label": "COST (gold)",
+     "values": [
+      3725
+     ]
+    }
+   ]
+  },
+  {
+   "key": "platemail",
+   "name": "Platemail",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "platemail:cost",
+     "label": "COST (gold)",
+     "values": [
+      1400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "point_booster",
+   "name": "Point Booster",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "point_booster:cost",
+     "label": "COST (gold)",
+     "values": [
+      1200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "power_treads",
+   "name": "Power Treads",
+   "category": "shop",
+   "components": [
+    "boots",
+    "gloves",
+    "belt_of_strength"
+   ],
+   "facts": [
+    {
+     "fact_id": "power_treads:cost",
+     "label": "COST (gold)",
+     "values": [
+      1400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "quelling_blade",
+   "name": "Quelling Blade",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "quelling_blade:cost",
+     "label": "COST (gold)",
+     "values": [
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "radiance",
+   "name": "Radiance",
+   "category": "shop",
+   "components": [
+    "relic",
+    "talisman_of_evasion"
+   ],
+   "facts": [
+    {
+     "fact_id": "radiance:cost",
+     "label": "COST (gold)",
+     "values": [
+      4700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "rapier",
+   "name": "Divine Rapier",
+   "category": "shop",
+   "components": [
+    "relic",
+    "demon_edge"
+   ],
+   "facts": [
+    {
+     "fact_id": "rapier:cost",
+     "label": "COST (gold)",
+     "values": [
+      5600
+     ]
+    }
+   ]
+  },
+  {
+   "key": "reaver",
+   "name": "Reaver",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "reaver:cost",
+     "label": "COST (gold)",
+     "values": [
+      2800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "refresher",
+   "name": "Refresher Orb",
+   "category": "shop",
+   "components": [
+    "ring_of_tarrasque",
+    "tiara_of_selemene"
+   ],
+   "facts": [
+    {
+     "fact_id": "refresher:cost",
+     "label": "COST (gold)",
+     "values": [
+      5000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "relic",
+   "name": "Sacred Relic",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "relic:cost",
+     "label": "COST (gold)",
+     "values": [
+      3400
+     ]
+    }
+   ]
+  },
+  {
+   "key": "revenants_brooch",
+   "name": "Revenant's Brooch",
+   "category": "shop",
+   "components": [
+    "lesser_crit",
+    "voodoo_mask"
+   ],
+   "facts": [
+    {
+     "fact_id": "revenants_brooch:cost",
+     "label": "COST (gold)",
+     "values": [
+      3300
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ring_of_basilius",
+   "name": "Ring of Basilius",
+   "category": "shop",
+   "components": [
+    "sobi_mask"
+   ],
+   "facts": [
+    {
+     "fact_id": "ring_of_basilius:cost",
+     "label": "COST (gold)",
+     "values": [
+      425
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ring_of_health",
+   "name": "Ring of Health",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ring_of_health:cost",
+     "label": "COST (gold)",
+     "values": [
+      700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ring_of_protection",
+   "name": "Ring of Protection",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ring_of_protection:cost",
+     "label": "COST (gold)",
+     "values": [
+      175
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ring_of_regen",
+   "name": "Ring of Regen",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ring_of_regen:cost",
+     "label": "COST (gold)",
+     "values": [
+      175
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ring_of_tarrasque",
+   "name": "Ring of Tarrasque",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ring_of_tarrasque:cost",
+     "label": "COST (gold)",
+     "values": [
+      1700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "robe",
+   "name": "Robe of the Magi",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "robe:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "rod_of_atos",
+   "name": "Rod of Atos",
+   "category": "shop",
+   "components": [
+    "staff_of_wizardry",
+    "vitality_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "rod_of_atos:cost",
+     "label": "COST (gold)",
+     "values": [
+      2250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "sange",
+   "name": "Sange",
+   "category": "shop",
+   "components": [
+    "ogre_axe",
+    "belt_of_strength"
+   ],
+   "facts": [
+    {
+     "fact_id": "sange:cost",
+     "label": "COST (gold)",
+     "values": [
+      2100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "sange_and_yasha",
+   "name": "Sange and Yasha",
+   "category": "shop",
+   "components": [
+    "sange",
+    "yasha"
+   ],
+   "facts": [
+    {
+     "fact_id": "sange_and_yasha:cost",
+     "label": "COST (gold)",
+     "values": [
+      4200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "satanic",
+   "name": "Satanic",
+   "category": "shop",
+   "components": [
+    "reaver",
+    "claymore",
+    "lifesteal"
+   ],
+   "facts": [
+    {
+     "fact_id": "satanic:cost",
+     "label": "COST (gold)",
+     "values": [
+      5050
+     ]
+    }
+   ]
+  },
+  {
+   "key": "shadow_amulet",
+   "name": "Shadow Amulet",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "shadow_amulet:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "shawl",
+   "name": "Shawl",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "shawl:cost",
+     "label": "COST (gold)",
+     "values": [
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "key": "sheepstick",
+   "name": "Scythe of Vyse",
+   "category": "shop",
+   "components": [
+    "mystic_staff",
+    "tiara_of_selemene"
+   ],
+   "facts": [
+    {
+     "fact_id": "sheepstick:cost",
+     "label": "COST (gold)",
+     "values": [
+      5200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "shivas_guard",
+   "name": "Shiva's Guard",
+   "category": "shop",
+   "components": [
+    "platemail",
+    "splintmail",
+    "chasm_stone"
+   ],
+   "facts": [
+    {
+     "fact_id": "shivas_guard:cost",
+     "label": "COST (gold)",
+     "values": [
+      4500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "silver_edge",
+   "name": "Silver Edge",
+   "category": "shop",
+   "components": [
+    "invis_sword",
+    "demon_edge"
+   ],
+   "facts": [
+    {
+     "fact_id": "silver_edge:cost",
+     "label": "COST (gold)",
+     "values": [
+      5700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "skadi",
+   "name": "Eye of Skadi",
+   "category": "shop",
+   "components": [
+    "ultimate_orb",
+    "ultimate_orb",
+    "orb_of_frost"
+   ],
+   "facts": [
+    {
+     "fact_id": "skadi:cost",
+     "label": "COST (gold)",
+     "values": [
+      5900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "slippers",
+   "name": "Slippers of Agility",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "slippers:cost",
+     "label": "COST (gold)",
+     "values": [
+      140
+     ]
+    }
+   ]
+  },
+  {
+   "key": "smoke_of_deceit",
+   "name": "Smoke of Deceit",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "smoke_of_deceit:cost",
+     "label": "COST (gold)",
+     "values": [
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "key": "sobi_mask",
+   "name": "Sage's Mask",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "sobi_mask:cost",
+     "label": "COST (gold)",
+     "values": [
+      175
+     ]
+    }
+   ]
+  },
+  {
+   "key": "solar_crest",
+   "name": "Solar Crest",
+   "category": "shop",
+   "components": [
+    "pavise",
+    "chainmail",
+    "wind_lace"
+   ],
+   "facts": [
+    {
+     "fact_id": "solar_crest:cost",
+     "label": "COST (gold)",
+     "values": [
+      2575
+     ]
+    }
+   ]
+  },
+  {
+   "key": "soul_booster",
+   "name": "Soul Booster",
+   "category": "shop",
+   "components": [
+    "point_booster",
+    "vitality_booster",
+    "energy_booster"
+   ],
+   "facts": [
+    {
+     "fact_id": "soul_booster:cost",
+     "label": "COST (gold)",
+     "values": [
+      3000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "soul_ring",
+   "name": "Soul Ring",
+   "category": "shop",
+   "components": [
+    "ring_of_protection",
+    "gauntlets",
+    "gauntlets"
+   ],
+   "facts": [
+    {
+     "fact_id": "soul_ring:cost",
+     "label": "COST (gold)",
+     "values": [
+      805
+     ]
+    }
+   ]
+  },
+  {
+   "key": "specialists_array",
+   "name": "Specialist's Array",
+   "category": "shop",
+   "components": [
+    "blade_of_alacrity",
+    "broadsword"
+   ],
+   "facts": [
+    {
+     "fact_id": "specialists_array:cost",
+     "label": "COST (gold)",
+     "values": [
+      2550
+     ]
+    }
+   ]
+  },
+  {
+   "key": "sphere",
+   "name": "Linken's Sphere",
+   "category": "shop",
+   "components": [
+    "pers",
+    "ultimate_orb",
+    ""
+   ],
+   "facts": [
+    {
+     "fact_id": "sphere:cost",
+     "label": "COST (gold)",
+     "values": [
+      4800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "spirit_vessel",
+   "name": "Spirit Vessel",
+   "category": "shop",
+   "components": [
+    "urn_of_shadows",
+    "diadem"
+   ],
+   "facts": [
+    {
+     "fact_id": "spirit_vessel:cost",
+     "label": "COST (gold)",
+     "values": [
+      2725
+     ]
+    }
+   ]
+  },
+  {
+   "key": "splintmail",
+   "name": "Splintmail",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "splintmail:cost",
+     "label": "COST (gold)",
+     "values": [
+      950
+     ]
+    }
+   ]
+  },
+  {
+   "key": "staff_of_wizardry",
+   "name": "Staff of Wizardry",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "staff_of_wizardry:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "swift_blink",
+   "name": "Swift Blink",
+   "category": "shop",
+   "components": [
+    "blink",
+    "eagle"
+   ],
+   "facts": [
+    {
+     "fact_id": "swift_blink:cost",
+     "label": "COST (gold)",
+     "values": [
+      6800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "talisman_of_evasion",
+   "name": "Talisman of Evasion",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "talisman_of_evasion:cost",
+     "label": "COST (gold)",
+     "values": [
+      1300
+     ]
+    }
+   ]
+  },
+  {
+   "key": "tango",
+   "name": "Tango",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "tango:cost",
+     "label": "COST (gold)",
+     "values": [
+      90
+     ]
+    }
+   ]
+  },
+  {
+   "key": "tiara_of_selemene",
+   "name": "Tiara of Selemene",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "tiara_of_selemene:cost",
+     "label": "COST (gold)",
+     "values": [
+      1700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "tpscroll",
+   "name": "Town Portal Scroll",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "tpscroll:cost",
+     "label": "COST (gold)",
+     "values": [
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "tranquil_boots",
+   "name": "Tranquil Boots",
+   "category": "shop",
+   "components": [
+    "boots",
+    "wind_lace",
+    "ring_of_regen"
+   ],
+   "facts": [
+    {
+     "fact_id": "tranquil_boots:cost",
+     "label": "COST (gold)",
+     "values": [
+      900
+     ]
+    }
+   ]
+  },
+  {
+   "key": "travel_boots",
+   "name": "Boots of Travel",
+   "category": "shop",
+   "components": [
+    "boots"
+   ],
+   "facts": [
+    {
+     "fact_id": "travel_boots:cost",
+     "label": "COST (gold)",
+     "values": [
+      2500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "travel_boots_2",
+   "name": "Boots of Travel 2",
+   "category": "upgrade",
+   "components": [
+    "travel_boots",
+    "recipe_travel_boots"
+   ],
+   "facts": [
+    {
+     "fact_id": "travel_boots_2:cost",
+     "label": "COST (gold)",
+     "values": [
+      4500
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ultimate_orb",
+   "name": "Ultimate Orb",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ultimate_orb:cost",
+     "label": "COST (gold)",
+     "values": [
+      2800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ultimate_scepter",
+   "name": "Aghanim's Scepter",
+   "category": "shop",
+   "components": [
+    "point_booster",
+    "staff_of_wizardry",
+    "ogre_axe",
+    "blade_of_alacrity"
+   ],
+   "facts": [
+    {
+     "fact_id": "ultimate_scepter:cost",
+     "label": "COST (gold)",
+     "values": [
+      4200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "urn_of_shadows",
+   "name": "Urn of Shadows",
+   "category": "shop",
+   "components": [
+    "sobi_mask",
+    "ring_of_protection",
+    "circlet",
+    ""
+   ],
+   "facts": [
+    {
+     "fact_id": "urn_of_shadows:cost",
+     "label": "COST (gold)",
+     "values": [
+      825
+     ]
+    }
+   ]
+  },
+  {
+   "key": "vanguard",
+   "name": "Vanguard",
+   "category": "shop",
+   "components": [
+    "vitality_booster",
+    "ring_of_health"
+   ],
+   "facts": [
+    {
+     "fact_id": "vanguard:cost",
+     "label": "COST (gold)",
+     "values": [
+      1700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "veil_of_discord",
+   "name": "Veil of Discord",
+   "category": "shop",
+   "components": [
+    "voodoo_mask",
+    "robe",
+    "fluffy_hat"
+   ],
+   "facts": [
+    {
+     "fact_id": "veil_of_discord:cost",
+     "label": "COST (gold)",
+     "values": [
+      1700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "vitality_booster",
+   "name": "Vitality Booster",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "vitality_booster:cost",
+     "label": "COST (gold)",
+     "values": [
+      1000
+     ]
+    }
+   ]
+  },
+  {
+   "key": "vladmir",
+   "name": "Vladmir's Offering",
+   "category": "shop",
+   "components": [
+    "buckler",
+    "ring_of_basilius",
+    "lifesteal",
+    "blades_of_attack"
+   ],
+   "facts": [
+    {
+     "fact_id": "vladmir:cost",
+     "label": "COST (gold)",
+     "values": [
+      2200
+     ]
+    }
+   ]
+  },
+  {
+   "key": "void_stone",
+   "name": "Void Stone",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "void_stone:cost",
+     "label": "COST (gold)",
+     "values": [
+      700
+     ]
+    }
+   ]
+  },
+  {
+   "key": "voodoo_mask",
+   "name": "Voodoo Mask",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "voodoo_mask:cost",
+     "label": "COST (gold)",
+     "values": [
+      650
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ward_sentry",
+   "name": "Sentry Ward",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "ward_sentry:cost",
+     "label": "COST (gold)",
+     "values": [
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "key": "wind_lace",
+   "name": "Wind Lace",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "wind_lace:cost",
+     "label": "COST (gold)",
+     "values": [
+      225
+     ]
+    }
+   ]
+  },
+  {
+   "key": "wind_waker",
+   "name": "Wind Waker",
+   "category": "shop",
+   "components": [
+    "cyclone",
+    "mystic_staff"
+   ],
+   "facts": [
+    {
+     "fact_id": "wind_waker:cost",
+     "label": "COST (gold)",
+     "values": [
+      6800
+     ]
+    }
+   ]
+  },
+  {
+   "key": "witch_blade",
+   "name": "Witch Blade",
+   "category": "shop",
+   "components": [
+    "oblivion_staff",
+    "chainmail",
+    "orb_of_venom"
+   ],
+   "facts": [
+    {
+     "fact_id": "witch_blade:cost",
+     "label": "COST (gold)",
+     "values": [
+      2775
+     ]
+    }
+   ]
+  },
+  {
+   "key": "wizard_hat",
+   "name": "Wizard Hat",
+   "category": "shop",
+   "components": [],
+   "facts": [
+    {
+     "fact_id": "wizard_hat:cost",
+     "label": "COST (gold)",
+     "values": [
+      250
+     ]
+    }
+   ]
+  },
+  {
+   "key": "wraith_band",
+   "name": "Wraith Band",
+   "category": "shop",
+   "components": [
+    "circlet",
+    "slippers"
+   ],
+   "facts": [
+    {
+     "fact_id": "wraith_band:cost",
+     "label": "COST (gold)",
+     "values": [
+      505
+     ]
+    }
+   ]
+  },
+  {
+   "key": "yasha",
+   "name": "Yasha",
+   "category": "shop",
+   "components": [
+    "blade_of_alacrity",
+    "boots_of_elves"
+   ],
+   "facts": [
+    {
+     "fact_id": "yasha:cost",
+     "label": "COST (gold)",
+     "values": [
+      2100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "yasha_and_kaya",
+   "name": "Yasha and Kaya",
+   "category": "shop",
+   "components": [
+    "yasha",
+    "kaya"
+   ],
+   "facts": [
+    {
+     "fact_id": "yasha_and_kaya:cost",
+     "label": "COST (gold)",
+     "values": [
+      4200
+     ]
+    }
+   ]
+  }
+ ]
+}

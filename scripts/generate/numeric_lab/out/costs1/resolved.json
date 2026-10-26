@@ -1,0 +1,4936 @@
+{
+  "opus-gall": [
+    {
+      "fact_id": "abyssal_blade:cost",
+      "level": "max",
+      "question": "Сколько стоит Abyssal Blade целиком?",
+      "unit": "золота",
+      "distractors": [
+        6500,
+        6750,
+        7000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6250,
+      "entity": "Abyssal Blade",
+      "all_values": [
+        6250
+      ],
+      "mc": {
+        "options": [
+          6250.0,
+          6500.0,
+          6750.0,
+          7000.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "aeon_disk:cost",
+      "level": "max",
+      "question": "Сколько стоит Aeon Disk?",
+      "unit": "золота",
+      "distractors": [
+        2750,
+        3250,
+        3500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3000,
+      "entity": "Aeon Disk",
+      "all_values": [
+        3000
+      ],
+      "mc": {
+        "options": [
+          2750.0,
+          3000.0,
+          3250.0,
+          3500.0
+        ],
+        "position": 2,
+        "spread": 1.27
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "aether_lens:cost",
+      "level": "max",
+      "question": "Сколько стоит Aether Lens?",
+      "unit": "золота",
+      "distractors": [
+        2075,
+        2175,
+        2375
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2275,
+      "entity": "Aether Lens",
+      "all_values": [
+        2275
+      ],
+      "mc": {
+        "options": [
+          2075.0,
+          2175.0,
+          2275.0,
+          2375.0
+        ],
+        "position": 3,
+        "spread": 1.14
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "aghanims_shard:cost",
+      "level": "max",
+      "question": "Сколько стоит Aghanim's Shard?",
+      "unit": "золота",
+      "distractors": [
+        1100,
+        1250,
+        1300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1400,
+      "entity": "Aghanim's Shard",
+      "all_values": [
+        1400
+      ],
+      "mc": {
+        "options": [
+          1100.0,
+          1250.0,
+          1300.0,
+          1400.0
+        ],
+        "position": 4,
+        "spread": 1.27
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ancient_janggo:cost",
+      "level": "max",
+      "question": "Сколько стоит Drum of Endurance?",
+      "unit": "золота",
+      "distractors": [
+        1675,
+        1725,
+        1825
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1625,
+      "entity": "Drum of Endurance",
+      "all_values": [
+        1625
+      ],
+      "mc": {
+        "options": [
+          1625.0,
+          1675.0,
+          1725.0,
+          1825.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "angels_demise:cost",
+      "level": "max",
+      "question": "Сколько стоит Khanda целиком?",
+      "unit": "золота",
+      "distractors": [
+        5400,
+        5750,
+        5900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5600,
+      "entity": "Khanda",
+      "all_values": [
+        5600
+      ],
+      "mc": {
+        "options": [
+          5400.0,
+          5600.0,
+          5750.0,
+          5900.0
+        ],
+        "position": 2,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "arcane_blink:cost",
+      "level": "max",
+      "question": "Сколько стоит Arcane Blink целиком?",
+      "unit": "золота",
+      "distractors": [
+        6400,
+        6600,
+        7000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6800,
+      "entity": "Arcane Blink",
+      "all_values": [
+        6800
+      ],
+      "mc": {
+        "options": [
+          6400.0,
+          6600.0,
+          6800.0,
+          7000.0
+        ],
+        "position": 3,
+        "spread": 1.09
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "arcane_boots:cost",
+      "level": "max",
+      "question": "Сколько стоят Arcane Boots?",
+      "unit": "золота",
+      "distractors": [
+        1300,
+        1350,
+        1400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1500,
+      "entity": "Arcane Boots",
+      "all_values": [
+        1500
+      ],
+      "mc": {
+        "options": [
+          1300.0,
+          1350.0,
+          1400.0,
+          1500.0
+        ],
+        "position": 4,
+        "spread": 1.15
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "armlet:cost",
+      "level": "max",
+      "question": "Сколько стоит Armlet of Mordiggian?",
+      "unit": "золота",
+      "distractors": [
+        2600,
+        2700,
+        2850
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2500,
+      "entity": "Armlet of Mordiggian",
+      "all_values": [
+        2500
+      ],
+      "mc": {
+        "options": [
+          2500.0,
+          2600.0,
+          2700.0,
+          2850.0
+        ],
+        "position": 1,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "assault:cost",
+      "level": "max",
+      "question": "Сколько стоит Assault Cuirass?",
+      "unit": "золота",
+      "distractors": [
+        5025,
+        5250,
+        5375
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5125,
+      "entity": "Assault Cuirass",
+      "all_values": [
+        5125
+      ],
+      "mc": {
+        "options": [
+          5025.0,
+          5125.0,
+          5250.0,
+          5375.0
+        ],
+        "position": 2,
+        "spread": 1.07
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "basher:cost",
+      "level": "max",
+      "question": "Сколько стоит Skull Basher?",
+      "unit": "золота",
+      "distractors": [
+        2675,
+        2775,
+        2975
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2875,
+      "entity": "Skull Basher",
+      "all_values": [
+        2875
+      ],
+      "mc": {
+        "options": [
+          2675.0,
+          2775.0,
+          2875.0,
+          2975.0
+        ],
+        "position": 3,
+        "spread": 1.11
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "belt_of_strength:cost",
+      "level": "max",
+      "question": "Сколько стоит Belt of Strength?",
+      "unit": "золота",
+      "distractors": [
+        300,
+        350,
+        400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Belt of Strength",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          300.0,
+          350.0,
+          400.0,
+          450.0
+        ],
+        "position": 4,
+        "spread": 1.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "bfury:cost",
+      "level": "max",
+      "question": "Сколько стоит Battle Fury целиком?",
+      "unit": "золота",
+      "distractors": [
+        4000,
+        4100,
+        4250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3900,
+      "entity": "Battle Fury",
+      "all_values": [
+        3900
+      ],
+      "mc": {
+        "options": [
+          3900.0,
+          4000.0,
+          4100.0,
+          4250.0
+        ],
+        "position": 1,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "black_king_bar:cost",
+      "level": "max",
+      "question": "Сколько стоит Black King Bar?",
+      "unit": "золота",
+      "distractors": [
+        3950,
+        4150,
+        4300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4050,
+      "entity": "Black King Bar",
+      "all_values": [
+        4050
+      ],
+      "mc": {
+        "options": [
+          3950.0,
+          4050.0,
+          4150.0,
+          4300.0
+        ],
+        "position": 2,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blade_mail:cost",
+      "level": "max",
+      "question": "Сколько стоит Blade Mail?",
+      "unit": "золота",
+      "distractors": [
+        2100,
+        2250,
+        2550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2400,
+      "entity": "Blade Mail",
+      "all_values": [
+        2400
+      ],
+      "mc": {
+        "options": [
+          2100.0,
+          2250.0,
+          2400.0,
+          2550.0
+        ],
+        "position": 3,
+        "spread": 1.21
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "blade_of_alacrity:cost",
+      "level": "max",
+      "question": "Сколько стоит Blade of Alacrity?",
+      "unit": "золота",
+      "distractors": [
+        800,
+        850,
+        950
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Blade of Alacrity",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          800.0,
+          850.0,
+          950.0,
+          1000.0
+        ],
+        "position": 4,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blades_of_attack:cost",
+      "level": "max",
+      "question": "Сколько стоят Blades of Attack?",
+      "unit": "золота",
+      "distractors": [
+        500,
+        550,
+        650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Blades of Attack",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          450.0,
+          500.0,
+          550.0,
+          650.0
+        ],
+        "position": 1,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blight_stone:cost",
+      "level": "max",
+      "question": "Сколько стоит Orb of Blight?",
+      "unit": "золота",
+      "distractors": [
+        250,
+        350,
+        400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 300,
+      "entity": "Orb of Blight",
+      "all_values": [
+        300
+      ],
+      "mc": {
+        "options": [
+          250.0,
+          300.0,
+          350.0,
+          400.0
+        ],
+        "position": 2,
+        "spread": 1.6
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "blink:cost",
+      "level": "max",
+      "question": "Сколько стоит Blink Dagger?",
+      "unit": "золота",
+      "distractors": [
+        2000,
+        2150,
+        2400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2250,
+      "entity": "Blink Dagger",
+      "all_values": [
+        2250
+      ],
+      "mc": {
+        "options": [
+          2000.0,
+          2150.0,
+          2250.0,
+          2400.0
+        ],
+        "position": 3,
+        "spread": 1.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blitz_knuckles:cost",
+      "level": "max",
+      "question": "Сколько стоят Blitz Knuckles?",
+      "unit": "золота",
+      "distractors": [
+        750,
+        850,
+        900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Blitz Knuckles",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          750.0,
+          850.0,
+          900.0,
+          1000.0
+        ],
+        "position": 4,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blood_grenade:cost",
+      "level": "max",
+      "question": "Сколько стоит Blood Grenade?",
+      "unit": "золота",
+      "distractors": [
+        75,
+        100,
+        125
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 50,
+      "entity": "Blood Grenade",
+      "all_values": [
+        50
+      ],
+      "mc": {
+        "options": [
+          50.0,
+          75.0,
+          100.0,
+          125.0
+        ],
+        "position": 1,
+        "spread": 2.5
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "bloodstone:cost",
+      "level": "max",
+      "question": "Сколько стоит Bloodstone целиком?",
+      "unit": "золота",
+      "distractors": [
+        4400,
+        4900,
+        5100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4700,
+      "entity": "Bloodstone",
+      "all_values": [
+        4700
+      ],
+      "mc": {
+        "options": [
+          4400.0,
+          4700.0,
+          4900.0,
+          5100.0
+        ],
+        "position": 2,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bloodthorn:cost",
+      "level": "max",
+      "question": "Сколько стоит Bloodthorn целиком?",
+      "unit": "золота",
+      "distractors": [
+        6000,
+        6200,
+        6600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6400,
+      "entity": "Bloodthorn",
+      "all_values": [
+        6400
+      ],
+      "mc": {
+        "options": [
+          6000.0,
+          6200.0,
+          6400.0,
+          6600.0
+        ],
+        "position": 3,
+        "spread": 1.1
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "boots_of_bearing:cost",
+      "level": "max",
+      "question": "Сколько стоят Boots of Bearing целиком?",
+      "unit": "золота",
+      "distractors": [
+        3875,
+        3975,
+        4100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4225,
+      "entity": "Boots of Bearing",
+      "all_values": [
+        4225
+      ],
+      "mc": {
+        "options": [
+          3875.0,
+          3975.0,
+          4100.0,
+          4225.0
+        ],
+        "position": 4,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "boots_of_elves:cost",
+      "level": "max",
+      "question": "Сколько стоит Band of Elvenskin?",
+      "unit": "золота",
+      "distractors": [
+        500,
+        550,
+        600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Band of Elvenskin",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          450.0,
+          500.0,
+          550.0,
+          600.0
+        ],
+        "position": 1,
+        "spread": 1.33
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "bottle:cost",
+      "level": "max",
+      "question": "Сколько стоит Bottle?",
+      "unit": "золота",
+      "distractors": [
+        600,
+        725,
+        775
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 675,
+      "entity": "Bottle",
+      "all_values": [
+        675
+      ],
+      "mc": {
+        "options": [
+          600.0,
+          675.0,
+          725.0,
+          775.0
+        ],
+        "position": 2,
+        "spread": 1.29
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "bracer:cost",
+      "level": "max",
+      "question": "Сколько стоит Bracer?",
+      "unit": "золота",
+      "distractors": [
+        405,
+        455,
+        555
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 505,
+      "entity": "Bracer",
+      "all_values": [
+        505
+      ],
+      "mc": {
+        "options": [
+          405.0,
+          455.0,
+          505.0,
+          555.0
+        ],
+        "position": 3,
+        "spread": 1.37
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "broadsword:cost",
+      "level": "max",
+      "question": "Сколько стоит Broadsword?",
+      "unit": "золота",
+      "distractors": [
+        800,
+        900,
+        950
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Broadsword",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          800.0,
+          900.0,
+          950.0,
+          1000.0
+        ],
+        "position": 4,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "buckler:cost",
+      "level": "max",
+      "question": "Сколько стоит Buckler?",
+      "unit": "золота",
+      "distractors": [
+        475,
+        525,
+        575
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 425,
+      "entity": "Buckler",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          425.0,
+          475.0,
+          525.0,
+          575.0
+        ],
+        "position": 1,
+        "spread": 1.35
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "butterfly:cost",
+      "level": "max",
+      "question": "Сколько стоит Butterfly?",
+      "unit": "золота",
+      "distractors": [
+        5200,
+        5650,
+        5900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5450,
+      "entity": "Butterfly",
+      "all_values": [
+        5450
+      ],
+      "mc": {
+        "options": [
+          5200.0,
+          5450.0,
+          5650.0,
+          5900.0
+        ],
+        "position": 2,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "chainmail:cost",
+      "level": "max",
+      "question": "Сколько стоит Chainmail?",
+      "unit": "золота",
+      "distractors": [
+        400,
+        450,
+        550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 500,
+      "entity": "Chainmail",
+      "all_values": [
+        500
+      ],
+      "mc": {
+        "options": [
+          400.0,
+          450.0,
+          500.0,
+          550.0
+        ],
+        "position": 3,
+        "spread": 1.38
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "chasm_stone:cost",
+      "level": "max",
+      "question": "Сколько стоит Chasm Stone?",
+      "unit": "золота",
+      "distractors": [
+        700,
+        750,
+        850
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Chasm Stone",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          700.0,
+          750.0,
+          850.0,
+          900.0
+        ],
+        "position": 4,
+        "spread": 1.29
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "circlet:cost",
+      "level": "max",
+      "question": "Сколько стоит Circlet?",
+      "unit": "золота",
+      "distractors": [
+        165,
+        185,
+        205
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 155,
+      "entity": "Circlet",
+      "all_values": [
+        155
+      ],
+      "mc": {
+        "options": [
+          155.0,
+          165.0,
+          185.0,
+          205.0
+        ],
+        "position": 1,
+        "spread": 1.32
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "claymore:cost",
+      "level": "max",
+      "question": "Сколько стоит Claymore?",
+      "unit": "золота",
+      "distractors": [
+        1200,
+        1400,
+        1500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1350,
+      "entity": "Claymore",
+      "all_values": [
+        1350
+      ],
+      "mc": {
+        "options": [
+          1200.0,
+          1350.0,
+          1400.0,
+          1500.0
+        ],
+        "position": 2,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "cloak:cost",
+      "level": "max",
+      "question": "Сколько стоит Cloak?",
+      "unit": "золота",
+      "distractors": [
+        750,
+        800,
+        1000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Cloak",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          750.0,
+          800.0,
+          900.0,
+          1000.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "consecrated_wraps:cost",
+      "level": "max",
+      "question": "Сколько стоят Consecrated Wraps?",
+      "unit": "золота",
+      "distractors": [
+        2250,
+        2400,
+        2500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2600,
+      "entity": "Consecrated Wraps",
+      "all_values": [
+        2600
+      ],
+      "mc": {
+        "options": [
+          2250.0,
+          2400.0,
+          2500.0,
+          2600.0
+        ],
+        "position": 4,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "crellas_crozier:cost",
+      "level": "max",
+      "question": "Сколько стоит Crella's Crozier целиком?",
+      "unit": "золота",
+      "distractors": [
+        5000,
+        5200,
+        5400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4800,
+      "entity": "Crella's Crozier",
+      "all_values": [
+        4800
+      ],
+      "mc": {
+        "options": [
+          4800.0,
+          5000.0,
+          5200.0,
+          5400.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "crimson_guard:cost",
+      "level": "max",
+      "question": "Сколько стоит Crimson Guard?",
+      "unit": "золота",
+      "distractors": [
+        3550,
+        3875,
+        4025
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3725,
+      "entity": "Crimson Guard",
+      "all_values": [
+        3725
+      ],
+      "mc": {
+        "options": [
+          3550.0,
+          3725.0,
+          3875.0,
+          4025.0
+        ],
+        "position": 2,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "crown:cost",
+      "level": "max",
+      "question": "Сколько стоит Crown?",
+      "unit": "золота",
+      "distractors": [
+        350,
+        400,
+        500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Crown",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          350.0,
+          400.0,
+          450.0,
+          500.0
+        ],
+        "position": 3,
+        "spread": 1.43
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "cyclone:cost",
+      "level": "max",
+      "question": "Сколько стоит Eul's Scepter of Divinity?",
+      "unit": "золота",
+      "distractors": [
+        2300,
+        2450,
+        2500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2600,
+      "entity": "Eul's Scepter of Divinity",
+      "all_values": [
+        2600
+      ],
+      "mc": {
+        "options": [
+          2300.0,
+          2450.0,
+          2500.0,
+          2600.0
+        ],
+        "position": 4,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "dagon:cost",
+      "level": 1,
+      "question": "Сколько стоит Dagon 1?",
+      "unit": "золота",
+      "distractors": [
+        3250,
+        3500,
+        3750
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3000,
+      "entity": "Dagon",
+      "all_values": [
+        3000,
+        4100,
+        5200,
+        6300,
+        7400
+      ],
+      "mc": {
+        "options": [
+          3000.0,
+          3250.0,
+          3500.0,
+          3750.0
+        ],
+        "position": 1,
+        "spread": 1.25
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "demon_edge:cost",
+      "level": "max",
+      "question": "Сколько стоит Demon Edge?",
+      "unit": "золота",
+      "distractors": [
+        2000,
+        2400,
+        2500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2200,
+      "entity": "Demon Edge",
+      "all_values": [
+        2200
+      ],
+      "mc": {
+        "options": [
+          2000.0,
+          2200.0,
+          2400.0,
+          2500.0
+        ],
+        "position": 2,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "desolator:cost",
+      "level": "max",
+      "question": "Сколько стоит Desolator?",
+      "unit": "золота",
+      "distractors": [
+        3200,
+        3350,
+        3650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3500,
+      "entity": "Desolator",
+      "all_values": [
+        3500
+      ],
+      "mc": {
+        "options": [
+          3200.0,
+          3350.0,
+          3500.0,
+          3650.0
+        ],
+        "position": 3,
+        "spread": 1.14
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "devastator:cost",
+      "level": "max",
+      "question": "Сколько стоит Parasma целиком?",
+      "unit": "золота",
+      "distractors": [
+        5575,
+        5725,
+        5875
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5975,
+      "entity": "Parasma",
+      "all_values": [
+        5975
+      ],
+      "mc": {
+        "options": [
+          5575.0,
+          5725.0,
+          5875.0,
+          5975.0
+        ],
+        "position": 4,
+        "spread": 1.07
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "diadem:cost",
+      "level": "max",
+      "question": "Сколько стоит Diadem?",
+      "unit": "золота",
+      "distractors": [
+        1050,
+        1150,
+        1200
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Diadem",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          1000.0,
+          1050.0,
+          1150.0,
+          1200.0
+        ],
+        "position": 1,
+        "spread": 1.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "diffusal_blade:cost",
+      "level": "max",
+      "question": "Сколько стоит Diffusal Blade?",
+      "unit": "золота",
+      "distractors": [
+        2300,
+        2650,
+        2800
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2500,
+      "entity": "Diffusal Blade",
+      "all_values": [
+        2500
+      ],
+      "mc": {
+        "options": [
+          2300.0,
+          2500.0,
+          2650.0,
+          2800.0
+        ],
+        "position": 2,
+        "spread": 1.22
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "disperser:cost",
+      "level": "max",
+      "question": "Сколько стоит Disperser целиком?",
+      "unit": "золота",
+      "distractors": [
+        5700,
+        5900,
+        6300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6100,
+      "entity": "Disperser",
+      "all_values": [
+        6100
+      ],
+      "mc": {
+        "options": [
+          5700.0,
+          5900.0,
+          6100.0,
+          6300.0
+        ],
+        "position": 3,
+        "spread": 1.11
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "dragon_lance:cost",
+      "level": "max",
+      "question": "Сколько стоит Dragon Lance?",
+      "unit": "золота",
+      "distractors": [
+        1750,
+        1850,
+        1900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2000,
+      "entity": "Dragon Lance",
+      "all_values": [
+        2000
+      ],
+      "mc": {
+        "options": [
+          1750.0,
+          1850.0,
+          1900.0,
+          2000.0
+        ],
+        "position": 4,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "dust:cost",
+      "level": "max",
+      "question": "Сколько стоит Dust of Appearance?",
+      "unit": "золота",
+      "distractors": [
+        90,
+        100,
+        120
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 80,
+      "entity": "Dust of Appearance",
+      "all_values": [
+        80
+      ],
+      "mc": {
+        "options": [
+          80.0,
+          90.0,
+          100.0,
+          120.0
+        ],
+        "position": 1,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "eagle:cost",
+      "level": "max",
+      "question": "Сколько стоит Eaglesong?",
+      "unit": "золота",
+      "distractors": [
+        2600,
+        3000,
+        3200
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2800,
+      "entity": "Eaglesong",
+      "all_values": [
+        2800
+      ],
+      "mc": {
+        "options": [
+          2600.0,
+          2800.0,
+          3000.0,
+          3200.0
+        ],
+        "position": 2,
+        "spread": 1.23
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "echo_sabre:cost",
+      "level": "max",
+      "question": "Сколько стоит Echo Sabre?",
+      "unit": "золота",
+      "distractors": [
+        2400,
+        2550,
+        2850
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2700,
+      "entity": "Echo Sabre",
+      "all_values": [
+        2700
+      ],
+      "mc": {
+        "options": [
+          2400.0,
+          2550.0,
+          2700.0,
+          2850.0
+        ],
+        "position": 3,
+        "spread": 1.19
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "enchanted_mango:cost",
+      "level": "max",
+      "question": "Сколько стоит Enchanted Mango?",
+      "unit": "золота",
+      "distractors": [
+        45,
+        55,
+        60
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 65,
+      "entity": "Enchanted Mango",
+      "all_values": [
+        65
+      ],
+      "mc": {
+        "options": [
+          45.0,
+          55.0,
+          60.0,
+          65.0
+        ],
+        "position": 4,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "energy_booster:cost",
+      "level": "max",
+      "question": "Сколько стоит Energy Booster?",
+      "unit": "золота",
+      "distractors": [
+        850,
+        900,
+        1000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 800,
+      "entity": "Energy Booster",
+      "all_values": [
+        800
+      ],
+      "mc": {
+        "options": [
+          800.0,
+          850.0,
+          900.0,
+          1000.0
+        ],
+        "position": 1,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "essence_distiller:cost",
+      "level": "max",
+      "question": "Сколько стоит Essence Distiller?",
+      "unit": "золота",
+      "distractors": [
+        1675,
+        1875,
+        1975
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1775,
+      "entity": "Essence Distiller",
+      "all_values": [
+        1775
+      ],
+      "mc": {
+        "options": [
+          1675.0,
+          1775.0,
+          1875.0,
+          1975.0
+        ],
+        "position": 2,
+        "spread": 1.18
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "ethereal_blade:cost",
+      "level": "max",
+      "question": "Сколько стоит Ethereal Blade?",
+      "unit": "золота",
+      "distractors": [
+        4800,
+        5000,
+        5400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5200,
+      "entity": "Ethereal Blade",
+      "all_values": [
+        5200
+      ],
+      "mc": {
+        "options": [
+          4800.0,
+          5000.0,
+          5200.0,
+          5400.0
+        ],
+        "position": 3,
+        "spread": 1.12
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "faerie_fire:cost",
+      "level": "max",
+      "question": "Сколько стоит Faerie Fire?",
+      "unit": "золота",
+      "distractors": [
+        75,
+        85,
+        90
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 65,
+      "entity": "Faerie Fire",
+      "all_values": [
+        65
+      ],
+      "mc": {
+        "options": [
+          65.0,
+          75.0,
+          85.0,
+          90.0
+        ],
+        "position": 1,
+        "spread": 1.38
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "falcon_blade:cost",
+      "level": "max",
+      "question": "Сколько стоит Falcon Blade?",
+      "unit": "золота",
+      "distractors": [
+        1050,
+        1200,
+        1275
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1125,
+      "entity": "Falcon Blade",
+      "all_values": [
+        1125
+      ],
+      "mc": {
+        "options": [
+          1050.0,
+          1125.0,
+          1200.0,
+          1275.0
+        ],
+        "position": 2,
+        "spread": 1.21
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "fluffy_hat:cost",
+      "level": "max",
+      "question": "Сколько стоит Fluffy Hat?",
+      "unit": "золота",
+      "distractors": [
+        175,
+        200,
+        300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 250,
+      "entity": "Fluffy Hat",
+      "all_values": [
+        250
+      ],
+      "mc": {
+        "options": [
+          175.0,
+          200.0,
+          250.0,
+          300.0
+        ],
+        "position": 3,
+        "spread": 1.71
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "force_staff:cost",
+      "level": "max",
+      "question": "Сколько стоит Force Staff?",
+      "unit": "золота",
+      "distractors": [
+        1900,
+        2050,
+        2100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2200,
+      "entity": "Force Staff",
+      "all_values": [
+        2200
+      ],
+      "mc": {
+        "options": [
+          1900.0,
+          2050.0,
+          2100.0,
+          2200.0
+        ],
+        "position": 4,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "gauntlets:cost",
+      "level": "max",
+      "question": "Сколько стоят Gauntlets of Strength?",
+      "unit": "золота",
+      "distractors": [
+        150,
+        175,
+        200
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 140,
+      "entity": "Gauntlets of Strength",
+      "all_values": [
+        140
+      ],
+      "mc": {
+        "options": [
+          140.0,
+          150.0,
+          175.0,
+          200.0
+        ],
+        "position": 1,
+        "spread": 1.43
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "gem:cost",
+      "level": "max",
+      "question": "Сколько стоит Gem of True Sight?",
+      "unit": "золота",
+      "distractors": [
+        800,
+        1000,
+        1100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Gem of True Sight",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          800.0,
+          900.0,
+          1000.0,
+          1100.0
+        ],
+        "position": 2,
+        "spread": 1.38
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "ghost:cost",
+      "level": "max",
+      "question": "Сколько стоит Ghost Scepter?",
+      "unit": "золота",
+      "distractors": [
+        1300,
+        1400,
+        1600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1500,
+      "entity": "Ghost Scepter",
+      "all_values": [
+        1500
+      ],
+      "mc": {
+        "options": [
+          1300.0,
+          1400.0,
+          1500.0,
+          1600.0
+        ],
+        "position": 3,
+        "spread": 1.23
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "glimmer_cape:cost",
+      "level": "max",
+      "question": "Сколько стоит Glimmer Cape?",
+      "unit": "золота",
+      "distractors": [
+        1850,
+        1950,
+        2050
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2150,
+      "entity": "Glimmer Cape",
+      "all_values": [
+        2150
+      ],
+      "mc": {
+        "options": [
+          1850.0,
+          1950.0,
+          2050.0,
+          2150.0
+        ],
+        "position": 4,
+        "spread": 1.16
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "gloves:cost",
+      "level": "max",
+      "question": "Сколько стоят Gloves of Haste?",
+      "unit": "золота",
+      "distractors": [
+        475,
+        525,
+        600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Gloves of Haste",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          450.0,
+          475.0,
+          525.0,
+          600.0
+        ],
+        "position": 1,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "greater_crit:cost",
+      "level": "max",
+      "question": "Сколько стоит Daedalus целиком?",
+      "unit": "золота",
+      "distractors": [
+        4950,
+        5450,
+        5600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5200,
+      "entity": "Daedalus",
+      "all_values": [
+        5200
+      ],
+      "mc": {
+        "options": [
+          4950.0,
+          5200.0,
+          5450.0,
+          5600.0
+        ],
+        "position": 2,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "guardian_greaves:cost",
+      "level": "max",
+      "question": "Сколько стоят Guardian Greaves целиком?",
+      "unit": "золота",
+      "distractors": [
+        4150,
+        4300,
+        4600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4450,
+      "entity": "Guardian Greaves",
+      "all_values": [
+        4450
+      ],
+      "mc": {
+        "options": [
+          4150.0,
+          4300.0,
+          4450.0,
+          4600.0
+        ],
+        "position": 3,
+        "spread": 1.11
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "gungir:cost",
+      "level": "max",
+      "question": "Сколько стоит Gleipnir целиком?",
+      "unit": "золота",
+      "distractors": [
+        4300,
+        4450,
+        4550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4650,
+      "entity": "Gleipnir",
+      "all_values": [
+        4650
+      ],
+      "mc": {
+        "options": [
+          4300.0,
+          4450.0,
+          4550.0,
+          4650.0
+        ],
+        "position": 4,
+        "spread": 1.08
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "hand_of_midas:cost",
+      "level": "max",
+      "question": "Сколько стоит Hand of Midas?",
+      "unit": "золота",
+      "distractors": [
+        2300,
+        2400,
+        2550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2200,
+      "entity": "Hand of Midas",
+      "all_values": [
+        2200
+      ],
+      "mc": {
+        "options": [
+          2200.0,
+          2300.0,
+          2400.0,
+          2550.0
+        ],
+        "position": 1,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "harpoon:cost",
+      "level": "max",
+      "question": "Сколько стоит Harpoon целиком?",
+      "unit": "золота",
+      "distractors": [
+        4450,
+        4900,
+        5100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4700,
+      "entity": "Harpoon",
+      "all_values": [
+        4700
+      ],
+      "mc": {
+        "options": [
+          4450.0,
+          4700.0,
+          4900.0,
+          5100.0
+        ],
+        "position": 2,
+        "spread": 1.15
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "headdress:cost",
+      "level": "max",
+      "question": "Сколько стоит Headdress?",
+      "unit": "золота",
+      "distractors": [
+        325,
+        375,
+        475
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 425,
+      "entity": "Headdress",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          325.0,
+          375.0,
+          425.0,
+          475.0
+        ],
+        "position": 3,
+        "spread": 1.46
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "heart:cost",
+      "level": "max",
+      "question": "Сколько стоит Heart of Tarrasque?",
+      "unit": "золота",
+      "distractors": [
+        4950,
+        5050,
+        5200
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5300,
+      "entity": "Heart of Tarrasque",
+      "all_values": [
+        5300
+      ],
+      "mc": {
+        "options": [
+          4950.0,
+          5050.0,
+          5200.0,
+          5300.0
+        ],
+        "position": 4,
+        "spread": 1.07
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "heavens_halberd:cost",
+      "level": "max",
+      "question": "Сколько стоит Heaven's Halberd?",
+      "unit": "золота",
+      "distractors": [
+        3400,
+        3550,
+        3700
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3300,
+      "entity": "Heaven's Halberd",
+      "all_values": [
+        3300
+      ],
+      "mc": {
+        "options": [
+          3300.0,
+          3400.0,
+          3550.0,
+          3700.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "helm_of_iron_will:cost",
+      "level": "max",
+      "question": "Сколько стоит Helm of Iron Will?",
+      "unit": "золота",
+      "distractors": [
+        900,
+        1025,
+        1100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 975,
+      "entity": "Helm of Iron Will",
+      "all_values": [
+        975
+      ],
+      "mc": {
+        "options": [
+          900.0,
+          975.0,
+          1025.0,
+          1100.0
+        ],
+        "position": 2,
+        "spread": 1.22
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "helm_of_the_dominator:cost",
+      "level": "max",
+      "question": "Сколько стоит Helm of the Dominator?",
+      "unit": "золота",
+      "distractors": [
+        2350,
+        2450,
+        2650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2550,
+      "entity": "Helm of the Dominator",
+      "all_values": [
+        2550
+      ],
+      "mc": {
+        "options": [
+          2350.0,
+          2450.0,
+          2550.0,
+          2650.0
+        ],
+        "position": 3,
+        "spread": 1.13
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "helm_of_the_overlord:cost",
+      "level": "max",
+      "question": "Сколько стоит Helm of the Overlord целиком?",
+      "unit": "золота",
+      "distractors": [
+        5300,
+        5450,
+        5550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5650,
+      "entity": "Helm of the Overlord",
+      "all_values": [
+        5650
+      ],
+      "mc": {
+        "options": [
+          5300.0,
+          5450.0,
+          5550.0,
+          5650.0
+        ],
+        "position": 4,
+        "spread": 1.07
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "holy_locket:cost",
+      "level": "max",
+      "question": "Сколько стоит Holy Locket?",
+      "unit": "золота",
+      "distractors": [
+        2350,
+        2500,
+        2600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2250,
+      "entity": "Holy Locket",
+      "all_values": [
+        2250
+      ],
+      "mc": {
+        "options": [
+          2250.0,
+          2350.0,
+          2500.0,
+          2600.0
+        ],
+        "position": 1,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "hurricane_pike:cost",
+      "level": "max",
+      "question": "Сколько стоит Hurricane Pike целиком?",
+      "unit": "золота",
+      "distractors": [
+        4300,
+        4750,
+        4900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4550,
+      "entity": "Hurricane Pike",
+      "all_values": [
+        4550
+      ],
+      "mc": {
+        "options": [
+          4300.0,
+          4550.0,
+          4750.0,
+          4900.0
+        ],
+        "position": 2,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "hydras_breath:cost",
+      "level": "max",
+      "question": "Сколько стоит Hydra's Breath целиком?",
+      "unit": "золота",
+      "distractors": [
+        5500,
+        5700,
+        6100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5900,
+      "entity": "Hydra's Breath",
+      "all_values": [
+        5900
+      ],
+      "mc": {
+        "options": [
+          5500.0,
+          5700.0,
+          5900.0,
+          6100.0
+        ],
+        "position": 3,
+        "spread": 1.11
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "hyperstone:cost",
+      "level": "max",
+      "question": "Сколько стоит Hyperstone?",
+      "unit": "золота",
+      "distractors": [
+        1700,
+        1850,
+        1900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2000,
+      "entity": "Hyperstone",
+      "all_values": [
+        2000
+      ],
+      "mc": {
+        "options": [
+          1700.0,
+          1850.0,
+          1900.0,
+          2000.0
+        ],
+        "position": 4,
+        "spread": 1.18
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "infused_raindrop:cost",
+      "level": "max",
+      "question": "Сколько стоят Infused Raindrops?",
+      "unit": "золота",
+      "distractors": [
+        250,
+        300,
+        325
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 225,
+      "entity": "Infused Raindrops",
+      "all_values": [
+        225
+      ],
+      "mc": {
+        "options": [
+          225.0,
+          250.0,
+          300.0,
+          325.0
+        ],
+        "position": 1,
+        "spread": 1.44
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "invis_sword:cost",
+      "level": "max",
+      "question": "Сколько стоит Shadow Blade?",
+      "unit": "золота",
+      "distractors": [
+        3000,
+        3400,
+        3550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3250,
+      "entity": "Shadow Blade",
+      "all_values": [
+        3250
+      ],
+      "mc": {
+        "options": [
+          3000.0,
+          3250.0,
+          3400.0,
+          3550.0
+        ],
+        "position": 2,
+        "spread": 1.18
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "javelin:cost",
+      "level": "max",
+      "question": "Сколько стоит Javelin?",
+      "unit": "золота",
+      "distractors": [
+        700,
+        850,
+        1000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Javelin",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          700.0,
+          850.0,
+          900.0,
+          1000.0
+        ],
+        "position": 3,
+        "spread": 1.43
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya:cost",
+      "level": "max",
+      "question": "Сколько стоит Kaya?",
+      "unit": "золота",
+      "distractors": [
+        1850,
+        1950,
+        2000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2100,
+      "entity": "Kaya",
+      "all_values": [
+        2100
+      ],
+      "mc": {
+        "options": [
+          1850.0,
+          1950.0,
+          2000.0,
+          2100.0
+        ],
+        "position": 4,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kaya_and_sange:cost",
+      "level": "max",
+      "question": "Сколько стоит Kaya and Sange целиком?",
+      "unit": "золота",
+      "distractors": [
+        4350,
+        4500,
+        4650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4200,
+      "entity": "Kaya and Sange",
+      "all_values": [
+        4200
+      ],
+      "mc": {
+        "options": [
+          4200.0,
+          4350.0,
+          4500.0,
+          4650.0
+        ],
+        "position": 1,
+        "spread": 1.11
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "lesser_crit:cost",
+      "level": "max",
+      "question": "Сколько стоит Crystalys?",
+      "unit": "золота",
+      "distractors": [
+        1850,
+        2150,
+        2300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2000,
+      "entity": "Crystalys",
+      "all_values": [
+        2000
+      ],
+      "mc": {
+        "options": [
+          1850.0,
+          2000.0,
+          2150.0,
+          2300.0
+        ],
+        "position": 2,
+        "spread": 1.24
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "lifesteal:cost",
+      "level": "max",
+      "question": "Сколько стоит Morbid Mask?",
+      "unit": "золота",
+      "distractors": [
+        750,
+        850,
+        1000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Morbid Mask",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          750.0,
+          850.0,
+          900.0,
+          1000.0
+        ],
+        "position": 3,
+        "spread": 1.33
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "lotus_orb:cost",
+      "level": "max",
+      "question": "Сколько стоит Lotus Orb?",
+      "unit": "золота",
+      "distractors": [
+        3500,
+        3650,
+        3750
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3850,
+      "entity": "Lotus Orb",
+      "all_values": [
+        3850
+      ],
+      "mc": {
+        "options": [
+          3500.0,
+          3650.0,
+          3750.0,
+          3850.0
+        ],
+        "position": 4,
+        "spread": 1.1
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "maelstrom:cost",
+      "level": "max",
+      "question": "Сколько стоит Maelstrom?",
+      "unit": "золота",
+      "distractors": [
+        3050,
+        3200,
+        3300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2950,
+      "entity": "Maelstrom",
+      "all_values": [
+        2950
+      ],
+      "mc": {
+        "options": [
+          2950.0,
+          3050.0,
+          3200.0,
+          3300.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mage_slayer:cost",
+      "level": "max",
+      "question": "Сколько стоит Mage Slayer?",
+      "unit": "золота",
+      "distractors": [
+        2900,
+        3250,
+        3400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3100,
+      "entity": "Mage Slayer",
+      "all_values": [
+        3100
+      ],
+      "mc": {
+        "options": [
+          2900.0,
+          3100.0,
+          3250.0,
+          3400.0
+        ],
+        "position": 2,
+        "spread": 1.17
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "magic_stick:cost",
+      "level": "max",
+      "question": "Сколько стоит Magic Stick?",
+      "unit": "золота",
+      "distractors": [
+        150,
+        175,
+        250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 200,
+      "entity": "Magic Stick",
+      "all_values": [
+        200
+      ],
+      "mc": {
+        "options": [
+          150.0,
+          175.0,
+          200.0,
+          250.0
+        ],
+        "position": 3,
+        "spread": 1.67
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "magic_wand:cost",
+      "level": "max",
+      "question": "Сколько стоит Magic Wand целиком?",
+      "unit": "золота",
+      "distractors": [
+        400,
+        425,
+        450
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 460,
+      "entity": "Magic Wand",
+      "all_values": [
+        460
+      ],
+      "mc": {
+        "options": [
+          400.0,
+          425.0,
+          450.0,
+          460.0
+        ],
+        "position": 4,
+        "spread": 1.15
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "manta:cost",
+      "level": "max",
+      "question": "Сколько стоит Manta Style?",
+      "unit": "золота",
+      "distractors": [
+        4850,
+        4950,
+        5100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4650,
+      "entity": "Manta Style",
+      "all_values": [
+        4650
+      ],
+      "mc": {
+        "options": [
+          4650.0,
+          4850.0,
+          4950.0,
+          5100.0
+        ],
+        "position": 1,
+        "spread": 1.1
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mantle:cost",
+      "level": "max",
+      "question": "Сколько стоит Mantle of Intelligence?",
+      "unit": "золота",
+      "distractors": [
+        125,
+        155,
+        175
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 140,
+      "entity": "Mantle of Intelligence",
+      "all_values": [
+        140
+      ],
+      "mc": {
+        "options": [
+          125.0,
+          140.0,
+          155.0,
+          175.0
+        ],
+        "position": 2,
+        "spread": 1.4
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mask_of_madness:cost",
+      "level": "max",
+      "question": "Сколько стоит Mask of Madness?",
+      "unit": "золота",
+      "distractors": [
+        1650,
+        1775,
+        2050
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1900,
+      "entity": "Mask of Madness",
+      "all_values": [
+        1900
+      ],
+      "mc": {
+        "options": [
+          1650.0,
+          1775.0,
+          1900.0,
+          2050.0
+        ],
+        "position": 3,
+        "spread": 1.24
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mekansm:cost",
+      "level": "max",
+      "question": "Сколько стоит Mekansm?",
+      "unit": "золота",
+      "distractors": [
+        1500,
+        1625,
+        1700
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1775,
+      "entity": "Mekansm",
+      "all_values": [
+        1775
+      ],
+      "mc": {
+        "options": [
+          1500.0,
+          1625.0,
+          1700.0,
+          1775.0
+        ],
+        "position": 4,
+        "spread": 1.18
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "meteor_hammer:cost",
+      "level": "max",
+      "question": "Сколько стоит Meteor Hammer?",
+      "unit": "золота",
+      "distractors": [
+        3000,
+        3100,
+        3250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2850,
+      "entity": "Meteor Hammer",
+      "all_values": [
+        2850
+      ],
+      "mc": {
+        "options": [
+          2850.0,
+          3000.0,
+          3100.0,
+          3250.0
+        ],
+        "position": 1,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mithril_hammer:cost",
+      "level": "max",
+      "question": "Сколько стоит Mithril Hammer?",
+      "unit": "золота",
+      "distractors": [
+        1450,
+        1750,
+        1800
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1600,
+      "entity": "Mithril Hammer",
+      "all_values": [
+        1600
+      ],
+      "mc": {
+        "options": [
+          1450.0,
+          1600.0,
+          1750.0,
+          1800.0
+        ],
+        "position": 2,
+        "spread": 1.24
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mjollnir:cost",
+      "level": "max",
+      "question": "Сколько стоит Mjollnir целиком?",
+      "unit": "золота",
+      "distractors": [
+        5100,
+        5300,
+        5700
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5500,
+      "entity": "Mjollnir",
+      "all_values": [
+        5500
+      ],
+      "mc": {
+        "options": [
+          5100.0,
+          5300.0,
+          5500.0,
+          5700.0
+        ],
+        "position": 3,
+        "spread": 1.12
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "monkey_king_bar:cost",
+      "level": "max",
+      "question": "Сколько стоит Monkey King Bar?",
+      "unit": "золота",
+      "distractors": [
+        4500,
+        4700,
+        4850
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5000,
+      "entity": "Monkey King Bar",
+      "all_values": [
+        5000
+      ],
+      "mc": {
+        "options": [
+          4500.0,
+          4700.0,
+          4850.0,
+          5000.0
+        ],
+        "position": 4,
+        "spread": 1.11
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "moon_shard:cost",
+      "level": "max",
+      "question": "Сколько стоит Moon Shard?",
+      "unit": "золота",
+      "distractors": [
+        4250,
+        4400,
+        4500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4000,
+      "entity": "Moon Shard",
+      "all_values": [
+        4000
+      ],
+      "mc": {
+        "options": [
+          4000.0,
+          4250.0,
+          4400.0,
+          4500.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "mystic_staff:cost",
+      "level": "max",
+      "question": "Сколько стоит Mystic Staff?",
+      "unit": "золота",
+      "distractors": [
+        2500,
+        3000,
+        3100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2800,
+      "entity": "Mystic Staff",
+      "all_values": [
+        2800
+      ],
+      "mc": {
+        "options": [
+          2500.0,
+          2800.0,
+          3000.0,
+          3100.0
+        ],
+        "position": 2,
+        "spread": 1.24
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "null_talisman:cost",
+      "level": "max",
+      "question": "Сколько стоит Null Talisman?",
+      "unit": "золота",
+      "distractors": [
+        455,
+        485,
+        555
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 505,
+      "entity": "Null Talisman",
+      "all_values": [
+        505
+      ],
+      "mc": {
+        "options": [
+          455.0,
+          485.0,
+          505.0,
+          555.0
+        ],
+        "position": 3,
+        "spread": 1.22
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "nullifier:cost",
+      "level": "max",
+      "question": "Сколько стоит Nullifier?",
+      "unit": "золота",
+      "distractors": [
+        3950,
+        4150,
+        4250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4350,
+      "entity": "Nullifier",
+      "all_values": [
+        4350
+      ],
+      "mc": {
+        "options": [
+          3950.0,
+          4150.0,
+          4250.0,
+          4350.0
+        ],
+        "position": 4,
+        "spread": 1.1
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "oblivion_staff:cost",
+      "level": "max",
+      "question": "Сколько стоит Oblivion Staff?",
+      "unit": "золота",
+      "distractors": [
+        1725,
+        1775,
+        1875
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1625,
+      "entity": "Oblivion Staff",
+      "all_values": [
+        1625
+      ],
+      "mc": {
+        "options": [
+          1625.0,
+          1725.0,
+          1775.0,
+          1875.0
+        ],
+        "position": 1,
+        "spread": 1.15
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "octarine_core:cost",
+      "level": "max",
+      "question": "Сколько стоит Octarine Core целиком?",
+      "unit": "золота",
+      "distractors": [
+        4850,
+        5300,
+        5500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5100,
+      "entity": "Octarine Core",
+      "all_values": [
+        5100
+      ],
+      "mc": {
+        "options": [
+          4850.0,
+          5100.0,
+          5300.0,
+          5500.0
+        ],
+        "position": 2,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ogre_axe:cost",
+      "level": "max",
+      "question": "Сколько стоит Ogre Axe?",
+      "unit": "золота",
+      "distractors": [
+        850,
+        950,
+        1150
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Ogre Axe",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          850.0,
+          950.0,
+          1000.0,
+          1150.0
+        ],
+        "position": 3,
+        "spread": 1.35
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "orb_of_corrosion:cost",
+      "level": "max",
+      "question": "Сколько стоит Orb of Corrosion?",
+      "unit": "золота",
+      "distractors": [
+        850,
+        950,
+        1000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1050,
+      "entity": "Orb of Corrosion",
+      "all_values": [
+        1050
+      ],
+      "mc": {
+        "options": [
+          850.0,
+          950.0,
+          1000.0,
+          1050.0
+        ],
+        "position": 4,
+        "spread": 1.24
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "orb_of_frost:cost",
+      "level": "max",
+      "question": "Сколько стоит Orb of Frost?",
+      "unit": "золота",
+      "distractors": [
+        350,
+        400,
+        425
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 300,
+      "entity": "Orb of Frost",
+      "all_values": [
+        300
+      ],
+      "mc": {
+        "options": [
+          300.0,
+          350.0,
+          400.0,
+          425.0
+        ],
+        "position": 1,
+        "spread": 1.42
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "orb_of_venom:cost",
+      "level": "max",
+      "question": "Сколько стоит Orb of Venom?",
+      "unit": "золота",
+      "distractors": [
+        275,
+        400,
+        450
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 350,
+      "entity": "Orb of Venom",
+      "all_values": [
+        350
+      ],
+      "mc": {
+        "options": [
+          275.0,
+          350.0,
+          400.0,
+          450.0
+        ],
+        "position": 2,
+        "spread": 1.64
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "orchid:cost",
+      "level": "max",
+      "question": "Сколько стоит Orchid Malevolence?",
+      "unit": "золота",
+      "distractors": [
+        3025,
+        3150,
+        3400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3275,
+      "entity": "Orchid Malevolence",
+      "all_values": [
+        3275
+      ],
+      "mc": {
+        "options": [
+          3025.0,
+          3150.0,
+          3275.0,
+          3400.0
+        ],
+        "position": 3,
+        "spread": 1.12
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "overwhelming_blink:cost",
+      "level": "max",
+      "question": "Сколько стоит Overwhelming Blink целиком?",
+      "unit": "золота",
+      "distractors": [
+        6300,
+        6500,
+        6600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6800,
+      "entity": "Overwhelming Blink",
+      "all_values": [
+        6800
+      ],
+      "mc": {
+        "options": [
+          6300.0,
+          6500.0,
+          6600.0,
+          6800.0
+        ],
+        "position": 4,
+        "spread": 1.08
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "pavise:cost",
+      "level": "max",
+      "question": "Сколько стоит Pavise?",
+      "unit": "золота",
+      "distractors": [
+        1400,
+        1475,
+        1600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1350,
+      "entity": "Pavise",
+      "all_values": [
+        1350
+      ],
+      "mc": {
+        "options": [
+          1350.0,
+          1400.0,
+          1475.0,
+          1600.0
+        ],
+        "position": 1,
+        "spread": 1.19
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "pers:cost",
+      "level": "max",
+      "question": "Сколько стоит Perseverance?",
+      "unit": "золота",
+      "distractors": [
+        1250,
+        1500,
+        1650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1400,
+      "entity": "Perseverance",
+      "all_values": [
+        1400
+      ],
+      "mc": {
+        "options": [
+          1250.0,
+          1400.0,
+          1500.0,
+          1650.0
+        ],
+        "position": 2,
+        "spread": 1.32
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "phase_boots:cost",
+      "level": "max",
+      "question": "Сколько стоят Phase Boots?",
+      "unit": "золота",
+      "distractors": [
+        1250,
+        1350,
+        1550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1450,
+      "entity": "Phase Boots",
+      "all_values": [
+        1450
+      ],
+      "mc": {
+        "options": [
+          1250.0,
+          1350.0,
+          1450.0,
+          1550.0
+        ],
+        "position": 3,
+        "spread": 1.24
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "phylactery:cost",
+      "level": "max",
+      "question": "Сколько стоит Phylactery?",
+      "unit": "золота",
+      "distractors": [
+        2300,
+        2400,
+        2550
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2600,
+      "entity": "Phylactery",
+      "all_values": [
+        2600
+      ],
+      "mc": {
+        "options": [
+          2300.0,
+          2400.0,
+          2550.0,
+          2600.0
+        ],
+        "position": 4,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "pipe:cost",
+      "level": "max",
+      "question": "Сколько стоит Pipe of Insight?",
+      "unit": "золота",
+      "distractors": [
+        3850,
+        3975,
+        4125
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3725,
+      "entity": "Pipe of Insight",
+      "all_values": [
+        3725
+      ],
+      "mc": {
+        "options": [
+          3725.0,
+          3850.0,
+          3975.0,
+          4125.0
+        ],
+        "position": 1,
+        "spread": 1.11
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "platemail:cost",
+      "level": "max",
+      "question": "Сколько стоит Platemail?",
+      "unit": "золота",
+      "distractors": [
+        1300,
+        1550,
+        1700
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1400,
+      "entity": "Platemail",
+      "all_values": [
+        1400
+      ],
+      "mc": {
+        "options": [
+          1300.0,
+          1400.0,
+          1550.0,
+          1700.0
+        ],
+        "position": 2,
+        "spread": 1.31
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "point_booster:cost",
+      "level": "max",
+      "question": "Сколько стоит Point Booster?",
+      "unit": "золота",
+      "distractors": [
+        1000,
+        1100,
+        1350
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1200,
+      "entity": "Point Booster",
+      "all_values": [
+        1200
+      ],
+      "mc": {
+        "options": [
+          1000.0,
+          1100.0,
+          1200.0,
+          1350.0
+        ],
+        "position": 3,
+        "spread": 1.35
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "power_treads:cost",
+      "level": "max",
+      "question": "Сколько стоят Power Treads?",
+      "unit": "золота",
+      "distractors": [
+        1100,
+        1250,
+        1300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1400,
+      "entity": "Power Treads",
+      "all_values": [
+        1400
+      ],
+      "mc": {
+        "options": [
+          1100.0,
+          1250.0,
+          1300.0,
+          1400.0
+        ],
+        "position": 4,
+        "spread": 1.27
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "radiance:cost",
+      "level": "max",
+      "question": "Сколько стоит Radiance?",
+      "unit": "золота",
+      "distractors": [
+        4850,
+        5000,
+        5150
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4700,
+      "entity": "Radiance",
+      "all_values": [
+        4700
+      ],
+      "mc": {
+        "options": [
+          4700.0,
+          4850.0,
+          5000.0,
+          5150.0
+        ],
+        "position": 1,
+        "spread": 1.1
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "rapier:cost",
+      "level": "max",
+      "question": "Сколько стоит Divine Rapier?",
+      "unit": "золота",
+      "distractors": [
+        5400,
+        5800,
+        6000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5600,
+      "entity": "Divine Rapier",
+      "all_values": [
+        5600
+      ],
+      "mc": {
+        "options": [
+          5400.0,
+          5600.0,
+          5800.0,
+          6000.0
+        ],
+        "position": 2,
+        "spread": 1.11
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "reaver:cost",
+      "level": "max",
+      "question": "Сколько стоит Reaver?",
+      "unit": "золота",
+      "distractors": [
+        2500,
+        2700,
+        3000
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2800,
+      "entity": "Reaver",
+      "all_values": [
+        2800
+      ],
+      "mc": {
+        "options": [
+          2500.0,
+          2700.0,
+          2800.0,
+          3000.0
+        ],
+        "position": 3,
+        "spread": 1.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "refresher:cost",
+      "level": "max",
+      "question": "Сколько стоит Refresher Orb?",
+      "unit": "золота",
+      "distractors": [
+        4600,
+        4750,
+        4900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5000,
+      "entity": "Refresher Orb",
+      "all_values": [
+        5000
+      ],
+      "mc": {
+        "options": [
+          4600.0,
+          4750.0,
+          4900.0,
+          5000.0
+        ],
+        "position": 4,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "relic:cost",
+      "level": "max",
+      "question": "Сколько стоит Sacred Relic?",
+      "unit": "золота",
+      "distractors": [
+        3500,
+        3650,
+        3800
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3400,
+      "entity": "Sacred Relic",
+      "all_values": [
+        3400
+      ],
+      "mc": {
+        "options": [
+          3400.0,
+          3500.0,
+          3650.0,
+          3800.0
+        ],
+        "position": 1,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "revenants_brooch:cost",
+      "level": "max",
+      "question": "Сколько стоит Revenant's Brooch?",
+      "unit": "золота",
+      "distractors": [
+        3100,
+        3450,
+        3600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3300,
+      "entity": "Revenant's Brooch",
+      "all_values": [
+        3300
+      ],
+      "mc": {
+        "options": [
+          3100.0,
+          3300.0,
+          3450.0,
+          3600.0
+        ],
+        "position": 2,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ring_of_basilius:cost",
+      "level": "max",
+      "question": "Сколько стоит Ring of Basilius?",
+      "unit": "золота",
+      "distractors": [
+        350,
+        400,
+        475
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 425,
+      "entity": "Ring of Basilius",
+      "all_values": [
+        425
+      ],
+      "mc": {
+        "options": [
+          350.0,
+          400.0,
+          425.0,
+          475.0
+        ],
+        "position": 3,
+        "spread": 1.36
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ring_of_health:cost",
+      "level": "max",
+      "question": "Сколько стоит Ring of Health?",
+      "unit": "золота",
+      "distractors": [
+        550,
+        600,
+        650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 700,
+      "entity": "Ring of Health",
+      "all_values": [
+        700
+      ],
+      "mc": {
+        "options": [
+          550.0,
+          600.0,
+          650.0,
+          700.0
+        ],
+        "position": 4,
+        "spread": 1.27
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "ring_of_protection:cost",
+      "level": "max",
+      "question": "Сколько стоит Ring of Protection?",
+      "unit": "золота",
+      "distractors": [
+        200,
+        225,
+        275
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 175,
+      "entity": "Ring of Protection",
+      "all_values": [
+        175
+      ],
+      "mc": {
+        "options": [
+          175.0,
+          200.0,
+          225.0,
+          275.0
+        ],
+        "position": 1,
+        "spread": 1.57
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ring_of_regen:cost",
+      "level": "max",
+      "question": "Сколько стоит Ring of Regen?",
+      "unit": "золота",
+      "distractors": [
+        125,
+        200,
+        225
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 175,
+      "entity": "Ring of Regen",
+      "all_values": [
+        175
+      ],
+      "mc": {
+        "options": [
+          125.0,
+          175.0,
+          200.0,
+          225.0
+        ],
+        "position": 2,
+        "spread": 1.8
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ring_of_tarrasque:cost",
+      "level": "max",
+      "question": "Сколько стоит Ring of Tarrasque?",
+      "unit": "золота",
+      "distractors": [
+        1500,
+        1600,
+        1850
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1700,
+      "entity": "Ring of Tarrasque",
+      "all_values": [
+        1700
+      ],
+      "mc": {
+        "options": [
+          1500.0,
+          1600.0,
+          1700.0,
+          1850.0
+        ],
+        "position": 3,
+        "spread": 1.23
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "robe:cost",
+      "level": "max",
+      "question": "Сколько стоит Robe of the Magi?",
+      "unit": "золота",
+      "distractors": [
+        350,
+        400,
+        425
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Robe of the Magi",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          350.0,
+          400.0,
+          425.0,
+          450.0
+        ],
+        "position": 4,
+        "spread": 1.29
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "rod_of_atos:cost",
+      "level": "max",
+      "question": "Сколько стоит Rod of Atos?",
+      "unit": "золота",
+      "distractors": [
+        2350,
+        2475,
+        2650
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2250,
+      "entity": "Rod of Atos",
+      "all_values": [
+        2250
+      ],
+      "mc": {
+        "options": [
+          2250.0,
+          2350.0,
+          2475.0,
+          2650.0
+        ],
+        "position": 1,
+        "spread": 1.18
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "sange:cost",
+      "level": "max",
+      "question": "Сколько стоит Sange?",
+      "unit": "золота",
+      "distractors": [
+        1950,
+        2250,
+        2350
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2100,
+      "entity": "Sange",
+      "all_values": [
+        2100
+      ],
+      "mc": {
+        "options": [
+          1950.0,
+          2100.0,
+          2250.0,
+          2350.0
+        ],
+        "position": 2,
+        "spread": 1.21
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "sange_and_yasha:cost",
+      "level": "max",
+      "question": "Сколько стоит Sange and Yasha целиком?",
+      "unit": "золота",
+      "distractors": [
+        3850,
+        4050,
+        4400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4200,
+      "entity": "Sange and Yasha",
+      "all_values": [
+        4200
+      ],
+      "mc": {
+        "options": [
+          3850.0,
+          4050.0,
+          4200.0,
+          4400.0
+        ],
+        "position": 3,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "satanic:cost",
+      "level": "max",
+      "question": "Сколько стоит Satanic?",
+      "unit": "золота",
+      "distractors": [
+        4650,
+        4850,
+        4950
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5050,
+      "entity": "Satanic",
+      "all_values": [
+        5050
+      ],
+      "mc": {
+        "options": [
+          4650.0,
+          4850.0,
+          4950.0,
+          5050.0
+        ],
+        "position": 4,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shadow_amulet:cost",
+      "level": "max",
+      "question": "Сколько стоит Shadow Amulet?",
+      "unit": "золота",
+      "distractors": [
+        950,
+        1050,
+        1150
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Shadow Amulet",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          900.0,
+          950.0,
+          1050.0,
+          1150.0
+        ],
+        "position": 1,
+        "spread": 1.28
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shawl:cost",
+      "level": "max",
+      "question": "Сколько стоит Shawl?",
+      "unit": "золота",
+      "distractors": [
+        400,
+        500,
+        600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 450,
+      "entity": "Shawl",
+      "all_values": [
+        450
+      ],
+      "mc": {
+        "options": [
+          400.0,
+          450.0,
+          500.0,
+          600.0
+        ],
+        "position": 2,
+        "spread": 1.5
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "sheepstick:cost",
+      "level": "max",
+      "question": "Сколько стоит Scythe of Vyse?",
+      "unit": "золота",
+      "distractors": [
+        4900,
+        5050,
+        5500
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5200,
+      "entity": "Scythe of Vyse",
+      "all_values": [
+        5200
+      ],
+      "mc": {
+        "options": [
+          4900.0,
+          5050.0,
+          5200.0,
+          5500.0
+        ],
+        "position": 3,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "shivas_guard:cost",
+      "level": "max",
+      "question": "Сколько стоит Shiva's Guard?",
+      "unit": "золота",
+      "distractors": [
+        4100,
+        4250,
+        4350
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4500,
+      "entity": "Shiva's Guard",
+      "all_values": [
+        4500
+      ],
+      "mc": {
+        "options": [
+          4100.0,
+          4250.0,
+          4350.0,
+          4500.0
+        ],
+        "position": 4,
+        "spread": 1.1
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "silver_edge:cost",
+      "level": "max",
+      "question": "Сколько стоит Silver Edge целиком?",
+      "unit": "золота",
+      "distractors": [
+        5900,
+        6050,
+        6200
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5700,
+      "entity": "Silver Edge",
+      "all_values": [
+        5700
+      ],
+      "mc": {
+        "options": [
+          5700.0,
+          5900.0,
+          6050.0,
+          6200.0
+        ],
+        "position": 1,
+        "spread": 1.09
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "skadi:cost",
+      "level": "max",
+      "question": "Сколько стоит Eye of Skadi?",
+      "unit": "золота",
+      "distractors": [
+        5500,
+        6100,
+        6250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 5900,
+      "entity": "Eye of Skadi",
+      "all_values": [
+        5900
+      ],
+      "mc": {
+        "options": [
+          5500.0,
+          5900.0,
+          6100.0,
+          6250.0
+        ],
+        "position": 2,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "slippers:cost",
+      "level": "max",
+      "question": "Сколько стоят Slippers of Agility?",
+      "unit": "золота",
+      "distractors": [
+        100,
+        125,
+        175
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 140,
+      "entity": "Slippers of Agility",
+      "all_values": [
+        140
+      ],
+      "mc": {
+        "options": [
+          100.0,
+          125.0,
+          140.0,
+          175.0
+        ],
+        "position": 3,
+        "spread": 1.75
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "sobi_mask:cost",
+      "level": "max",
+      "question": "Сколько стоит Sage's Mask?",
+      "unit": "золота",
+      "distractors": [
+        100,
+        125,
+        150
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 175,
+      "entity": "Sage's Mask",
+      "all_values": [
+        175
+      ],
+      "mc": {
+        "options": [
+          100.0,
+          125.0,
+          150.0,
+          175.0
+        ],
+        "position": 4,
+        "spread": 1.75
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "solar_crest:cost",
+      "level": "max",
+      "question": "Сколько стоит Solar Crest целиком?",
+      "unit": "золота",
+      "distractors": [
+        2675,
+        2800,
+        2950
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2575,
+      "entity": "Solar Crest",
+      "all_values": [
+        2575
+      ],
+      "mc": {
+        "options": [
+          2575.0,
+          2675.0,
+          2800.0,
+          2950.0
+        ],
+        "position": 1,
+        "spread": 1.15
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "soul_booster:cost",
+      "level": "max",
+      "question": "Сколько стоит Soul Booster?",
+      "unit": "золота",
+      "distractors": [
+        2750,
+        3150,
+        3300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 3000,
+      "entity": "Soul Booster",
+      "all_values": [
+        3000
+      ],
+      "mc": {
+        "options": [
+          2750.0,
+          3000.0,
+          3150.0,
+          3300.0
+        ],
+        "position": 2,
+        "spread": 1.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "soul_ring:cost",
+      "level": "max",
+      "question": "Сколько стоит Soul Ring?",
+      "unit": "золота",
+      "distractors": [
+        705,
+        755,
+        905
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 805,
+      "entity": "Soul Ring",
+      "all_values": [
+        805
+      ],
+      "mc": {
+        "options": [
+          705.0,
+          755.0,
+          805.0,
+          905.0
+        ],
+        "position": 3,
+        "spread": 1.28
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "specialists_array:cost",
+      "level": "max",
+      "question": "Сколько стоит Specialist's Array?",
+      "unit": "золота",
+      "distractors": [
+        2200,
+        2350,
+        2450
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2550,
+      "entity": "Specialist's Array",
+      "all_values": [
+        2550
+      ],
+      "mc": {
+        "options": [
+          2200.0,
+          2350.0,
+          2450.0,
+          2550.0
+        ],
+        "position": 4,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "sphere:cost",
+      "level": "max",
+      "question": "Сколько стоит Linken's Sphere?",
+      "unit": "золота",
+      "distractors": [
+        4950,
+        5100,
+        5250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4800,
+      "entity": "Linken's Sphere",
+      "all_values": [
+        4800
+      ],
+      "mc": {
+        "options": [
+          4800.0,
+          4950.0,
+          5100.0,
+          5250.0
+        ],
+        "position": 1,
+        "spread": 1.09
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "spirit_vessel:cost",
+      "level": "max",
+      "question": "Сколько стоит Spirit Vessel целиком?",
+      "unit": "золота",
+      "distractors": [
+        2525,
+        2875,
+        2975
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2725,
+      "entity": "Spirit Vessel",
+      "all_values": [
+        2725
+      ],
+      "mc": {
+        "options": [
+          2525.0,
+          2725.0,
+          2875.0,
+          2975.0
+        ],
+        "position": 2,
+        "spread": 1.18
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "splintmail:cost",
+      "level": "max",
+      "question": "Сколько стоит Splintmail?",
+      "unit": "золота",
+      "distractors": [
+        800,
+        875,
+        1050
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 950,
+      "entity": "Splintmail",
+      "all_values": [
+        950
+      ],
+      "mc": {
+        "options": [
+          800.0,
+          875.0,
+          950.0,
+          1050.0
+        ],
+        "position": 3,
+        "spread": 1.31
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "staff_of_wizardry:cost",
+      "level": "max",
+      "question": "Сколько стоит Staff of Wizardry?",
+      "unit": "золота",
+      "distractors": [
+        1100,
+        1150,
+        1250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Staff of Wizardry",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          1000.0,
+          1100.0,
+          1150.0,
+          1250.0
+        ],
+        "position": 1,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "swift_blink:cost",
+      "level": "max",
+      "question": "Сколько стоит Swift Blink целиком?",
+      "unit": "золота",
+      "distractors": [
+        6500,
+        7000,
+        7200
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6800,
+      "entity": "Swift Blink",
+      "all_values": [
+        6800
+      ],
+      "mc": {
+        "options": [
+          6500.0,
+          6800.0,
+          7000.0,
+          7200.0
+        ],
+        "position": 2,
+        "spread": 1.11
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "talisman_of_evasion:cost",
+      "level": "max",
+      "question": "Сколько стоит Talisman of Evasion?",
+      "unit": "золота",
+      "distractors": [
+        1150,
+        1200,
+        1400
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1300,
+      "entity": "Talisman of Evasion",
+      "all_values": [
+        1300
+      ],
+      "mc": {
+        "options": [
+          1150.0,
+          1200.0,
+          1300.0,
+          1400.0
+        ],
+        "position": 3,
+        "spread": 1.22
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "tiara_of_selemene:cost",
+      "level": "max",
+      "question": "Сколько стоит Tiara of Selemene?",
+      "unit": "золота",
+      "distractors": [
+        1400,
+        1550,
+        1600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1700,
+      "entity": "Tiara of Selemene",
+      "all_values": [
+        1700
+      ],
+      "mc": {
+        "options": [
+          1400.0,
+          1550.0,
+          1600.0,
+          1700.0
+        ],
+        "position": 4,
+        "spread": 1.21
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "tranquil_boots:cost",
+      "level": "max",
+      "question": "Сколько стоят Tranquil Boots?",
+      "unit": "золота",
+      "distractors": [
+        950,
+        1025,
+        1100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 900,
+      "entity": "Tranquil Boots",
+      "all_values": [
+        900
+      ],
+      "mc": {
+        "options": [
+          900.0,
+          950.0,
+          1025.0,
+          1100.0
+        ],
+        "position": 1,
+        "spread": 1.22
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "travel_boots:cost",
+      "level": "max",
+      "question": "Сколько стоят Boots of Travel (первого уровня)?",
+      "unit": "золота",
+      "distractors": [
+        2250,
+        2700,
+        2900
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2500,
+      "entity": "Boots of Travel",
+      "all_values": [
+        2500
+      ],
+      "mc": {
+        "options": [
+          2250.0,
+          2500.0,
+          2700.0,
+          2900.0
+        ],
+        "position": 2,
+        "spread": 1.29
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "travel_boots_2:cost",
+      "level": "max",
+      "question": "Сколько в сумме стоят Boots of Travel 2?",
+      "unit": "золота",
+      "distractors": [
+        4100,
+        4300,
+        4750
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4500,
+      "entity": "Boots of Travel 2",
+      "all_values": [
+        4500
+      ],
+      "mc": {
+        "options": [
+          4100.0,
+          4300.0,
+          4500.0,
+          4750.0
+        ],
+        "position": 3,
+        "spread": 1.16
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ultimate_orb:cost",
+      "level": "max",
+      "question": "Сколько стоит Ultimate Orb?",
+      "unit": "золота",
+      "distractors": [
+        2450,
+        2600,
+        2700
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2800,
+      "entity": "Ultimate Orb",
+      "all_values": [
+        2800
+      ],
+      "mc": {
+        "options": [
+          2450.0,
+          2600.0,
+          2700.0,
+          2800.0
+        ],
+        "position": 4,
+        "spread": 1.14
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "ultimate_scepter:cost",
+      "level": "max",
+      "question": "Сколько стоит Aghanim's Scepter?",
+      "unit": "золота",
+      "distractors": [
+        4300,
+        4450,
+        4600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4200,
+      "entity": "Aghanim's Scepter",
+      "all_values": [
+        4200
+      ],
+      "mc": {
+        "options": [
+          4200.0,
+          4300.0,
+          4450.0,
+          4600.0
+        ],
+        "position": 1,
+        "spread": 1.1
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "urn_of_shadows:cost",
+      "level": "max",
+      "question": "Сколько стоит Urn of Shadows?",
+      "unit": "золота",
+      "distractors": [
+        725,
+        875,
+        950
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 825,
+      "entity": "Urn of Shadows",
+      "all_values": [
+        825
+      ],
+      "mc": {
+        "options": [
+          725.0,
+          825.0,
+          875.0,
+          950.0
+        ],
+        "position": 2,
+        "spread": 1.31
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "vanguard:cost",
+      "level": "max",
+      "question": "Сколько стоит Vanguard?",
+      "unit": "золота",
+      "distractors": [
+        1450,
+        1600,
+        1825
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1700,
+      "entity": "Vanguard",
+      "all_values": [
+        1700
+      ],
+      "mc": {
+        "options": [
+          1450.0,
+          1600.0,
+          1700.0,
+          1825.0
+        ],
+        "position": 3,
+        "spread": 1.26
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "veil_of_discord:cost",
+      "level": "max",
+      "question": "Сколько стоит Veil of Discord?",
+      "unit": "золота",
+      "distractors": [
+        1400,
+        1525,
+        1625
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1700,
+      "entity": "Veil of Discord",
+      "all_values": [
+        1700
+      ],
+      "mc": {
+        "options": [
+          1400.0,
+          1525.0,
+          1625.0,
+          1700.0
+        ],
+        "position": 4,
+        "spread": 1.21
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "vitality_booster:cost",
+      "level": "max",
+      "question": "Сколько стоит Vitality Booster?",
+      "unit": "золота",
+      "distractors": [
+        1100,
+        1150,
+        1300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 1000,
+      "entity": "Vitality Booster",
+      "all_values": [
+        1000
+      ],
+      "mc": {
+        "options": [
+          1000.0,
+          1100.0,
+          1150.0,
+          1300.0
+        ],
+        "position": 1,
+        "spread": 1.3
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "vladmir:cost",
+      "level": "max",
+      "question": "Сколько стоит Vladmir's Offering?",
+      "unit": "золота",
+      "distractors": [
+        1950,
+        2350,
+        2450
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2200,
+      "entity": "Vladmir's Offering",
+      "all_values": [
+        2200
+      ],
+      "mc": {
+        "options": [
+          1950.0,
+          2200.0,
+          2350.0,
+          2450.0
+        ],
+        "position": 2,
+        "spread": 1.26
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "void_stone:cost",
+      "level": "max",
+      "question": "Сколько стоит Void Stone?",
+      "unit": "золота",
+      "distractors": [
+        550,
+        650,
+        800
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 700,
+      "entity": "Void Stone",
+      "all_values": [
+        700
+      ],
+      "mc": {
+        "options": [
+          550.0,
+          650.0,
+          700.0,
+          800.0
+        ],
+        "position": 3,
+        "spread": 1.45
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "voodoo_mask:cost",
+      "level": "max",
+      "question": "Сколько стоит Voodoo Mask?",
+      "unit": "золота",
+      "distractors": [
+        475,
+        550,
+        600
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 650,
+      "entity": "Voodoo Mask",
+      "all_values": [
+        650
+      ],
+      "mc": {
+        "options": [
+          475.0,
+          550.0,
+          600.0,
+          650.0
+        ],
+        "position": 4,
+        "spread": 1.37
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "wind_lace:cost",
+      "level": "max",
+      "question": "Сколько стоит Wind Lace?",
+      "unit": "золота",
+      "distractors": [
+        175,
+        250,
+        300
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 225,
+      "entity": "Wind Lace",
+      "all_values": [
+        225
+      ],
+      "mc": {
+        "options": [
+          175.0,
+          225.0,
+          250.0,
+          300.0
+        ],
+        "position": 2,
+        "spread": 1.71
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "wind_waker:cost",
+      "level": "max",
+      "question": "Сколько стоит Wind Waker целиком?",
+      "unit": "золота",
+      "distractors": [
+        6300,
+        6500,
+        7100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 6800,
+      "entity": "Wind Waker",
+      "all_values": [
+        6800
+      ],
+      "mc": {
+        "options": [
+          6300.0,
+          6500.0,
+          6800.0,
+          7100.0
+        ],
+        "position": 3,
+        "spread": 1.13
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "witch_blade:cost",
+      "level": "max",
+      "question": "Сколько стоит Witch Blade?",
+      "unit": "золота",
+      "distractors": [
+        2475,
+        2600,
+        2700
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2775,
+      "entity": "Witch Blade",
+      "all_values": [
+        2775
+      ],
+      "mc": {
+        "options": [
+          2475.0,
+          2600.0,
+          2700.0,
+          2775.0
+        ],
+        "position": 4,
+        "spread": 1.12
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "wizard_hat:cost",
+      "level": "max",
+      "question": "Сколько стоит Wizard Hat?",
+      "unit": "золота",
+      "distractors": [
+        275,
+        325,
+        350
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 250,
+      "entity": "Wizard Hat",
+      "all_values": [
+        250
+      ],
+      "mc": {
+        "options": [
+          250.0,
+          275.0,
+          325.0,
+          350.0
+        ],
+        "position": 1,
+        "spread": 1.4
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "wraith_band:cost",
+      "level": "max",
+      "question": "Сколько стоит Wraith Band?",
+      "unit": "золота",
+      "distractors": [
+        455,
+        555,
+        605
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 505,
+      "entity": "Wraith Band",
+      "all_values": [
+        505
+      ],
+      "mc": {
+        "options": [
+          455.0,
+          505.0,
+          555.0,
+          605.0
+        ],
+        "position": 2,
+        "spread": 1.33
+      },
+      "flags": [
+        "варианты с одинаковым шагом"
+      ]
+    },
+    {
+      "fact_id": "yasha:cost",
+      "level": "max",
+      "question": "Сколько стоит Yasha?",
+      "unit": "золота",
+      "distractors": [
+        1800,
+        2000,
+        2250
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 2100,
+      "entity": "Yasha",
+      "all_values": [
+        2100
+      ],
+      "mc": {
+        "options": [
+          1800.0,
+          2000.0,
+          2100.0,
+          2250.0
+        ],
+        "position": 3,
+        "spread": 1.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "yasha_and_kaya:cost",
+      "level": "max",
+      "question": "Сколько стоит Yasha and Kaya целиком?",
+      "unit": "золота",
+      "distractors": [
+        3800,
+        3950,
+        4100
+      ],
+      "request": "opus-gall-items-0",
+      "answer": 4200,
+      "entity": "Yasha and Kaya",
+      "all_values": [
+        4200
+      ],
+      "mc": {
+        "options": [
+          3800.0,
+          3950.0,
+          4100.0,
+          4200.0
+        ],
+        "position": 4,
+        "spread": 1.11
+      },
+      "flags": []
+    }
+  ]
+}

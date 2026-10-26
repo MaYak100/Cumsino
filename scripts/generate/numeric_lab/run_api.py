@@ -19,7 +19,7 @@
   python scripts/generate/numeric_lab/resolve.py out/v3               # отчёт
 
 Выход в папке прогона: <модель>-g<размер>.json (формат resolve.py), usage.json, cost.md,
-копии sample.json и промпта. Требует ANTHROPIC_API_KEY (кроме --dry-run).
+копии sample.json и промпта. Требует NUMLAB_API_KEY или ANTHROPIC_API_KEY (кроме --dry-run).
 """
 
 import argparse
@@ -315,8 +315,11 @@ def main() -> None:
     if args.dry_run:
         return
 
+    import os
     import anthropic
-    client = anthropic.Anthropic()
+    # В облачном окружении имя ANTHROPIC_API_KEY занято платформой — ключ лежит в NUMLAB_API_KEY
+    client = anthropic.Anthropic(api_key=os.environ.get("NUMLAB_API_KEY") or os.environ.get("ANTHROPIC_API_KEY"),
+                                 base_url="https://api.anthropic.com")
     if args.estimate:
         estimate(client, requests, batch=not args.sync)
         return

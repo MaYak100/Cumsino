@@ -1,0 +1,2536 @@
+{
+ "patch": "7.41f",
+ "heroes": [
+  {
+   "hero": "Axe",
+   "aghanim": {
+    "scepter": "Counter Helix now applies a stacking debuff to enemies hit by it that causes them to deal less total attack damage to Axe. Counter Helix no longer has a cooldown and its counter advances when Axe attacks.",
+    "shard": "Multiple instances of Battle Hunger can stack on a single target."
+   },
+   "abilities": [
+    {
+     "key": "axe_berserkers_call",
+     "name": "Berserker's Call",
+     "role": "basic",
+     "desc": "Axe taunts nearby enemy units, forcing them to attack him while he gains bonus armor during the duration.",
+     "facts": [
+      {
+       "fact_id": "axe_berserkers_call:cd",
+       "label": "COOLDOWN",
+       "values": [
+        18,
+        16,
+        14,
+        12
+       ]
+      },
+      {
+       "fact_id": "axe_berserkers_call:bonus_armor",
+       "label": "BONUS ARMOR",
+       "values": [
+        12,
+        13,
+        14,
+        15
+       ]
+      },
+      {
+       "fact_id": "axe_berserkers_call:duration",
+       "label": "DURATION",
+       "values": [
+        2.1,
+        2.4,
+        2.7,
+        3
+       ]
+      }
+     ]
+    },
+    {
+     "key": "axe_battle_hunger",
+     "name": "Battle Hunger",
+     "role": "basic",
+     "desc": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The enemy is slowed as long as they are facing away from Axe.",
+     "facts": [
+      {
+       "fact_id": "axe_battle_hunger:cd",
+       "label": "COOLDOWN",
+       "values": [
+        20,
+        15,
+        10,
+        5
+       ]
+      },
+      {
+       "fact_id": "axe_battle_hunger:duration",
+       "label": "DURATION",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "axe_battle_hunger:slow",
+       "label": "MOVEMENT SLOW",
+       "values": [
+        18,
+        22,
+        26,
+        30
+       ]
+      },
+      {
+       "fact_id": "axe_battle_hunger:damage_per_second",
+       "label": "DAMAGE PER SECOND",
+       "values": [
+        12,
+        16,
+        20,
+        24
+       ]
+      }
+     ]
+    },
+    {
+     "key": "axe_counter_helix",
+     "name": "Counter Helix",
+     "role": "basic",
+     "desc": "After a set number of attacks, Axe will perform a helix counter attack, dealing pure damage to all nearby enemies.",
+     "facts": [
+      {
+       "fact_id": "axe_counter_helix:cd",
+       "label": "COOLDOWN",
+       "values": [
+        0.3
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:damage",
+       "label": "DAMAGE",
+       "values": [
+        100,
+        120,
+        140,
+        160
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:trigger_attacks",
+       "label": "ATTACKS TO HELIX",
+       "values": [
+        7,
+        6,
+        5,
+        4
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:AbilityCooldown@scepter",
+       "label": "COOLDOWN — прибавка от Aghanim's Scepter",
+       "values": [
+        0.3
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:debuff_duration@scepter",
+       "label": "debuff_duration — значение с Aghanim's Scepter",
+       "values": [
+        6
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:damage_reduction@scepter",
+       "label": "damage_reduction — значение с Aghanim's Scepter",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:max_stacks@scepter",
+       "label": "max_stacks — значение с Aghanim's Scepter",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "axe_counter_helix:attacks_increase_counter@scepter",
+       "label": "attacks_increase_counter — значение с Aghanim's Scepter",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "axe_culling_blade",
+     "name": "Culling Blade",
+     "role": "ultimate",
+     "desc": "Axe spots a weakness and strikes, dealing pure damage. When an enemy hero is killed with Culling Blade, its cooldown is reset, and all nearby allied units gain bonus movement speed and armor.\n\nAxe permanently drenches his blade every time he kills an enemy Hero with Culling Blade, gaining bonus armor for each stack.",
+     "facts": [
+      {
+       "fact_id": "axe_culling_blade:cd",
+       "label": "COOLDOWN",
+       "values": [
+        80,
+        75,
+        70
+       ]
+      },
+      {
+       "fact_id": "axe_culling_blade:damage",
+       "label": "DAMAGE",
+       "values": [
+        275,
+        375,
+        475
+       ]
+      },
+      {
+       "fact_id": "axe_culling_blade:speed_bonus",
+       "label": "KILL MOVE SPEED BONUS",
+       "values": [
+        20,
+        25,
+        30
+       ]
+      },
+      {
+       "fact_id": "axe_culling_blade:armor_bonus",
+       "label": "KILL ARMOR BONUS",
+       "values": [
+        10,
+        15,
+        20
+       ]
+      },
+      {
+       "fact_id": "axe_culling_blade:armor_per_stack",
+       "label": "ARMOR PER STACK",
+       "values": [
+        1,
+        1.5,
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "axe_one_man_army",
+     "name": "One Man Army",
+     "role": "innate",
+     "desc": "Axe gains Strength based on 50% of his Armor as long as there are no allied heroes within 700 distance from Axe. The effect fades over 3s after approaching an ally.",
+     "facts": [
+      {
+       "fact_id": "axe_one_man_army:armor_pct_as_strength",
+       "label": "ARMOR PCT AS STRENGTH",
+       "values": [
+        50
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "axe_one_man_army:bonus_linger_duration",
+       "label": "BONUS LINGER DURATION",
+       "values": [
+        3
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Tusk",
+   "aghanim": {
+    "scepter": "Kicks the closest enemy unit in the drawn direction, stunning, damaging, and slowing them. Also deals damage to all heroes within 250 radius of its landing area. Cooldown is reduced by 50% if kicking a creep.",
+    "shard": "Tusk reaches out to tag an allied unit, pulling them closer. Once tagged, both Tusk and his tagged ally gain movement speed and armor."
+   },
+   "abilities": [
+    {
+     "key": "tusk_ice_shards",
+     "name": "Ice Shards",
+     "role": "basic",
+     "desc": "Tusk compresses shards of ice into a ball of frozen energy that damages all enemies it comes in contact with. When the ball reaches its target destination the shards are released, creating a barrier that lasts for 4 seconds.",
+     "facts": [
+      {
+       "fact_id": "tusk_ice_shards:cd",
+       "label": "COOLDOWN",
+       "values": [
+        23,
+        20,
+        17,
+        14
+       ]
+      },
+      {
+       "fact_id": "tusk_ice_shards:shard_damage",
+       "label": "SHARD DAMAGE",
+       "values": [
+        75,
+        150,
+        225,
+        300
+       ]
+      },
+      {
+       "fact_id": "tusk_ice_shards:shard_count",
+       "label": "SHARD COUNT",
+       "values": [
+        7
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "tusk_ice_shards:shard_duration",
+       "label": "SHARD DURATION",
+       "values": [
+        4,
+        5,
+        6,
+        7
+       ]
+      },
+      {
+       "fact_id": "tusk_ice_shards:shard_angle_step",
+       "label": "SHARD ANGLE STEP",
+       "values": [
+        40
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "tusk_snowball",
+     "name": "Snowball",
+     "role": "basic",
+     "desc": "Tusk begins rolling into a snowball. Allies within a 325 radius can also be added to the snowball by right-clicking on them, even while the snowball is moving. Once launched, any enemies caught in the snowball's path will be stunned and take damage. Each allied Hero in the snowball will add to its damage and stun duration.",
+     "facts": [
+      {
+       "fact_id": "tusk_snowball:cd",
+       "label": "COOLDOWN",
+       "values": [
+        21,
+        19,
+        17,
+        15
+       ]
+      },
+      {
+       "fact_id": "tusk_snowball:snowball_damage",
+       "label": "BASE DAMAGE",
+       "values": [
+        80,
+        140,
+        200,
+        260
+       ]
+      },
+      {
+       "fact_id": "tusk_snowball:snowball_damage_bonus",
+       "label": "BONUS DAMAGE PER ALLY",
+       "values": [
+        40,
+        65,
+        90,
+        115
+       ]
+      },
+      {
+       "fact_id": "tusk_snowball:stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        0.6,
+        0.8,
+        1,
+        1.2
+       ]
+      },
+      {
+       "fact_id": "tusk_snowball:stun_duration_bonus",
+       "label": "STUN DURATION PER ALLY",
+       "values": [
+        0.2
+       ]
+      },
+      {
+       "fact_id": "tusk_snowball:snowball_duration",
+       "label": "SNOWBALL DURATION",
+       "values": [
+        3
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "tusk_snowball:snowball_grow_rate",
+       "label": "SNOWBALL GROW RATE",
+       "values": [
+        40
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "tusk_snowball:snowball_windup",
+       "label": "LAUNCH TIME",
+       "values": [
+        3
+       ]
+      }
+     ]
+    },
+    {
+     "key": "tusk_tag_team",
+     "name": "Tag Team",
+     "role": "basic",
+     "desc": "Activate to temporarily apply a negative debuff aura around you, causing enemies that are attacked under it to take bonus physical damage and reduced movement speed. Lasts 6 seconds.",
+     "facts": [
+      {
+       "fact_id": "tusk_tag_team:cd",
+       "label": "COOLDOWN",
+       "values": [
+        24,
+        21,
+        18,
+        15
+       ]
+      },
+      {
+       "fact_id": "tusk_tag_team:bonus_damage",
+       "label": "BONUS DAMAGE",
+       "values": [
+        25,
+        50,
+        75,
+        100
+       ]
+      },
+      {
+       "fact_id": "tusk_tag_team:movement_slow",
+       "label": "MOVEMENT SLOW",
+       "values": [
+        75
+       ]
+      },
+      {
+       "fact_id": "tusk_tag_team:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "tusk_tag_team:debuff_duration",
+       "label": "DEBUFF DURATION",
+       "values": [
+        6
+       ]
+      }
+     ]
+    },
+    {
+     "key": "tusk_drinking_buddies",
+     "name": "Drinking Buddies",
+     "role": "shard",
+     "desc": "Tusk reaches out to tag an allied unit, pulling them closer. Once tagged, both Tusk and his tagged ally gain movement speed and armor.",
+     "facts": [
+      {
+       "fact_id": "tusk_drinking_buddies:cd",
+       "label": "COOLDOWN",
+       "values": [
+        14
+       ]
+      },
+      {
+       "fact_id": "tusk_drinking_buddies:buff_duration",
+       "label": "BUFF DURATION",
+       "values": [
+        6
+       ]
+      },
+      {
+       "fact_id": "tusk_drinking_buddies:pull_duration",
+       "label": "PULL DURATION",
+       "values": [
+        0.2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "tusk_drinking_buddies:movespeed_bonus",
+       "label": "BONUS MOVEMENT SPEED",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "tusk_drinking_buddies:armor_bonus",
+       "label": "BONUS ARMOR",
+       "values": [
+        7
+       ]
+      }
+     ]
+    },
+    {
+     "key": "tusk_walrus_kick",
+     "name": "Walrus Kick",
+     "role": "scepter",
+     "desc": "Kicks the closest enemy unit in the drawn direction, stunning, damaging, and slowing them. Also deals damage to all heroes within 250 radius of its landing area. Cooldown is reduced by 50% if kicking a creep.",
+     "facts": [
+      {
+       "fact_id": "tusk_walrus_kick:cd",
+       "label": "COOLDOWN",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_kick:air_time",
+       "label": "AIR TIME",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "tusk_walrus_kick:move_slow",
+       "label": "MOVE SLOW",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_kick:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_kick:damage",
+       "label": "DAMAGE",
+       "values": [
+        550
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_kick:creep_cooldown_reduction_pct",
+       "label": "CREEP COOLDOWN REDUCTION PCT",
+       "values": [
+        50
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "tusk_walrus_punch",
+     "name": "Walrus PUNCH!",
+     "role": "ultimate",
+     "desc": "Tusk connects with his mighty Walrus Punch, a critical strike with bonus damage so powerful it launches its victim into the air.",
+     "facts": [
+      {
+       "fact_id": "tusk_walrus_punch:cd",
+       "label": "COOLDOWN",
+       "values": [
+        16,
+        13,
+        10
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_punch:bonus_damage",
+       "label": "BONUS DAMAGE",
+       "values": [
+        60,
+        90,
+        120
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_punch:crit_multiplier",
+       "label": "CRITICAL DAMAGE",
+       "values": [
+        200,
+        250,
+        300
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_punch:air_time",
+       "label": "AIR TIME",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "tusk_walrus_punch:push_length",
+       "label": "PUSH LENGTH",
+       "values": [
+        1000
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "tusk_bitter_chill",
+     "name": "Bitter Chill",
+     "role": "innate",
+     "desc": "Passively slows the attack speed of all enemy heroes within a 350 unit radius.",
+     "facts": [
+      {
+       "fact_id": "tusk_bitter_chill:attack_speed_slow",
+       "label": "ATTACK SLOW",
+       "values": [
+        12
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Leshrac",
+   "aghanim": {
+    "scepter": "Causes Leshrac and all nearby enemies to turn ethereal, preventing them from attacking, slowing them, and making them take more magic damage. Increases Leshrac's speed rather than reducing it. Does not cause Leshrac to take amplified damage.",
+    "shard": "Causes Split Earth to repeat in the same location 2 additional times, with a 5 second delay between each one. Each time the radius increases by 45. Split Earth echo location is visible to both teams."
+   },
+   "abilities": [
+    {
+     "key": "leshrac_split_earth",
+     "name": "Split Earth",
+     "role": "basic",
+     "desc": "Splits the earth under enemies. Deals damage and stuns for a short duration.",
+     "facts": [
+      {
+       "fact_id": "leshrac_split_earth:cd",
+       "label": "COOLDOWN",
+       "values": [
+        11
+       ]
+      },
+      {
+       "fact_id": "leshrac_split_earth:delay",
+       "label": "STUN DELAY",
+       "values": [
+        0.35
+       ]
+      },
+      {
+       "fact_id": "leshrac_split_earth:duration",
+       "label": "STUN DURATION",
+       "values": [
+        1.7
+       ]
+      },
+      {
+       "fact_id": "leshrac_split_earth:abilityduration",
+       "label": "DURATION",
+       "values": [
+        1.6
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "leshrac_split_earth:shard_max_count@shard",
+       "label": "shard_max_count — значение с Aghanim's Shard",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "leshrac_split_earth:shard_secondary_delay@shard",
+       "label": "shard_secondary_delay — значение с Aghanim's Shard",
+       "values": [
+        5
+       ]
+      }
+     ]
+    },
+    {
+     "key": "leshrac_diabolic_edict",
+     "name": "Diabolic Edict",
+     "role": "basic",
+     "desc": "Saturates the area around Leshrac with magical explosions that deal pure damage to enemy units and buildings. The fewer units available to attack, the more damage those units will take.",
+     "facts": [
+      {
+       "fact_id": "leshrac_diabolic_edict:cd",
+       "label": "COOLDOWN",
+       "values": [
+        22,
+        21,
+        20,
+        19
+       ]
+      },
+      {
+       "fact_id": "leshrac_diabolic_edict:num_explosions",
+       "label": "EXPLOSIONS",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "leshrac_diabolic_edict:affects_buildings",
+       "label": "AFFECTS BUILDINGS",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "leshrac_diabolic_edict:damage",
+       "label": "DAMAGE PER EXPLOSION",
+       "values": [
+        9,
+        16,
+        23,
+        30
+       ]
+      },
+      {
+       "fact_id": "leshrac_diabolic_edict:targets",
+       "label": "TARGETS PER EXPLOSION",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "leshrac_diabolic_edict:abilityduration",
+       "label": "DURATION",
+       "values": [
+        8
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "leshrac_lightning_storm",
+     "name": "Lightning Storm",
+     "role": "basic",
+     "desc": "Summons a lightning storm that blasts the target enemy unit, then strikes any nearby enemy units. Struck enemies have their move speed slowed.",
+     "facts": [
+      {
+       "fact_id": "leshrac_lightning_storm:cd",
+       "label": "COOLDOWN",
+       "values": [
+        4
+       ]
+      },
+      {
+       "fact_id": "leshrac_lightning_storm:damage",
+       "label": "DAMAGE",
+       "values": [
+        90,
+        140,
+        190,
+        240
+       ]
+      },
+      {
+       "fact_id": "leshrac_lightning_storm:jump_count",
+       "label": "LIGHTNING STRIKES",
+       "values": [
+        5,
+        7,
+        9,
+        11
+       ]
+      },
+      {
+       "fact_id": "leshrac_lightning_storm:jump_delay",
+       "label": "JUMP DELAY",
+       "values": [
+        0.25
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "leshrac_lightning_storm:movespeed_slow",
+       "label": "MOVEMENT SLOW",
+       "values": [
+        75
+       ]
+      },
+      {
+       "fact_id": "leshrac_lightning_storm:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        0.45,
+        0.7,
+        0.95,
+        1.2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "leshrac_greater_lightning_storm",
+     "name": "Nihilism",
+     "role": "scepter",
+     "desc": "Causes Leshrac and all nearby enemies to turn ethereal, preventing them from attacking, slowing them, and making them take more magic damage. Increases Leshrac's speed rather than reducing it. Does not cause Leshrac to take amplified damage.",
+     "facts": [
+      {
+       "fact_id": "leshrac_greater_lightning_storm:cd",
+       "label": "COOLDOWN",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "leshrac_greater_lightning_storm:duration",
+       "label": "DURATION",
+       "values": [
+        4
+       ]
+      },
+      {
+       "fact_id": "leshrac_greater_lightning_storm:magic_amp",
+       "label": "INCREASED MAGIC DAMAGE",
+       "values": [
+        30
+       ]
+      },
+      {
+       "fact_id": "leshrac_greater_lightning_storm:slow",
+       "label": "SLOW",
+       "values": [
+        40
+       ]
+      }
+     ]
+    },
+    {
+     "key": "leshrac_pulse_nova",
+     "name": "Pulse Nova",
+     "role": "ultimate",
+     "desc": "Creates waves of damaging energy around Leshrac, one per second, to damage nearby enemy units. Drains Leshrac's mana with each pulse.",
+     "facts": [
+      {
+       "fact_id": "leshrac_pulse_nova:cd",
+       "label": "COOLDOWN",
+       "values": [
+        1
+       ]
+      },
+      {
+       "fact_id": "leshrac_pulse_nova:damage",
+       "label": "DAMAGE",
+       "values": [
+        80,
+        135,
+        180
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Bounty Hunter",
+   "aghanim": {
+    "scepter": "Increases cast range and applies Jinada on hit.",
+    "shard": "Applies Shadow Walk and all of its bonuses to the target ally. Allied fade time is 0.5s. Does not break Bounty Hunter's invisibility when cast."
+   },
+   "abilities": [
+    {
+     "key": "bounty_hunter_shuriken_toss",
+     "name": "Shuriken Toss",
+     "role": "basic",
+     "desc": "Hurls a deadly shuriken at an enemy unit, dealing damage and slowing the target's movement speed. The shuriken will bounce to any Tracked units who are within a 1200 radius of each other.",
+     "facts": [
+      {
+       "fact_id": "bounty_hunter_shuriken_toss:cd",
+       "label": "COOLDOWN",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_shuriken_toss:bonus_damage",
+       "label": "DAMAGE",
+       "values": [
+        100,
+        170,
+        240,
+        310
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_shuriken_toss:slow_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        0.35
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_shuriken_toss:slow",
+       "label": "SLOW",
+       "values": [
+        100
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_shuriken_toss:scepter_cooldown@scepter",
+       "label": "scepter_cooldown — значение с Aghanim's Scepter",
+       "values": [
+        6
+       ]
+      }
+     ]
+    },
+    {
+     "key": "bounty_hunter_jinada",
+     "name": "Jinada",
+     "role": "basic",
+     "desc": "Bounty Hunter plans his next hit, dealing bonus damage and stealing some unreliable gold.",
+     "facts": [
+      {
+       "fact_id": "bounty_hunter_jinada:cd",
+       "label": "COOLDOWN",
+       "values": [
+        9,
+        7,
+        5,
+        3
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_jinada:bonus_damage",
+       "label": "BONUS DAMAGE",
+       "values": [
+        70,
+        105,
+        140,
+        175
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_jinada:gold_steal",
+       "label": "GOLD STEAL",
+       "values": [
+        15,
+        22,
+        29,
+        36
+       ]
+      }
+     ]
+    },
+    {
+     "key": "bounty_hunter_wind_walk",
+     "name": "Shadow Walk",
+     "role": "basic",
+     "desc": "Bounty Hunter becomes invisible and gains bonus movement speed and the ability to move through other units until he attacks or casts a spell. If he breaks the invisibility with an attack, that attack will stun the target for a short duration.",
+     "facts": [
+      {
+       "fact_id": "bounty_hunter_wind_walk:cd",
+       "label": "COOLDOWN",
+       "values": [
+        18,
+        17,
+        16,
+        15
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:duration",
+       "label": "INVISIBILITY DURATION",
+       "values": [
+        20,
+        25,
+        30,
+        35
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:fade_time",
+       "label": "FADE TIME",
+       "values": [
+        1,
+        0.75,
+        0.5,
+        0.25
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:stun_duration",
+       "label": "STUN DURATION",
+       "values": [
+        1,
+        1.2,
+        1.4,
+        1.6
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:bonus_move_speed_pct",
+       "label": "BONUS SPEED",
+       "values": [
+        11,
+        14,
+        17,
+        20
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:AbilityCooldown@shard",
+       "label": "COOLDOWN — прибавка от Aghanim's Shard",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:AbilityChargeRestoreTime@shard",
+       "label": "AbilityChargeRestoreTime — значение с Aghanim's Shard",
+       "values": [
+        15,
+        14,
+        13,
+        12
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk:ally_fade_time@shard",
+       "label": "ally_fade_time — значение с Aghanim's Shard",
+       "values": [
+        0.5
+       ]
+      }
+     ]
+    },
+    {
+     "key": "bounty_hunter_wind_walk_ally",
+     "name": "Friendly Shadow",
+     "role": "shard",
+     "desc": "Applies Shadow Walk and all of its bonuses to the target ally. Allied fade time is 0.5s. Does not break Bounty Hunter's invisibility when cast.",
+     "facts": [
+      {
+       "fact_id": "bounty_hunter_wind_walk_ally:cd",
+       "label": "COOLDOWN",
+       "values": [
+        15
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_wind_walk_ally:fade_time",
+       "label": "FADE TIME",
+       "values": [
+        0.5
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "bounty_hunter_big_game_hunter",
+     "name": "Big Game Hunter",
+     "role": "innate",
+     "desc": "Bounty Hunter receives 20% more kill and assist gold if the dying enemy hero is Big Game. An enemy hero is considered Big Game if they are one of the top 3 net worth heroes on the enemy team.",
+     "facts": [
+      {
+       "fact_id": "bounty_hunter_big_game_hunter:kill_assist_gold_bonus_percent",
+       "label": "KILL ASSIST GOLD BONUS PERCENT",
+       "values": [
+        20
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "bounty_hunter_track",
+     "name": "Track",
+     "role": "ultimate",
+     "desc": "Tracks an enemy hero, granting True Sight of the target, increasing the damage they take and providing information on how much gold it is carrying. If the target dies, Bounty Hunter and nearby heroes collect a bonus bounty of gold. Casting Track does not take you out of invisibility.",
+     "facts": [
+      {
+       "fact_id": "bounty_hunter_track:cd",
+       "label": "COOLDOWN",
+       "values": [
+        6,
+        5,
+        4
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_track:target_damage_amp",
+       "label": "DAMAGE AMPLIFICATION",
+       "values": [
+        8,
+        12,
+        16
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_track:bonus_gold_self",
+       "label": "SELF BONUS GOLD",
+       "values": [
+        80,
+        160,
+        240
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_track:bonus_gold",
+       "label": "ALLIES BONUS GOLD",
+       "values": [
+        40,
+        80,
+        120
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_track:duration",
+       "label": "DURATION",
+       "values": [
+        25
+       ]
+      },
+      {
+       "fact_id": "bounty_hunter_track:gold_steal",
+       "label": "GOLD STEAL",
+       "values": [
+        0.3,
+        0.4,
+        0.5
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Faceless Void",
+   "aghanim": {
+    "scepter": "Available for 1.5 seconds after landing Time Walk. If used in this period, you will reverse your time walk back to your previous cast location. Does not affect health or proc scepter hits.",
+    "shard": "Increases slow per stack. Provides Faceless Void with stacks that increase his attack and movement speed. Amount of stacks is equal to the total amount of Time Dilation stacks applied to enemies at the moment of the cast and linearly fades out over the duration."
+   },
+   "abilities": [
+    {
+     "key": "faceless_void_time_walk",
+     "name": "Time Walk",
+     "role": "basic",
+     "desc": "Rushes to a target location while backtracking any damage taken the last 2 seconds.",
+     "facts": [
+      {
+       "fact_id": "faceless_void_time_walk:cd",
+       "label": "COOLDOWN",
+       "values": [
+        21,
+        16,
+        11,
+        6
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_walk:backtrack_duration",
+       "label": "BACKTRACK DURATION",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_walk:dodge_chance_pct",
+       "label": "DODGE CHANCE PCT",
+       "values": [
+        100
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "faceless_void_time_dilation",
+     "name": "Time Dilation",
+     "role": "basic",
+     "desc": "Faceless Void envelops nearby enemies with time dilating fields to slow cooldown progression of their abilities. Each enveloped enemy gains one Time Dilation stack when applied, and one stack per ability they have on cooldown. Each stack deals damage per second and slows movement and attack speed. The duration is paused while affected by Chronosphere.",
+     "facts": [
+      {
+       "fact_id": "faceless_void_time_dilation:cd",
+       "label": "COOLDOWN",
+       "values": [
+        28,
+        24,
+        20,
+        16
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:duration",
+       "label": "DURATION",
+       "values": [
+        7,
+        8,
+        9,
+        10
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:slow",
+       "label": "MOVEMENT SLOW PER STACK",
+       "values": [
+        4,
+        5,
+        6,
+        7
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:attack_slow_tooltip_only",
+       "label": "ATTACK SLOW PER STACK",
+       "values": [
+        4,
+        5,
+        6,
+        7
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:cooldown_percentage",
+       "label": "COOLDOWN PROGRESSION SLOW",
+       "values": [
+        30,
+        40,
+        50,
+        60
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:damage_per_stack",
+       "label": "BONUS DPS PER STACK",
+       "values": [
+        4,
+        6,
+        8,
+        10
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:slow@shard",
+       "label": "MOVEMENT SLOW PER STACK — прибавка от Aghanim's Shard",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:attack_slow_tooltip_only@shard",
+       "label": "ATTACK SLOW PER STACK — прибавка от Aghanim's Shard",
+       "values": [
+        5
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_dilation:self_buff@shard",
+       "label": "self_buff — значение с Aghanim's Shard",
+       "values": [
+        1
+       ]
+      }
+     ]
+    },
+    {
+     "key": "faceless_void_time_lock",
+     "name": "Time Lock",
+     "role": "basic",
+     "desc": "Adds the chance for an attack to lock an enemy unit in time while attacking it a second time.",
+     "facts": [
+      {
+       "fact_id": "faceless_void_time_lock:duration",
+       "label": "DURATION",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_lock:duration_creep",
+       "label": "DURATION CREEP",
+       "values": [
+        0.5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "faceless_void_time_lock:chance_pct",
+       "label": "CHANCE",
+       "values": [
+        12,
+        16,
+        20,
+        24
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_lock:bonus_damage",
+       "label": "BONUS DAMAGE",
+       "values": [
+        18,
+        22,
+        26,
+        30
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_lock:delay",
+       "label": "DELAY",
+       "values": [
+        0.4
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "faceless_void_time_walk_reverse",
+     "name": "Reverse Time Walk",
+     "role": "scepter",
+     "desc": "Available for 1.5 seconds after landing Time Walk. If used in this period, you will reverse your time walk back to your previous cast location. Does not affect health or proc scepter hits.",
+     "facts": [
+      {
+       "fact_id": "faceless_void_time_walk_reverse:cd",
+       "label": "COOLDOWN",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "faceless_void_time_walk_reverse:buff_duration",
+       "label": "BUFF DURATION",
+       "values": [
+        3000
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "faceless_void_distortion_field",
+     "name": "Distortion Field",
+     "role": "innate",
+     "desc": "Enemy Attack Projectiles targetting Faceless Void or allied heroes within a 1200 radius of him get slowed by 40%, when they get within 500 distance of their target.",
+     "facts": [
+      {
+       "fact_id": "faceless_void_distortion_field:attack_projectile_slow",
+       "label": "ATTACK PROJECTILE SLOW",
+       "values": [
+        40
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "faceless_void_chronosphere",
+     "name": "Chronosphere",
+     "role": "ultimate",
+     "desc": "Creates a blister in spacetime, trapping all units caught in its sphere of influence and causes you to move very quickly inside it. Only Faceless Void and any units he controls are unaffected. Invisible enemies in the sphere will be revealed.",
+     "facts": [
+      {
+       "fact_id": "faceless_void_chronosphere:cd",
+       "label": "COOLDOWN",
+       "values": [
+        155,
+        145,
+        135
+       ]
+      },
+      {
+       "fact_id": "faceless_void_chronosphere:duration",
+       "label": "DURATION",
+       "values": [
+        3.75,
+        4.25,
+        4.75
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "hero": "Kez",
+   "aghanim": {
+    "scepter": "Casting a weapon ability that would set its alternate weapon ability on cooldown does not do so if it's the first one used within 3 seconds after casting Switch Discipline or if it was already on cooldown.\n\nCasting any weapon ability refreshes the cooldown of Switch Discipline.",
+    "shard": "Parrying creates a stronger Mark that deals additional stun and critical damage."
+   },
+   "abilities": [
+    {
+     "key": "kez_echo_slash",
+     "name": "Echo Slash",
+     "role": "basic",
+     "desc": "Kez slashes forward in a 800 distance line with his Katana, attacking enemies in an area and applying a brief 100% impact slow. After a short delay, the area is attacked again. Heroes take bonus damage.",
+     "facts": [
+      {
+       "fact_id": "kez_echo_slash:cd",
+       "label": "COOLDOWN",
+       "values": [
+        21,
+        18,
+        15,
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_echo_slash:katana_echo_damage",
+       "label": "ATTACK DAMAGE",
+       "values": [
+        70,
+        80,
+        90,
+        100
+       ]
+      },
+      {
+       "fact_id": "kez_echo_slash:echo_hero_damage",
+       "label": "BONUS HERO DAMAGE",
+       "values": [
+        20,
+        40,
+        60,
+        80
+       ]
+      },
+      {
+       "fact_id": "kez_echo_slash:katana_strikes",
+       "label": "ATTACKS",
+       "values": [
+        2
+       ]
+      },
+      {
+       "fact_id": "kez_echo_slash:strike_interval",
+       "label": "ECHO DELAY",
+       "values": [
+        1.2
+       ]
+      },
+      {
+       "fact_id": "kez_echo_slash:tag_slow",
+       "label": "TAG SLOW",
+       "values": [
+        100
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_echo_slash:tag_slow_duration",
+       "label": "TAG SLOW DURATION",
+       "values": [
+        0.25
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "kez_grappling_claw",
+     "name": "Grappling Claw",
+     "role": "basic",
+     "desc": "Kez swings on a grappling hook towards the target unit or tree. When the grappling hook collides with the target, that unit has slowed movement speed. Upon reaching the enemy target, Kez lands an attack on them.",
+     "facts": [
+      {
+       "fact_id": "kez_grappling_claw:cd",
+       "label": "COOLDOWN",
+       "values": [
+        13,
+        11,
+        9,
+        7
+       ]
+      },
+      {
+       "fact_id": "kez_grappling_claw:debuff_duration",
+       "label": "SLOW DURATION",
+       "values": [
+        0.7,
+        0.8,
+        0.9,
+        1
+       ]
+      },
+      {
+       "fact_id": "kez_grappling_claw:katana_ms_slow_pct",
+       "label": "MOVE SLOW",
+       "values": [
+        70,
+        80,
+        90,
+        100
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kez_kazurai_katana",
+     "name": "Kazurai Katana",
+     "role": "basic",
+     "desc": "Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of the original attack's damage as additional damage over time. \n\nKez may activate the ability to impale the target with his attack, preventing them from moving or turning. The target's Katana debuff bursts, causing some of the stacks to deal damage instantly.",
+     "facts": [
+      {
+       "fact_id": "kez_kazurai_katana:cd",
+       "label": "COOLDOWN",
+       "values": [
+        24,
+        18,
+        12,
+        6
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:katana_bleed_duration",
+       "label": "DURATION",
+       "values": [
+        7
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:katana_bleed_attack_damage_pct",
+       "label": "DAMAGE PER SECOND",
+       "values": [
+        3,
+        6,
+        9,
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:impale_duration",
+       "label": "IMPALE DURATION",
+       "values": [
+        0.5
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:bleed_as_rupture_pct",
+       "label": "STACKS AS BURST DAMAGE",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:max_stacks",
+       "label": "MAX BURST STACKS",
+       "values": [
+        500
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:bleed_as_rupture_pct@shard",
+       "label": "STACKS AS BURST DAMAGE — прибавка от Aghanim's Shard",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:lifesteal_pct@shard",
+       "label": "LIFESTEAL PCT — значение с Aghanim's Shard",
+       "values": [
+        100
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:creep_lifesteal_reduction_pct@shard",
+       "label": "CREEP LIFESTEAL REDUCTION PCT — значение с Aghanim's Shard",
+       "values": [
+        40
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:max_stacks@shard",
+       "label": "MAX BURST STACKS — прибавка от Aghanim's Shard",
+       "values": [
+        500
+       ]
+      },
+      {
+       "fact_id": "kez_kazurai_katana:backstab_angle@shard",
+       "label": "BACKSTAB ANGLE — значение с Aghanim's Shard",
+       "values": [
+        105
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kez_switch_weapons",
+     "name": "Switch Discipline",
+     "role": "innate",
+     "desc": "Kez switches between his Kazurai Katana and Shodo Sai.\n\nHe gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown.\n\nKez deals extra damage on the first Katana hit or ability after switching to Katana, and gains bonus speed after switching to Sai.",
+     "facts": [
+      {
+       "fact_id": "kez_switch_weapons:cd",
+       "label": "COOLDOWN",
+       "values": [
+        8
+       ]
+      },
+      {
+       "fact_id": "kez_switch_weapons:katana_base_attack_time",
+       "label": "KATANA BASE ATTACK TIME",
+       "values": [
+        1.9
+       ]
+      },
+      {
+       "fact_id": "kez_switch_weapons:katana_agility_bonus_base_damage",
+       "label": "KATANA BONUS AGILITY BASE DAMAGE",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_switch_weapons:katana_swap_bonus_damage",
+       "label": "KATANA SWAP BONUS DAMAGE",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_switch_weapons:sai_base_attack_time",
+       "label": "SAI BASE ATTACK TIME",
+       "values": [
+        1.5
+       ]
+      },
+      {
+       "fact_id": "kez_switch_weapons:sai_swap_bonus_movement_speed",
+       "label": "SAI SWAP MOVEMENT SPEED",
+       "values": [
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_switch_weapons:scepter_cooldown_timer",
+       "label": "SCEPTER COOLDOWN TIMER",
+       "values": [
+        3
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "kez_raptor_dance",
+     "name": "Raptor Dance",
+     "role": "ultimate",
+     "desc": "Kez enters into an uncontrollable state for 1 second, becoming invulnerable for 0.2s and receiving a basic dispel.\n\nIf the cast completes successfully, Kez performs a series of deadly radial slashes around him that deal damage based on the max health of the target and heal Kez for a percentage of all damage dealt.",
+     "facts": [
+      {
+       "fact_id": "kez_raptor_dance:cd",
+       "label": "COOLDOWN",
+       "values": [
+        40,
+        35,
+        30
+       ]
+      },
+      {
+       "fact_id": "kez_raptor_dance:strike_interval",
+       "label": "STRIKE INTERVAL",
+       "values": [
+        0.25
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_raptor_dance:strikes",
+       "label": "STRIKES",
+       "values": [
+        4
+       ]
+      },
+      {
+       "fact_id": "kez_raptor_dance:base_damage",
+       "label": "BASE DAMAGE",
+       "values": [
+        40,
+        70,
+        100
+       ]
+      },
+      {
+       "fact_id": "kez_raptor_dance:max_health_damage_pct",
+       "label": "MAX HEALTH AS DAMAGE",
+       "values": [
+        2.5
+       ]
+      },
+      {
+       "fact_id": "kez_raptor_dance:lifesteal_pct",
+       "label": "LIFESTEAL PCT",
+       "values": [
+        100
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_raptor_dance:illusion_lifesteal_pct",
+       "label": "ILLUSION LIFESTEAL PCT",
+       "values": [
+        20
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_raptor_dance:invuln_period",
+       "label": "INVULN PERIOD",
+       "values": [
+        0.2
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_raptor_dance:basic_dispel",
+       "label": "BASIC DISPEL",
+       "values": [
+        1
+       ],
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "key": "kez_falcon_rush",
+     "name": "Falcon Rush",
+     "role": "basic",
+     "desc": "Kez gains the ability to rush towards enemy targets to deliver echoing secondary attacks. While in this state, Kez has phased collision and slow resistance.",
+     "facts": [
+      {
+       "fact_id": "kez_falcon_rush:cd",
+       "label": "COOLDOWN",
+       "values": [
+        21,
+        18,
+        15,
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_falcon_rush:base_echo_damage",
+       "label": "ECHO ATTACK DAMAGE",
+       "values": [
+        30,
+        35,
+        40,
+        45
+       ]
+      },
+      {
+       "fact_id": "kez_falcon_rush:slow_resist",
+       "label": "SLOW RESISTANCE",
+       "values": [
+        15,
+        30,
+        45,
+        60
+       ]
+      },
+      {
+       "fact_id": "kez_falcon_rush:duration",
+       "label": "DURATION",
+       "values": [
+        3.75,
+        4.5,
+        5.25,
+        6
+       ]
+      },
+      {
+       "fact_id": "kez_falcon_rush:echo_proc_chance_reduction",
+       "label": "ECHO PROC CHANCE REDUCTION",
+       "values": [
+        50
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kez_talon_toss",
+     "name": "Talon Toss",
+     "role": "basic",
+     "desc": "Kez throws a Sai at the target unit, applying a fixed damage attack and silence.",
+     "facts": [
+      {
+       "fact_id": "kez_talon_toss:cd",
+       "label": "COOLDOWN",
+       "values": [
+        13,
+        11,
+        9,
+        7
+       ]
+      },
+      {
+       "fact_id": "kez_talon_toss:damage",
+       "label": "DAMAGE",
+       "values": [
+        60,
+        120,
+        180,
+        240
+       ]
+      },
+      {
+       "fact_id": "kez_talon_toss:silence_duration",
+       "label": "SILENCE DURATION",
+       "values": [
+        2,
+        2.25,
+        2.5,
+        2.75
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kez_shodo_sai",
+     "name": "Shodo Sai",
+     "role": "basic",
+     "desc": "Kez has a chance to critically strike the target when attacking with Sais.\n\nKez may activate the ability to disarm himself, lock his facing, and parry attacks and attack effects from the targeted direction for 1.5 seconds. If an attack is parried from an enemy Hero in this way, that Hero is stunned for 0.4s and gains a Mark. When a Marked target is attacked by Kez, it will guarantee a critical strike and stun the target.\n\nThe sub-ability may be used to cancel the blocking early.",
+     "facts": [
+      {
+       "fact_id": "kez_shodo_sai:cd",
+       "label": "COOLDOWN",
+       "values": [
+        24,
+        18,
+        12,
+        6
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:sai_proc_vuln_chance",
+       "label": "CRITICAL CHANCE",
+       "values": [
+        20
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:base_crit_pct",
+       "label": "CRITICAL DAMAGE",
+       "values": [
+        125,
+        150,
+        175,
+        200
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:stun_duration",
+       "label": "MARK STUN DURATION",
+       "values": [
+        0.5,
+        0.6,
+        0.7,
+        0.8
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:vuln_duration",
+       "label": "MARK DURATION",
+       "values": [
+        8
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:forward_angle",
+       "label": "FORWARD ANGLE",
+       "values": [
+        180
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_duration",
+       "label": "PARRY DURATION",
+       "values": [
+        1.5
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_stun_duration",
+       "label": "PARRY STUN DURATION",
+       "values": [
+        0.4
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_only_heroes",
+       "label": "PARRY ONLY HEROES",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_bonus_crit@shard",
+       "label": "PARRY BONUS CRITICAL STRIKE — значение с Aghanim's Shard",
+       "values": [
+        50
+       ]
+      },
+      {
+       "fact_id": "kez_shodo_sai:parry_bonus_stun_duration@shard",
+       "label": "PARRY BONUS MARK STUN — значение с Aghanim's Shard",
+       "values": [
+        0.2
+       ]
+      }
+     ]
+    },
+    {
+     "key": "kez_ravens_veil",
+     "name": "Raven's Veil",
+     "role": "ultimate",
+     "desc": "Kez releases a wave of smoke that applies his Mark to nearby enemy heroes, briefly reducing their vision. Kez receives a basic dispel and gains bonus movement speed and invisibility until he attacks or casts a spell.",
+     "facts": [
+      {
+       "fact_id": "kez_ravens_veil:cd",
+       "label": "COOLDOWN",
+       "values": [
+        40,
+        35,
+        30
+       ]
+      },
+      {
+       "fact_id": "kez_ravens_veil:buff_duration",
+       "label": "BUFF DURATION",
+       "values": [
+        8,
+        10,
+        12
+       ]
+      },
+      {
+       "fact_id": "kez_ravens_veil:blind_duration",
+       "label": "VISION DEBUFF DURATION",
+       "values": [
+        4
+       ]
+      },
+      {
+       "fact_id": "kez_ravens_veil:bonus_ms",
+       "label": "BONUS MOVEMENT SPEED",
+       "values": [
+        15,
+        25,
+        35
+       ]
+      },
+      {
+       "fact_id": "kez_ravens_veil:basic_dispel",
+       "label": "BASIC DISPEL",
+       "values": [
+        1
+       ],
+       "hidden": true
+      },
+      {
+       "fact_id": "kez_ravens_veil:mark_only_heroes",
+       "label": "MARK ONLY HEROES",
+       "values": [
+        1
+       ],
+       "hidden": true
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "key": "mjollnir",
+   "name": "Mjollnir",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Static Charge",
+     "description": "Places a charged shield on a target unit for 12 seconds which has a 20% chance to release a 225 magical damage shocking bolt at a nearby attacker and 4 additional enemies."
+    },
+    {
+     "type": "passive",
+     "title": "Chain Lightning",
+     "description": "Grants a 25% chance on attack to release a bolt of electricity that leaps between 12 targets within a 650 radius, dealing 180 magical damage to each. Lightning proc pierces evasion."
+    }
+   ],
+   "notes": "Static Charge cannot trigger more than once per second.\nStatic Charge's shock deals magical damage centered on hero with the Static Charge. Static Charge's targets cannot be more than 900 range away.\nStatic Charge procs will not bounce to heroes that are invisible or hidden by Fog of War.",
+   "facts": [
+    {
+     "fact_id": "mjollnir:cd",
+     "label": "COOLDOWN",
+     "values": [
+      35
+     ]
+    },
+    {
+     "fact_id": "mjollnir:bonus_damage",
+     "label": "+ {value} Damage",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "mjollnir:bonus_attack_speed",
+     "label": "+ {value} Attack Speed",
+     "values": [
+      90
+     ]
+    },
+    {
+     "fact_id": "mjollnir:static_duration",
+     "label": "static_duration",
+     "values": [
+      12
+     ]
+    },
+    {
+     "fact_id": "mjollnir:static_chance",
+     "label": "static_chance",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "mjollnir:static_strikes",
+     "label": "static_strikes",
+     "values": [
+      4
+     ]
+    },
+    {
+     "fact_id": "mjollnir:static_damage",
+     "label": "static_damage",
+     "values": [
+      225
+     ]
+    },
+    {
+     "fact_id": "mjollnir:static_cooldown",
+     "label": "static_cooldown",
+     "values": [
+      1
+     ]
+    },
+    {
+     "fact_id": "mjollnir:chain_chance",
+     "label": "chain_chance",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "mjollnir:chain_damage",
+     "label": "chain_damage",
+     "values": [
+      180
+     ]
+    },
+    {
+     "fact_id": "mjollnir:chain_strikes",
+     "label": "chain_strikes",
+     "values": [
+      12
+     ]
+    },
+    {
+     "fact_id": "mjollnir:chain_delay",
+     "label": "chain_delay",
+     "values": [
+      0.25
+     ]
+    },
+    {
+     "fact_id": "mjollnir:chain_cooldown",
+     "label": "chain_cooldown",
+     "values": [
+      0.2
+     ]
+    },
+    {
+     "fact_id": "mjollnir:illusion_multiplier_pct",
+     "label": "illusion_multiplier_pct",
+     "values": [
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "key": "shivas_guard",
+   "name": "Shiva's Guard",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Arctic Blast",
+     "description": "Emits a freezing wave that deals 225 magical damage to enemies and slows their movement by -40% for 4 seconds.\n\nRadius: 825"
+    },
+    {
+     "type": "passive",
+     "title": "Freezing Aura",
+     "description": "Reduces the attack speed of all enemies by -40. \n\nRadius: 1200"
+    }
+   ],
+   "notes": "The wave extends at a speed of 400 to a max size of 825.\nThe Arctic Blast follows its caster.\nMultiple instances of Freezing Aura do not stack.\nAoE bonuses from multiple Chasm Stones or its upgrades do not stack.",
+   "facts": [
+    {
+     "fact_id": "shivas_guard:cd",
+     "label": "COOLDOWN",
+     "values": [
+      27
+     ]
+    },
+    {
+     "fact_id": "shivas_guard:bonus_armor",
+     "label": "+ {value} Armor",
+     "values": [
+      17
+     ]
+    },
+    {
+     "fact_id": "shivas_guard:aura_attack_speed",
+     "label": "aura_attack_speed",
+     "values": [
+      40
+     ]
+    },
+    {
+     "fact_id": "shivas_guard:blast_damage",
+     "label": "blast_damage",
+     "values": [
+      225
+     ]
+    },
+    {
+     "fact_id": "shivas_guard:blast_movement_speed",
+     "label": "blast_movement_speed",
+     "values": [
+      40
+     ]
+    },
+    {
+     "fact_id": "shivas_guard:blast_debuff_duration",
+     "label": "blast_debuff_duration",
+     "values": [
+      4
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bloodstone",
+   "name": "Bloodstone",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Bloodpact",
+     "description": "Increases Bloodstone's Spell Lifesteal to 60%. Lasts 5 seconds."
+    },
+    {
+     "type": "passive",
+     "title": "Spell Weakness Aura",
+     "description": "Enemy units take 10% increased damage from spells. \n\nRadius: 1200"
+    }
+   ],
+   "notes": "Spell Weakness Aura does not stack with Veil of Discord's Spell Weakness.",
+   "facts": [
+    {
+     "fact_id": "bloodstone:cd",
+     "label": "COOLDOWN",
+     "values": [
+      35
+     ]
+    },
+    {
+     "fact_id": "bloodstone:bonus_health",
+     "label": "+ {value} Health",
+     "values": [
+      625
+     ]
+    },
+    {
+     "fact_id": "bloodstone:bonus_mana",
+     "label": "+ {value} Mana",
+     "values": [
+      450
+     ]
+    },
+    {
+     "fact_id": "bloodstone:bonus_intellect",
+     "label": "+ {value} Intelligence",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "bloodstone:spell_lifesteal",
+     "label": "+ {value}% Spell Lifesteal",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "bloodstone:buff_duration",
+     "label": "buff_duration",
+     "values": [
+      5
+     ]
+    },
+    {
+     "fact_id": "bloodstone:spell_lifesteal_while_active",
+     "label": "spell_lifesteal_while_active",
+     "values": [
+      60
+     ]
+    },
+    {
+     "fact_id": "bloodstone:aura_spell_vulnerability",
+     "label": "aura_spell_vulnerability",
+     "values": [
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "key": "kaya",
+   "name": "Kaya",
+   "abilities": [],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "kaya:bonus_intellect",
+     "label": "+ {value} Intelligence",
+     "values": [
+      16
+     ]
+    },
+    {
+     "fact_id": "kaya:spell_amp",
+     "label": "+ {value}% Spell Amplification",
+     "values": [
+      10
+     ]
+    },
+    {
+     "fact_id": "kaya:mana_regen_multiplier",
+     "label": "+ {value}% Mana Regen Amplification",
+     "values": [
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "key": "satanic",
+   "name": "Satanic",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Unholy Rage",
+     "description": "Increases Lifesteal percentage to 175% for 6 seconds. \n\nDispel Type: Basic Dispel"
+    },
+    {
+     "type": "passive",
+     "title": "Lifesteal",
+     "description": "Heals the attacker for a percentage of physical damage dealt."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "satanic:cd",
+     "label": "COOLDOWN",
+     "values": [
+      40
+     ]
+    },
+    {
+     "fact_id": "satanic:bonus_strength",
+     "label": "+ {value} Strength",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "satanic:bonus_damage",
+     "label": "+ {value} Damage",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "satanic:lifesteal_percent",
+     "label": "+ {value}% Lifesteal",
+     "values": [
+      25
+     ]
+    },
+    {
+     "fact_id": "satanic:unholy_lifesteal_percent",
+     "label": "unholy_lifesteal_percent",
+     "values": [
+      145
+     ]
+    },
+    {
+     "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+     "label": "unholy_lifesteal_total_tooltip",
+     "values": [
+      175
+     ]
+    },
+    {
+     "fact_id": "satanic:unholy_duration",
+     "label": "unholy_duration",
+     "values": [
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "key": "boots_of_bearing",
+   "name": "Boots of Bearing",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Endurance",
+     "description": "Gives +50 attack speed and +15% movement speed to nearby allies for 6 seconds. For the first 1.5 seconds allies are immune to slows.\n\n Radius: 1200"
+    },
+    {
+     "type": "passive",
+     "title": "Swiftness Aura",
+     "description": "Grants 15 movement speed and 2.5 health regeneration to allies. \n\nRadius: 1200"
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "boots_of_bearing:cd",
+     "label": "COOLDOWN",
+     "values": [
+      30
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:aura_movement_speed",
+     "label": "aura_movement_speed",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:aura_health_regen",
+     "label": "aura_health_regen",
+     "values": [
+      2.5
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:bonus_str",
+     "label": "+ {value} Strength",
+     "values": [
+      8
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:bonus_attack_speed_pct",
+     "label": "bonus_attack_speed_pct",
+     "values": [
+      50
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:bonus_movement_speed_pct",
+     "label": "bonus_movement_speed_pct",
+     "values": [
+      15
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:duration",
+     "label": "duration",
+     "values": [
+      6
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:bonus_movement_speed",
+     "label": "+ {value} Movement Speed",
+     "values": [
+      65
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:bonus_health_regen",
+     "label": "+ {value} Health Regeneration",
+     "values": [
+      18
+     ]
+    },
+    {
+     "fact_id": "boots_of_bearing:bonus_ms_duration",
+     "label": "bonus_ms_duration",
+     "values": [
+      1.5
+     ]
+    }
+   ]
+  },
+  {
+   "key": "pipe",
+   "name": "Pipe of Insight",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Barrier",
+     "description": "Gives a magic damage barrier that absorbs 425 damage to all nearby allies. Lasts 8 seconds.\n\nRadius: 1200"
+    },
+    {
+     "type": "passive",
+     "title": "Insight Aura",
+     "description": "Gives allied units 8% magic resistance.\n\nRadius: 1200"
+    }
+   ],
+   "notes": "Barrier does not affect units that have been affected by Barrier within Pipe of Insight's cooldown.\nStacks multiplicatively with other sources of magic resistance.",
+   "facts": [
+    {
+     "fact_id": "pipe:cd",
+     "label": "COOLDOWN",
+     "values": [
+      60
+     ]
+    },
+    {
+     "fact_id": "pipe:health_regen",
+     "label": "+ {value} Health Regeneration",
+     "values": [
+      14
+     ]
+    },
+    {
+     "fact_id": "pipe:magic_resistance",
+     "label": "+ {value}% Magic Resistance",
+     "values": [
+      20
+     ]
+    },
+    {
+     "fact_id": "pipe:add_nostack_debuff",
+     "label": "add_nostack_debuff",
+     "values": [
+      1
+     ]
+    },
+    {
+     "fact_id": "pipe:magic_resistance_aura",
+     "label": "magic_resistance_aura",
+     "values": [
+      8
+     ]
+    },
+    {
+     "fact_id": "pipe:barrier_block",
+     "label": "barrier_block",
+     "values": [
+      425
+     ]
+    },
+    {
+     "fact_id": "pipe:barrier_duration",
+     "label": "barrier_duration",
+     "values": [
+      8
+     ]
+    },
+    {
+     "fact_id": "pipe:barrier_block_creep",
+     "label": "barrier_block_creep",
+     "values": [
+      425
+     ]
+    }
+   ]
+  },
+  {
+   "key": "dagon",
+   "name": "Dagon",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Energy Burst",
+     "description": "Emits a powerful burst of magical damage upon a targeted enemy unit. Upgradable.\n\nDamage: 400\n Mana Cost: 120"
+    }
+   ],
+   "notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+   "facts": [
+    {
+     "fact_id": "dagon:cd",
+     "label": "COOLDOWN",
+     "values": [
+      27
+     ]
+    },
+    {
+     "fact_id": "dagon:bonus_all_stats",
+     "label": "+ {value} All Attributes",
+     "values": [
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    },
+    {
+     "fact_id": "dagon:bonus_health",
+     "label": "+ {value} Health",
+     "values": [
+      200,
+      210,
+      220,
+      230,
+      240
+     ]
+    },
+    {
+     "fact_id": "dagon:bonus_mana",
+     "label": "+ {value} Mana",
+     "values": [
+      350,
+      375,
+      400,
+      425,
+      450
+     ]
+    },
+    {
+     "fact_id": "dagon:damage",
+     "label": "damage",
+     "values": [
+      400,
+      500,
+      600,
+      700,
+      800
+     ]
+    }
+   ],
+   "level_names": [
+    "Dagon 1",
+    "Dagon 2",
+    "Dagon 3",
+    "Dagon 4",
+    "Dagon 5"
+   ]
+  }
+ ]
+}

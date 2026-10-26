@@ -1,0 +1,67 @@
+{
+  "opus-g3-heroes-0": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 10688,
+      "output_tokens": 621,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.05517,
+    "questions": 3,
+    "seconds": 8.7
+  },
+  "opus-g3-heroes-1": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 14282,
+      "output_tokens": 788,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.07289,
+    "questions": 3,
+    "seconds": 10.1
+  },
+  "opus-g3-items-0": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 4969,
+      "output_tokens": 876,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.0374,
+    "questions": 3,
+    "seconds": 11.5
+  },
+  "opus-g3-items-1": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 4228,
+      "output_tokens": 903,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.03497,
+    "questions": 3,
+    "seconds": 11.7
+  },
+  "opus-g3-items-2": {
+    "status": "succeeded",
+    "usage": {
+      "input_tokens": 3719,
+      "output_tokens": 445,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "stop_reason": "end_turn",
+    "cost": 0.02378,
+    "questions": 2,
+    "seconds": 6.4
+  }
+}

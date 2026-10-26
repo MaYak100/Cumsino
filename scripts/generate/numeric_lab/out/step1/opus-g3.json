@@ -1,0 +1,106 @@
+[
+  {
+    "fact_id": "kunkka_tidebringer:damage_bonus",
+    "level": "max",
+    "question": "Сколько бонусного урона даёт удар Tidebringer у Kunkka на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "huskar_life_break:tooltip_health_damage",
+    "level": "max",
+    "question": "Какой процент текущего здоровья цели снимает Life Break у Huskar на 3-м уровне?",
+    "unit": "%",
+    "step": 4,
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "night_stalker_hunter_in_the_night:bonus_attack_speed_night",
+    "level": "max",
+    "question": "Сколько скорости атаки ночью даёт Night Stalker врождённая Hunter in the Night без аганима?",
+    "unit": "ед.",
+    "step": 6,
+    "request": "opus-g3-heroes-0"
+  },
+  {
+    "fact_id": "disruptor_glimpse:max_damage",
+    "level": "max",
+    "question": "Сколько максимум урона может нанести Glimpse у Disruptor на максимальном уровне?",
+    "unit": "урона",
+    "step": 20,
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "enchantress_untouchable:slow_attack_speed",
+    "level": "max",
+    "question": "На сколько Untouchable у Enchantress режет скорость атаки врагам на 3-м уровне?",
+    "unit": "ед.",
+    "step": 20,
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "spirit_breaker_bulldoze:status_resistance",
+    "level": "max",
+    "question": "Сколько статус-резиста даёт Bulldoze у Spirit Breaker на максимальном уровне?",
+    "unit": "%",
+    "step": 10,
+    "request": "opus-g3-heroes-1"
+  },
+  {
+    "fact_id": "blood_grenade:impact_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Blood Grenade при попадании, не считая урона со временем?",
+    "unit": "урона",
+    "step": 10,
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "clarity:buff_duration",
+    "level": "max",
+    "question": "Сколько секунд длится реген маны от Clarity, если цель никто не бьёт?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "blight_stone:corruption_duration",
+    "level": "max",
+    "question": "Сколько секунд держится минус броня от атаки Orb of Blight?",
+    "unit": "сек.",
+    "step": 1,
+    "request": "opus-g3-items-0"
+  },
+  {
+    "fact_id": "power_treads:bonus_movement_speed_melee",
+    "level": "max",
+    "question": "Сколько скорости передвижения дают Power Treads героям ближнего боя?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "kobold_cup:cd",
+    "level": "max",
+    "question": "Какое кд у активки One for the Road на Kobold Cup?",
+    "unit": "сек.",
+    "step": 5,
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "skadi:bonus_all_stats",
+    "level": "max",
+    "question": "Сколько ко всем атрибутам даёт Eye of Skadi?",
+    "unit": "ед.",
+    "step": 5,
+    "request": "opus-g3-items-1"
+  },
+  {
+    "fact_id": "specialists_array:proc_chance",
+    "level": "max",
+    "question": "С каким шансом срабатывает Splitshot у Specialist's Array, выпуская дополнительные снаряды по соседним врагам?",
+    "unit": "%",
+    "step": 5,
+    "request": "opus-g3-items-2"
+  }
+]

@@ -1,0 +1,355 @@
+{
+  "opus-g3": [
+    {
+      "fact_id": "kunkka_tidebringer:damage_bonus",
+      "level": "max",
+      "question": "Сколько бонусного урона даёт удар Tidebringer у Kunkka на максимальном уровне?",
+      "unit": "урона",
+      "step": 20,
+      "request": "opus-g3-heroes-0",
+      "answer": 140,
+      "entity": "Kunkka · Tidebringer",
+      "all_values": [
+        35,
+        70,
+        105,
+        140
+      ],
+      "mc": {
+        "options": [
+          120.0,
+          140.0,
+          180.0,
+          220.0
+        ],
+        "position": 2,
+        "spread": 1.83,
+        "step": 20.0,
+        "step_ratio": 0.143
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "huskar_life_break:tooltip_health_damage",
+      "level": "max",
+      "question": "Какой процент текущего здоровья цели снимает Life Break у Huskar на 3-м уровне?",
+      "unit": "%",
+      "step": 4,
+      "request": "opus-g3-heroes-0",
+      "answer": 44,
+      "entity": "Huskar · Life Break",
+      "all_values": [
+        32,
+        38,
+        44
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          28.0,
+          36.0,
+          44.0
+        ],
+        "position": 4,
+        "spread": 2.2,
+        "step": 4.0,
+        "step_ratio": 0.091
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "night_stalker_hunter_in_the_night:bonus_attack_speed_night",
+      "level": "max",
+      "question": "Сколько скорости атаки ночью даёт Night Stalker врождённая Hunter in the Night без аганима?",
+      "unit": "ед.",
+      "step": 6,
+      "request": "opus-g3-heroes-0",
+      "answer": 38,
+      "entity": "Night Stalker · Hunter in the Night",
+      "all_values": [
+        38
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          26.0,
+          38.0,
+          44.0
+        ],
+        "position": 3,
+        "spread": 2.2,
+        "step": 6.0,
+        "step_ratio": 0.158
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "disruptor_glimpse:max_damage",
+      "level": "max",
+      "question": "Сколько максимум урона может нанести Glimpse у Disruptor на максимальном уровне?",
+      "unit": "урона",
+      "step": 20,
+      "request": "opus-g3-heroes-1",
+      "answer": 280,
+      "entity": "Disruptor · Glimpse",
+      "all_values": [
+        100,
+        160,
+        220,
+        280
+      ],
+      "mc": {
+        "options": [
+          280.0,
+          320.0,
+          340.0,
+          380.0
+        ],
+        "position": 1,
+        "spread": 1.36,
+        "step": 20.0,
+        "step_ratio": 0.071
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "enchantress_untouchable:slow_attack_speed",
+      "level": "max",
+      "question": "На сколько Untouchable у Enchantress режет скорость атаки врагам на 3-м уровне?",
+      "unit": "ед.",
+      "step": 20,
+      "request": "opus-g3-heroes-1",
+      "answer": 210,
+      "entity": "Enchantress · Untouchable",
+      "all_values": [
+        110,
+        160,
+        210
+      ],
+      "mc": {
+        "options": [
+          110.0,
+          150.0,
+          170.0,
+          210.0
+        ],
+        "position": 4,
+        "spread": 1.91,
+        "step": 20.0,
+        "step_ratio": 0.095
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "spirit_breaker_bulldoze:status_resistance",
+      "level": "max",
+      "question": "Сколько статус-резиста даёт Bulldoze у Spirit Breaker на максимальном уровне?",
+      "unit": "%",
+      "step": 10,
+      "request": "opus-g3-heroes-1",
+      "answer": 70,
+      "entity": "Spirit Breaker · Bulldoze",
+      "all_values": [
+        40,
+        50,
+        60,
+        70
+      ],
+      "mc": {
+        "options": [
+          60.0,
+          70.0,
+          80.0,
+          90.0
+        ],
+        "position": 2,
+        "spread": 1.5,
+        "step": 10.0,
+        "step_ratio": 0.143
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blood_grenade:impact_damage",
+      "level": "max",
+      "question": "Сколько урона наносит Blood Grenade при попадании, не считая урона со временем?",
+      "unit": "урона",
+      "step": 10,
+      "request": "opus-g3-items-0",
+      "answer": 50,
+      "entity": "Blood Grenade",
+      "all_values": [
+        50
+      ],
+      "mc": {
+        "options": [
+          50.0,
+          70.0,
+          80.0,
+          90.0
+        ],
+        "position": 1,
+        "spread": 1.8,
+        "step": 10.0,
+        "step_ratio": 0.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "clarity:buff_duration",
+      "level": "max",
+      "question": "Сколько секунд длится реген маны от Clarity, если цель никто не бьёт?",
+      "unit": "сек.",
+      "step": 5,
+      "request": "opus-g3-items-0",
+      "answer": 25,
+      "entity": "Clarity",
+      "all_values": [
+        25
+      ],
+      "mc": {
+        "options": [
+          10.0,
+          20.0,
+          25.0,
+          30.0
+        ],
+        "position": 3,
+        "spread": 3.0,
+        "step": 5.0,
+        "step_ratio": 0.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blight_stone:corruption_duration",
+      "level": "max",
+      "question": "Сколько секунд держится минус броня от атаки Orb of Blight?",
+      "unit": "сек.",
+      "step": 1,
+      "request": "opus-g3-items-0",
+      "answer": 3,
+      "entity": "Orb of Blight",
+      "all_values": [
+        3
+      ],
+      "mc": {
+        "options": [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ],
+        "position": 3,
+        "spread": 4.0,
+        "step": 1.0,
+        "step_ratio": 0.333
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "power_treads:bonus_movement_speed_melee",
+      "level": "max",
+      "question": "Сколько скорости передвижения дают Power Treads героям ближнего боя?",
+      "unit": "ед.",
+      "step": 5,
+      "request": "opus-g3-items-1",
+      "answer": 55,
+      "entity": "Power Treads",
+      "all_values": [
+        55
+      ],
+      "mc": {
+        "options": [
+          45.0,
+          55.0,
+          60.0,
+          70.0
+        ],
+        "position": 2,
+        "spread": 1.56,
+        "step": 5.0,
+        "step_ratio": 0.091
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kobold_cup:cd",
+      "level": "max",
+      "question": "Какое кд у активки One for the Road на Kobold Cup?",
+      "unit": "сек.",
+      "step": 5,
+      "request": "opus-g3-items-1",
+      "answer": 40,
+      "entity": "Kobold Cup",
+      "all_values": [
+        40
+      ],
+      "mc": {
+        "options": [
+          25.0,
+          30.0,
+          40.0,
+          50.0
+        ],
+        "position": 3,
+        "spread": 2.0,
+        "step": 5.0,
+        "step_ratio": 0.125
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "skadi:bonus_all_stats",
+      "level": "max",
+      "question": "Сколько ко всем атрибутам даёт Eye of Skadi?",
+      "unit": "ед.",
+      "step": 5,
+      "request": "opus-g3-items-1",
+      "answer": 35,
+      "entity": "Eye of Skadi",
+      "all_values": [
+        35
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          25.0,
+          35.0,
+          40.0
+        ],
+        "position": 3,
+        "spread": 2.0,
+        "step": 5.0,
+        "step_ratio": 0.143
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "specialists_array:proc_chance",
+      "level": "max",
+      "question": "С каким шансом срабатывает Splitshot у Specialist's Array, выпуская дополнительные снаряды по соседним врагам?",
+      "unit": "%",
+      "step": 5,
+      "request": "opus-g3-items-2",
+      "answer": 30,
+      "entity": "Specialist's Array",
+      "all_values": [
+        30
+      ],
+      "mc": {
+        "options": [
+          30.0,
+          35.0,
+          45.0,
+          55.0
+        ],
+        "position": 1,
+        "spread": 1.83,
+        "step": 5.0,
+        "step_ratio": 0.167
+      },
+      "flags": []
+    }
+  ]
+}
