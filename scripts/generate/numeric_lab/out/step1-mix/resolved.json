@@ -1,0 +1,351 @@
+{
+  "opus-g3": [
+    {
+      "fact_id": "disruptor_static_storm:damage_max",
+      "level": "max",
+      "question": "Какой максимальный урон в секунду наносит Static Storm у Disruptor на 3-м уровне?",
+      "unit": "урона",
+      "step": 25,
+      "request": "opus-g3-mix-0",
+      "answer": 350,
+      "entity": "Disruptor · Static Storm",
+      "all_values": [
+        200,
+        275,
+        350
+      ],
+      "mc": {
+        "options": [
+          300.0,
+          350.0,
+          400.0,
+          450.0
+        ],
+        "position": 2,
+        "spread": 1.5,
+        "step": 25.0,
+        "step_ratio": 0.071
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "skadi:bonus_all_stats",
+      "level": "max",
+      "question": "Сколько ко всем атрибутам даёт Eye of Skadi?",
+      "unit": "ед.",
+      "step": 5,
+      "request": "opus-g3-mix-0",
+      "answer": 35,
+      "entity": "Eye of Skadi",
+      "all_values": [
+        35
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          25.0,
+          35.0,
+          40.0
+        ],
+        "position": 3,
+        "spread": 2.0,
+        "step": 5.0,
+        "step_ratio": 0.143
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "clarity:mana_regen",
+      "level": "max",
+      "question": "Сколько маны в секунду даёт Clarity?",
+      "unit": "ед.",
+      "step": 1,
+      "request": "opus-g3-mix-1",
+      "answer": 6,
+      "entity": "Clarity",
+      "all_values": [
+        6
+      ],
+      "mc": {
+        "options": [
+          4.0,
+          5.0,
+          6.0,
+          7.0
+        ],
+        "position": 3,
+        "spread": 1.75,
+        "step": 1.0,
+        "step_ratio": 0.167
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "power_treads:bonus_attack_speed",
+      "level": "max",
+      "question": "Сколько скорости атаки дают Power Treads (не считая бонуса от атрибута)?",
+      "unit": "ед.",
+      "step": 5,
+      "request": "opus-g3-mix-1",
+      "answer": 25,
+      "entity": "Power Treads",
+      "all_values": [
+        25
+      ],
+      "mc": {
+        "options": [
+          15.0,
+          20.0,
+          25.0,
+          30.0
+        ],
+        "position": 3,
+        "spread": 2.0,
+        "step": 5.0,
+        "step_ratio": 0.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "enchantress_untouchable:slow_attack_speed",
+      "level": "max",
+      "question": "На сколько Untouchable у Enchantress снижает скорость атаки врагу, который её бьёт, на 3-м уровне?",
+      "unit": "ед.",
+      "step": 20,
+      "request": "opus-g3-mix-1",
+      "answer": 210,
+      "entity": "Enchantress · Untouchable",
+      "all_values": [
+        110,
+        160,
+        210
+      ],
+      "mc": {
+        "options": [
+          210.0,
+          250.0,
+          270.0,
+          290.0
+        ],
+        "position": 1,
+        "spread": 1.38,
+        "step": 20.0,
+        "step_ratio": 0.095
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "specialists_array:proc_chance",
+      "level": "max",
+      "question": "С каким шансом Splitshot у Specialist's Array выпускает дополнительные снаряды?",
+      "unit": "%",
+      "step": 5,
+      "request": "opus-g3-mix-2",
+      "answer": 30,
+      "entity": "Specialist's Array",
+      "all_values": [
+        30
+      ],
+      "mc": {
+        "options": [
+          5.0,
+          15.0,
+          20.0,
+          30.0
+        ],
+        "position": 4,
+        "spread": 6.0,
+        "step": 5.0,
+        "step_ratio": 0.167
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blight_stone:corruption_duration",
+      "level": "max",
+      "question": "Сколько секунд держится минус броня от атаки с Orb of Blight?",
+      "unit": "сек.",
+      "step": 0.5,
+      "request": "opus-g3-mix-2",
+      "answer": 3,
+      "entity": "Orb of Blight",
+      "all_values": [
+        3
+      ],
+      "mc": {
+        "options": [
+          3.0,
+          4.0,
+          5.0,
+          5.5
+        ],
+        "position": 1,
+        "spread": 1.83,
+        "step": 0.5,
+        "step_ratio": 0.167
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "huskar_life_break:tooltip_health_damage",
+      "level": "max",
+      "question": "Какой процент текущего здоровья цели сносит Life Break у Huskar на 3-м уровне?",
+      "unit": "%",
+      "step": 4,
+      "request": "opus-g3-mix-2",
+      "answer": 44,
+      "entity": "Huskar · Life Break",
+      "all_values": [
+        32,
+        38,
+        44
+      ],
+      "mc": {
+        "options": [
+          36.0,
+          40.0,
+          44.0,
+          52.0
+        ],
+        "position": 3,
+        "spread": 1.44,
+        "step": 4.0,
+        "step_ratio": 0.091
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kunkka_ghostship:cannon_ball_damage_pct@scepter",
+      "level": "max",
+      "question": "С Aghanim's Scepter корабли Ghostship у Kunkka стреляют ядрами с бортов. Какой процент от урона Ghostship наносит одно ядро?",
+      "unit": "%",
+      "step": 10,
+      "request": "opus-g3-mix-3",
+      "answer": 40,
+      "entity": "Kunkka · Ghostship",
+      "all_values": [
+        40
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          30.0,
+          40.0,
+          50.0
+        ],
+        "position": 3,
+        "spread": 2.5,
+        "step": 10.0,
+        "step_ratio": 0.25
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "kobold_cup:cd",
+      "level": "max",
+      "question": "Какое кд у активки Kobold Cup?",
+      "unit": "сек.",
+      "step": 5,
+      "request": "opus-g3-mix-3",
+      "answer": 40,
+      "entity": "Kobold Cup",
+      "all_values": [
+        40
+      ],
+      "mc": {
+        "options": [
+          30.0,
+          35.0,
+          40.0,
+          50.0
+        ],
+        "position": 3,
+        "spread": 1.67,
+        "step": 5.0,
+        "step_ratio": 0.125
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "blood_grenade:impact_damage",
+      "level": "max",
+      "question": "Сколько урона Blood Grenade наносит при попадании, не считая урона по времени?",
+      "unit": "урона",
+      "step": 10,
+      "request": "opus-g3-mix-3",
+      "answer": 50,
+      "entity": "Blood Grenade",
+      "all_values": [
+        50
+      ],
+      "mc": {
+        "options": [
+          20.0,
+          40.0,
+          50.0,
+          70.0
+        ],
+        "position": 3,
+        "spread": 3.5,
+        "step": 10.0,
+        "step_ratio": 0.2
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "night_stalker_void:duration_night",
+      "level": "max",
+      "question": "Сколько длится слоу от Void у Night Stalker ночью на максимальном уровне?",
+      "unit": "сек.",
+      "step": 0.4,
+      "request": "opus-g3-mix-4",
+      "answer": 3.4,
+      "entity": "Night Stalker · Void",
+      "all_values": [
+        1.6,
+        2.2,
+        2.8,
+        3.4
+      ],
+      "mc": {
+        "options": [
+          3.0,
+          3.4,
+          4.2,
+          5.0
+        ],
+        "position": 2,
+        "spread": 1.67,
+        "step": 0.4,
+        "step_ratio": 0.118
+      },
+      "flags": []
+    },
+    {
+      "fact_id": "spirit_breaker_greater_bash:chance_pct",
+      "level": "max",
+      "question": "Какой шанс прока Greater Bash у Spirit Breaker при атаке?",
+      "unit": "%",
+      "step": 3,
+      "request": "opus-g3-mix-4",
+      "answer": 17,
+      "entity": "Spirit Breaker · Greater Bash",
+      "all_values": [
+        17
+      ],
+      "mc": {
+        "options": [
+          17.0,
+          20.0,
+          26.0,
+          29.0
+        ],
+        "position": 1,
+        "spread": 1.71,
+        "step": 3.0,
+        "step_ratio": 0.176
+      },
+      "flags": []
+    }
+  ]
+}

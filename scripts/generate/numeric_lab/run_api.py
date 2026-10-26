@@ -24,6 +24,7 @@
 
 import argparse
 import json
+import random
 import shutil
 import sys
 import time
@@ -89,34 +90,53 @@ def _fact_ids(entities: list[dict]) -> list[str]:
     return ids
 
 
+def _groups_of(sample: dict, size_spec: int | str, mix: bool, rng: random.Random | None) -> list[dict]:
+    """Разбивка на запросы: отдельно герои и предметы или вперемешку; порядок — как в выборке
+    или случайный (rng). Возвращает payload'ы {"heroes": [...], "items": [...]}."""
+    tagged = [("heroes", e) for e in sample["heroes"]] + [("items", e) for e in sample["items"]]
+    streams = [tagged] if mix else [[t for t in tagged if t[0] == k] for k in ("heroes", "items")]
+    payloads = []
+    for stream in streams:
+        if not stream:
+            continue
+        if rng:
+            stream = stream[:]
+            rng.shuffle(stream)
+        size = len(stream) if size_spec == "all" else size_spec
+        for chunk in _chunks(stream, size):
+            payload = {"patch": sample["patch"]}
+            for kind, e in chunk:
+                payload.setdefault(kind, []).append(e)
+            payloads.append(payload)
+    return payloads
+
+
 def build_requests(sample: dict, prompt: str, models: list[str], groups: list[int | str], effort: str,
-                   with_excluded: bool = False, step: bool = False) -> list[dict]:
+                   with_excluded: bool = False, step: bool = False, mix: bool = False,
+                   seed: int | None = None) -> list[dict]:
     system = [{"type": "text", "text": prompt}]
     requests = []
     for model in models:
         alias = ALIASES[model]
         for g in groups:
-            for kind, entities in (("heroes", sample["heroes"]), ("items", sample["items"])):
-                if not entities:
-                    continue
-                size = len(entities) if g == "all" else g
-                for i, chunk in enumerate(_chunks(entities, size)):
-                    payload = {"patch": sample["patch"], kind: chunk}
-                    requests.append({
-                        "custom_id": f"{alias}-g{g}-{kind}-{i}",
-                        "params": {
-                            "model": model,
-                            "max_tokens": 64000 if g == "all" else 16000,
-                            "system": system,
-                            "messages": [{"role": "user",
-                                          "content": json.dumps(payload, ensure_ascii=False)}],
-                            "output_config": {
-                                "effort": effort,
-                                "format": {"type": "json_schema",
-                                           "schema": schema(_fact_ids(chunk), with_excluded, step)},
-                            },
+            rng = random.Random(seed) if seed is not None else None
+            for i, payload in enumerate(_groups_of(sample, g, mix, rng)):
+                kind = "mix" if mix else ("heroes" if "heroes" in payload else "items")
+                entities = payload.get("heroes", []) + payload.get("items", [])
+                requests.append({
+                    "custom_id": f"{alias}-g{g}-{kind}-{i}",
+                    "params": {
+                        "model": model,
+                        "max_tokens": 64000 if g == "all" else 16000,
+                        "system": system,
+                        "messages": [{"role": "user", "content": json.dumps(payload, ensure_ascii=False)}],
+                        "output_config": {
+                            "effort": effort,
+                            "format": {"type": "json_schema",
+                                       "schema": schema(_fact_ids(entities), with_excluded, step)},
                         },
-                    })
+                    },
+                })
     return requests
 
 
@@ -276,6 +296,8 @@ def main() -> None:
     ap.add_argument("--sample", default="sample.json")
     ap.add_argument("--step", action="store_true",
                     help="модель задаёт шаг вместо неверных вариантов (prompt_v5.md, sample_step.json)")
+    ap.add_argument("--mix", action="store_true", help="герои и предметы вперемешку в одном запросе")
+    ap.add_argument("--seed", type=int, help="перемешать сущности перед разбивкой (иначе порядок выборки)")
     ap.add_argument("--costs", action="store_true",
                     help="цены: costs_sample.json + prompt_costs_v1.md, все предметы одним запросом, со списком исключённых")
     ap.add_argument("--models", default="claude-sonnet-5-5,claude-opus-5-5")
@@ -308,10 +330,15 @@ def main() -> None:
     models = args.models.split(",")
     groups = [g if g == "all" else int(g) for g in args.groups.split(",")]
     requests = build_requests(sample, prompt, models, groups, args.effort, with_excluded=args.costs,
-                              step=args.step)
+                              step=args.step, mix=args.mix, seed=args.seed)
     (run_dir / "requests.json").write_text(json.dumps(requests, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(requests)} запросов: модели {', '.join(ALIASES[m] for m in models)}, группы {groups}, "
-          f"effort {args.effort} → {run_dir / 'requests.json'}")
+          f"effort {args.effort}, {'вперемешку' if args.mix else 'герои и предметы отдельно'}, "
+          f"{'seed ' + str(args.seed) if args.seed is not None else 'порядок выборки'} → {run_dir / 'requests.json'}")
+    for r in requests:
+        body = json.loads(r["params"]["messages"][0]["content"])
+        names = [h["hero"] for h in body.get("heroes", [])] + [i["name"] for i in body.get("items", [])]
+        print(f"  {r['custom_id']}: {', '.join(names)}")
     if args.dry_run:
         return
 
