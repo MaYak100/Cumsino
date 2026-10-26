@@ -1,0 +1,170 @@
+[
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": "max",
+    "question": "Сколько чистого урона наносит Culling Blade у Axe на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [
+      425,
+      450,
+      525
+    ],
+    "request": "opus-g1-heroes-0"
+  },
+  {
+    "fact_id": "tusk_walrus_punch:crit_multiplier",
+    "level": 2,
+    "question": "Какой крит даёт Walrus PUNCH! у Tusk на 2-м уровне ульты?",
+    "unit": "%",
+    "distractors": [
+      200,
+      275,
+      300
+    ],
+    "request": "opus-g1-heroes-1"
+  },
+  {
+    "fact_id": "leshrac_pulse_nova:damage",
+    "level": 2,
+    "question": "Сколько урона наносит каждый импульс Pulse Nova у Leshrac на 2-м уровне?",
+    "unit": "урона",
+    "distractors": [
+      120,
+      150,
+      160
+    ],
+    "request": "opus-g1-heroes-2"
+  },
+  {
+    "fact_id": "bounty_hunter_jinada:gold_steal",
+    "level": "max",
+    "question": "Сколько золота ворует Jinada у Bounty Hunter за удар на максимальном уровне?",
+    "unit": "золота",
+    "distractors": [
+      28,
+      32,
+      40
+    ],
+    "request": "opus-g1-heroes-3"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": 2,
+    "question": "Сколько длится Chronosphere у Faceless Void на 2-м уровне?",
+    "unit": "сек.",
+    "distractors": [
+      3.75,
+      4.5,
+      4.75
+    ],
+    "request": "opus-g1-heroes-4"
+  },
+  {
+    "fact_id": "kez_talon_toss:damage",
+    "level": "max",
+    "question": "Сколько фиксированного урона наносит Talon Toss у Kez на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [
+      200,
+      280,
+      320
+    ],
+    "request": "opus-g1-heroes-5"
+  },
+  {
+    "fact_id": "mjollnir:chain_damage",
+    "level": "max",
+    "question": "Сколько магического урона наносит Chain Lightning от Mjollnir каждой цели?",
+    "unit": "урона",
+    "distractors": [
+      150,
+      160,
+      200
+    ],
+    "request": "opus-g1-items-0"
+  },
+  {
+    "fact_id": "shivas_guard:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт Shiva's Guard?",
+    "unit": "ед.",
+    "distractors": [
+      12,
+      15,
+      20
+    ],
+    "request": "opus-g1-items-1"
+  },
+  {
+    "fact_id": "bloodstone:cost",
+    "level": "max",
+    "question": "Сколько стоит Bloodstone?",
+    "unit": "золота",
+    "distractors": [
+      4400,
+      4900,
+      5200
+    ],
+    "request": "opus-g1-items-2"
+  },
+  {
+    "fact_id": "kaya:cost",
+    "level": "max",
+    "question": "Сколько стоит Kaya?",
+    "unit": "золота",
+    "distractors": [
+      1950,
+      2050,
+      2200
+    ],
+    "request": "opus-g1-items-3"
+  },
+  {
+    "fact_id": "satanic:cost",
+    "level": "max",
+    "question": "Сколько стоит Satanic?",
+    "unit": "золота",
+    "distractors": [
+      4850,
+      5150,
+      5300
+    ],
+    "request": "opus-g1-items-4"
+  },
+  {
+    "fact_id": "boots_of_bearing:cost",
+    "level": "max",
+    "question": "Сколько стоят Boots of Bearing?",
+    "unit": "золота",
+    "distractors": [
+      3975,
+      4125,
+      4475
+    ],
+    "request": "opus-g1-items-5"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько маг. урона поглощает барьер с активки Pipe of Insight на героях?",
+    "unit": "урона",
+    "distractors": [
+      375,
+      400,
+      450
+    ],
+    "request": "opus-g1-items-6"
+  },
+  {
+    "fact_id": "dagon:cd",
+    "level": "max",
+    "question": "Какое кд у Energy Burst с Dagon?",
+    "unit": "сек.",
+    "distractors": [
+      24,
+      31,
+      35
+    ],
+    "request": "opus-g1-items-7"
+  }
+]

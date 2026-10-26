@@ -1,0 +1,194 @@
+[
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": 2,
+    "question": "Сколько урона наносит Culling Blade у Axe на 2-м уровне?",
+    "unit": "урона",
+    "distractors": [
+      325,
+      400,
+      450
+    ],
+    "request": "sonnet-g1-heroes-0"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick у Tusk?",
+    "unit": "урона",
+    "distractors": [
+      450,
+      500,
+      650
+    ],
+    "request": "sonnet-g1-heroes-1"
+  },
+  {
+    "fact_id": "leshrac_pulse_nova:damage",
+    "level": 2,
+    "question": "Сколько урона наносит одна волна Pulse Nova у Leshrac на 2-м уровне ульты?",
+    "unit": "урона",
+    "distractors": [
+      105,
+      120,
+      160
+    ],
+    "request": "sonnet-g1-heroes-2"
+  },
+  {
+    "fact_id": "bounty_hunter_shuriken_toss:bonus_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Shuriken Toss у Bounty Hunter на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [
+      270,
+      340,
+      380
+    ],
+    "request": "sonnet-g1-heroes-3"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Chronosphere у Faceless Void на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [
+      3.75,
+      4.25,
+      5.25
+    ],
+    "request": "sonnet-g1-heroes-4"
+  },
+  {
+    "fact_id": "kez_talon_toss:silence_duration",
+    "level": "max",
+    "question": "Сколько секунд длится сайленс от Talon Toss у Kez на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [
+      2.25,
+      3.25,
+      3.5
+    ],
+    "request": "sonnet-g1-heroes-5"
+  },
+  {
+    "fact_id": "mjollnir:chain_strikes",
+    "level": "max",
+    "question": "Между сколькими целями может прыгать молния от Chain Lightning у Mjollnir?",
+    "unit": "шт.",
+    "distractors": [
+      8,
+      10,
+      15
+    ],
+    "request": "sonnet-g1-items-0"
+  },
+  {
+    "fact_id": "shivas_guard:blast_damage",
+    "level": "max",
+    "question": "Сколько магического урона наносит Arctic Blast у Shiva's Guard?",
+    "unit": "урона",
+    "distractors": [
+      175,
+      250,
+      300
+    ],
+    "request": "sonnet-g1-items-1"
+  },
+  {
+    "fact_id": "bloodstone:bonus_health",
+    "level": "max",
+    "question": "Сколько бонусного здоровья даёт Bloodstone?",
+    "unit": "ед.",
+    "distractors": [
+      525,
+      700,
+      800
+    ],
+    "request": "sonnet-g1-items-2"
+  },
+  {
+    "fact_id": "kaya:bonus_intellect",
+    "level": "max",
+    "question": "Сколько интеллекта даёт Kaya?",
+    "unit": "ед.",
+    "distractors": [
+      14,
+      18,
+      25
+    ],
+    "request": "sonnet-g1-items-3"
+  },
+  {
+    "fact_id": "satanic:cost",
+    "level": "max",
+    "question": "Сколько стоит Satanic в магазине?",
+    "unit": "золота",
+    "distractors": [
+      4850,
+      5250,
+      5450
+    ],
+    "request": "sonnet-g1-items-4"
+  },
+  {
+    "fact_id": "boots_of_bearing:cost",
+    "level": "max",
+    "question": "Сколько золота стоит Boots of Bearing в магазине?",
+    "unit": "золота",
+    "distractors": [
+      3975,
+      4450,
+      4725
+    ],
+    "request": "sonnet-g1-items-5"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько магического урона поглощает Barrier от Pipe of Insight?",
+    "unit": "урона",
+    "distractors": [
+      350,
+      400,
+      500
+    ],
+    "request": "sonnet-g1-items-6"
+  },
+  {
+    "fact_id": "pipe:health_regen",
+    "level": "max",
+    "question": "Сколько регена здоровья даёт Pipe of Insight владельцу?",
+    "unit": "ед.",
+    "distractors": [
+      8,
+      11,
+      17
+    ],
+    "request": "sonnet-g1-items-6"
+  },
+  {
+    "fact_id": "pipe:cost",
+    "level": "max",
+    "question": "Сколько золота стоит Pipe of Insight целиком?",
+    "unit": "золота",
+    "distractors": [
+      3225,
+      3475,
+      4025
+    ],
+    "request": "sonnet-g1-items-6"
+  },
+  {
+    "fact_id": "dagon:cd",
+    "level": "max",
+    "question": "Сколько секунд кд у Energy Burst у Dagon?",
+    "unit": "сек.",
+    "distractors": [
+      24,
+      30,
+      35
+    ],
+    "request": "sonnet-g1-items-7"
+  }
+]

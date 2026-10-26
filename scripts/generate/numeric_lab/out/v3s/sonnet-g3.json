@@ -1,0 +1,170 @@
+[
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": 3,
+    "question": "Сколько урона наносит Culling Blade у Axe на 3-м уровне?",
+    "unit": "урона",
+    "distractors": [
+      425,
+      525,
+      575
+    ],
+    "request": "sonnet-g3-heroes-0"
+  },
+  {
+    "fact_id": "tusk_ice_shards:shard_damage",
+    "level": "max",
+    "question": "Сколько урона наносят Ice Shards у Tusk на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [
+      250,
+      350,
+      400
+    ],
+    "request": "sonnet-g3-heroes-0"
+  },
+  {
+    "fact_id": "leshrac_diabolic_edict:num_explosions",
+    "level": "max",
+    "question": "Сколько всего взрывов делает Diabolic Edict у Leshrac?",
+    "unit": "шт.",
+    "distractors": [
+      30,
+      35,
+      50
+    ],
+    "request": "sonnet-g3-heroes-0"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold_self",
+    "level": 3,
+    "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на 3-м уровне ульты?",
+    "unit": "золота",
+    "distractors": [
+      200,
+      300,
+      360
+    ],
+    "request": "sonnet-g3-heroes-1"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько секунд длится Chronosphere у Faceless Void на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [
+      4.5,
+      5.25,
+      5.5
+    ],
+    "request": "sonnet-g3-heroes-1"
+  },
+  {
+    "fact_id": "kez_talon_toss:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Talon Toss у Kez на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [
+      200,
+      280,
+      320
+    ],
+    "request": "sonnet-g3-heroes-1"
+  },
+  {
+    "fact_id": "mjollnir:chain_strikes",
+    "level": "max",
+    "question": "Сколько целей поражает Chain Lightning у Mjollnir?",
+    "unit": "шт.",
+    "distractors": [
+      8,
+      10,
+      15
+    ],
+    "request": "sonnet-g3-items-0"
+  },
+  {
+    "fact_id": "shivas_guard:cost",
+    "level": "max",
+    "question": "Сколько золота стоит Shiva's Guard?",
+    "unit": "золота",
+    "distractors": [
+      4000,
+      5000,
+      4200
+    ],
+    "request": "sonnet-g3-items-0"
+  },
+  {
+    "fact_id": "bloodstone:bonus_mana",
+    "level": "max",
+    "question": "Сколько маны даёт Bloodstone?",
+    "unit": "ед.",
+    "distractors": [
+      350,
+      550,
+      400
+    ],
+    "request": "sonnet-g3-items-0"
+  },
+  {
+    "fact_id": "kaya:mana_regen_multiplier",
+    "level": "max",
+    "question": "Сколько процентов усиления регена маны даёт Kaya?",
+    "unit": "%",
+    "distractors": [
+      25,
+      30,
+      35
+    ],
+    "request": "sonnet-g3-items-1"
+  },
+  {
+    "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+    "level": "max",
+    "question": "До скольких процентов вырастает лайфстил у Satanic при активации Unholy Rage?",
+    "unit": "%",
+    "distractors": [
+      150,
+      200,
+      225
+    ],
+    "request": "sonnet-g3-items-1"
+  },
+  {
+    "fact_id": "boots_of_bearing:cost",
+    "level": "max",
+    "question": "Сколько золота стоит Boots of Bearing целиком, вместе со всеми компонентами?",
+    "unit": "золота",
+    "distractors": [
+      3925,
+      4425,
+      4625
+    ],
+    "request": "sonnet-g3-items-1"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько урона магии поглощает Barrier от Pipe of Insight на каждого союзного героя?",
+    "unit": "урона",
+    "distractors": [
+      350,
+      400,
+      500
+    ],
+    "request": "sonnet-g3-items-2"
+  },
+  {
+    "fact_id": "dagon:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Energy Burst у Dagon на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [
+      600,
+      700,
+      900
+    ],
+    "request": "sonnet-g3-items-2"
+  }
+]
