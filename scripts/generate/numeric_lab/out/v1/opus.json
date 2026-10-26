@@ -1,0 +1,170 @@
+[
+  {
+    "fact_id": "axe_counter_helix:trigger_attacks",
+    "level": "max",
+    "question": "Сколько атак нужно для срабатывания Counter Helix у Axe на максимальном уровне?",
+    "unit": "шт.",
+    "distractors": [5, 6, 7],
+    "why": "Хеликс крутится постоянно, но порог по атакам мало кто помнит точно"
+  },
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Culling Blade у Axe на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [375, 425, 525],
+    "why": "Все прикидывают порог добивания на глаз, а точное число знают не все"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick у Tusk?",
+    "unit": "урона",
+    "distractors": [350, 450, 650],
+    "why": "Кик часто решает исход драки, но про его урон забывают"
+  },
+  {
+    "fact_id": "tusk_snowball:snowball_damage",
+    "level": "max",
+    "question": "Какой базовый урон у Snowball у Tusk на максимальном уровне, без союзников внутри?",
+    "unit": "урона",
+    "distractors": [200, 240, 300],
+    "why": "Снежок видели все, но базовый урон обычно теряется за бонусом от союзников"
+  },
+  {
+    "fact_id": "leshrac_diabolic_edict:num_explosions",
+    "level": "max",
+    "question": "Сколько взрывов делает Diabolic Edict у Leshrac за один каст?",
+    "unit": "шт.",
+    "distractors": [30, 35, 50],
+    "why": "Классическое число, которое все примерно чувствуют, но путают"
+  },
+  {
+    "fact_id": "leshrac_lightning_storm:jump_count",
+    "level": "max",
+    "question": "Сколько целей бьёт Lightning Storm у Leshrac на максимальном уровне?",
+    "unit": "шт.",
+    "distractors": [7, 9, 13],
+    "why": "Молния прыгает по крипам постоянно, но количество прыжков мало кто считал"
+  },
+  {
+    "fact_id": "bounty_hunter_jinada:gold_steal",
+    "level": "max",
+    "question": "Сколько золота крадёт Jinada у Bounty Hunter на максимальном уровне?",
+    "unit": "золота",
+    "distractors": [29, 40, 45],
+    "why": "Все видят всплывающее золото, но точную цифру помнят немногие"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold_self",
+    "level": "max",
+    "question": "Сколько бонусного золота получает сам Bounty Hunter за убийство цели под Track на максимальном уровне?",
+    "unit": "золота",
+    "distractors": [160, 200, 300],
+    "why": "Главная фишка героя, а точную награду себе путают с наградой союзникам"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько длится Chronosphere у Faceless Void на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [4.25, 5.25, 5.75],
+    "why": "Каждая доля секунды в хроне важна, но дробное значение помнят единицы"
+  },
+  {
+    "fact_id": "faceless_void_time_lock:chance_pct",
+    "level": "max",
+    "question": "Какой шанс срабатывания Time Lock у Faceless Void на максимальном уровне?",
+    "unit": "%",
+    "distractors": [18, 20, 28],
+    "why": "Баши Войда все ощущали на себе, а шанс многие называют наугад"
+  },
+  {
+    "fact_id": "kez_raptor_dance:max_health_damage_pct",
+    "level": "max",
+    "question": "Сколько процентов от максимального здоровья цели наносит каждый удар Raptor Dance у Kez?",
+    "unit": "%",
+    "distractors": [1.5, 3.5, 4.5],
+    "why": "Новый герой, ульту видели часто, а процент от здоровья знают мало кто"
+  },
+  {
+    "fact_id": "kez_talon_toss:silence_duration",
+    "level": "max",
+    "question": "Сколько длится сайленс от Talon Toss у Kez на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [2.25, 3.25, 3.75],
+    "why": "Сайленс важен в драке, а дробную длительность легко перепутать"
+  },
+  {
+    "fact_id": "mjollnir:chain_strikes",
+    "level": "max",
+    "question": "Сколько целей поражает Chain Lightning у Mjollnir?",
+    "unit": "шт.",
+    "distractors": [8, 10, 14],
+    "why": "Все видели, как молния бегает по крипам, но число целей не считали"
+  },
+  {
+    "fact_id": "mjollnir:chain_damage",
+    "level": "max",
+    "question": "Сколько урона наносит каждая молния Chain Lightning у Mjollnir?",
+    "unit": "урона",
+    "distractors": [150, 200, 225],
+    "why": "Пассивка, которая фармит лес и волны, а её урон часто путают"
+  },
+  {
+    "fact_id": "shivas_guard:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт Shiva's Guard?",
+    "unit": "ед.",
+    "distractors": [14, 15, 20],
+    "why": "Броню от Шивы собирают постоянно, но точное число плывёт"
+  },
+  {
+    "fact_id": "bloodstone:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Bloodstone?",
+    "unit": "ед.",
+    "distractors": [525, 575, 700],
+    "why": "Предмет пересобирали много раз, и статы легко спутать со старыми"
+  },
+  {
+    "fact_id": "bloodstone:spell_lifesteal_while_active",
+    "level": "max",
+    "question": "До скольких процентов поднимается спелл-лайфстил при активации Bloodpact у Bloodstone?",
+    "unit": "%",
+    "distractors": [40, 50, 75],
+    "why": "Активку жмут в каждой драке, но точный процент помнят немногие"
+  },
+  {
+    "fact_id": "kaya:bonus_intellect",
+    "level": "max",
+    "question": "Сколько интеллекта даёт Kaya?",
+    "unit": "ед.",
+    "distractors": [12, 14, 18],
+    "why": "Базовый предмет, который собирают постоянно, а статы не круглые"
+  },
+  {
+    "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+    "level": "max",
+    "question": "Какой суммарный лайфстил даёт Satanic во время Unholy Rage?",
+    "unit": "%",
+    "distractors": [125, 150, 200],
+    "why": "Активку все видели, а итоговый процент путают с бонусом"
+  },
+  {
+    "fact_id": "boots_of_bearing:bonus_movement_speed",
+    "level": "max",
+    "question": "Сколько скорости передвижения дают Boots of Bearing?",
+    "unit": "ед.",
+    "distractors": [45, 55, 75],
+    "why": "Сапоги разных видов дают разную скорость, и их легко перепутать"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько магического урона поглощает барьер от Pipe of Insight?",
+    "unit": "урона",
+    "distractors": [350, 400, 475],
+    "why": "Пайп решает драки против магов, но объём барьера помнят приблизительно"
+  }
+]

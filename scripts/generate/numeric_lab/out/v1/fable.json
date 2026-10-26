@@ -1,0 +1,210 @@
+[
+  {
+    "fact_id": "axe_counter_helix:damage",
+    "level": "max",
+    "question": "Сколько чистого урона наносит Counter Helix у Axe на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [120, 140, 180],
+    "why": "Все умирают от него по крипам, но точное число вертится на языке"
+  },
+  {
+    "fact_id": "axe_culling_blade:damage",
+    "level": 1,
+    "question": "Какой порог урона у Culling Blade у Axe на 1-м уровне?",
+    "unit": "урона",
+    "distractors": [225, 250, 325],
+    "why": "Порог первого уровня решает ранние драки, но его часто путают с более поздними"
+  },
+  {
+    "fact_id": "tusk_walrus_kick:damage",
+    "level": "max",
+    "question": "Сколько урона наносит Walrus Kick у Tusk?",
+    "unit": "урона",
+    "distractors": [450, 500, 600],
+    "why": "Пинок все видели, а что он ещё и больно бьёт — помнят не все"
+  },
+  {
+    "fact_id": "tusk_snowball:snowball_damage_bonus",
+    "level": "max",
+    "question": "Сколько урона добавляет каждый союзник в Snowball у Tusk на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [90, 105, 130],
+    "why": "Союзников в снежок катают постоянно, но бонус за каждого мало кто считал"
+  },
+  {
+    "fact_id": "leshrac_lightning_storm:jump_count",
+    "level": "max",
+    "question": "Сколько ударов делает Lightning Storm у Leshrac на максимальном уровне?",
+    "unit": "раз",
+    "distractors": [7, 9, 13],
+    "why": "Молния прыгает по всей пачке крипов, но считать удары никто не успевает"
+  },
+  {
+    "fact_id": "leshrac_pulse_nova:damage",
+    "level": "max",
+    "question": "Сколько урона наносит каждая волна Pulse Nova у Leshrac на максимальном уровне?",
+    "unit": "урона",
+    "distractors": [150, 165, 200],
+    "why": "Под новой стоять больно, а вот точное число за тик мало кто назовёт"
+  },
+  {
+    "fact_id": "bounty_hunter_jinada:gold_steal",
+    "level": "max",
+    "question": "Сколько золота ворует Jinada у Bounty Hunter за удар на максимальном уровне?",
+    "unit": "золота",
+    "distractors": [29, 32, 40],
+    "why": "Все видят, как золото утекает, но сумму за удар помнят смутно"
+  },
+  {
+    "fact_id": "bounty_hunter_track:bonus_gold_self",
+    "level": "max",
+    "question": "Сколько бонусного золота получает сам Bounty Hunter за смерть цели под Track на максимальном уровне?",
+    "unit": "золота",
+    "distractors": [180, 200, 280],
+    "why": "Главный источник дохода героя, а цифру в тултипе смотрят редко"
+  },
+  {
+    "fact_id": "faceless_void_chronosphere:duration",
+    "level": "max",
+    "question": "Сколько длится Chronosphere у Faceless Void на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [4.25, 5.25, 5.75],
+    "why": "Все знают, что это вечность, но не все знают, сколько именно"
+  },
+  {
+    "fact_id": "faceless_void_time_lock:chance_pct",
+    "level": "max",
+    "question": "Какой шанс срабатывания у Time Lock у Faceless Void на максимальном уровне?",
+    "unit": "%",
+    "distractors": [18, 20, 28],
+    "why": "Бэши ощущаются постоянными, но реальный процент удивляет"
+  },
+  {
+    "fact_id": "kez_talon_toss:silence_duration",
+    "level": "max",
+    "question": "На сколько секунд молчит цель после Talon Toss у Kez на максимальном уровне?",
+    "unit": "сек.",
+    "distractors": [2.25, 2.5, 3.25],
+    "why": "Сайленс решает исход драки, а его длительность помнят приблизительно"
+  },
+  {
+    "fact_id": "kez_kazurai_katana:katana_bleed_attack_damage_pct",
+    "level": "max",
+    "question": "Сколько процентов от урона атаки наносит в секунду кровотечение Kazurai Katana у Kez на максимальном уровне?",
+    "unit": "%",
+    "distractors": [8, 10, 15],
+    "why": "Новый герой, механику поняли все, а цифры ещё не выучили"
+  },
+  {
+    "fact_id": "mjollnir:chain_damage",
+    "level": "max",
+    "question": "Сколько урона наносит каждый удар Chain Lightning у Mjollnir?",
+    "unit": "урона",
+    "distractors": [150, 160, 200],
+    "why": "Молнии летят каждую драку, но цифра за удар стёрлась из памяти"
+  },
+  {
+    "fact_id": "mjollnir:static_chance",
+    "level": "max",
+    "question": "С каким шансом Static Charge у Mjollnir бьёт током атакующего?",
+    "unit": "%",
+    "distractors": [15, 25, 30],
+    "why": "Шанс активки все путают с шансом пассивки"
+  },
+  {
+    "fact_id": "shivas_guard:bonus_armor",
+    "level": "max",
+    "question": "Сколько брони даёт Shiva's Guard?",
+    "unit": "ед.",
+    "distractors": [15, 16, 18],
+    "why": "Главный стат предмета, но после ребалансов число плавает в голове"
+  },
+  {
+    "fact_id": "shivas_guard:blast_damage",
+    "level": "max",
+    "question": "Сколько урона наносит Arctic Blast у Shiva's Guard?",
+    "unit": "урона",
+    "distractors": [200, 250, 275],
+    "why": "Волну жмут ради замедления, урон на ней замечают редко"
+  },
+  {
+    "fact_id": "bloodstone:bonus_health",
+    "level": "max",
+    "question": "Сколько здоровья даёт Bloodstone?",
+    "unit": "ед.",
+    "distractors": [575, 600, 675],
+    "why": "Некруглое число, которое все видели в тултипе и тут же забыли"
+  },
+  {
+    "fact_id": "bloodstone:spell_lifesteal_while_active",
+    "level": "max",
+    "question": "До скольки процентов поднимается вампиризм от заклинаний при активации Bloodpact у Bloodstone?",
+    "unit": "%",
+    "distractors": [50, 75, 80],
+    "why": "Активку жмут на автомате, не глядя на цифру"
+  },
+  {
+    "fact_id": "kaya:bonus_intellect",
+    "level": "max",
+    "question": "Сколько интеллекта даёт Kaya?",
+    "unit": "ед.",
+    "distractors": [14, 15, 18],
+    "why": "Базовый стат, который помнят примерно, но не точно"
+  },
+  {
+    "fact_id": "kaya:mana_regen_multiplier",
+    "level": "max",
+    "question": "На сколько процентов Kaya усиливает регенерацию маны?",
+    "unit": "%",
+    "distractors": [15, 24, 25],
+    "why": "Второй бонус предмета, который путают с усилением заклинаний"
+  },
+  {
+    "fact_id": "satanic:unholy_lifesteal_total_tooltip",
+    "level": "max",
+    "question": "До скольки процентов вырастает вампиризм при активации Unholy Rage у Satanic?",
+    "unit": "%",
+    "distractors": [150, 200, 225],
+    "why": "Все знают, что сатаник лечит с нуля до фулла, а на сколько процентов — вопрос"
+  },
+  {
+    "fact_id": "satanic:bonus_strength",
+    "level": "max",
+    "question": "Сколько силы даёт Satanic?",
+    "unit": "ед.",
+    "distractors": [20, 22, 30],
+    "why": "Стат-часть предмета, которую смотрят реже активки"
+  },
+  {
+    "fact_id": "boots_of_bearing:bonus_movement_speed",
+    "level": "max",
+    "question": "Сколько скорости передвижения дают Boots of Bearing самому владельцу?",
+    "unit": "ед.",
+    "distractors": [55, 60, 70],
+    "why": "Отличается от обычных ботинок, и мало кто помнит на сколько"
+  },
+  {
+    "fact_id": "boots_of_bearing:bonus_health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья дают Boots of Bearing владельцу?",
+    "unit": "ед.",
+    "distractors": [14, 16, 20],
+    "why": "Наследие Tranquil Boots, но числа давно поменялись"
+  },
+  {
+    "fact_id": "pipe:barrier_block",
+    "level": "max",
+    "question": "Сколько магического урона поглощает барьер Pipe of Insight?",
+    "unit": "урона",
+    "distractors": [375, 400, 450],
+    "why": "Пайп жмут каждую драку, но сколько он держит — помнят неточно"
+  },
+  {
+    "fact_id": "pipe:health_regen",
+    "level": "max",
+    "question": "Сколько регенерации здоровья даёт Pipe of Insight?",
+    "unit": "ед.",
+    "distractors": [12, 16, 18],
+    "why": "Второстепенный стат, который редко читают в тултипе"
+  }
+]
