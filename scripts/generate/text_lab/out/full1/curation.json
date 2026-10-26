@@ -1,0 +1,20 @@
+{
+  "drop": {
+    "Shadow Demon · Menace": "серия «брейк и стаки»: ответ тот же, что у Warpath",
+    "Storm Spirit · Galvanized": "серия «брейк и стаки»",
+    "Ursa · Fury Swipes": "серия «брейк и стаки»",
+    "Timbersaw · Reactive Armor": "серия «брейк и стаки»",
+    "Visage · Gravekeeper's Cloak": "серия «брейк и стаки»",
+    "Dragon Knight · Breathe Fire": "серия «Linken не срабатывает»: ответ тот же, что у Earth Spike",
+    "Sand King · Burrowstrike": "серия «Linken не срабатывает»",
+    "Treant Protector · Overgrowth": "повтор Global Silence: «BKB после каста снимает»",
+    "Razor · Eye of the Storm": "зубрёжка тултипа (шрайны или нет)",
+    "Enchantress · Untouchable": "«чья механика» с выдуманными подделками из чужих китов",
+    "Phoenix · Dying Light": "«чья механика» угадывается по названию"
+  },
+  "comment": {
+    "Earth Spirit · Stone Remnant": "Пассивный бонус идёт за каждый неистраченный заряд, а ещё 7.5% на 10 секунд дают, когда любой способностью цепляешь камень.",
+    "Primal Beast · Rock Throw": "Rock Throw — исключение из правила «стаки только от входящего урона»: каждый задетый герой добавляет стак Uproar.",
+    "Skywrath Mage · Mystic Flare": "Mystic Flare сразу уничтожает иллюзии, попавшие в зону, — урон делится только между настоящими героями."
+  }
+}

@@ -150,6 +150,9 @@ def check(q: dict, sample: dict) -> dict:
         flags.append(f"вариантов {len(q['options'])}, нужно 4")
     if sum(1 for o in q["options"] if o["correct"]) != 1:
         flags.append("верным должен быть ровно один вариант")
+    # модель иногда оставляет комментарий пустым или протекает в него кусок JSON
+    if not q["comment"].strip() or re.search(r'"\}|\]\}|"comment"', q["comment"]):
+        flags.append("пустой или испорченный комментарий")
     for o in q["options"]:
         ev = o["evidence"]
         if ev["source"] == "invented" or ev["ability"] == "none":
@@ -242,7 +245,7 @@ def main() -> None:
     ap.add_argument("--heroes", help="ключи героев через запятую (axe,earth_spirit,…)")
     ap.add_argument("--random", type=int, help="столько случайных героев")
     ap.add_argument("--per-request", type=int, default=5)
-    ap.add_argument("--prompt", default="prompt_mechanics_v3.md")
+    ap.add_argument("--prompt", default="prompt_mechanics_v4.md")
     ap.add_argument("--effort", default="high")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--dry-run", action="store_true")
