@@ -16,7 +16,8 @@
   python scripts/generate/numeric_lab/run_api.py out/v3s --sync       # обычные вызовы параллельно, без батча (×2 цена)
   python scripts/generate/numeric_lab/run_api.py out/costs1 --costs --sync --models claude-opus-5-5
   python scripts/generate/numeric_lab/run_api.py out/step1 --step --sync --models claude-opus-5-5 --groups 3
-    (по умолчанию герои и предметы вперемешку и в случайном порядке; seed пишется в run.json)
+    (по умолчанию каждая категория — heroes/items/neutrals/costs — отдельными запросами, порядок
+     внутри случайный; seed пишется в run.json)
   python scripts/generate/numeric_lab/resolve.py out/v3               # отчёт
 
 Выход в папке прогона: <модель>-g<размер>.json (формат resolve.py), usage.json, cost.md,
@@ -91,11 +92,14 @@ def _fact_ids(entities: list[dict]) -> list[str]:
     return ids
 
 
+CATEGORIES = ("heroes", "items", "neutrals", "costs")
+
+
 def _groups_of(sample: dict, size_spec: int | str, mix: bool, rng: random.Random | None) -> list[dict]:
-    """Разбивка на запросы: отдельно герои и предметы или вперемешку; порядок — как в выборке
-    или случайный (rng). Возвращает payload'ы {"heroes": [...], "items": [...]}."""
-    tagged = [("heroes", e) for e in sample["heroes"]] + [("items", e) for e in sample["items"]]
-    streams = [tagged] if mix else [[t for t in tagged if t[0] == k] for k in ("heroes", "items")]
+    """Разбивка на запросы: по умолчанию каждая категория (CATEGORIES) отдельно, --mix — вперемешку.
+    Порядок внутри — случайный (rng) или как в выборке. Payload: {"<категория>": [...]}."""
+    tagged = [(k, e) for k in CATEGORIES for e in sample.get(k, [])]
+    streams = [tagged] if mix else [[t for t in tagged if t[0] == k] for k in CATEGORIES]
     payloads = []
     for stream in streams:
         if not stream:
@@ -122,8 +126,9 @@ def build_requests(sample: dict, prompt: str, models: list[str], groups: list[in
         for g in groups:
             rng = random.Random(seed) if seed is not None else None
             for i, payload in enumerate(_groups_of(sample, g, mix, rng)):
-                kind = "mix" if mix else ("heroes" if "heroes" in payload else "items")
-                entities = payload.get("heroes", []) + payload.get("items", [])
+                kinds = [k for k in CATEGORIES if k in payload]
+                kind = kinds[0] if len(kinds) == 1 else "mix"
+                entities = [e for k in kinds for e in payload[k]]
                 requests.append({
                     "custom_id": f"{alias}-g{g}-{kind}-{i}",
                     "params": {
@@ -195,6 +200,7 @@ def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], 
                 excluded[_group_key(cid)] += body.get("excluded", [])
                 for q in qs:
                     q["request"] = cid
+                    q["category"] = cid.split("-")[2]
                 questions[_group_key(cid)] += qs
                 row["questions"] = len(qs)
         if res.get("error"):
@@ -297,8 +303,8 @@ def main() -> None:
     ap.add_argument("--sample", default="sample.json")
     ap.add_argument("--step", action="store_true",
                     help="модель задаёт шаг вместо неверных вариантов (prompt_v6.md, sample_step.json)")
-    ap.add_argument("--separate", action="store_true",
-                    help="герои и предметы отдельными запросами (по умолчанию — вперемешку)")
+    ap.add_argument("--mix", action="store_true",
+                    help="категории вперемешку в одном запросе (по умолчанию каждая категория отдельно)")
     ap.add_argument("--seed", type=int,
                     help="seed перемешивания (по умолчанию случайный, пишется в run.json); -1 — порядок выборки")
     ap.add_argument("--costs", action="store_true",
@@ -316,7 +322,7 @@ def main() -> None:
         args.sample, args.prompt, args.groups, args.step = "costs_sample.json", "prompt_costs_v2.md", "all", True
     elif args.step:
         args.sample, args.prompt = "sample_step.json", "prompt_v6.md"
-    mix = not args.separate
+    mix = args.mix
     if args.seed is None:
         args.seed = random.SystemRandom().randrange(10_000)
     seed = None if args.seed == -1 else args.seed
@@ -340,7 +346,7 @@ def main() -> None:
                               step=args.step, mix=mix, seed=seed)
     (run_dir / "requests.json").write_text(json.dumps(requests, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(requests)} запросов: модели {', '.join(ALIASES[m] for m in models)}, группы {groups}, "
-          f"effort {args.effort}, {'вперемешку' if mix else 'герои и предметы отдельно'}, "
+          f"effort {args.effort}, {'категории вперемешку' if mix else 'категории отдельно'}, "
           f"{'seed ' + str(seed) if seed is not None else 'порядок выборки'} → {run_dir / 'requests.json'}")
     if not args.resume:
         (run_dir / "run.json").write_text(json.dumps(
@@ -348,7 +354,7 @@ def main() -> None:
              "step": args.step, "mix": mix, "seed": seed}, ensure_ascii=False, indent=2), encoding="utf-8")
     for r in requests:
         body = json.loads(r["params"]["messages"][0]["content"])
-        names = [h["hero"] for h in body.get("heroes", [])] + [i["name"] for i in body.get("items", [])]
+        names = [e.get("hero") or e.get("name") for k in CATEGORIES for e in body.get(k, [])]
         shown = ", ".join(names[:8]) + (f" … ещё {len(names) - 8}" if len(names) > 8 else "")
         print(f"  {r['custom_id']}: {shown}")
     if args.dry_run:

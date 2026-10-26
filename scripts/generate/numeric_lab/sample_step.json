@@ -2054,42 +2054,6 @@
    ]
   },
   {
-   "key": "kobold_cup",
-   "name": "Kobold Cup",
-   "abilities": [
-    {
-     "type": "active",
-     "title": "One for the Road",
-     "description": "Increases movement speed of all allied units by 10% in a 1000 unit radius around the caster for 6 seconds."
-    }
-   ],
-   "notes": "",
-   "facts": [
-    {
-     "fact_id": "kobold_cup:cd",
-     "label": "COOLDOWN",
-     "values": [
-      40
-     ]
-    },
-    {
-     "fact_id": "kobold_cup:movespeed_pct",
-     "label": "movespeed_pct",
-     "values": [
-      10
-     ]
-    },
-    {
-     "fact_id": "kobold_cup:buff_duration",
-     "label": "buff_duration",
-     "values": [
-      6
-     ]
-    }
-   ],
-   "call_as": "нейтралка 1-го тира Kobold Cup"
-  },
-  {
    "key": "skadi",
    "name": "Eye of Skadi",
    "abilities": [
@@ -2222,6 +2186,44 @@
      ]
     }
    ]
+  }
+ ],
+ "neutrals": [
+  {
+   "key": "kobold_cup",
+   "name": "Kobold Cup",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "One for the Road",
+     "description": "Increases movement speed of all allied units by 10% in a 1000 unit radius around the caster for 6 seconds."
+    }
+   ],
+   "notes": "",
+   "facts": [
+    {
+     "fact_id": "kobold_cup:cd",
+     "label": "COOLDOWN",
+     "values": [
+      40
+     ]
+    },
+    {
+     "fact_id": "kobold_cup:movespeed_pct",
+     "label": "movespeed_pct",
+     "values": [
+      10
+     ]
+    },
+    {
+     "fact_id": "kobold_cup:buff_duration",
+     "label": "buff_duration",
+     "values": [
+      6
+     ]
+    }
+   ],
+   "call_as": "нейтралка 1-го тира Kobold Cup"
   }
  ]
 }

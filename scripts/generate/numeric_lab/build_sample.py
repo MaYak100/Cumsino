@@ -7,8 +7,11 @@
   python scripts/generate/numeric_lab/build_sample.py
     → sample.json        фиксированная выборка героев и предметов (без цен)
     → costs_sample.json  цены всех предметов, которые идут в вопросы (отдельная категория)
-  python scripts/generate/numeric_lab/build_sample.py --random 6 8 --out sample_step.json
-    → случайные герои и предметы (кроме фиксированной выборки), список выбранных — в самом файле
+  python scripts/generate/numeric_lab/build_sample.py --random 6 6 3 --out sample_step.json
+    → случайные герои, предметы и нейтралки (кроме фиксированной выборки)
+
+Категории — отдельные ключи выборки и отдельные запросы: heroes, items (магазин и улучшения
+по рецепту), neutrals (нейтралки и чары), costs (цены, в costs_sample.json).
 
 Значения берутся из dotaconstants, а бонусы Aghanim's Scepter / Shard — из сырых файлов
 героев (dotaconstants их не выгружает): fact_id вида "<способность>:<ключ>@scepter".
@@ -215,43 +218,52 @@ def cost_packet(ik: str, d: dict) -> dict | None:
     return packet
 
 
+NEUTRAL_CATEGORIES = {"neutral", "enhancement"}
+
+
 def build(heroes: list[str] = HEROES, items: list[str] = ITEMS) -> dict:
+    """items может содержать и нейтралки/чары — они уходят в отдельный ключ neutrals."""
     d = _load()
+    packets = {"items": [], "neutrals": []}
+    for ik in items:
+        cat = "neutrals" if d["current"]["items"][ik]["category"] in NEUTRAL_CATEGORIES else "items"
+        packets[cat].append(item_packet(ik, d))
     return {
         "patch": d["manifest"]["patch"],
         "heroes": [hero_packet(f"npc_dota_hero_{hk}", d) for hk in heroes],
-        "items": [item_packet(ik, d) for ik in items],
+        **packets,
     }
 
 
-def pick_random(n_heroes: int, n_items: int) -> tuple[list[str], list[str]]:
-    """Случайные герои и предметы из актуальных, кроме фиксированной выборки."""
+def pick_random(n_heroes: int, n_items: int, n_neutrals: int) -> tuple[list[str], list[str]]:
+    """Случайные герои, предметы и нейтралки/чары из актуальных, кроме фиксированной выборки."""
     d = _load()
     rng = random.SystemRandom()
     heroes = [npc[len("npc_dota_hero_"):] for npc in d["current"]["heroes"]
               if npc[len("npc_dota_hero_"):] not in HEROES]
     cats = set(d["current"]["question_item_categories"])
-    items = [k for k, v in d["current"]["items"].items()
-             if v["category"] in cats and k not in ITEMS and item_packet(k, d)["facts"]]
-    return rng.sample(heroes, n_heroes), rng.sample(items, n_items)
+    pool = [k for k, v in d["current"]["items"].items()
+            if v["category"] in cats and k not in ITEMS and item_packet(k, d)["facts"]]
+    items = [k for k in pool if d["current"]["items"][k]["category"] not in NEUTRAL_CATEGORIES]
+    neutrals = [k for k in pool if d["current"]["items"][k]["category"] in NEUTRAL_CATEGORIES]
+    return rng.sample(heroes, n_heroes), rng.sample(items, n_items) + rng.sample(neutrals, n_neutrals)
 
 
 def build_costs() -> dict:
     d = _load()
     cats = set(d["current"]["question_item_categories"])
     keys = sorted(k for k, v in d["current"]["items"].items() if v["category"] in cats)
-    return {"patch": d["manifest"]["patch"], "heroes": [],
-            "items": [p for k in keys if (p := cost_packet(k, d))]}
+    return {"patch": d["manifest"]["patch"], "costs": [p for k in keys if (p := cost_packet(k, d))]}
 
 
 def _count(sample: dict) -> int:
-    return sum(len(p["facts"]) for h in sample["heroes"] for p in h["abilities"]) + \
-        sum(len(i["facts"]) for i in sample["items"])
+    return sum(len(p["facts"]) for h in sample.get("heroes", []) for p in h["abilities"]) + \
+        sum(len(i["facts"]) for k in ("items", "neutrals") for i in sample.get(k, []))
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--random", nargs=2, type=int, metavar=("HEROES", "ITEMS"),
+    ap.add_argument("--random", nargs=3, type=int, metavar=("HEROES", "ITEMS", "NEUTRALS"),
                     help="случайная выборка вместо фиксированной")
     ap.add_argument("--out", default=OUT.name)
     args = ap.parse_args()
@@ -261,7 +273,8 @@ def main() -> None:
         sample = build(heroes, items)
         out.write_text(json.dumps(sample, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"случайно: {', '.join(h['hero'] for h in sample['heroes'])} | "
-              f"{', '.join(i['name'] for i in sample['items'])} → {out}")
+              f"{', '.join(i['name'] for i in sample['items'])} | "
+              f"{', '.join(i['name'] for i in sample['neutrals'])} → {out}")
         return
     sample = build()
     out.write_text(json.dumps(sample, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -270,7 +283,7 @@ def main() -> None:
           f"(из них аганим/шард: {upgrades}) → {out}")
     costs = build_costs()
     COSTS.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"цены: {len(costs['items'])} предметов → {COSTS}")
+    print(f"цены: {len(costs['costs'])} предметов → {COSTS}")
 
 
 if __name__ == "__main__":

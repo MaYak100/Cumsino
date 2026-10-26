@@ -32,12 +32,12 @@ RESERVED = {"sample", "resolved", "usage", "requests", "batch", "run"}
 def load_facts(sample_path: Path) -> dict[str, dict]:
     sample = json.loads(sample_path.read_text(encoding="utf-8"))
     facts = {}
-    for h in sample["heroes"]:
+    for h in sample.get("heroes", []):
         for ab in h["abilities"]:
             for f in ab["facts"]:
                 facts[f["fact_id"]] = {**f, "entity": f"{h['hero']} · {ab['name']}",
                                        "role": ab.get("role"), "siblings": ab["facts"]}
-    for it in sample["items"]:
+    for it in (e for k in ("items", "neutrals", "costs") for e in sample.get(k, [])):
         for f in it["facts"]:
             facts[f["fact_id"]] = {**f, "entity": it["name"], "role": "item", "siblings": it["facts"],
                                    "level_names": it.get("level_names", [])}
@@ -150,7 +150,8 @@ def render(run_dir: Path, results: dict[str, list[dict]]) -> str:
         lines += ["", f"## {model}", ""]
         for r in rs:
             ans = _fmt(r["answer"]) if r.get("answer") is not None else "?"
-            lines.append(f"**{r.get('entity', r.get('fact_id'))}** — {r.get('question')}")
+            cat = f"[{r['category']}] " if r.get("category") else ""
+            lines.append(f"**{cat}{r.get('entity', r.get('fact_id'))}** — {r.get('question')}")
             opts = ""
             if r.get("mc"):
                 opts = " · ".join(f"**{_fmt(o)}**" if o == float(r["answer"]) else _fmt(o)

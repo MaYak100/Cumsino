@@ -1,7 +1,6 @@
 {
  "patch": "7.41f",
- "heroes": [],
- "items": [
+ "costs": [
   {
    "key": "abyssal_blade",
    "name": "Abyssal Blade",
