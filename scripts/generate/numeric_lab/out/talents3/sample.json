@@ -1,0 +1,611 @@
+{
+ "patch": "7.41f",
+ "heroes": [
+  {
+   "hero": "Shadow Shaman",
+   "abilities": [
+    "Ether Shock",
+    "Hex",
+    "Shackles",
+    "Fowl Play",
+    "Urnaconda",
+    "Mass Serpent Ward"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_shadow_shaman_6",
+     "level": 10,
+     "text": "+170 Shackles Total Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_mp_regen_175",
+     "level": 10,
+     "text": "+1.75 Mana Regen",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_8",
+     "level": 15,
+     "text": "+160 Serpent Wards Attack Range",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_7",
+     "level": 15,
+     "text": "Hex Breaks",
+     "kind": "mechanic"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_2",
+     "level": 20,
+     "text": "+1.5s Shackles Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_1",
+     "level": 20,
+     "text": "+50% Serpent Wards Max HP",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_3",
+     "level": 25,
+     "text": "+250 Ether Shock Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_shadow_shaman_4",
+     "level": 25,
+     "text": "+1 Ward Attack Targets",
+     "kind": "stat"
+    }
+   ]
+  },
+  {
+   "hero": "Slark",
+   "abilities": [
+    "Dark Pact",
+    "Pounce",
+    "Saltwater Shiv",
+    "Depth Shroud",
+    "Essence Shift",
+    "Shadow Dance"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_slark_6",
+     "level": 10,
+     "text": "-0.75s Dark Pact Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark",
+     "level": 10,
+     "text": "+0.5s Pounce Leash",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark_2",
+     "level": 15,
+     "text": "+70 Dark Pact Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark_8",
+     "level": 15,
+     "text": "+30 Shadow Dance Regen",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark_4",
+     "level": 20,
+     "text": "+20s Essence Shift Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark_7",
+     "level": 20,
+     "text": "+100 Shadow Dance Attack Speed",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark_3",
+     "level": 25,
+     "text": "+1.5s Shadow Dance Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_slark_5",
+     "level": 25,
+     "text": "+1 Agility gain/stolen per Essence Shift Stack",
+     "kind": "tweak"
+    }
+   ]
+  },
+  {
+   "hero": "Monkey King",
+   "abilities": [
+    "Boundless Strike",
+    "Tree Dance",
+    "Primal Spring",
+    "Jingu Mastery",
+    "Mischief",
+    "Wukong's Command"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_monkey_king_7",
+     "level": 10,
+     "text": "+300 Tree Dance Cast Range",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_9",
+     "level": 10,
+     "text": "+0.2s Boundless Strike Stun Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_8",
+     "level": 15,
+     "text": "0 Cooldown Primal Spring",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_2",
+     "level": 15,
+     "text": "+110 Jingu Mastery Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_3",
+     "level": 20,
+     "text": "Jingu Mastery Undispellable",
+     "kind": "mechanic"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_10",
+     "level": 20,
+     "text": "+60% Boundless Strike Critical Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_11",
+     "level": 25,
+     "text": "-1 Jingu Mastery Required Hits",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_monkey_king_6",
+     "level": 25,
+     "text": "Additional Wukong's Command Ring",
+     "kind": "mechanic"
+    }
+   ]
+  },
+  {
+   "hero": "Centaur Warrunner",
+   "abilities": [
+    "Hoof Stomp",
+    "Double Edge",
+    "Retaliate",
+    "Work Horse",
+    "Stampede",
+    "Horsepower"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_hp_regen_4",
+     "level": 10,
+     "text": "+4 Health Regen",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_movement_speed_15",
+     "level": 10,
+     "text": "+15 Movement Speed",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_strength_10",
+     "level": 15,
+     "text": "+10 Strength",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_centaur_4",
+     "level": 15,
+     "text": "+30% Double Edge Strength Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_centaur_3",
+     "level": 20,
+     "text": "+45 Retaliate Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_centaur_5",
+     "level": 20,
+     "text": "-25s Stampede Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_centaur_1",
+     "level": 25,
+     "text": "Gains Retaliate Aura",
+     "kind": "mechanic"
+    },
+    {
+     "id": "special_bonus_unique_centaur_2",
+     "level": 25,
+     "text": "+1.0s Hoof Stomp Duration",
+     "kind": "tweak"
+    }
+   ]
+  },
+  {
+   "hero": "Marci",
+   "abilities": [
+    "Dispose",
+    "Rebound",
+    "Bodyguard",
+    "Special Delivery",
+    "Unleash"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_marci_dispose_slow",
+     "level": 10,
+     "text": "+1.5s Dispose Slow Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_marci_rebound_radius",
+     "level": 10,
+     "text": "+50 Rebound Landing Radius",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_marci_grapple_damage",
+     "level": 15,
+     "text": "+115 Dispose Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_marci_guardian_damage",
+     "level": 15,
+     "text": "+12% Bodyguard Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_marci_grapple_stun_duration",
+     "level": 20,
+     "text": "+0.75s Rebound Stun Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_marci_unleash_speed",
+     "level": 20,
+     "text": "+15% Unleash Movement Speed",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_marci_unleash_extend_duration",
+     "level": 25,
+     "text": "Unleash Duration Extended By 6s On Kill",
+     "kind": "mechanic"
+    },
+    {
+     "id": "special_bonus_unique_marci_guardian_strong_dispel",
+     "level": 25,
+     "text": "Bodyguard Strong Dispels",
+     "kind": "mechanic"
+    }
+   ]
+  },
+  {
+   "hero": "Pudge",
+   "abilities": [
+    "Meat Hook",
+    "Rot",
+    "Meat Shield",
+    "Flesh Heap",
+    "Dismember"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_armor_5",
+     "level": 10,
+     "text": "+5 Armor",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_pudge_4",
+     "level": 10,
+     "text": "+10% Rot Slow",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_spell_lifesteal_8",
+     "level": 15,
+     "text": "+8% Spell Lifesteal",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_pudge_7",
+     "level": 15,
+     "text": "+150 Meat Hook Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_pudge_6",
+     "level": 20,
+     "text": "+0.75s Dismember Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_pudge_5",
+     "level": 20,
+     "text": "-4s Meat Hook Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_pudge_3",
+     "level": 25,
+     "text": "1.5x Dismember Damage/Heal",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_pudge_1",
+     "level": 25,
+     "text": "1.5x Flesh Heap and Meat Shield bonuses",
+     "kind": "tweak"
+    }
+   ]
+  },
+  {
+   "hero": "Gyrocopter",
+   "abilities": [
+    "Rocket Barrage",
+    "Homing Missile",
+    "Flak Cannon",
+    "Afterburner",
+    "Side Gunner",
+    "Call Down"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_gyrocopter_homing_missile_damage",
+     "level": 10,
+     "text": "+25% Homing Missile Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_hp_150",
+     "level": 10,
+     "text": "+150 Health",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_6",
+     "level": 15,
+     "text": "+0.3s Homing Missile Stun Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_flak_cannon_bonus_damage",
+     "level": 15,
+     "text": "+25 Flak Cannon Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_2",
+     "level": 20,
+     "text": "+3 Flak Cannon Attacks",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_3",
+     "level": 20,
+     "text": "+14 Rocket Barrage Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_1",
+     "level": 25,
+     "text": "-6s Flak Cannon Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_gyrocopter_5",
+     "level": 25,
+     "text": "-40s Call Down Cooldown",
+     "kind": "tweak"
+    }
+   ]
+  },
+  {
+   "hero": "Medusa",
+   "abilities": [
+    "Split Shot",
+    "Mystic Snake",
+    "Gorgon's Grasp",
+    "Cold Blooded",
+    "Mana Shield",
+    "Stone Gaze"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_medusa_gorgons_grasp_radius",
+     "level": 10,
+     "text": "+20% Gorgon's Grasp Radius",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_medusa_8",
+     "level": 10,
+     "text": "+12% Stone Gaze Bonus Physical Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_medusa_gorgons_grasp_volleys",
+     "level": 15,
+     "text": "+1 Gorgon's Grasp Volley",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_medusa_5",
+     "level": 15,
+     "text": "-4s Mystic Snake Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_medusa_snake_damage",
+     "level": 20,
+     "text": "+40% Mystic Snake Damage / Mana Gain",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_medusa_2",
+     "level": 20,
+     "text": "+12% Split Shot Outgoing Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_medusa",
+     "level": 25,
+     "text": "+2.5s Stone Gaze Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_intelligence_40",
+     "level": 25,
+     "text": "+40 Intelligence",
+     "kind": "stat"
+    }
+   ]
+  },
+  {
+   "hero": "Puck",
+   "abilities": [
+    "Illusory Orb",
+    "Waning Rift",
+    "Phase Shift",
+    "Puckish",
+    "Dream Coil"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_puck_orb_damage",
+     "level": 10,
+     "text": "+35 Illusory Orb Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck_7",
+     "level": 10,
+     "text": "+1.25s Waning Rift Silence Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck_5",
+     "level": 15,
+     "text": "+2% Puckish Health and Mana Restoration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck_6",
+     "level": 15,
+     "text": "+60 Waning Rift Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck_2",
+     "level": 20,
+     "text": "-2.5s Waning Rift Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck_coil_damage",
+     "level": 20,
+     "text": "+200 Initial/Break Dream Coil Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck",
+     "level": 25,
+     "text": "-30s Dream Coil Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_puck_rift_radius",
+     "level": 25,
+     "text": "+350 Waning Rift Radius/Max Distance",
+     "kind": "tweak"
+    }
+   ]
+  },
+  {
+   "hero": "Dazzle",
+   "abilities": [
+    "Poison Touch",
+    "Shallow Grave",
+    "Shadow Wave",
+    "Weave",
+    "Nothl Projection"
+   ],
+   "talents": [
+    {
+     "id": "special_bonus_unique_dazzle_poison_touch_attack_range_bonus",
+     "level": 10,
+     "text": "+200 Poison Touch Attack Range",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_mp_regen_175",
+     "level": 10,
+     "text": "+1.75 Mana Regen",
+     "kind": "stat"
+    },
+    {
+     "id": "special_bonus_unique_dazzle_2",
+     "level": 15,
+     "text": "+45 Shadow Wave Heal / Damage",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_dazzle_nothl_projection_duration",
+     "level": 15,
+     "text": "+5s Nothl Projection Duration",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_dazzle_shallow_grave_cooldown",
+     "level": 20,
+     "text": "-3s Shallow Grave Cooldown",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_dazzle_3",
+     "level": 20,
+     "text": "+75 Poison Touch DPS",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_dazzle_1",
+     "level": 25,
+     "text": "+40% Poison Touch Slow",
+     "kind": "tweak"
+    },
+    {
+     "id": "special_bonus_unique_dazzle_4",
+     "level": 25,
+     "text": "+1 Weave Armor Reduction/Increase",
+     "kind": "tweak"
+    }
+   ]
+  }
+ ]
+}

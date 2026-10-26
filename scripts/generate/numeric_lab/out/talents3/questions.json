@@ -1,0 +1,106 @@
+[
+  {
+    "hero": "Shadow Shaman",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Shadow Shaman?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Shackles Pierce Debuff Immunity"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_shadow_shaman_7"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Ether Shock Silences"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Serpent Wards Gain Splash Attack"
+      }
+    ]
+  },
+  {
+    "hero": "Monkey King",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Monkey King?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Primal Spring Roots Enemies"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Boundless Strike Applies Break"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_monkey_king_6"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Wukong's Command Soldiers Apply Jingu Mastery Hits"
+      }
+    ]
+  },
+  {
+    "hero": "Centaur Warrunner",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Centaur Warrunner?",
+    "options": [
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Hoof Stomp Pierces Debuff Immunity"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Double Edge Is Non-Lethal"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Stampede Breaks"
+      },
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_centaur_1"
+      }
+    ]
+  },
+  {
+    "hero": "Marci",
+    "type": "has",
+    "question": "Какой из этих талантов есть у Marci?",
+    "options": [
+      {
+        "kind": "real",
+        "talent_id": "special_bonus_unique_marci_guardian_strong_dispel"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Dispose Pierces Debuff Immunity"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Rebound Silences"
+      },
+      {
+        "kind": "invented",
+        "from_talent_id": "none",
+        "text": "Unleash Grants Debuff Immunity"
+      }
+    ]
+  }
+]
