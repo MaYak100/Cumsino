@@ -12,6 +12,7 @@
   python scripts/generate/numeric_lab/run_api.py out/v3 --estimate    # + count_tokens, оценка цены
   python scripts/generate/numeric_lab/run_api.py out/v3               # отправить батч и дождаться
   python scripts/generate/numeric_lab/run_api.py out/v3 --resume      # забрать результаты уже отправленного батча
+  python scripts/generate/numeric_lab/run_api.py out/v3s --sync       # обычные вызовы параллельно, без батча (×2 цена)
   python scripts/generate/numeric_lab/resolve.py out/v3               # отчёт
 
 Выход в папке прогона: <модель>-g<размер>.json (формат resolve.py), usage.json, cost.md,
@@ -24,6 +25,7 @@ import shutil
 import sys
 import time
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 LAB = Path(__file__).parent
@@ -130,8 +132,9 @@ def estimate(client, requests: list[dict], batch: bool) -> None:
         print(f"  {key:<10} {len(ns):>2} запросов, {sum(ns):>7} токенов входа  ≈ ${dollars:.3f}")
 
 
-def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], batch: bool) -> None:
-    """results: custom_id → {"status", "message"?, "error"?}"""
+def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], batch: bool,
+                 wall_seconds: float | None = None) -> None:
+    """results: custom_id → {"status", "message"?, "error"?, "seconds"?}"""
     model_of = {r["custom_id"]: r["params"]["model"] for r in requests}
     questions: dict[str, list] = defaultdict(list)
     usage_rows = {}
@@ -154,15 +157,23 @@ def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], 
                 row["questions"] = len(qs)
         if res.get("error"):
             row["error"] = res["error"]
+        if "seconds" in res:
+            row["seconds"] = res["seconds"]
         usage_rows[cid] = row
 
     for key, qs in questions.items():
         (run_dir / f"{key}.json").write_text(json.dumps(qs, ensure_ascii=False, indent=2), encoding="utf-8")
     (run_dir / "usage.json").write_text(json.dumps(usage_rows, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    lines = ["# Стоимость прогона", "", f"Цены: {'Batch API (−50%)' if batch else 'обычные вызовы'}.", "",
+    lines = ["# Стоимость прогона", "", f"Цены: {'Batch API (−50%)' if batch else 'обычные вызовы'}.", ""]
+    if wall_seconds is not None:
+        lines += [f"Время прогона целиком: {wall_seconds:.0f} с.", ""]
+    lines += [
              "| Конфигурация | Запросов | Вход | Запись в кэш | Чтение кэша | Выход (с размышлениями) | Вопросов | $ |",
              "|---|---|---|---|---|---|---|---|"]
+    if not batch:
+        lines[-2] = lines[-2] + " Время запроса, с (сред / макс) |"
+        lines[-1] = lines[-1] + "---|"
     agg: dict[str, dict] = defaultdict(lambda: defaultdict(float))
     for cid, row in usage_rows.items():
         a = agg[_group_key(cid)]
@@ -172,10 +183,12 @@ def save_results(run_dir: Path, requests: list[dict], results: dict[str, dict], 
         a["questions"] += row.get("questions", 0)
         a["cost"] += row.get("cost", 0)
         a["failed"] += 0 if row.get("stop_reason") == "end_turn" else 1
+        a["seconds"] += row.get("seconds", 0)
+        a["max_seconds"] = max(a["max_seconds"], row.get("seconds", 0))
     for key, a in sorted(agg.items()):
         lines.append(f"| {key} | {int(a['n'])} | {int(a['input_tokens'])} | {int(a['cache_creation_input_tokens'])} | "
                      f"{int(a['cache_read_input_tokens'])} | {int(a['output_tokens'])} | {int(a['questions'])} | "
-                     f"{a['cost']:.3f} |")
+                     f"{a['cost']:.3f} |" + ("" if batch else f" {a['seconds'] / a['n']:.0f} / {a['max_seconds']:.0f} |"))
     failed = {cid: r for cid, r in usage_rows.items() if r.get("stop_reason") != "end_turn"}
     if failed:
         lines += ["", "Неуспешные запросы:"] + [f"- {cid}: {r}" for cid, r in failed.items()]
@@ -213,6 +226,26 @@ def run_batch(client, run_dir: Path, requests: list[dict], resume: bool) -> dict
     return results
 
 
+def run_sync(client, requests: list[dict], workers: int) -> dict[str, dict]:
+    """Обычные вызовы Messages API параллельно; время каждого запроса — в "seconds"."""
+    started = time.time()
+
+    def call(r: dict) -> tuple[str, dict]:
+        t0 = time.time()
+        try:
+            with client.messages.stream(**r["params"]) as stream:
+                msg = stream.get_final_message()
+            res = {"status": "succeeded", "message": msg}
+        except Exception as e:  # noqa: BLE001 — ошибку пишем в отчёт, не роняем остальные запросы
+            res = {"status": "errored", "error": f"{type(e).__name__}: {e}"}
+        res["seconds"] = round(time.time() - t0, 1)
+        print(f"  {int(time.time() - started):>5}с  {r['custom_id']}: {res['status']} за {res['seconds']}с", flush=True)
+        return r["custom_id"], res
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        return dict(pool.map(call, requests))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Числовые вопросы через Anthropic API")
     ap.add_argument("run_dir")
@@ -223,6 +256,8 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true", help="только собрать запросы")
     ap.add_argument("--estimate", action="store_true", help="count_tokens и оценка цены, без генерации")
     ap.add_argument("--resume", action="store_true", help="забрать результаты отправленного батча")
+    ap.add_argument("--sync", action="store_true", help="обычные вызовы без Batch API (быстро, полная цена)")
+    ap.add_argument("--workers", type=int, default=8, help="параллельных запросов в --sync")
     args = ap.parse_args()
 
     run_dir = Path(args.run_dir)
@@ -250,7 +285,13 @@ def main() -> None:
     import anthropic
     client = anthropic.Anthropic()
     if args.estimate:
-        estimate(client, requests, batch=True)
+        estimate(client, requests, batch=not args.sync)
+        return
+
+    if args.sync:
+        started = time.time()
+        results = run_sync(client, requests, args.workers)
+        save_results(run_dir, requests, results, batch=False, wall_seconds=time.time() - started)
         return
 
     results = run_batch(client, run_dir, requests, args.resume)
