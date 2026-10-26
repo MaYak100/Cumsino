@@ -21,7 +21,7 @@ LAB = Path(__file__).parent
 
 _LEVEL_WORDS = re.compile(r"уров|макс|ранг|прокач", re.I)
 _NUM = re.compile(r"\d+(?:[.,]\d+)?")
-_LEVEL_REF = re.compile(r"\d+\s*-?\s*(?:м|й|ом)?\s*уровн\w*", re.I)
+_LEVEL_REF = re.compile(r"\d+\s*-?\s*(?:м|й|ом|го)?\s*уровн\w*", re.I)
 
 
 RESERVED = {"sample", "resolved", "usage", "requests", "batch"}

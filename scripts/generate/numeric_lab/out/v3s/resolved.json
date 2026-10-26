@@ -535,7 +535,9 @@
         "position": 4,
         "spread": 1.5
       },
-      "flags": []
+      "flags": [
+        "максимальный уровень назван числом"
+      ]
     },
     {
       "fact_id": "faceless_void_chronosphere:duration",
