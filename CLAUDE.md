@@ -156,81 +156,16 @@ Located in `server/src/game/economy/__tests__/` and `server/src/game/__tests__/`
 
 **Паттерн для GameRoom тестов:** `(room as any)` для доступа к private-полям (phase, currentMode, gladiatorId, currentQuestion, bribeAuction и т.д.) и private-методам (calculateResults, checkAndStartBribeEvent, advanceFromQuestion). `vi.useFakeTimers()` в beforeEach для контроля таймеров bribe-аукциона.
 
-## Questions System (`scripts/data/`)
+## Questions System
 
-Dota 2 вопросы. Источник данных — GitHub-зеркало OpenDota: `raw.githubusercontent.com/odota/dotaconstants/master/build/`.
+**Стандарты, выводы и бэклог — [docs/questions/README.md](docs/questions/README.md) и [docs/questions/BACKLOG.md](docs/questions/BACKLOG.md).** Читать их перед любой работой с вопросами.
 
-**Источник истины — снимок `scripts/data/dota/`**, обновляется `python scripts/fetch_dota_data.py` (печатает diff со старым снимком). Два источника на зафиксированных коммитах (`manifest.json`: патч, sha, контрольные суммы):
-- `odota/dotaconstants` → `scripts/data/dota/*.json` — разобранные значения и описания (heroes, hero_abilities, abilities, aghs_desc, items, patch, patchnotes). **Не удаляет вырезанное**: старые предметы/способности остаются с замороженными полями.
-- `dotabuff/d2vpkr` → `scripts/data/dota/game/` — сырые файлы игры (items.txt, neutral_items.txt, shops.txt, файлы героев, abilities_russian.txt).
-
-**Что есть в игре — `scripts/data/dota/current.json`** (`scripts/build_game_index.py`, вызывается из fetch). Предметы по категориям: `shop` (shops.txt), `upgrade` (Dagon 2–5, BoT 2), `neutral`/`enhancement` (текущие тиры neutral_items.txt), `roshan`, `removed` (IsObsolete или нейтралка вне тиров), `other`. В вопросы идут shop/upgrade/neutral/enhancement. Способности — слоты героя с ролью: basic/ultimate/innate/shard/scepter (в вопросы), sub (служебные кнопки), review (не определилось — решить вручную). Ручные решения — `scripts/data/dota_overrides.json`. Парсер формата игры — `scripts/valve_kv.py`. Старые `scripts/data/{heroes,abilities,items}.json` — устаревший архив.
-
-**Лаборатория числовых вопросов — `scripts/generate/numeric_lab/`**: `build_sample.py` (выборка фактов из current.json), `prompt_v*.md`, `resolve.py out/<run>` (модель выбирает `fact_id`, ответ подставляется из данных, флаги + `report.md`). Модель число не пишет. Прогон через API — `run_api.py out/<run>` (`--dry-run` / `--estimate` / без флагов = Batch API / `--resume`): Batch API, кэш системного промпта, structured outputs с enum по `fact_id`, `effort`; пишет `<модель>-g<N>.json`, `usage.json`, `cost.md`. Нужен `ANTHROPIC_API_KEY` (переменная окружения, подхватывается новой сессией). Текущие прогоны: `run_api.py out/v4a --sync --models claude-opus-5-5 --groups 3` (prompt_v4, без цен, с бонусами аганима/шарда из сырых файлов героев — dotaconstants их не выгружает), цены отдельно — `run_api.py out/costs1 --costs --sync --models claude-opus-5-5` (все предметы одним запросом, ~5% исключаются с причиной в `excluded-*.json`). cache_control не используется: уникальная схема с enum попадает в префикс, кэш не читается. **Основа — режим шага** (`--step`, `prompt_v5.md`): модель даёт `step`, варианты строит код (`options.py`, эталон для переноса в игру) — позиция ответа случайна. Категории вопросов — отдельные ключи выборки и отдельные запросы: `heroes`, `items` (магазин + улучшения по рецепту), `neutrals` (нейтралки и чары), `costs` (цены); каждый вопрос помечен `category`. Порядок внутри категории случайный (seed пишется в `run.json`); `--mix` — категории вперемешку, `--seed -1` — порядок выборки. Цены — `--costs` (prompt_costs_v2, тоже шаг); **`out/costs2` — зафиксированный финальный набор цен** (173 вопроса, 9 исключений). Размер запроса и квота задаются по категории (`CATEGORY_SETUP` в run_api.py, `--groups auto`, квота подставляется в `{QUOTA}` промпта `prompt_v7.md`): герои по 3, 2–4 вопроса на героя; предметы и нейтралки по 10, обычно 1 на сущность (до 2); чары (`enhancements`) все одним запросом, ~0.5 вопроса на чару. Полная выборка — `build_sample.py --full --out full_sample.json`. Нейтралки и чары называются по данным: `call_as` / `level_names` («нейтралка 1-го тира Kobold Cup», «чара на нейтралки 2-го тира Brawny», «Dagon 5»). Таланты — `talent_lab.py` (`--full`: все герои по 10 в запросе, `prompt_talents_v3.md`): только необычные (mechanic) таланты, «какой из этих талантов есть у героя», 3 выдуманные механики; варианты по-русски со сленгом; проверка кодом + второй проход модели (`prompt_talents_verify.md`: real_talent / not_a_talent / already_default / too_close, точность перевода). Полный прогон — `out/talents-full`. Полные числовые прогоны: `out/full1` (герои, предметы, нейтралки, чары), `out/costs2` (цены). Ключ API — `NUMLAB_API_KEY` (имя `ANTHROPIC_API_KEY` занято платформой).
-
-### Runtime-файлы — `scripts/data/generated/`
-
-Сервер читает напрямую эти 4 плоских JSON-массива (не `questions_db.json`):
-
-| Файл | Тип | Кол-во | Назначение |
-|---|---|---|---|
-| `general_main.json` | MC только | 9 | Общие вопросы о Dota 2 |
-| `abilities_main.json` | MC + CN | 406 MC / 281 CN | Способности героев |
-| `items_main.json` | MC + CN | 154 MC / 99 CN | Предметы |
-| `costs_main.json` | CN только | 157 | Цены предметов |
-
-### Взвешенный выбор вопросов (`createQuestionPicker`)
-
-**Режимы `all` и `kerri`** — берут только MC:
-- 7% → `general_main.json`
-- 55% → `abilities_main.json` (MC)
-- 38% → `items_main.json` (MC)
-
-**Режим `closest`** — берут только CN:
-- 30% → `costs_main.json`
-- 35% → `abilities_main.json` (CN)
-- 35% → `items_main.json` (CN)
-
-### Формат вопросов в generated-файлах
-
-**MC:** поля `type`, `topic`, `question`, `options` (массив 4 вариантов). **`options[0]` всегда правильный** (нет поля `correct`, `answer: null`). Опции перемешиваются при каждом вызове `pickQuestion`. Дополнительные поля зависят от источника: abilities — `heroName` (имя героя), items — `source` (snake_case название предмета); general — `subcategory` (тема вопроса) и `comment` (пояснение/данные, показывается после раскрытия ответа).
-
-```json
-{ "type": "multiple_choice", "topic": "Способность", "heroName": "Abaddon", "question": "...", "options": ["правильный","д1","д2","д3"] }
-```
-
-**CN:** поля `type`, `topic`, `question`, `answer` (число). Нет `answers[]` и `{level}` — только одно значение.
-
-```json
-{ "type": "closest_number", "topic": "Цена", "question": "...", "answer": 2250, "unit": "золото" }
-```
-
-### Исходные/архивные файлы (`scripts/data/` корень — не трогать)
-
-- `item_questions.json`, `ability_questions.json` — старые CN-базы, вручную почищены
-- `active_questions_batch*.json`, `ability_questions_new.json` — агент-батчи
-- `questions_db.json` — старый единый файл (больше сервером не используется)
-- **`generate_item_questions.py` — не запускать** (пользователь вручную почистил)
-
-### Фильтры предметов
-Устарели: фильтр `cost > 0` пропускал 15 вырезанных предметов и терял все текущие нейтралки. Теперь — категории из `current.json` (см. выше).
-
-### Стандартный сетап героя для производных вопросов
-300 МС, 200 базовый урон, 10 брони, 150 скорость атаки, BAT 1.7.
-
-### Формулы
-- Снижение урона от брони: `0.06*armor / (1 + 0.06*armor)`
-- Атаки в секунду: `(1 + attack_speed/100) / BAT`
-- Эффективный HP: `HP * (1 + 0.06 * armor)`
-
-### Скрипты (`scripts/`)
-- `build_questions_db.py` — пересборка `questions_db.json` из всех источников
-- `export_batch_data.py` — подготовка батчей предметов для агентов
-- `export_ability_batches.py` — подготовка батчей героев для агентов
-- `merge_batches.py` — мерж item-батчей агентов
-- `merge_ability_batches.py` — мерж ability-батчей + применение delete-листов
-- `generate_ability_questions.py` — генерация ability_questions.json
-- `cleanup_ability_questions.py` — фильтрация мусора из ability_questions
+Кратко:
+- **Источник истины** — снимок `scripts/data/dota/` на зафиксированных коммитах (`manifest.json`), обновление `python scripts/fetch_dota_data.py`. Что сейчас в игре — `scripts/data/dota/current.json` (`scripts/build_game_index.py`), ручные решения — `scripts/data/dota_overrides.json`. dotaconstants не удаляет вырезанное и не выгружает бонусы аганима/шарда — они берутся из сырых файлов игры (`scripts/data/dota/game/`, парсер `scripts/valve_kv.py`).
+- **Генерация** — `scripts/generate/numeric_lab/`: модель выбирает `fact_id` и пишет вопрос и `step`, число подставляется из данных (`resolve.py`). Категории — `heroes`, `items`, `neutrals`, `enhancements`, `costs`, `talents`; размер запроса и квота — `CATEGORY_SETUP` в `run_api.py`. Модель `claude-opus-5-5`, effort high, обычные параллельные вызовы (`--sync`), без Batch API и без `cache_control`. Ключ — `NUMLAB_API_KEY`.
+- **Варианты ответа** строит игра по шагу при каждом показе (эталон `options.py`): случайная позиция ответа по величине, варианты ровно через шаг, отдельное перемешивание показа.
+- **Готовые прогоны:** `out/full1` (герои, предметы, нейтралки, чары), `out/costs2` (цены), `out/talents-full` (таланты).
+- **Игра пока читает старые файлы** `scripts/data/generated/*_main.json` (MC: `options[0]` правильный, перемешивается при выдаче; CN: `answer`; веса выбора — в `loadQuestions.ts`). Перенос нового банка — в бэклоге. Старые скрипты (`scripts/generate/gen_questions.py`, `improve_questions.py`, сборщики `scripts/*.py` старой базы) и архив `scripts/data/*.json` — не использовать.
 
 ## Deployment
 
