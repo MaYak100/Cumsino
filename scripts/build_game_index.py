@@ -7,7 +7,8 @@ dotaconstants хранит и вырезанные предметы/способ
 
 Предметы (категория → в вопросы ли):
   shop          — в магазине (shops.txt)                                   да
-  upgrade       — улучшение по рецепту вне магазина (Dagon 2–5, BoT 2)     да
+  upgrade       — улучшение по рецепту вне магазина (BoT 2)                да
+  level         — уровень другого предмета (Dagon 2–5 → уровни Dagon)      нет, идёт значениями базового
   neutral       — нейтралка текущих тиров (neutral_items.txt)             да
   enhancement   — улучшение нейтралки (enhancements)                       да
   roshan        — дроп Рошана                                              нет
@@ -36,6 +37,9 @@ OUT       = DOTA / "current.json"
 OVERRIDES = Path("scripts/data/dota_overrides.json")
 
 ROSHAN = {"aegis", "cheese", "refresher_shard", "aghanims_shard_roshan", "ultimate_scepter_roshan"}
+# Предметы с уровнями: в вопросах это один предмет, значения по уровням как у способностей
+LEVELLED_ITEMS = {"dagon": ["dagon", "dagon_2", "dagon_3", "dagon_4", "dagon_5"]}
+_LEVEL_OF = {lvl: base for base, lvls in LEVELLED_ITEMS.items() for lvl in lvls[1:]}
 QUESTION_ITEM_CATEGORIES    = {"shop", "upgrade", "neutral", "enhancement"}
 QUESTION_ABILITY_ROLES      = {"basic", "ultimate", "innate", "shard", "scepter"}
 
@@ -80,6 +84,9 @@ def classify_items(overrides: dict) -> dict[str, dict]:
         elif v.get("IsObsolete") == "1":
             entry["category"] = "removed"
             entry["why"] = "IsObsolete"
+        elif name in _LEVEL_OF:
+            entry["category"] = "level"
+            entry["level_of"] = _LEVEL_OF[name]
         elif name in shop:
             entry["category"] = "shop"
         elif name in neutral:
@@ -97,6 +104,8 @@ def classify_items(overrides: dict) -> dict[str, dict]:
             entry["category"] = "upgrade"
         else:
             entry["category"] = "other"
+        if name in LEVELLED_ITEMS:
+            entry["levels"] = LEVELLED_ITEMS[name]
         result[name] = entry
 
     for name, cat in overrides.get("items", {}).items():

@@ -15,10 +15,11 @@ DOTA = Path("scripts/data/dota")
 OUT  = Path(__file__).parent / "sample.json"
 
 HEROES = ["axe", "tusk", "leshrac", "bounty_hunter", "faceless_void", "kez"]
-ITEMS  = ["mjollnir", "shivas_guard", "bloodstone", "kaya", "satanic", "boots_of_bearing", "pipe"]
+ITEMS  = ["mjollnir", "shivas_guard", "bloodstone", "kaya", "satanic", "boots_of_bearing", "pipe", "dagon"]
 
 # Категории, которые не спрашиваем: расстояния неинтуитивны
 _DISTANCE = re.compile(r"radius|range|distance|width|aoe|area_of_effect|castpoint|cast_point|cast time", re.I)
+_MANA_COST = re.compile(r"mana_cost|manacost", re.I)
 # Скорость снарядов/полёта — тоже расстояния; оставляем только скорость передвижения/атаки и замедления
 _SPEED      = re.compile(r"speed", re.I)
 _SPEED_KEEP = re.compile(r"move|movement|attack|slow", re.I)
@@ -26,7 +27,7 @@ _SPEED_KEEP = re.compile(r"move|movement|attack|slow", re.I)
 
 def _excluded(key: str, label: str) -> bool:
     text = f"{key} {label}"
-    if _DISTANCE.search(text):
+    if _DISTANCE.search(text) or _MANA_COST.search(text):
         return True
     if _SPEED.search(text) and not _SPEED_KEEP.search(text):
         return True
@@ -34,7 +35,7 @@ def _excluded(key: str, label: str) -> bool:
 
 
 def _values(raw) -> list[float] | None:
-    vals = raw if isinstance(raw, list) else [raw]
+    vals = raw if isinstance(raw, list) else str(raw).split(" / ")   # "400 / 500 / 600" — значения по уровням
     try:
         # "-65%" → 65: знак и процент несут подпись и вопрос, не число
         out = [abs(float(str(v).strip().rstrip("%"))) for v in vals]
@@ -103,8 +104,10 @@ def build() -> dict:
         assert current["items"][ik]["category"] in current["question_item_categories"], ik
         it = items[ik]
         facts = []
-        if it.get("cost"):
-            facts.append(_fact(f"{ik}:cost", "COST (gold)", it["cost"]))
+        levels = current["items"][ik].get("levels", [ik])
+        costs = [items[lvl].get("cost") for lvl in levels]
+        if all(costs):
+            facts.append(_fact(f"{ik}:cost", "COST (gold)", costs))
         if it.get("cd"):
             facts.append(_fact(f"{ik}:cd", "COOLDOWN", it["cd"]))
         for at in it.get("attrib", []):

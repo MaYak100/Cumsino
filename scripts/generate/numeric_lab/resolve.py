@@ -37,7 +37,7 @@ def load_facts(sample_path: Path) -> dict[str, dict]:
                                        "role": ab.get("role"), "siblings": ab["facts"]}
     for it in sample["items"]:
         for f in it["facts"]:
-            facts[f["fact_id"]] = {**f, "entity": it["name"], "siblings": it["facts"]}
+            facts[f["fact_id"]] = {**f, "entity": it["name"], "role": "item", "siblings": it["facts"]}
     return facts
 
 
@@ -71,7 +71,7 @@ def resolve_one(q: dict, facts: dict) -> dict:
     if multi and not _LEVEL_WORDS.search(text):
         flags.append("значение зависит от уровня, а уровень не указан")
     if multi and fact.get("role") and fact["role"] != "ultimate" and idx not in (0, len(vals) - 1):
-        flags.append(f"уровень {idx + 1}: у не-ультимейта только 1-й или максимальный")
+        flags.append(f"уровень {idx + 1}: кроме ультимейтов только 1-й или максимальный")
     if multi and idx == len(vals) - 1 and _LEVEL_REF.search(text):
         flags.append("максимальный уровень назван числом")
     if fact.get("hidden"):

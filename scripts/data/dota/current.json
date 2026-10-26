@@ -490,23 +490,34 @@
   },
   "dagon": {
    "name": "Dagon",
-   "category": "shop"
+   "category": "shop",
+   "levels": [
+    "dagon",
+    "dagon_2",
+    "dagon_3",
+    "dagon_4",
+    "dagon_5"
+   ]
   },
   "dagon_2": {
    "name": "Dagon",
-   "category": "upgrade"
+   "category": "level",
+   "level_of": "dagon"
   },
   "dagon_3": {
    "name": "Dagon",
-   "category": "upgrade"
+   "category": "level",
+   "level_of": "dagon"
   },
   "dagon_4": {
    "name": "Dagon",
-   "category": "upgrade"
+   "category": "level",
+   "level_of": "dagon"
   },
   "dagon_5": {
    "name": "Dagon",
-   "category": "upgrade"
+   "category": "level",
+   "level_of": "dagon"
   },
   "necronomicon": {
    "name": "Necronomicon",
@@ -529,7 +540,8 @@
   },
   "ultimate_scepter_2": {
    "name": "Aghanim's Blessing",
-   "category": "upgrade"
+   "category": "roshan",
+   "override": true
   },
   "ultimate_scepter_roshan": {
    "name": "Aghanim's Blessing - Roshan",

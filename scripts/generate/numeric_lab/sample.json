@@ -756,15 +756,6 @@
        ]
       },
       {
-       "fact_id": "leshrac_pulse_nova:mana_cost_per_second",
-       "label": "MANA/SEC",
-       "values": [
-        20,
-        40,
-        60
-       ]
-      },
-      {
        "fact_id": "leshrac_pulse_nova:damage",
        "label": "DAMAGE",
        "values": [
@@ -2340,6 +2331,82 @@
      "label": "barrier_block_creep",
      "values": [
       425
+     ]
+    }
+   ]
+  },
+  {
+   "key": "dagon",
+   "name": "Dagon",
+   "abilities": [
+    {
+     "type": "active",
+     "title": "Energy Burst",
+     "description": "Emits a powerful burst of magical damage upon a targeted enemy unit. Upgradable.\n\nDamage: 400\n Mana Cost: 120"
+    }
+   ],
+   "notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+   "facts": [
+    {
+     "fact_id": "dagon:cost",
+     "label": "COST (gold)",
+     "values": [
+      3000,
+      4100,
+      5200,
+      6300,
+      7400
+     ]
+    },
+    {
+     "fact_id": "dagon:cd",
+     "label": "COOLDOWN",
+     "values": [
+      27
+     ]
+    },
+    {
+     "fact_id": "dagon:bonus_all_stats",
+     "label": "+ {value} All Attributes",
+     "values": [
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    },
+    {
+     "fact_id": "dagon:bonus_health",
+     "label": "+ {value} Health",
+     "values": [
+      200,
+      210,
+      220,
+      230,
+      240
+     ]
+    },
+    {
+     "fact_id": "dagon:bonus_mana",
+     "label": "+ {value} Mana",
+     "values": [
+      350,
+      375,
+      400,
+      425,
+      450
+     ]
+    },
+    {
+     "fact_id": "dagon:damage",
+     "label": "damage",
+     "values": [
+      400,
+      500,
+      600,
+      700,
+      800
      ]
     }
    ]
