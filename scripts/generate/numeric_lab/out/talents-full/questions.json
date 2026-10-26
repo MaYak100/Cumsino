@@ -1,0 +1,2226 @@
+[
+  {
+    "index": 0,
+    "heroes": [
+      "Weaver",
+      "Queen of Pain",
+      "Visage",
+      "Naga Siren",
+      "Ancient Apparition",
+      "Magnus",
+      "Phantom Assassin",
+      "Anti-Mage",
+      "Undying",
+      "Hoodwink"
+    ],
+    "questions": [
+      {
+        "hero": "Magnus",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Magnus?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Skewer в конце рывка выпускает Shockwave",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_magnus_2",
+            "text": "Shockwave возвращается к Magnus",
+            "original": "Shockwave Returns to Magnus",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Empower накладывается на всех союзников вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Reverse Polarity диспелит врагов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Phantom Assassin",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Phantom Assassin?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Phantom Strike можно применять в точку",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Stifling Dagger рикошетит в ещё одну цель",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Убийство героя сбрасывает кд Phantom Strike",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_phantom_assassin",
+            "text": "Stifling Dagger наносит тройной удар",
+            "original": "Triple Strike Stifling Dagger",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Undying",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Undying?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_undying_3",
+            "text": "Tombstone появляется при смерти Undying",
+            "original": "Tombstone On Death",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Soul Rip лечит всех союзников рядом с целью",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Зомби Tombstone преследуют цель за пределами радиуса",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Decay оставляет зону, которая продолжает красть силу",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Hoodwink",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Hoodwink?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Bushwhack станит врагов и без дерева рядом",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Scurry даёт инвиз, пока Hoodwink в деревьях",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_hoodwink_sharpshooter_vision",
+            "text": "Sharpshooter даёт обзор во время зарядки",
+            "original": "Sharpshooter Provides Vision While Charging",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Sharpshooter не отбрасывает Hoodwink назад",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14233,
+        "output_tokens": 2225,
+        "seconds": 23.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5644,
+        "output_tokens": 1021,
+        "seconds": 10.5,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 1,
+    "heroes": [
+      "Primal Beast",
+      "Enigma",
+      "Abaddon",
+      "Largo",
+      "Ember Spirit",
+      "Outworld Devourer",
+      "Slardar",
+      "Legion Commander",
+      "Pudge",
+      "Oracle"
+    ],
+    "questions": [
+      {
+        "hero": "Primal Beast",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Primal Beast?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Trample больше не дизармит Primal Beast",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_primal_beast_roar_dispells",
+            "text": "Uproar при касте даёт себе базовый диспел",
+            "original": "Basic Self-Dispel on Uproar Cast",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Onslaught даёт стак Uproar за каждого задетого героя",
+            "verdict": "not_a_talent",
+            "verify_note": "Stacks for each hero hit come from Rock Throw (shard), not Onslaught, so the fake holds."
+          },
+          {
+            "kind": "invented",
+            "text": "Pulverize больше не требует поддержания",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Slardar",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Slardar?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Guardian Sprint оставляет за собой водяной след",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Bash of the Deep накладывает Corrosive Haze",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_slardar_3",
+            "text": "Corrosive Haze нельзя развеять",
+            "original": "Corrosive Haze Undispellable",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Slithereen Crush оставляет лужи под задетыми врагами",
+            "verdict": "not_a_talent",
+            "verify_note": "Crush already leaves one puddle at Slardar. The fake differs (puddles under every enemy hit) but is close to the base mechanic."
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Legion Commander",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Legion Commander?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "В Duel Legion Commander может использовать предметы",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Press The Attack действует по области вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Контратака Moment of Courage бьёт по площади",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_legion_commander_duel_refresh_on_victory",
+            "text": "Победа в Duel сокращает его кд",
+            "original": "Duel Advances Cooldown by 30s On Victory",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "The 30s value is omitted, but the meaning (a Duel victory reduces its cooldown) is preserved."
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Abaddon",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Abaddon?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_abaddon_4",
+            "text": "Mist Coil действует по области",
+            "original": "350 AoE Mist Coil",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "The 350 radius is omitted; the meaning is preserved."
+          },
+          {
+            "kind": "invented",
+            "text": "Взрыв Aphotic Shield лечит союзников вокруг",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Curse of Avernus перескакивает на ближайшего врага при смерти цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Во время Borrowed Time Mist Coil не тратит здоровье",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13882,
+        "output_tokens": 2536,
+        "seconds": 28.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5455,
+        "output_tokens": 1548,
+        "seconds": 14.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 2,
+    "heroes": [
+      "Broodmother",
+      "Elder Titan",
+      "Dragon Knight",
+      "Centaur Warrunner",
+      "Terrorblade",
+      "Enchantress",
+      "Earthshaker",
+      "Treant Protector",
+      "Kunkka",
+      "Keeper of the Light"
+    ],
+    "questions": [
+      {
+        "hero": "Centaur Warrunner",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Centaur Warrunner?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Retaliate срабатывает и от урона заклинаниями",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_centaur_1",
+            "text": "Retaliate становится аурой",
+            "original": "Gains Retaliate Aura",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Double Edge бьёт всех врагов вокруг Centaur",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Hoof Stomp оставляет зону слоу",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Kunkka",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Kunkka?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "X Marks the Spot можно наложить на крипов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Torrent оставляет водоворот, притягивающий врагов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_kunkka_tidebringer_armor_pierce",
+            "text": "Tidebringer игнорирует 25% брони",
+            "original": "Tidebringer Ignores 25% Armor",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Tidal Wave сбрасывает кд Tidebringer",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Keeper of the Light",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Keeper of the Light?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Illuminate срубает деревья на пути",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Solar Bind перескакивает на ближайшего врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Blinding Light притягивает врагов к центру",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_keeper_of_the_light_14",
+            "text": "Chakra Magic даёт сильный диспел",
+            "original": "Chakra Magic Strong Dispels",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Treant Protector",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Treant Protector?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_treant_7",
+            "text": "Living Armor действует по области 450",
+            "original": "450 AoE Living Armor",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Overgrowth можно применить вокруг союзного героя",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Nature's Grasp выращивает деревья вдоль лозы",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Nature's Guise не сбивается от получения урона",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14300,
+        "output_tokens": 2355,
+        "seconds": 25.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5577,
+        "output_tokens": 1189,
+        "seconds": 10.2,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 3,
+    "heroes": [
+      "Dark Willow",
+      "Lone Druid",
+      "Lion",
+      "Tusk",
+      "Morphling",
+      "Ring Master",
+      "Kez",
+      "Clockwerk",
+      "Tidehunter",
+      "Chaos Knight"
+    ],
+    "questions": [
+      {
+        "hero": "Lion",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lion?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Hex развеивает положительные эффекты с цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lion_10",
+            "text": "Earth Spike бьёт конусом в 30 градусов",
+            "original": "Earth Spike affects a 30 degree cone",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Mana Drain тянет ману со всех врагов вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Удар кулаком после Finger of Death станит цель",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Tidehunter",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Tidehunter?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Ravage притягивает застаненных врагов к Tidehunter",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Anchor Smash накладывает на врагов эффект Gush",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Активный Kraken Shell возвращает заблокированный урон атакующему",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_tidehunter_smash_on_blubber",
+            "text": "Очищение Kraken Shell вызывает Anchor Smash",
+            "original": "Kraken Shell Cleanse triggers Anchor Smash",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Ring Master",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ring Master?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ringmaster_the_box_strong_dispel_and_flying",
+            "text": "Escape Act даёт сильный диспел и полёт",
+            "original": "Escape Act Grants Strong Dispel and Flying",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Кинжал Impalement Arts возвращается к Ringmaster после попадания",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Escape Act лечит упакованного союзника",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Испуганные Tame the Beasts враги бегут к Wheel of Wonder",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Clockwerk",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Clockwerk?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Hookshot притягивает цель к Clockwerk",
+            "verdict": "not_a_talent",
+            "verify_note": "Среди вариантов нет настоящего таланта Clockwerk."
+          },
+          {
+            "kind": "invented",
+            "text": "Power Cogs нельзя разрушить атаками врагов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_clockwerk_4",
+            "text": "Rocket Flare даёт вижн",
+            "original": "Rocket Flare True Sight",
+            "talent_kind": "mechanic",
+            "verdict": "already_default",
+            "verify_note": "Rocket Flare и так даёт обзор на 6 секунд. Настоящий талант — True Sight (истинное зрение), а перевод «даёт вижн» этот смысл теряет."
+          },
+          {
+            "kind": "invented",
+            "text": "Battery Assault бьёт по две цели за разряд",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": [
+          "проверка: «Rocket Flare даёт вижн» — already_default (Rocket Flare и так даёт обзор на 6 секунд. Настоящий талант — True Sight (истинное зрение), а перевод «даёт вижн» этот смысл теряет.)"
+        ]
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 16009,
+        "output_tokens": 2500,
+        "seconds": 26.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6598,
+        "output_tokens": 1104,
+        "seconds": 11.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 4,
+    "heroes": [
+      "Zeus",
+      "Luna",
+      "Rubick",
+      "Shadow Demon",
+      "Shadow Shaman",
+      "Spirit Breaker",
+      "Sand King",
+      "Riki",
+      "Sniper",
+      "Grimstroke"
+    ],
+    "questions": [
+      {
+        "hero": "Shadow Demon",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Demon?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Иллюзии от Disruption накладывают Shadow Poison атаками",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_shadow_demon_purge_poison",
+            "text": "Demonic Purge накладывает Shadow Poison",
+            "original": "Demonic Purge Applies Shadow Poison",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Disruption накладывает Disseminate на цель",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Release взрывает Shadow Poison по области вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Luna",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Luna?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Удары Eclipse станят цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Lunar Blessing глобальный и днём",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_luna_5",
+            "text": "Lucent Beam бьёт ещё одну цель",
+            "original": "Lucent Beam Hits An Additional Target",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Глефы Lunar Orbit отскакивают как Moon Glaives",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Spirit Breaker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Spirit Breaker?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Bulldoze даёт базовый диспел при касте",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Nether Strike откидывает всех врагов вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Empowering Haste срабатывает и от слоу",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_spirit_breaker_shield",
+            "text": "Bulldoze даёт барьер от урона на 375",
+            "original": "Bulldoze 375 All Damage Barrier",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Shadow Shaman",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Shaman?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_shadow_shaman_7",
+            "text": "Hex даёт брейк",
+            "original": "Hex Breaks",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Shackles держат сразу двух врагов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Атаки Serpent Wards накладывают слоу",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Ether Shock даёт мини-стан",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14205,
+        "output_tokens": 2777,
+        "seconds": 28.3,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5607,
+        "output_tokens": 990,
+        "seconds": 8.2,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 5,
+    "heroes": [
+      "Timbersaw",
+      "Leshrac",
+      "Ursa",
+      "Chen",
+      "Lifestealer",
+      "Lycan",
+      "Tinker",
+      "Bloodseeker",
+      "Night Stalker",
+      "Disruptor"
+    ],
+    "questions": [
+      {
+        "hero": "Leshrac",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Leshrac?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Split Earth раскалывает землю повторно в той же точке",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_leshrac_pulse_nova_lightning",
+            "text": "Pulse Nova вызывает Lightning Storm",
+            "original": "Pulse Nova triggers Lightning Storm",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Diabolic Edict следует за целью Lightning Storm",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Lightning Storm накладывает рут на основную цель",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Ursa",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ursa?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Enrage сбрасывает кд Earthshock",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Earthshock вешает стак Fury Swipes на всех задетых",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Overpower заряжается заново после каждого Earthshock",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ursa_3",
+            "text": "Earthshock имеет 2 заряда",
+            "original": "Earthshock has 2 Charges",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Chen",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Chen?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_chen_12",
+            "text": "Hand of God даёт сильный диспел",
+            "original": "Hand of God applies a Strong Dispel",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Penitence перескакивает на ближайшего врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Holy Persuasion может захватывать древних крипов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Divine Favor телепортирует союзника к Chen",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Timbersaw",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Timbersaw?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Timber Chain рубит все деревья на своём пути",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Chakram при возврате притягивает врагов к Timbersaw",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_timbersaw_exposure_therapy_health",
+            "text": "Exposure Therapy лечит на 12 HP за каждое срубленное дерево",
+            "original": "Exposure Therapy Heals for 12 HP Per Tree Destroyed",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Reactive Armor получает стак за каждое срубленное дерево",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13425,
+        "output_tokens": 2091,
+        "seconds": 21.2,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5208,
+        "output_tokens": 1123,
+        "seconds": 11.5,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 6,
+    "heroes": [
+      "Razor",
+      "Mars",
+      "Warlock",
+      "Snapfire",
+      "Slark",
+      "Witch Doctor",
+      "Windranger",
+      "Vengeful Spirit",
+      "Void Spirit",
+      "Pugna"
+    ],
+    "questions": [
+      {
+        "hero": "Razor",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Razor?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_razor_static_link_aspd",
+            "text": "Static Link крадёт скорость атаки",
+            "original": "Static Link Steals Attack Speed",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Eye of the Storm бьёт две цели за удар",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Storm Surge срабатывает и от атак Razor",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Plasma Field притягивает врагов при сжатии",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Warlock",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Warlock?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_warlock_4",
+            "text": "Призывает голема при смерти",
+            "original": "Summons a Golem on death",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Upheaval не требует поддержания",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Импы от Eldritch Summoning накладывают Shadow Word",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Голем Chaotic Offering при смерти делится на двух",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Windranger",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Windranger?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_windranger_7",
+            "text": "Powershot добивает героев ниже 16% здоровья",
+            "original": "Powershot Executes Enemy Heroes Under 16% Max HP",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "В оригинале «16% Max HP»; «16% здоровья» допустимо, но чуть менее точно."
+          },
+          {
+            "kind": "invented",
+            "text": "Shackleshot сковывает ещё одну цель за второй",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Focus Fire перескакивает на ближайшего героя после убийства",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Powershot возвращается к Windranger, нанося урон повторно",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Void Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Void Spirit?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_void_spirit_3",
+            "text": "Dissimilate накладывает рут на 2 с",
+            "original": "Dissimilate Roots for 2s",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Aether Remnant притягивает всех врагов в радиусе",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Astral Step оставляет в конце пути Aether Remnant",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Щит Resonant Pulse поглощает и магический урон",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14072,
+        "output_tokens": 1905,
+        "seconds": 20.7,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5266,
+        "output_tokens": 977,
+        "seconds": 9.7,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 7,
+    "heroes": [
+      "Meepo",
+      "Tiny",
+      "Techies",
+      "Juggernaut",
+      "Skywrath Mage",
+      "Templar Assassin",
+      "Arc Warden",
+      "Storm Spirit",
+      "Beastmaster",
+      "Necrophos"
+    ],
+    "questions": [
+      {
+        "hero": "Skywrath Mage",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Skywrath Mage?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Arcane Bolt отскакивает на второго врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_skywrath_4",
+            "text": "Concussive Shot по всей карте",
+            "original": "Global Concussive Shot",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Ancient Seal накладывается на врагов вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Mystic Flare следует за целью",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Templar Assassin",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Templar Assassin?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Meld не спадает при движении",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Полностью заряженная Psionic Trap даёт рут",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Psi Blades переносят эффекты атаки на задетых врагов",
+            "verdict": "not_a_talent",
+            "verify_note": "Per the description, only Meld's bonus damage and debuffs spread across the Psi Blades split, not all attack effects, so this is a plausible fake."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_templar_assassin_4",
+            "text": "Refraction даёт диспел",
+            "original": "Refraction Dispels",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Storm Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Storm Spirit?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_storm_spirit_4",
+            "text": "Ball Lightning сам оставляет Static Remnant по пути",
+            "original": "450 Distance Auto Remnant in Ball Lightning",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "The 450 distance interval is omitted, but the meaning of the mechanic is conveyed."
+          },
+          {
+            "kind": "invented",
+            "text": "Electric Vortex притягивает всех врагов вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Ball Lightning заряжает Overload по врагам на пути",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Static Remnant взрывается дважды",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Beastmaster",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Beastmaster?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Wild Axes притягивают задетых врагов к Beastmaster",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Кабан из Summon Razorback невосприимчив к магии",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_beastmaster_wild_axe_cooldown",
+            "text": "Wild Axes без кд",
+            "original": "No Wild Axes Cooldown",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Ястребы Summon Raptors пикируют на всех врагов вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14834,
+        "output_tokens": 1935,
+        "seconds": 21.2,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5754,
+        "output_tokens": 1368,
+        "seconds": 13.0,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 8,
+    "heroes": [
+      "Nyx Assassin",
+      "Bristleback",
+      "Phoenix",
+      "Axe",
+      "Pangolier",
+      "Brewmaster",
+      "Death Prophet",
+      "Shadow Fiend",
+      "Puck",
+      "Clinkz"
+    ],
+    "questions": [
+      {
+        "hero": "Brewmaster",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Brewmaster?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Brewed Up не вызывает похмелья",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_brewmaster_4",
+            "text": "Подожжённый Cinder Brew накладывает фир",
+            "original": "Cinder Brew applies Fear when ignited",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Бочка Cinder Brew оставляет за собой горящую дорожку",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Thunder Clap отталкивает врагов от Brewmaster",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Death Prophet",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Death Prophet?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Духи Exorcism лечат Death Prophet при каждом ударе",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Spirit Siphon перескакивает на ближайшего врага после смерти цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_death_prophet_exorcism_duration_on_kill",
+            "text": "Смерти во время Exorcism продлевают его на 8 с",
+            "original": "Deaths During Exorcism Extend Duration By +8s",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Crypt Swarm добавляет духа Exorcism за каждого задетого героя",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Shadow Fiend",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Fiend?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Shadowraze даёт душу за каждого задетого героя",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Necromastery не теряет души при смерти",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Убийство героя продлевает Feast of Souls",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_nevermore_raze_procsattacks",
+            "text": "Shadowraze наносит урон от атаки",
+            "original": "Shadowraze Applies Attack Damage",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Clinkz",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Clinkz?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_clinkz_3",
+            "text": "Searing Arrows бьют по нескольким целям",
+            "original": "Searing Arrows Multishot",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Skeleton Archers следуют за Clinkz",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Атаки под Strafe не выводят из Skeleton Walk",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Burning Barrage не требует ченнелинга",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14860,
+        "output_tokens": 2021,
+        "seconds": 21.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6119,
+        "output_tokens": 1191,
+        "seconds": 10.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 9,
+    "heroes": [
+      "Sven",
+      "Ogre Magi",
+      "Underlord",
+      "Earth Spirit",
+      "Lina",
+      "Marci",
+      "Nature's Prophet",
+      "Faceless Void",
+      "Dawnbreaker",
+      "Io"
+    ],
+    "questions": [
+      {
+        "hero": "Earth Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Earth Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Rolling Boulder накладывает Magnetize на задетых врагов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_earth_spirit_2",
+            "text": "Earth Spirit накладывает Magnetize на себя",
+            "original": "Earth Spirit Magnetizes himself",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Geomagnetic Grip притягивает вражеских героев",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Boulder Smash оставляет Stone Remnant в точке приземления",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Marci",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Marci?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Unleash обновляет кд Rebound",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Dispose даёт стан в точке приземления",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_marci_guardian_strong_dispel",
+            "text": "Bodyguard даёт сильный диспел",
+            "original": "Bodyguard Strong Dispels",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Rebound даёт цели барьер Bodyguard",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Dawnbreaker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Dawnbreaker?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Starbreaker притягивает врагов к центру удара",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Celestial Hammer останавливается на первом вражеском герое",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Solar Guardian можно прервать во время канала",
+            "verdict": "already_default",
+            "verify_note": "Solar Guardian is marked CHANNELED; channeled abilities can already be interrupted during the channel. The restriction only applies after the channel completes."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_dawnbreaker_celestial_hammer_targets_allies",
+            "text": "След Celestial Hammer даёт союзникам скорость передвижения",
+            "original": "Celestial Hammer Trail Grants Movement Speed to Allies",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": [
+          "проверка: «Solar Guardian можно прервать во время канала» — already_default (Solar Guardian is marked CHANNELED; channeled abilities can already be interrupted during the channel. The restriction only applies after the channel completes.)"
+        ]
+      },
+      {
+        "hero": "Io",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Io?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_wisp_4",
+            "text": "Атакует цель союзника по Tether (50% урона)",
+            "original": "Attack Tethered Ally's Target (50% damage)",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Spirits взрываются при касании крипов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Tether станит врагов, касающихся луча",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Equilibrium действует и на союзника по Tether",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14263,
+        "output_tokens": 1764,
+        "seconds": 18.3,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6186,
+        "output_tokens": 1515,
+        "seconds": 14.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 10,
+    "heroes": [
+      "Dazzle",
+      "Winter Wyvern",
+      "Viper",
+      "Huskar",
+      "Phantom Lancer",
+      "Alchemist",
+      "Bounty Hunter",
+      "Drow Ranger",
+      "Jakiro",
+      "Crystal Maiden"
+    ],
+    "questions": [
+      {
+        "hero": "Winter Wyvern",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Winter Wyvern?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Splinter Blast задевает и основную цель",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_winter_wyvern_4",
+            "text": "Splinter Blast станит на 1 с",
+            "original": "Splinter Blast 1s Stun",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Cold Embrace блокирует и магический урон",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Атаки в Arctic Burn бьют вторую цель рядом",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Viper",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Viper?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Nethertoxin перемещается вслед за Viper",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Viper Strike перескакивает на ещё одного врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_viper_nethertoxin_radius",
+            "text": "Радиус Nethertoxin постепенно растёт",
+            "original": "Nethertoxin Radius increases by 25 every 0.5s",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "The exact value (+25 every 0.5s) is omitted, but the meaning is preserved."
+          },
+          {
+            "kind": "invented",
+            "text": "Poison Attack вешает стаки на врагов рядом с целью",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Alchemist",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Alchemist?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Unstable Concoction не взрывается в руках",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Chemical Rage продлевается за каждое убийство",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Acid Spray перемещается вместе с Alchemist",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_alchemist_7",
+            "text": "Greevil's Greed даёт урон за каждый стак",
+            "original": "Greevil's Greed provides +3 Damage per stack",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "The value +3 is omitted, but the meaning is preserved."
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Bounty Hunter",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Bounty Hunter?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_bounty_hunter_jinada_no_cooldown",
+            "text": "Jinada без кд",
+            "original": "No Cooldown on Jinada",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Shuriken Toss отскакивает и на врагов без Track",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Shuriken Toss не выводит из Shadow Walk",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Track вешается на всех врагов в области",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14465,
+        "output_tokens": 2031,
+        "seconds": 20.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5714,
+        "output_tokens": 1065,
+        "seconds": 13.1,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 11,
+    "heroes": [
+      "Muerta",
+      "Gyrocopter",
+      "Dark Seer",
+      "Batrider",
+      "Lich",
+      "Omniknight",
+      "Wraith King",
+      "Invoker",
+      "Troll Warlord",
+      "Bane"
+    ],
+    "questions": [
+      {
+        "hero": "Lich",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lich?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lich_7",
+            "text": "Chain Frost при смерти Lich",
+            "original": "Chain Frost on Death",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Ice Spire при разрушении выпускает Chain Frost",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Sinister Gaze действует на всех врагов в радиусе",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Frost Shield при окончании взрывается Frost Blast",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Wraith King",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Wraith King?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_wraith_king_4",
+            "text": "Reincarnation применяет Wraithfire Blast",
+            "original": "Reincarnation Casts Wraithfire Blast",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Wraithfire Blast отскакивает на второго врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Скелеты Bone Guard получают Mortal Strike",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Форма Wraith накладывает слоу вокруг себя",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Invoker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Invoker?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_invoker_2",
+            "text": "Deafening Blast во все стороны",
+            "original": "Radial Deafening Blast",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Cold Snap перескакивает на ближайшего врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Tornado разделяется на три вихря",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Forge Spirit атакуют по площади",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Troll Warlord",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Troll Warlord?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_troll_warlord_battle_trance_movespeed",
+            "text": "Союзники получают скорость атаки от Battle Trance",
+            "original": "Allies Receive Battle Trance Attack Speed",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Fervor сохраняет стаки при смене цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Whirling Axes (Ranged) возвращаются к Troll Warlord",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Berserker's Rage даёт ensnare и в ranged-форме",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14713,
+        "output_tokens": 2320,
+        "seconds": 23.1,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6854,
+        "output_tokens": 1068,
+        "seconds": 12.6,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 12,
+    "heroes": [
+      "Mirana",
+      "Monkey King",
+      "Silencer",
+      "Medusa",
+      "Doom",
+      "Venomancer",
+      "Spectre"
+    ],
+    "questions": [
+      {
+        "hero": "Mirana",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Mirana?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Leap даёт бонус скорости и союзникам рядом",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_mirana_2",
+            "text": "Sacred Arrow выпускает +2 стрелы веером",
+            "original": "+2 Multishot Sacred Arrows",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "«Веером» уточняет форму залпа. Это соответствует тому, как работает мультишот, хотя в оригинале этого слова нет."
+          },
+          {
+            "kind": "invented",
+            "text": "Starstorm вызывает вторую волну метеоров",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Celestial Quiver накладывает слоу",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Monkey King",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Monkey King?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Солдаты Wukong's Command получают заряды Jingu Mastery",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Primal Spring можно применять с земли",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_monkey_king_6",
+            "text": "Дополнительное кольцо Wukong's Command",
+            "original": "Additional Wukong's Command Ring",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Падение с дерева больше не станит",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Doom",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Doom?",
+        "options": [
+          {
+            "kind": "invented",
+            "text": "Devour можно применять на древних крипов",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Infernal Blade поджигает врагов вокруг цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Doom переходит на ближайшего врага после смерти цели",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_doom_10",
+            "text": "Doom накладывает мьют",
+            "original": "Doom applies Mute",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      },
+      {
+        "hero": "Venomancer",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Venomancer?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_venomancer_5",
+            "text": "Snakebite нельзя диспелить",
+            "original": "Snakebite Undispellable",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Plague Ward атакуют две цели одновременно",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Venomous Gale оставляет ядовитый след на земле",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "text": "Snakebite перескакивает на ближайшего врага",
+            "verdict": "not_a_talent",
+            "verify_note": ""
+          }
+        ],
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 10512,
+        "output_tokens": 2380,
+        "seconds": 24.4,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5475,
+        "output_tokens": 1000,
+        "seconds": 9.3,
+        "stop": "end_turn"
+      }
+    }
+  }
+]
