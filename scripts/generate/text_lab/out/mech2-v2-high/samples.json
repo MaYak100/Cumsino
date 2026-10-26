@@ -1,0 +1,565 @@
+[
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "hero": "Beastmaster",
+    "abilities": [
+     {
+      "name": "Wild Axes",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Beastmaster sends his axes flying and calls them home again, slicing through enemy units and trees along their path.  Each axe can hit an enemy once, and amplifies subsequent damage from Beastmaster and his units.",
+      "notes": {
+       "note0": "This ability destroys trees."
+      }
+     },
+     {
+      "name": "Summon Razorback",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Beastmaster calls forth a Boar to aid in the battlefield. The Boar has a passive poison attack that slows attack and movement speeds.",
+      "notes": {}
+     },
+     {
+      "name": "Summon Raptors",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Beastmaster summons 2 hawks that circle around Beastmaster and dive-bombs at enemies with a base attack rate of every 4s, damaging and rooting them. Attack rate increases with the Hawk's attack speed. Prioritizes heroes.",
+      "notes": {},
+      "shard": "Increases Hawk duration by bonus_durations and summons an additional Hawk."
+     },
+     {
+      "name": "Inner Beast",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Untaps the inner fury of Beastmaster and units he controls, passively increasing their attack speed.",
+      "notes": {
+       "note0": "Break disables the passive attack speed bonus."
+      }
+     },
+     {
+      "name": "Drums of Slom",
+      "role": "scepter",
+      "behavior": "Passive",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Attacks from Beastmaster or a nearby unit he controls will cause him bang his drum, dealing damage to nearby units and healing Beastmaster and units under his control for a portion of the damage dealt. Every attack decreases the interval between drum hits down to a minimum of 0.5s between hits after 20 attacks. If no attacks are made, the intervals gradually increase.\n\nUsing Primal Roar counts as 10 attacks.",
+      "notes": {}
+     },
+     {
+      "name": "Primal Roar",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Beastmaster lets loose a deafening roar that stuns, and shoves open a path to its target. All units in the path of the roar are damaged, while units shoved aside by the roar have their movement and attack speed slowed. Additionally, Beastmaster and his units gain 40% movement speed for 2 seconds.",
+      "notes": {}
+     }
+    ]
+   },
+   {
+    "hero": "Invoker",
+    "abilities": [
+     {
+      "name": "Quas",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "Yes",
+      "desc": "Allows manipulation of ice elements. Active Quas instances imbue Invoker with bonus hp regeneration. Passively grants bonus strength per level of Quas.",
+      "notes": {
+       "note0": "Invoker can only have 3 of any instance.",
+       "note1": "Will not break invisibility and can be cast while channeling."
+      },
+      "scepter": "Grants 0 current and max level."
+     },
+     {
+      "name": "Wex",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Allows manipulation of storm elements. Active Wex instances imbue Invoker with bonus movement and attack speed. Passively grants bonus agility per level of Wex.",
+      "notes": {
+       "note0": "Invoker can only have 3 of any instance.",
+       "note1": "Will not break invisibility and can be cast while channeling."
+      },
+      "scepter": "Grants 0 current and max level."
+     },
+     {
+      "name": "Exort",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Allows manipulation of fire elements. Active Exort instances imbue Invoker with bonus attack damage. Passively grants bonus intelligence per level of Exort.",
+      "notes": {
+       "note0": "Invoker can only have 3 of any instance.",
+       "note1": "Will not break invisibility and can be cast while channeling."
+      },
+      "scepter": "Grants 0 current and max level."
+     },
+     {
+      "name": "Invoke",
+      "role": "innate",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Combines the properties of the elements currently being manipulated to create a new spell for Invoker to use. Invoke cooldown is reduced by 0.3 seconds for each orb level.  Invoker gains a bonus ability point for his orbs at levels 6, 12, and 18.\n\nInvoker's vast knowledge of magic allows him to choose from Multiple Aghanim's Scepter and Shard options.  The items must be activated before they can be used, and cannot be changed after they are chosen.\n\n Click the help button to see the list of possible spells.",
+      "notes": {
+       "note0": "The arrangement of instances does not matter.",
+       "note1": "Invoke will not cost mana or go on cooldown if the only effect is to swap the positions of existing spells.",
+       "note2": "Invoke will not break invisibility and can be cast while channeling."
+      }
+     },
+     {
+      "name": "Cold Snap",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Invoker draws the heat from an enemy, chilling them to their very core for a duration based on the level of Quas. The enemy will take damage and be briefly frozen. Further damage taken in this state will freeze the enemy again, dealing bonus damage. The enemy can only be frozen so often, but the freeze cooldown decreases based on the level of Quas.",
+      "notes": {
+       "note0": "The freeze stun only triggers on damage greater than 10.0 after reductions."
+      }
+     },
+     {
+      "name": "Ghost Walk",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Invoker manipulates the ice and electrical energies around him, rendering his body invisible and gaining health and mana regen. The elemental imbalance created as a consequence slows nearby enemies based on the level of Quas, and slows Invoker as well based on the level of Wex.",
+      "notes": {
+       "note0": "The slow effect does not work on Spell Immune enemies."
+      },
+      "shard": "Ghost Walk now also applies the Ice Wall Damage Per Second to enemy heroes in its area of effect."
+     },
+     {
+      "name": "Tornado",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Unleashes a fast moving tornado that picks up enemy units in its path, suspending them helplessly in the air shortly before allowing them to plummet to their doom. Travels further based on the level of Wex. Holds enemies in the air for a duration based on the level of Quas. Deals base damage plus added damage based on levels in Wex.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {
+       "note0": "Units are invulnerable while affected by Tornado, and the damage is dealt when landing."
+      },
+      "scepter": "Tornado spawns twisters along its path. They persist for Tornado's duration plus additional time based on Quas, dealing damage based on Wex in a 150 radius every 0.25 seconds. (half damage to creeps.)"
+     },
+     {
+      "name": "E.M.P.",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "Hidden",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Invoker builds up a charge of electromagnetic energy at a targeted location which automatically detonates after 2.9 seconds. The detonation covers an area, draining mana based on the level of Wex. Deals damage for each point of mana drained.  If EMP drains mana from an enemy hero, Invoker gains 25% of the mana drained.",
+      "notes": {
+       "note0": "Will not affect cycloned units (Tornado or Eul's Scepter of Divinity)."
+      },
+      "shard": "Increases damage for each point of mana drained by EMP and pulls enemy units into the EMP's center at 0 units per second."
+     },
+     {
+      "name": "Alacrity",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Hidden"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Invoker infuses an ally with an immense surge of energy, increasing their attack speed based on the level of Wex and their damage based on the level of Exort.",
+      "notes": {}
+     },
+     {
+      "name": "Chaos Meteor",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Invoker pulls a flaming meteor from space onto the targeted location. Upon landing, the meteor rolls forward, constantly dealing damage based on the level of Exort, and rolling further based on the level of Wex. Units hit by the meteor will also be set on fire for a short time, receiving additional damage based on the level of Exort.",
+      "notes": {
+       "note0": "Deals main damage to enemy units under meteor every 0.5 seconds and burns enemies for smaller damage over 3.0 seconds.",
+       "note1": "The meteor moves at a speed of 300."
+      }
+     },
+     {
+      "name": "Sun Strike",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "Hidden",
+       "AOE"
+      ],
+      "damage_type": "Pure",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Sends a catastrophic ray of fierce energy from the sun at any targeted location, incinerating all enemies standing beneath it once it reaches the earth. Deals damage based on the level of Exort, however this damage is spread evenly over all enemies hit.",
+      "notes": {
+       "note0": "Gives vision of the target area before the strike.",
+       "note1": "Invoker gains experience with kills made from Sun Strike, even if made from outside of experience range."
+      },
+      "shard": "If Sun Strike damages an enemy Hero, a Forge Spirit of current level is created at the location.",
+      "scepter": "Creates a Cataclysm when Sun Strike is double tapped. Puts it on a 90 second cooldown. Creates 0 visible 75% damage Sun Strikes within 90-180 range of each enemy hero."
+     },
+     {
+      "name": "Forge Spirit",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Invoker forges a spirit embodying the strength of fire and fortitude of ice. Damage and armor are based on the level of Exort while attack range, health, and duration are based on the level of Quas. The elemental's scorching attack is capable of melting the armor of enemy heroes. The number of spirits spawned is determined by the lower level of Quas and Exort.",
+      "notes": {
+       "note0": "Casting this ability will replace currently summoned Forged Spirits."
+      }
+     },
+     {
+      "name": "Ice Wall",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Generates a wall of solid ice directly in front of Invoker for a duration based on the level of Quas. The bitter cold emanating from it greatly slows nearby enemies based on the level of Quas and deals damage each second based on the level of Exort.",
+      "notes": {},
+      "scepter": "Ice Wall becomes Ice Floe, Vector Targeted. After a delay, Ice Floe appears as a 105 width Ice Wall. Enemy heroes in its area for longer than 0 seconds become rooted and take magic damage based on Quas."
+     },
+     {
+      "name": "Deafening Blast",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Invoker unleashes a mighty sonic wave in front of him, dealing damage to any enemy unit it collides with based on the level of Exort. The sheer impact from the blast is enough to knock those enemy units back for a duration based on the level of Quas, then disarm their attacks for a duration based on the level of Wex.",
+      "notes": {}
+     }
+    ]
+   },
+   {
+    "hero": "Outworld Devourer",
+    "abilities": [
+     {
+      "name": "Arcane Orb",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Pure",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Adds extra pure damage to Outworld Destroyer's attacks, based on his remaining mana pool.",
+      "notes": {
+       "note0": "The damage is calculated after the mana cost is spent."
+      }
+     },
+     {
+      "name": "Astral Imprisonment",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Steals a percentage of the target's max mana and places them into an astral prison. The hidden unit is invulnerable and disabled. When the astral prison implodes, it deals damage to the target.",
+      "notes": {
+       "note0": "Imprisoned units can still be hit by Sanity's Eclipse.",
+       "note1": "Max mana steal does not increase Outworld Destroyer's current mana values or directly reduce the victim's mana values."
+      },
+      "shard": "Astral Imprisonment now deals damage in an area. Also allows allies to move at 0% movement speed during Astral Imprisonment (they are visible, but untargettable and can't perform any other actions)."
+     },
+     {
+      "name": "Objurgation",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "Yes",
+      "desc": "Increases Outworld Destroyer's maximum mana. When cast, protects Outworld Destroyer with an all damage barrier equal to a flat amount and a percentage of his maximum mana.",
+      "notes": {}
+     },
+     {
+      "name": "Essence Flux",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Passively grants a chance to restore a percentage of your max mana each time you cast an ability. Restores less mana from spells that modify attacks.",
+      "notes": {}
+     },
+     {
+      "name": "Sanity's Eclipse",
+      "role": "ultimate",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Unleashes a psychic blast that deals damage to enemies based on the difference between your max mana and the target's max mana. Sanity's Eclipse can hit units trapped by Astral Imprisonment.",
+      "notes": {}
+     }
+    ]
+   },
+   {
+    "hero": "Terrorblade",
+    "abilities": [
+     {
+      "name": "Reflection",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Terrorblade brings forth an invulnerable dark reflection of all enemy heroes in a target area. Affected enemy heroes have movement and attack speeds slowed and attacked by their reflection.",
+      "notes": {
+       "note0": "Reflections are untargetable, invulnerable illusions, that will be destroyed if the slow debuff is removed.",
+       "note1": "Reflections can only attack their source."
+      }
+     },
+     {
+      "name": "Conjure Image",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Creates an illusion of Terrorblade that deals damage.",
+      "notes": {
+       "note0": "Illusions created by Conjure Image are visually different for enemies."
+      }
+     },
+     {
+      "name": "Metamorphosis",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Terrorblade transforms into a powerful demon with a ranged attack. Any of Terrorblade's illusions that are within 1200 range will also be transformed by Metamorphosis.",
+      "notes": {
+       "note0": "Cooldowns of items that are different for ranged and melee units will be based on which form Terrorblade was in when the item was used."
+      }
+     },
+     {
+      "name": "Demon Zeal",
+      "role": "shard",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Costs part of Terrorblade's current HP to cast, providing Terrorblade and nearby illusions bonus movement, HP Regen and attack speed. Does not affect Reflection illusions. Can't be cast while in Metamorphosis and Metamorphosis will remove Demon Zeal.",
+      "notes": {}
+     },
+     {
+      "name": "Terror Wave",
+      "role": "scepter",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": null,
+      "dispellable": "Yes",
+      "desc": "Causes a wave to travel outwards in all directions forcing enemy heroes to become Feared upon impact and dealing damage, and grants Terrorblade Metamorphosis for a short time.",
+      "notes": {}
+     },
+     {
+      "name": "Sunder",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Severs the life from both Terrorblade and a target hero, exchanging a percentage of both units' current health. Some health points must remain.",
+      "notes": {
+       "note0": "Debuff Immune enemies don't get their HP modified."
+      }
+     },
+     {
+      "name": "Dark Unity",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Nearby Illusions created by Terrorblade have bonus attack damage.",
+      "notes": {
+       "note0": "Reflection Illusions are also affected."
+      }
+     }
+    ]
+   },
+   {
+    "hero": "Shadow Shaman",
+    "abilities": [
+     {
+      "name": "Ether Shock",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Creates a cone of ethereal energy that strikes multiple enemy units.",
+      "notes": {
+       "note0": "Can hit secondary targets up to 1000 distance away."
+      }
+     },
+     {
+      "name": "Hex",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Transforms an enemy unit into a harmless creature, disabling their attacks and abilities.",
+      "notes": {
+       "note0": "Instantly destroys illusions.",
+       "note1": "The target will have a base movement speed of 100, but buffs granting maximum movement speed won't be disabled."
+      }
+     },
+     {
+      "name": "Shackles",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Channeled"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "CHANNELED - Magically binds an enemy unit so that it cannot move or attack, absorbing their life energy over time.",
+      "notes": {}
+     },
+     {
+      "name": "Fowl Play",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "When taking lethal damage, Shadow Shaman receives a strong dispel and survives as a 1 HP chicken with increased movement speed. Incoming damage is reduced to zero for a short duration and additional chickens are created to confuse the enemy. Cooldown resets when Shadow Shaman respawns.\n\nDISPEL TYPE: Strong Dispel",
+      "notes": {
+       "note0": "Lethal Damage from Axe's Culling Blade and Necrophos's Reaper's Scythe will not be prevented.",
+       "note1": "Incoming damage reduction buff will prevent certain sources of HP removal from killing Shadow Shaman."
+      }
+     },
+     {
+      "name": "Urnaconda",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Throw a snake jar at the target location, damaging all enemies in the AoE and creating a Massive Serpent Ward that has 4x the base Serpent Ward damage and health there that lasts 15s.",
+      "notes": {}
+     },
+     {
+      "name": "Mass Serpent Ward",
+      "role": "ultimate",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Summons 10 Serpent Wards to attack enemy units and structures. The Wards are immune to magic. Creeps deal half damage to the Serpent Ward.",
+      "notes": {}
+     }
+    ]
+   }
+  ]
+ }
+]

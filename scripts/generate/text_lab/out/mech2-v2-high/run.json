@@ -1,0 +1,12 @@
+{
+  "prompt": "prompt_mechanics_v2.md",
+  "effort": "high",
+  "model": "claude-opus-5-5",
+  "heroes": [
+    "npc_dota_hero_beastmaster",
+    "npc_dota_hero_invoker",
+    "npc_dota_hero_obsidian_destroyer",
+    "npc_dota_hero_terrorblade",
+    "npc_dota_hero_shadow_shaman"
+  ]
+}

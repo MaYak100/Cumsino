@@ -1,0 +1,378 @@
+[
+  {
+    "index": 0,
+    "heroes": [
+      "Earth Spirit",
+      "Axe",
+      "Chaos Knight",
+      "Ancient Apparition",
+      "Centaur Warrunner"
+    ],
+    "questions": [
+      {
+        "hero": "Ancient Apparition",
+        "ability": "Ice Blast",
+        "format": "false_fact",
+        "question": "Что из этого про Ice Blast у Ancient Apparition неправда?",
+        "options": [
+          {
+            "text": "Килл за шаттер всегда засчитывается AA, кто бы ни нанёс последний урон",
+            "correct": true,
+            "evidence": {
+              "ability": "Ice Blast",
+              "source": "note2"
+            },
+            "truth": "false",
+            "verify_note": "Килл получает источник урона, вызвавшего шаттер, а не обязательно AA."
+          },
+          {
+            "text": "Иллюзии не разлетаются от шаттера даже при низком HP",
+            "correct": false,
+            "evidence": {
+              "ability": "Ice Blast",
+              "source": "note3"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Release можно нажать, даже если AA под сайленсом",
+            "correct": false,
+            "evidence": {
+              "ability": "Release",
+              "source": "desc"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Чем дольше летит трейсер, тем шире итоговый взрыв",
+            "correct": false,
+            "evidence": {
+              "ability": "Ice Blast",
+              "source": "note1"
+            },
+            "truth": "true",
+            "verify_note": ""
+          }
+        ],
+        "comment": "Килл за шаттер получает тот, чей урон опустил HP ниже порога, а не обязательно AA.",
+        "flags": []
+      },
+      {
+        "hero": "Earth Spirit",
+        "ability": "Rolling Boulder",
+        "format": "how",
+        "question": "Что происходит со Stone Remnant, через который прокатился Rolling Boulder?",
+        "options": [
+          {
+            "text": "Ремнант разрушается",
+            "correct": true,
+            "evidence": {
+              "ability": "Rolling Boulder",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Ремнант остаётся на месте, его можно использовать снова",
+            "correct": false,
+            "evidence": {
+              "ability": "Rolling Boulder",
+              "source": "note0"
+            },
+            "truth": "false",
+            "verify_note": "Ремнант разрушается."
+          },
+          {
+            "text": "Ремнант катится вместе с Earth Spirit до конца пути",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Ремнант разрушается."
+          },
+          {
+            "text": "Ремнант взрывается и станит всех вокруг себя",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Ремнант просто разрушается, взрыва со станом нет."
+          }
+        ],
+        "comment": "Прокат через ремнант даёт больше дальности, скорости и стана, но сам ремнант при этом уничтожается.",
+        "flags": []
+      },
+      {
+        "hero": "Earth Spirit",
+        "ability": "Geomagnetic Grip",
+        "format": "interaction",
+        "question": "На какого союзника Geomagnetic Grip НЕ сработает?",
+        "options": [
+          {
+            "text": "Союзный герой внутри Chronosphere",
+            "correct": true,
+            "evidence": {
+              "ability": "Geomagnetic Grip",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Союзный крип",
+            "correct": false,
+            "evidence": {
+              "ability": "Geomagnetic Grip",
+              "source": "note1"
+            },
+            "truth": "false",
+            "verify_note": "Grip может целиться в союзных крипов."
+          },
+          {
+            "text": "Союзный герой под Enchant Remnant",
+            "correct": false,
+            "evidence": {
+              "ability": "Enchant Remnant",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Зачарованный герой обладает свойствами ремнанта и остаётся союзником, поэтому Grip сработает."
+          },
+          {
+            "text": "Союзный герой под сайленсом",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Сайленс на цели не мешает Grip."
+          }
+        ],
+        "comment": "Grip не тянет юнитов из Chronosphere, Duel и Black Hole, а вот союзных крипов и заколдованных героев — спокойно.",
+        "flags": []
+      },
+      {
+        "hero": "Axe",
+        "ability": "Battle Hunger",
+        "format": "how",
+        "question": "Что, кроме убийства юнита, снимает Battle Hunger с врага?",
+        "options": [
+          {
+            "text": "Уничтожение здания",
+            "correct": true,
+            "evidence": {
+              "ability": "Battle Hunger",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Развернуться лицом к Axe",
+            "correct": false,
+            "evidence": {
+              "ability": "Battle Hunger",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Разворот к Axe убирает только замедление, но не сам дебафф."
+          },
+          {
+            "text": "Ударить самого Axe",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Удар по Axe дебафф не снимает."
+          },
+          {
+            "text": "Отойти далеко от Axe",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Расстояние до Axe не влияет на снятие дебаффа."
+          }
+        ],
+        "comment": "Снести здание — тоже «убийство» для Battle Hunger; поворот к Axe убирает только слоу, а урон продолжает тикать.",
+        "flags": []
+      },
+      {
+        "hero": "Chaos Knight",
+        "ability": "Reality Rift",
+        "format": "whose",
+        "question": "После какой способности кастер и цель разворачиваются лицом друг к другу, а кастеру и его копиям сразу выдаётся приказ атаковать цель?",
+        "options": [
+          {
+            "text": "Reality Rift",
+            "correct": true,
+            "evidence": {
+              "ability": "Reality Rift",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Berserker's Call",
+            "correct": false,
+            "evidence": {
+              "ability": "Berserker's Call",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Это механика Reality Rift."
+          },
+          {
+            "text": "Geomagnetic Grip",
+            "correct": false,
+            "evidence": {
+              "ability": "Geomagnetic Grip",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Это механика Reality Rift."
+          },
+          {
+            "text": "Boulder Smash",
+            "correct": false,
+            "evidence": {
+              "ability": "Boulder Smash",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Это механика Reality Rift."
+          }
+        ],
+        "comment": "Reality Rift не только стягивает, но и разворачивает CK к цели и сам отдаёт ему и фантазмам приказ атаковать.",
+        "flags": []
+      },
+      {
+        "hero": "Chaos Knight",
+        "ability": "Phantasm",
+        "format": "how",
+        "question": "Зачем Chaos Knight жмёт Phantasm прямо под летящий в него стан?",
+        "options": [
+          {
+            "text": "На полсекунды каста CK неуязвим, и стан не проходит",
+            "correct": true,
+            "evidence": {
+              "ability": "Phantasm",
+              "source": "note1"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Сильный диспел снимет стан сразу после попадания",
+            "correct": false,
+            "evidence": {
+              "ability": "Phantasm",
+              "source": "desc"
+            },
+            "truth": "false",
+            "verify_note": "Phantasm даёт базовый диспел, а не сильный. Стан уклоняется за счёт неуязвимости."
+          },
+          {
+            "text": "Стан перекидывается на одну из новых иллюзий",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Стан не перекидывается на иллюзии."
+          },
+          {
+            "text": "На время каста CK получает высокий статус-резист",
+            "correct": false,
+            "evidence": {
+              "ability": "none",
+              "source": "invented"
+            },
+            "truth": "false",
+            "verify_note": "Статус-резист не даётся, CK становится неуязвимым."
+          }
+        ],
+        "comment": "Phantasm даёт 0,5 с неуязвимости при касте — этим уворачиваются от станов и урона; диспел у него лишь обычный.",
+        "flags": []
+      },
+      {
+        "hero": "Centaur Warrunner",
+        "ability": "Retaliate",
+        "format": "false_fact",
+        "question": "Что из этого про Retaliate у Centaur Warrunner неправда?",
+        "options": [
+          {
+            "text": "Retaliate бьёт только юнитов, по башням урон не проходит",
+            "correct": true,
+            "evidence": {
+              "ability": "Retaliate",
+              "source": "note1"
+            },
+            "truth": "false",
+            "verify_note": "Retaliate наносит урон башням (половинный)."
+          },
+          {
+            "text": "Урон срабатывает, только когда атака по Centaur попала",
+            "correct": false,
+            "evidence": {
+              "ability": "Retaliate",
+              "source": "note0"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Урон Retaliate не даёт лайфстил и не отражается повторно",
+            "correct": false,
+            "evidence": {
+              "ability": "Retaliate",
+              "source": "note2"
+            },
+            "truth": "true",
+            "verify_note": ""
+          },
+          {
+            "text": "Урон считается отражённым, а не обычной атакой",
+            "correct": false,
+            "evidence": {
+              "ability": "Retaliate",
+              "source": "note2"
+            },
+            "truth": "true",
+            "verify_note": ""
+          }
+        ],
+        "comment": "Retaliate бьёт и по башням, просто наносит им половину урона.",
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 8946,
+        "output_tokens": 5965,
+        "seconds": 58.2,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 7778,
+        "output_tokens": 1570,
+        "seconds": 16.6,
+        "stop": "end_turn"
+      }
+    }
+  }
+]
