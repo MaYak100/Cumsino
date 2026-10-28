@@ -35,7 +35,6 @@
 import argparse
 import hashlib
 import json
-import os
 import sys
 import time
 import urllib.error
@@ -107,9 +106,7 @@ FROM matches m JOIN player_matches pm USING (match_id)
 WHERE m.start_time >= {start} AND m.start_time < {end} AND pm.purchase_log IS NOT NULL"""
 # '*players' — игроков с purchase_log (знаменатель), '*matches' — матчей
 
-# TODO(STRATZ): api.stratz.com отдаёт страницу Cloudflare «Just a moment» и требует Bearer-токен.
-# Когда будет токен (env STRATZ_TOKEN) — добавить наборы heroStats.winDay по bracketIds за окно
-# патча и itemFullPurchase по всем героям (sources-research.md, разделы 4.2 и 5). Хук: stratz_hook().
+# STRATZ снимается отдельно: scripts/fetch_stratz.py (docs/questions/stratz-research.md).
 
 
 # ---------- HTTP ----------
@@ -486,9 +483,8 @@ def item_meta(key: str, meta_items: dict) -> dict:
 
 
 def stratz_hook() -> None:
-    """Заготовка под STRATZ. Сейчас api.stratz.com за Cloudflare и без токена недоступен."""
-    if os.environ.get("STRATZ_TOKEN"):
-        print("\nSTRATZ_TOKEN задан, но съём STRATZ ещё не реализован (TODO в начале файла) — пропускаем.")
+    """STRATZ снимается отдельным скриптом."""
+    print("\nSTRATZ: отдельный снимок — python scripts/fetch_stratz.py")
 
 
 # ---------- main ----------
@@ -569,8 +565,7 @@ def main() -> None:
                     "scenarios — 4 недели. Единственный источник — Dotabuff items?date=all, вручную"},
             {"what": "популярность героев за всё время",
              "why": "public_matches хранится 12 месяцев (svc/cleanup.ts) — максимум «за последний год»"},
-            {"what": "STRATZ (winDay, itemFullPurchase)",
-             "why": "api.stratz.com отдаёт Cloudflare «Just a moment» и требует Bearer-токен — TODO в скрипте"},
+            {"what": "STRATZ", "why": "отдельный снимок scripts/fetch_stratz.py → stratz/ в этой же папке"},
             {"what": "Dotabuff, Dota2ProTracker", "why": "из окружения 403; скрапинг не планируем"},
         ],
     }

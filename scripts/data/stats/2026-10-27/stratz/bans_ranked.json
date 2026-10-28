@@ -1,0 +1,903 @@
+{
+ "snapshot_id": "stratz",
+ "sample_matches": 10019,
+ "bans_per_match": {
+  "16": 6737,
+  "17": 2629,
+  "18": 572,
+  "19": 73,
+  "20": 7,
+  "21": 1
+ },
+ "rows": [
+  {
+   "hero_id": 14,
+   "hero": "Pudge",
+   "banned_matches": 5925,
+   "ban_rate": 0.591376,
+   "nominations": 5925
+  },
+  {
+   "hero_id": 12,
+   "hero": "Phantom Lancer",
+   "banned_matches": 4325,
+   "ban_rate": 0.43168,
+   "nominations": 4325
+  },
+  {
+   "hero_id": 26,
+   "hero": "Lion",
+   "banned_matches": 3683,
+   "ban_rate": 0.367602,
+   "nominations": 3683
+  },
+  {
+   "hero_id": 35,
+   "hero": "Sniper",
+   "banned_matches": 3565,
+   "ban_rate": 0.355824,
+   "nominations": 3565
+  },
+  {
+   "hero_id": 2,
+   "hero": "Axe",
+   "banned_matches": 3259,
+   "ban_rate": 0.325282,
+   "nominations": 3259
+  },
+  {
+   "hero_id": 1,
+   "hero": "Anti-Mage",
+   "banned_matches": 3156,
+   "ban_rate": 0.315001,
+   "nominations": 3156
+  },
+  {
+   "hero_id": 76,
+   "hero": "Outworld Devourer",
+   "banned_matches": 3117,
+   "ban_rate": 0.311109,
+   "nominations": 3117
+  },
+  {
+   "hero_id": 54,
+   "hero": "Lifestealer",
+   "banned_matches": 2929,
+   "ban_rate": 0.292345,
+   "nominations": 2929
+  },
+  {
+   "hero_id": 74,
+   "hero": "Invoker",
+   "banned_matches": 2927,
+   "ban_rate": 0.292145,
+   "nominations": 2927
+  },
+  {
+   "hero_id": 25,
+   "hero": "Lina",
+   "banned_matches": 2861,
+   "ban_rate": 0.285557,
+   "nominations": 2861
+  },
+  {
+   "hero_id": 86,
+   "hero": "Rubick",
+   "banned_matches": 2831,
+   "ban_rate": 0.282563,
+   "nominations": 2831
+  },
+  {
+   "hero_id": 71,
+   "hero": "Spirit Breaker",
+   "banned_matches": 2796,
+   "ban_rate": 0.27907,
+   "nominations": 2796
+  },
+  {
+   "hero_id": 36,
+   "hero": "Necrophos",
+   "banned_matches": 2783,
+   "ban_rate": 0.277772,
+   "nominations": 2783
+  },
+  {
+   "hero_id": 30,
+   "hero": "Witch Doctor",
+   "banned_matches": 2534,
+   "ban_rate": 0.252919,
+   "nominations": 2534
+  },
+  {
+   "hero_id": 34,
+   "hero": "Tinker",
+   "banned_matches": 2529,
+   "ban_rate": 0.25242,
+   "nominations": 2529
+  },
+  {
+   "hero_id": 104,
+   "hero": "Legion Commander",
+   "banned_matches": 2473,
+   "ban_rate": 0.246831,
+   "nominations": 2473
+  },
+  {
+   "hero_id": 8,
+   "hero": "Juggernaut",
+   "banned_matches": 2471,
+   "ban_rate": 0.246631,
+   "nominations": 2471
+  },
+  {
+   "hero_id": 27,
+   "hero": "Shadow Shaman",
+   "banned_matches": 2348,
+   "ban_rate": 0.234355,
+   "nominations": 2348
+  },
+  {
+   "hero_id": 7,
+   "hero": "Earthshaker",
+   "banned_matches": 2237,
+   "ban_rate": 0.223276,
+   "nominations": 2237
+  },
+  {
+   "hero_id": 105,
+   "hero": "Techies",
+   "banned_matches": 2230,
+   "ban_rate": 0.222577,
+   "nominations": 2230
+  },
+  {
+   "hero_id": 21,
+   "hero": "Windranger",
+   "banned_matches": 2212,
+   "ban_rate": 0.220781,
+   "nominations": 2212
+  },
+  {
+   "hero_id": 84,
+   "hero": "Ogre Magi",
+   "banned_matches": 2037,
+   "ban_rate": 0.203314,
+   "nominations": 2037
+  },
+  {
+   "hero_id": 113,
+   "hero": "Arc Warden",
+   "banned_matches": 2023,
+   "ban_rate": 0.201916,
+   "nominations": 2023
+  },
+  {
+   "hero_id": 6,
+   "hero": "Drow Ranger",
+   "banned_matches": 2003,
+   "ban_rate": 0.19992,
+   "nominations": 2003
+  },
+  {
+   "hero_id": 82,
+   "hero": "Meepo",
+   "banned_matches": 2002,
+   "ban_rate": 0.19982,
+   "nominations": 2002
+  },
+  {
+   "hero_id": 80,
+   "hero": "Lone Druid",
+   "banned_matches": 1983,
+   "ban_rate": 0.197924,
+   "nominations": 1983
+  },
+  {
+   "hero_id": 59,
+   "hero": "Huskar",
+   "banned_matches": 1980,
+   "ban_rate": 0.197625,
+   "nominations": 1980
+  },
+  {
+   "hero_id": 93,
+   "hero": "Slark",
+   "banned_matches": 1964,
+   "ban_rate": 0.196028,
+   "nominations": 1964
+  },
+  {
+   "hero_id": 44,
+   "hero": "Phantom Assassin",
+   "banned_matches": 1888,
+   "ban_rate": 0.188442,
+   "nominations": 1888
+  },
+  {
+   "hero_id": 85,
+   "hero": "Undying",
+   "banned_matches": 1825,
+   "ban_rate": 0.182154,
+   "nominations": 1825
+  },
+  {
+   "hero_id": 67,
+   "hero": "Spectre",
+   "banned_matches": 1736,
+   "ban_rate": 0.173271,
+   "nominations": 1736
+  },
+  {
+   "hero_id": 75,
+   "hero": "Silencer",
+   "banned_matches": 1736,
+   "ban_rate": 0.173271,
+   "nominations": 1736
+  },
+  {
+   "hero_id": 61,
+   "hero": "Broodmother",
+   "banned_matches": 1643,
+   "ban_rate": 0.163988,
+   "nominations": 1643
+  },
+  {
+   "hero_id": 42,
+   "hero": "Wraith King",
+   "banned_matches": 1632,
+   "ban_rate": 0.162891,
+   "nominations": 1632
+  },
+  {
+   "hero_id": 11,
+   "hero": "Shadow Fiend",
+   "banned_matches": 1595,
+   "ban_rate": 0.159198,
+   "nominations": 1595
+  },
+  {
+   "hero_id": 5,
+   "hero": "Crystal Maiden",
+   "banned_matches": 1555,
+   "ban_rate": 0.155205,
+   "nominations": 1555
+  },
+  {
+   "hero_id": 47,
+   "hero": "Viper",
+   "banned_matches": 1522,
+   "ban_rate": 0.151911,
+   "nominations": 1522
+  },
+  {
+   "hero_id": 22,
+   "hero": "Zeus",
+   "banned_matches": 1516,
+   "ban_rate": 0.151313,
+   "nominations": 1516
+  },
+  {
+   "hero_id": 101,
+   "hero": "Skywrath Mage",
+   "banned_matches": 1483,
+   "ban_rate": 0.148019,
+   "nominations": 1483
+  },
+  {
+   "hero_id": 49,
+   "hero": "Dragon Knight",
+   "banned_matches": 1321,
+   "ban_rate": 0.131849,
+   "nominations": 1321
+  },
+  {
+   "hero_id": 60,
+   "hero": "Night Stalker",
+   "banned_matches": 1310,
+   "ban_rate": 0.130752,
+   "nominations": 1310
+  },
+  {
+   "hero_id": 128,
+   "hero": "Snapfire",
+   "banned_matches": 1299,
+   "ban_rate": 0.129654,
+   "nominations": 1299
+  },
+  {
+   "hero_id": 123,
+   "hero": "Hoodwink",
+   "banned_matches": 1283,
+   "ban_rate": 0.128057,
+   "nominations": 1283
+  },
+  {
+   "hero_id": 9,
+   "hero": "Mirana",
+   "banned_matches": 1258,
+   "ban_rate": 0.125561,
+   "nominations": 1258
+  },
+  {
+   "hero_id": 145,
+   "hero": "Kez",
+   "banned_matches": 1221,
+   "ban_rate": 0.121868,
+   "nominations": 1221
+  },
+  {
+   "hero_id": 32,
+   "hero": "Riki",
+   "banned_matches": 1218,
+   "ban_rate": 0.121569,
+   "nominations": 1218
+  },
+  {
+   "hero_id": 88,
+   "hero": "Nyx Assassin",
+   "banned_matches": 1211,
+   "ban_rate": 0.12087,
+   "nominations": 1211
+  },
+  {
+   "hero_id": 97,
+   "hero": "Magnus",
+   "banned_matches": 1210,
+   "ban_rate": 0.120771,
+   "nominations": 1210
+  },
+  {
+   "hero_id": 99,
+   "hero": "Bristleback",
+   "banned_matches": 1210,
+   "ban_rate": 0.120771,
+   "nominations": 1210
+  },
+  {
+   "hero_id": 48,
+   "hero": "Luna",
+   "banned_matches": 1205,
+   "ban_rate": 0.120271,
+   "nominations": 1205
+  },
+  {
+   "hero_id": 31,
+   "hero": "Lich",
+   "banned_matches": 1124,
+   "ban_rate": 0.112187,
+   "nominations": 1124
+  },
+  {
+   "hero_id": 29,
+   "hero": "Tidehunter",
+   "banned_matches": 1103,
+   "ban_rate": 0.110091,
+   "nominations": 1103
+  },
+  {
+   "hero_id": 18,
+   "hero": "Sven",
+   "banned_matches": 1065,
+   "ban_rate": 0.106298,
+   "nominations": 1065
+  },
+  {
+   "hero_id": 53,
+   "hero": "Nature's Prophet",
+   "banned_matches": 1048,
+   "ban_rate": 0.104601,
+   "nominations": 1048
+  },
+  {
+   "hero_id": 135,
+   "hero": "Dawnbreaker",
+   "banned_matches": 1035,
+   "ban_rate": 0.103304,
+   "nominations": 1035
+  },
+  {
+   "hero_id": 62,
+   "hero": "Bounty Hunter",
+   "banned_matches": 994,
+   "ban_rate": 0.099211,
+   "nominations": 994
+  },
+  {
+   "hero_id": 39,
+   "hero": "Queen of Pain",
+   "banned_matches": 962,
+   "ban_rate": 0.096018,
+   "nominations": 962
+  },
+  {
+   "hero_id": 20,
+   "hero": "Vengeful Spirit",
+   "banned_matches": 958,
+   "ban_rate": 0.095618,
+   "nominations": 958
+  },
+  {
+   "hero_id": 13,
+   "hero": "Puck",
+   "banned_matches": 956,
+   "ban_rate": 0.095419,
+   "nominations": 956
+  },
+  {
+   "hero_id": 107,
+   "hero": "Earth Spirit",
+   "banned_matches": 954,
+   "ban_rate": 0.095219,
+   "nominations": 954
+  },
+  {
+   "hero_id": 108,
+   "hero": "Underlord",
+   "banned_matches": 948,
+   "ban_rate": 0.09462,
+   "nominations": 948
+  },
+  {
+   "hero_id": 10,
+   "hero": "Morphling",
+   "banned_matches": 920,
+   "ban_rate": 0.091826,
+   "nominations": 920
+  },
+  {
+   "hero_id": 90,
+   "hero": "Keeper of the Light",
+   "banned_matches": 916,
+   "ban_rate": 0.091426,
+   "nominations": 916
+  },
+  {
+   "hero_id": 70,
+   "hero": "Ursa",
+   "banned_matches": 901,
+   "ban_rate": 0.089929,
+   "nominations": 901
+  },
+  {
+   "hero_id": 56,
+   "hero": "Clinkz",
+   "banned_matches": 879,
+   "ban_rate": 0.087733,
+   "nominations": 879
+  },
+  {
+   "hero_id": 87,
+   "hero": "Disruptor",
+   "banned_matches": 874,
+   "ban_rate": 0.087234,
+   "nominations": 874
+  },
+  {
+   "hero_id": 68,
+   "hero": "Ancient Apparition",
+   "banned_matches": 866,
+   "ban_rate": 0.086436,
+   "nominations": 866
+  },
+  {
+   "hero_id": 40,
+   "hero": "Venomancer",
+   "banned_matches": 852,
+   "ban_rate": 0.085038,
+   "nominations": 852
+  },
+  {
+   "hero_id": 94,
+   "hero": "Medusa",
+   "banned_matches": 828,
+   "ban_rate": 0.082643,
+   "nominations": 828
+  },
+  {
+   "hero_id": 69,
+   "hero": "Doom",
+   "banned_matches": 809,
+   "ban_rate": 0.080747,
+   "nominations": 809
+  },
+  {
+   "hero_id": 17,
+   "hero": "Storm Spirit",
+   "banned_matches": 801,
+   "ban_rate": 0.079948,
+   "nominations": 801
+  },
+  {
+   "hero_id": 111,
+   "hero": "Oracle",
+   "banned_matches": 793,
+   "ban_rate": 0.07915,
+   "nominations": 793
+  },
+  {
+   "hero_id": 41,
+   "hero": "Faceless Void",
+   "banned_matches": 783,
+   "ban_rate": 0.078152,
+   "nominations": 783
+  },
+  {
+   "hero_id": 136,
+   "hero": "Marci",
+   "banned_matches": 761,
+   "ban_rate": 0.075956,
+   "nominations": 761
+  },
+  {
+   "hero_id": 63,
+   "hero": "Weaver",
+   "banned_matches": 758,
+   "ban_rate": 0.075656,
+   "nominations": 758
+  },
+  {
+   "hero_id": 106,
+   "hero": "Ember Spirit",
+   "banned_matches": 744,
+   "ban_rate": 0.074259,
+   "nominations": 744
+  },
+  {
+   "hero_id": 95,
+   "hero": "Troll Warlord",
+   "banned_matches": 733,
+   "ban_rate": 0.073161,
+   "nominations": 733
+  },
+  {
+   "hero_id": 91,
+   "hero": "Io",
+   "banned_matches": 707,
+   "ban_rate": 0.070566,
+   "nominations": 707
+  },
+  {
+   "hero_id": 81,
+   "hero": "Chaos Knight",
+   "banned_matches": 704,
+   "ban_rate": 0.070266,
+   "nominations": 704
+  },
+  {
+   "hero_id": 112,
+   "hero": "Winter Wyvern",
+   "banned_matches": 700,
+   "ban_rate": 0.069867,
+   "nominations": 700
+  },
+  {
+   "hero_id": 38,
+   "hero": "Beastmaster",
+   "banned_matches": 696,
+   "ban_rate": 0.069468,
+   "nominations": 696
+  },
+  {
+   "hero_id": 98,
+   "hero": "Timbersaw",
+   "banned_matches": 695,
+   "ban_rate": 0.069368,
+   "nominations": 695
+  },
+  {
+   "hero_id": 102,
+   "hero": "Abaddon",
+   "banned_matches": 694,
+   "ban_rate": 0.069268,
+   "nominations": 694
+  },
+  {
+   "hero_id": 15,
+   "hero": "Razor",
+   "banned_matches": 687,
+   "ban_rate": 0.06857,
+   "nominations": 687
+  },
+  {
+   "hero_id": 46,
+   "hero": "Templar Assassin",
+   "banned_matches": 687,
+   "ban_rate": 0.06857,
+   "nominations": 687
+  },
+  {
+   "hero_id": 92,
+   "hero": "Visage",
+   "banned_matches": 684,
+   "ban_rate": 0.06827,
+   "nominations": 684
+  },
+  {
+   "hero_id": 55,
+   "hero": "Dark Seer",
+   "banned_matches": 682,
+   "ban_rate": 0.068071,
+   "nominations": 682
+  },
+  {
+   "hero_id": 50,
+   "hero": "Dazzle",
+   "banned_matches": 676,
+   "ban_rate": 0.067472,
+   "nominations": 676
+  },
+  {
+   "hero_id": 28,
+   "hero": "Slardar",
+   "banned_matches": 675,
+   "ban_rate": 0.067372,
+   "nominations": 675
+  },
+  {
+   "hero_id": 109,
+   "hero": "Terrorblade",
+   "banned_matches": 663,
+   "ban_rate": 0.066174,
+   "nominations": 663
+  },
+  {
+   "hero_id": 155,
+   "hero": "Largo",
+   "banned_matches": 651,
+   "ban_rate": 0.064977,
+   "nominations": 651
+  },
+  {
+   "hero_id": 77,
+   "hero": "Lycan",
+   "banned_matches": 648,
+   "ban_rate": 0.064677,
+   "nominations": 648
+  },
+  {
+   "hero_id": 121,
+   "hero": "Grimstroke",
+   "banned_matches": 647,
+   "ban_rate": 0.064577,
+   "nominations": 647
+  },
+  {
+   "hero_id": 126,
+   "hero": "Void Spirit",
+   "banned_matches": 644,
+   "ban_rate": 0.064278,
+   "nominations": 644
+  },
+  {
+   "hero_id": 73,
+   "hero": "Alchemist",
+   "banned_matches": 644,
+   "ban_rate": 0.064278,
+   "nominations": 644
+  },
+  {
+   "hero_id": 119,
+   "hero": "Dark Willow",
+   "banned_matches": 640,
+   "ban_rate": 0.063879,
+   "nominations": 640
+  },
+  {
+   "hero_id": 37,
+   "hero": "Warlock",
+   "banned_matches": 639,
+   "ban_rate": 0.063779,
+   "nominations": 639
+  },
+  {
+   "hero_id": 52,
+   "hero": "Leshrac",
+   "banned_matches": 638,
+   "ban_rate": 0.063679,
+   "nominations": 638
+  },
+  {
+   "hero_id": 64,
+   "hero": "Jakiro",
+   "banned_matches": 638,
+   "ban_rate": 0.063679,
+   "nominations": 638
+  },
+  {
+   "hero_id": 33,
+   "hero": "Enigma",
+   "banned_matches": 633,
+   "ban_rate": 0.06318,
+   "nominations": 633
+  },
+  {
+   "hero_id": 110,
+   "hero": "Phoenix",
+   "banned_matches": 633,
+   "ban_rate": 0.06318,
+   "nominations": 633
+  },
+  {
+   "hero_id": 138,
+   "hero": "Muerta",
+   "banned_matches": 630,
+   "ban_rate": 0.062881,
+   "nominations": 630
+  },
+  {
+   "hero_id": 131,
+   "hero": "Ring Master",
+   "banned_matches": 619,
+   "ban_rate": 0.061783,
+   "nominations": 619
+  },
+  {
+   "hero_id": 3,
+   "hero": "Bane",
+   "banned_matches": 617,
+   "ban_rate": 0.061583,
+   "nominations": 617
+  },
+  {
+   "hero_id": 137,
+   "hero": "Primal Beast",
+   "banned_matches": 609,
+   "ban_rate": 0.060785,
+   "nominations": 609
+  },
+  {
+   "hero_id": 83,
+   "hero": "Treant Protector",
+   "banned_matches": 607,
+   "ban_rate": 0.060585,
+   "nominations": 607
+  },
+  {
+   "hero_id": 43,
+   "hero": "Death Prophet",
+   "banned_matches": 606,
+   "ban_rate": 0.060485,
+   "nominations": 606
+  },
+  {
+   "hero_id": 89,
+   "hero": "Naga Siren",
+   "banned_matches": 601,
+   "ban_rate": 0.059986,
+   "nominations": 601
+  },
+  {
+   "hero_id": 114,
+   "hero": "Monkey King",
+   "banned_matches": 600,
+   "ban_rate": 0.059886,
+   "nominations": 600
+  },
+  {
+   "hero_id": 45,
+   "hero": "Pugna",
+   "banned_matches": 593,
+   "ban_rate": 0.059188,
+   "nominations": 593
+  },
+  {
+   "hero_id": 96,
+   "hero": "Centaur Warrunner",
+   "banned_matches": 591,
+   "ban_rate": 0.058988,
+   "nominations": 591
+  },
+  {
+   "hero_id": 16,
+   "hero": "Sand King",
+   "banned_matches": 587,
+   "ban_rate": 0.058589,
+   "nominations": 587
+  },
+  {
+   "hero_id": 51,
+   "hero": "Clockwerk",
+   "banned_matches": 581,
+   "ban_rate": 0.05799,
+   "nominations": 581
+  },
+  {
+   "hero_id": 78,
+   "hero": "Brewmaster",
+   "banned_matches": 578,
+   "ban_rate": 0.05769,
+   "nominations": 578
+  },
+  {
+   "hero_id": 100,
+   "hero": "Tusk",
+   "banned_matches": 576,
+   "ban_rate": 0.057491,
+   "nominations": 576
+  },
+  {
+   "hero_id": 120,
+   "hero": "Pangolier",
+   "banned_matches": 576,
+   "ban_rate": 0.057491,
+   "nominations": 576
+  },
+  {
+   "hero_id": 79,
+   "hero": "Shadow Demon",
+   "banned_matches": 572,
+   "ban_rate": 0.057092,
+   "nominations": 572
+  },
+  {
+   "hero_id": 58,
+   "hero": "Enchantress",
+   "banned_matches": 569,
+   "ban_rate": 0.056792,
+   "nominations": 569
+  },
+  {
+   "hero_id": 4,
+   "hero": "Bloodseeker",
+   "banned_matches": 566,
+   "ban_rate": 0.056493,
+   "nominations": 566
+  },
+  {
+   "hero_id": 57,
+   "hero": "Omniknight",
+   "banned_matches": 561,
+   "ban_rate": 0.055994,
+   "nominations": 561
+  },
+  {
+   "hero_id": 129,
+   "hero": "Mars",
+   "banned_matches": 554,
+   "ban_rate": 0.055295,
+   "nominations": 554
+  },
+  {
+   "hero_id": 19,
+   "hero": "Tiny",
+   "banned_matches": 541,
+   "ban_rate": 0.053997,
+   "nominations": 541
+  },
+  {
+   "hero_id": 66,
+   "hero": "Chen",
+   "banned_matches": 538,
+   "ban_rate": 0.053698,
+   "nominations": 538
+  },
+  {
+   "hero_id": 23,
+   "hero": "Kunkka",
+   "banned_matches": 533,
+   "ban_rate": 0.053199,
+   "nominations": 533
+  },
+  {
+   "hero_id": 65,
+   "hero": "Batrider",
+   "banned_matches": 513,
+   "ban_rate": 0.051203,
+   "nominations": 513
+  },
+  {
+   "hero_id": 72,
+   "hero": "Gyrocopter",
+   "banned_matches": 491,
+   "ban_rate": 0.049007,
+   "nominations": 491
+  },
+  {
+   "hero_id": 103,
+   "hero": "Elder Titan",
+   "banned_matches": 490,
+   "ban_rate": 0.048907,
+   "nominations": 490
+  }
+ ]
+}

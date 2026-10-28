@@ -1,0 +1,2672 @@
+{
+ "snapshot_id": "2026-10-27",
+ "rows": [
+  {
+   "window_id": "bans_patch",
+   "hero_id": 76,
+   "hero": "Outworld Devourer",
+   "bans": 21902,
+   "share": 0.042635
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 12,
+   "hero": "Phantom Lancer",
+   "bans": 20153,
+   "share": 0.03923
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 54,
+   "hero": "Lifestealer",
+   "bans": 18963,
+   "share": 0.036914
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 25,
+   "hero": "Lina",
+   "bans": 17634,
+   "share": 0.034327
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 36,
+   "hero": "Necrophos",
+   "bans": 12043,
+   "share": 0.023443
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 60,
+   "hero": "Night Stalker",
+   "bans": 11192,
+   "share": 0.021786
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 85,
+   "hero": "Undying",
+   "bans": 9654,
+   "share": 0.018793
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 74,
+   "hero": "Invoker",
+   "bans": 9430,
+   "share": 0.018357
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 93,
+   "hero": "Slark",
+   "bans": 9351,
+   "share": 0.018203
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 135,
+   "hero": "Dawnbreaker",
+   "bans": 9222,
+   "share": 0.017952
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 2,
+   "hero": "Axe",
+   "bans": 9042,
+   "share": 0.017601
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 80,
+   "hero": "Lone Druid",
+   "bans": 8665,
+   "share": 0.016867
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 6,
+   "hero": "Drow Ranger",
+   "bans": 8528,
+   "share": 0.016601
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 75,
+   "hero": "Silencer",
+   "bans": 8452,
+   "share": 0.016453
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 106,
+   "hero": "Ember Spirit",
+   "bans": 8175,
+   "share": 0.015914
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 107,
+   "hero": "Earth Spirit",
+   "bans": 8148,
+   "share": 0.015861
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 112,
+   "hero": "Winter Wyvern",
+   "bans": 7993,
+   "share": 0.015559
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 71,
+   "hero": "Spirit Breaker",
+   "bans": 7962,
+   "share": 0.015499
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 1,
+   "hero": "Anti-Mage",
+   "bans": 7314,
+   "share": 0.014238
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 62,
+   "hero": "Bounty Hunter",
+   "bans": 7294,
+   "share": 0.014199
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 70,
+   "hero": "Ursa",
+   "bans": 7049,
+   "share": 0.013722
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 69,
+   "hero": "Doom",
+   "bans": 7007,
+   "share": 0.01364
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 105,
+   "hero": "Techies",
+   "bans": 6938,
+   "share": 0.013506
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 67,
+   "hero": "Spectre",
+   "bans": 6832,
+   "share": 0.013299
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 86,
+   "hero": "Rubick",
+   "bans": 6782,
+   "share": 0.013202
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 49,
+   "hero": "Dragon Knight",
+   "bans": 6665,
+   "share": 0.012974
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 34,
+   "hero": "Tinker",
+   "bans": 6272,
+   "share": 0.012209
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 108,
+   "hero": "Underlord",
+   "bans": 5959,
+   "share": 0.0116
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 128,
+   "hero": "Snapfire",
+   "bans": 5834,
+   "share": 0.011357
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 47,
+   "hero": "Viper",
+   "bans": 5821,
+   "share": 0.011331
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 48,
+   "hero": "Luna",
+   "bans": 5677,
+   "share": 0.011051
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 55,
+   "hero": "Dark Seer",
+   "bans": 5608,
+   "share": 0.010917
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 33,
+   "hero": "Enigma",
+   "bans": 5339,
+   "share": 0.010393
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 26,
+   "hero": "Lion",
+   "bans": 5271,
+   "share": 0.010261
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 90,
+   "hero": "Keeper of the Light",
+   "bans": 5216,
+   "share": 0.010154
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 123,
+   "hero": "Hoodwink",
+   "bans": 5149,
+   "share": 0.010023
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 8,
+   "hero": "Juggernaut",
+   "bans": 5038,
+   "share": 0.009807
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 109,
+   "hero": "Terrorblade",
+   "bans": 5032,
+   "share": 0.009795
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 13,
+   "hero": "Puck",
+   "bans": 4857,
+   "share": 0.009455
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 59,
+   "hero": "Huskar",
+   "bans": 4846,
+   "share": 0.009433
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 21,
+   "hero": "Windranger",
+   "bans": 4782,
+   "share": 0.009309
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 18,
+   "hero": "Sven",
+   "bans": 4736,
+   "share": 0.009219
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 39,
+   "hero": "Queen of Pain",
+   "bans": 4664,
+   "share": 0.009079
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 30,
+   "hero": "Witch Doctor",
+   "bans": 4540,
+   "share": 0.008838
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 41,
+   "hero": "Faceless Void",
+   "bans": 4488,
+   "share": 0.008736
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 11,
+   "hero": "Shadow Fiend",
+   "bans": 4444,
+   "share": 0.008651
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 35,
+   "hero": "Sniper",
+   "bans": 4152,
+   "share": 0.008082
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 17,
+   "hero": "Storm Spirit",
+   "bans": 4118,
+   "share": 0.008016
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 87,
+   "hero": "Disruptor",
+   "bans": 3952,
+   "share": 0.007693
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 27,
+   "hero": "Shadow Shaman",
+   "bans": 3896,
+   "share": 0.007584
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 111,
+   "hero": "Oracle",
+   "bans": 3827,
+   "share": 0.00745
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 119,
+   "hero": "Dark Willow",
+   "bans": 3653,
+   "share": 0.007111
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 9,
+   "hero": "Mirana",
+   "bans": 3582,
+   "share": 0.006973
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 91,
+   "hero": "Io",
+   "bans": 3483,
+   "share": 0.00678
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 121,
+   "hero": "Grimstroke",
+   "bans": 3325,
+   "share": 0.006472
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 120,
+   "hero": "Pangolier",
+   "bans": 3310,
+   "share": 0.006443
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 31,
+   "hero": "Lich",
+   "bans": 3264,
+   "share": 0.006354
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 88,
+   "hero": "Nyx Assassin",
+   "bans": 3232,
+   "share": 0.006291
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 145,
+   "hero": "Kez",
+   "bans": 3200,
+   "share": 0.006229
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 78,
+   "hero": "Brewmaster",
+   "bans": 3087,
+   "share": 0.006009
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 14,
+   "hero": "Pudge",
+   "bans": 3063,
+   "share": 0.005962
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 113,
+   "hero": "Arc Warden",
+   "bans": 3061,
+   "share": 0.005959
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 53,
+   "hero": "Nature's Prophet",
+   "bans": 2924,
+   "share": 0.005692
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 110,
+   "hero": "Phoenix",
+   "bans": 2833,
+   "share": 0.005515
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 7,
+   "hero": "Earthshaker",
+   "bans": 2804,
+   "share": 0.005458
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 98,
+   "hero": "Timbersaw",
+   "bans": 2795,
+   "share": 0.005441
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 94,
+   "hero": "Medusa",
+   "bans": 2757,
+   "share": 0.005367
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 29,
+   "hero": "Tidehunter",
+   "bans": 2739,
+   "share": 0.005332
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 126,
+   "hero": "Void Spirit",
+   "bans": 2684,
+   "share": 0.005225
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 50,
+   "hero": "Dazzle",
+   "bans": 2658,
+   "share": 0.005174
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 68,
+   "hero": "Ancient Apparition",
+   "bans": 2655,
+   "share": 0.005168
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 97,
+   "hero": "Magnus",
+   "bans": 2625,
+   "share": 0.00511
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 104,
+   "hero": "Legion Commander",
+   "bans": 2568,
+   "share": 0.004999
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 100,
+   "hero": "Tusk",
+   "bans": 2513,
+   "share": 0.004892
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 96,
+   "hero": "Centaur Warrunner",
+   "bans": 2456,
+   "share": 0.004781
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 28,
+   "hero": "Slardar",
+   "bans": 2377,
+   "share": 0.004627
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 131,
+   "hero": "Ring Master",
+   "bans": 2372,
+   "share": 0.004617
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 3,
+   "hero": "Bane",
+   "bans": 2228,
+   "share": 0.004337
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 43,
+   "hero": "Death Prophet",
+   "bans": 1942,
+   "share": 0.00378
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 38,
+   "hero": "Beastmaster",
+   "bans": 1939,
+   "share": 0.003774
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 44,
+   "hero": "Phantom Assassin",
+   "bans": 1802,
+   "share": 0.003508
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 101,
+   "hero": "Skywrath Mage",
+   "bans": 1782,
+   "share": 0.003469
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 137,
+   "hero": "Primal Beast",
+   "bans": 1732,
+   "share": 0.003372
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 46,
+   "hero": "Templar Assassin",
+   "bans": 1716,
+   "share": 0.00334
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 10,
+   "hero": "Morphling",
+   "bans": 1680,
+   "share": 0.00327
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 83,
+   "hero": "Treant Protector",
+   "bans": 1605,
+   "share": 0.003124
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 155,
+   "hero": "Largo",
+   "bans": 1559,
+   "share": 0.003035
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 20,
+   "hero": "Vengeful Spirit",
+   "bans": 1516,
+   "share": 0.002951
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 15,
+   "hero": "Razor",
+   "bans": 1512,
+   "share": 0.002943
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 77,
+   "hero": "Lycan",
+   "bans": 1322,
+   "share": 0.002573
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 19,
+   "hero": "Tiny",
+   "bans": 1313,
+   "share": 0.002556
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 82,
+   "hero": "Meepo",
+   "bans": 1304,
+   "share": 0.002538
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 136,
+   "hero": "Marci",
+   "bans": 1274,
+   "share": 0.00248
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 79,
+   "hero": "Shadow Demon",
+   "bans": 1270,
+   "share": 0.002472
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 42,
+   "hero": "Wraith King",
+   "bans": 1247,
+   "share": 0.002427
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 51,
+   "hero": "Clockwerk",
+   "bans": 1233,
+   "share": 0.0024
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 129,
+   "hero": "Mars",
+   "bans": 1185,
+   "share": 0.002307
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 56,
+   "hero": "Clinkz",
+   "bans": 1087,
+   "share": 0.002116
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 61,
+   "hero": "Broodmother",
+   "bans": 1082,
+   "share": 0.002106
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 114,
+   "hero": "Monkey King",
+   "bans": 1062,
+   "share": 0.002067
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 64,
+   "hero": "Jakiro",
+   "bans": 1056,
+   "share": 0.002056
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 138,
+   "hero": "Muerta",
+   "bans": 1030,
+   "share": 0.002005
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 22,
+   "hero": "Zeus",
+   "bans": 1007,
+   "share": 0.00196
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 52,
+   "hero": "Leshrac",
+   "bans": 956,
+   "share": 0.001861
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 99,
+   "hero": "Bristleback",
+   "bans": 940,
+   "share": 0.00183
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 16,
+   "hero": "Sand King",
+   "bans": 935,
+   "share": 0.00182
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 23,
+   "hero": "Kunkka",
+   "bans": 870,
+   "share": 0.001694
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 32,
+   "hero": "Riki",
+   "bans": 826,
+   "share": 0.001608
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 84,
+   "hero": "Ogre Magi",
+   "bans": 793,
+   "share": 0.001544
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 92,
+   "hero": "Visage",
+   "bans": 789,
+   "share": 0.001536
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 37,
+   "hero": "Warlock",
+   "bans": 667,
+   "share": 0.001298
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 5,
+   "hero": "Crystal Maiden",
+   "bans": 638,
+   "share": 0.001242
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 102,
+   "hero": "Abaddon",
+   "bans": 621,
+   "share": 0.001209
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 95,
+   "hero": "Troll Warlord",
+   "bans": 616,
+   "share": 0.001199
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 40,
+   "hero": "Venomancer",
+   "bans": 614,
+   "share": 0.001195
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 63,
+   "hero": "Weaver",
+   "bans": 604,
+   "share": 0.001176
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 58,
+   "hero": "Enchantress",
+   "bans": 575,
+   "share": 0.001119
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 65,
+   "hero": "Batrider",
+   "bans": 569,
+   "share": 0.001108
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 4,
+   "hero": "Bloodseeker",
+   "bans": 483,
+   "share": 0.00094
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 89,
+   "hero": "Naga Siren",
+   "bans": 476,
+   "share": 0.000927
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 72,
+   "hero": "Gyrocopter",
+   "bans": 452,
+   "share": 0.00088
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 81,
+   "hero": "Chaos Knight",
+   "bans": 420,
+   "share": 0.000818
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 57,
+   "hero": "Omniknight",
+   "bans": 387,
+   "share": 0.000753
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 45,
+   "hero": "Pugna",
+   "bans": 376,
+   "share": 0.000732
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 73,
+   "hero": "Alchemist",
+   "bans": 340,
+   "share": 0.000662
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 66,
+   "hero": "Chen",
+   "bans": 198,
+   "share": 0.000385
+  },
+  {
+   "window_id": "bans_patch",
+   "hero_id": 103,
+   "hero": "Elder Titan",
+   "bans": 155,
+   "share": 0.000302
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 75,
+   "hero": "Silencer",
+   "bans": 66520,
+   "share": 0.022799
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 70,
+   "hero": "Ursa",
+   "bans": 63254,
+   "share": 0.02168
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 54,
+   "hero": "Lifestealer",
+   "bans": 62856,
+   "share": 0.021544
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 12,
+   "hero": "Phantom Lancer",
+   "bans": 62462,
+   "share": 0.021408
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 76,
+   "hero": "Outworld Devourer",
+   "bans": 61600,
+   "share": 0.021113
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 39,
+   "hero": "Queen of Pain",
+   "bans": 60910,
+   "share": 0.020877
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 13,
+   "hero": "Puck",
+   "bans": 59120,
+   "share": 0.020263
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 135,
+   "hero": "Dawnbreaker",
+   "bans": 51333,
+   "share": 0.017594
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 2,
+   "hero": "Axe",
+   "bans": 51169,
+   "share": 0.017538
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 36,
+   "hero": "Necrophos",
+   "bans": 50260,
+   "share": 0.017226
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 6,
+   "hero": "Drow Ranger",
+   "bans": 50243,
+   "share": 0.01722
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 25,
+   "hero": "Lina",
+   "bans": 48404,
+   "share": 0.01659
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 47,
+   "hero": "Viper",
+   "bans": 47438,
+   "share": 0.016259
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 74,
+   "hero": "Invoker",
+   "bans": 47357,
+   "share": 0.016231
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 59,
+   "hero": "Huskar",
+   "bans": 47236,
+   "share": 0.01619
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 128,
+   "hero": "Snapfire",
+   "bans": 46436,
+   "share": 0.015916
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 11,
+   "hero": "Shadow Fiend",
+   "bans": 46435,
+   "share": 0.015915
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 1,
+   "hero": "Anti-Mage",
+   "bans": 42170,
+   "share": 0.014454
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 60,
+   "hero": "Night Stalker",
+   "bans": 40408,
+   "share": 0.01385
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 106,
+   "hero": "Ember Spirit",
+   "bans": 39812,
+   "share": 0.013645
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 93,
+   "hero": "Slark",
+   "bans": 36947,
+   "share": 0.012663
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 86,
+   "hero": "Rubick",
+   "bans": 36829,
+   "share": 0.012623
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 80,
+   "hero": "Lone Druid",
+   "bans": 35184,
+   "share": 0.012059
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 34,
+   "hero": "Tinker",
+   "bans": 35104,
+   "share": 0.012032
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 38,
+   "hero": "Beastmaster",
+   "bans": 34193,
+   "share": 0.011719
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 17,
+   "hero": "Storm Spirit",
+   "bans": 33998,
+   "share": 0.011653
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 94,
+   "hero": "Medusa",
+   "bans": 33296,
+   "share": 0.011412
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 85,
+   "hero": "Undying",
+   "bans": 32368,
+   "share": 0.011094
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 8,
+   "hero": "Juggernaut",
+   "bans": 32161,
+   "share": 0.011023
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 71,
+   "hero": "Spirit Breaker",
+   "bans": 30950,
+   "share": 0.010608
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 64,
+   "hero": "Jakiro",
+   "bans": 30010,
+   "share": 0.010286
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 27,
+   "hero": "Shadow Shaman",
+   "bans": 29884,
+   "share": 0.010243
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 41,
+   "hero": "Faceless Void",
+   "bans": 29654,
+   "share": 0.010164
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 26,
+   "hero": "Lion",
+   "bans": 29599,
+   "share": 0.010145
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 69,
+   "hero": "Doom",
+   "bans": 28887,
+   "share": 0.009901
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 98,
+   "hero": "Timbersaw",
+   "bans": 27659,
+   "share": 0.00948
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 108,
+   "hero": "Underlord",
+   "bans": 27582,
+   "share": 0.009454
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 21,
+   "hero": "Windranger",
+   "bans": 26570,
+   "share": 0.009107
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 67,
+   "hero": "Spectre",
+   "bans": 26444,
+   "share": 0.009064
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 28,
+   "hero": "Slardar",
+   "bans": 25811,
+   "share": 0.008847
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 30,
+   "hero": "Witch Doctor",
+   "bans": 25767,
+   "share": 0.008831
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 83,
+   "hero": "Treant Protector",
+   "bans": 25604,
+   "share": 0.008776
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 53,
+   "hero": "Nature's Prophet",
+   "bans": 25156,
+   "share": 0.008622
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 129,
+   "hero": "Mars",
+   "bans": 25146,
+   "share": 0.008619
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 29,
+   "hero": "Tidehunter",
+   "bans": 24993,
+   "share": 0.008566
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 120,
+   "hero": "Pangolier",
+   "bans": 24519,
+   "share": 0.008404
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 107,
+   "hero": "Earth Spirit",
+   "bans": 24366,
+   "share": 0.008351
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 35,
+   "hero": "Sniper",
+   "bans": 24102,
+   "share": 0.008261
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 87,
+   "hero": "Disruptor",
+   "bans": 23906,
+   "share": 0.008194
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 126,
+   "hero": "Void Spirit",
+   "bans": 23150,
+   "share": 0.007935
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 110,
+   "hero": "Phoenix",
+   "bans": 23098,
+   "share": 0.007917
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 145,
+   "hero": "Kez",
+   "bans": 21807,
+   "share": 0.007474
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 111,
+   "hero": "Oracle",
+   "bans": 21286,
+   "share": 0.007296
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 14,
+   "hero": "Pudge",
+   "bans": 21158,
+   "share": 0.007252
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 105,
+   "hero": "Techies",
+   "bans": 21053,
+   "share": 0.007216
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 123,
+   "hero": "Hoodwink",
+   "bans": 21003,
+   "share": 0.007199
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 90,
+   "hero": "Keeper of the Light",
+   "bans": 20689,
+   "share": 0.007091
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 79,
+   "hero": "Shadow Demon",
+   "bans": 20592,
+   "share": 0.007058
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 31,
+   "hero": "Lich",
+   "bans": 20432,
+   "share": 0.007003
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 109,
+   "hero": "Terrorblade",
+   "bans": 19753,
+   "share": 0.00677
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 100,
+   "hero": "Tusk",
+   "bans": 19435,
+   "share": 0.006661
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 56,
+   "hero": "Clinkz",
+   "bans": 19128,
+   "share": 0.006556
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 68,
+   "hero": "Ancient Apparition",
+   "bans": 19125,
+   "share": 0.006555
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 104,
+   "hero": "Legion Commander",
+   "bans": 18810,
+   "share": 0.006447
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 51,
+   "hero": "Clockwerk",
+   "bans": 18101,
+   "share": 0.006204
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 101,
+   "hero": "Skywrath Mage",
+   "bans": 17764,
+   "share": 0.006089
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 46,
+   "hero": "Templar Assassin",
+   "bans": 17734,
+   "share": 0.006078
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 97,
+   "hero": "Magnus",
+   "bans": 17520,
+   "share": 0.006005
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 102,
+   "hero": "Abaddon",
+   "bans": 17430,
+   "share": 0.005974
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 49,
+   "hero": "Dragon Knight",
+   "bans": 17248,
+   "share": 0.005912
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 15,
+   "hero": "Razor",
+   "bans": 17024,
+   "share": 0.005835
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 10,
+   "hero": "Morphling",
+   "bans": 16927,
+   "share": 0.005802
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 19,
+   "hero": "Tiny",
+   "bans": 16855,
+   "share": 0.005777
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 112,
+   "hero": "Winter Wyvern",
+   "bans": 16713,
+   "share": 0.005728
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 96,
+   "hero": "Centaur Warrunner",
+   "bans": 16427,
+   "share": 0.00563
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 40,
+   "hero": "Venomancer",
+   "bans": 16127,
+   "share": 0.005527
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 136,
+   "hero": "Marci",
+   "bans": 16066,
+   "share": 0.005507
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 137,
+   "hero": "Primal Beast",
+   "bans": 15908,
+   "share": 0.005452
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 88,
+   "hero": "Nyx Assassin",
+   "bans": 15617,
+   "share": 0.005353
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 7,
+   "hero": "Earthshaker",
+   "bans": 15422,
+   "share": 0.005286
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 50,
+   "hero": "Dazzle",
+   "bans": 14644,
+   "share": 0.005019
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 155,
+   "hero": "Largo",
+   "bans": 14636,
+   "share": 0.005016
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 33,
+   "hero": "Enigma",
+   "bans": 14517,
+   "share": 0.004976
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 48,
+   "hero": "Luna",
+   "bans": 14456,
+   "share": 0.004955
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 52,
+   "hero": "Leshrac",
+   "bans": 14403,
+   "share": 0.004937
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 65,
+   "hero": "Batrider",
+   "bans": 13987,
+   "share": 0.004794
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 91,
+   "hero": "Io",
+   "bans": 13765,
+   "share": 0.004718
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 63,
+   "hero": "Weaver",
+   "bans": 13721,
+   "share": 0.004703
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 61,
+   "hero": "Broodmother",
+   "bans": 13131,
+   "share": 0.004501
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 37,
+   "hero": "Warlock",
+   "bans": 12813,
+   "share": 0.004392
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 119,
+   "hero": "Dark Willow",
+   "bans": 12610,
+   "share": 0.004322
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 114,
+   "hero": "Monkey King",
+   "bans": 12593,
+   "share": 0.004316
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 121,
+   "hero": "Grimstroke",
+   "bans": 12509,
+   "share": 0.004287
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 18,
+   "hero": "Sven",
+   "bans": 12329,
+   "share": 0.004226
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 62,
+   "hero": "Bounty Hunter",
+   "bans": 12300,
+   "share": 0.004216
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 113,
+   "hero": "Arc Warden",
+   "bans": 12150,
+   "share": 0.004164
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 78,
+   "hero": "Brewmaster",
+   "bans": 12122,
+   "share": 0.004155
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 43,
+   "hero": "Death Prophet",
+   "bans": 11977,
+   "share": 0.004105
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 16,
+   "hero": "Sand King",
+   "bans": 11270,
+   "share": 0.003863
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 138,
+   "hero": "Muerta",
+   "bans": 10714,
+   "share": 0.003672
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 73,
+   "hero": "Alchemist",
+   "bans": 10365,
+   "share": 0.003553
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 131,
+   "hero": "Ring Master",
+   "bans": 10273,
+   "share": 0.003521
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 55,
+   "hero": "Dark Seer",
+   "bans": 10161,
+   "share": 0.003483
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 82,
+   "hero": "Meepo",
+   "bans": 9987,
+   "share": 0.003423
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 99,
+   "hero": "Bristleback",
+   "bans": 9697,
+   "share": 0.003324
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 72,
+   "hero": "Gyrocopter",
+   "bans": 9680,
+   "share": 0.003318
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 3,
+   "hero": "Bane",
+   "bans": 9542,
+   "share": 0.00327
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 22,
+   "hero": "Zeus",
+   "bans": 9204,
+   "share": 0.003155
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 20,
+   "hero": "Vengeful Spirit",
+   "bans": 8545,
+   "share": 0.002929
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 44,
+   "hero": "Phantom Assassin",
+   "bans": 8427,
+   "share": 0.002888
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 95,
+   "hero": "Troll Warlord",
+   "bans": 8060,
+   "share": 0.002763
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 77,
+   "hero": "Lycan",
+   "bans": 7846,
+   "share": 0.002689
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 9,
+   "hero": "Mirana",
+   "bans": 7373,
+   "share": 0.002527
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 45,
+   "hero": "Pugna",
+   "bans": 7307,
+   "share": 0.002504
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 42,
+   "hero": "Wraith King",
+   "bans": 6887,
+   "share": 0.00236
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 23,
+   "hero": "Kunkka",
+   "bans": 6677,
+   "share": 0.002289
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 92,
+   "hero": "Visage",
+   "bans": 6649,
+   "share": 0.002279
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 57,
+   "hero": "Omniknight",
+   "bans": 5614,
+   "share": 0.001924
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 84,
+   "hero": "Ogre Magi",
+   "bans": 4990,
+   "share": 0.00171
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 32,
+   "hero": "Riki",
+   "bans": 4903,
+   "share": 0.00168
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 89,
+   "hero": "Naga Siren",
+   "bans": 4355,
+   "share": 0.001493
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 58,
+   "hero": "Enchantress",
+   "bans": 4184,
+   "share": 0.001434
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 4,
+   "hero": "Bloodseeker",
+   "bans": 3917,
+   "share": 0.001343
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 66,
+   "hero": "Chen",
+   "bans": 3699,
+   "share": 0.001268
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 81,
+   "hero": "Chaos Knight",
+   "bans": 2881,
+   "share": 0.000987
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 5,
+   "hero": "Crystal Maiden",
+   "bans": 2811,
+   "share": 0.000963
+  },
+  {
+   "window_id": "bans_year",
+   "hero_id": 103,
+   "hero": "Elder Titan",
+   "bans": 1433,
+   "share": 0.000491
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 14,
+   "hero": "Pudge",
+   "bans": 44782177,
+   "share": 0.028385
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 26,
+   "hero": "Lion",
+   "bans": 33840252,
+   "share": 0.02145
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 30,
+   "hero": "Witch Doctor",
+   "bans": 31266961,
+   "share": 0.019819
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 35,
+   "hero": "Sniper",
+   "bans": 28653883,
+   "share": 0.018162
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 8,
+   "hero": "Juggernaut",
+   "bans": 28310735,
+   "share": 0.017945
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 74,
+   "hero": "Invoker",
+   "bans": 27952180,
+   "share": 0.017718
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 44,
+   "hero": "Phantom Assassin",
+   "bans": 27846010,
+   "share": 0.01765
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 84,
+   "hero": "Ogre Magi",
+   "bans": 27355752,
+   "share": 0.01734
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 104,
+   "hero": "Legion Commander",
+   "bans": 26592178,
+   "share": 0.016856
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 11,
+   "hero": "Shadow Fiend",
+   "bans": 24652293,
+   "share": 0.015626
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 86,
+   "hero": "Rubick",
+   "bans": 24586854,
+   "share": 0.015584
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 2,
+   "hero": "Axe",
+   "bans": 23905282,
+   "share": 0.015152
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 6,
+   "hero": "Drow Ranger",
+   "bans": 23725362,
+   "share": 0.015038
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 27,
+   "hero": "Shadow Shaman",
+   "bans": 23033288,
+   "share": 0.0146
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 93,
+   "hero": "Slark",
+   "bans": 22571187,
+   "share": 0.014307
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 75,
+   "hero": "Silencer",
+   "bans": 22198392,
+   "share": 0.014071
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 64,
+   "hero": "Jakiro",
+   "bans": 21537949,
+   "share": 0.013652
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 5,
+   "hero": "Crystal Maiden",
+   "bans": 21451995,
+   "share": 0.013597
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 71,
+   "hero": "Spirit Breaker",
+   "bans": 20943636,
+   "share": 0.013275
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 21,
+   "hero": "Windranger",
+   "bans": 20377710,
+   "share": 0.012917
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 1,
+   "hero": "Anti-Mage",
+   "bans": 20331493,
+   "share": 0.012887
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 41,
+   "hero": "Faceless Void",
+   "bans": 19593122,
+   "share": 0.012419
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 22,
+   "hero": "Zeus",
+   "bans": 19320073,
+   "share": 0.012246
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 101,
+   "hero": "Skywrath Mage",
+   "bans": 18937031,
+   "share": 0.012003
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 25,
+   "hero": "Lina",
+   "bans": 18121073,
+   "share": 0.011486
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 50,
+   "hero": "Dazzle",
+   "bans": 18027167,
+   "share": 0.011427
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 7,
+   "hero": "Earthshaker",
+   "bans": 17821770,
+   "share": 0.011296
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 42,
+   "hero": "Wraith King",
+   "bans": 17611073,
+   "share": 0.011163
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 99,
+   "hero": "Bristleback",
+   "bans": 17164671,
+   "share": 0.01088
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 36,
+   "hero": "Necrophos",
+   "bans": 17050892,
+   "share": 0.010808
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 123,
+   "hero": "Hoodwink",
+   "bans": 16934451,
+   "share": 0.010734
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 9,
+   "hero": "Mirana",
+   "bans": 16604670,
+   "share": 0.010525
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 105,
+   "hero": "Techies",
+   "bans": 15785636,
+   "share": 0.010006
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 31,
+   "hero": "Lich",
+   "bans": 15225613,
+   "share": 0.009651
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 85,
+   "hero": "Undying",
+   "bans": 15211302,
+   "share": 0.009642
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 114,
+   "hero": "Monkey King",
+   "bans": 14764303,
+   "share": 0.009358
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 67,
+   "hero": "Spectre",
+   "bans": 14569131,
+   "share": 0.009235
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 70,
+   "hero": "Ursa",
+   "bans": 14483399,
+   "share": 0.00918
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 47,
+   "hero": "Viper",
+   "bans": 14183835,
+   "share": 0.00899
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 53,
+   "hero": "Nature's Prophet",
+   "bans": 14177737,
+   "share": 0.008987
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 76,
+   "hero": "Outworld Devourer",
+   "bans": 14082296,
+   "share": 0.008926
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 34,
+   "hero": "Tinker",
+   "bans": 13782732,
+   "share": 0.008736
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 121,
+   "hero": "Grimstroke",
+   "bans": 13609417,
+   "share": 0.008626
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 62,
+   "hero": "Bounty Hunter",
+   "bans": 13422885,
+   "share": 0.008508
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 87,
+   "hero": "Disruptor",
+   "bans": 13289374,
+   "share": 0.008424
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 54,
+   "hero": "Lifestealer",
+   "bans": 13133684,
+   "share": 0.008325
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 97,
+   "hero": "Magnus",
+   "bans": 12978176,
+   "share": 0.008226
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 28,
+   "hero": "Slardar",
+   "bans": 12945045,
+   "share": 0.008205
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 68,
+   "hero": "Ancient Apparition",
+   "bans": 12840954,
+   "share": 0.008139
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 10,
+   "hero": "Morphling",
+   "bans": 12771205,
+   "share": 0.008095
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 39,
+   "hero": "Queen of Pain",
+   "bans": 12625160,
+   "share": 0.008003
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 12,
+   "hero": "Phantom Lancer",
+   "bans": 12576714,
+   "share": 0.007972
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 40,
+   "hero": "Venomancer",
+   "bans": 12394086,
+   "share": 0.007856
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 128,
+   "hero": "Snapfire",
+   "bans": 12309344,
+   "share": 0.007802
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 56,
+   "hero": "Clinkz",
+   "bans": 12087342,
+   "share": 0.007662
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 63,
+   "hero": "Weaver",
+   "bans": 12051674,
+   "share": 0.007639
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 129,
+   "hero": "Mars",
+   "bans": 11972253,
+   "share": 0.007589
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 19,
+   "hero": "Tiny",
+   "bans": 11969212,
+   "share": 0.007587
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 126,
+   "hero": "Void Spirit",
+   "bans": 11948986,
+   "share": 0.007574
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 94,
+   "hero": "Medusa",
+   "bans": 11847783,
+   "share": 0.00751
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 20,
+   "hero": "Vengeful Spirit",
+   "bans": 11795575,
+   "share": 0.007477
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 106,
+   "hero": "Ember Spirit",
+   "bans": 11723761,
+   "share": 0.007431
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 59,
+   "hero": "Huskar",
+   "bans": 11486186,
+   "share": 0.007281
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 48,
+   "hero": "Luna",
+   "bans": 11456555,
+   "share": 0.007262
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 32,
+   "hero": "Riki",
+   "bans": 11401849,
+   "share": 0.007227
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 81,
+   "hero": "Chaos Knight",
+   "bans": 11256934,
+   "share": 0.007135
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 17,
+   "hero": "Storm Spirit",
+   "bans": 11210551,
+   "share": 0.007106
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 135,
+   "hero": "Dawnbreaker",
+   "bans": 10977734,
+   "share": 0.006958
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 13,
+   "hero": "Puck",
+   "bans": 10891082,
+   "share": 0.006903
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 16,
+   "hero": "Sand King",
+   "bans": 10766469,
+   "share": 0.006824
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 23,
+   "hero": "Kunkka",
+   "bans": 10654016,
+   "share": 0.006753
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 119,
+   "hero": "Dark Willow",
+   "bans": 10582899,
+   "share": 0.006708
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 83,
+   "hero": "Treant Protector",
+   "bans": 9980029,
+   "share": 0.006326
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 29,
+   "hero": "Tidehunter",
+   "bans": 9901233,
+   "share": 0.006276
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 136,
+   "hero": "Marci",
+   "bans": 9769752,
+   "share": 0.006193
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 100,
+   "hero": "Tusk",
+   "bans": 9625911,
+   "share": 0.006101
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 72,
+   "hero": "Gyrocopter",
+   "bans": 9590451,
+   "share": 0.006079
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 37,
+   "hero": "Warlock",
+   "bans": 9580212,
+   "share": 0.006072
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 46,
+   "hero": "Templar Assassin",
+   "bans": 9577764,
+   "share": 0.006071
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 113,
+   "hero": "Arc Warden",
+   "bans": 9283249,
+   "share": 0.005884
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 96,
+   "hero": "Centaur Warrunner",
+   "bans": 9178942,
+   "share": 0.005818
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 88,
+   "hero": "Nyx Assassin",
+   "bans": 8670249,
+   "share": 0.005496
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 98,
+   "hero": "Timbersaw",
+   "bans": 8663430,
+   "share": 0.005491
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 45,
+   "hero": "Pugna",
+   "bans": 8553011,
+   "share": 0.005421
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 15,
+   "hero": "Razor",
+   "bans": 8480325,
+   "share": 0.005375
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 49,
+   "hero": "Dragon Knight",
+   "bans": 8365414,
+   "share": 0.005302
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 18,
+   "hero": "Sven",
+   "bans": 8356526,
+   "share": 0.005297
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 102,
+   "hero": "Abaddon",
+   "bans": 7928009,
+   "share": 0.005025
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 60,
+   "hero": "Night Stalker",
+   "bans": 7848859,
+   "share": 0.004975
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 4,
+   "hero": "Bloodseeker",
+   "bans": 7832208,
+   "share": 0.004964
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 112,
+   "hero": "Winter Wyvern",
+   "bans": 7747272,
+   "share": 0.004911
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 95,
+   "hero": "Troll Warlord",
+   "bans": 7505777,
+   "share": 0.004758
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 33,
+   "hero": "Enigma",
+   "bans": 7292402,
+   "share": 0.004622
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 120,
+   "hero": "Pangolier",
+   "bans": 7252984,
+   "share": 0.004597
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 137,
+   "hero": "Primal Beast",
+   "bans": 7109789,
+   "share": 0.004507
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 69,
+   "hero": "Doom",
+   "bans": 6838264,
+   "share": 0.004334
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 111,
+   "hero": "Oracle",
+   "bans": 6584780,
+   "share": 0.004174
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 51,
+   "hero": "Clockwerk",
+   "bans": 6433258,
+   "share": 0.004078
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 90,
+   "hero": "Keeper of the Light",
+   "bans": 6357731,
+   "share": 0.00403
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 73,
+   "hero": "Alchemist",
+   "bans": 6065666,
+   "share": 0.003845
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 110,
+   "hero": "Phoenix",
+   "bans": 5942379,
+   "share": 0.003767
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 108,
+   "hero": "Underlord",
+   "bans": 5779200,
+   "share": 0.003663
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 107,
+   "hero": "Earth Spirit",
+   "bans": 5768638,
+   "share": 0.003656
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 91,
+   "hero": "Io",
+   "bans": 5760899,
+   "share": 0.003652
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 58,
+   "hero": "Enchantress",
+   "bans": 5737871,
+   "share": 0.003637
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 43,
+   "hero": "Death Prophet",
+   "bans": 5713587,
+   "share": 0.003622
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 57,
+   "hero": "Omniknight",
+   "bans": 5668538,
+   "share": 0.003593
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 3,
+   "hero": "Bane",
+   "bans": 4908806,
+   "share": 0.003111
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 89,
+   "hero": "Naga Siren",
+   "bans": 4669336,
+   "share": 0.00296
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 138,
+   "hero": "Muerta",
+   "bans": 4613821,
+   "share": 0.002924
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 109,
+   "hero": "Terrorblade",
+   "bans": 4603788,
+   "share": 0.002918
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 80,
+   "hero": "Lone Druid",
+   "bans": 4310637,
+   "share": 0.002732
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 82,
+   "hero": "Meepo",
+   "bans": 4217513,
+   "share": 0.002673
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 52,
+   "hero": "Leshrac",
+   "bans": 4200001,
+   "share": 0.002662
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 55,
+   "hero": "Dark Seer",
+   "bans": 3443634,
+   "share": 0.002183
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 79,
+   "hero": "Shadow Demon",
+   "bans": 3074425,
+   "share": 0.001949
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 92,
+   "hero": "Visage",
+   "bans": 2684114,
+   "share": 0.001701
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 65,
+   "hero": "Batrider",
+   "bans": 2673897,
+   "share": 0.001695
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 38,
+   "hero": "Beastmaster",
+   "bans": 2494483,
+   "share": 0.001581
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 77,
+   "hero": "Lycan",
+   "bans": 2488018,
+   "share": 0.001577
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 78,
+   "hero": "Brewmaster",
+   "bans": 2425464,
+   "share": 0.001537
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 61,
+   "hero": "Broodmother",
+   "bans": 2275705,
+   "share": 0.001442
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 103,
+   "hero": "Elder Titan",
+   "bans": 2050492,
+   "share": 0.0013
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 66,
+   "hero": "Chen",
+   "bans": 1378103,
+   "share": 0.000874
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 145,
+   "hero": "Kez",
+   "bans": 21807,
+   "share": 1.4e-05
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 155,
+   "hero": "Largo",
+   "bans": 14636,
+   "share": 9e-06
+  },
+  {
+   "window_id": "bans_all",
+   "hero_id": 131,
+   "hero": "Ring Master",
+   "bans": 10281,
+   "share": 7e-06
+  }
+ ]
+}
