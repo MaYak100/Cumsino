@@ -7,6 +7,8 @@ import {
   WIN_CHIPS,
   CLOSEST_WINNER_BONUS,
   CLOSEST_EXACT_BONUS,
+  ANSWER_REVEAL_MS,
+  ANSWER_REVEAL_NOTES_MS,
 } from '@cumsino/shared'
 
 // ---------------------------------------------------------------------------
@@ -233,6 +235,114 @@ describe('GameRoom', () => {
       const state = room.getPublicState()
       const p2 = state.players.find(p => p.id === 'p2')!
       expect((p2 as any).bankBet).toBeUndefined()
+    })
+  })
+
+  // -------------------------------------------------------------------------
+  // Подписи значений вариантов и comment — только после ответа
+  // -------------------------------------------------------------------------
+
+  describe('optionNotes и comment', () => {
+    const notedQ: Question = { ...mcQ, comment: 'пояснение', optionNotes: ['610', '340', '163', '149'] }
+
+    function toQuestion(room: GameRoom, q: Question) {
+      const r = priv(room)
+      r.phase = 'QUESTION'
+      r.currentMode = 'all'
+      r.currentQuestion = { ...q }
+    }
+
+    it('не уходят в game_state до ответа', () => {
+      const { room } = makeRoom(notedQ)
+      addPlayers(room, 2)
+      toQuestion(room, notedQ)
+      const cq = room.getStateForPlayer('p1').currentQuestion as any
+      expect(cq.optionNotes).toBeUndefined()
+      expect(cq.comment).toBeUndefined()
+      expect(cq.options).toEqual(['A', 'B', 'C', 'D'])
+    })
+
+    it('приходят в round_results по порядку вариантов', () => {
+      const { room, broadcasts } = makeRoom(notedQ)
+      addPlayers(room, 2)
+      toQuestion(room, notedQ)
+      priv(room).advanceFromQuestion()
+      const rr = broadcasts.find(b => b.event === 'round_results')!.data as any
+      expect(rr.optionNotes).toEqual(['610', '340', '163', '149'])
+      expect(rr.comment).toBe('пояснение')
+    })
+
+    it('без подписей — null и обычная пауза перед REVEAL', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 2)
+      toQuestion(room, mcQ)
+      priv(room).advanceFromQuestion()
+      const rr = broadcasts.find(b => b.event === 'round_results')!.data as any
+      expect(rr.optionNotes).toBeNull()
+      vi.advanceTimersByTime(ANSWER_REVEAL_MS)
+      expect(priv(room).phase).toBe('REVEAL')
+    })
+
+    it('с подписями пауза перед REVEAL дольше', () => {
+      const { room } = makeRoom(notedQ)
+      addPlayers(room, 2)
+      toQuestion(room, notedQ)
+      priv(room).advanceFromQuestion()
+      vi.advanceTimersByTime(ANSWER_REVEAL_MS)
+      expect(priv(room).phase).toBe('QUESTION')
+      vi.advanceTimersByTime(ANSWER_REVEAL_NOTES_MS - ANSWER_REVEAL_MS)
+      expect(priv(room).phase).toBe('REVEAL')
+    })
+  })
+
+  // -------------------------------------------------------------------------
+  // Окно показа ответа: раунд считается один раз
+  // -------------------------------------------------------------------------
+
+  describe('окно показа ответа', () => {
+    it('поздний ответ после таймера не считает раунд второй раз', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 2)
+      const r = priv(room)
+      r.phase = 'QUESTION'
+      r.currentMode = 'all'
+      r.currentQuestion = { ...mcQ }
+      r.players.get('p1').currentBet = 100
+      r.players.get('p2').currentBet = 100
+      room.submitAnswer('p1', 'A')
+      r.advanceFromQuestion()                 // таймер вопроса истёк, p2 не успел
+      const chips = [...r.players.values()].map((p: any) => p.chips)
+      room.submitAnswer('p2', 'A')            // ответ p2 долетел в окно показа
+      expect([...r.players.values()].map((p: any) => p.chips)).toEqual(chips)
+      expect(broadcasts.filter(b => b.event === 'round_results')).toHaveLength(1)
+    })
+
+    it('дисконнект гладиатора в окне показа не считает раунд второй раз', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      const r = priv(room)
+      r.phase = 'QUESTION'
+      r.currentMode = 'kerri'
+      r.gladiatorId = 'p1'
+      r.currentQuestion = { ...mcQ }
+      room.submitAnswer('p1', 'A')            // единственный отвечающий — раунд посчитан
+      room.removePlayer('p1')
+      expect(broadcasts.filter(b => b.event === 'round_results')).toHaveLength(1)
+      expect(r.players.has('p1')).toBe(false)
+    })
+
+    it('следующий раунд снова принимает ответы', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 2)
+      const r = priv(room)
+      r.phase = 'QUESTION'
+      r.currentMode = 'all'
+      r.currentQuestion = { ...mcQ }
+      r.advanceFromQuestion()
+      r.nextRound()
+      r.phase = 'QUESTION'
+      room.submitAnswer('p1', 'A')
+      expect(r.players.get('p1').hasAnswered).toBe(true)
     })
   })
 

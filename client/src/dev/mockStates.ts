@@ -66,16 +66,50 @@ const MC_QUESTION = {
   ],
 }
 
-// General question — has displayTopic + comment
+// General question — has displayTopic; comment приходит в round_results (roundComment)
 const POPULAR_QUESTION = {
   id: 'q-mc-popular',
   mode: 'all' as GameMode,
   topic: 'Общие вопросы',
   displayTopic: 'Популярность героев',
-  comment: 'Axe: 55 201 608 | Rubick: 52 902 622 | Earthshaker: 46 783 120 | Anti-Mage: 43 359 528',
   text: 'Какой из следующих героев обладает наибольшим количеством сыгранных матчей?',
   options: ['Axe', 'Rubick', 'Earthshaker', 'Anti-Mage'],
 }
+const POPULAR_COMMENT = 'Axe: 55 201 608 | Rubick: 52 902 622 | Earthshaker: 46 783 120 | Anti-Mage: 43 359 528'
+
+// Вопросы с подписями значений вариантов (roundOptionNotes — по индексу options, options[0] правильный)
+const HEAL_QUESTION = {
+  id: 'q-mc-heal',
+  mode: 'all' as GameMode,
+  topic: 'Средние за матч',
+  displayTopic: 'Хил союзникам',
+  text: 'Кто из героев в среднем лечит союзников больше всех за матч?',
+  options: ['Oracle', 'Dazzle', 'Warlock', 'Keeper of the Light'],
+}
+const HEAL_NOTES = ['10.1к', '7.4к', '5.8к', '4.9к']
+const COUNTER_QUESTION = {
+  id: 'q-mc-counter',
+  mode: 'kerri' as GameMode,
+  topic: 'Контрпики',
+  displayTopic: 'Anti-Mage',
+  text: 'Против кого Anti-Mage выигрывает реже всего?',
+  options: ['Meepo', 'Slardar', 'Troll Warlord', 'Bristleback'],
+}
+const COUNTER_NOTES = ['−7.0', '−4.3', '−4.3', '+3.7']
+const TALENT_QUESTION = {
+  id: 'q-mc-talent',
+  mode: 'all' as GameMode,
+  topic: 'Таланты',
+  displayTopic: 'Таланты: Shadow Shaman',
+  text: 'Какой из талантов Shadow Shaman на 20 и 25 уровне берут чаще всего?',
+  options: [
+    '20 ур.: +1.5 сек. действия Shackles',
+    '20 ур.: +50% к атакам для убийства тотема от Mass Serpent Ward',
+    '25 ур.: +250 к урону от Ether Shock',
+    '25 ур.: +1 цель атаки тотемов от Mass Serpent Ward',
+  ],
+}
+const TALENT_NOTES = ['73%', '27%', '37%', '63%']
 
 // CN question — closest mode
 const CN_QUESTION = {
@@ -235,6 +269,36 @@ export const SCENARIOS: Scenario[] = [
       myId: MY_ID,
       gameState: base('QUESTION', 'all', { currentQuestion: POPULAR_QUESTION, players: BET_PLAYERS }),
       roundCorrectAnswer: POPULAR_QUESTION.options[0],
+      roundComment: POPULAR_COMMENT,
+      roundOptionNotes: null,
+      answeredIds: new Set<string>(['dev-1', 'dev-2', 'dev-3', 'dev-4']),
+    },
+  },
+  {
+    id: 'question-all-reveal-notes',
+    group: 'QUESTION',
+    label: 'all + раскрытие + значения',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'all', { currentQuestion: HEAL_QUESTION, players: BET_PLAYERS }),
+      roundCorrectAnswer: HEAL_QUESTION.options[0],
+      roundComment: null,
+      roundOptionNotes: HEAL_NOTES,
+      answeredIds: new Set<string>(['dev-1', 'dev-2', 'dev-3', 'dev-4']),
+    },
+  },
+  {
+    id: 'question-all-reveal-long',
+    group: 'QUESTION',
+    label: 'all + значения + длинные варианты',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'all', { currentQuestion: TALENT_QUESTION, players: BET_PLAYERS }),
+      roundCorrectAnswer: TALENT_QUESTION.options[0],
+      roundComment: 'Доля внутри пары талантов одного уровня (STRATZ, 7.41f, все ранги).',
+      roundOptionNotes: TALENT_NOTES,
       answeredIds: new Set<string>(['dev-1', 'dev-2', 'dev-3', 'dev-4']),
     },
   },
@@ -283,6 +347,25 @@ export const SCENARIOS: Scenario[] = [
         players: BET_PLAYERS,
       }),
       roundCorrectAnswer: POPULAR_QUESTION.options[0],
+      roundComment: POPULAR_COMMENT,
+      roundOptionNotes: null,
+    },
+  },
+  {
+    id: 'question-kerri-gladiator-reveal-notes',
+    group: 'QUESTION',
+    label: 'kerri — гладиатор + значения',
+    Screen: GladiatorSelfScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'kerri', {
+        currentQuestion: COUNTER_QUESTION,
+        gladiatorId: 'dev-1',
+        players: BET_PLAYERS,
+      }),
+      roundCorrectAnswer: COUNTER_QUESTION.options[0],
+      roundComment: 'Преимущество Anti-Mage против героя, п.п.',
+      roundOptionNotes: COUNTER_NOTES,
     },
   },
   {

@@ -15,4 +15,8 @@ export const PHASE_DURATIONS: Partial<Record<GamePhase, number>> = {
   REVEAL: 14,
 }
 
+// Сколько фаза QUESTION показывает правильный ответ до REVEAL; с подписями значений вариантов — дольше
+export const ANSWER_REVEAL_MS = 2500
+export const ANSWER_REVEAL_NOTES_MS = 4500
+
 export const SPECIAL_MODE_CHANCE = 0.3

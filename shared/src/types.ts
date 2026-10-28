@@ -38,6 +38,9 @@ export interface Question {
   comment?: string
   text: string
   options?: string[]
+  /** Истинные значения вариантов («610», «64%», «+2.4») — по индексу options, до ~6 символов.
+   *  Как answer и comment, уходят клиентам только в round_results. */
+  optionNotes?: string[]
   answer?: string
   numericAnswer?: number
   items?: string[]
@@ -50,7 +53,7 @@ export interface GameState {
   roundIndex: number
   lastMainMode: MainMode
   mode: GameMode
-  currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'orderedItems'> | null
+  currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'orderedItems' | 'comment' | 'optionNotes'> | null
   gladiatorId?: string
   gladiatorAnswer?: string
   hostId: string
@@ -82,6 +85,8 @@ export interface RoundResultsPayload {
   results: RoundResult[]
   correctAnswer?: string | null
   correctNumericAnswer?: number | null
+  comment?: string | null
+  optionNotes?: string[] | null
   mode?: GameMode
   gladiatorId?: string
 }

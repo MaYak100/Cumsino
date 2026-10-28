@@ -9,6 +9,7 @@ export function ClosestScreen() {
   const answeredIds = useGameStore(s => s.answeredIds)
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
+  const roundComment = useGameStore(s => s.roundComment)
   const [value, setValue] = useState('')
 
   const myAnswered = myId ? answeredIds.has(myId) : false
@@ -59,6 +60,17 @@ export function ClosestScreen() {
           >
             Правильный ответ: {roundCorrectAnswer}
           </motion.div>
+        )}
+        {showingCorrect && roundComment && (
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="mt-2 text-sm"
+            style={{ color: '#c4c9d4' }}
+          >
+            {roundComment}
+          </motion.p>
         )}
 
         <div className="mt-4 flex justify-center gap-1">

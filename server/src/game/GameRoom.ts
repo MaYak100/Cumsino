@@ -1,7 +1,10 @@
 // server/src/game/GameRoom.ts
 import { EventEmitter } from 'events'
 import type { GameState, GamePhase, GameMode, Player, RoundResult, Question } from '@cumsino/shared'
-import { STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, decomposeToChips } from '@cumsino/shared'
+import {
+  STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
+  decomposeToChips,
+} from '@cumsino/shared'
 import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
 import { distributeTop5 } from './economy/distributeTop5'
@@ -42,6 +45,7 @@ export class GameRoom extends EventEmitter {
   private bribeConditionCount = 0   // kerri rounds where both win+lose bettors existed
   private bribeEverFired = false
   private bribeAuction: BribeAuctionState | null = null
+  private revealing = false   // между round_results и REVEAL: раунд посчитан, фаза ещё QUESTION
 
   constructor(id: string, questionPicker: (mode: GameMode) => Question) {
     super()
@@ -63,7 +67,7 @@ export class GameRoom extends EventEmitter {
   }
 
   removePlayer(id: string) {
-    if (this.phase === 'QUESTION' && this.currentMode === 'kerri' && id === this.gladiatorId) {
+    if (this.phase === 'QUESTION' && !this.revealing && this.currentMode === 'kerri' && id === this.gladiatorId) {
       clearTimeout(this.phaseTimer)
       this.advanceFromQuestion()
       this.players.delete(id)
@@ -125,7 +129,7 @@ export class GameRoom extends EventEmitter {
 
   submitAnswer(playerId: string, answer: string | number | string[]) {
     const player = this.players.get(playerId)
-    if (!player || this.phase !== 'QUESTION') return
+    if (!player || this.phase !== 'QUESTION' || this.revealing) return
     if (player.hasAnswered) return
     // In kerri mode, only the gladiator can answer
     if (this.currentMode === 'kerri' && playerId !== this.gladiatorId) return
@@ -192,7 +196,6 @@ export class GameRoom extends EventEmitter {
             mode: this.currentQuestion.mode,
             topic: this.currentQuestion.topic,
             displayTopic: this.currentQuestion.displayTopic,
-            comment: this.currentQuestion.comment,
             text: this.currentQuestion.text,
             options: this.currentQuestion.options,
             items: this.currentQuestion.items,
@@ -224,6 +227,7 @@ export class GameRoom extends EventEmitter {
   get playerCount() { return this.players.size }
 
   private nextRound() {
+    this.revealing = false
     const mode = this.selector.next()
     this.currentMode = mode
     this.gladiatorId = undefined
@@ -290,6 +294,9 @@ export class GameRoom extends EventEmitter {
   }
 
   private advanceFromQuestion() {
+    // раунд уже посчитан — идёт показ ответа (фаза ещё QUESTION): поздний ответ / дисконнект не считают его снова
+    if (this.revealing) return
+    this.revealing = true
     this.clearBribeAuction()
     const results = this.calculateResults()
     this.applyDeltas(results)
@@ -298,13 +305,15 @@ export class GameRoom extends EventEmitter {
       results,
       correctAnswer: this.currentQuestion?.answer ?? null,
       correctNumericAnswer: this.currentQuestion?.numericAnswer ?? null,
+      comment: this.currentQuestion?.comment ?? null,
+      optionNotes: this.currentQuestion?.optionNotes ?? null,
       mode: this.currentMode,
       gladiatorId: this.gladiatorId,
     })
     clearTimeout(this.phaseTimer)
     this.phaseTimer = setTimeout(() => {
       this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
-    }, 2500)
+    }, this.currentQuestion?.optionNotes ? ANSWER_REVEAL_NOTES_MS : ANSWER_REVEAL_MS)
   }
 
   private calculateResults(): RoundResult[] {

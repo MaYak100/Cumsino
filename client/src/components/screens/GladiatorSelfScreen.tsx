@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
+import { OptionNote } from '../ui/OptionNote'
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D']
 const OPTION_BORDER_COLORS = [
@@ -18,11 +19,14 @@ export function GladiatorSelfScreen() {
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const sendHover = useGameStore(s => s.sendHover)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
+  const roundComment = useGameStore(s => s.roundComment)
+  const roundOptionNotes = useGameStore(s => s.roundOptionNotes)
   const bribeEliminatedIdx = useGameStore(s => s.bribeEliminatedIdx)
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const options = gameState.currentQuestion?.options ?? []
   const showingCorrect = typeof roundCorrectAnswer === 'string' && roundCorrectAnswer !== null
+  const notes = showingCorrect ? roundOptionNotes : null
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ position: 'relative' }}>
@@ -39,6 +43,8 @@ export function GladiatorSelfScreen() {
         <div className="grid grid-cols-2 gap-3">
           {options.map((option, idx) => {
             const isCorrect = showingCorrect && option === roundCorrectAnswer
+            // с подписью неверный вариант гасим без подписи: значение должно читаться
+            const dimText = showingCorrect && !isCorrect && !!notes?.[idx]
             const isEliminated = !showingCorrect && bribeEliminatedIdx === idx
             return (
               <motion.button
@@ -49,27 +55,30 @@ export function GladiatorSelfScreen() {
                 disabled={myAnswered || showingCorrect || isEliminated}
                 whileHover={!myAnswered && !showingCorrect && !isEliminated ? { scale: 1.02 } : {}}
                 className={`
-                  p-4 rounded-xl border-2 text-left transition-colors
+                  relative p-4 rounded-xl border-2 text-left transition-colors
                   ${isCorrect
                     ? 'border-green-400 bg-[#0a3a1a] shadow-[0_0_20px_rgba(74,222,128,0.4)]'
-                    : `bg-[#1a3a1a] ${OPTION_BORDER_COLORS[idx]}`
+                    : `bg-[#1a3a1a] ${dimText ? 'border-gray-600' : OPTION_BORDER_COLORS[idx]}`
                   }
                   ${isEliminated ? 'opacity-30 cursor-not-allowed line-through' : ''}
-                  ${showingCorrect && !isCorrect ? 'opacity-40 cursor-not-allowed' : ''}
+                  ${showingCorrect && !isCorrect ? `${dimText ? '' : 'opacity-40'} cursor-not-allowed` : ''}
                   ${!showingCorrect && !isEliminated && (myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]')}
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <span
-                    className="flex items-center justify-center text-xs font-bold bg-[#2a4a2a]"
-                    style={{
-                      width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
-                      border: `1.5px solid ${isCorrect ? '#4ade80' : OPTION_BORDER_HEX[idx]}`,
-                    }}
-                  >
-                    {OPTION_LABELS[idx]}
+                  <span className={`flex items-center gap-3 min-w-0 ${dimText ? 'opacity-40' : ''}`}>
+                    <span
+                      className="flex items-center justify-center text-xs font-bold bg-[#2a4a2a]"
+                      style={{
+                        width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                        border: `1.5px solid ${isCorrect ? '#4ade80' : OPTION_BORDER_HEX[idx]}`,
+                      }}
+                    >
+                      {OPTION_LABELS[idx]}
+                    </span>
+                    <span className="text-sm">{option}</span>
                   </span>
-                  <span className="text-sm">{option}</span>
+                  <OptionNote note={notes?.[idx]} correct={isCorrect} />
                 </div>
               </motion.button>
             )
@@ -85,7 +94,7 @@ export function GladiatorSelfScreen() {
             >
               Правильный ответ: {roundCorrectAnswer}
             </motion.p>
-            {gameState.currentQuestion?.comment && (
+            {roundComment && (
               <motion.p
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -93,7 +102,7 @@ export function GladiatorSelfScreen() {
                 className="text-center mt-2 text-sm"
                 style={{ color: '#c4c9d4' }}
               >
-                {gameState.currentQuestion.comment}
+                {roundComment}
               </motion.p>
             )}
           </>

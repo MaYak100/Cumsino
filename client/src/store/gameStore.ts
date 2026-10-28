@@ -14,6 +14,8 @@ interface GameStore {
   myId: string | null
   roundResults: RoundResult[]
   roundCorrectAnswer: string | number | null
+  roundComment: string | null
+  roundOptionNotes: string[] | null
   roundMode: GameMode | null
   roundGladiatorId: string | null
   winner: Player | null
@@ -53,6 +55,8 @@ export const useGameStore = create<GameStore>((set) => {
         gladiatorHoverIndex: null,
         roundResults: clearRound ? [] : prev.roundResults,
         roundCorrectAnswer: clearRound ? null : prev.roundCorrectAnswer,
+        roundComment: clearRound ? null : prev.roundComment,
+        roundOptionNotes: clearRound ? null : prev.roundOptionNotes,
         roundMode: clearRound ? null : prev.roundMode,
         roundGladiatorId: clearRound ? null : prev.roundGladiatorId,
         bankBets: clearRound ? {} : prev.bankBets,
@@ -92,10 +96,12 @@ export const useGameStore = create<GameStore>((set) => {
     set({ gladiatorHoverIndex: optionIndex })
   })
 
-  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, mode, gladiatorId }: RoundResultsPayload) => {
+  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, comment, optionNotes, mode, gladiatorId }: RoundResultsPayload) => {
     set({
       roundResults: results,
       roundCorrectAnswer: correctAnswer ?? correctNumericAnswer ?? null,
+      roundComment: comment ?? null,
+      roundOptionNotes: optionNotes ?? null,
       roundMode: mode ?? null,
       roundGladiatorId: gladiatorId ?? null,
     })
@@ -134,6 +140,8 @@ export const useGameStore = create<GameStore>((set) => {
     myId: null,
     roundResults: [],
     roundCorrectAnswer: null,
+    roundComment: null,
+    roundOptionNotes: null,
     roundMode: null,
     roundGladiatorId: null,
     winner: null,
@@ -173,6 +181,8 @@ export const useGameStore = create<GameStore>((set) => {
         myId: null,
         roundResults: [],
         roundCorrectAnswer: null,
+        roundComment: null,
+        roundOptionNotes: null,
         roundMode: null,
         roundGladiatorId: null,
         winner: null,

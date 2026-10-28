@@ -1,15 +1,14 @@
 import type { Server, Socket } from 'socket.io'
 import { GameRoom } from './GameRoom'
-import type { GameMode, Question } from '@cumsino/shared'
-import { createQuestionPicker } from './loadQuestions'
-
-const pickQuestion: (mode: GameMode) => Question = createQuestionPicker()
+import { createQuestionPicker, loadSources } from './loadQuestions'
 
 export class GameEngine {
   private rooms: Map<string, GameRoom> = new Map()
   private playerRoom: Map<string, string> = new Map()
 
-  constructor(private io: Server) {}
+  constructor(private io: Server) {
+    loadSources()   // вопросы читаются при старте сервера
+  }
 
   joinRoom(socket: Socket, name: string, gameCode: string): void {
     let room = this.rooms.get(gameCode)
@@ -43,7 +42,7 @@ export class GameEngine {
   }
 
   private createRoom(gameCode: string): GameRoom {
-    const room = new GameRoom(gameCode, pickQuestion)
+    const room = new GameRoom(gameCode, createQuestionPicker())   // пикер на игру: без повторов вопросов
 
     room.on('broadcast', ({ event, data }: { event: string; data: unknown }) => {
       this.io.to(gameCode).emit(event, data)

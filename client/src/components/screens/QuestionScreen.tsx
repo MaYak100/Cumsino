@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useGameStore, selectIsGladiator, selectMe } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
+import { OptionNote } from '../ui/OptionNote'
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D']
 const OPTION_BORDER_COLORS = [
@@ -21,6 +22,8 @@ export function QuestionScreen() {
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const sendHover = useGameStore(s => s.sendHover)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
+  const roundComment = useGameStore(s => s.roundComment)
+  const roundOptionNotes = useGameStore(s => s.roundOptionNotes)
   const bribePrompt = useGameStore(s => s.bribePrompt)
   const payBribe = useGameStore(s => s.payBribe)
   const me = useGameStore(selectMe)
@@ -39,6 +42,7 @@ export function QuestionScreen() {
   const options = gameState.currentQuestion?.options ?? []
   const isGladiatorMode = gameState.mode === 'kerri'
   const showingCorrect = typeof roundCorrectAnswer === 'string' && roundCorrectAnswer !== null
+  const notes = showingCorrect ? roundOptionNotes : null
 
   function handleMouseEnter(idx: number) {
     if (isGladiator && isGladiatorMode && !showingCorrect) sendHover(idx)
@@ -77,6 +81,8 @@ export function QuestionScreen() {
             const isHovered = !isGladiator && gladiatorHoverIndex === idx && isGladiatorMode && !showingCorrect
             const isCrowdObserver = isGladiatorMode && !isGladiator
             const isCorrect = showingCorrect && option === roundCorrectAnswer
+            // с подписью неверный вариант гасим без подписи: значение должно читаться
+            const dimText = showingCorrect && !isCorrect && !!notes?.[idx]
             return (
               <motion.button
                 key={idx}
@@ -87,27 +93,30 @@ export function QuestionScreen() {
                 animate={isHovered ? { scale: 1.03 } : { scale: 1 }}
                 style={isCrowdObserver ? { cursor: 'default' } : undefined}
                 className={`
-                  p-4 rounded-xl border-2 text-left transition-colors
+                  relative p-4 rounded-xl border-2 text-left transition-colors
                   ${isCorrect
                     ? 'border-green-400 bg-[#0a3a1a] shadow-[0_0_20px_rgba(74,222,128,0.4)]'
-                    : `bg-[#1a3a1a] ${OPTION_BORDER_COLORS[idx]}`
+                    : `bg-[#1a3a1a] ${dimText ? 'border-gray-600' : OPTION_BORDER_COLORS[idx]}`
                   }
-                  ${showingCorrect && !isCorrect ? 'opacity-40 cursor-not-allowed' : ''}
+                  ${showingCorrect && !isCorrect ? `${dimText ? '' : 'opacity-40'} cursor-not-allowed` : ''}
                   ${!showingCorrect && (isCrowdObserver ? 'cursor-default' : myAnswered ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[#2a4a2a]')}
                   ${isHovered ? 'border-yellow-400 bg-[#2a3a1a] shadow-[0_0_20px_rgba(255,215,0,0.3)]' : ''}
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <span
-                    className="flex items-center justify-center text-xs font-bold bg-[#2a4a2a]"
-                    style={{
-                      width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
-                      border: `1.5px solid ${isCorrect ? '#4ade80' : OPTION_BORDER_HEX[idx]}`,
-                    }}
-                  >
-                    {OPTION_LABELS[idx]}
+                  <span className={`flex items-center gap-3 min-w-0 ${dimText ? 'opacity-40' : ''}`}>
+                    <span
+                      className="flex items-center justify-center text-xs font-bold bg-[#2a4a2a]"
+                      style={{
+                        width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                        border: `1.5px solid ${isCorrect ? '#4ade80' : OPTION_BORDER_HEX[idx]}`,
+                      }}
+                    >
+                      {OPTION_LABELS[idx]}
+                    </span>
+                    <span className="text-sm">{option}</span>
                   </span>
-                  <span className="text-sm">{option}</span>
+                  <OptionNote note={notes?.[idx]} correct={isCorrect} />
                 </div>
               </motion.button>
             )
@@ -167,7 +176,7 @@ export function QuestionScreen() {
             >
               Правильный ответ: {roundCorrectAnswer}
             </motion.p>
-            {gameState.currentQuestion?.comment && (
+            {roundComment && (
               <motion.p
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -175,7 +184,7 @@ export function QuestionScreen() {
                 className="text-center mt-2 text-sm"
                 style={{ color: '#c4c9d4' }}
               >
-                {gameState.currentQuestion.comment}
+                {roundComment}
               </motion.p>
             )}
           </>
