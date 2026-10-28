@@ -126,6 +126,12 @@ const BET_PLAYERS: Player[] = [
   { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  betChips: [50],      hasAnswered: false },
 ]
 
+const FRIEND_ROSTER = [
+  { id: 1101588971, name: 'выбрудок' }, { id: 910030283, name: 'Блох Иглы' }, { id: 841374410, name: 'ональный трахадоr' },
+  { id: 1023791464, name: 'DUPEHb' }, { id: 875585992, name: 'Питахайль' }, { id: 1259367416, name: 'гнилой кулич' },
+  { id: 1548018309, name: 'Rocinante' },
+]
+
 function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = {}): GameState {
   return {
     id: 'dev-room',
@@ -137,6 +143,7 @@ function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = 
     hostId: 'dev-1',
     players: BASE_PLAYERS,
     phaseTimeLeft: 25,
+    friendRoster: FRIEND_ROSTER,
     ...overrides,
   }
 }
@@ -159,6 +166,18 @@ export const SCENARIOS: Scenario[] = [
     label: 'non-host',
     Screen: LobbyScreen,
     state: { myId: MY_ID, gameState: base('LOBBY', 'all', { hostId: 'dev-2' }) },
+  },
+  {
+    id: 'lobby-friends',
+    group: 'LOBBY',
+    label: '«кто ты» — двое назвались',
+    Screen: LobbyScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('LOBBY', 'all', {
+        players: BASE_PLAYERS.map((p, i) => (i === 0 ? { ...p, friendId: 1101588971 } : i === 2 ? { ...p, friendId: 1023791464 } : p)),
+      }),
+    },
   },
 
   // ── ANNOUNCE ──
@@ -483,6 +502,7 @@ export const SCENARIOS: Scenario[] = [
     state: {
       myId: MY_ID,
       gameState: base('REVEAL', 'all', {
+        currentQuestion: MC_QUESTION,
         players: [
           { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 100, hasAnswered: true, answer: MC_QUESTION.options[0] },
           { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: true, answer: MC_QUESTION.options[1] },

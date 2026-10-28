@@ -3,7 +3,7 @@ import type { GameEngine } from '../game/GameEngine'
 import type {
   JoinGamePayload, PlaceBetPayload,
   SubmitAnswerPayload, GladiatorHoverPayload,
-  PlaceBankBetPayload,
+  PlaceBankBetPayload, IdentifyPayload, RateQuestionPayload,
 } from '@cumsino/shared'
 
 const VALID_CHIP_DENOMS = new Set([10, 20, 50, 100, 500])
@@ -44,6 +44,18 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
     if (!Array.isArray(chips) || chips.length > 28) return
     if (chips.some(c => !VALID_CHIP_DENOMS.has(c))) return
     engine.getRoom(socket.id)?.stageChip(socket.id, chips)
+  })
+
+  socket.on('identify', ({ friendId }: IdentifyPayload) => {
+    if (friendId !== null && !Number.isInteger(friendId)) return
+    engine.getRoom(socket.id)?.identify(socket.id, friendId)
+  })
+
+  socket.on('rate_question', ({ questionId, score, difficulty }: RateQuestionPayload) => {
+    if (typeof questionId !== 'string' || questionId.length > 200) return
+    if (score !== undefined && score !== null && ![-2, -1, 1, 2].includes(score)) return
+    if (difficulty !== undefined && difficulty !== null && ![-1, 1].includes(difficulty)) return
+    engine.getRoom(socket.id)?.rateQuestion(socket.id, questionId, { score, difficulty })
   })
 
   socket.on('pay_bribe', () => {

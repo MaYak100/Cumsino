@@ -1,6 +1,6 @@
 // server/src/game/GameRoom.ts
 import { EventEmitter } from 'events'
-import type { GameState, GamePhase, GameMode, Player, RoundResult, Question } from '@cumsino/shared'
+import type { GameState, GamePhase, GameMode, Player, RoundResult, Question, FriendProfile } from '@cumsino/shared'
 import {
   STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
   decomposeToChips,
@@ -10,6 +10,7 @@ import { distributeClosest } from './economy/distributeClosest'
 import { distributeTop5 } from './economy/distributeTop5'
 import { applyBankBets } from './economy/applyBankBets'
 import { RoundSelector } from './RoundSelector'
+import type { QuestionSource, RatingVote } from './questions/picker'
 
 interface PlayerWithBankBet extends Player {
   bankBet?: { optionIndex: number; amount: number }
@@ -39,7 +40,9 @@ export class GameRoom extends EventEmitter {
   private phaseTimer?: ReturnType<typeof setTimeout>
   private phaseEndTime = 0
   private selector: RoundSelector
-  private questionPicker: (mode: GameMode) => Question
+  private questions: QuestionSource
+  /** вопрос последнего посчитанного раунда — его можно оценить до конца следующего раунда */
+  private ratable: Question | null = null
   private bettingConfirmedIds = new Set<string>()
   private seenModes = new Set<string>()
   private bribeConditionCount = 0   // kerri rounds where both win+lose bettors existed
@@ -47,10 +50,11 @@ export class GameRoom extends EventEmitter {
   private bribeAuction: BribeAuctionState | null = null
   private revealing = false   // между round_results и REVEAL: раунд посчитан, фаза ещё QUESTION
 
-  constructor(id: string, questionPicker: (mode: GameMode) => Question) {
+  constructor(id: string, questions: QuestionSource | ((mode: GameMode) => Question),
+    private friendRoster: FriendProfile[] = []) {
     super()
     this.id = id
-    this.questionPicker = questionPicker
+    this.questions = typeof questions === 'function' ? { pick: questions } : questions
     this.selector = new RoundSelector()
   }
 
@@ -75,6 +79,28 @@ export class GameRoom extends EventEmitter {
     }
     this.players.delete(id)
     this.broadcastState()
+  }
+
+  /** «Кто ты» в лобби: человек из компании или null (пропустить). Одним человеком назваться может только один. */
+  identify(playerId: string, friendId: number | null) {
+    const player = this.players.get(playerId)
+    if (!player || this.phase !== 'LOBBY') return
+    if (friendId === null) {
+      player.friendId = undefined
+    } else {
+      if (!this.friendRoster.some(f => f.id === friendId)) return
+      if ([...this.players.values()].some(p => p.id !== playerId && p.friendId === friendId)) return
+      player.friendId = friendId
+    }
+    this.broadcastState()
+  }
+
+  /** Оценка вопроса: только последнего посчитанного раунда, только своя (переоценка заменяет). */
+  rateQuestion(playerId: string, questionId: string, vote: RatingVote) {
+    const player = this.players.get(playerId)
+    const q = this.ratable
+    if (!player || !q || q.id !== questionId) return
+    this.questions.rate?.(q, player.name, vote)
   }
 
   destroy() {
@@ -199,6 +225,8 @@ export class GameRoom extends EventEmitter {
             text: this.currentQuestion.text,
             options: this.currentQuestion.options,
             items: this.currentQuestion.items,
+            category: this.currentQuestion.category,
+            subcategory: this.currentQuestion.subcategory,
           }
         : null,
       gladiatorId: this.gladiatorId,
@@ -206,8 +234,10 @@ export class GameRoom extends EventEmitter {
       players: Array.from(this.players.values()).map(p => ({
         id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
         betTarget: p.betTarget, betChips: p.betChips, answer: p.answer, hasAnswered: p.hasAnswered,
+        friendId: p.friendId,
       })),
       phaseTimeLeft: timeLeft,
+      friendRoster: this.friendRoster,
     }
   }
 
@@ -300,6 +330,7 @@ export class GameRoom extends EventEmitter {
     this.clearBribeAuction()
     const results = this.calculateResults()
     this.applyDeltas(results)
+    this.reportRound()
     this.broadcastState()
     this.broadcast('round_results', {
       results,
@@ -314,6 +345,30 @@ export class GameRoom extends EventEmitter {
     this.phaseTimer = setTimeout(() => {
       this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
     }, this.currentQuestion?.optionNotes ? ANSWER_REVEAL_NOTES_MS : ANSWER_REVEAL_MS)
+  }
+
+  /** Статистика раунда для фидбека по категориям: сколько отвечало, сколько верно, ошибки в «ближе всех». */
+  private reportRound() {
+    const q = this.currentQuestion
+    if (!q) return
+    this.ratable = q
+    const players = Array.from(this.players.values())
+    const answering = this.currentMode === 'kerri' ? players.filter(p => p.id === this.gladiatorId) : players
+    const answered = answering.filter(p => p.hasAnswered)
+    if (this.currentMode === 'closest' && q.numericAnswer !== undefined) {
+      const nums = answered.map(p => p.answer).filter((a): a is number => typeof a === 'number')
+      const base = Math.abs(q.numericAnswer) || 1
+      this.questions.report?.(q, {
+        players: answering.length, answered: nums.length,
+        correct: nums.filter(a => a === q.numericAnswer).length,
+        relErrors: nums.map(a => Math.abs(a - q.numericAnswer!) / base),
+      })
+      return
+    }
+    this.questions.report?.(q, {
+      players: answering.length, answered: answered.length,
+      correct: answered.filter(p => p.answer === q.answer).length,
+    })
   }
 
   private calculateResults(): RoundResult[] {
@@ -478,7 +533,8 @@ export class GameRoom extends EventEmitter {
   }
 
   private pickQuestion(mode: GameMode): Question {
-    return this.questionPicker(mode)
+    const friends = [...this.players.values()].map(p => p.friendId).filter((f): f is number => f !== undefined)
+    return this.questions.pick(mode, { friends })
   }
 
   private broadcast(event: string, data: unknown) {

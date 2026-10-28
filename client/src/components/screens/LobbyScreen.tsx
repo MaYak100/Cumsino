@@ -1,5 +1,6 @@
 import { useGameStore, selectMe } from '../../store/gameStore'
 import { PlayerCard } from '../ui/PlayerCard'
+import { WhoAreYou } from '../ui/WhoAreYou'
 
 export function LobbyScreen() {
   const gameState = useGameStore(s => s.gameState)!
@@ -7,6 +8,10 @@ export function LobbyScreen() {
   const myId = useGameStore(s => s.myId)
   const startGame = useGameStore(s => s.startGame)
   const isHost = myId !== null && myId === gameState.hostId
+  const friendLabel = (id?: number) => {
+    const f = gameState.friendRoster?.find(r => r.id === id)
+    return f ? `это ${f.name}` : undefined
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -34,11 +39,14 @@ export function LobbyScreen() {
                 player={player}
                 isMe={player.id === me?.id}
                 hideChips
+                friendName={friendLabel(player.friendId)}
               />
             </div>
           ))}
         </div>
       </div>
+
+      <WhoAreYou />
 
       {isHost ? (
         <button

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, LayoutGroup } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 import { WIN_CHIPS } from '@cumsino/shared'
+import { RateQuestion } from '../ui/RateQuestion'
 
 type Phase = 1 | 2 | 3
 
@@ -243,6 +244,8 @@ export function RoundResultsScreen() {
           ))}
         </div>
       </LayoutGroup>
+
+      <RateQuestion />
     </div>
   )
 }

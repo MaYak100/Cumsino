@@ -1,13 +1,21 @@
 import type { Server, Socket } from 'socket.io'
 import { GameRoom } from './GameRoom'
-import { createQuestionPicker, loadSources } from './loadQuestions'
+import type { FriendProfile } from '@cumsino/shared'
+import { loadLibrary, type Library } from './questions/library'
+import { RoomQuestions } from './questions/picker'
+import { QuestionHistory } from './questions/history'
 
 export class GameEngine {
   private rooms: Map<string, GameRoom> = new Map()
   private playerRoom: Map<string, string> = new Map()
 
-  constructor(private io: Server) {
-    loadSources()   // вопросы читаются при старте сервера
+  private library: Library
+  private friendRoster: FriendProfile[]
+
+  constructor(private io: Server, private history: QuestionHistory = new QuestionHistory()) {
+    this.library = loadLibrary()   // вопросы читаются при старте сервера
+    this.friendRoster = Object.entries(this.library.friends?.people ?? {})
+      .map(([id, p]) => ({ id: Number(id), name: p.name }))
   }
 
   joinRoom(socket: Socket, name: string, gameCode: string): void {
@@ -42,7 +50,8 @@ export class GameEngine {
   }
 
   private createRoom(gameCode: string): GameRoom {
-    const room = new GameRoom(gameCode, createQuestionPicker())   // пикер на игру: без повторов вопросов
+    // пикер на игру: колоды общие (history), а «уже было в этой игре» и исключения статистики — свои
+    const room = new GameRoom(gameCode, new RoomQuestions(this.library, this.history), this.friendRoster)
 
     room.on('broadcast', ({ event, data }: { event: string; data: unknown }) => {
       this.io.to(gameCode).emit(event, data)

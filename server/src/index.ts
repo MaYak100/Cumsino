@@ -4,6 +4,7 @@ import { Server } from 'socket.io'
 import cors from 'cors'
 import { GameEngine } from './game/GameEngine'
 import { registerHandlers } from './socket/handlers'
+import { createHistory } from './game/questions/setup'
 
 const app = express()
 const httpServer = createServer(app)
@@ -20,14 +21,20 @@ app.get('/health', (_req, res) => {
   res.json({ ok: true })
 })
 
-const engine = new GameEngine(io)
+async function main() {
+  // история вопросов (колоды, оценки) — до первого подключения, чтобы первая игра не начала с пустой памятью
+  const history = await createHistory()
+  const engine = new GameEngine(io, history)
 
-io.on('connection', (socket) => {
-  console.log('connected:', socket.id)
-  registerHandlers(socket, engine)
-})
+  io.on('connection', (socket) => {
+    console.log('connected:', socket.id)
+    registerHandlers(socket, engine)
+  })
 
-const PORT = process.env.PORT ?? 3001
-httpServer.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+  const PORT = process.env.PORT ?? 3001
+  httpServer.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
+}
+
+main()

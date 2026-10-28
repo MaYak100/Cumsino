@@ -39,30 +39,52 @@ export function gapOk(lead: number, other: number, gap: StatGap, ask: 'max' | 'm
   return base > 0 && d >= (gap.rel ?? 0) * base - 1e-9
 }
 
+/** Доступ к колоде подкатегории (questions/deck.ts): карточка — id вопроса (`stat:<подкатегория>:<имя>`). */
+export interface DeckAccess {
+  /** не выпадала в текущем круге колоды (и не в этой / прошлой игре) */
+  fresh(card: string): boolean
+  /** не выпадала в этой игре */
+  free(card: string): boolean
+  take(card: string): void
+  newCycle(): void
+}
+
+/** Колода без памяти между играми — для тестов и отладки. */
+export function gameOnlyDeck(): DeckAccess {
+  const taken = new Set<string>()
+  return {
+    fresh: c => !taken.has(c), free: c => !taken.has(c), take: c => { taken.add(c) }, newCycle() {},
+  }
+}
+
 /**
- * Генератор на одну игру. Внутри подкатегории герой / предмет, попавший в варианты (и герой вопроса),
- * больше не появляется. Порядок: подкатегория по весу → пул, где осталось ≥ 4 свободных вариантов →
- * четвёрка с отрывом лидера (лидер случайный среди возможных) → если ни в одном пуле подкатегории четвёрки
- * нет — та же сборка без гейта. Подкатегория без свободного пула пропускается.
+ * Сборщик на одну игру (подкатегорию выбирает questions/picker.ts). Вопрос комбинаторный: шаблон (текст) +
+ * сочетание вариантов. Поэтому:
+ *  - колода между играми идёт по карточкам: у пулов с героем вопроса (контрпики, предметы героя) — по герою
+ *    вопроса, у общих пулов (средние, винрейт) — по ответу (лидеру), чтобы ответом по кругу побывал каждый;
+ *  - в одной игре шаблон без героя вопроса (`Кто больше всех лечит союзников?`) — не больше одного раза;
+ *  - герой / предмет, попавший в варианты (и герой вопроса), до конца игры в подкатегории не появляется.
+ * Порядок: четвёрка с отрывом лидера и свежей карточкой → (колода кончилась) новый круг → с отрывом, но
+ * карточка не свежая → без гейта. Без гейта лидер отличается от второго и подписью.
  */
-export class StatQuestionPicker {
+export class StatQuestionBuilder {
   private used = new Map<string, Set<string>>()
-  private asked = new Map<string, number>()   // сколько раз подкатегория уже была в этой игре
+  private templates = new Set<string>()
   private conflicts = new Map<string, Map<string, Set<string>>>()
-  private counter = 0
 
   constructor(private bank: StatsBank, private rng: () => number = Math.random) {}
 
-  pick(mode: GameMode): Question | null {
-    const kind = mode === 'closest' ? 'closest' : 'mc'
-    for (const sub of this.weightedOrder(this.bank.subcategories.filter(s => s.mode === kind))) {
-      const q = kind === 'mc' ? this.buildMc(sub, mode) : this.buildClosest(sub)
-      if (q) {
-        this.asked.set(sub.id, (this.asked.get(sub.id) ?? 0) + 1)
-        return q
-      }
-    }
-    return null
+  subcategory(id: string): StatSubcategory | undefined {
+    return this.bank.subcategories.find(s => s.id === id)
+  }
+
+  build(sub: StatSubcategory, mode: GameMode, deck: DeckAccess): Question | null {
+    if ((sub.mode === 'closest') !== (mode === 'closest')) return null
+    return sub.mode === 'mc' ? this.buildMc(sub, mode, deck) : this.buildClosest(sub, deck)
+  }
+
+  static card(sub: StatSubcategory, name: string): string {
+    return `stat:${sub.id}:${name}`
   }
 
   private usedOf(sub: StatSubcategory): Set<string> {
@@ -71,7 +93,7 @@ export class StatQuestionPicker {
     return set
   }
 
-  private buildMc(sub: StatSubcategory, mode: GameMode): Question | null {
+  private buildMc(sub: StatSubcategory, mode: GameMode, deck: DeckAccess): Question | null {
     const used = this.usedOf(sub)
     const pools = this.shuffle((sub.pools as StatMcPool[])
       .filter(p => !(p.subject && used.has(p.subject)))
@@ -81,20 +103,41 @@ export class StatQuestionPicker {
 
     const gap = sub.gap ?? {}
     const clash = this.conflictsOf(sub)
-    for (const gated of [true, false]) {
+    const card = (pool: StatMcPool, lead: StatEntry) => StatQuestionBuilder.card(sub, pool.subject ?? lead[0])
+    const attempt = (gated: boolean, ok: (c: string) => boolean) => {
       for (const { pool, free } of pools) {
+        if (pool.subject && !ok(StatQuestionBuilder.card(sub, pool.subject))) continue
         for (const ask of this.shuffle(pool.asks)) {
-          const picked = gated ? this.gatedSet(free, gap, ask.ask, clash) : this.ungatedSet(free, ask.ask, clash)
-          if (picked) return this.mcQuestion(sub, mode, pool, ask, picked)
+          if (!pool.subject && this.templates.has(`${sub.id}|${ask.text}`)) continue
+          const leadOk = pool.subject ? () => true : (e: StatEntry) => ok(card(pool, e))
+          const picked = gated ? this.gatedSet(free, gap, ask.ask, clash, leadOk) : this.ungatedSet(free, ask.ask, clash, leadOk)
+          if (picked) return { pool, ask, picked }
         }
       }
+      return null
     }
-    return null
+    let found = attempt(true, c => deck.fresh(c))
+    if (!found) {
+      const stale = attempt(true, c => deck.free(c))
+      if (stale) {
+        deck.newCycle()
+        found = attempt(true, c => deck.fresh(c)) ?? stale
+      }
+    }
+    found ??= attempt(false, c => deck.fresh(c)) ?? attempt(false, c => deck.free(c))
+    if (!found) return null
+    const { pool, ask, picked } = found
+    const id = card(pool, picked[0])
+    deck.take(id)
+    if (!pool.subject) this.templates.add(`${sub.id}|${ask.text}`)
+    return this.mcQuestion(sub, mode, pool, ask, picked, id)
   }
 
   /** Лидер — случайный из тех, у кого ≥ 3 совместимых соперника с отрывом; соперники — случайные из подходящих. */
-  private gatedSet(free: StatEntry[], gap: StatGap, ask: 'max' | 'min', clash: Map<string, Set<string>>): StatEntry[] | null {
+  private gatedSet(free: StatEntry[], gap: StatGap, ask: 'max' | 'min', clash: Map<string, Set<string>>,
+    leadOk: (e: StatEntry) => boolean): StatEntry[] | null {
     for (const lead of this.shuffle(free)) {
+      if (!leadOk(lead)) continue
       const rivals = free.filter(o => o !== lead && gapOk(lead[1], o[1], gap, ask))
       const set = this.compatible([lead], rivals, clash)
       if (set) return set
@@ -103,12 +146,13 @@ export class StatQuestionPicker {
   }
 
   /** Без гейта: случайная совместимая четвёрка, где лидер отличается от второго и подписью (иначе «49.8%» против «49.8%»). */
-  private ungatedSet(free: StatEntry[], ask: 'max' | 'min', clash: Map<string, Set<string>>): StatEntry[] | null {
+  private ungatedSet(free: StatEntry[], ask: 'max' | 'min', clash: Map<string, Set<string>>,
+    leadOk: (e: StatEntry) => boolean): StatEntry[] | null {
     for (let attempt = 0; attempt < 20; attempt++) {
       const set = this.compatible([], free, clash)
       if (!set) return null
       const sorted = set.sort((a, b) => (ask === 'max' ? b[1] - a[1] : a[1] - b[1]))
-      if (sorted[0][1] !== sorted[1][1] && sorted[0][2] !== sorted[1][2]) return sorted
+      if (sorted[0][1] !== sorted[1][1] && sorted[0][2] !== sorted[1][2] && leadOk(sorted[0])) return sorted
     }
     return null
   }
@@ -138,13 +182,14 @@ export class StatQuestionPicker {
     return map
   }
 
-  private mcQuestion(sub: StatSubcategory, mode: GameMode, pool: StatMcPool, ask: StatAsk, picked: StatEntry[]): Question {
+  private mcQuestion(sub: StatSubcategory, mode: GameMode, pool: StatMcPool, ask: StatAsk, picked: StatEntry[],
+    id: string): Question {
     const used = this.usedOf(sub)
     if (pool.subject) used.add(pool.subject)
     for (const e of picked) used.add(e[0])
     const shown = this.shuffle(picked)
     return {
-      id: `stat_${sub.id}_${this.counter++}`,
+      id,
       mode,
       topic: sub.topic,
       displayTopic: pool.subject ? `${sub.display}: ${pool.subject}` : sub.display,
@@ -156,14 +201,23 @@ export class StatQuestionPicker {
     }
   }
 
-  private buildClosest(sub: StatSubcategory): Question | null {
+  private buildClosest(sub: StatSubcategory, deck: DeckAccess): Question | null {
     const used = this.usedOf(sub)
     const free = (sub.pools as StatClosestPool[]).filter(p => !used.has(p.subject))
-    if (!free.length) return null
-    const pool = free[Math.floor(this.rng() * free.length)]
+    const card = (p: StatClosestPool) => StatQuestionBuilder.card(sub, p.subject)
+    let cands = free.filter(p => deck.fresh(card(p)))
+    if (!cands.length) {
+      cands = free.filter(p => deck.free(card(p)))
+      if (!cands.length) return null
+      deck.newCycle()
+      const fresh = cands.filter(p => deck.fresh(card(p)))
+      if (fresh.length) cands = fresh
+    }
+    const pool = cands[Math.floor(this.rng() * cands.length)]
     used.add(pool.subject)
+    deck.take(card(pool))
     return {
-      id: `stat_${sub.id}_${this.counter++}`,
+      id: card(pool),
       mode: 'closest',
       topic: sub.topic,
       displayTopic: `${sub.display}: ${pool.subject}`,
@@ -171,21 +225,6 @@ export class StatQuestionPicker {
       text: pool.text,
       numericAnswer: pool.answer,
     }
-  }
-
-  /** Подкатегории в случайном порядке с учётом веса (выбор без возвращения); каждый показ подкатегории
-   *  в этой игре делит её вес — чтобы одна тема не шла подряд. */
-  private weightedOrder(subs: StatSubcategory[]): StatSubcategory[] {
-    const weight = (s: StatSubcategory) => s.weight / (1 + 2 * (this.asked.get(s.id) ?? 0))
-    const rest = [...subs]
-    const out: StatSubcategory[] = []
-    while (rest.length) {
-      const total = rest.reduce((s, x) => s + weight(x), 0)
-      let r = this.rng() * total
-      const i = rest.findIndex(x => (r -= weight(x)) <= 0)
-      out.push(...rest.splice(i < 0 ? rest.length - 1 : i, 1))
-    }
-    return out
   }
 
   private shuffle<T>(arr: T[]): T[] {

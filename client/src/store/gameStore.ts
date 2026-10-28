@@ -35,6 +35,10 @@ interface GameStore {
   submitAnswer: (answer: string | number | string[]) => void
   sendHover: (optionIndex: number | null) => void
   startGame: () => void
+  /** «Кто ты» в лобби: человек из компании или null (пропустить) */
+  identify: (friendId: number | null) => void
+  /** Оценка вопроса раунда: score −2…+2 (без 0), difficulty −1 легко / +1 сложно; null — снять */
+  rateQuestion: (questionId: string, vote: { score?: number | null; difficulty?: number | null }) => void
   reset: () => void
 }
 
@@ -173,6 +177,14 @@ export const useGameStore = create<GameStore>((set) => {
 
     startGame() {
       socket.emit('start_game')
+    },
+
+    identify(friendId) {
+      socket.emit('identify', { friendId })
+    },
+
+    rateQuestion(questionId, vote) {
+      socket.emit('rate_question', { questionId, ...vote })
     },
 
     reset() {

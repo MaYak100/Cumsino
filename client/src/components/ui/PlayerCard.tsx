@@ -8,9 +8,11 @@ interface PlayerCardProps {
   isGladiator?: boolean
   hasAnswered?: boolean
   hideChips?: boolean
+  /** кем назвался в лобби (если отличается от ника) */
+  friendName?: string
 }
 
-export function PlayerCard({ player, isMe, isGladiator, hasAnswered, hideChips }: PlayerCardProps) {
+export function PlayerCard({ player, isMe, isGladiator, hasAnswered, hideChips, friendName }: PlayerCardProps) {
   const chips = hideChips ? [] : buildPhysicalChips(player.chips)
 
   return (
@@ -24,6 +26,7 @@ export function PlayerCard({ player, isMe, isGladiator, hasAnswered, hideChips }
         {hasAnswered && <span title="Ответил" className="text-green-400">✓</span>}
         <span className={`font-bold truncate ${hideChips ? 'text-sm' : 'text-sm'}`}>{player.name}</span>
       </div>
+      {friendName && <div className="text-[10px] truncate" style={{ color: '#c4c9d4' }}>{friendName}</div>}
       {!hideChips && (
         <>
           <div className="text-yellow-400 font-mono text-sm mb-2 mt-1">{player.chips}</div>

@@ -28,7 +28,11 @@ export interface Player {
   betChips?: number[]
   answer?: string | number | string[]
   hasAnswered: boolean
+  /** account id человека из компании, которым игрок назвался в лобби («кто ты»); нет — пропустил */
+  friendId?: number
 }
+
+export interface FriendProfile { id: number; name: string }
 
 export interface Question {
   id: string
@@ -45,6 +49,9 @@ export interface Question {
   numericAnswer?: number
   items?: string[]
   orderedItems?: string[]
+  /** id категории и подкатегории (server/src/game/questions/categories.ts) — для оценок и статистики */
+  category?: string
+  subcategory?: string
 }
 
 export interface GameState {
@@ -59,6 +66,8 @@ export interface GameState {
   hostId: string
   players: Player[]
   phaseTimeLeft: number
+  /** кем можно назваться в лобби (компания из вопросов про друзей) */
+  friendRoster?: FriendProfile[]
 }
 
 export interface RoundResult {
@@ -74,6 +83,10 @@ export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose'; chip
 export interface PlaceBankBetPayload { optionIndex: number; amount: number }
 export interface SubmitAnswerPayload { answer: string | number | string[] }
 export interface GladiatorHoverPayload { optionIndex: number | null }
+export interface IdentifyPayload { friendId: number | null }
+/** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
+ *  null — снять отметку; поле не передано — не менять. */
+export interface RateQuestionPayload { questionId: string; score?: number | null; difficulty?: number | null }
 
 // Socket event payloads — Server → Client
 export interface PhaseChangedPayload { phase: GamePhase; timeLeft: number }
