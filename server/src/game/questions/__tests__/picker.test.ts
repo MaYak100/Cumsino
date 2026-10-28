@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { RoomQuestions, shuffleOptions, drawFromDeck, ratingMultiplier } from '../picker'
+import { RoomQuestions, shuffleOptions, drawFromDeck, relativeMultipliers, ratingScore } from '../picker'
 import { buildLibrary, loadLibrary, type BankQuestion } from '../library'
 import { QuestionHistory } from '../history'
 import { smoothOrder, commitChoice } from '../smooth'
@@ -136,12 +136,16 @@ describe('колода', () => {
     expect(q.subcategory).toBe('s')
   })
 
-  it('«удалить» архивирует вопрос навсегда', () => {
+  it('«удалить» — только когда нажали больше половины комнаты; потом вопрос не выпадает никогда', () => {
     const lib = buildLibrary({ bank: five, stats: null, friends: null, categories: cats })
     const history = new QuestionHistory()
     const room = new RoomQuestions(lib, history, seeded(1))
     const q = room.pick('closest')
-    room.rate(q, 'Игрок', { score: -2 })
+    room.report(q, { roomPlayers: 4, players: 4, answered: 4, correct: 1 })
+    room.rate(q, 'A', { score: -2 })
+    room.rate(q, 'B', { score: -2 })
+    expect(history.archived.has(q.id)).toBe(false)   // 2 из 4 — не больше половины
+    room.rate(q, 'C', { score: -2 })
     expect(history.archived.has(q.id)).toBe(true)
     for (let game = 0; game < 10; game++) {
       const r = new RoomQuestions(lib, history, seeded(game + 10))
@@ -157,23 +161,36 @@ describe('колода', () => {
 })
 
 describe('оценки', () => {
-  it('множитель слабый и ограничен', () => {
-    expect(ratingMultiplier({ n: 0, sum: 0 })).toBe(1)
-    const tenGreat = ratingMultiplier({ n: 10, sum: 20 })
-    expect(tenGreat).toBeGreaterThan(1.3)
-    expect(tenGreat).toBeLessThan(1.5)
-    expect(ratingMultiplier({ n: 1000, sum: -2000 })).toBe(0.5)
-    expect(ratingMultiplier({ n: 1000, sum: 2000 })).toBe(2)
+  const show = { questionId: 'q', category: 'c', sub: 's', mode: 'all', gameNo: 1, roomPlayers: 6, players: 6, answered: 6, correct: 3 }
+  const vote = { questionId: 'q', category: 'c', sub: 's', gameNo: 1 }
+
+  it('точка — показ, значение — средняя оценка команды (не нажал = «нормально»)', () => {
+    const history = new QuestionHistory()
+    history.showing(show)
+    history.rate({ ...vote, player: 'A', score: 2 })
+    history.rate({ ...vote, player: 'B', score: 1 })
+    expect(history.ratingOf('sub:s')).toEqual({ n: 1, sum: 0.5 })   // (2 + 1) / 6 игроков
+    history.rate({ ...vote, player: 'A', score: -1 })                   // переоценка заменяет
+    expect(history.ratingOf('cat:c').sum).toBeCloseTo(0)
+    history.rate({ ...vote, player: 'C', difficulty: 1 })               // только сложность — оценка не меняется
+    expect(history.ratingOf('cat:c').sum).toBeCloseTo(0)
   })
 
-  it('переоценка того же вопроса в игре заменяет, а не добавляет', () => {
-    const history = new QuestionHistory()
-    const row = { questionId: 'q', category: 'c', sub: 's', gameNo: 1, player: 'A' }
-    history.rate({ ...row, score: 2 })
-    history.rate({ ...row, score: -1 })
-    expect(history.ratingOf('sub:s')).toEqual({ n: 1, sum: -1 })
-    history.rate({ ...row, difficulty: 1 })   // только сложность — оценка не меняется
-    expect(history.ratingOf('cat:c')).toEqual({ n: 1, sum: -1 })
+  it('множители относительные: всем одинаково хорошо — веса базовые; сдвиг не больше чем в 1.5 раза', () => {
+    const items = [{ key: 'a', weight: 1 }, { key: 'b', weight: 2 }, { key: 'c', weight: 1 }]
+    const same = relativeMultipliers(items, () => 1.5)
+    for (const m of same.values()) expect(m).toBeCloseTo(1)
+    const scores: Record<string, number> = { a: 2, b: 0, c: -2 }
+    const m = relativeMultipliers(items, k => scores[k])
+    expect(m.get('a')!).toBeGreaterThan(1)
+    expect(m.get('c')!).toBeLessThan(1)
+    expect(m.get('a')!).toBeLessThanOrEqual(1.5)
+    expect(m.get('c')!).toBeGreaterThanOrEqual(1 / 1.5)
+  })
+
+  it('фора: пара показов почти не сдвигает, сотня — сдвигает', () => {
+    expect(ratingScore({ n: 2, sum: 2 })).toBeCloseTo(2 / 12)
+    expect(ratingScore({ n: 100, sum: 100 })).toBeCloseTo(100 / 110)
   })
 })
 

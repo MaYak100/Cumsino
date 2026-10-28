@@ -5,7 +5,7 @@
 //   q_meta     — счётчик игр
 //   q_deck     — номер круга колоды подкатегории
 //   q_seen     — последний показ карточки в колоде (круг, номер игры)
-//   q_archive  — «удалить»: вопрос больше не выпадает (кто, текст — чтобы можно было вернуть руками)
+//   q_archive  — «удалить» большинством комнаты: вопрос больше не выпадает (кто, сколько голосов, текст)
 //   q_credit   — кредиты сглаженного выбора
 //   q_rating   — оценки и сложность (одна строка на игрока, вопрос и игру; переоценка заменяет)
 //   q_showing  — показы: сколько игроков, ответили, верно, ошибки в «ближе всех» — статистика по категориям
@@ -21,6 +21,8 @@ create table if not exists q_seen (
 create table if not exists q_archive (
   question_id text primary key, by_name text, category text, sub text, text text,
   archived_at timestamptz not null default now());
+alter table q_archive add column if not exists votes int;
+alter table q_archive add column if not exists players int;
 create table if not exists q_credit (scope text not null, item text not null, credit double precision not null,
   primary key (scope, item));
 create table if not exists q_rating (
@@ -31,6 +33,7 @@ create table if not exists q_showing (
   id bigserial primary key, question_id text not null, category text not null, sub text not null, mode text not null,
   game_no int not null, players int not null, answered int not null, correct int not null,
   rel_errors double precision[], shown_at timestamptz not null default now());
+alter table q_showing add column if not exists room_players int;
 `
 
 export class PgBackend implements HistoryBackend {
@@ -50,11 +53,18 @@ export class PgBackend implements HistoryBackend {
       this.pool.query(`select deck, card, cycle, game_no from q_seen`),
       this.pool.query(`select question_id from q_archive`),
       this.pool.query(`select scope, item, credit from q_credit`),
+      // показ = одна точка: сумма оценок / игроков в комнате (не нажал — «нормально», 0)
       this.pool.query(`
-        select 'cat:' || category as key, count(*)::int as n, sum(score)::int as sum from q_rating
-          where score is not null group by category
+        with s as (
+          select sh.category, sh.sub,
+            coalesce(r.total, 0)::float / greatest(coalesce(sh.room_players, sh.players), 1) as team
+          from q_showing sh
+          left join (select question_id, game_no, sum(score) as total from q_rating
+                     where score is not null group by question_id, game_no) r
+            on r.question_id = sh.question_id and r.game_no = sh.game_no)
+        select 'cat:' || category as key, count(*)::int as n, sum(team) as sum from s group by category
         union all
-        select 'sub:' || sub, count(*)::int, sum(score)::int from q_rating where score is not null group by sub`),
+        select 'sub:' || sub, count(*)::int, sum(team) from s group by sub`),
     ])
     return {
       gameNo: Number(meta.rows[0]?.value ?? 0),
@@ -62,7 +72,7 @@ export class PgBackend implements HistoryBackend {
       seen: seen.rows.map(r => ({ deck: r.deck, card: r.card, cycle: r.cycle, gameNo: r.game_no })),
       archived: archived.rows.map(r => r.question_id),
       credits: credits.rows.map(r => ({ scope: r.scope, item: r.item, credit: r.credit })),
-      ratings: ratings.rows.map(r => ({ key: r.key, n: r.n, sum: r.sum })),
+      ratings: ratings.rows.map(r => ({ key: r.key, n: r.n, sum: Number(r.sum ?? 0) })),
     }
   }
 
@@ -107,9 +117,10 @@ export class PgBackend implements HistoryBackend {
     [scope, entries.map(e => e[0]), entries.map(e => e[1])])
   }
 
-  archive(questionId: string, info: { by: string; category: string; sub: string; text: string }): void {
-    this.run(`insert into q_archive (question_id, by_name, category, sub, text) values ($1, $2, $3, $4, $5)
-      on conflict (question_id) do nothing`, [questionId, info.by, info.category, info.sub, info.text])
+  archive(questionId: string, info: { by: string; category: string; sub: string; text: string; votes: number; players: number }): void {
+    this.run(`insert into q_archive (question_id, by_name, category, sub, text, votes, players)
+      values ($1, $2, $3, $4, $5, $6, $7) on conflict (question_id) do nothing`,
+    [questionId, info.by, info.category, info.sub, info.text, info.votes, info.players])
   }
 
   rating(row: RatingRow): void {
@@ -123,9 +134,9 @@ export class PgBackend implements HistoryBackend {
   }
 
   showing(row: ShowingRow): void {
-    this.run(`insert into q_showing (question_id, category, sub, mode, game_no, players, answered, correct, rel_errors)
-      values ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-    [row.questionId, row.category, row.sub, row.mode, row.gameNo, row.players, row.answered, row.correct,
-      row.relErrors ?? null])
+    this.run(`insert into q_showing (question_id, category, sub, mode, game_no, room_players, players, answered, correct,
+      rel_errors) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    [row.questionId, row.category, row.sub, row.mode, row.gameNo, row.roomPlayers, row.players, row.answered,
+      row.correct, row.relErrors ?? null])
   }
 }

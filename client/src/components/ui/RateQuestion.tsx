@@ -9,7 +9,8 @@ const SCORES: Array<{ score: number; label: string }> = [
   { score: 2, label: '🔥 Ахуенный' },
 ]
 
-/** Оценка вопроса раунда. «Нормально» — ничего не жать. «Удалить» убирает вопрос из игры навсегда — со вторым нажатием. */
+/** Оценка вопроса раунда. «Нормально» — ничего не жать. «Удалить» — голос (со вторым нажатием): вопрос уходит из игры
+ *  навсегда, когда за удаление больше половины игроков. */
 export function RateQuestion() {
   const question = useGameStore(s => s.gameState?.currentQuestion)
   const rateQuestion = useGameStore(s => s.rateQuestion)
@@ -25,7 +26,6 @@ export function RateQuestion() {
   const pickScore = (s: number) => {
     if (s === -2 && !confirmDelete) { setConfirmDelete(true); return }
     setConfirmDelete(false)
-    if (score === -2) return   // удалён — назад не вернуть
     setScore(s)
     rateQuestion(qid, { score: s })
   }
@@ -54,14 +54,13 @@ export function RateQuestion() {
             <button
               key={s}
               onClick={() => pickScore(s)}
-              disabled={score === -2 && s !== -2}
               className={`px-2.5 py-1 rounded-lg border text-xs transition-colors ${
                 active ? 'border-yellow-400 bg-[#2a4a2a] text-yellow-400'
                   : asking ? 'border-red-400 text-red-300'
-                    : 'border-[#3a6a3a] hover:border-yellow-600 disabled:opacity-40'}`}
+                    : 'border-[#3a6a3a] hover:border-yellow-600'}`}
               style={active || asking ? undefined : { color: '#e5e7eb' }}
             >
-              {asking ? 'Точно? Навсегда' : active && s === -2 ? '🗑 Удалён' : label}
+              {asking ? 'Точно? Нужно больше половины' : active && s === -2 ? '🗑 Голос за удаление' : label}
             </button>
           )
         })}

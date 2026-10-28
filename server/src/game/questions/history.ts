@@ -11,6 +11,7 @@ export interface HistorySnapshot {
   seen: Array<{ deck: string; card: string; cycle: number; gameNo: number }>
   archived: string[]
   credits: Array<{ scope: string; item: string; credit: number }>
+  /** key `cat:<id>` / `sub:<id>`: n — показов, sum — сумма средних оценок команды по этим показам */
   ratings: Array<{ key: string; n: number; sum: number }>
 }
 
@@ -30,6 +31,9 @@ export interface ShowingRow {
   sub: string
   mode: string
   gameNo: number
+  /** сколько игроков в комнате — делитель оценки команды и порог «удалить» */
+  roomPlayers: number
+  /** сколько отвечало (в kerri — один керри) */
   players: number
   answered: number
   correct: number
@@ -43,7 +47,7 @@ export interface HistoryBackend {
   seen(deck: string, card: string, cycle: number, gameNo: number): void
   cycle(deck: string, cycle: number): void
   credits(scope: string, entries: Array<[string, number]>): void
-  archive(questionId: string, info: { by: string; category: string; sub: string; text: string }): void
+  archive(questionId: string, info: { by: string; category: string; sub: string; text: string; votes: number; players: number }): void
   rating(row: RatingRow): void
   showing(row: ShowingRow): void
 }
@@ -65,10 +69,10 @@ export class QuestionHistory {
   private seenBy = new Map<string, Map<string, SeenRecord>>()
   readonly archived = new Set<string>()
   private creditMap = new Map<string, Map<string, number>>()
-  /** key: `cat:<id>` / `sub:<id>` → сколько оценок и их сумма (без «нормально») */
+  /** key `cat:<id>` / `sub:<id>` → показов и сумма оценок команды (одна точка на показ, см. rate) */
   private ratingSums = new Map<string, { n: number; sum: number }>()
-  /** последняя оценка игрока по вопросу в игре — переоценка заменяет, а не добавляет */
-  private lastScore = new Map<string, number>()
+  /** показы этого процесса: голоса игроков (переоценка заменяет) */
+  private shows = new Map<string, { roomPlayers: number; category: string; sub: string; votes: Map<string, number> }>()
 
   constructor(readonly backend: HistoryBackend = memoryBackend) {}
 
@@ -139,32 +143,43 @@ export class QuestionHistory {
   }
 
   // ---------- оценки ----------
+  // Единица — показанный вопрос: средняя оценка команды = сумма оценок / игроков в комнате (кто не нажал — «нормально»,
+  // 0). Так размер лобби и то, сколько людей вообще жмут кнопки, на вес не влияют. «Удалить» = −2 в оценке; вопрос
+  // уходит в архив, только когда «удалить» нажали больше половины игроков комнаты.
 
   ratingOf(key: string): { n: number; sum: number } {
     return this.ratingSums.get(key) ?? { n: 0, sum: 0 }
   }
 
-  rate(row: RatingRow, archiveInfo?: { text: string }): void {
-    if (row.score != null) {
-      const k = `${row.gameNo}|${row.player}|${row.questionId}`
-      const prev = this.lastScore.get(k)
-      for (const key of [`cat:${row.category}`, `sub:${row.sub}`]) {
-        const r = { ...this.ratingOf(key) }
-        if (prev === undefined) r.n += 1
-        else r.sum -= prev
-        r.sum += row.score
-        this.ratingSums.set(key, r)
-      }
-      this.lastScore.set(k, row.score)
-      if (row.score <= -2 && archiveInfo && !this.archived.has(row.questionId)) {
-        this.archived.add(row.questionId)
-        this.backend.archive(row.questionId, { by: row.player, category: row.category, sub: row.sub, text: archiveInfo.text })
-      }
+  private addToKeys(category: string, sub: string, dn: number, dsum: number): void {
+    for (const key of [`cat:${category}`, `sub:${sub}`]) {
+      const r = this.ratingOf(key)
+      this.ratingSums.set(key, { n: r.n + dn, sum: r.sum + dsum })
     }
-    this.backend.rating(row)
   }
 
   showing(row: ShowingRow): void {
+    this.shows.set(`${row.gameNo}|${row.questionId}`,
+      { roomPlayers: Math.max(1, row.roomPlayers), category: row.category, sub: row.sub, votes: new Map() })
+    this.addToKeys(row.category, row.sub, 1, 0)
     this.backend.showing(row)
+  }
+
+  rate(row: RatingRow, archiveInfo?: { text: string }): void {
+    const show = this.shows.get(`${row.gameNo}|${row.questionId}`)
+    if (row.score != null && show) {
+      const prev = show.votes.get(row.player) ?? 0
+      show.votes.set(row.player, row.score)
+      this.addToKeys(show.category, show.sub, 0, (row.score - prev) / show.roomPlayers)
+      const deletes = [...show.votes.entries()].filter(([, v]) => v <= -2)
+      if (deletes.length * 2 > show.roomPlayers && archiveInfo && !this.archived.has(row.questionId)) {
+        this.archived.add(row.questionId)
+        this.backend.archive(row.questionId, {
+          by: deletes.map(([p]) => p).join(', '), category: row.category, sub: row.sub, text: archiveInfo.text,
+          votes: deletes.length, players: show.roomPlayers,
+        })
+      }
+    }
+    this.backend.rating(row)
   }
 }

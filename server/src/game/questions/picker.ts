@@ -20,6 +20,8 @@ export interface PickContext {
 }
 
 export interface RoundReport {
+  /** игроков в комнате — делитель оценки команды и порог «удалить» */
+  roomPlayers: number
   players: number
   answered: number
   correct: number
@@ -37,17 +39,30 @@ export interface QuestionSource {
   rate?(q: Question, player: string, vote: RatingVote): void
 }
 
-// Оценки: множитель веса exp(α · сумма / (n + prior)), в пределах [0.5, 2]. prior — «сколько нейтральных оценок
-// уже как будто есть»: десяток восторгов сдвигает вес на ~20%, а не вдвое; мелкой подкатегории с парой оценок
-// множитель почти не меняется — она подстраивается медленнее, зато не от одного голоса.
-export const RATING_ALPHA = 0.5
-export const RATING_PRIOR = 20
-export const RATING_MIN = 0.5
-export const RATING_MAX = 2
+// Оценки → веса. Точка — показанный вопрос, её значение — средняя оценка команды (history.ts). Оценка
+// категории / подкатегории = сумма точек / (показов + RATING_PRIOR): десяток показов форы, чтобы пара голосов не
+// переворачивала вес. Множитель только ОТНОСИТЕЛЬНЫЙ: среди соседей (категории между собой, подкатегории внутри
+// категории) среднее множителей по базовым весам = 1. Если всем всё нравится одинаково — веса базовые; сдвиг не больше
+// чем в RATING_EFFECT раз в любую сторону.
+export const RATING_EFFECT = 1.5
+export const RATING_PRIOR = 10
+const RATING_BETA = Math.log(RATING_EFFECT)   // средняя «хороший» у всей команды (+1) → ×1.5 до нормализации
 
-export function ratingMultiplier(r: { n: number; sum: number }): number {
-  const m = Math.exp(RATING_ALPHA * r.sum / (r.n + RATING_PRIOR))
-  return Math.max(RATING_MIN, Math.min(RATING_MAX, m))
+export function ratingScore(r: { n: number; sum: number }): number {
+  return r.sum / (r.n + RATING_PRIOR)
+}
+
+export function relativeMultipliers(items: Weighted[], score: (key: string) => number): Map<string, number> {
+  const live = items.filter(i => i.weight > 0)
+  const raw = new Map(live.map(i => [i.key, Math.exp(RATING_BETA * score(i.key))]))
+  const total = live.reduce((s, i) => s + i.weight, 0)
+  const mean = total > 0 ? live.reduce((s, i) => s + i.weight * raw.get(i.key)!, 0) / total : 1
+  const out = new Map<string, number>()
+  for (const i of items) {
+    const m = (raw.get(i.key) ?? 1) / mean
+    out.set(i.key, Math.max(1 / RATING_EFFECT, Math.min(RATING_EFFECT, m)))
+  }
+  return out
 }
 
 function shuffleArray<T>(arr: T[], rng: () => number): T[] {
@@ -112,14 +127,14 @@ export class RoomQuestions implements QuestionSource {
     const present = [...new Set(ctx.friends ?? [])]
     const cats = this.lib.categories.filter(c =>
       (c.requires !== 'friends' || present.length >= MIN_IDENTIFIED_FRIENDS) && c.subs.some(s => s.kinds.has(kind)))
-    const catItems: Weighted[] = cats.map(c => ({ key: c.id, weight: c.weight * this.multiplier(`cat:${c.id}`) }))
+    const catItems = this.rated(cats.map(c => ({ key: c.id, weight: c.weight })), 'cat')
     const catScope = `cat:${kind}`
     const catCredits = this.history.creditsOf(catScope)
 
     for (const catId of smoothOrder(catItems, catCredits, this.rng)) {
       const cat = cats.find(c => c.id === catId)!
       const subs = cat.subs.filter(s => s.kinds.has(kind))
-      const subItems: Weighted[] = subs.map(s => ({ key: s.id, weight: s.weight * this.multiplier(`sub:${s.id}`) }))
+      const subItems = this.rated(subs.map(s => ({ key: s.id, weight: s.weight })), 'sub')
       const subScope = `sub:${kind}:${cat.id}`
       const subCredits = this.history.creditsOf(subScope)
       for (const subId of smoothOrder(subItems, subCredits, this.rng)) {
@@ -151,8 +166,10 @@ export class RoomQuestions implements QuestionSource {
     }, { text: q.text })
   }
 
-  private multiplier(key: string): number {
-    return ratingMultiplier(this.history.ratingOf(key))
+  /** Базовые веса × относительный множитель оценок среди этих соседей. */
+  private rated(items: Weighted[], prefix: 'cat' | 'sub'): Weighted[] {
+    const mult = relativeMultipliers(items, key => ratingScore(this.history.ratingOf(`${prefix}:${key}`)))
+    return items.map(i => ({ key: i.key, weight: i.weight * mult.get(i.key)! }))
   }
 
   private deck(sub: Subcategory): DeckAccess {

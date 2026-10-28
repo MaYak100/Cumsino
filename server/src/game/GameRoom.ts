@@ -432,14 +432,14 @@ export class GameRoom extends EventEmitter {
       const nums = answered.map(p => p.answer).filter((a): a is number => typeof a === 'number')
       const base = Math.abs(q.numericAnswer) || 1
       this.questions.report?.(q, {
-        players: answering.length, answered: nums.length,
+        roomPlayers: players.length, players: answering.length, answered: nums.length,
         correct: nums.filter(a => a === q.numericAnswer).length,
         relErrors: nums.map(a => Math.abs(a - q.numericAnswer!) / base),
       })
       return
     }
     this.questions.report?.(q, {
-      players: answering.length, answered: answered.length,
+      roomPlayers: players.length, players: answering.length, answered: answered.length,
       correct: answered.filter(p => p.answer === q.answer).length,
     })
   }
