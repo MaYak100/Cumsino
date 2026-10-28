@@ -19,6 +19,11 @@ export class GameEngine {
   }
 
   joinRoom(socket: Socket, name: string, gameCode: string): void {
+    const prev = this.playerRoom.get(socket.id)
+    if (prev && prev !== gameCode) {   // переход в другую комнату — без «призрака» в старой
+      this.leaveRoom(socket.id)
+      socket.leave(prev)
+    }
     let room = this.rooms.get(gameCode)
     if (!room) {
       room = this.createRoom(gameCode)

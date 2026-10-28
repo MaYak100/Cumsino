@@ -475,6 +475,126 @@ describe('GameRoom', () => {
   })
 
   // -------------------------------------------------------------------------
+  // Исправления по аудиту 2026-10-28 (docs/audit-2026-10-28-game.md)
+  // -------------------------------------------------------------------------
+
+  describe('аудит: стабильность и экономика', () => {
+    function question(room: GameRoom, mode: 'all' | 'kerri' | 'closest', phase = 'QUESTION') {
+      const r = priv(room)
+      r.phase = phase
+      r.currentMode = mode
+      r.gladiatorId = mode === 'kerri' ? 'p1' : undefined
+      r.currentQuestion = mode === 'closest' ? { ...cnQ } : { ...mcQ }
+    }
+
+    it('ушёл хост — хостом становится следующий, игру можно начать', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 3)
+      room.removePlayer('p1')
+      expect(priv(room).hostId).toBe('p2')
+      room.start('p2')
+      expect(priv(room).phase).toBe('ANNOUNCE')
+    })
+
+    it('ушёл последний, кто не ответил, — раунд считается сразу', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      question(room, 'all')
+      room.submitAnswer('p1', 'A')
+      room.submitAnswer('p2', 'B')
+      room.removePlayer('p3')
+      expect(broadcasts.find(b => b.event === 'round_results')).toBeDefined()
+    })
+
+    it('ушёл последний, кто не поставил, — BETTING заканчивается', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 3)
+      question(room, 'all', 'BETTING')
+      room.placeBet('p1', 10)
+      room.placeBet('p2', 10)
+      room.removePlayer('p3')
+      expect(priv(room).phase).toBe('QUESTION')
+    })
+
+    it('керри сбежал во время ставок — раунд без расчёта', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      question(room, 'kerri', 'BETTING')
+      room.placeBet('p2', 100, 'win')
+      room.removePlayer('p1')
+      const rr = broadcasts.find(b => b.event === 'round_results')!.data as any
+      expect(rr.results.every((r: any) => r.delta === 0)).toBe(true)
+      expect(priv(room).phase).toBe('REVEAL')
+      expect(priv(room).players.get('p2').chips).toBe(STARTING_CHIPS)
+    })
+
+    it('керри не может ставить и делать банк-ставку', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 2)
+      question(room, 'kerri', 'BETTING')
+      room.placeBet('p1', 100, 'win', undefined, { optionIndex: 1, amount: 100 })
+      room.placeBankBet('p1', 2, 100)
+      expect(priv(room).players.get('p1').currentBet).toBe(0)
+      expect(priv(room).players.get('p1').bankBet).toBeUndefined()
+    })
+
+    it('банк-ставка толпы на верный вариант отклоняется', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 2)
+      question(room, 'kerri', 'BETTING')
+      room.placeBankBet('p2', 0, 100)   // options[0] = 'A' = ответ
+      expect(priv(room).players.get('p2').bankBet).toBeUndefined()
+      room.placeBankBet('p2', 1, 100)
+      expect(priv(room).players.get('p2').bankBet).toEqual({ optionIndex: 1, amount: 100 })
+    })
+
+    it('ответ не из вариантов / не число в «ближе всех» отклоняется', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 2)
+      question(room, 'all')
+      room.submitAnswer('p1', 'X'.repeat(100))
+      expect(priv(room).players.get('p1').hasAnswered).toBe(false)
+      question(room, 'closest')
+      room.submitAnswer('p2', 'много' as any)
+      room.submitAnswer('p2', Infinity)
+      expect(priv(room).players.get('p2').hasAnswered).toBe(false)
+      room.submitAnswer('p2', 300)
+      expect(priv(room).players.get('p2').hasAnswered).toBe(true)
+    })
+
+    it('чужие ответы не видны до расчёта раунда', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 3)
+      question(room, 'closest')
+      room.submitAnswer('p1', 300)
+      expect(room.getPublicState().players.find(p => p.id === 'p1')!.answer).toBeUndefined()
+      priv(room).advanceFromQuestion()
+      expect(room.getPublicState().players.find(p => p.id === 'p1')!.answer).toBe(300)
+    })
+
+    it('повторный join того же сокета не сбрасывает фишки', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 2)
+      priv(room).players.get('p1').chips = 40
+      room.addPlayer('p1', 'P1')
+      expect(priv(room).players.get('p1').chips).toBe(40)
+    })
+
+    it('ошибка пикера — следующий режим, а не падение', () => {
+      let calls = 0
+      const room = new GameRoom('r', (mode) => {
+        calls++
+        if (mode === 'all') throw new Error('битый банк')
+        return { ...mcQ, mode }
+      })
+      addPlayers(room, 2)
+      room.start('p1')
+      expect(calls).toBe(2)
+      expect(priv(room).currentMode).toBe('kerri')
+    })
+  })
+
+  // -------------------------------------------------------------------------
   // calculateResults — режим ALL
   // -------------------------------------------------------------------------
 

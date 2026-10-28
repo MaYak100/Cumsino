@@ -53,10 +53,16 @@ export const useGameStore = create<GameStore>((set) => {
         prev.gameState !== null && state.roundIndex !== prev.gameState.roundIndex
       const clearRound = state.phase === 'ANNOUNCE' || newRound
       const clearBribe = clearRound || state.phase !== 'QUESTION'
+      const samePhase = !clearRound && prev.gameState?.phase === state.phase
       return {
         gameState: state,
-        answeredIds: new Set(),
-        gladiatorHoverIndex: null,
+        // «ответил» — с сервера (hasAnswered), а не сброс на каждый game_state: иначе вход / выход
+        // другого игрока посреди вопроса снимал «Ответ принят» и делал варианты снова кликабельными
+        answeredIds: new Set([
+          ...state.players.filter(p => p.hasAnswered).map(p => p.id),
+          ...(samePhase ? prev.answeredIds : []),
+        ]),
+        gladiatorHoverIndex: samePhase ? prev.gladiatorHoverIndex : null,
         roundResults: clearRound ? [] : prev.roundResults,
         roundCorrectAnswer: clearRound ? null : prev.roundCorrectAnswer,
         roundComment: clearRound ? null : prev.roundComment,
@@ -79,7 +85,9 @@ export const useGameStore = create<GameStore>((set) => {
   socket.on('bet_updated', ({ playerId, amount, target, chips }: BetUpdatedPayload) => {
     set(prev => {
       if (!prev.gameState) return prev
+      const { [playerId]: _confirmed, ...stagedBets } = prev.stagedBets   // ставка подтверждена — черновик не нужен
       return {
+        stagedBets,
         gameState: {
           ...prev.gameState,
           players: prev.gameState.players.map(p =>

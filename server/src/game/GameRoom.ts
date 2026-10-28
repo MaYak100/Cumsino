@@ -2,7 +2,7 @@
 import { EventEmitter } from 'events'
 import type { GameState, GamePhase, GameMode, Player, RoundResult, Question, FriendProfile } from '@cumsino/shared'
 import {
-  STARTING_CHIPS, WIN_CHIPS, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
+  STARTING_CHIPS, WIN_CHIPS, BRIBE_ENABLED, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
   decomposeToChips,
 } from '@cumsino/shared'
 import { distributePool } from './economy/distributePool'
@@ -59,6 +59,7 @@ export class GameRoom extends EventEmitter {
   }
 
   addPlayer(id: string, name: string) {
+    if (this.players.has(id)) { this.broadcastState(); return }   // повторный join того же сокета — не сбрасывать фишки
     if (this.players.size >= 12) return
     if (this.players.size === 0) this.hostId = id
     this.players.set(id, {
@@ -71,14 +72,55 @@ export class GameRoom extends EventEmitter {
   }
 
   removePlayer(id: string) {
+    if (!this.players.has(id)) return
     if (this.phase === 'QUESTION' && !this.revealing && this.currentMode === 'kerri' && id === this.gladiatorId) {
       clearTimeout(this.phaseTimer)
       this.advanceFromQuestion()
       this.players.delete(id)
+      this.reassignHost(id)
       return
     }
     this.players.delete(id)
+    this.reassignHost(id)
+    if (!this.players.size) return
+    // керри ушёл до вопроса: толпа уже видела ответ, нового керри не назначить — раунд не считается
+    if (this.phase === 'BETTING' && this.currentMode === 'kerri' && id === this.gladiatorId) {
+      this.cancelRound('Керри сбежал — раунд не считается')
+      return
+    }
+    // ушёл последний, кого ждали, — фаза не висит до таймера
+    if (this.phase === 'BETTING' && this.allBettingConfirmed()) {
+      this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
+      return
+    }
+    if (this.phase === 'QUESTION' && !this.revealing && this.allAnswered()) {
+      clearTimeout(this.phaseTimer)
+      this.advanceFromQuestion()
+      return
+    }
     this.broadcastState()
+  }
+
+  private reassignHost(leftId: string) {
+    if (leftId !== this.hostId) return
+    this.hostId = this.players.keys().next().value ?? ''
+  }
+
+  /** Раунд без расчёта: ставки не списываются, все видят причину в итогах. */
+  private cancelRound(reason: string) {
+    clearTimeout(this.phaseTimer)
+    this.clearBribeAuction()
+    this.revealing = true
+    const results: RoundResult[] = Array.from(this.players.values()).map(p => ({
+      playerId: p.id, delta: 0, chipBreakdown: decomposeToChips(0), sources: [{ label: reason, delta: 0 }],
+    }))
+    this.broadcastState()
+    this.broadcast('round_results', {
+      results, correctAnswer: this.currentQuestion?.answer ?? null,
+      correctNumericAnswer: this.currentQuestion?.numericAnswer ?? null, comment: reason, optionNotes: null,
+      mode: this.currentMode, gladiatorId: this.gladiatorId,
+    })
+    this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
   }
 
   /** «Кто ты» в лобби: человек из компании или null (пропустить). Одним человеком назваться может только один. */
@@ -117,6 +159,7 @@ export class GameRoom extends EventEmitter {
   placeBet(playerId: string, amount: number, target?: 'win' | 'lose', chips?: number[], bankBet?: { optionIndex: number; amount: number }) {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'BETTING') return
+    if (this.currentMode === 'kerri' && playerId === this.gladiatorId) return   // керри не ставит на себя
     const existingBankAmount = player.bankBet?.amount ?? 0
     if (amount + existingBankAmount > player.chips) return
 
@@ -126,8 +169,7 @@ export class GameRoom extends EventEmitter {
 
     if (bankBet && this.currentMode === 'kerri' && this.currentQuestion?.options) {
       const { optionIndex, amount: bankAmount } = bankBet
-      if (optionIndex >= 0 && optionIndex < this.currentQuestion.options.length
-        && bankAmount > 0 && amount + bankAmount <= player.chips) {
+      if (this.bankBetTargetOk(optionIndex) && bankAmount > 0 && amount + bankAmount <= player.chips) {
         player.bankBet = { optionIndex, amount: bankAmount }
         this.broadcast('bank_bet_updated', { playerId, optionIndex, amount: bankAmount })
       }
@@ -145,12 +187,29 @@ export class GameRoom extends EventEmitter {
   placeBankBet(playerId: string, optionIndex: number, amount: number) {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'BETTING' || this.currentMode !== 'kerri') return
-    if (!this.currentQuestion?.options) return
-    if (optionIndex < 0 || optionIndex >= this.currentQuestion.options.length) return
+    if (playerId === this.gladiatorId || !this.bankBetTargetOk(optionIndex)) return
     if (player.currentBet + amount > player.chips) return
 
     player.bankBet = { optionIndex, amount }
     this.broadcast('bank_bet_updated', { playerId, optionIndex, amount })
+  }
+
+  /** Банк-ставка ×4 — только на ошибку керри: на верный вариант (его толпа видит) — нельзя. */
+  private bankBetTargetOk(optionIndex: number): boolean {
+    const q = this.currentQuestion
+    if (!q?.options || !Number.isInteger(optionIndex)) return false
+    return optionIndex >= 0 && optionIndex < q.options.length && q.options[optionIndex] !== q.answer
+  }
+
+  /** Ответ подходит вопросу: вариант из списка, конечное число, список вариантов для top5. */
+  private answerOk(answer: unknown): boolean {
+    const q = this.currentQuestion
+    if (!q) return false
+    if (this.currentMode === 'closest') return typeof answer === 'number' && Number.isFinite(answer)
+    if (this.currentMode === 'top5') {
+      return Array.isArray(answer) && answer.length <= 5 && answer.every(a => typeof a === 'string' && (q.items ?? []).includes(a))
+    }
+    return typeof answer === 'string' && (q.options ?? []).includes(answer)
   }
 
   submitAnswer(playerId: string, answer: string | number | string[]) {
@@ -159,6 +218,7 @@ export class GameRoom extends EventEmitter {
     if (player.hasAnswered) return
     // In kerri mode, only the gladiator can answer
     if (this.currentMode === 'kerri' && playerId !== this.gladiatorId) return
+    if (!this.answerOk(answer)) return
 
     player.answer = answer
     player.hasAnswered = true
@@ -186,7 +246,7 @@ export class GameRoom extends EventEmitter {
     if (!a || this.phase !== 'QUESTION' || this.currentMode !== 'kerri') return
     if (a.currentAsked !== playerId) return
     const player = this.players.get(playerId)
-    if (!player || player.chips < a.price) return
+    if (!player || this.freeChips(player) < a.price) return
 
     player.chips -= a.price
     clearTimeout(a.timer!)
@@ -233,7 +293,9 @@ export class GameRoom extends EventEmitter {
       hostId: this.hostId,
       players: Array.from(this.players.values()).map(p => ({
         id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
-        betTarget: p.betTarget, betChips: p.betChips, answer: p.answer, hasAnswered: p.hasAnswered,
+        betTarget: p.betTarget, betChips: p.betChips, hasAnswered: p.hasAnswered,
+        // чужие ответы — только после расчёта раунда (в «ближе всех» иначе можно подсмотреть число)
+        ...(this.revealing || this.phase === 'REVEAL' ? { answer: p.answer } : {}),
         friendId: p.friendId,
       })),
       phaseTimeLeft: timeLeft,
@@ -258,10 +320,21 @@ export class GameRoom extends EventEmitter {
 
   private nextRound() {
     this.revealing = false
-    const mode = this.selector.next()
+    // вопрос не собрался (ошибка в банке) — следующий режим цикла, а не падение комнаты
+    let mode = this.selector.next()
+    let question: Question | null = null
+    for (let attempt = 0; attempt < 3 && !question; attempt++) {
+      try {
+        question = this.pickQuestion(mode)
+      } catch (err) {
+        console.error(`[room ${this.id}] вопрос для ${mode} не собрался:`, err)
+        if (attempt < 2) mode = this.selector.next()
+      }
+    }
+    if (!question) throw new Error('ни один режим не дал вопроса')
     this.currentMode = mode
     this.gladiatorId = undefined
-    this.currentQuestion = this.pickQuestion(mode)
+    this.currentQuestion = question
     this.roundIndex++
 
     this.bettingConfirmedIds.clear()
@@ -284,8 +357,8 @@ export class GameRoom extends EventEmitter {
     this.phase = phase
     this.phaseEndTime = Date.now() + seconds * 1000
     this.broadcastState()
-    this.phaseTimer = setTimeout(() => this.onPhaseEnd(), seconds * 1000)
-    if (phase === 'QUESTION' && this.currentMode === 'kerri') {
+    this.phaseTimer = setTimeout(() => this.safely('onPhaseEnd', () => this.onPhaseEnd()), seconds * 1000)
+    if (BRIBE_ENABLED && phase === 'QUESTION' && this.currentMode === 'kerri') {
       this.checkAndStartBribeEvent()
     }
   }
@@ -342,9 +415,9 @@ export class GameRoom extends EventEmitter {
       gladiatorId: this.gladiatorId,
     })
     clearTimeout(this.phaseTimer)
-    this.phaseTimer = setTimeout(() => {
+    this.phaseTimer = setTimeout(() => this.safely('reveal', () => {
       this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
-    }, this.currentQuestion?.optionNotes ? ANSWER_REVEAL_NOTES_MS : ANSWER_REVEAL_MS)
+    }), this.currentQuestion?.optionNotes ? ANSWER_REVEAL_NOTES_MS : ANSWER_REVEAL_MS)
   }
 
   /** Статистика раунда для фидбека по категориям: сколько отвечало, сколько верно, ошибки в «ближе всех». */
@@ -422,7 +495,7 @@ export class GameRoom extends EventEmitter {
       const gladiatorAnswerIndex = this.currentQuestion?.options
         ? this.currentQuestion.options.indexOf(gladiator.answer as string)
         : -1
-      const totalDeltas = applyBankBets(new Map(mainDeltas), this.players.values(), gladiatorAnswerIndex)
+      const totalDeltas = applyBankBets(new Map(mainDeltas), players.filter(p => p.id !== gladiator.id), gladiatorAnswerIndex)
 
       return players.map(p => {
         const delta = totalDeltas.get(p.id) ?? 0
@@ -499,6 +572,11 @@ export class GameRoom extends EventEmitter {
     return []
   }
 
+  /** Фишки вне ставок раунда — только ими можно платить (взятка). */
+  private freeChips(p: PlayerWithBankBet): number {
+    return p.chips - p.currentBet - (p.bankBet?.amount ?? 0)
+  }
+
   private applyDeltas(results: RoundResult[]) {
     for (const r of results) {
       const player = this.players.get(r.playerId)
@@ -535,6 +613,15 @@ export class GameRoom extends EventEmitter {
   private pickQuestion(mode: GameMode): Question {
     const friends = [...this.players.values()].map(p => p.friendId).filter((f): f is number => f !== undefined)
     return this.questions.pick(mode, { friends })
+  }
+
+  /** Исключение в таймере не должно ронять процесс (все комнаты) — пишем в лог, комната живёт дальше. */
+  private safely(where: string, fn: () => void) {
+    try {
+      fn()
+    } catch (err) {
+      console.error(`[room ${this.id}] ошибка в ${where}:`, err)
+    }
   }
 
   private broadcast(event: string, data: unknown) {

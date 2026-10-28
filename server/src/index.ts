@@ -21,6 +21,10 @@ app.get('/health', (_req, res) => {
   res.json({ ok: true })
 })
 
+// последний рубеж: игра в памяти — лучше продолжить с логом, чем потерять все комнаты
+process.on('uncaughtException', err => console.error('[uncaught]', err))
+process.on('unhandledRejection', err => console.error('[unhandled]', err))
+
 async function main() {
   // история вопросов (колоды, оценки) — до первого подключения, чтобы первая игра не начала с пустой памятью
   const history = await createHistory()

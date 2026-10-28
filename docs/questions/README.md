@@ -4,8 +4,9 @@
 откуда берутся данные, какие есть категории, по каким правилам пишутся вопросы и варианты,
 и что мы выяснили по дороге. Что ещё предстоит — в [BACKLOG.md](BACKLOG.md).
 
-Рабочий код — `scripts/` и `scripts/generate/numeric_lab/`. Игра пока читает **старые** файлы
-`scripts/data/generated/*_main.json`; перенос нового банка в игру — в бэклоге.
+Рабочий код — `scripts/` и `scripts/generate/numeric_lab/`. Игра читает единый банк `scripts/data/bank/questions.json`
+(`scripts/build_question_bank.py`) и статистику; как сервер выбирает вопрос, колоды, оценки и Neon —
+[system.md](system.md). Старая база `scripts/data/generated/` удалена 2026-10-28.
 
 ---
 
@@ -300,7 +301,7 @@ Quelling Blade), причина исключения записывается. �
 - Кэш не работает с уникальной схемой на запрос (см. раздел 3).
 - `temperature` API больше не принимает: разнообразие идёт от входа и промпта.
 
-**Про старый пайплайн** (`scripts/generate/gen_questions.py`, `improve_questions.py`)
+**Про старый пайплайн** (`gen_questions.py`, `improve_questions.py`, удалены 2026-10-28)
 - брал способности по префиксу имени героя — в генерацию попадали 157 вырезанных способностей (Combustion, Quick Wit, Cutpurse…);
 - фильтр предметов `cost > 0` пропускал 15 вырезанных и терял все текущие нейтралки, Dagon 2–5 и Observer Ward;
 - обрезал описания и параметры, не помечал скрытые значения;
@@ -328,7 +329,9 @@ Quelling Blade), причина исключения записывается. �
 | `scripts/fetch_stats.py` | снимок внешней статистики OpenDota → `scripts/data/stats/<дата>/` |
 | `scripts/data/stats/2026-10-27/` | текущий снимок: `manifest.json`, `raw/`, `heroes.json`, `items.json` |
 | `scripts/fetch_stratz.py`, `scripts/stratz_client.py` | снимок STRATZ → `scripts/data/stats/<дата>/stratz/` |
-| `scripts/fetch_friends.py` | статистика компании друзей → `scripts/data/friends/` (в .gitignore) |
+| `scripts/fetch_friends.py` | статистика компании друзей → `scripts/data/friends/` (в .gitignore только `matches.jsonl`, `state.json`) |
+| `scripts/build_question_bank.py` | финальные прогоны → `scripts/data/bank/questions.json` (единый банк для игры) |
+| `server/src/game/questions/` | выбор вопроса в игре: категории, колоды, оценки, Neon ([system.md](system.md)) |
 | `scripts/generate/numeric_lab/build_sample.py` | выборки: фиксированная, случайная, полная (`--full`), цены |
 | `scripts/generate/numeric_lab/run_api.py` | генерация числовых вопросов и цен через API |
 | `scripts/generate/numeric_lab/talent_lab.py` | генерация и проверка вопросов про таланты |

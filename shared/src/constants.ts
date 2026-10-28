@@ -20,3 +20,6 @@ export const ANSWER_REVEAL_MS = 2500
 export const ANSWER_REVEAL_NOTES_MS = 4500
 
 export const SPECIAL_MODE_CHANCE = 0.3
+
+// Взятка (аукцион за подсказку керри в kerri) выключена до переделки: работала криво (2026-10-28)
+export const BRIBE_ENABLED = false

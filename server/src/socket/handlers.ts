@@ -8,11 +8,33 @@ import type {
 
 const VALID_CHIP_DENOMS = new Set([10, 20, 50, 100, 500])
 
-export function registerHandlers(socket: Socket, engine: GameEngine): void {
+const isChips = (c: unknown): c is number[] =>
+  Array.isArray(c) && c.length <= 40 && c.every(x => VALID_CHIP_DENOMS.has(x))
+/** Ставки — целые, кратные 10 (меньше фишки 10 нет): иначе дробные балансы и сломанный делёж пула */
+const isStake = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= 0 && n % 10 === 0
+
+export function registerHandlers(rawSocket: Socket, engine: GameEngine): void {
+  // Событие без данных или с мусором не должно ронять процесс (все комнаты сразу): пустой payload → {},
+  // исключение обработчика → лог.
+  const socket = {
+    id: rawSocket.id,
+    on(event: string, handler: (payload: any) => void) {
+      rawSocket.on(event, (payload: unknown) => {
+        try {
+          handler(payload && typeof payload === 'object' ? payload : {})
+        } catch (err) {
+          console.error(`[socket] ${event} от ${rawSocket.id}:`, err)
+        }
+      })
+    },
+  }
+
   socket.on('join_game', ({ name, gameCode }: JoinGamePayload) => {
-    if (!name?.trim() || !gameCode?.trim()) return
-    const trimmedName = name.trim().slice(0, 32)
-    engine.joinRoom(socket, trimmedName, gameCode.trim().toUpperCase())
+    if (typeof name !== 'string' || typeof gameCode !== 'string') return
+    if (!name.trim() || !gameCode.trim()) return
+    const code = gameCode.trim().toUpperCase()
+    if (!/^[A-Z0-9]{2,8}$/.test(code)) return
+    engine.joinRoom(rawSocket, name.trim().slice(0, 32), code)
   })
 
   socket.on('start_game', () => {
@@ -20,13 +42,17 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   })
 
   socket.on('place_bet', ({ amount, target, chips, bankBet }: PlaceBetPayload) => {
-    if (!Number.isFinite(amount) || amount < 0) return
+    if (!isStake(amount)) return
     if (target !== undefined && target !== 'win' && target !== 'lose') return
+    if (chips !== undefined && !isChips(chips)) return
+    if (bankBet !== undefined && (typeof bankBet !== 'object' || !bankBet || !isStake(bankBet.amount)
+      || !Number.isInteger(bankBet.optionIndex))) return
     engine.getRoom(socket.id)?.placeBet(socket.id, amount, target, chips, bankBet)
   })
 
   socket.on('submit_answer', ({ answer }: SubmitAnswerPayload) => {
     if (answer === undefined || answer === null) return
+    if (typeof answer === 'string' && answer.length > 300) return
     engine.getRoom(socket.id)?.submitAnswer(socket.id, answer)
   })
 
@@ -36,13 +62,12 @@ export function registerHandlers(socket: Socket, engine: GameEngine): void {
   })
 
   socket.on('place_bank_bet', ({ optionIndex, amount }: PlaceBankBetPayload) => {
-    if (typeof optionIndex !== 'number' || typeof amount !== 'number' || amount <= 0) return
+    if (!Number.isInteger(optionIndex) || !isStake(amount) || amount <= 0) return
     engine.getRoom(socket.id)?.placeBankBet(socket.id, optionIndex, amount)
   })
 
   socket.on('stage_chip', ({ chips }: { chips: number[] }) => {
-    if (!Array.isArray(chips) || chips.length > 28) return
-    if (chips.some(c => !VALID_CHIP_DENOMS.has(c))) return
+    if (!isChips(chips)) return
     engine.getRoom(socket.id)?.stageChip(socket.id, chips)
   })
 
