@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
 
@@ -9,31 +9,34 @@ const SCORES: Array<{ score: number; label: string }> = [
   { score: 2, label: '🔥 Ахуенный' },
 ]
 
-/** Оценка вопроса раунда. «Нормально» — ничего не жать. «Удалить» — голос (со вторым нажатием): вопрос уходит из игры
- *  навсегда, когда за удаление больше половины игроков. */
+/** Оценка вопроса раунда. «Нормально» — ничего не жать; повторное нажатие снимает выбор. Решение отправляется один раз,
+ *  когда экран итогов пропадает. «Удалить» — голос: вопрос уходит из игры навсегда, когда за удаление больше
+ *  половины игроков. */
 export function RateQuestion() {
   const question = useGameStore(s => s.gameState?.currentQuestion)
   const rateQuestion = useGameStore(s => s.rateQuestion)
   const [score, setScore] = useState<number | null>(null)
   const [difficulty, setDifficulty] = useState<number | null>(null)
-  const [confirmDelete, setConfirmDelete] = useState(false)
   const qid = question?.id
+  const choice = useRef({ score, difficulty })
+  choice.current = { score, difficulty }
 
-  useEffect(() => { setScore(null); setDifficulty(null); setConfirmDelete(false) }, [qid])
+  // экран пропал (или сменился вопрос) — фиксируем выбор. id берём из замыкания: уходящий экран (анимация выхода)
+  // успевает получить состояние следующего раунда, и в choice.current уже может быть новый вопрос
+  useEffect(() => {
+    const id = qid
+    return () => {
+      const { score: sc, difficulty: df } = choice.current
+      if (id && (sc !== null || df !== null)) rateQuestion(id, { score: sc, difficulty: df })
+    }
+  }, [qid, rateQuestion])
+
+  useEffect(() => { setScore(null); setDifficulty(null) }, [qid])
 
   if (!question || !qid) return null
 
-  const pickScore = (s: number) => {
-    if (s === -2 && !confirmDelete) { setConfirmDelete(true); return }
-    setConfirmDelete(false)
-    setScore(s)
-    rateQuestion(qid, { score: s })
-  }
-  const pickDifficulty = (d: number) => {
-    const next = difficulty === d ? null : d
-    setDifficulty(next)
-    rateQuestion(qid, { difficulty: next })
-  }
+  const pickScore = (s: number) => setScore(score === s ? null : s)
+  const pickDifficulty = (d: number) => setDifficulty(difficulty === d ? null : d)
 
   return (
     <motion.div
@@ -49,18 +52,16 @@ export function RateQuestion() {
       <div className="flex flex-wrap gap-1.5">
         {SCORES.map(({ score: s, label }) => {
           const active = score === s
-          const asking = s === -2 && confirmDelete
           return (
             <button
               key={s}
               onClick={() => pickScore(s)}
               className={`px-2.5 py-1 rounded-lg border text-xs transition-colors ${
-                active ? 'border-yellow-400 bg-[#2a4a2a] text-yellow-400'
-                  : asking ? 'border-red-400 text-red-300'
-                    : 'border-[#3a6a3a] hover:border-yellow-600'}`}
-              style={active || asking ? undefined : { color: '#e5e7eb' }}
+                active ? (s === -2 ? 'border-red-400 bg-[#3a1a1a] text-red-300' : 'border-yellow-400 bg-[#2a4a2a] text-yellow-400')
+                  : 'border-[#3a6a3a] hover:border-yellow-600'}`}
+              style={active ? undefined : { color: '#e5e7eb' }}
             >
-              {asking ? 'Точно? Нужно больше половины' : active && s === -2 ? '🗑 Голос за удаление' : label}
+              {label}
             </button>
           )
         })}

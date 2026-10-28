@@ -176,7 +176,7 @@ describe('оценки', () => {
     expect(history.ratingOf('cat:c').sum).toBeCloseTo(0)
   })
 
-  it('множители относительные: всем одинаково хорошо — веса базовые; сдвиг не больше чем в 1.5 раза', () => {
+  it('множители относительные: всем одинаково хорошо — веса базовые; пределы — половина и двойной вес', () => {
     const items = [{ key: 'a', weight: 1 }, { key: 'b', weight: 2 }, { key: 'c', weight: 1 }]
     const same = relativeMultipliers(items, () => 1.5)
     for (const m of same.values()) expect(m).toBeCloseTo(1)
@@ -184,8 +184,26 @@ describe('оценки', () => {
     const m = relativeMultipliers(items, k => scores[k])
     expect(m.get('a')!).toBeGreaterThan(1)
     expect(m.get('c')!).toBeLessThan(1)
-    expect(m.get('a')!).toBeLessThanOrEqual(1.5)
-    expect(m.get('c')!).toBeGreaterThanOrEqual(1 / 1.5)
+    expect(m.get('a')!).toBeLessThanOrEqual(2)
+    expect(m.get('c')!).toBeGreaterThanOrEqual(0.5)
+    const extreme = relativeMultipliers([{ key: 'x', weight: 1 }, { key: 'y', weight: 1 }], k => (k === 'x' ? 20 : -20))
+    expect(extreme.get('x')).toBeCloseTo(2, 5)
+    expect(extreme.get('y')).toBe(0.5)
+  })
+
+  it('~50 голосов «ахуенный» в компании из 6 → ×1.5 против нейтральных соседей', () => {
+    const history = new QuestionHistory()
+    for (let g = 1; g <= 9; g++) {   // 9 вопросов × 6 голосов = 54
+      const sh = { questionId: `q${g}`, category: 'c', sub: 'hot', mode: 'all', gameNo: g, roomPlayers: 6, players: 6, answered: 6, correct: 3 }
+      history.showing(sh)
+      for (const p of ['A', 'B', 'C', 'D', 'E', 'F']) history.rate({ questionId: `q${g}`, category: 'c', sub: 'hot', gameNo: g, player: p, score: 2 })
+    }
+    const neutral = { n: 9, sum: 0 }
+    const m = relativeMultipliers([{ key: 'hot', weight: 1 }, ...Array.from({ length: 6 }, (_, i) => ({ key: `n${i}`, weight: 1 }))],
+      k => ratingScore(k === 'hot' ? history.ratingOf('sub:hot') : neutral))
+    const ratio = m.get('hot')! / m.get('n0')!
+    expect(ratio).toBeGreaterThan(1.4)
+    expect(ratio).toBeLessThan(1.65)
   })
 
   it('фора: пара показов почти не сдвигает, сотня — сдвигает', () => {

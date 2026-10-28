@@ -42,11 +42,13 @@ export interface QuestionSource {
 // Оценки → веса. Точка — показанный вопрос, её значение — средняя оценка команды (history.ts). Оценка
 // категории / подкатегории = сумма точек / (показов + RATING_PRIOR): десяток показов форы, чтобы пара голосов не
 // переворачивала вес. Множитель только ОТНОСИТЕЛЬНЫЙ: среди соседей (категории между собой, подкатегории внутри
-// категории) среднее множителей по базовым весам = 1. Если всем всё нравится одинаково — веса базовые; сдвиг не больше
-// чем в RATING_EFFECT раз в любую сторону.
-export const RATING_EFFECT = 1.5
+// категории) среднее множителей по базовым весам = 1. Если всем всё нравится одинаково — веса базовые; пределы —
+// от половины до двойного веса.
+// Скорость (решение 2026-10-28): ~50 голосов «ахуенный» → ×1.5 против нейтральных соседей. В компании из 6, где жмут
+// все, это ~8 вопросов по +2: оценка 16.7 / (8.3 + 10) ≈ 0.91, e^(0.45 · 0.91) ≈ 1.5. Если жмёт половина — ×1.3.
+export const RATING_MAX = 2
 export const RATING_PRIOR = 10
-const RATING_BETA = Math.log(RATING_EFFECT)   // средняя «хороший» у всей команды (+1) → ×1.5 до нормализации
+export const RATING_BETA = 0.45
 
 export function ratingScore(r: { n: number; sum: number }): number {
   return r.sum / (r.n + RATING_PRIOR)
@@ -60,7 +62,7 @@ export function relativeMultipliers(items: Weighted[], score: (key: string) => n
   const out = new Map<string, number>()
   for (const i of items) {
     const m = (raw.get(i.key) ?? 1) / mean
-    out.set(i.key, Math.max(1 / RATING_EFFECT, Math.min(RATING_EFFECT, m)))
+    out.set(i.key, Math.max(1 / RATING_MAX, Math.min(RATING_MAX, m)))
   }
   return out
 }
