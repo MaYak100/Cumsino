@@ -495,7 +495,7 @@ export function BettingTableScreen() {
                     above={(() => {
                       // хекс — бирка над целью; остальное — над тем, кто применил
                       const e = freshFeed.find(f => f.item === 'hex' ? f.targetId === player.id : f.playerId === player.id)
-                      return e ? <FeedTag key={e.at} item={e.item} /> : null
+                      return e ? <FeedTag key={e.at} item={e.item} side="left" /> : null
                     })()}
                   />
                   {/* Standard-mode my zone, or all opponent zones */}
@@ -556,7 +556,7 @@ export function BettingTableScreen() {
                 border: `1.5px dashed ${C.brass}`,
               }}
             >
-              {me?.bigBlind ? 'Большой блайнд' : 'Малый блайнд'}: минимум <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
+              {me?.bigBlind ? 'Большой блайнд' : 'Малый блайнд'}: <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
             </motion.div>
           )}
         </AnimatePresence>

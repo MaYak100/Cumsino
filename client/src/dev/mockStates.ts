@@ -311,7 +311,8 @@ export const SCENARIOS: Scenario[] = [
       }),
       bankBets: {},
       stagedBets: {},
-      itemFeed: [{ playerId: 'dev-3', item: 'hex', targetId: 'dev-2', at: Date.now() + 600000 }],
+      // как в игре: бирка «только что применили» живёт ~3 с после открытия сценария
+      itemFeed: [{ playerId: 'dev-3', item: 'hex', targetId: 'dev-2', at: Date.now() }],
     },
   },
   {
@@ -336,7 +337,7 @@ export const SCENARIOS: Scenario[] = [
       answeredIds: new Set<string>(['dev-1', 'dev-2']),
       gemResults: { 'dev-2': { answer: MC_QUESTION.options[1], smoked: false } },
       gemmedOnMe: 1,
-      itemFeed: [{ playerId: 'dev-2', item: 'blink', at: Date.now() + 600000 }],
+      itemFeed: [{ playerId: 'dev-2', item: 'blink', at: Date.now() }],
     },
   },
   {

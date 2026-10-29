@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { ItemId, Player } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
-import { C, DISPLAY } from '../../theme'
+import { C } from '../../theme'
 import { ItemIcon, ITEM_LABEL } from './ItemIcon'
+import { StreakFlame } from './StreakFlame'
 
 const FEED_MS = 2800
 
@@ -34,6 +35,7 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
             <AnimatePresence>
               {last && <FeedTag key={last.at} item={last.item} />}
             </AnimatePresence>
+            <StreakFlame streak={p.streak} radius={999}>
             <motion.button
               type="button"
               disabled={!target}
@@ -43,7 +45,7 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
               transition={{ duration: 0.3 }}
               className="flex items-center gap-1.5 text-[0.8125rem] font-semibold rounded-full pl-2.5 pr-2.5 py-0.5"
               style={{
-                background: done ? color : 'transparent',
+                background: done ? color : C.bg,   // непрозрачный: под пилюлей может гореть рамка серии
                 color: done ? C.ink : C.muted,
                 border: `1.5px ${done ? 'solid' : 'dashed'} ${target ? C.hot : done ? color : C.line}`,
                 boxShadow: target ? `0 0 0 3px ${C.hot}55` : 'none',
@@ -53,8 +55,9 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
               }}
             >
               {me ? 'Ты' : p.name}
-              <Marks p={p} streakColor={done ? C.ink : C.hot} />
+              <Marks p={p} />
             </motion.button>
+            </StreakFlame>
             {gem && (
               <motion.span
                 initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
@@ -87,30 +90,32 @@ export function useFreshFeed() {
   return fresh
 }
 
-/** Серия и активные эффекты рядом с ником. */
-export function Marks({ p, size = 16, streakColor = C.hot }: { p: Player; size?: number; streakColor?: string }) {
+/** Активные эффекты рядом с ником (серия — не здесь: она рамкой-пламенем, StreakFlame). */
+export function Marks({ p, size = 16 }: { p: Player; size?: number }) {
   const fx = p.effects ?? []
-  if (!fx.length && (p.streak ?? 0) < 2) return null
+  if (!fx.length) return null
   return (
     <span className="flex items-center gap-0.5">
-      {(p.streak ?? 0) >= 2 && (
-        <span title={`Серия: ${p.streak} верных подряд`} style={{ fontFamily: DISPLAY, fontSize: size * 0.75, color: streakColor, lineHeight: 1 }}>×{p.streak}</span>
-      )}
       {fx.map(f => <ItemIcon key={f} id={f as ItemId} size={size} />)}
     </span>
   )
 }
 
-/** Свежая бирка «Блинк» / «Гем» над ником — шлепок и исчезновение. */
-export function FeedTag({ item }: { item: ItemId }) {
+/** Свежая бирка «Блинк» / «Гем» — шлепок и исчезновение (живёт FEED_MS). side: над пилюлей ника на вопросе;
+ *  слева от плашки за столом (над плашкой там стопка фишек — бирка её бы закрывала). */
+export function FeedTag({ item, side = 'top' }: { item: ItemId; side?: 'top' | 'left' }) {
   return (
     <motion.span
       initial={{ scale: 1.9, opacity: 0, rotate: -12, y: 4 }}
       animate={{ scale: 1, opacity: 1, rotate: -4, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ type: 'spring', stiffness: 520, damping: 18 }}
-      className="absolute bottom-full mb-1 flex items-center gap-1 rounded pl-0.5 pr-2 whitespace-nowrap"
-      style={{ background: C.paper, color: C.ink, fontWeight: 800, fontSize: '0.75rem', boxShadow: '0 4px 10px rgba(0,0,0,.5)', zIndex: 60, pointerEvents: 'none' }}
+      className={`absolute flex items-center gap-1 rounded pl-0.5 pr-2 whitespace-nowrap ${side === 'top' ? 'bottom-full mb-1' : ''}`}
+      style={{
+        background: C.paper, color: C.ink, fontWeight: 800, fontSize: '0.75rem', boxShadow: '0 4px 10px rgba(0,0,0,.5)',
+        zIndex: 60, pointerEvents: 'none',
+        ...(side === 'left' ? { right: 'calc(100% + 8px)', top: '50%', marginTop: -13 } : {}),
+      }}
     >
       <ItemIcon id={item} size={20} />
       {ITEM_LABEL[item]}

@@ -9,6 +9,7 @@ import { unitPosition } from '../../lib/tableGeometry'
 import { C, DISPLAY } from '../../theme'
 import { Money } from './Money'
 import { Marks } from './AnswerProgress'
+import { StreakFlame } from './StreakFlame'
 
 const UNIT_W = 200
 const CHIP_ROW_H = 52
@@ -83,6 +84,7 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
 /** Плашка игрока у стола: имя | $баланс (общая для стола ставок и фонового стола). */
 export function NamePlate({ name, isMe, balance, player }: { name: string; isMe: boolean; balance?: number; player?: Player }) {
   return (
+    <StreakFlame streak={player?.streak}>
     <div style={{
       position: 'relative', overflow: 'visible',
       display: 'flex', alignItems: 'stretch', maxWidth: UNIT_W, height: CARD_H,
@@ -99,7 +101,7 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
         {name}
       </span>
       {/* серия, блайнд, эффекты — бумажной биркой над правым углом, имя не теснят */}
-      {player && ((player.effects?.length ?? 0) > 0 || (player.streak ?? 0) >= 2 || player.bigBlind) && (
+      {player && ((player.effects?.length ?? 0) > 0 || player.bigBlind) && (
         <span style={{
           position: 'absolute', left: 'calc(100% + 6px)', top: '50%', zIndex: 3, transform: 'translateY(-50%) rotate(4deg)',
           pointerEvents: 'none', whiteSpace: 'nowrap',
@@ -123,6 +125,7 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
         </span>
       )}
     </div>
+    </StreakFlame>
   )
 }
 
