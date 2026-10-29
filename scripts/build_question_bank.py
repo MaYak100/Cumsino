@@ -5,8 +5,9 @@
 Источники (по одному на категорию, см. docs/questions/README.md):
   numeric_lab/out/full1        — числа героев, предметов, нейтралок, чар (без вопросов с флагами);
   numeric_lab/out/costs2       — цены предметов (флаг «шаг очень мелкий» для цен не считается: порог 3% не для цен);
-  numeric_lab/out/talents-v4   — «какой из этих талантов есть у героя» (стиль правды и подделок выровнен, честные
-                                 обманки — шард / аганим / поведение по умолчанию, не больше одной; было talents-full);
+  numeric_lab/out/talents-v5   — «какой из этих талантов есть у героя» (правда — строка игры дословно, подделки
+                                 в стиле локализации, три разных типа эффекта; честные обманки — шард / аганим /
+                                 поведение по умолчанию, не больше одной; было talents-v4, talents-full);
   text_lab/out/full1/bank.json — механики после ручного курирования (curate.py).
 
 Вопросы на статистике сюда не входят: сервер собирает их при каждом показе из scripts/data/stats/bank.json.
@@ -51,7 +52,7 @@ import valve_kv
 LAB = Path("scripts/generate")
 FULL1 = LAB / "numeric_lab/out/full1/resolved.json"
 COSTS = LAB / "numeric_lab/out/costs2/resolved.json"
-TALENTS = LAB / "numeric_lab/out/talents-v4/questions.json"
+TALENTS = LAB / "numeric_lab/out/talents-v5/questions.json"
 # честная обманка в талантах (вердикт второго прохода) — объясняем после ответа, почему это не талант
 DECOY_NOTE = {"shard": "это Aghanim's Shard", "scepter": "это Aghanim's Scepter",
               "default": "так способность работает и без таланта"}

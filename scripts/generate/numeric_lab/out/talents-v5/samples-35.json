@@ -1,0 +1,783 @@
+[
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_broodmother",
+    "hero": "Broodmother",
+    "abilities": [
+     {
+      "name": "Insatiable Hunger",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "A violent lust for vital fluids increases Broodmother's attack damage and gives her and her Spiderlings a vampiric attack.",
+      "notes": {},
+      "shard": "While Hunger is active, the bonus damage is increased by 0% every s.",
+      "desc_ru": "Неистовая жажда питательных соков добавляет урон и вампиризм к атакам героя и его паучков.",
+      "shard_ru": "Пока эта способность действует, бонусный урон увеличивается на 0% каждые  сек."
+     },
+     {
+      "name": "Spin Web",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Spins a large web that grants Broodmother a passive movement speed increase and increases her Turn Rate, while in its vicinity, as well as giving free movement.\n\nSpin Web can be cast from anywhere as long as the new web touches an existing web. Webs never expire, and can be manually destroyed. When the maximum limit of webs is exceeded, the oldest web disappears.",
+      "notes": {
+       "note0": "Also affects Spiderlings."
+      },
+      "desc_ru": "Герой сплетает паутину, в которой он быстрее передвигается и поворачивается, а также может проходить через препятствия.\n\nЕсли новая паутина будет касаться старой, то её можно создать из любой точки карты. Длительность существования паутин не ограничена по времени, и их можно уничтожить вручную. Если превысить максимальное число паутин, то самая старая из них исчезнет."
+     },
+     {
+      "name": "Incapacitating Bite",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Broodmother's venom cripples enemy units, causing her attacks to slow and giving the affected unit a chance to miss its attacks and extra damage from attacks.",
+      "notes": {
+       "note0": "The miss chance stacks with evasion and terrain dodge chance."
+      },
+      "desc_ru": "Яд героя ослабляет врагов, замедляя их, заставляя промахиваться при атаках и увеличивая урон, получаемый ими от атак."
+     },
+     {
+      "name": "Spinner's Snare",
+      "role": "scepter",
+      "behavior": [
+       "Point Target",
+       "Hidden",
+       "Channeled"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Broodmother may create up to 5 invisible web lines touching any existing web. Enemy Heroes that cross the web line will spring the trap, becoming rooted, revealed in fog, and take damage over time.  Multiple Heroes can trip on the same line until it's destroyed after being initially triggered.  Broodmother's team is alerted via the minimap when an enemy has triggered the snare.",
+      "notes": {},
+      "desc_ru": "Герой может создать до 5 невидимых линий из паутины в любом месте, где есть паутина от способности Spin Web. Если линию пересечёт вражеский герой, то на него сработает оцепенение, он начнёт получать периодический урон, а вся вражеская команда получит оповещение о срабатывании линии и сможет видеть жертву в тумане войны. Когда этот эффект закончится, то линия пропадёт, но до этого в неё могут попасться и другие герои."
+     },
+     {
+      "name": "Spider's Milk",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Whenever Broodmother kills a unit, she and all units under her control in a 600 radius receive a buff for 3s that heals them for a percentage of the victim's health every 0.5 seconds. Healing from creeps is reduced by 40%.",
+      "notes": {},
+      "desc_ru": "Убив любое существо, герой и подконтрольные ему существа в радиусе 600 получают эффект, раз в 0.5 сек. излечивающий их на долю от здоровья жертвы. Это лечение считается вампиризмом и при срабатывании от крипов уменьшается на 40%. Длительность: 3 сек."
+     },
+     {
+      "name": "Spawn Spiderlings",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Broodmother injects her young into an enemy unit, dealing damage and slowing them for 4 seconds. The spiderlings will hatch if the target is killed while under this influence.",
+      "notes": {
+       "note0": "If the target is killed within 20 seconds of being hit with this skill, the Spiderlings will spawn.",
+       "note1": "Units killed by Spiderlings will then give birth to additional Spiderlings."
+      },
+      "desc_ru": "Герой впрыскивает во врага свои яйца, наносит ему урон и замедляет его на 4 сек. Если жертва умрёт, находясь под действием этой способности, из её трупа появятся несколько паучков."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_broodmother_3",
+      "level": 10,
+      "text": "+80 Spawn Spiderlings Damage",
+      "ru": "+80 к урону от Spawn Spiderlings",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_6",
+      "level": 10,
+      "text": "+20% Insatiable Hunger Lifesteal",
+      "ru": "+20% к вампиризму от Insatiable Hunger",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_2",
+      "level": 15,
+      "text": "+5 Incapacitating Bite Attack Bonus",
+      "ru": "+5 к доп. урону от атак у Incapacitating Bite",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_7",
+      "level": 15,
+      "text": "+175 Spiderlings Health",
+      "ru": "+175 к здоровью паучков",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_5",
+      "level": 20,
+      "text": "-6s Spin Web Charge Restore Time",
+      "ru": "–6 сек. восстановления заряда Spin Web",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_4",
+      "level": 20,
+      "text": "+20% Incapacitating Bite Slow/Miss Chance",
+      "ru": "+20% к замедл. и промахам от Incapacitating Bite",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_1",
+      "level": 25,
+      "text": "-0.15s BAT during Insatiable Hunger",
+      "ru": "Insatiable Hunger снижает интервал атак на 0.15 сек.",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_broodmother_web_speed",
+      "level": 25,
+      "text": "+7% Spin Web Move Speed and Ignore Speed Limit",
+      "ru": "+7% к доп. скорости от Spin Web и снятие лимита на скорость",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_clinkz",
+    "hero": "Clinkz",
+    "abilities": [
+     {
+      "name": "Strafe",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Clinkz gains attack speed and has bonus attack range. Any current Skeleton Archers within a 1200 radius of Clinkz also gain bonus attack range and 40% of the attack speed bonus. \n\n Casting Strafe does not break Skeleton Walk invisibility.",
+      "notes": {},
+      "desc_ru": "Увеличивает скорость и дальность атаки владельца. Все скелеты-лучники в радиусе 1200 тоже получают дополнительную дальность атаки и 40% от дополнительной скорости атаки.\n\nНе снимает невидимость от Skeleton Walk."
+     },
+     {
+      "name": "Searing Arrows",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Imbues Clinkz's arrows with fire for extra damage.\n\nSkeleton Archers will fire Searing Arrows at targets Clinkz attacks for 50% damage.",
+      "notes": {
+       "note0": "Searing Arrows deal damage to structures.",
+       "note1": "The damage is directly added to Clinkz' attack damage, as physical damage."
+      },
+      "desc_ru": "Наполняет стрелы героя огнём, увеличивая их урон.\n\nСкелеты-лучники пускают такие стрелы по тем же целям, что и герой, нанося 50% от урона способности."
+     },
+     {
+      "name": "Death Pact",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Clinkz consumes the target enemy creep or friendly Skeleton Archer, healing and gaining max health. Does not take Clinkz out of Skeleton Walk.",
+      "notes": {
+       "note0": "If the target is an enemy, Clinkz will gain the correct experience and gold.",
+       "note1": "Increases Clinkz' current and max HP.",
+       "note2": "When the duration ends, max HP returns to normal, but current HP stays the same."
+      },
+      "desc_ru": "Герой поглощает выбранного вражеского крипа или союзного скелета-лучника, излечиваясь и получая бонус к максимальному здоровью. Не снимает невидимость от способности Skeleton Walk."
+     },
+     {
+      "name": "Burning Barrage",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "Channeled"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "CHANNELED - Clinkz channels and shoots multiple piercing arrows in the target direction that hit all enemy units dealing a percentage of Clinkz' attack damage and applying attack modifiers.",
+      "notes": {
+       "note0": "Bonus Attack Range increases the length of Burning Barrage."
+      },
+      "desc_ru": "ПРЕРЫВАЕМАЯ — герой выпускает залп стрел в выбранном направлении. Они пролетают сквозь всех врагов на пути, нанося им долю от обычного урона и накладывая эффекты атаки."
+     },
+     {
+      "name": "Burning Army",
+      "role": "scepter",
+      "behavior": "Point Target",
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Summons a row of Burning Skeleton Archers in the target location.",
+      "notes": {},
+      "desc_ru": "Призывает в указанном месте ряд скелетов-лучников."
+     },
+     {
+      "name": "Skeleton Walk",
+      "role": "ultimate",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Clinkz moves invisibly through units until the moment he attacks or uses items. Leaving Skeleton Walk creates Skeleton Archers.\n\nSkeleton Archers are immobile and die within multiple attacks from a hero or tower. Skeleton Archers deal a percentage of Clinkz' damage, and deal 75% less damage to buildings. Attack range is equal to Clinkz' attack range.",
+      "notes": {
+       "note0": "Has a fadetime of 0.6/0.6/0.6 seconds."
+      },
+      "desc_ru": "Герой становится невидимым и передвигается сквозь других существ, пока не атакует или не применит предмет. При выходе из невидимости создаются скелеты-лучники.\n\nСкелеты-лучники стоят на месте и погибают от нескольких атак героя или башни. Они наносят часть урона владельца и имеют его полную дальность атаки. Постройки получают от скелетов-лучников на 75% меньше урона."
+     },
+     {
+      "name": "Infernal Shred",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Clinkz and his skeletons apply a stacking debuff that causes their attacks to pierce up to 20% of the target's total physical armor (does not reduce their armor).  Clinkz applies 3% per attack, and skeletons apply 1%. \n\nLasts 5 seconds.",
+      "notes": {},
+      "desc_ru": "Своими атаками герой и его скелеты накладывают на жертву складывающийся отрицательный эффект, который позволяет им пронзать до 20% от суммарной физической брони (но не снижает её). Каждая атака владельца способности увеличивает текущий эффект на 3%, а каждая атака скелетов — на 1%.\n\nДлительность: 5 сек."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_clinkz_1",
+      "level": 10,
+      "text": "+1s Strafe Duration",
+      "ru": "+1 сек. действия Strafe",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clinkz_10",
+      "level": 10,
+      "text": "-4s Skeleton Walk Cooldown",
+      "ru": "–4 сек. перезарядки Skeleton Walk",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_range_50",
+      "level": 15,
+      "text": "+50 Attack Range",
+      "ru": "+50 к дальности атаки",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_clinkz_9",
+      "level": 15,
+      "text": "-10s Death Pact Charge Restore Time",
+      "ru": "–10 сек. восстановления заряда Death Pact",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clinkz_7",
+      "level": 20,
+      "text": "+40 Strafe Attack Speed",
+      "ru": "+40 к скорости атаки от Strafe",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clinkz_8",
+      "level": 20,
+      "text": "+400 Death Pact Bonus Health",
+      "ru": "+400 к доп. здоровью от Death Pact",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clinkz_4",
+      "level": 25,
+      "text": "-9s Strafe Cooldown",
+      "ru": "–9 сек. перезарядки Strafe",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clinkz_3",
+      "level": 25,
+      "text": "Searing Arrows Multishot",
+      "ru": "Две цели Searing Arrows",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_disruptor",
+    "hero": "Disruptor",
+    "abilities": [
+     {
+      "name": "Thunder Strike",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Repeatedly strikes the targeted unit with lightning.  Each strike damages nearby enemy units in a small radius and slows enemy movement and attack speed by 100% for 0.3 seconds.  Provides vision of its target.",
+      "notes": {},
+      "shard": "Increases the cast range and strike count of Thunder Strike. It can now also be ground targeted, where it will lie dormant for up to 4 seconds and attach to the first enemy that comes within the radius.",
+      "desc_ru": "Несколько раз бьёт молнией указанное существо. Каждый удар наносит урон жертве и врагам рядом с ней, а также на 0.3 сек. замедляет их атаку и передвижение на 100%. Даёт обзор по цели.",
+      "shard_ru": "Увеличивает дальность применения и число ударов у этой способности. Также позволяет применить её на точку, где способность будет ожидать до 4 сек. и сработает на первого врага в радиусе действия."
+     },
+     {
+      "name": "Glimpse",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Teleports the target hero back to where it was 4.0 seconds ago.  Instantly kills illusions. Deals damage equal to a percentage of the distance glimpsed, that cannot go over a damage maximum.",
+      "notes": {
+       "note0": "The travel time is a function of the distance the target will travel."
+      },
+      "desc_ru": "Возвращает выбранного героя туда, где он был 4.0 сек. назад, и наносит ему урон. Мгновенно убивает иллюзии. Урон равен доле от преодолённого жертвой расстояния, но не может превысить максимум."
+     },
+     {
+      "name": "Kinetic Field",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "After a short formation time, creates a circular barrier of kinetic energy that enemies can't pass.",
+      "notes": {
+       "note0": "Debuff Immune units can travel through the field."
+      },
+      "shard": "Both shapes have an independent cooldown.",
+      "desc_ru": "После небольшой задержки создаёт круговую преграду из кинетической энергии, через которую не могут проходить противники."
+     },
+     {
+      "name": "Kinetic Fence",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "After a short formation time, creates a wall out of kinetic energy that enemies cannot pass.",
+      "notes": {},
+      "desc_ru": "После небольшой задержки создаёт стену кинетической энергии, через которую не могут проходить противники."
+     },
+     {
+      "name": "Electromagnetic Repulsion",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Whenever Disruptor takes more than 250 damage from any source within 400 radius, all nearby enemies within take damage equal to 1.5x of Disruptor's Intelligence, and are pushed back up to a 400 distance away.",
+      "notes": {
+       "note0": "After 7s, the damage counter is reset."
+      },
+      "desc_ru": "Получив больше 250 урона от любого источника в области радиусом 400, герой выталкивает из неё всех врагов и наносит им урон, равный своему интеллекту * 1.5."
+     },
+     {
+      "name": "Static Storm",
+      "role": "ultimate",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Creates a damaging static storm that also silences all enemy units in the area for the duration.  The damage starts off weak, but increases in power over the duration.",
+      "notes": {},
+      "scepter": "Mutes items.",
+      "desc_ru": "Создаёт статический шторм, наносящий урон и запрещающий применять способности всем вражеским существам в указанной области. Урон увеличивается со временем действия способности.",
+      "scepter_ru": "Запрещает врагам использовать предметы."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_movement_speed_20",
+      "level": 10,
+      "text": "+20 Movement Speed",
+      "ru": "+20 к скорости передвижения",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_disruptor_consecutive_strike_damage",
+      "level": 10,
+      "text": "+15 Thunder Strike Damage per Strike",
+      "ru": "+15 к урону Thunder Strike с каждым ударом",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_disruptor_9",
+      "level": 15,
+      "text": "+15%/300 Glimpse Distance To Damage/Max",
+      "ru": "+15%/300 к урону от расст. / макс. урону у Glimpse",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_disruptor",
+      "level": 15,
+      "text": "+60 Static Storm Max DPS",
+      "ru": "+60 к макс. урону в секунду от Static Storm",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_disruptor_5",
+      "level": 20,
+      "text": "+1s Kinetic Field Duration",
+      "ru": "+1 сек. действия Kinetic Field",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_disruptor_8",
+      "level": 20,
+      "text": "+75 Static Storm Radius",
+      "ru": "+75 к радиусу Static Storm",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_disruptor_4",
+      "level": 25,
+      "text": "2 Glimpse Charges",
+      "ru": "2 заряда Glimpse",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_disruptor_thunder_strike_strikes",
+      "level": 25,
+      "text": "+6 Thunder Strike Strikes",
+      "ru": "+6 к числу ударов у Thunder Strike",
+      "kind": "tweak"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_tiny",
+    "hero": "Tiny",
+    "abilities": [
+     {
+      "name": "Avalanche",
+      "role": "basic",
+      "behavior": [
+       "AOE",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Bombards an area with rocks, continously doing small intervals of damage and stun to enemy units.",
+      "notes": {},
+      "desc_ru": "Заваливает указанную область камнями, несколько раз с небольшим интервалом оглушая противников и нанося им урон."
+     },
+     {
+      "name": "Toss",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Grabs the nearest unit in a 300 radius around Tiny, ally or enemy, and launches it at the target unit or rune to deal damage where they land.",
+      "notes": {
+       "note0": "You can toss allies, but they don't take damage.",
+       "note1": "Toss deals 33% of its damage to buildings.",
+       "note2": "Debuff Immune units can be targeted but cannot be tossed.",
+       "note3": "Flight time is 1.1s."
+      },
+      "desc_ru": "Герой хватает ближайшее существо в радиусе 300, а затем бросает его в указанную цель или руну. В месте приземления наносится урон."
+     },
+     {
+      "name": "Tree Grab",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Grabs a tree and causes Tiny to have bonus range, damage, and a splashing attack for a limited number of attacks.  The tree can be thrown, to deal your attack to a unit at a distance.",
+      "notes": {
+       "note0": "The cooldown begins when the tree is thrown."
+      },
+      "desc_ru": "Герой вырывает из земли выбранное дерево. Оно увеличивает дальность атак и их урон, а также добавляет к ним прорубание, но сломается, если совершить им несколько ударов. Дерево можно швырнуть, чтобы нанести урон от атаки издалека."
+     },
+     {
+      "name": "Tree Volley",
+      "role": "scepter",
+      "behavior": [
+       "Channeled",
+       "Point Target",
+       "AOE",
+       "Hidden"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "CHANNELED - Tiny channels to throw random trees within range towards the targeted area. Deals Tiny's attack with Tree Throw bonuses.",
+      "notes": {},
+      "desc_ru": "ПРЕРЫВАЕМАЯ — герой вырывает из земли рядом случайные деревья и швыряет их в указанную область. Каждое брошенное дерево наносит врагам урон от атаки героя с бонусами от Tree Throw."
+     },
+     {
+      "name": "Insurmountable",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Tiny gains Status and Slow Resistance from Strength. Slow Resistance also reduces the impact of Attack Speed slows.",
+      "notes": {
+       "note0": "Insurmountable does not reduce the effect of Grow's Attack Speed Reduction."
+      },
+      "desc_ru": "Каждая единица силы даёт герою бонус к сопротивлению эффектам и замедлениям. Сопротивление замедлениям также снижает замедления атаки."
+     },
+     {
+      "name": "Grow",
+      "role": "ultimate",
+      "behavior": "Passive",
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Tiny gains craggy mass, increasing his attack damage, movement speed and armor, and toss power while slowing his attack speed.",
+      "notes": {},
+      "shard": "Units tossed by Toss or trees tossed by Tree Throw or Tree Volley now deal additional damage and slow in a larger area of effect at their landing location.",
+      "desc_ru": "Герой обрастает камнями, увеличивая свои урон от атак, броню и скорость передвижения, а также усиливая способность Toss, но теряя скорость атаки.",
+      "shard_ru": "Увеличивает урон от приземления существ, брошенных способностью Toss, и деревьев, брошенных способностями Tree Throw и Tree Volley. Также увеличивает область приземления и замедляет врагов в ней."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_tiny_4",
+      "level": 10,
+      "text": "+150 Avalanche Cast Range",
+      "ru": "+150 к дальности применения Avalanche",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_tiny_6",
+      "level": 10,
+      "text": "+2 Tree Grab Attacks",
+      "ru": "+2 к числу атак у Tree Grab",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_strength_10",
+      "level": 15,
+      "text": "+10 Strength",
+      "ru": "+10 к силе",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_tiny",
+      "level": 15,
+      "text": "+90 Avalanche Damage",
+      "ru": "+90 к урону от Avalanche",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_tiny_7",
+      "level": 20,
+      "text": "+60 Tree Grab Base Damage",
+      "ru": "+60 к доп. базовому урону у Tree Grab",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_tiny_5",
+      "level": 20,
+      "text": "Toss Requires No Target",
+      "ru": "Для Toss не нужна цель",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_tiny_3",
+      "level": 25,
+      "text": "-8s Avalanche Cooldown",
+      "ru": "–8 сек. перезарядки Avalanche",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_tiny_2",
+      "level": 25,
+      "text": "2 Toss Charges",
+      "ru": "2 заряда Toss",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_witch_doctor",
+    "hero": "Witch Doctor",
+    "abilities": [
+     {
+      "name": "Paralyzing Cask",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Launches a cask of paralyzing powder that ricochets between enemy units, stunning and damaging those it hits. Damage increases each bounce.",
+      "notes": {
+       "note0": "Targets can be hit multiple times, as long as another unit is struck in between the bounces."
+      },
+      "desc_ru": "Герой бросает бочонок с парализующим порошком, который перескакивает между противниками, оглушая их и нанося им урон, увеличивающийся с каждым отскоком."
+     },
+     {
+      "name": "Voodoo Restoration",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Witch Doctor focuses his magic to heal nearby allied units, costing Witch Doctor mana every second Voodoo Restoration is active.",
+      "notes": {
+       "note0": "Healing is done in 0.33/0.33/0.33/0.33 second intervals.",
+       "note1": "Can heal Spell Immune units."
+      },
+      "desc_ru": "Герой направляет свои чары на лечение ближайших союзников, теряя ману каждую секунду действия этой способности."
+     },
+     {
+      "name": "Maledict",
+      "role": "basic",
+      "behavior": [
+       "AOE",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Curses all enemy Heroes and player-controlled targets in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the curse began.",
+      "notes": {
+       "note0": "If an affected hero's health has increased above the amount they had when Maledict was cast, the burst damage will be 0."
+      },
+      "desc_ru": "Накладывает сглаз на всех вражеских героев и подконтрольных им существ в небольшой области, отчего они каждую секунду получают фиксированный урон. Помимо этого, каждые 4 секунды им также наносится урон, зависящий от количества здоровья, потерянного после наложения сглаза."
+     },
+     {
+      "name": "Voodoo Switcheroo",
+      "role": "shard",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Turns Witch Doctor into a Death Ward briefly with reduced attack speed. He is hidden during this time.",
+      "notes": {},
+      "desc_ru": "Ненадолго скрывает владельца, превращая его в тотем от способности Death Ward с пониженной скоростью атаки."
+     },
+     {
+      "name": "Gris-Gris",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Witch Doctor gets a Gris-Gris, an item that cannot be dropped or placed in the backpack. When the owner dies, 100% of the gold lost from death is added to the item, and will be refunded when the item is consumed. The value of the Gris-Gris is increased by 1 every 3s. \n\n Right-click to consume and permanently remove the item.",
+      "notes": {},
+      "desc_ru": "Герой получает Gris-Gris — предмет, который нельзя выложить или поместить в ранец. Когда владелец погибает, 100% от потерянного из-за смерти золота также добавляется к ценности предмета. Кроме того, она повышается на 1 каждые 3 сек. Применив предмет, герой навсегда лишится его и получит всё накопленное золото. \n\n Чтобы применить предмет, нажмите на него правой кнопкой мыши и выберите «Использовать»."
+     },
+     {
+      "name": "Death Ward",
+      "role": "ultimate",
+      "behavior": [
+       "Point Target",
+       "Channeled"
+      ],
+      "damage_type": "Pure",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "CHANNELED - Summons a deadly ward to attack enemy heroes within its attack range. Lasts a maximum of 8.0 seconds. Death Ward has 50% bonus accuracy.",
+      "notes": {
+       "note0": "The Death Ward is invulnerable, and is only destroyed if Witch Doctor is interrupted or its duration expires.",
+       "note1": "The Death Ward can be controlled, and made to attack a specific target.",
+       "note2": "Death Ward attacks once every 0.22 seconds."
+      },
+      "scepter": "Death Ward attacks bounce between nearby enemies.",
+      "desc_ru": "ПРЕРЫВАЕМАЯ — призывает смертоносный тотем, атакующий вражеских героев. Действует до 8.0 сек. Тотем имеет бонус к точности в 50%.",
+      "scepter_ru": "Атаки тотема перескакивают между вражескими героями."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_witch_doctor_4",
+      "level": 10,
+      "text": "-25% Voodoo Restoration Mana Per Second",
+      "ru": "–25% расхода маны на Voodoo Restoration",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_hp_200",
+      "level": 10,
+      "text": "+200 Health",
+      "ru": "+200 к здоровью",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_witch_doctor_6",
+      "level": 15,
+      "text": "-3s Paralyzing Cask Cooldown",
+      "ru": "–3 сек. перезарядки Paralyzing Cask",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_witch_doctor_7",
+      "level": 15,
+      "text": "+4s Maledict Duration",
+      "ru": "+4 сек. действия Maledict",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_witch_doctor_maledict_spread",
+      "level": 20,
+      "text": "Maledict bursts deal 75% damage in a 800 AoE",
+      "ru": "Maledict наносит 75% урона от потерянного здоровья в радиусе 800",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_witch_doctor_2",
+      "level": 20,
+      "text": "+1% Target Max Health Voodoo Restoration Heal",
+      "ru": "+1% макс. здоровья к лечению от Voodoo Restoration",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_witch_doctor_3",
+      "level": 25,
+      "text": "+6 Paralyzing Cask Bounces",
+      "ru": "+6 к числу отскоков у Paralyzing Cask",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_witch_doctor_5",
+      "level": 25,
+      "text": "+40 Death Ward Damage",
+      "ru": "+40 к урону тотема от Death Ward",
+      "kind": "tweak"
+     }
+    ]
+   }
+  ]
+ }
+]

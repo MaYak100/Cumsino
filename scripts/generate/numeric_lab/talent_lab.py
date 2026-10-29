@@ -24,7 +24,8 @@ v5 (prompt_talents_v5.md, справочник docs/questions/talents-style.md):
      же параметром, что его талант; язык — нет сленга (SLANG), сокращений кроме «сек.», «4с» / «секунды»
      после числа, дробей через запятую; стиль — разброс длин (max/min ≤ 1.4), цифры у всех вариантов или
      ни у одного, название способности у всех или ни у одного, шаблон правды есть хотя бы у одной
-     подделки, длина ≤ 75, не больше одной обманки, латиница только в названиях из игры;
+     подделки, не все три подделки одного типа эффекта (EFFECT_TYPES: статус, область, заряды, развеивание…),
+     длина ≤ 75, не больше одной обманки, латиница только в названиях из игры;
   2. второй проход модели (prompt_talents_verify_v5.md): настоящий ли каждый вариант, обманка
      ли (шард / аганим / по умолчанию), не слишком ли подделка близка к таланту, дословна ли правда,
      слова ли игры (language_ok), правдоподобна ли подделка (plausible), выдаёт ли стиль ответ.
@@ -102,6 +103,25 @@ TELLS = {
     "не требует / больше не": r"не требует|больше не",
     "скобки": r"[()]",
 }
+
+# типы эффекта (talents-style.md §3) — по первому совпадению; «срабатывание» ещё и по двум способностям в строке.
+# Три подделки одного типа («X накладывает <статус> на N сек.» ×3) — вопрос «угадай, какой статус настоящий».
+EFFECT_TYPES = {
+    "развеивание": r"развеива|развеять|невоспр",
+    "заряды": r"(?<!пере)заряд",
+    "срабатывание": r"активиру|призыв|эффекты\b|применить|срабатыва",
+    "смерть / убийство": r"при смерти|при гибели|убийств|умира|гибел",
+    "доп. цели": r"дополнительн\w* (?:цел|жертв)|по (?:двум|трём|четыр\w*|\d+) цел|отскок|втор\w* (?:волн|цел)"
+                 r"|ещ[её] одн|\bдве цели|действует на|бьёт по|постройк",
+    "союзники": r"союзник|аурой|\bаура\b",
+    "снятие ограничения": r"без перезарядки|не нужн|неогранич|постоянн|не прерыва|без цели|бесконечн",
+    "обзор": r"невидим|обзор",
+    "множитель": r"умножа|в \d+(?:\.\d+)? раза|двойн|удва|утра[ие]в",
+    "область": r"по области|радиус|вокруг|конус",
+    "статус": r"оглуш|безмолв|оцепен|бессил|истощ|заглуш|страх|ослеп|провоц|превращ|замедл|обезоруж",
+}
+_EFFECT_TYPES = {k: re.compile(p, re.I) for k, p in EFFECT_TYPES.items()}
+OTHER_EFFECT = "стат / урон"
 
 _NUM_START = re.compile(r"^[+\-−–]?\d")
 _DIGIT = re.compile(r"\d")
@@ -317,6 +337,14 @@ def _params(text: str) -> set[str]:
     return {k for k, rx in _PARAMS.items() if rx.search(text)}
 
 
+def effect_type(text: str, abilities: list[str]) -> str:
+    """Тип эффекта строки таланта (talents-style.md §3), грубо по словам."""
+    for k, rx in _EFFECT_TYPES.items():
+        if rx.search(text) or (k == "срабатывание" and len(_mentions(text, abilities)) >= 2):
+            return k
+    return OTHER_EFFECT
+
+
 def language_flags(text: str) -> list[str]:
     flags = []
     for name, rx in _SLANG:
@@ -400,6 +428,10 @@ def check(q: dict, sample: dict, names: set[str]) -> dict:
     fake_t = [t for o, t in zip(q["options"], templates) if o["kind"] != "real"]
     if real_t and real_t[0] not in fake_t:
         flags.append(f"стиль: шаблон правды «{real_t[0]}» есть только у неё (подделки: {', '.join(fake_t)})")
+    m["effects"] = [effect_type(o["text"], abilities) for o in q["options"]]
+    fake_e = [e for o, e in zip(q["options"], m["effects"]) if o["kind"] != "real"]
+    if len(fake_e) == 3 and len(set(fake_e)) == 1:
+        flags.append(f"стиль: все подделки одного типа эффекта ({fake_e[0]})")
     # ответ на пересечении: одна подделка повторяет способность правды, другая — её параметр
     real_o = next((o for o in q["options"] if o["kind"] == "real"), None)
     if real_o:
@@ -494,6 +526,17 @@ def style_stats(questions: list[dict]) -> list[str]:
             f"{k} {sum(bool(re.search(p, t.lower())) for t in reals)}/{sum(bool(re.search(p, t.lower())) for t in fakes)}"
             for k, p in TELLS.items()),
     ]
+    typed = [q for q in qs if (q.get("style") or {}).get("effects")]
+    if typed:
+        fake_e = [[e for o, e in zip(q["options"], q["style"]["effects"]) if o["kind"] != "real"] for q in typed]
+        distinct = [len(set(f)) for f in fake_e]
+        flat = [e for f in fake_e for e in f]
+        real_e = [e for q in typed for o, e in zip(q["options"], q["style"]["effects"]) if o["kind"] == "real"]
+        lines.append(f"- типы эффекта у подделок в вопросе: 3 разных {pct(distinct.count(3), len(typed))}, "
+                     f"2 {pct(distinct.count(2), len(typed))}, все одного {pct(distinct.count(1), len(typed))}; "
+                     f"≥2 подделок со статусом {pct(sum(f.count('статус') >= 2 for f in fake_e), len(typed))}")
+        lines.append("- типы подделок: " + ", ".join(f"{e} {flat.count(e)}" for e in sorted(set(flat), key=lambda e: -flat.count(e))))
+        lines.append("- типы правды: " + ", ".join(f"{e} {real_e.count(e)}" for e in sorted(set(real_e), key=lambda e: -real_e.count(e))))
     decoys = [o.get("decoy") for q in qs for o in q["options"] if o["kind"] != "real" and o.get("decoy")]
     verdicts = [o.get("verdict") for q in qs for o in q["options"] if o["kind"] != "real" and o.get("verdict")]
     if decoys:
@@ -522,14 +565,15 @@ def report(results: list[dict]) -> str:
         for q in r["questions"]:
             m = q.get("style") or {}
             lines.append(f"**{q['hero']}** — {q['question']} · длины {m.get('lengths')}, разброс {m.get('ratio')}")
-            for o in q["options"]:
+            effects = m.get("effects") or [None] * len(q["options"])
+            for o, eff in zip(q["options"], effects):
                 mark = "✔" if o["kind"] == "real" else "·"
                 same = o.get("original_ru") and o["text"].strip() == o["original_ru"].strip()
                 extra = ((f" ← {'дословно' if same else '«' + str(o.get('original_ru')) + '»'} · «{o.get('original', '?')}» "
                           f"({o.get('talent_kind', '?')})") if o["kind"] == "real"
                          else f" [{o.get('decoy', 'invented')}]")
                 ver = f" {{{o['verdict']}}}" if o.get("verdict") else ""
-                lines.append(f"- {mark} {o['text']}{extra}{ver}")
+                lines.append(f"- {mark} {o['text']}{extra}{ver}{f' ‹{eff}›' if eff else ''}")
             for f in q["flags"]:
                 lines.append(f"- ⚠ {f}")
             lines.append("")
