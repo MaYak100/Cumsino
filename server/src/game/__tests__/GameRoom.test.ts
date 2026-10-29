@@ -9,6 +9,7 @@ import {
   CLOSEST_EXACT_BONUS,
   ANSWER_REVEAL_MS,
   ANSWER_REVEAL_NOTES_MS,
+  LAST_ANSWER_GRACE_MS,
 } from '@cumsino/shared'
 
 // ---------------------------------------------------------------------------
@@ -326,6 +327,7 @@ describe('GameRoom', () => {
       r.gladiatorId = 'p1'
       r.currentQuestion = { ...mcQ }
       room.submitAnswer('p1', 'A')            // единственный отвечающий — раунд посчитан
+      vi.advanceTimersByTime(LAST_ANSWER_GRACE_MS)
       room.removePlayer('p1')
       expect(broadcasts.filter(b => b.event === 'round_results')).toHaveLength(1)
       expect(r.players.has('p1')).toBe(false)
@@ -496,13 +498,14 @@ describe('GameRoom', () => {
       expect(priv(room).phase).toBe('ANNOUNCE')
     })
 
-    it('ушёл последний, кто не ответил, — раунд считается сразу', () => {
+    it('ушёл последний, кто не ответил, — раунд считается (через окно после последнего ответа)', () => {
       const { room, broadcasts } = makeRoom()
       addPlayers(room, 3)
       question(room, 'all')
       room.submitAnswer('p1', 'A')
       room.submitAnswer('p2', 'B')
       room.removePlayer('p3')
+      vi.advanceTimersByTime(LAST_ANSWER_GRACE_MS)
       expect(broadcasts.find(b => b.event === 'round_results')).toBeDefined()
     })
 

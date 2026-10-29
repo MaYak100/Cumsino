@@ -4,13 +4,16 @@ import type {
   JoinGamePayload, PlaceBetPayload,
   SubmitAnswerPayload, GladiatorHoverPayload,
   PlaceBankBetPayload, IdentifyPayload, RateQuestionPayload,
+  BuyItemPayload, UseItemPayload, ItemId,
 } from '@cumsino/shared'
+import { ITEM_ORDER } from '@cumsino/shared'
 
 const VALID_CHIP_DENOMS = new Set([10, 20, 50, 100, 500])
 
 const isChips = (c: unknown): c is number[] =>
   Array.isArray(c) && c.length <= 40 && c.every(x => VALID_CHIP_DENOMS.has(x))
 /** Ставки — целые, кратные 10 (меньше фишки 10 нет): иначе дробные балансы и сломанный делёж пула */
+const isItem = (i: unknown): i is ItemId => typeof i === 'string' && (ITEM_ORDER as string[]).includes(i)
 const isStake = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= 0 && n % 10 === 0
 
 export function registerHandlers(rawSocket: Socket, engine: GameEngine): void {
@@ -50,10 +53,22 @@ export function registerHandlers(rawSocket: Socket, engine: GameEngine): void {
     engine.getRoom(socket.id)?.placeBet(socket.id, amount, target, chips, bankBet)
   })
 
-  socket.on('submit_answer', ({ answer }: SubmitAnswerPayload) => {
+  socket.on('submit_answer', ({ answer, blink }: SubmitAnswerPayload) => {
     if (answer === undefined || answer === null) return
     if (typeof answer === 'string' && answer.length > 300) return
-    engine.getRoom(socket.id)?.submitAnswer(socket.id, answer)
+    if (blink !== undefined && typeof blink !== 'boolean') return
+    engine.getRoom(socket.id)?.submitAnswer(socket.id, answer, blink === true)
+  })
+
+  socket.on('buy_item', ({ item }: BuyItemPayload) => {
+    if (!isItem(item)) return
+    engine.getRoom(socket.id)?.buyItem(socket.id, item)
+  })
+
+  socket.on('use_item', ({ item, targetId }: UseItemPayload) => {
+    if (!isItem(item)) return
+    if (targetId !== undefined && (typeof targetId !== 'string' || targetId.length > 64)) return
+    engine.getRoom(socket.id)?.useItem(socket.id, item, targetId)
   })
 
   socket.on('gladiator_hover', ({ optionIndex }: GladiatorHoverPayload) => {
