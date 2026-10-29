@@ -1,3 +1,4 @@
+import { PHASE_DURATIONS } from '@cumsino/shared'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
@@ -59,7 +60,7 @@ export function ClosestScreen() {
   return (
     <div className="min-h-screen flex flex-col">
       <GameHud />
-      <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} />
+      <TimeBar seconds={gameState.phaseTimeLeft} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed} />
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">

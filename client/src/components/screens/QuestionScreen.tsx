@@ -1,5 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { HEX_SECONDS, PHASE_DURATIONS } from '@cumsino/shared'
 import { useGameStore, selectIsGladiator, selectMe } from '../../store/gameStore'
 import { C, modeColor } from '../../theme'
 import { GameHud } from '../ui/GameHud'
@@ -92,8 +93,11 @@ export function QuestionScreen() {
     <div className="min-h-screen flex flex-col">
       <GameHud />
       {hexed
-        ? <TimeBar seconds={gameState.hexTimeLeft!} color={C.hot} stopped={revealed || hexDead} lightning={!isCrowd} />
-        : <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} lightning={!isCrowd} />}
+        // key: разные полосы — разные экземпляры (иначе хексовая унаследует длину 45 с от обычной и «побежит» неровно)
+        ? <TimeBar key="hex" seconds={gameState.hexTimeLeft!} total={HEX_SECONDS} color={color} stopped={revealed || hexDead}
+            lightning={!isCrowd} redAfterLightning />
+        : <TimeBar key="phase" seconds={gameState.phaseTimeLeft} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed}
+            lightning={!isCrowd} />}
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">

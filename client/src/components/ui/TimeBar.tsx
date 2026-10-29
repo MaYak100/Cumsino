@@ -11,12 +11,14 @@ function lighten(hex: string, k: number) {
 }
 
 /** Таймер-фитиль: линия во всю ширину тает до нуля, цифры на конце. ≤5с — малиновый.
- *  lightning — первые секунды вопроса дают «Молнию»: на линии значок у границы окна, пока окно идёт — линия ярче. */
-export function TimeBar({ seconds, color = C.brass, stopped, lightning }: {
-  seconds: number; color?: string; stopped?: boolean; lightning?: boolean
+ *  total — полная длина отсчёта (45 с вопроса, 12 с хекса): от неё ширина, поэтому ход линейный, даже если экран
+ *  открыли посреди отсчёта. lightning — первые секунды дают «Молнию»: значок у границы окна, пока окно идёт — линия
+ *  ярче. redAfterLightning — сразу после окна молнии линия красная (хекс: время почти кончилось). */
+export function TimeBar({ seconds, total, color = C.brass, stopped, lightning, redAfterLightning }: {
+  seconds: number; total?: number; color?: string; stopped?: boolean; lightning?: boolean; redAfterLightning?: boolean
 }) {
   const [current, setCurrent] = useState(seconds)
-  const maxRef = useRef(seconds)
+  const maxRef = useRef(total ?? seconds)
 
   useEffect(() => {
     if (seconds > maxRef.current) maxRef.current = seconds
@@ -30,8 +32,8 @@ export function TimeBar({ seconds, color = C.brass, stopped, lightning }: {
   const win = LIGHTNING_MS / 1000
   const showBolt = !!lightning && max > win
   const boltOn = showBolt && !stopped && current > max - win   // окно молнии ещё идёт
-  const urgent = current <= 5 && !stopped
-  const c = urgent ? C.hot : boltOn ? lighten(color, 0.45) : color
+  const urgent = !stopped && (current <= 5 || (!!redAfterLightning && showBolt && !boltOn))
+  const c = boltOn ? lighten(color, 0.45) : urgent ? C.hot : color
   // ширина «на секунду вперёд»: линейный переход за 1с даёт непрерывное таяние
   const frac = max > 0 ? Math.max(0, current - (stopped ? 0 : 1)) / max : 0
   const boltAt = max > 0 ? ((max - win) / max) * 100 : 0
