@@ -41,7 +41,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   hex: {
     id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],
-    targeted: true, key: 'V', desc: 'Бросается на ставках: у цели будет всего 12 секунд на ответ',
+    targeted: true, key: 'V', desc: 'Бросается на ставках: у цели будет всего 15 секунд на ответ',
   },
   bkb: {
     id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all', 'kerri'],
@@ -69,7 +69,7 @@ export function itemPrice(id: ItemId, balance: number): number {
 }
 
 // ── параметры предметов ──
-export const HEX_SECONDS = 12
+export const HEX_SECONDS = 15
 /** сейв BKB растёт с его ценой: две цены BKB на момент включения ($400 при базовой) */
 export const bkbCap = (balance: number) => 2 * itemPrice('bkb', balance)
 export const AEGIS_THRESHOLD = 50

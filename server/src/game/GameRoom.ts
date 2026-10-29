@@ -112,7 +112,7 @@ export class GameRoom extends EventEmitter {
   private revealing = false   // между round_results и REVEAL: раунд посчитан, фаза ещё QUESTION
   /** все ответили — раунд считается через LAST_ANSWER_GRACE_MS (успеть блинкнуть) */
   private graceTimer?: ReturnType<typeof setTimeout>
-  /** конец 12 секунд хекснутых — пересчитать «все ответили» */
+  /** конец отсчёта хекснутых — пересчитать «все ответили» */
   private hexTimers: ReturnType<typeof setTimeout>[] = []
   private questionStartAt = 0
   private seatCounter = 0
@@ -308,7 +308,7 @@ export class GameRoom extends EventEmitter {
     // In kerri mode, only the gladiator can answer
     if (this.currentMode === 'kerri' && playerId !== this.gladiatorId) return
     if (!this.answerOk(answer)) return
-    if (this.hexExpired(player)) return   // хекс: 12 секунд прошли — ни ответа, ни блинка
+    if (this.hexExpired(player)) return   // хекс: HEX_SECONDS прошли — ни ответа, ни блинка
     const idx = typeof answer === 'string' ? this.currentQuestion?.options?.indexOf(answer) ?? -1 : -1
     if (idx >= 0 && player.items.removedOptions.includes(idx)) return   // вариант убран мантой
 
@@ -478,7 +478,7 @@ export class GameRoom extends EventEmitter {
     this.hexTimers = []
   }
 
-  /** Старт QUESTION: отсчёт для молнии и 12 секунд хекснутым. */
+  /** Старт QUESTION: отсчёт для молнии и HEX_SECONDS хекснутым. */
   private onQuestionStart() {
     this.questionStartAt = Date.now()
     for (const p of this.players.values()) {
@@ -1096,7 +1096,7 @@ export class GameRoom extends EventEmitter {
       if (!this.gladiatorId) return false
       return this.players.get(this.gladiatorId)?.hasAnswered ?? false
     }
-    // хекснутый после 12 секунд — как ответивший (без ответа); зрители (вошли посреди раунда) не ждутся
+    // хекснутый после HEX_SECONDS — как ответивший (без ответа); зрители (вошли посреди раунда) не ждутся
     return Array.from(this.players.values()).every(p => p.spectator || p.hasAnswered || this.hexExpired(p))
   }
 

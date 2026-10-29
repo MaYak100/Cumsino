@@ -11,7 +11,7 @@ export function SelfEffects({ hexLeft }: { hexLeft?: number }) {
   const fx = me?.effects ?? []
 
   const tags: Array<{ key: string; item: ItemId; text: string; hot?: boolean }> = []
-  if (hexLeft !== undefined) tags.push({ key: 'hex', item: 'hex', text: hexLeft > 0 ? `Тебя захексили: ${hexLeft} с` : 'Время вышло', hot: true })
+  if (hexLeft !== undefined) tags.push({ key: 'hex', item: 'hex', text: hexLeft > 0 ? 'Ты в хексе' : 'Время вышло', hot: true })
   if (gemmedOnMe > 0) tags.push({ key: 'gem', item: 'gem', text: 'Твой ответ просветили', hot: true })
   if (fx.includes('smoke')) tags.push({ key: 'smoke', item: 'smoke', text: 'Ты в смоке' })
   if (fx.includes('bkb')) tags.push({ key: 'bkb', item: 'bkb', text: 'BKB включён' })
