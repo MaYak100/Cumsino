@@ -41,6 +41,7 @@ id вопроса постоянный — по нему игра помнит, 
 import json
 import re
 import sys
+from itertools import accumulate, product
 from collections import Counter
 from datetime import date
 from decimal import Decimal
@@ -233,8 +234,17 @@ def round_level(x: Fraction, answer: Fraction | None = None) -> int:
 
 
 def layouts(answer: Fraction, step: Fraction, n: int = 4) -> list[list[Fraction]]:
-    """Все раскладки makeStepOptions (server/src/game/questions/stepOptions.ts): фейки при каждой позиции ответа."""
-    return [[answer + (i - p) * step for i in range(n) if i != p] for p in range(n) if answer - p * step > 0]
+    """Все раскладки makeStepOptions (server/src/game/questions/stepOptions.ts): соседи через 1 или 2 шага, фейки при
+    каждой допустимой позиции ответа; не встаёт ни одна позиция — сервер берёт промежутки по одному шагу."""
+    out = []
+    for gaps in product((1, 2), repeat=n - 1):
+        offsets = [0, *accumulate(gaps)]
+        valid = [p for p in range(n) if all(answer + (o - offsets[p]) * step > 0 for o in offsets)]
+        if not valid:
+            offsets = list(range(n))
+            valid = [p for p in range(n) if all(answer + (o - offsets[p]) * step > 0 for o in offsets)]
+        out += [[answer + (o - offsets[p]) * step for i, o in enumerate(offsets) if i != p] for p in valid]
+    return out
 
 
 def step_problems(q: dict) -> list[str]:

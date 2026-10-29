@@ -10,6 +10,7 @@
 // не спрашиваем. Отрыв лидера: счётчики ≥ 15%, винрейты ≥ 10 п.п. Герой (человек в «главном напарнике»),
 // попавший в варианты, до конца игры в этом типе вопроса про этого человека не появляется.
 import type { Question } from '@cumsino/shared'
+import { makeStepOptions } from './stepOptions'
 
 type Mode = 'ranked' | 'turbo'
 const MODES: Mode[] = ['ranked', 'turbo']
@@ -201,11 +202,9 @@ export function selfWrStep(games: number): number {
   return Math.max(SELF_WR_MIN_STEP, Math.round(50 / Math.sqrt(games)))
 }
 
-/** 4 винрейта через step, все в (0, 100); позиция ответа по величине — случайная из допустимых. По возрастанию. */
+/** 4 винрейта, все в (0, 100): соседи через step или 2·step, как у числовых вопросов (stepOptions.ts). По возрастанию. */
 export function wrOptions(answer: number, step: number, rng: () => number): number[] {
-  const valid = [0, 1, 2, 3].filter(p => answer - p * step > 0 && answer + (3 - p) * step < 100)
-  const p = valid.length ? valid[Math.floor(rng() * valid.length)] : 0
-  return [0, 1, 2, 3].map(i => answer + (i - p) * step)
+  return makeStepOptions(answer, step, rng, 4, 0, 100).values
 }
 
 const gapCount = (l: number, o: number) => l >= o * (1 + MIN_COUNT_GAP)

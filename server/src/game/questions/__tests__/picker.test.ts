@@ -41,16 +41,32 @@ describe('shuffleOptions', () => {
 })
 
 describe('makeStepOptions', () => {
-  it('ровно через шаг, все > 0, правильный на случайной позиции', () => {
+  it('соседи через один или два шага (50 / 50), все > 0, правильный на случайной позиции', () => {
     const positions = new Set<number>()
-    for (let seed = 1; seed <= 40; seed++) {
+    const gaps = { 1: 0, 2: 0 }
+    for (let seed = 1; seed <= 400; seed++) {
       const { values, correct } = makeStepOptions(3.2, 0.4, seeded(seed))
       expect(values[correct]).toBe(3.2)
-      for (let i = 1; i < 4; i++) expect(values[i] - values[i - 1]).toBeCloseTo(0.4, 9)
+      for (let i = 1; i < 4; i++) {
+        const g = Math.round((values[i] - values[i - 1]) / 0.4)
+        expect([1, 2]).toContain(g)
+        expect(values[i] - values[i - 1]).toBeCloseTo(0.4 * g, 9)
+        gaps[g as 1 | 2]++
+      }
       expect(values[0]).toBeGreaterThan(0)
       positions.add(correct)
     }
     expect(positions.size).toBe(4)
+    expect(gaps[1] / (gaps[1] + gaps[2])).toBeGreaterThan(0.4)
+    expect(gaps[1] / (gaps[1] + gaps[2])).toBeLessThan(0.6)
+  })
+
+  it('верхняя граница: варианты строго ниже ceil', () => {
+    for (let seed = 1; seed <= 100; seed++) {
+      const { values } = makeStepOptions(97, 5, seeded(seed), 4, 0, 100)
+      expect(Math.max(...values)).toBeLessThan(100)
+      expect(values).toContain(97)
+    }
   })
 
   it('маленький ответ: варианты не уходят в ноль', () => {
@@ -346,7 +362,7 @@ describe('друзья', () => {
         expect(v).toContain(answer)
         expect(Math.min(...v)).toBeGreaterThan(0)
         expect(Math.max(...v)).toBeLessThan(100)
-        expect(v[1] - v[0]).toBe(8)
+        expect([8, 16]).toContain(v[1] - v[0])
       }
     }
     const many = { ...metrics, heroes: { ...metrics.heroes, ranked: { ...metrics.heroes.ranked,
