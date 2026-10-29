@@ -224,6 +224,7 @@ export class StatQuestionBuilder {
       comment: sub.comment,
       text: pool.text,
       numericAnswer: pool.answer,
+      unit: '%',   // closest-пулы статистики — доли матчей в процентах (пики, баны)
     }
   }
 

@@ -47,6 +47,9 @@ export interface Question {
   optionNotes?: string[]
   answer?: string
   numericAnswer?: number
+  /** Единица числового вопроса («%», «сек.», «золота»). В MC уже вписана в варианты, в «ближе всех» —
+   *  подпись у поля ввода и у правильного ответа (withUnit). */
+  unit?: string
   items?: string[]
   orderedItems?: string[]
   /** id категории и подкатегории (server/src/game/questions/categories.ts) — для оценок и статистики */

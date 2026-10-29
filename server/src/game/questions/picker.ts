@@ -6,7 +6,7 @@
 // Колода подкатегории живёт между играми (history.ts): вопрос берётся из тех, что не выпадали в текущем круге;
 // круг кончился — колода начинается заново, но вопросы этой и прошлой игры остаются заблокированы. В одной игре
 // вопрос не повторяется никогда.
-import type { GameMode, Question } from '@cumsino/shared'
+import { withUnit, type GameMode, type Question } from '@cumsino/shared'
 import type { Library, Category, Subcategory, BankQuestion, QuestionKind } from './library'
 import { QuestionHistory } from './history'
 import { smoothOrder, commitChoice, type Weighted } from './smooth'
@@ -199,10 +199,11 @@ export class RoomQuestions implements QuestionSource {
   private fromBank(q: BankQuestion, kind: QuestionKind): Question {
     const base = { id: q.id, topic: '', displayTopic: q.topic, comment: q.comment, text: q.text }
     if (q.kind === 'number') {
-      if (kind === 'closest') return { ...base, mode: 'closest', numericAnswer: q.answer }
+      if (kind === 'closest') return { ...base, mode: 'closest', numericAnswer: q.answer, unit: q.unit }
       const { values, correct } = makeStepOptions(q.answer, q.step, this.rng)
-      const labels = values.map(formatNumber)
-      return { ...base, mode: 'all', options: shuffleArray(labels, this.rng), answer: labels[correct] }
+      // единица прямо в варианте («175%», «12 сек.»): ответ сравнивается по тексту варианта
+      const labels = values.map(v => withUnit(formatNumber(v), q.unit))
+      return { ...base, mode: 'all', options: shuffleArray(labels, this.rng), answer: labels[correct], unit: q.unit }
     }
     const { options, optionNotes } = shuffleOptions(q.options, q.optionNotes, this.rng)
     return { ...base, mode: 'all', options, optionNotes, answer: q.options[0] }

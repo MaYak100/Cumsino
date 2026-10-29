@@ -38,8 +38,6 @@ COUNTER_MIN_RIVALS = 25            # меньше — пул мал (Chen, Batri
 TALENT_GAP = {"abs": 0.10}         # доля внутри пары уровня
 BAN_GAP = {"abs": 0.025}
 WR_GAP = {"abs": 0.015}
-WR_IMMORTAL_GAP = {"abs": 0.025}
-IMMORTAL_MIN_GAMES = 10000
 PICK_GAP = {"rel": 0.15}
 ITEM_GAP = {"rel": 0.10}
 ITEM_HERO_GAP = {"rel": 0.15}
@@ -261,13 +259,7 @@ def hero_subs(bank: Bank, snap: Path) -> None:
               "pools": top_bottom(od, wr, pct, f"У кого из этих героев самый высокий винрейт на {p}?",
                                   f"У кого из этих героев самый низкий винрейт на {p}?")})
 
-    imm = [r for r in st if r["window_id"] == "hero_wr_patch_weeks" and r["bracket"] == "IMMORTAL"
-           and r["position"] is None and r["games"] >= IMMORTAL_MIN_GAMES]
-    bank.add({"id": "hero_wr_immortal", "mode": "mc", "topic": "Винрейт героев", "display": "Винрейт на Immortal",
-              "comment": f"Винрейт на ранге Immortal за недели патча {p} (STRATZ, герои от {IMMORTAL_MIN_GAMES} игр).",
-              "gap": WR_IMMORTAL_GAP, "weight": 1,
-              "pools": top_bottom(imm, wr, pct, f"У кого из этих героев самый высокий винрейт на ранге Immortal на {p}?",
-                                  f"У кого из этих героев самый низкий винрейт на ранге Immortal на {p}?")})
+    # винрейт на Immortal убран (2026-10-29): винрейты кучкуются у 50%, варианты выглядят одинаково
 
     pr = lambda r: r["pick_rate"]
     pick_comment = f"Доля матчей, где героя выбрали (OpenDota, {p} с {od_from}, все ранги)."

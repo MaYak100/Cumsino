@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { withUnit } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { Timer } from '../ui/Timer'
 
@@ -14,6 +15,7 @@ export function ClosestScreen() {
 
   const myAnswered = myId ? answeredIds.has(myId) : false
   const showingCorrect = roundCorrectAnswer !== null && typeof roundCorrectAnswer === 'number'
+  const unit = gameState.currentQuestion?.unit
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -33,16 +35,26 @@ export function ClosestScreen() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            inputMode="decimal"
-            pattern="[0-9]*[.,]?[0-9]*"
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            disabled={myAnswered || showingCorrect}
-            placeholder="Введи число"
-            className="w-full bg-[#2a4a2a] border border-[#3a6a3a] rounded-xl px-6 py-4 text-white text-center text-3xl font-mono focus:outline-none focus:border-yellow-400 disabled:opacity-50"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              inputMode="decimal"
+              pattern="[0-9]*[.,]?[0-9]*"
+              value={value}
+              onChange={e => setValue(e.target.value)}
+              disabled={myAnswered || showingCorrect}
+              placeholder="Введи число"
+              className="w-full bg-[#2a4a2a] border border-[#3a6a3a] rounded-xl px-6 py-4 text-white text-center text-3xl font-mono focus:outline-none focus:border-yellow-400 disabled:opacity-50"
+            />
+            {unit && (
+              <span
+                className="absolute right-5 top-1/2 -translate-y-1/2 text-lg pointer-events-none"
+                style={{ color: '#c4c9d4' }}
+              >
+                {withUnit('', unit).trim()}
+              </span>
+            )}
+          </div>
           <button
             type="submit"
             disabled={myAnswered || !value || showingCorrect}
@@ -58,7 +70,7 @@ export function ClosestScreen() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-6 text-green-400 text-lg font-semibold"
           >
-            Правильный ответ: {roundCorrectAnswer}
+            Правильный ответ: {withUnit(roundCorrectAnswer, unit)}
           </motion.div>
         )}
         {showingCorrect && roundComment && (

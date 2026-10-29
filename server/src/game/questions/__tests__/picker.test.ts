@@ -126,14 +126,23 @@ describe('колода', () => {
     expect(mc.options).toContain(mc.answer)
   })
 
-  it('числовой вопрос в MC: варианты по шагу, правильный среди них', () => {
+  it('числовой вопрос в MC: варианты по шагу с единицей, правильный среди них', () => {
     const lib = buildLibrary({ bank: [num('n', 's', 850)], stats: null, friends: null, categories: cats })
     const q = new RoomQuestions(lib, new QuestionHistory(), seeded(5)).pick('kerri')
     expect(q.mode).toBe('kerri')
     expect(q.options).toHaveLength(4)
-    expect(q.options).toContain('850')
-    expect(q.answer).toBe('850')
+    expect(q.options).toContain('850 ед.')
+    expect(q.options!.every(o => o.endsWith(' ед.'))).toBe(true)
+    expect(q.answer).toBe('850 ед.')
+    expect(q.unit).toBe('ед.')
     expect(q.subcategory).toBe('s')
+  })
+
+  it('числовой вопрос в «ближе всех»: число без единицы, единица отдельным полем', () => {
+    const lib = buildLibrary({ bank: [num('n', 's', 850)], stats: null, friends: null, categories: cats })
+    const q = new RoomQuestions(lib, new QuestionHistory(), seeded(5)).pick('closest')
+    expect(q.numericAnswer).toBe(850)
+    expect(q.unit).toBe('ед.')
   })
 
   it('«удалить» — только когда нажали больше половины комнаты; потом вопрос не выпадает никогда', () => {

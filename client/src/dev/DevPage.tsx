@@ -186,11 +186,14 @@ export function DevPage() {
     setLoading(true)
     setError(null)
     setNotice(null)
+    // список и позиция — от одной базы: смена режима может запустить два запроса разом, и pos не должен
+    // уехать за конец списка («6 из 5», пустой экран)
+    const base = pos
     try {
       const ask = (id?: string) => fetchQuestion({ session, mode: gm, cat: category?.id ?? null, sub: validSub, id, friends })
       const got = keep && byId ? await ask(byId).catch(() => ask()) : await ask(byId)
-      setList(prev => [...prev.slice(0, pos + 1), got])
-      setPos(p => p + 1)
+      setList(prev => [...prev.slice(0, base + 1), got])
+      setPos(base + 1)
       setMyAnswer(undefined)
       setScenario(null)
       setStage(st => (st === 'answer' ? 'question' : st))   // новый вопрос — сначала без ответа

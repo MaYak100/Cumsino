@@ -23,3 +23,6 @@ scripts/data/stratz_cache/
 scripts/data/stats/*/stratz/raw/
 scripts/data/friends/matches.jsonl
 scripts/data/friends/state.json
+
+# скриншоты и снапшоты браузерных проверок (Playwright MCP)
+.playwright-mcp/

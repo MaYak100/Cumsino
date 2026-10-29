@@ -62,7 +62,6 @@ export const CATEGORIES: CategoryDef[] = [
   {
     id: 'meta', title: 'Мета героев', weight: 1, subs: [
       { id: 'hero_wr', title: 'Винрейт на патче', weight: 2 },
-      { id: 'hero_wr_immortal', title: 'Винрейт на Immortal' },
       { id: 'hero_pick', title: 'Пики на патче', weight: 2 },
       { id: 'hero_pick_closest', title: 'Пики на патче' },
       { id: 'hero_pick_year', title: 'Пики за год' },
