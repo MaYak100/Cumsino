@@ -124,18 +124,134 @@ describe('предметы, бонусы, блайнды', () => {
       expect(forced.at(-1)).toEqual({ playerId: 'p2', amount: 30 })
     })
 
-    it('керри и «кто ближе» — без блайндов', () => {
+    it('«кто ближе» — без блайндов', () => {
       const t = makeRoom(3)
-      vi.spyOn(Math, 'random').mockReturnValue(0)   // керри — p1
-      toBetting(t, 'kerri')
-      expect(t.p('p2').blind).toBeUndefined()
-      t.room.placeBet('p2', 10, 'win')
-      expect(t.p('p2').currentBet).toBe(10)
-      t.r.nextRound()
       t.setPhase('ANNOUNCE', 'closest')
       t.r.onPhaseEnd()
       expect(t.r.phase).toBe('QUESTION')
+      for (const id of ['p1', 'p2', 'p3']) expect(t.p(id).blind).toBeUndefined()
+    })
+  })
+
+  // ── блайнды в керри ──
+  describe('блайнды: керри', () => {
+    /** ANNOUNCE → BETTING керри; керри — первый из кандидатов (Math.random = 0 при выборе) */
+    function toKerriBetting(t: ReturnType<typeof makeRoom>) {
+      t.setPhase('ANNOUNCE', 'kerri')
+      const spy = vi.spyOn(Math, 'random').mockReturnValue(0)
+      t.r.onPhaseEnd()
+      spy.mockRestore()
+    }
+
+    it('керри выбран до блайндов: у толпы блайнд, у керри — нет (и в стейте нет)', () => {
+      const t = makeRoom(3)
+      toKerriBetting(t)
+      expect(t.r.phase).toBe('BETTING')
+      expect(t.r.gladiatorId).toBe('p1')
       expect(t.p('p1').blind).toBeUndefined()
+      expect(t.p('p2')).toMatchObject({ blind: 30, bigBlind: false })   // ничья 500/500 — у всех малый
+      expect(t.p('p3')).toMatchObject({ blind: 30, bigBlind: false })
+      const pub = t.room.getPublicState().players
+      expect(pub.find(x => x.id === 'p1')!.blind).toBeUndefined()
+      expect(pub.find(x => x.id === 'p2')!.blind).toBe(30)
+    })
+
+    it('большой блайнд — лидер толпы; самый богатый — керри, он не в счёт', () => {
+      const t = makeRoom(4)
+      t.p('p1').chips = 2500   // станет керри
+      t.p('p3').chips = 900
+      toKerriBetting(t)
+      expect(t.p('p1').blind).toBeUndefined()
+      expect(t.p('p3')).toMatchObject({ blind: 90, bigBlind: true })
+      expect(t.p('p2')).toMatchObject({ blind: 30, bigBlind: false })
+      expect(t.p('p4')).toMatchObject({ blind: 30, bigBlind: false })
+    })
+
+    it('ничья наверху толпы — у всех малый', () => {
+      const t = makeRoom(4)
+      t.p('p2').chips = 900
+      t.p('p3').chips = 900
+      toKerriBetting(t)
+      expect([...t.r.players.values()].some((x: any) => x.bigBlind)).toBe(false)
+      expect(t.p('p2').blind).toBe(50)
+    })
+
+    it('меньше блайнда и без стороны — отклоняется; блайнд со стороной — принимается', () => {
+      const t = makeRoom(3)
+      toKerriBetting(t)
+      t.room.placeBet('p2', 20, 'win')
+      expect(t.r.bettingConfirmedIds.has('p2')).toBe(false)
+      t.room.placeBet('p2', 30)
+      expect(t.r.bettingConfirmedIds.has('p2')).toBe(false)
+      expect(t.p('p2').currentBet).toBe(0)
+      t.room.placeBet('p2', 30, 'lose')
+      expect(t.p('p2')).toMatchObject({ currentBet: 30, betTarget: 'lose' })
+      expect(t.r.bettingConfirmedIds.has('p2')).toBe(true)
+    })
+
+    it('банк-ставка необязательна: блайнд без неё — принят; с ней — тоже', () => {
+      const t = makeRoom(3)
+      toKerriBetting(t)
+      t.room.placeBet('p2', 30, 'win')
+      expect(t.p('p2').bankBet).toBeUndefined()
+      t.room.placeBet('p3', 30, 'lose', undefined, { optionIndex: 1, amount: 100 })
+      expect(t.p('p3').bankBet).toEqual({ optionIndex: 1, amount: 100 })
+      expect(t.r.phase).toBe('QUESTION')
+    })
+
+    it('не подтвердил к концу BETTING — блайнд на случайную сторону, bet_updated с target', () => {
+      const t = makeRoom(3)
+      toKerriBetting(t)
+      t.room.placeBet('p2', 100, 'win')
+      vi.spyOn(Math, 'random').mockReturnValue(0.7)   // ≥ 0.5 — «завалит»
+      t.r.onPhaseEnd()   // конец BETTING
+      expect(t.r.phase).toBe('QUESTION')
+      expect(t.p('p3')).toMatchObject({ currentBet: 30, betTarget: 'lose', betChips: undefined })
+      expect(t.p('p1').currentBet).toBe(0)   // керри не ставит
+      expect(t.p('p2')).toMatchObject({ currentBet: 100, betTarget: 'win' })
+      const updates = t.ev('bet_updated').map(b => b.data)
+      expect(updates.at(-1)).toEqual({ playerId: 'p3', amount: 30, target: 'lose' })
+      expect(updates.some(d => d.playerId === 'p1')).toBe(false)
+    })
+
+    it('случайная сторона: < 0.5 — «ответит»; единственный в толпе — лидер, у него большой', () => {
+      const t = makeRoom(2)
+      toKerriBetting(t)
+      expect(t.p('p2')).toMatchObject({ blind: 50, bigBlind: true })
+      vi.spyOn(Math, 'random').mockReturnValue(0.2)
+      t.r.onPhaseEnd()
+      expect(t.p('p2')).toMatchObject({ currentBet: 50, betTarget: 'win' })
+    })
+
+    it('банк-ставка без подтверждения: блайнд не больше остатка', () => {
+      const t = makeRoom(3)
+      t.p('p2').chips = 120
+      toKerriBetting(t)
+      expect(t.p('p2').blind).toBe(10)
+      t.room.placeBankBet('p2', 1, 110)
+      t.r.onPhaseEnd()
+      expect(t.p('p2').currentBet).toBe(10)
+      t.r.nextRound()
+      t.p('p2').chips = 120
+      toKerriBetting(t)
+      t.room.placeBankBet('p2', 1, 120)   // на основную не осталось — блайнда нет
+      t.r.onPhaseEnd()
+      expect(t.p('p2').currentBet).toBe(0)
+    })
+
+    it('толпа без денег: блайнд 0, не ждут, принудительно не ставит, серия не меняется', () => {
+      const t = makeRoom(3)
+      t.p('p3').chips = 5
+      t.p('p3').streak = 2
+      toKerriBetting(t)
+      expect(t.p('p3').blind).toBe(0)
+      t.room.placeBet('p2', t.p('p2').blind, 'win')
+      expect(t.r.phase).toBe('QUESTION')   // p3 не ждали
+      expect(t.p('p3').currentBet).toBe(0)
+      t.room.submitAnswer('p1', 'A')
+      t.r.advanceFromQuestion()
+      expect(t.p('p3').streak).toBe(2)
+      expect(t.p('p2').streak).toBe(1)
     })
   })
 
@@ -256,7 +372,7 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p3').streak).toBe(0)
     })
 
-    it('«кто ближе»: ближайший +1, не ответил — 0, остальные без изменений', () => {
+    it('«кто ближе» серию не сбивает: ближайший +1, остальные и не ответившие — без изменений', () => {
       const t = makeRoom(3, cnQ)
       t.p('p1').streak = 1
       t.p('p2').streak = 3
@@ -267,7 +383,7 @@ describe('предметы, бонусы, блайнды', () => {
       t.r.advanceFromQuestion()
       expect(t.p('p1').streak).toBe(2)
       expect(t.p('p2').streak).toBe(3)
-      expect(t.p('p3').streak).toBe(0)
+      expect(t.p('p3').streak).toBe(2)   // не ответил — не сбрасывается
       expect(src(t.res('p1'), 'Серия ×2')).toBe(CLOSEST_WINNER_BONUS / 5)
     })
 
@@ -875,7 +991,7 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p3').streak).toBe(0)   // и не было
     })
 
-    it('толпа под BKB: ошибся с исходом — серия не сбивается; без ставки — сбрасывается', () => {
+    it('толпа под BKB: ошибся с исходом — серия не сбивается; без ставки (безденежный) — без изменений', () => {
       const t = makeRoom(3)
       t.p('p2').streak = 2
       t.p('p3').streak = 2
@@ -886,7 +1002,17 @@ describe('предметы, бонусы, блайнды', () => {
       t.room.submitAnswer('p1', 'A')
       t.r.advanceFromQuestion()
       expect(t.p('p2').streak).toBe(2)
-      expect(t.p('p3').streak).toBe(0)
+      expect(t.p('p3').streak).toBe(2)
+    })
+
+    it('толпа без BKB: ошибся с исходом — серия 0', () => {
+      const t = makeRoom(3)
+      t.p('p2').streak = 2
+      t.p('p2').currentBet = 100; t.p('p2').betTarget = 'lose'
+      t.toQuestion('kerri')
+      t.room.submitAnswer('p1', 'A')
+      t.r.advanceFromQuestion()
+      expect(t.p('p2').streak).toBe(0)
     })
 
     it('керри не ответил — серия керри сбрасывается, банк-ставки толпы не сыграли', () => {

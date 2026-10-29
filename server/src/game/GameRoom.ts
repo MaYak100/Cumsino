@@ -240,9 +240,11 @@ export class GameRoom extends EventEmitter {
     if (this.currentMode === 'kerri' && playerId === this.gladiatorId) return   // керри не ставит на себя
     const existingBankAmount = player.bankBet?.amount ?? 0
     if (amount + existingBankAmount > player.chips) return
-    // блайнд «для всех»: меньше нельзя (если баланса на блайнд хватает)
-    const blind = this.currentMode === 'all' ? player.blind ?? 0 : 0
+    // блайнд («для всех» и толпа керри): меньше нельзя (если баланса на блайнд хватает)
+    const blind = player.blind ?? 0
     if (amount < blind && player.chips >= blind) return
+    // толпа керри: сторона (ответит / завалит) обязательна, если ставка не нулевая
+    if (this.currentMode === 'kerri' && amount > 0 && target !== 'win' && target !== 'lose') return
 
     player.currentBet = amount
     if (target) player.betTarget = target
@@ -488,10 +490,12 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  /** Вход в BETTING «для всех»: каждому участнику блайнд. Большой (10%) — у единственного лидера по балансу;
-   *  лидеров несколько (ничья наверху) — у всех малый (5%). Зрителям — ничего. */
+  /** Вход в BETTING («для всех» и керри): каждому, кто ставит, блайнд. Большой (10%) — у единственного лидера по
+   *  балансу среди ставящих; лидеров несколько (ничья наверху) — у всех малый (5%). Зрителям и керри — ничего
+   *  (керри должен быть уже выбран). */
   private assignBlinds() {
-    const list = Array.from(this.players.values()).filter(p => !p.spectator)
+    const list = Array.from(this.players.values())
+      .filter(p => !p.spectator && !(this.currentMode === 'kerri' && p.id === this.gladiatorId))
     const top = Math.max(0, ...list.map(p => p.chips))
     const leaders = list.filter(p => p.chips === top && p.chips >= 10)
     const big = leaders.length === 1 ? leaders[0] : undefined
@@ -501,16 +505,23 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  /** Конец BETTING «для всех»: кто не подтвердил ставку — ставит блайнд (фишки разложит клиент). */
+  /** Конец BETTING: кто не подтвердил ставку — ставит блайнд (фишки разложит клиент). Толпа керри — на случайную
+   *  сторону. Банк-ставка (если сделана без подтверждения) остаётся, блайнд — не больше остатка. */
   private forceBlinds() {
-    if (this.currentMode !== 'all') return
+    if (this.currentMode !== 'all' && this.currentMode !== 'kerri') return
     for (const p of this.players.values()) {
       if (p.spectator || this.bettingConfirmedIds.has(p.id)) continue
-      const blind = Math.min(p.blind ?? 0, p.chips)
+      if (this.currentMode === 'kerri' && p.id === this.gladiatorId) continue
+      const blind = Math.min(p.blind ?? 0, p.chips - (p.bankBet?.amount ?? 0))
       if (blind <= 0) continue
       p.currentBet = blind
       p.betChips = undefined
-      this.broadcast('bet_updated', { playerId: p.id, amount: blind })
+      if (this.currentMode === 'kerri') {
+        p.betTarget = Math.random() < 0.5 ? 'win' : 'lose'
+        this.broadcast('bet_updated', { playerId: p.id, amount: blind, target: p.betTarget })
+      } else {
+        this.broadcast('bet_updated', { playerId: p.id, amount: blind })
+      }
     }
   }
 
@@ -725,8 +736,8 @@ export class GameRoom extends EventEmitter {
         break
 
       case 'ANNOUNCE':
-        if (this.currentMode === 'kerri') this.selectGladiator()
-        if (this.currentMode === 'all') this.assignBlinds()
+        if (this.currentMode === 'kerri') this.selectGladiator()   // до блайндов: керри блайнда нет
+        if (this.currentMode === 'all' || this.currentMode === 'kerri') this.assignBlinds()
         if (this.currentMode === 'closest') {
           this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
         } else {
@@ -858,13 +869,14 @@ export class GameRoom extends EventEmitter {
           won = kerriCorrect
           streakBase = STREAK_GLADIATOR_BASE
           if (won && fast) add('Молния', LIGHTNING_GLADIATOR)
-        } else {
-          won = p.currentBet > 0 && (kerriCorrect ? p.betTarget === 'win' : p.betTarget === 'lose')
+        } else if (p.currentBet > 0) {
+          // пропустить ставку толпа не может (блайнд принудительный); ставки нет — только у безденежного: серия не меняется
+          won = kerriCorrect ? p.betTarget === 'win' : p.betTarget === 'lose'
           streakBase = p.currentBet
         }
       } else if (mode === 'closest') {
+        // «кто ближе» серию не сбивает: ближайший +1, остальные (и не ответившие) — без изменений
         if (closestIds.has(p.id)) won = true
-        else if (!p.hasAnswered) won = false
         streakBase = CLOSEST_WINNER_BONUS
       }
 
