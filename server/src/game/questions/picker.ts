@@ -1,12 +1,13 @@
 // server/src/game/questions/picker.ts
 // Выбор вопроса на раунд. Режим (цикл RoundSelector) — первый фильтр: mc для all / kerri, closest для closest.
-// Дальше категория по весу среди тех, у кого есть подкатегории этого типа, внутри — подкатегория по весу,
-// из её колоды — вопрос. Оба выбора сглажены (smooth.ts) и слабо подстраиваются под оценки игроков.
+// Дальше категория по весу этого типа (MC / closest — categories.ts) среди тех, у кого есть подкатегории этого типа,
+// внутри — подкатегория по весу, из её колоды — вопрос. Оба выбора сглажены (smooth.ts) и подстраиваются под оценки
+// игроков. Тема вопроса («субъект\nаспект») склеивается здесь, в decorate.
 //
 // Колода подкатегории живёт между играми (history.ts): вопрос берётся из тех, что не выпадали в текущем круге;
 // круг кончился — колода начинается заново, но вопросы этой и прошлой игры остаются заблокированы. В одной игре
 // вопрос не повторяется никогда.
-import { withUnit, type GameMode, type Question } from '@cumsino/shared'
+import { withUnit, joinTopic, type GameMode, type Question } from '@cumsino/shared'
 import type { Library, Category, Subcategory, BankQuestion, QuestionKind } from './library'
 import { QuestionHistory } from './history'
 import { smoothOrder, commitChoice, type Weighted } from './smooth'
@@ -40,30 +41,55 @@ export interface QuestionSource {
 }
 
 // Оценки → веса. Точка — показанный вопрос, её значение — средняя оценка команды (history.ts). Оценка
-// категории / подкатегории = сумма точек / (показов + RATING_PRIOR): десяток показов форы, чтобы пара голосов не
-// переворачивала вес. Множитель только ОТНОСИТЕЛЬНЫЙ: среди соседей (категории между собой, подкатегории внутри
-// категории) среднее множителей по базовым весам = 1. Если всем всё нравится одинаково — веса базовые; пределы —
-// от половины до двойного веса.
-// Скорость (решение 2026-10-28): ~50 голосов «ахуенный» → ×1.5 против нейтральных соседей. В компании из 6, где жмут
-// все, это ~8 вопросов по +2: оценка 16.7 / (8.3 + 10) ≈ 0.91, e^(0.45 · 0.91) ≈ 1.5. Если жмёт половина — ×1.3.
+// категории / подкатегории = сумма точек / (показов + RATING_PRIOR): пять показов форы, чтобы пара голосов не
+// переворачивала вес. Одна оценка на id (`cat:<id>`, `sub:<id>`) — двигает вес и в MC, и в «кто ближе».
+// Сырой множитель e^(RATING_BETA · оценка); итоговый — только ОТНОСИТЕЛЬНЫЙ (relativeMultipliers): среди соседей
+// (категории между собой, подкатегории внутри категории) сумма весов не меняется. Всем всё нравится одинаково —
+// веса базовые.
+// Предел — ПРОИЗВЕДЕНИЕ множителей категории и подкатегории в [1/2, 2], т. е. доля подкатегории от базовой — не
+// больше чем вдвое в любую сторону (раньше каждый множитель ограничивался отдельно и вместе доходили до ×4).
+// Выбор двухступенчатый, поэтому у подкатегории свои пределы — [1/2 / c, 2 / c], где c — множитель её категории;
+// раз сумма весов в каждой ступени сохраняется, доля подкатегории от базовой ровно c · m.
+// Скорость (решение 2026-10-30, PRIOR 10 → 5, BETA 0.45 → 0.7): в компании из 6, где жмут все, 50 голосов
+// «ахуенный» — это ~8 вопросов по +2: оценка 16.7 / (8.3 + 5) ≈ 1.25, e^(0.7 · 1.25) ≈ 2.4 против нейтральных
+// соседей (было ×1.5); ×1.5 — уже с ~12 голосов (2 вопроса: 4 / (2 + 5) ≈ 0.58, e^0.4). Если жмёт половина, 50
+// голосов дают ≈ ×1.7 (16.7 / 21.7 ≈ 0.77). Больше чем вдвое от базовой доли не уходит (предел выше).
 export const RATING_MAX = 2
-export const RATING_PRIOR = 10
-export const RATING_BETA = 0.45
+export const RATING_PRIOR = 5
+export const RATING_BETA = 0.7
 
 export function ratingScore(r: { n: number; sum: number }): number {
   return r.sum / (r.n + RATING_PRIOR)
 }
 
-export function relativeMultipliers(items: Weighted[], score: (key: string) => number): Map<string, number> {
+/**
+ * Относительные множители оценок среди соседей: m_i = clamp(k · e^(β·оценка_i), lo, hi), k подобран так, что
+ * Σ w_i·m_i = Σ w_i (доля соседа от базовой — ровно m_i). outer — множитель уровня выше (категории — для её
+ * подкатегорий): пределы [1/RATING_MAX / outer, RATING_MAX / outer], чтобы outer · m было в [1/2, 2].
+ */
+export function relativeMultipliers(items: Weighted[], score: (key: string) => number, outer = 1):
+  Map<string, number> {
   const live = items.filter(i => i.weight > 0)
   const raw = new Map(live.map(i => [i.key, Math.exp(RATING_BETA * score(i.key))]))
+  const lo = 1 / RATING_MAX / outer
+  const hi = RATING_MAX / outer
   const total = live.reduce((s, i) => s + i.weight, 0)
-  const mean = total > 0 ? live.reduce((s, i) => s + i.weight * raw.get(i.key)!, 0) / total : 1
-  const out = new Map<string, number>()
-  for (const i of items) {
-    const m = (raw.get(i.key) ?? 1) / mean
-    out.set(i.key, Math.max(1 / RATING_MAX, Math.min(RATING_MAX, m)))
+  const at = (k: number, key: string) => Math.max(lo, Math.min(hi, k * raw.get(key)!))
+  // Σ w·clamp(k·r) не убывает по k: от Σw·lo (≤ Σw) до Σw·hi (≥ Σw) — корень бисекцией по log k
+  let k = 1
+  if (total > 0) {
+    const sum = (k: number) => live.reduce((s, i) => s + i.weight * at(k, i.key), 0)
+    let a = Math.log(lo) - Math.log(Math.max(...raw.values()))
+    let b = Math.log(hi) - Math.log(Math.min(...raw.values()))
+    for (let n = 0; n < 60; n++) {
+      const mid = (a + b) / 2
+      if (sum(Math.exp(mid)) < total) a = mid
+      else b = mid
+    }
+    k = Math.exp((a + b) / 2)
   }
+  const out = new Map<string, number>()
+  for (const i of items) out.set(i.key, raw.has(i.key) ? at(k, i.key) : 1)
   return out
 }
 
@@ -91,8 +117,8 @@ export function shuffleOptions(options: string[], notes?: string[], rng: () => n
  * иначе любые, которых не было в этой игре. build может не собрать вопрос (статистика, друзья) — тогда следующий.
  * group — выбор сначала группы, потом карточки (друзья: человек, у которого больше карточек, не выпадает чаще).
  */
-export function drawFromDeck<T>(cands: T[], card: (t: T) => string, deck: DeckAccess, rng: () => number,
-  build: (t: T) => Question | null, group?: (t: T) => string): Question | null {
+export function drawFromDeck<T, Q extends Question = Question>(cands: T[], card: (t: T) => string, deck: DeckAccess,
+  rng: () => number, build: (t: T) => Q | null, group?: (t: T) => string): Q | null {
   const order = group ? interleaveGroups(shuffleArray(cands, rng), group, rng) : shuffleArray(cands, rng)
   const tryAll = (list: T[]) => {
     for (const t of list) {
@@ -130,6 +156,9 @@ export function interleaveGroups<T>(shuffled: T[], group: (t: T) => string, rng:
   return out
 }
 
+/** Вопрос от источника до decorate: displayTopic — только субъект, aspect — своя вторая строка темы (банк). */
+type Drafted = Question & { aspect?: string }
+
 export class RoomQuestions implements QuestionSource {
   private gameNo = 0
   private stats: StatQuestionBuilder | null
@@ -146,14 +175,17 @@ export class RoomQuestions implements QuestionSource {
     const present = [...new Set(ctx.friends ?? [])]
     const cats = this.lib.categories.filter(c =>
       (c.requires !== 'friends' || present.length >= MIN_IDENTIFIED_FRIENDS) && c.subs.some(s => s.kinds.has(kind)))
-    const catItems = this.rated(cats.map(c => ({ key: c.id, weight: c.weight })), 'cat')
+    const catMult = this.multipliers(cats.map(c => ({ key: c.id, weight: c.weights[kind] })), 'cat')
+    const catItems = cats.map(c => ({ key: c.id, weight: c.weights[kind] * catMult.get(c.id)! }))
     const catScope = `cat:${kind}`
     const catCredits = this.history.creditsOf(catScope)
 
     for (const catId of smoothOrder(catItems, catCredits, this.rng)) {
       const cat = cats.find(c => c.id === catId)!
       const subs = cat.subs.filter(s => s.kinds.has(kind))
-      const subItems = this.rated(subs.map(s => ({ key: s.id, weight: s.weight })), 'sub')
+      const subBase = subs.map(s => ({ key: s.id, weight: s.weights[kind] }))
+      const subMult = this.multipliers(subBase, 'sub', catMult.get(cat.id)!)
+      const subItems = subBase.map(s => ({ key: s.key, weight: s.weight * subMult.get(s.key)! }))
       const subScope = `sub:${kind}:${cat.id}`
       const subCredits = this.history.creditsOf(subScope)
       for (const subId of smoothOrder(subItems, subCredits, this.rng)) {
@@ -185,10 +217,9 @@ export class RoomQuestions implements QuestionSource {
     }, { text: q.text })
   }
 
-  /** Базовые веса × относительный множитель оценок среди этих соседей. */
-  private rated(items: Weighted[], prefix: 'cat' | 'sub'): Weighted[] {
-    const mult = relativeMultipliers(items, key => ratingScore(this.history.ratingOf(`${prefix}:${key}`)))
-    return items.map(i => ({ key: i.key, weight: i.weight * mult.get(i.key)! }))
+  /** Относительный множитель оценок среди этих соседей (outer — множитель категории для её подкатегорий). */
+  private multipliers(items: Weighted[], prefix: 'cat' | 'sub', outer = 1): Map<string, number> {
+    return relativeMultipliers(items, key => ratingScore(this.history.ratingOf(`${prefix}:${key}`)), outer)
   }
 
   private deck(sub: Subcategory): DeckAccess {
@@ -201,7 +232,7 @@ export class RoomQuestions implements QuestionSource {
     }
   }
 
-  private build(sub: Subcategory, mode: GameMode, kind: QuestionKind, present: number[]): Question | null {
+  private build(sub: Subcategory, mode: GameMode, kind: QuestionKind, present: number[]): Drafted | null {
     const src = sub.source
     if (src.type === 'bank') {
       const cands = src.questions.filter(q => kind === 'mc' || q.kind === 'number')
@@ -213,8 +244,8 @@ export class RoomQuestions implements QuestionSource {
     return drawFromDeck(cands, c => c.card, this.deck(sub), this.rng, c => c.build(), c => c.group)
   }
 
-  private fromBank(q: BankQuestion, kind: QuestionKind): Question {
-    const base = { id: q.id, topic: '', displayTopic: q.topic, comment: q.comment, text: q.text }
+  private fromBank(q: BankQuestion, kind: QuestionKind): Drafted {
+    const base = { id: q.id, topic: '', displayTopic: q.topic, aspect: q.aspect, comment: q.comment, text: q.text }
     if (q.kind === 'number') {
       if (kind === 'closest') return { ...base, mode: 'closest', numericAnswer: q.answer, unit: q.unit }
       const { values, correct } = makeStepOptions(q.answer, q.step, this.rng)
@@ -226,12 +257,17 @@ export class RoomQuestions implements QuestionSource {
     return { ...base, mode: 'all', options, optionNotes, answer: q.options[0] }
   }
 
-  private decorate(q: Question, mode: GameMode, cat: Category, sub: Subcategory): Question {
+  /**
+   * Тема — единственное место склейки: субъект (постоянный у подкатегории, иначе от источника — displayTopic
+   * черновика) + аспект (вопроса банка, иначе подкатегории). topic — заголовок подкатегории (для /dev и логов).
+   */
+  private decorate(q: Drafted, mode: GameMode, cat: Category, sub: Subcategory): Question {
+    const { aspect, ...rest } = q
     return {
-      ...q,
+      ...rest,
       mode,
-      topic: q.topic || sub.title,
-      displayTopic: q.displayTopic ?? sub.title,
+      topic: sub.title,
+      displayTopic: joinTopic(sub.subject ?? q.displayTopic ?? sub.title, aspect ?? sub.aspect),
       category: cat.id,
       subcategory: sub.id,
     }

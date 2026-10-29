@@ -6,20 +6,28 @@ import type { GameMode, Question } from '@cumsino/shared'
 export type StatEntry = [name: string, value: number, note: string]
 export interface StatAsk { ask: 'max' | 'min'; text: string }
 export interface StatMcPool { subject?: string; entries: StatEntry[]; asks: StatAsk[] }
+/** «Кто ближе»: subject — карточка колоды (как у MC); у одного subject может быть несколько пулов (предметы героя). */
 export interface StatClosestPool { subject: string; text: string; answer: number }
+export interface StatClosest {
+  /** единица ответа по словарю игры («%», «урона», «HP»); нет — без единицы */
+  unit?: string
+  /** комментарий, если не как у MC */
+  comment?: string
+  pools: StatClosestPool[]
+}
 /** Отрыв лидера: rel — во сколько раз, abs — на сколько единиц; maxRel — не дальше ×N от второго места. */
 export interface StatGap { rel?: number; abs?: number; maxRel?: number }
 /** Формат подписей: count — числа (к/М), pct — доля 0…1 → «53.5%», pct0 — «62%», pp — п.п. «+1.4». */
 export type StatNoteFormat = 'count' | 'pct' | 'pct0' | 'pp'
 
 
+/**
+ * Подкатегория статистики: MC-пулы и/или «кто ближе» (как числовые вопросы банка — id и колода общие). Тема вопроса,
+ * вес и заголовок — в questions/categories.ts; отсюда в теме только субъект пула (герой вопроса).
+ */
 export interface StatSubcategory {
   id: string
-  mode: 'mc' | 'closest'
-  topic: string
-  display: string
   comment: string
-  weight: number
   gap?: StatGap
   /** Подписи считаются по value показанной четвёрки; нет — берётся note из entries. */
   note?: StatNoteFormat
@@ -32,7 +40,14 @@ export interface StatSubcategory {
   topLead?: boolean
   /** Пары, которые не ставятся в одну четвёрку (компонент и его улучшение — ответ угадывается логикой). */
   exclusive?: Array<[string, string]>
-  pools: Array<StatMcPool | StatClosestPool>
+  /** MC; пусто — подкатегория только «кто ближе» */
+  pools: StatMcPool[]
+  closest?: StatClosest
+}
+
+/** Какие типы раунда даёт подкатегория. */
+export function statKinds(sub: StatSubcategory): Array<'mc' | 'closest'> {
+  return [...(sub.pools.length ? ['mc' as const] : []), ...(sub.closest?.pools.length ? ['closest' as const] : [])]
 }
 
 export interface StatsBank {
@@ -150,9 +165,10 @@ export class StatQuestionBuilder {
     return this.bank.subcategories.find(s => s.id === id)
   }
 
+  /** displayTopic вопроса — субъект пула (герой вопроса) или нет; тему целиком склеивает questions/picker.ts. */
   build(sub: StatSubcategory, mode: GameMode, deck: DeckAccess): Question | null {
-    if ((sub.mode === 'closest') !== (mode === 'closest')) return null
-    return sub.mode === 'mc' ? this.buildMc(sub, mode, deck) : this.buildClosest(sub, deck)
+    if (mode === 'closest') return sub.closest?.pools.length ? this.buildClosest(sub, sub.closest, deck) : null
+    return sub.pools.length ? this.buildMc(sub, mode, deck) : null
   }
 
   static card(sub: StatSubcategory, name: string): string {
@@ -167,7 +183,7 @@ export class StatQuestionBuilder {
 
   private buildMc(sub: StatSubcategory, mode: GameMode, deck: DeckAccess): Question | null {
     const used = this.usedOf(sub)
-    const pools = this.shuffle((sub.pools as StatMcPool[])
+    const pools = this.shuffle(sub.pools
       .filter(p => !(p.subject && used.has(p.subject)))
       .map(p => ({ pool: p, free: sub.topLead ? p.entries : p.entries.filter(e => !used.has(e[0])) }))
       .filter(({ free }) => free.length >= OPTIONS))
@@ -279,8 +295,8 @@ export class StatQuestionBuilder {
     return {
       id,
       mode,
-      topic: sub.topic,
-      displayTopic: pool.subject ? `${sub.display}: ${pool.subject}` : sub.display,
+      topic: '',
+      displayTopic: pool.subject,
       comment: sub.comment,
       text: ask.text,
       options: shown.map(e => e[0]),
@@ -297,30 +313,36 @@ export class StatQuestionBuilder {
     return this.shuffle(picked)
   }
 
-  private buildClosest(sub: StatSubcategory, deck: DeckAccess): Question | null {
+  /**
+   * «Кто ближе»: сначала субъект (карточка колоды), потом его пул — герой с 8 предметами не выпадает чаще героя с
+   * одним. Субъект (и MC-варианты с тем же именем) до конца игры в подкатегории не повторяется.
+   */
+  private buildClosest(sub: StatSubcategory, closest: StatClosest, deck: DeckAccess): Question | null {
     const used = this.usedOf(sub)
-    const free = (sub.pools as StatClosestPool[]).filter(p => !used.has(p.subject))
-    const card = (p: StatClosestPool) => StatQuestionBuilder.card(sub, p.subject)
-    let cands = free.filter(p => deck.fresh(card(p)))
+    const card = (subject: string) => StatQuestionBuilder.card(sub, subject)
+    const free = [...new Set(closest.pools.map(p => p.subject))].filter(s => !used.has(s))
+    let cands = free.filter(s => deck.fresh(card(s)))
     if (!cands.length) {
-      cands = free.filter(p => deck.free(card(p)))
+      cands = free.filter(s => deck.free(card(s)))
       if (!cands.length) return null
       deck.newCycle()
-      const fresh = cands.filter(p => deck.fresh(card(p)))
+      const fresh = cands.filter(s => deck.fresh(card(s)))
       if (fresh.length) cands = fresh
     }
-    const pool = cands[Math.floor(this.rng() * cands.length)]
-    used.add(pool.subject)
-    deck.take(card(pool))
+    const subject = cands[Math.floor(this.rng() * cands.length)]
+    const own = closest.pools.filter(p => p.subject === subject)
+    const pool = own[Math.floor(this.rng() * own.length)]
+    used.add(subject)
+    deck.take(card(subject))
     return {
-      id: card(pool),
+      id: card(subject),
       mode: 'closest',
-      topic: sub.topic,
-      displayTopic: `${sub.display}: ${pool.subject}`,
-      comment: sub.comment,
+      topic: '',
+      displayTopic: subject,
+      comment: closest.comment ?? sub.comment,
       text: pool.text,
       numericAnswer: pool.answer,
-      unit: '%',   // closest-пулы статистики — доли матчей в процентах (пики, баны)
+      ...(closest.unit ? { unit: closest.unit } : {}),
     }
   }
 

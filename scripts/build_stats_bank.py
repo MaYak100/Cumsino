@@ -12,8 +12,15 @@
     четвёрки (одна точность и общий суффикс к/М, формат — поле note подкатегории), note в entries — запасной;
     comment — что за число и за какое окно.
 
+Подкатегория может давать и MC, и «кто ближе» (closest) — как числовые вопросы банка: id подкатегории один, колода
+одна. Тема вопроса (субъект «Герои» / «Axe» и аспект «убийства» / «предметы»), веса и заголовки —
+server/src/game/questions/categories.ts; здесь только субъект пула (subject — герой вопроса) и тексты.
+
 Формат bank.json:
-  {snapshot, patch, subcategories: [{id, mode: mc|closest, topic, display, comment, weight, gap?, note?, layout?, topLead?, pools}]}
+  {snapshot, patch, subcategories: [{id, comment, gap?, note?, layout?, topLead?, exclusive?, pools, closest?}]}
+  pools:       MC-пулы (пусто — подкатегория только «кто ближе»)
+  closest:     {unit?, comment?, pools: [closest-пул]} — unit по словарю единиц игры («%», «урона», «HP»; нет — без
+               единицы), comment — если отличается от MC
   gap:         {rel | abs, maxRel?}
   note:        count — числа (к/М по максимуму четвёрки) | pct — доля 0…1 → «53.5%» | pct0 — «62%» | pp — п.п. «+1.4»
   layout:      talent_tree — варианты не перемешиваются, стоят как в дереве талантов (сверху 25 ур., снизу 20 ур.)
@@ -21,7 +28,8 @@
                вопросами исключается только герой вопроса, варианты (ботинки) повторяться могут
   mc-пул:      {subject?, entries: [[name, value, note]], asks: [{ask: max|min, text}]}
   exclusive:   [[a, b]] — не ставить в одну четвёрку (компонент и его улучшение: Arcane ≥ Guardian Greaves всегда)
-  closest-пул: {subject, text, answer}
+  closest-пул: {subject, text, answer}; subject — карточка колоды (stat:<подкатегория>:<subject>), как у MC; несколько
+               пулов с одним subject (предметы героя) — сервер выбирает сначала героя, потом пул
 
   python scripts/build_stats_bank.py                  # последний снимок
   python scripts/build_stats_bank.py --snapshot 2026-10-27
@@ -66,6 +74,10 @@ BOOTS_SKIP = {"Boots of Speed"}    # база — её покупают все, 
 ITEMS_PER_HERO = 8
 CLOSEST_BAN_TOP = 30
 CLOSEST_PICK_MIN = 0.05            # пики closest: от 5% (верх и середина; ниже — ошибка в разы на малых числах)
+# «кто ближе» по предметам (2026-10-30): доля от 5% (ниже — ошибка в разы) и до 95%: точного знаменателя нет —
+# у STRATZ выборка покупок не совпадает с выборкой матчей героя (stratz-research.md, «Знаменатель предметов»)
+CLOSEST_ITEM_MIN = 0.05
+CLOSEST_ITEM_MAX = 0.95
 
 
 # ---------- форматирование подписей ----------
@@ -217,14 +229,25 @@ class Bank:
         self.subs = []
 
     def add(self, sub: dict) -> None:
-        if sub["mode"] == "mc":
-            ex = sub.get("exclusive")
-            for p in sub["pools"]:
-                p["asks"] = [a for a in p["asks"]
-                             if len(p["entries"]) >= 4 and leaders(p["entries"], sub["gap"], a["ask"], ex)]
-            sub["pools"] = [p for p in sub["pools"] if p["asks"]]
-        if sub["pools"]:
+        ex = sub.get("exclusive")
+        for p in sub["pools"]:
+            p["asks"] = [a for a in p["asks"]
+                         if len(p["entries"]) >= 4 and leaders(p["entries"], sub["gap"], a["ask"], ex)]
+        sub["pools"] = [p for p in sub["pools"] if p["asks"]]
+        if "closest" in sub and not sub["closest"]["pools"]:
+            del sub["closest"]
+        if sub["pools"] or sub.get("closest"):
             self.subs.append(sub)
+
+
+def closest_part(pools: list, unit: str | None = None, comment: str | None = None) -> dict:
+    """Часть «кто ближе» подкатегории: пулы {subject, text, answer}, единица и комментарий (если не как у MC)."""
+    out = {"pools": pools}
+    if unit:
+        out["unit"] = unit
+    if comment:
+        out["comment"] = comment
+    return out
 
 
 # ---------- подкатегории ----------
@@ -242,31 +265,52 @@ def avg_subs(bank: Bank, snap: Path) -> None:
             rs = half(rs, lambda r: r[field], False)
         return mc_pool([[r["hero"], round(r[field], 2), fmt(r[field])] for r in rs], (ask, text))
 
+    p = bank.patch
+    heal_ok = lambda r: r["healingAllies"] >= HEAL_ALLIES_MIN
+
+    def near(field, text, unit=None, digits=0, where=None):
+        """«Кто ближе» по каждому герою: text(герой) — вопрос; ответ округлён до digits знаков после точки."""
+        rs = [r for r in rows if r.get(field) is not None and (where is None or where(r))]
+        return closest_part([{"subject": r["hero"], "text": text(r["hero"]),
+                              "answer": round(r[field], digits) if digits else round(r[field])} for r in rs], unit)
+
+    # «кто ближе» (2026-10-30): убийства (с точностью 0.1), добивания, урон по героям и строениям, хил союзникам
+    # (герои от HEAL_ALLIES_MIN, как в MC); самолечения нет — число неинтуитивное. Выбросов в этих полях нет: Meepo
+    # суммирует клонов только в самолечении, полученном уроне и атаках, здесь он в общем ряду (9.0 убийств, 306
+    # добиваний). Единицы — словарь игры («урона», «HP»); у убийств и добиваний единицы нет: слово уже в вопросе,
+    # а «7.4 убийств» не по-русски
     specs = [
-        ("avg_heal_allies", "Хил союзникам", "Средний хил союзникам за матч", [
+        ("avg_heal_allies", "Средний хил союзникам за матч", [
             pool("healingAllies", "max", "Кто из этих героев в среднем лечит союзников больше всех за матч?", "all",
-                 where=lambda r: r["healingAllies"] >= HEAL_ALLIES_MIN)]),
-        ("avg_heal_self", "Самолечение", "Среднее самолечение за матч (Meepo не берём — суммирует клонов)", [
+                 where=heal_ok)],
+         near("healingAllies", lambda h: f"Сколько здоровья в среднем восстанавливает союзникам {h} за матч на {p}?",
+              "HP", where=heal_ok)),
+        ("avg_heal_self", "Среднее самолечение за матч (Meepo не берём — суммирует клонов)", [
             pool("healingSelf", "max", "Кто из этих героев в среднем лечит себя больше всех за матч?", "top",
-                 exclude={"Meepo"})]),
-        ("avg_tower", "Урон по строениям", "Средний урон по строениям за матч", [
+                 exclude={"Meepo"})], None),
+        ("avg_tower", "Средний урон по строениям за матч", [
             pool("towerDamage", "max", "Кто из этих героев в среднем наносит больше всего урона по строениям за матч?",
-                 "top")]),
-        ("avg_hero_damage", "Урон по героям", "Средний урон по героям за матч", [
+                 "top")],
+         near("towerDamage", lambda h: f"Сколько урона по строениям в среднем наносит {h} за матч на {p}?", "урона")),
+        ("avg_hero_damage", "Средний урон по героям за матч", [
             pool("heroDamage", "max", "Кто из этих героев в среднем наносит больше всего урона героям за матч?", "top"),
             pool("heroDamage", "min", "Кто из этих героев в среднем наносит меньше всего урона героям за матч?",
-                 "bottom")]),
-        ("avg_kills", "Убийства", "Среднее число убийств за матч", [
+                 "bottom")],
+         near("heroDamage", lambda h: f"Сколько урона по героям в среднем наносит {h} за матч на {p}?", "урона")),
+        ("avg_kills", "Среднее число убийств за матч", [
             pool("kills", "max", "Кто из этих героев в среднем делает больше всего убийств за матч?", "top"),
-            pool("kills", "min", "Кто из этих героев в среднем делает меньше всего убийств за матч?", "bottom")]),
-        ("avg_cs", "Добивания", "Среднее число добитых крипов за матч", [
+            pool("kills", "min", "Кто из этих героев в среднем делает меньше всего убийств за матч?", "bottom")],
+         near("kills", lambda h: f"Сколько убийств в среднем делает {h} за матч на {p}?", digits=1)),
+        ("avg_cs", "Среднее число добитых крипов за матч", [
             pool("cs", "max", "Кто из этих героев в среднем добивает больше всего крипов за матч?", "top"),
-            pool("cs", "min", "Кто из этих героев в среднем добивает меньше всего крипов за матч?", "bottom")]),
+            pool("cs", "min", "Кто из этих героев в среднем добивает меньше всего крипов за матч?", "bottom")],
+         near("cs", lambda h: f"Сколько крипов в среднем добивает {h} за матч на {p}?")),
     ]
-    for sid, display, what, pools in specs:
-        bank.add({"id": sid, "mode": "mc", "topic": "Средние за матч", "display": display,
-                  "comment": f"{what} на {bank.patch} ({window}).", "gap": AVG_GAP, "note": "count", "weight": 1,
-                  "pools": pools})
+    for sid, what, pools, closest in specs:
+        sub = {"id": sid, "comment": f"{what} на {p} ({window}).", "gap": AVG_GAP, "note": "count", "pools": pools}
+        if closest:
+            sub["closest"] = closest
+        bank.add(sub)
 
 
 def counter_sub(bank: Bank, snap: Path, names: dict) -> None:
@@ -277,10 +321,10 @@ def counter_sub(bank: Bank, snap: Path, names: dict) -> None:
     pools = [mc_pool(entries, *((ask, f"Против кого из этих героев {names[h]} выигрывает {word} всего?")
                                 for ask, word in (("min", "реже"), ("max", "чаще"))), subject=names[h])
              for h, entries in sorted(by_hero.items()) if len(entries) >= COUNTER_MIN_RIVALS]
-    bank.add({"id": "counter", "mode": "mc", "topic": "Контрпики", "display": "Контрпики",
+    bank.add({"id": "counter",
               "comment": f"Подписи — преимущество героя против соперника в процентных пунктах: винрейт с поправкой "
                          f"на силу обоих (STRATZ, {bank.patch}, все ранги).",
-              "gap": COUNTER_GAP, "note": "pp", "weight": 2, "pools": pools})
+              "gap": COUNTER_GAP, "note": "pp", "pools": pools})
 
 
 def talent_sub(bank: Bank, snap: Path, names: dict, hero_keys: dict) -> None:
@@ -311,9 +355,9 @@ def talent_sub(bank: Bank, snap: Path, names: dict, hero_keys: dict) -> None:
                                         for ask, word in (("max", "чаще"), ("min", "реже"))), subject=names[hid]))
     if missing:
         print(f"  таланты: нет текстов или данных STRATZ по всем 4 талантам у {len(missing)} героев")
-    bank.add({"id": "talents", "mode": "mc", "topic": "Таланты", "display": "Таланты",
+    bank.add({"id": "talents",
               "comment": f"Доля внутри пары талантов одного уровня (STRATZ, {bank.patch}, все ранги).",
-              "gap": TALENT_GAP, "note": "pct0", "layout": "talent_tree", "weight": 2, "pools": pools})
+              "gap": TALENT_GAP, "note": "pct0", "layout": "talent_tree", "pools": pools})
 
 
 def ban_subs(bank: Bank, snap: Path) -> None:
@@ -323,13 +367,14 @@ def ban_subs(bank: Bank, snap: Path) -> None:
     comment = (f"Доля рейтинговых матчей, где героя забанили ({bank.patch}, выборка {d['sample_matches']} матчей "
                f"STRATZ за {days_span(win['from'], win['to'])}).")
     top = rows[:30]
-    bank.add({"id": "bans", "mode": "mc", "topic": "Баны", "display": "Баны", "comment": comment, "gap": BAN_GAP,
-              "note": "pct", "weight": 1, "pools": [mc_pool([[r["hero"], round(r["ban_rate"], 4), pct(r["ban_rate"])] for r in top],
-                                             ("max", f"Кого из этих героев чаще всего банят в рейтинге на {bank.patch}?"))]})
-    bank.add({"id": "bans_closest", "mode": "closest", "topic": "Баны", "display": "Баны", "comment": comment,
-              "weight": 1, "pools": [{"subject": r["hero"], "answer": round(100 * r["ban_rate"]),
-                                      "text": f"В каком проценте рейтинговых матчей банят {r['hero']} на {bank.patch}?"}
-                                     for r in rows[:CLOSEST_BAN_TOP]]})
+    bank.add({"id": "bans", "comment": comment, "gap": BAN_GAP, "note": "pct",
+              "pools": [mc_pool([[r["hero"], round(r["ban_rate"], 4), pct(r["ban_rate"])] for r in top],
+                                ("max", f"Кого из этих героев чаще всего банят в рейтинге на {bank.patch}?"))]})
+    # отдельный id (а не closest внутри bans) — история колод и оценок в Neon уже записана под bans_closest
+    bank.add({"id": "bans_closest", "comment": comment, "pools": [], "closest": closest_part(
+        [{"subject": r["hero"], "answer": round(100 * r["ban_rate"]),
+          "text": f"В каком проценте рейтинговых матчей банят {r['hero']} на {bank.patch}?"}
+         for r in rows[:CLOSEST_BAN_TOP]], "%")})
 
 
 def hero_subs(bank: Bank, snap: Path) -> None:
@@ -347,9 +392,8 @@ def hero_subs(bank: Bank, snap: Path) -> None:
                 mc_pool(entries(half(rs, key, False), key, fmt), ("min", text_min))]
 
     wr = lambda r: r["winrate"]
-    bank.add({"id": "hero_wr", "mode": "mc", "topic": "Винрейт героев", "display": f"Винрейт на {p}",
+    bank.add({"id": "hero_wr",
               "comment": f"Винрейт за патч {p} (OpenDota, с {od_from}, все ранги).", "gap": WR_GAP, "note": "pct",
-              "weight": 2,
               "pools": top_bottom(od, wr, pct, f"У кого из этих героев самый высокий винрейт на {p}?",
                                   f"У кого из этих героев самый низкий винрейт на {p}?")})
 
@@ -357,15 +401,14 @@ def hero_subs(bank: Bank, snap: Path) -> None:
 
     pr = lambda r: r["pick_rate"]
     pick_comment = f"Доля матчей, где героя выбрали (OpenDota, {p} с {od_from}, все ранги)."
-    bank.add({"id": "hero_pick", "mode": "mc", "topic": "Популярность героев", "display": f"Пики на {p}",
-              "comment": pick_comment, "gap": PICK_GAP, "note": "pct", "weight": 2,
+    bank.add({"id": "hero_pick", "comment": pick_comment, "gap": PICK_GAP, "note": "pct",
               "pools": top_bottom(od, pr, pct, f"Кого из этих героев чаще всего пикают на {p}?",
                                   f"Кого из этих героев реже всего пикают на {p}?")})
-    bank.add({"id": "hero_pick_closest", "mode": "closest", "topic": "Популярность героев", "display": f"Пики на {p}",
-              "comment": pick_comment, "weight": 1,
-              "pools": [{"subject": r["hero"], "answer": round(100 * r["pick_rate"]),
-                         "text": f"В каком проценте матчей пикают {r['hero']} на {p}?"}
-                        for r in sorted(od, key=pr, reverse=True) if pr(r) >= CLOSEST_PICK_MIN]})
+    # отдельный id (а не closest внутри hero_pick) — история колод и оценок в Neon уже записана под hero_pick_closest
+    bank.add({"id": "hero_pick_closest", "comment": pick_comment, "pools": [], "closest": closest_part(
+        [{"subject": r["hero"], "answer": round(100 * r["pick_rate"]),
+          "text": f"В каком проценте матчей пикают {r['hero']} на {p}?"}
+         for r in sorted(od, key=pr, reverse=True) if pr(r) >= CLOSEST_PICK_MIN], "%")})
 
     months = load(snap / "stratz/manifest.json")["datasets"]
     yw = next(d["window"]["months"] for d in months if d["id"] == "hero_year_months")
@@ -374,18 +417,16 @@ def hero_subs(bank: Bank, snap: Path) -> None:
             and (r.get("first_month") or "9999") <= yw[0]]
     # окно — честное: снимок 2026-10-27, а год кончается 2026-08 — «за последний год» было бы неправдой
     span = f"с {month_ru(yw[0], MONTHS_GEN)} по {month_ru(yw[-1], MONTHS_NOM)}"
-    bank.add({"id": "hero_pick_year", "mode": "mc", "topic": "Популярность героев", "display": "Пики за год",
+    bank.add({"id": "hero_pick_year",
               "comment": f"Доля матчей с героем {span} (STRATZ, все ранги).", "gap": PICK_GAP, "note": "pct",
-              "weight": 1,
               "pools": top_bottom(year, pr, pct, f"Кого из этих героев чаще всего пикали {span}?",
                                   f"Кого из этих героев реже всего пикали {span}?")})
 
     aw = next(d["window"]["months"] for d in months if d["id"] == "hero_all_months")
     allm = [r for r in st if r["window_id"] == "hero_all_months" and r["bracket"] == "all"]
     # только верх: внизу — новые герои (Largo, Kez), там вопрос про дату выхода, а не про популярность
-    bank.add({"id": "hero_pick_all", "mode": "mc", "topic": "Популярность героев", "display": "Пики за всё время",
-              "comment": f"Доля матчей с героем {gap_months(aw)} (STRATZ).",
-              "gap": PICK_GAP, "note": "pct", "weight": 1,
+    bank.add({"id": "hero_pick_all", "comment": f"Доля матчей с героем {gap_months(aw)} (STRATZ).",
+              "gap": PICK_GAP, "note": "pct",
               "pools": [mc_pool(entries(half(allm, pr, True), pr, pct),
                                 ("max", f"Кого из этих героев пикали чаще всего с {aw[0][:4]} года?"))]})
 
@@ -412,27 +453,51 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
     good = lambda r: item_ok(*meta.get(r["item"], (None, None)))
     weeks = next(d["window"]["weeks"] for d in load(snap / "stratz/manifest.json")["datasets"] if d["id"] == "items_patch")
     window = f"STRATZ, {weeks_span(weeks)}"
+    p = bank.patch
+
+    # «кто ближе»: доля = покупки / матчи героя. Числа матчей в выборке покупок STRATZ не отдаёт; берём матчи героя
+    # в рейтинге (winWeek, 3 недели — он отстаёт), покупки — 5 недель патча. На одной неделе покупки ≈ половина
+    # рейтинговых матчей героя (выборка покупок меньше), 5 недель против 3 это почти компенсируют — получается
+    # оценка, а не точная доля; пары выше CLOSEST_ITEM_MAX (Blink у Tidehunter — 102%) выкидываются
+    # (docs/questions/stratz-research.md, «Знаменатель предметов»)
+    games = {r["hero_id"]: r["games"] for r in load(snap / "stratz/heroes.json")["rows"]
+             if r["window_id"] == "hero_wr_patch_weeks" and r["bracket"] == "all" and r["position"] is None}
+    gweeks = next(d["window"]["weeks"] for d in load(snap / "stratz/manifest.json")["datasets"]
+                  if d["id"] == "hero_wr_patch_weeks")
+    share_ok = lambda x: CLOSEST_ITEM_MIN <= x <= CLOSEST_ITEM_MAX
+    near_comment = (f"Оценка: покупки предмета за патч {p} ({window}) к матчам в рейтинге ({weeks_span(gweeks)}) — "
+                    f"STRATZ не даёт числа матчей в выборке покупок.")
+
     glob = sorted((r for r in rows if r["hero_id"] is None and good(r)), key=lambda r: -r["purchases"])[:30]
-    bank.add({"id": "items", "mode": "mc", "topic": "Предметы", "display": "Популярные предметы",
-              "comment": f"Число покупок за патч {bank.patch} ({window}; без ботинок и расходников).",
-              "gap": ITEM_GAP, "note": "count", "weight": 1, "exclusive": upgrade_pairs({r["item"] for r in glob}),
+    slots = sum(games.values())   # игроко-матчи: у каждого героя в матче свой слот
+    bank.add({"id": "items",
+              "comment": f"Число покупок за патч {p} ({window}; без ботинок и расходников).",
+              "gap": ITEM_GAP, "note": "count", "exclusive": upgrade_pairs({r["item"] for r in glob}),
               "pools": [mc_pool([[r["item"], r["purchases"], sig3(r["purchases"])] for r in glob],
-                                ("max", f"Какой из этих предметов чаще всего покупают на {bank.patch}?"))]})
+                                ("max", f"Какой из этих предметов чаще всего покупают на {p}?"))],
+              "closest": closest_part([{"subject": r["item"], "answer": round(100 * r["purchases"] / slots),
+                                        "text": f"Сколько процентов игроков покупают {r['item']} за матч на {p}?"}
+                                       for r in glob if share_ok(r["purchases"] / slots)], "%", near_comment)})
 
     by_hero = defaultdict(list)
     for r in rows:
         if r["hero_id"] is not None and good(r):
             by_hero[r["hero_id"]].append(r)
-    pools = []
+    pools, near = [], []
     for h, rs in sorted(by_hero.items()):
         rs = sorted(rs, key=lambda r: -r["purchases"])[:ITEMS_PER_HERO]
         entries = [[r["item"], r["purchases"], sig3(r["purchases"])] for r in rs]
         pools.append(mc_pool(entries, ("max", f"Какой из этих предметов чаще всего покупают на {names[h]}?"),
                              subject=names[h]))
-    bank.add({"id": "items_hero", "mode": "mc", "topic": "Предметы", "display": "Предметы героя",
-              "comment": f"Число покупок на герое за патч {bank.patch} ({window}; без ботинок и расходников).",
-              "gap": ITEM_HERO_GAP, "note": "count", "weight": 2, "pools": pools,
-              "exclusive": upgrade_pairs({e[0] for p in pools for e in p["entries"]})})
+        # те же законченные предметы (ITEMS_PER_HERO самых покупаемых на герое), что и в MC
+        near += [{"subject": names[h], "answer": round(100 * r["purchases"] / games[h]),
+                  "text": f"В каком проценте матчей на {names[h]} покупают {r['item']} на {p}?"}
+                 for r in rs if games.get(h) and share_ok(r["purchases"] / games[h])]
+    bank.add({"id": "items_hero",
+              "comment": f"Число покупок на герое за патч {p} ({window}; без ботинок и расходников).",
+              "gap": ITEM_HERO_GAP, "note": "count", "pools": pools,
+              "exclusive": upgrade_pairs({e[0] for pl in pools for e in pl["entries"]}),
+              "closest": closest_part(near, "%", near_comment.replace("к матчам", "к матчам героя"))})
 
     boots = defaultdict(list)
     for r in load(snap / "stratz/boots.json")["rows"]:
@@ -457,11 +522,12 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
             continue
         pools.append(mc_pool(top, ("max", f"Какие из этих ботинок чаще всего собирают на {names[h]}?"),
                              subject=names[h]))
-    bank.add({"id": "boots_hero", "mode": "mc", "topic": "Предметы", "display": "Ботинки героя",
+    # ботинки и тайминги в «кто ближе» не берём (2026-10-30)
+    bank.add({"id": "boots_hero",
               "comment": f"Доля среди всех покупок ботинок на герое, кроме Boots of Speed, за патч {bank.patch} "
                          f"(STRATZ, {weeks_span(bweeks)}). Ответ — самые популярные ботинки на герое вообще, "
                          f"не только среди показанных.",
-              "gap": BOOTS_GAP, "note": "pct", "weight": 1, "topLead": True, "pools": pools,
+              "gap": BOOTS_GAP, "note": "pct", "topLead": True, "pools": pools,
               "exclusive": sorted(sorted(x) for x in bad)})
 
 
@@ -471,8 +537,12 @@ def report(bank: Bank) -> None:
     rng = random.Random(1)
     print(f"\n{'подкатегория':20} {'режим':7} {'пулов':>5} {'вариантов':>9}  ответов*  с 1-й попытки")
     for s in bank.subs:
-        if s["mode"] == "closest":
-            print(f"{s['id']:20} {'closest':7} {len(s['pools']):5}")
+        if s.get("closest"):
+            cl = s["closest"]["pools"]
+            answers = sorted(c["answer"] for c in cl)
+            print(f"{s['id']:20} {'closest':7} {len(cl):5}  {len({c['subject'] for c in cl})} карточек, ответы "
+                  f"{answers[0]}…{answers[-1]} {s['closest'].get('unit', '')}")
+        if not s["pools"]:
             continue
         sizes = [len(p["entries"]) for p in s["pools"]]
         lead = [leaders(p["entries"], s["gap"], a["ask"], s.get("exclusive")) for p in s["pools"] for a in p["asks"]]

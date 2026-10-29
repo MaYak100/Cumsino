@@ -13,6 +13,11 @@
 Вопросы на статистике сюда не входят: сервер собирает их при каждом показе из scripts/data/stats/bank.json.
 Категории, подкатегории и веса — server/src/game/questions/categories.ts; здесь у вопроса только `sub`.
 
+Тема вопроса в игре — «субъект» + «аспект» (categories.ts, picker.ts decorate). topic здесь — субъект: герой (числа
+способностей, механики, таланты), предмет (числа предметов и цены — без аспекта, чтобы тема не выдавала цену),
+нейтралка или чара. aspect — только если отличается от аспекта подкатегории: у чар «чара» (у подкатегории
+neutrals — «нейтралка»).
+
 id вопроса постоянный — по нему игра помнит, что уже было, хранит оценки и архив (Neon). Он строится из
 смысла вопроса, а не из текста: правка формулировки id не меняет.
   num:<fact_id>:<level>      tal:<talent_id>      mech:<герой>:<способность>
@@ -31,8 +36,8 @@ id вопроса постоянный — по нему игра помнит, 
 
 Формат:
   {built_at, sources, questions: [
-    {id, sub, kind: "number", text, topic, answer, step, unit, comment?},   # MC по шагу и «ближе всех»
-    {id, sub, kind: "choice", text, topic, options, comment?}               # options[0] — правильный
+    {id, sub, kind: "number", text, topic, aspect?, answer, step, unit, comment?},   # MC по шагу и «ближе всех»
+    {id, sub, kind: "choice", text, topic, aspect?, options, comment?}               # options[0] — правильный
   ]}
 
   python scripts/build_question_bank.py
@@ -337,14 +342,17 @@ def build() -> tuple[list[dict], Counter, list[str]]:
             out.append(number_question(q, None, q["entity"].split(" · ")[0]))
         elif cat == "items":
             out.append(number_question(q, "item_numbers", q["entity"]))
-        else:   # neutrals, enhancements
-            out.append(number_question(q, "neutrals", q["entity"]))
+        else:   # neutrals, enhancements — одна подкатегория, тема различается аспектом
+            out_q = number_question(q, "neutrals", q["entity"])
+            if cat == "enhancements":
+                out_q["aspect"] = "чара"
+            out.append(out_q)
 
     for q in run_questions(COSTS):
         if flagged(q, "costs"):
             dropped["costs"] += 1
             continue
-        out.append(number_question(q, "costs", "Цена"))
+        out.append(number_question(q, "costs", q["entity"]))   # тема — предмет (данные прогона), не «Цена»
 
     for group in json.loads(TALENTS.read_text(encoding="utf-8")):
         for q in group["questions"]:

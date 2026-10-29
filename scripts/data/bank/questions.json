@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-29",
+ "built_at": "2026-10-30",
  "sources": {
   "numbers": "scripts\\generate\\numeric_lab\\out\\full1\\resolved.json",
   "costs": "scripts\\generate\\numeric_lab\\out\\costs2\\resolved.json",
@@ -17,7 +17,8 @@
    "answer": 90,
    "step": 10,
    "unit": "золота в минуту",
-   "comment": "Greedy: 65 / 90 золота в минуту по уровням"
+   "comment": "Greedy: 65 / 90 золота в минуту по уровням",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_evolved:primary_stat_universal:max",
@@ -27,7 +28,8 @@
    "topic": "Evolved",
    "answer": 24,
    "step": 4,
-   "unit": "к атрибутам"
+   "unit": "к атрибутам",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_fleetfooted:movespeed:max",
@@ -37,7 +39,8 @@
    "topic": "Fleetfooted",
    "answer": 115,
    "step": 15,
-   "unit": "скорости"
+   "unit": "скорости",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_audacious:magic_damage:max",
@@ -47,7 +50,8 @@
    "topic": "Audacious",
    "answer": 80,
    "step": 10,
-   "unit": "урона"
+   "unit": "урона",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_feverish:cooldown_reduction:max",
@@ -57,7 +61,8 @@
    "topic": "Feverish",
    "answer": 15,
    "step": 2.5,
-   "unit": "%"
+   "unit": "%",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_manic:bat_reduce:max",
@@ -67,7 +72,8 @@
    "topic": "Manic",
    "answer": 18,
    "step": 3,
-   "unit": "%"
+   "unit": "%",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_vampiric:spell_lifesteal:max",
@@ -77,7 +83,8 @@
    "topic": "Vampiric",
    "answer": 20,
    "step": 5,
-   "unit": "%"
+   "unit": "%",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_brawny:health_bonus:max",
@@ -88,7 +95,8 @@
    "answer": 230,
    "step": 20,
    "unit": "HP",
-   "comment": "Brawny: 110 / 150 / 190 / 230 HP по уровням"
+   "comment": "Brawny: 110 / 150 / 190 / 230 HP по уровням",
+   "aspect": "чара"
   },
   {
    "id": "num:enhancement_titanic:base_attack_damage:max",
@@ -99,7 +107,8 @@
    "answer": 16,
    "step": 4,
    "unit": "%",
-   "comment": "Titanic: 8 / 12 / 16 % по уровням"
+   "comment": "Titanic: 8 / 12 / 16 % по уровням",
+   "aspect": "чара"
   },
   {
    "id": "num:lion_voodoo:duration:max",
@@ -7182,7 +7191,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Heart of Tarrasque?",
-   "topic": "Цена",
+   "topic": "Heart of Tarrasque",
    "answer": 5300,
    "step": 200,
    "unit": "золота"
@@ -7192,7 +7201,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Hand of Midas?",
-   "topic": "Цена",
+   "topic": "Hand of Midas",
    "answer": 2200,
    "step": 100,
    "unit": "золота"
@@ -7202,7 +7211,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Shadow Blade?",
-   "topic": "Цена",
+   "topic": "Shadow Blade",
    "answer": 3250,
    "step": 250,
    "unit": "золота"
@@ -7212,7 +7221,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Skull Basher?",
-   "topic": "Цена",
+   "topic": "Skull Basher",
    "answer": 2875,
    "step": 100,
    "unit": "золота"
@@ -7222,7 +7231,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ring of Protection?",
-   "topic": "Цена",
+   "topic": "Ring of Protection",
    "answer": 175,
    "step": 25,
    "unit": "золота"
@@ -7232,7 +7241,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Enchanted Mango?",
-   "topic": "Цена",
+   "topic": "Enchanted Mango",
    "answer": 65,
    "step": 10,
    "unit": "золота"
@@ -7242,7 +7251,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Oblivion Staff?",
-   "topic": "Цена",
+   "topic": "Oblivion Staff",
    "answer": 1625,
    "step": 100,
    "unit": "золота"
@@ -7252,7 +7261,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Refresher Orb?",
-   "topic": "Цена",
+   "topic": "Refresher Orb",
    "answer": 5000,
    "step": 200,
    "unit": "золота"
@@ -7262,7 +7271,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Voodoo Mask?",
-   "topic": "Цена",
+   "topic": "Voodoo Mask",
    "answer": 650,
    "step": 50,
    "unit": "золота"
@@ -7272,7 +7281,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Buckler целиком?",
-   "topic": "Цена",
+   "topic": "Buckler",
    "answer": 425,
    "step": 50,
    "unit": "золота"
@@ -7282,7 +7291,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Abyssal Blade?",
-   "topic": "Цена",
+   "topic": "Abyssal Blade",
    "answer": 6250,
    "step": 250,
    "unit": "золота"
@@ -7292,7 +7301,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Blood Grenade?",
-   "topic": "Цена",
+   "topic": "Blood Grenade",
    "answer": 50,
    "step": 10,
    "unit": "золота"
@@ -7302,7 +7311,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Chainmail?",
-   "topic": "Цена",
+   "topic": "Chainmail",
    "answer": 500,
    "step": 50,
    "unit": "золота"
@@ -7312,7 +7321,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Blade Mail?",
-   "topic": "Цена",
+   "topic": "Blade Mail",
    "answer": 2400,
    "step": 100,
    "unit": "золота"
@@ -7322,7 +7331,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Vitality Booster?",
-   "topic": "Цена",
+   "topic": "Vitality Booster",
    "answer": 1000,
    "step": 100,
    "unit": "золота"
@@ -7332,7 +7341,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Force Staff?",
-   "topic": "Цена",
+   "topic": "Force Staff",
    "answer": 2200,
    "step": 100,
    "unit": "золота"
@@ -7342,7 +7351,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ogre Axe?",
-   "topic": "Цена",
+   "topic": "Ogre Axe",
    "answer": 1000,
    "step": 100,
    "unit": "золота"
@@ -7352,7 +7361,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Crimson Guard?",
-   "topic": "Цена",
+   "topic": "Crimson Guard",
    "answer": 3725,
    "step": 100,
    "unit": "золота"
@@ -7362,7 +7371,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Gloves of Haste?",
-   "topic": "Цена",
+   "topic": "Gloves of Haste",
    "answer": 450,
    "step": 50,
    "unit": "золота"
@@ -7372,7 +7381,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Manta Style?",
-   "topic": "Цена",
+   "topic": "Manta Style",
    "answer": 4650,
    "step": 200,
    "unit": "золота"
@@ -7382,7 +7391,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Armlet of Mordiggian?",
-   "topic": "Цена",
+   "topic": "Armlet of Mordiggian",
    "answer": 2500,
    "step": 100,
    "unit": "золота"
@@ -7392,7 +7401,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Boots of Travel (первого уровня, целиком)?",
-   "topic": "Цена",
+   "topic": "Boots of Travel",
    "answer": 2500,
    "step": 250,
    "unit": "золота"
@@ -7402,7 +7411,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Bloodthorn?",
-   "topic": "Цена",
+   "topic": "Bloodthorn",
    "answer": 6400,
    "step": 200,
    "unit": "золота"
@@ -7412,7 +7421,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ring of Health?",
-   "topic": "Цена",
+   "topic": "Ring of Health",
    "answer": 700,
    "step": 50,
    "unit": "золота"
@@ -7422,7 +7431,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Swift Blink целиком?",
-   "topic": "Цена",
+   "topic": "Swift Blink",
    "answer": 6800,
    "step": 200,
    "unit": "золота"
@@ -7432,7 +7441,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Consecrated Wraps?",
-   "topic": "Цена",
+   "topic": "Consecrated Wraps",
    "answer": 2600,
    "step": 200,
    "unit": "золота"
@@ -7442,7 +7451,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Parasma?",
-   "topic": "Цена",
+   "topic": "Parasma",
    "answer": 5975,
    "step": 200,
    "unit": "золота"
@@ -7452,7 +7461,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Wind Lace?",
-   "topic": "Цена",
+   "topic": "Wind Lace",
    "answer": 225,
    "step": 25,
    "unit": "золота"
@@ -7462,7 +7471,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Blitz Knuckles?",
-   "topic": "Цена",
+   "topic": "Blitz Knuckles",
    "answer": 1000,
    "step": 100,
    "unit": "золота"
@@ -7472,7 +7481,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Magic Stick?",
-   "topic": "Цена",
+   "topic": "Magic Stick",
    "answer": 200,
    "step": 50,
    "unit": "золота"
@@ -7482,7 +7491,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Satanic?",
-   "topic": "Цена",
+   "topic": "Satanic",
    "answer": 5050,
    "step": 200,
    "unit": "золота"
@@ -7492,7 +7501,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Battle Fury?",
-   "topic": "Цена",
+   "topic": "Battle Fury",
    "answer": 3900,
    "step": 200,
    "unit": "золота"
@@ -7502,7 +7511,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Orb of Frost?",
-   "topic": "Цена",
+   "topic": "Orb of Frost",
    "answer": 300,
    "step": 50,
    "unit": "золота"
@@ -7512,7 +7521,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Helm of Iron Will?",
-   "topic": "Цена",
+   "topic": "Helm of Iron Will",
    "answer": 975,
    "step": 50,
    "unit": "золота"
@@ -7522,7 +7531,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Circlet?",
-   "topic": "Цена",
+   "topic": "Circlet",
    "answer": 155,
    "step": 25,
    "unit": "золота"
@@ -7532,7 +7541,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Dragon Lance?",
-   "topic": "Цена",
+   "topic": "Dragon Lance",
    "answer": 2000,
    "step": 100,
    "unit": "золота"
@@ -7542,7 +7551,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ghost Scepter?",
-   "topic": "Цена",
+   "topic": "Ghost Scepter",
    "answer": 1500,
    "step": 100,
    "unit": "золота"
@@ -7552,7 +7561,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Shadow Amulet?",
-   "topic": "Цена",
+   "topic": "Shadow Amulet",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -7562,7 +7571,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Essence Distiller?",
-   "topic": "Цена",
+   "topic": "Essence Distiller",
    "answer": 1775,
    "step": 100,
    "unit": "золота"
@@ -7572,7 +7581,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько в сумме стоит Dagon 5?",
-   "topic": "Цена",
+   "topic": "Dagon",
    "answer": 7400,
    "step": 200,
    "unit": "золота",
@@ -7583,7 +7592,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Splintmail?",
-   "topic": "Цена",
+   "topic": "Splintmail",
    "answer": 950,
    "step": 50,
    "unit": "золота"
@@ -7593,7 +7602,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Eaglesong?",
-   "topic": "Цена",
+   "topic": "Eaglesong",
    "answer": 2800,
    "step": 100,
    "unit": "золота"
@@ -7603,7 +7612,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Soul Booster?",
-   "topic": "Цена",
+   "topic": "Soul Booster",
    "answer": 3000,
    "step": 100,
    "unit": "золота"
@@ -7613,7 +7622,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Heaven's Halberd?",
-   "topic": "Цена",
+   "topic": "Heaven's Halberd",
    "answer": 3300,
    "step": 100,
    "unit": "золота"
@@ -7623,7 +7632,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Radiance?",
-   "topic": "Цена",
+   "topic": "Radiance",
    "answer": 4700,
    "step": 200,
    "unit": "золота"
@@ -7633,7 +7642,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Infused Raindrops?",
-   "topic": "Цена",
+   "topic": "Infused Raindrops",
    "answer": 225,
    "step": 25,
    "unit": "золота"
@@ -7643,7 +7652,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Wind Waker целиком?",
-   "topic": "Цена",
+   "topic": "Wind Waker",
    "answer": 6800,
    "step": 200,
    "unit": "золота"
@@ -7653,7 +7662,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ring of Regen?",
-   "topic": "Цена",
+   "topic": "Ring of Regen",
    "answer": 175,
    "step": 25,
    "unit": "золота"
@@ -7663,7 +7672,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Diadem?",
-   "topic": "Цена",
+   "topic": "Diadem",
    "answer": 1000,
    "step": 100,
    "unit": "золота"
@@ -7673,7 +7682,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Blink Dagger?",
-   "topic": "Цена",
+   "topic": "Blink Dagger",
    "answer": 2250,
    "step": 100,
    "unit": "золота"
@@ -7683,7 +7692,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Echo Sabre?",
-   "topic": "Цена",
+   "topic": "Echo Sabre",
    "answer": 2700,
    "step": 100,
    "unit": "золота"
@@ -7693,7 +7702,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ultimate Orb?",
-   "topic": "Цена",
+   "topic": "Ultimate Orb",
    "answer": 2800,
    "step": 100,
    "unit": "золота"
@@ -7703,7 +7712,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Perseverance?",
-   "topic": "Цена",
+   "topic": "Perseverance",
    "answer": 1400,
    "step": 100,
    "unit": "золота"
@@ -7713,7 +7722,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Orchid Malevolence?",
-   "topic": "Цена",
+   "topic": "Orchid Malevolence",
    "answer": 3275,
    "step": 100,
    "unit": "золота"
@@ -7723,7 +7732,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Diffusal Blade?",
-   "topic": "Цена",
+   "topic": "Diffusal Blade",
    "answer": 2500,
    "step": 100,
    "unit": "золота"
@@ -7733,7 +7742,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Eul's Scepter of Divinity?",
-   "topic": "Цена",
+   "topic": "Eul's Scepter of Divinity",
    "answer": 2600,
    "step": 100,
    "unit": "золота"
@@ -7743,7 +7752,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Solar Crest?",
-   "topic": "Цена",
+   "topic": "Solar Crest",
    "answer": 2575,
    "step": 100,
    "unit": "золота"
@@ -7753,7 +7762,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Arcane Boots?",
-   "topic": "Цена",
+   "topic": "Arcane Boots",
    "answer": 1500,
    "step": 100,
    "unit": "золота"
@@ -7763,7 +7772,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Demon Edge?",
-   "topic": "Цена",
+   "topic": "Demon Edge",
    "answer": 2200,
    "step": 100,
    "unit": "золота"
@@ -7773,7 +7782,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mage Slayer?",
-   "topic": "Цена",
+   "topic": "Mage Slayer",
    "answer": 3100,
    "step": 100,
    "unit": "золота"
@@ -7783,7 +7792,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Dust of Appearance?",
-   "topic": "Цена",
+   "topic": "Dust of Appearance",
    "answer": 80,
    "step": 10,
    "unit": "золота"
@@ -7793,7 +7802,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Rod of Atos?",
-   "topic": "Цена",
+   "topic": "Rod of Atos",
    "answer": 2250,
    "step": 100,
    "unit": "золота"
@@ -7803,7 +7812,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Soul Ring?",
-   "topic": "Цена",
+   "topic": "Soul Ring",
    "answer": 805,
    "step": 50,
    "unit": "золота"
@@ -7813,7 +7822,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Orb of Blight?",
-   "topic": "Цена",
+   "topic": "Orb of Blight",
    "answer": 300,
    "step": 50,
    "unit": "золота"
@@ -7823,7 +7832,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Bloodstone?",
-   "topic": "Цена",
+   "topic": "Bloodstone",
    "answer": 4700,
    "step": 200,
    "unit": "золота"
@@ -7833,7 +7842,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Butterfly?",
-   "topic": "Цена",
+   "topic": "Butterfly",
    "answer": 5450,
    "step": 200,
    "unit": "золота"
@@ -7843,7 +7852,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Energy Booster?",
-   "topic": "Цена",
+   "topic": "Energy Booster",
    "answer": 800,
    "step": 50,
    "unit": "золота"
@@ -7853,7 +7862,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Cloak?",
-   "topic": "Цена",
+   "topic": "Cloak",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -7863,7 +7872,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Sacred Relic?",
-   "topic": "Цена",
+   "topic": "Sacred Relic",
    "answer": 3400,
    "step": 100,
    "unit": "золота"
@@ -7873,7 +7882,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Moon Shard?",
-   "topic": "Цена",
+   "topic": "Moon Shard",
    "answer": 4000,
    "step": 200,
    "unit": "золота"
@@ -7883,7 +7892,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Linken's Sphere?",
-   "topic": "Цена",
+   "topic": "Linken's Sphere",
    "answer": 4800,
    "step": 200,
    "unit": "золота"
@@ -7893,7 +7902,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Aether Lens?",
-   "topic": "Цена",
+   "topic": "Aether Lens",
    "answer": 2275,
    "step": 100,
    "unit": "золота"
@@ -7903,7 +7912,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Crella's Crozier?",
-   "topic": "Цена",
+   "topic": "Crella's Crozier",
    "answer": 4800,
    "step": 200,
    "unit": "золота"
@@ -7913,7 +7922,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Hydra's Breath?",
-   "topic": "Цена",
+   "topic": "Hydra's Breath",
    "answer": 5900,
    "step": 200,
    "unit": "золота"
@@ -7923,7 +7932,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Shawl?",
-   "topic": "Цена",
+   "topic": "Shawl",
    "answer": 450,
    "step": 50,
    "unit": "золота"
@@ -7933,7 +7942,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Bottle?",
-   "topic": "Цена",
+   "topic": "Bottle",
    "answer": 675,
    "step": 50,
    "unit": "золота"
@@ -7943,7 +7952,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Khanda?",
-   "topic": "Цена",
+   "topic": "Khanda",
    "answer": 5600,
    "step": 200,
    "unit": "золота"
@@ -7953,7 +7962,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Void Stone?",
-   "topic": "Цена",
+   "topic": "Void Stone",
    "answer": 700,
    "step": 50,
    "unit": "золота"
@@ -7963,7 +7972,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ring of Tarrasque?",
-   "topic": "Цена",
+   "topic": "Ring of Tarrasque",
    "answer": 1700,
    "step": 100,
    "unit": "золота"
@@ -7973,7 +7982,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Hurricane Pike?",
-   "topic": "Цена",
+   "topic": "Hurricane Pike",
    "answer": 4550,
    "step": 200,
    "unit": "золота"
@@ -7983,7 +7992,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Platemail?",
-   "topic": "Цена",
+   "topic": "Platemail",
    "answer": 1400,
    "step": 100,
    "unit": "золота"
@@ -7993,7 +8002,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Scythe of Vyse?",
-   "topic": "Цена",
+   "topic": "Scythe of Vyse",
    "answer": 5200,
    "step": 200,
    "unit": "золота"
@@ -8003,7 +8012,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Nullifier?",
-   "topic": "Цена",
+   "topic": "Nullifier",
    "answer": 4350,
    "step": 200,
    "unit": "золота"
@@ -8013,7 +8022,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Boots of Bearing целиком?",
-   "topic": "Цена",
+   "topic": "Boots of Bearing",
    "answer": 4225,
    "step": 200,
    "unit": "золота"
@@ -8023,7 +8032,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Drum of Endurance?",
-   "topic": "Цена",
+   "topic": "Drum of Endurance",
    "answer": 1625,
    "step": 100,
    "unit": "золота"
@@ -8033,7 +8042,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Broadsword?",
-   "topic": "Цена",
+   "topic": "Broadsword",
    "answer": 1000,
    "step": 100,
    "unit": "золота"
@@ -8043,7 +8052,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Eye of Skadi?",
-   "topic": "Цена",
+   "topic": "Eye of Skadi",
    "answer": 5900,
    "step": 200,
    "unit": "золота"
@@ -8053,7 +8062,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Faerie Fire?",
-   "topic": "Цена",
+   "topic": "Faerie Fire",
    "answer": 65,
    "step": 10,
    "unit": "золота"
@@ -8063,7 +8072,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Guardian Greaves целиком?",
-   "topic": "Цена",
+   "topic": "Guardian Greaves",
    "answer": 4450,
    "step": 200,
    "unit": "золота"
@@ -8073,7 +8082,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Urn of Shadows?",
-   "topic": "Цена",
+   "topic": "Urn of Shadows",
    "answer": 825,
    "step": 50,
    "unit": "золота"
@@ -8083,7 +8092,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Tranquil Boots?",
-   "topic": "Цена",
+   "topic": "Tranquil Boots",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -8093,7 +8102,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Aghanim's Shard?",
-   "topic": "Цена",
+   "topic": "Aghanim's Shard",
    "answer": 1400,
    "step": 100,
    "unit": "золота"
@@ -8103,7 +8112,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Point Booster?",
-   "topic": "Цена",
+   "topic": "Point Booster",
    "answer": 1200,
    "step": 100,
    "unit": "золота"
@@ -8113,7 +8122,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Revenant's Brooch?",
-   "topic": "Цена",
+   "topic": "Revenant's Brooch",
    "answer": 3300,
    "step": 100,
    "unit": "золота"
@@ -8123,7 +8132,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Shiva's Guard?",
-   "topic": "Цена",
+   "topic": "Shiva's Guard",
    "answer": 4500,
    "step": 200,
    "unit": "золота"
@@ -8133,7 +8142,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Belt of Strength?",
-   "topic": "Цена",
+   "topic": "Belt of Strength",
    "answer": 450,
    "step": 50,
    "unit": "золота"
@@ -8143,7 +8152,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Black King Bar?",
-   "topic": "Цена",
+   "topic": "Black King Bar",
    "answer": 4050,
    "step": 200,
    "unit": "золота"
@@ -8153,7 +8162,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Maelstrom?",
-   "topic": "Цена",
+   "topic": "Maelstrom",
    "answer": 2950,
    "step": 100,
    "unit": "золота"
@@ -8163,7 +8172,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Daedalus?",
-   "topic": "Цена",
+   "topic": "Daedalus",
    "answer": 5200,
    "step": 200,
    "unit": "золота"
@@ -8173,7 +8182,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Veil of Discord?",
-   "topic": "Цена",
+   "topic": "Veil of Discord",
    "answer": 1700,
    "step": 100,
    "unit": "золота"
@@ -8183,7 +8192,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Wizard Hat?",
-   "topic": "Цена",
+   "topic": "Wizard Hat",
    "answer": 250,
    "step": 25,
    "unit": "золота"
@@ -8193,7 +8202,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Crown?",
-   "topic": "Цена",
+   "topic": "Crown",
    "answer": 450,
    "step": 50,
    "unit": "золота"
@@ -8203,7 +8212,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mantle of Intelligence?",
-   "topic": "Цена",
+   "topic": "Mantle of Intelligence",
    "answer": 140,
    "step": 25,
    "unit": "золота"
@@ -8213,7 +8222,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Vladmir's Offering?",
-   "topic": "Цена",
+   "topic": "Vladmir's Offering",
    "answer": 2200,
    "step": 100,
    "unit": "золота"
@@ -8223,7 +8232,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Gleipnir?",
-   "topic": "Цена",
+   "topic": "Gleipnir",
    "answer": 4650,
    "step": 200,
    "unit": "золота"
@@ -8233,7 +8242,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Magic Wand целиком?",
-   "topic": "Цена",
+   "topic": "Magic Wand",
    "answer": 460,
    "step": 25,
    "unit": "золота"
@@ -8243,7 +8252,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Fluffy Hat?",
-   "topic": "Цена",
+   "topic": "Fluffy Hat",
    "answer": 250,
    "step": 25,
    "unit": "золота"
@@ -8253,7 +8262,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Orb of Venom?",
-   "topic": "Цена",
+   "topic": "Orb of Venom",
    "answer": 350,
    "step": 50,
    "unit": "золота"
@@ -8263,7 +8272,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Gem of True Sight?",
-   "topic": "Цена",
+   "topic": "Gem of True Sight",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -8273,7 +8282,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Silver Edge?",
-   "topic": "Цена",
+   "topic": "Silver Edge",
    "answer": 5700,
    "step": 200,
    "unit": "золота"
@@ -8283,7 +8292,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mask of Madness?",
-   "topic": "Цена",
+   "topic": "Mask of Madness",
    "answer": 1900,
    "step": 100,
    "unit": "золота"
@@ -8293,7 +8302,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Kaya?",
-   "topic": "Цена",
+   "topic": "Kaya",
    "answer": 2100,
    "step": 100,
    "unit": "золота"
@@ -8303,7 +8312,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mithril Hammer?",
-   "topic": "Цена",
+   "topic": "Mithril Hammer",
    "answer": 1600,
    "step": 100,
    "unit": "золота"
@@ -8313,7 +8322,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Spirit Vessel?",
-   "topic": "Цена",
+   "topic": "Spirit Vessel",
    "answer": 2725,
    "step": 100,
    "unit": "золота"
@@ -8323,7 +8332,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Phase Boots?",
-   "topic": "Цена",
+   "topic": "Phase Boots",
    "answer": 1450,
    "step": 100,
    "unit": "золота"
@@ -8333,7 +8342,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Orb of Corrosion?",
-   "topic": "Цена",
+   "topic": "Orb of Corrosion",
    "answer": 1050,
    "step": 50,
    "unit": "золота"
@@ -8343,7 +8352,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Headdress?",
-   "topic": "Цена",
+   "topic": "Headdress",
    "answer": 425,
    "step": 50,
    "unit": "золота"
@@ -8353,7 +8362,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Phylactery?",
-   "topic": "Цена",
+   "topic": "Phylactery",
    "answer": 2600,
    "step": 100,
    "unit": "золота"
@@ -8363,7 +8372,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Monkey King Bar?",
-   "topic": "Цена",
+   "topic": "Monkey King Bar",
    "answer": 5000,
    "step": 200,
    "unit": "золота"
@@ -8373,7 +8382,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mekansm?",
-   "topic": "Цена",
+   "topic": "Mekansm",
    "answer": 1775,
    "step": 100,
    "unit": "золота"
@@ -8383,7 +8392,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Vanguard?",
-   "topic": "Цена",
+   "topic": "Vanguard",
    "answer": 1700,
    "step": 100,
    "unit": "золота"
@@ -8393,7 +8402,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Aeon Disk?",
-   "topic": "Цена",
+   "topic": "Aeon Disk",
    "answer": 3000,
    "step": 100,
    "unit": "золота"
@@ -8403,7 +8412,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Javelin?",
-   "topic": "Цена",
+   "topic": "Javelin",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -8413,7 +8422,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Holy Locket?",
-   "topic": "Цена",
+   "topic": "Holy Locket",
    "answer": 2250,
    "step": 100,
    "unit": "золота"
@@ -8423,7 +8432,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Harpoon?",
-   "topic": "Цена",
+   "topic": "Harpoon",
    "answer": 4700,
    "step": 200,
    "unit": "золота"
@@ -8433,7 +8442,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Divine Rapier?",
-   "topic": "Цена",
+   "topic": "Divine Rapier",
    "answer": 5600,
    "step": 200,
    "unit": "золота"
@@ -8443,7 +8452,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Disperser?",
-   "topic": "Цена",
+   "topic": "Disperser",
    "answer": 6100,
    "step": 200,
    "unit": "золота"
@@ -8453,7 +8462,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Sange and Yasha?",
-   "topic": "Цена",
+   "topic": "Sange and Yasha",
    "answer": 4200,
    "step": 200,
    "unit": "золота"
@@ -8463,7 +8472,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Sage's Mask?",
-   "topic": "Цена",
+   "topic": "Sage's Mask",
    "answer": 175,
    "step": 25,
    "unit": "золота"
@@ -8473,7 +8482,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ring of Basilius?",
-   "topic": "Цена",
+   "topic": "Ring of Basilius",
    "answer": 425,
    "step": 50,
    "unit": "золота"
@@ -8483,7 +8492,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Witch Blade?",
-   "topic": "Цена",
+   "topic": "Witch Blade",
    "answer": 2775,
    "step": 100,
    "unit": "золота"
@@ -8493,7 +8502,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Hyperstone?",
-   "topic": "Цена",
+   "topic": "Hyperstone",
    "answer": 2000,
    "step": 100,
    "unit": "золота"
@@ -8503,7 +8512,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Power Treads?",
-   "topic": "Цена",
+   "topic": "Power Treads",
    "answer": 1400,
    "step": 100,
    "unit": "золота"
@@ -8513,7 +8522,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Bracer?",
-   "topic": "Цена",
+   "topic": "Bracer",
    "answer": 505,
    "step": 50,
    "unit": "золота"
@@ -8523,7 +8532,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Reaver?",
-   "topic": "Цена",
+   "topic": "Reaver",
    "answer": 2800,
    "step": 100,
    "unit": "золота"
@@ -8533,7 +8542,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Glimmer Cape?",
-   "topic": "Цена",
+   "topic": "Glimmer Cape",
    "answer": 2150,
    "step": 100,
    "unit": "золота"
@@ -8543,7 +8552,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Claymore?",
-   "topic": "Цена",
+   "topic": "Claymore",
    "answer": 1350,
    "step": 100,
    "unit": "золота"
@@ -8553,7 +8562,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mystic Staff?",
-   "topic": "Цена",
+   "topic": "Mystic Staff",
    "answer": 2800,
    "step": 100,
    "unit": "золота"
@@ -8563,7 +8572,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Specialist's Array?",
-   "topic": "Цена",
+   "topic": "Specialist's Array",
    "answer": 2550,
    "step": 100,
    "unit": "золота"
@@ -8573,7 +8582,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Crystalys?",
-   "topic": "Цена",
+   "topic": "Crystalys",
    "answer": 2000,
    "step": 100,
    "unit": "золота"
@@ -8583,7 +8592,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Mjollnir?",
-   "topic": "Цена",
+   "topic": "Mjollnir",
    "answer": 5500,
    "step": 200,
    "unit": "золота"
@@ -8593,7 +8602,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Lotus Orb?",
-   "topic": "Цена",
+   "topic": "Lotus Orb",
    "answer": 3850,
    "step": 100,
    "unit": "золота"
@@ -8603,7 +8612,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Helm of the Overlord целиком?",
-   "topic": "Цена",
+   "topic": "Helm of the Overlord",
    "answer": 5650,
    "step": 200,
    "unit": "золота"
@@ -8613,7 +8622,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Falcon Blade?",
-   "topic": "Цена",
+   "topic": "Falcon Blade",
    "answer": 1125,
    "step": 50,
    "unit": "золота"
@@ -8623,7 +8632,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Desolator?",
-   "topic": "Цена",
+   "topic": "Desolator",
    "answer": 3500,
    "step": 100,
    "unit": "золота"
@@ -8633,7 +8642,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Aghanim's Scepter?",
-   "topic": "Цена",
+   "topic": "Aghanim's Scepter",
    "answer": 4200,
    "step": 200,
    "unit": "золота"
@@ -8643,7 +8652,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Assault Cuirass?",
-   "topic": "Цена",
+   "topic": "Assault Cuirass",
    "answer": 5125,
    "step": 200,
    "unit": "золота"
@@ -8653,7 +8662,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Octarine Core?",
-   "topic": "Цена",
+   "topic": "Octarine Core",
    "answer": 5100,
    "step": 200,
    "unit": "золота"
@@ -8663,7 +8672,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Helm of the Dominator?",
-   "topic": "Цена",
+   "topic": "Helm of the Dominator",
    "answer": 2550,
    "step": 100,
    "unit": "золота"
@@ -8673,7 +8682,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Morbid Mask?",
-   "topic": "Цена",
+   "topic": "Morbid Mask",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -8683,7 +8692,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько в сумме стоят Boots of Travel 2?",
-   "topic": "Цена",
+   "topic": "Boots of Travel 2",
    "answer": 4500,
    "step": 250,
    "unit": "золота"
@@ -8693,7 +8702,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Meteor Hammer?",
-   "topic": "Цена",
+   "topic": "Meteor Hammer",
    "answer": 2850,
    "step": 100,
    "unit": "золота"
@@ -8703,7 +8712,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Ethereal Blade?",
-   "topic": "Цена",
+   "topic": "Ethereal Blade",
    "answer": 5200,
    "step": 200,
    "unit": "золота"
@@ -8713,7 +8722,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоят Blades of Attack?",
-   "topic": "Цена",
+   "topic": "Blades of Attack",
    "answer": 450,
    "step": 50,
    "unit": "золота"
@@ -8723,7 +8732,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Tiara of Selemene?",
-   "topic": "Цена",
+   "topic": "Tiara of Selemene",
    "answer": 1700,
    "step": 100,
    "unit": "золота"
@@ -8733,7 +8742,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Pipe of Insight?",
-   "topic": "Цена",
+   "topic": "Pipe of Insight",
    "answer": 3725,
    "step": 100,
    "unit": "золота"
@@ -8743,7 +8752,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Chasm Stone?",
-   "topic": "Цена",
+   "topic": "Chasm Stone",
    "answer": 900,
    "step": 50,
    "unit": "золота"
@@ -8753,7 +8762,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Talisman of Evasion?",
-   "topic": "Цена",
+   "topic": "Talisman of Evasion",
    "answer": 1300,
    "step": 100,
    "unit": "золота"
@@ -8763,7 +8772,7 @@
    "sub": "costs",
    "kind": "number",
    "text": "Сколько стоит Pavise?",
-   "topic": "Цена",
+   "topic": "Pavise",
    "answer": 1350,
    "step": 100,
    "unit": "золота"

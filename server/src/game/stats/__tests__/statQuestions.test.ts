@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { describe, it, expect } from 'vitest'
 import {
-  StatQuestionBuilder, gameOnlyDeck, gapOk, capOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE,
+  StatQuestionBuilder, gameOnlyDeck, gapOk, capOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE, statKinds,
   type StatsBank, type StatEntry, type DeckAccess, type StatMcPool,
 } from '../statQuestions'
 import type { GameMode } from '@cumsino/shared'
@@ -37,7 +37,7 @@ const entries = (vals: number[]): StatEntry[] => vals.map((v, i) => [`H${i}`, v,
 function bank(sub: Partial<StatsBank['subcategories'][number]> & Pick<StatsBank['subcategories'][number], 'pools'>): StatsBank {
   return {
     snapshot: 'test', patch: '7.41f',
-    subcategories: [{ id: 's', mode: 'mc', topic: 'T', display: 'D', comment: 'C', weight: 1, gap: { rel: 0.1 }, ...sub }],
+    subcategories: [{ id: 's', comment: 'C', gap: { rel: 0.1 }, ...sub }],
   }
 }
 
@@ -100,13 +100,13 @@ describe('StatQuestionBuilder — MC', () => {
     const b: StatsBank = {
       snapshot: 't', patch: 'p',
       subcategories: [
-        { id: 'small', mode: 'mc', topic: 'T', display: 'small', comment: '', weight: 100, gap: { rel: 0.1 },
+        { id: 'small', comment: '', gap: { rel: 0.1 },
           pools: [{ entries: entries([3, 2, 1]), asks: [{ ask: 'max', text: 'q' }] }] },
-        { id: 'big', mode: 'mc', topic: 'T', display: 'big', comment: '', weight: 1, gap: { rel: 0.1 },
+        { id: 'big', comment: '', gap: { rel: 0.1 },
           pools: [{ entries: entries([100, 50, 25, 12]), asks: [{ ask: 'max', text: 'q' }] }] },
       ],
     }
-    expect(picker(b, seeded(2)).pick('all')!.displayTopic).toBe('big')
+    expect(picker(b, seeded(2)).pick('all')!.id).toMatch(/^stat:big:/)
   })
 })
 
@@ -239,19 +239,65 @@ describe('таланты — раскладка как в игре', () => {
 })
 
 describe('StatQuestionBuilder — closest', () => {
-  it('числовой ответ, герой не повторяется', () => {
+  it('числовой ответ, герой не повторяется; единица — из подкатегории, тема — герой', () => {
     const b: StatsBank = {
       snapshot: 't', patch: 'p',
-      subcategories: [{ id: 'c', mode: 'closest', topic: 'Баны', display: 'Баны', comment: 'c', weight: 1,
-        pools: [{ subject: 'Pudge', text: 'Pudge?', answer: 59 }, { subject: 'Lion', text: 'Lion?', answer: 37 }] }],
+      subcategories: [{ id: 'c', comment: 'c', pools: [], closest: { unit: '%',
+        pools: [{ subject: 'Pudge', text: 'Pudge?', answer: 59 }, { subject: 'Lion', text: 'Lion?', answer: 37 }] } }],
     }
+    expect(statKinds(b.subcategories[0])).toEqual(['closest'])
     const p = picker(b, seeded(5))
     const a = p.pick('closest')!
     const c = p.pick('closest')!
     expect([a.numericAnswer, c.numericAnswer].sort()).toEqual([37, 59])
     expect(a.options).toBeUndefined()
+    expect(a.unit).toBe('%')
+    expect(a.displayTopic).toBe(a.text.slice(0, -1))
+    expect(a.id).toBe(`stat:c:${a.displayTopic}`)
     expect(p.pick('closest')).toBeNull()
-    expect(p.pick('all')).toBeNull()   // MC-подкатегорий нет
+    expect(p.pick('all')).toBeNull()   // MC-пулов нет
+  })
+
+  it('без единицы — поля unit нет; свой комментарий главнее MC', () => {
+    const b: StatsBank = { snapshot: 't', patch: 'p', subcategories: [{ id: 'k', comment: 'mc', pools: [],
+      closest: { comment: 'near', pools: [{ subject: 'Ursa', text: 'Ursa?', answer: 10.4 }] } }] }
+    const q = picker(b, seeded(1)).pick('closest')!
+    expect(q.numericAnswer).toBe(10.4)
+    expect('unit' in q).toBe(false)
+    expect(q.comment).toBe('near')
+  })
+
+  it('одна подкатегория — и MC, и closest: общий «использованный» список героев', () => {
+    const b = bank({
+      pools: [{ entries: entries([100, 80, 60, 40]), asks: [{ ask: 'max', text: 'Кто больше?' }] }],
+      closest: { unit: 'урона', pools: ['H0', 'H1', 'H2', 'H3', 'H4'].map((h, i) => ({ subject: h, text: `${h}?`, answer: i })) },
+    })
+    expect(statKinds(b.subcategories[0])).toEqual(['mc', 'closest'])
+    const p = picker(b, seeded(4))
+    const mc = p.pick('all')!
+    expect(mc.options).toHaveLength(4)
+    const near = p.pick('closest')!
+    expect(near.displayTopic).toBe('H4')                // H0…H3 уже были вариантами
+    expect(near.comment).toBe('C')                      // комментарий MC, если своего нет
+    expect(p.pick('closest')).toBeNull()
+  })
+
+  it('несколько пулов у героя: сначала герой, потом пул — герой с 8 пулами не выпадает чаще', () => {
+    const pools = [
+      ...Array.from({ length: 8 }, (_, i) => ({ subject: 'Axe', text: `Axe ${i}?`, answer: i })),
+      { subject: 'Lion', text: 'Lion?', answer: 50 },
+    ]
+    const b: StatsBank = { snapshot: 't', patch: 'p', subcategories: [{ id: 'ih', comment: '', pools: [], closest: { pools } }] }
+    let axe = 0
+    const N = 2000
+    for (let seed = 1; seed <= N; seed++) if (picker(b, seeded(seed)).pick('closest')!.displayTopic === 'Axe') axe++
+    expect(axe / N).toBeGreaterThan(0.45)
+    expect(axe / N).toBeLessThan(0.55)
+    const p = picker(b, seeded(9))
+    const first = p.pick('closest')!
+    const second = p.pick('closest')!
+    expect(new Set([first.displayTopic, second.displayTopic])).toEqual(new Set(['Axe', 'Lion']))   // герой — раз за игру
+    expect(p.pick('closest')).toBeNull()
   })
 })
 
@@ -271,7 +317,7 @@ describe('StatQuestionBuilder — topLead (ботинки)', () => {
       expect(p.pick('all')).toBeNull()                       // герои кончились
       const answers = Object.fromEntries(qs.map(q => [q.displayTopic, q.answer]))
       expect(answers).toEqual({
-        'D: Dark Willow': 'Tranquil Boots', 'D: Tusk': 'Tranquil Boots', 'D: Earthshaker': 'Arcane Boots',
+        'Dark Willow': 'Tranquil Boots', 'Tusk': 'Tranquil Boots', 'Earthshaker': 'Arcane Boots',
       })
       for (const q of qs) expect(q.optionNotes![q.options!.indexOf(q.answer!)]).toMatch(/^4\d\.0%$/)
     }
@@ -321,7 +367,7 @@ describe('настоящий bank.json', () => {
       expect(sub.gap?.maxRel).toBe(cap)
       for (let seed = 1; seed <= 40; seed++) {
         const q = new StatQuestionBuilder(real!, seeded(seed)).build(sub, 'all', gameOnlyDeck())!
-        const pool = (sub.pools as StatMcPool[]).find(p => !p.subject || q.displayTopic === `${sub.display}: ${p.subject}`)!
+        const pool = sub.pools.find(p => !p.subject || q.displayTopic === p.subject)!
         const val = Object.fromEntries(pool.entries.map(e => [e[0], e[1]]))
         const vs = q.options!.map(o => val[o]).sort((a, c) => c - a)
         expect(vs[0]).toBe(val[q.answer!])
@@ -335,7 +381,7 @@ describe('настоящий bank.json', () => {
     expect(sub.topLead).toBe(true)
     expect(sub.note).toBe('pct')
     expect(sub.pools.length).toBeGreaterThanOrEqual(20)
-    for (const pool of sub.pools as StatMcPool[]) {
+    for (const pool of sub.pools) {
       const vs = pool.entries.map(e => e[1])
       expect(vs).toHaveLength(4)
       expect([...vs].sort((a, c) => c - a)).toEqual(vs)       // по убыванию: [0] — лидер героя
@@ -347,13 +393,51 @@ describe('настоящий bank.json', () => {
     const heroes = new Set<string>()
     for (let i = 0; i < sub.pools.length; i++) {
       const q = builder.build(sub, 'all', deck)!
-      const pool = (sub.pools as StatMcPool[]).find(p => q.displayTopic === `${sub.display}: ${p.subject}`)!
+      const pool = sub.pools.find(p => q.displayTopic === p.subject)!
       heroes.add(pool.subject!)
       expect(q.answer).toBe(pool.entries[0][0])
       expect([...q.options!].sort()).toEqual(pool.entries.map(e => e[0]).sort())
       for (const n of q.optionNotes!) expect(n).toMatch(/^\d+\.\d%$/)
     }
     expect(heroes.size).toBe(sub.pools.length)                // за одну игру — все герои, ботинки не кончаются
+  })
+
+  it.skipIf(!real)('«кто ближе» средних: убийства с точностью 0.1, остальное целое; единицы; без самолечения', () => {
+    const want: Record<string, { unit?: string; n: number }> = {
+      avg_kills: { n: 127 }, avg_cs: { n: 127 }, avg_hero_damage: { unit: 'урона', n: 127 },
+      avg_tower: { unit: 'урона', n: 127 }, avg_heal_allies: { unit: 'HP', n: 20 },
+    }
+    for (const [id, w] of Object.entries(want)) {
+      const sub = real!.subcategories.find(s => s.id === id)!
+      expect(statKinds(sub)).toEqual(['mc', 'closest'])
+      expect(sub.closest!.unit).toBe(w.unit)
+      expect(sub.closest!.pools).toHaveLength(w.n)
+      for (const p of sub.closest!.pools) {
+        const digits = id === 'avg_kills' ? 1 : 0
+        expect(Math.round(p.answer * 10 ** digits) / 10 ** digits).toBe(p.answer)
+        expect(p.text).toContain(p.subject)
+      }
+    }
+    expect(real!.subcategories.find(s => s.id === 'avg_heal_self')!.closest).toBeUndefined()
+  })
+
+  it.skipIf(!real)('«кто ближе» предметов: доля 5…95%, целые, без ботинок; на герое — те же предметы, что в MC', () => {
+    for (const id of ['items', 'items_hero']) {
+      const sub = real!.subcategories.find(s => s.id === id)!
+      expect(sub.closest!.unit).toBe('%')
+      expect(sub.closest!.pools.length).toBeGreaterThan(id === 'items' ? 5 : 300)
+      for (const p of sub.closest!.pools) {
+        expect(Number.isInteger(p.answer)).toBe(true)
+        expect(p.answer).toBeGreaterThanOrEqual(5)
+        expect(p.answer).toBeLessThanOrEqual(95)
+      }
+    }
+    const ih = real!.subcategories.find(s => s.id === 'items_hero')!
+    for (const p of ih.closest!.pools) {
+      const mc = ih.pools.find(x => x.subject === p.subject)   // MC-пул героя мог не пройти гейт — closest остаётся
+      if (mc) expect(mc.entries.some(e => p.text.includes(` покупают ${e[0]} `))).toBe(true)
+    }
+    expect(real!.subcategories.find(s => s.id === 'boots_hero')!.closest).toBeUndefined()
   })
 
   it.skipIf(!real)('таланты: в банке layout talent_tree, сверху 25 уровень, снизу 20', () => {

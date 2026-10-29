@@ -4,6 +4,7 @@ import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { GameHud } from '../ui/GameHud'
 import { Sticker } from '../ui/Sticker'
+import { TopicStack } from '../ui/Topic'
 
 const seenModes = new Set<string>()
 
@@ -82,12 +83,8 @@ export function AnnounceScreen() {
               padding="clamp(14px, 2vw, 26px) clamp(22px, 3vw, 44px)"
               style={{ maxWidth: 'min(900px, 88vw)' }}
             >
-              <div style={{
-                fontFamily: DISPLAY, fontSize: 'clamp(34px, 6vw, 86px)', lineHeight: 1,
-                textAlign: 'center', textWrap: 'balance',
-              } as CSSProperties}>
-                {topic}
-              </div>
+              {/* субъект крупно, аспект («способности», «убийства») мельче под ним */}
+              <TopicStack topic={topic} size="clamp(34px, 6vw, 86px)" aspectScale={0.4} />
             </Sticker>
           </div>
         )}

@@ -6,7 +6,7 @@
 //   npm run ratios --workspace=server -- --friends 2 --rounds 30 --out ../docs/questions/ratios.md
 import * as fs from 'fs'
 import type { GameMode } from '@cumsino/shared'
-import { loadLibrary } from '../game/questions/library'
+import { loadLibrary, type KindWeights, type QuestionKind } from '../game/questions/library'
 import { RoomQuestions } from '../game/questions/picker'
 import { QuestionHistory } from '../game/questions/history'
 
@@ -49,11 +49,17 @@ const totalMc = [...shown.values()].reduce((a, r) => a + r.mc, 0)
 const totalCn = [...shown.values()].reduce((a, r) => a + r.closest, 0)
 const pct = (x: number, t: number) => (t ? `${(100 * x / t).toFixed(1)}%` : '—')
 const fmt = (x: number) => (x >= 10 ? x.toFixed(0) : x.toFixed(1))
+/** «1», «1 / ближе 2»; у подкатегории — только типы, которые она даёт */
+const weights = (w: KindWeights, kinds?: Set<QuestionKind>) => {
+  if (kinds && !kinds.has('mc')) return `ближе ${w.closest}`
+  return w.closest !== w.mc && (!kinds || kinds.has('closest')) ? `${w.mc} / ближе ${w.closest}` : `${w.mc}`
+}
 
 const lines: string[] = []
 lines.push(`# Соотношения категорий`, '')
 lines.push(`Прогон ${GAMES} игр по ${ROUNDS} раундов (all → kerri → closest), опознано друзей: ${FRIENDS}. ` +
   `Собрано \`npm run ratios --workspace=server\` по \`server/src/game/questions/categories.ts\` и текущим банкам.`, '')
+lines.push('- **вес** — базовый (MC) и в «кто ближе», если отличается (`closest` в categories.ts);')
 lines.push('- **MC / ближе** — доля от раундов своего типа (MC = all + kerri, «ближе всех» — closest);')
 lines.push('- **за игру** — сколько вопросов подкатегории в среднем за игру;')
 lines.push('- **шаблоны / карточки** — разных текстов и того, по чему идёт колода (у готовых вопросов это одно и то же; ' +
@@ -65,7 +71,7 @@ for (const cat of lib.categories) {
   const subs = cat.subs
   const catMc = subs.reduce((a, s) => a + (shown.get(s.id)?.mc ?? 0), 0)
   const catCn = subs.reduce((a, s) => a + (shown.get(s.id)?.closest ?? 0), 0)
-  lines.push(`## ${cat.title} — вес ${cat.weight}; MC ${pct(catMc, totalMc)}, ближе ${pct(catCn, totalCn)}, ` +
+  lines.push(`## ${cat.title} — вес ${weights(cat.weights)}; MC ${pct(catMc, totalMc)}, ближе ${pct(catCn, totalCn)}, ` +
     `за игру ${fmt((catMc + catCn) / GAMES)}`, '')
   lines.push('| Подкатегория | вес | MC | ближе | за игру | шаблоны | карточки | круг, игр | 1-й повтор |')
   lines.push('|---|---|---|---|---|---|---|---|---|')
@@ -73,7 +79,7 @@ for (const cat of lib.categories) {
     const r = shown.get(s.id) ?? { mc: 0, closest: 0 }
     const perGame = (r.mc + r.closest) / GAMES
     const cards = s.size.cards || (seen.get(s.id)?.size ?? 0)
-    lines.push(`| ${s.title} (\`${s.id}\`) | ${s.weight} | ${pct(r.mc, totalMc)} | ${pct(r.closest, totalCn)} | ` +
+    lines.push(`| ${s.title} (\`${s.id}\`) | ${weights(s.weights, s.kinds)} | ${pct(r.mc, totalMc)} | ${pct(r.closest, totalCn)} | ` +
       `${fmt(perGame)} | ${s.size.templates || '—'} | ${cards || '—'} | ${perGame ? fmt(cards / perGame) : '—'} | ` +
       `${firstRepeat.get(s.id) ?? '—'} |`)
   }

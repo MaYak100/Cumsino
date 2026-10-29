@@ -117,7 +117,8 @@ function catalog(lib: Library) {
     minFriends: MIN_IDENTIFIED_FRIENDS,
     warnings: lib.warnings,
     categories: lib.categories.map(cat => ({
-      id: cat.id, title: cat.title, weight: cat.weight, requires: cat.requires ?? null,
+      id: cat.id, title: cat.title, weight: cat.weights.mc, closestWeight: cat.weights.closest,
+      requires: cat.requires ?? null,
       subs: cat.subs.map(sub => {
         const src = sub.source
         let counts: { mc: number; closest: number; number?: number; choice?: number }
@@ -125,14 +126,21 @@ function catalog(lib: Library) {
           const number = src.questions.filter(q => q.kind === 'number').length
           counts = { mc: src.questions.length, closest: number, number, choice: src.questions.length - number }
         } else if (src.type === 'stats') {
-          counts = { mc: src.sub.mode === 'mc' ? sub.size.cards : 0, closest: src.sub.mode === 'closest' ? sub.size.cards : 0 }
+          const pools = src.sub.pools
+          counts = {
+            // MC: по герою вопроса или по ответу (как колода); closest — по субъекту
+            mc: !pools.length ? 0 : pools.some(p => p.subject) ? pools.length
+              : new Set(pools.flatMap(p => p.entries.map(e => e[0]))).size,
+            closest: new Set((src.sub.closest?.pools ?? []).map(p => p.subject)).size,
+          }
         } else {
           // карточек столько, сколько сочетаний при всех опознанных
           const cards = friendsGen ? src.kind.candidates(friendsGen, everyone).length : 0
           counts = { mc: sub.kinds.has('mc') ? cards : 0, closest: sub.kinds.has('closest') ? cards : 0 }
         }
         return {
-          id: sub.id, title: sub.title, weight: sub.weight, source: src.type,
+          id: sub.id, title: sub.title, weight: sub.weights.mc, closestWeight: sub.weights.closest, source: src.type,
+          subject: sub.subject ?? null, aspect: sub.aspect ?? null,
           kinds: [...sub.kinds], counts, templates: sub.size.templates,
         }
       }),

@@ -53,12 +53,12 @@ const BASE_PLAYERS: Player[] = [
   { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0, hasAnswered: false },
 ]
 
-// MC question — abilities-style, heroName → displayTopic
+// Тема — «субъект\nаспект» (server/src/game/questions/categories.ts, shared/src/topic.ts)
 const MC_QUESTION = {
   id: 'q-mc-1',
   mode: 'all' as GameMode,
-  topic: 'Способность',
-  displayTopic: 'Bone Chill',
+  topic: 'Как работает',
+  displayTopic: 'Ancient Apparition\nмеханика',
   text: 'Как работает врожденная способность Bone Chill при наличии нескольких стаков на одной цели?',
   options: [
     'Стаки имеют независимые длительности и суммируются',
@@ -68,12 +68,12 @@ const MC_QUESTION = {
   ],
 }
 
-// General question — has displayTopic; comment приходит в round_results (roundComment)
+// comment приходит в round_results (roundComment)
 const POPULAR_QUESTION = {
   id: 'q-mc-popular',
   mode: 'all' as GameMode,
-  topic: 'Общие вопросы',
-  displayTopic: 'Популярность героев',
+  topic: 'Пики с 2014 года',
+  displayTopic: 'Герои\nпики',
   text: 'Какой из следующих героев обладает наибольшим количеством сыгранных матчей?',
   options: ['Axe', 'Rubick', 'Earthshaker', 'Anti-Mage'],
 }
@@ -83,8 +83,8 @@ const POPULAR_COMMENT = 'Axe: 55 201 608 | Rubick: 52 902 622 | Earthshaker: 46 
 const HEAL_QUESTION = {
   id: 'q-mc-heal',
   mode: 'all' as GameMode,
-  topic: 'Средние за матч',
-  displayTopic: 'Хил союзникам',
+  topic: 'Хил союзникам',
+  displayTopic: 'Герои\nхил союзникам',
   text: 'Кто из героев в среднем лечит союзников больше всех за матч?',
   options: ['Oracle', 'Dazzle', 'Warlock', 'Keeper of the Light'],
 }
@@ -93,7 +93,7 @@ const COUNTER_QUESTION = {
   id: 'q-mc-counter',
   mode: 'kerri' as GameMode,
   topic: 'Контрпики',
-  displayTopic: 'Anti-Mage',
+  displayTopic: 'Anti-Mage\nконтрпики',
   text: 'Против кого Anti-Mage выигрывает реже всего?',
   options: ['Meepo', 'Slardar', 'Troll Warlord', 'Bristleback'],
 }
@@ -101,8 +101,8 @@ const COUNTER_NOTES = ['−7.0', '−4.3', '−4.3', '+3.7']
 const TALENT_QUESTION = {
   id: 'q-mc-talent',
   mode: 'all' as GameMode,
-  topic: 'Таланты',
-  displayTopic: 'Таланты: Shadow Shaman',
+  topic: 'Таланты 20 и 25',
+  displayTopic: 'Shadow Shaman\nталанты',
   text: 'Какой из талантов Shadow Shaman на 20 и 25 уровне берут чаще всего?',
   options: [
     '20 ур.: +1.5 сек. действия Shackles',
@@ -117,7 +117,8 @@ const TALENT_NOTES = ['73%', '27%', '37%', '63%']
 const CN_QUESTION = {
   id: 'q-cn-1',
   mode: 'closest' as GameMode,
-  topic: 'Цена',
+  topic: 'Цены',
+  displayTopic: 'Blink Dagger',   // у предметов аспекта нет: тема не выдаёт, что спросят цену
   text: 'Сколько стоит Blink Dagger?',
 }
 

@@ -5,15 +5,16 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { CATEGORIES, type CategoryDef } from './categories'
-import type { StatsBank, StatSubcategory } from '../stats/statQuestions'
+import { statKinds, type StatsBank, type StatSubcategory } from '../stats/statQuestions'
 import { FRIEND_KINDS, type FriendsMetrics, type FriendKind } from './friends'
 
+/** topic — субъект темы (герой, предмет); aspect — вторая строка темы, если не как у подкатегории (чара у нейтралок) */
 export interface NumberQuestion {
-  id: string; sub: string; kind: 'number'; text: string; topic: string
+  id: string; sub: string; kind: 'number'; text: string; topic: string; aspect?: string
   answer: number; step: number; unit: string; comment?: string
 }
 export interface ChoiceQuestion {
-  id: string; sub: string; kind: 'choice'; text: string; topic: string
+  id: string; sub: string; kind: 'choice'; text: string; topic: string; aspect?: string
   options: string[]   // options[0] — правильный
   optionNotes?: string[]
   comment?: string
@@ -21,6 +22,9 @@ export interface ChoiceQuestion {
 export type BankQuestion = NumberQuestion | ChoiceQuestion
 
 export type QuestionKind = 'mc' | 'closest'
+
+/** Вес по типу раунда: closest — свой, если задан в categories.ts, иначе базовый. */
+export type KindWeights = Record<QuestionKind, number>
 
 /** Подкатегория в сборе: откуда берутся вопросы и для каких типов раунда она годится. */
 export type SubSource =
@@ -31,7 +35,10 @@ export type SubSource =
 export interface Subcategory {
   id: string
   title: string
-  weight: number
+  weights: KindWeights
+  /** постоянный субъект темы (главнее источника) и аспект — categories.ts */
+  subject?: string
+  aspect?: string
   category: Category
   kinds: Set<QuestionKind>
   source: SubSource
@@ -42,7 +49,7 @@ export interface Subcategory {
 export interface Category {
   id: string
   title: string
-  weight: number
+  weights: KindWeights
   requires?: CategoryDef['requires']
   subs: Subcategory[]
 }
@@ -81,7 +88,10 @@ export function buildLibrary(input: {
 
   const categories: Category[] = []
   for (const def of input.categories ?? CATEGORIES) {
-    const cat: Category = { id: def.id, title: def.title, weight: def.weight, requires: def.requires, subs: [] }
+    const cat: Category = {
+      id: def.id, title: def.title, weights: { mc: def.weight, closest: def.closest ?? def.weight },
+      requires: def.requires, subs: [],
+    }
     for (const sd of def.subs) {
       known.add(sd.id)
       let source: SubSource | null = null
@@ -96,7 +106,7 @@ export function buildLibrary(input: {
         size = { templates: bankQs.length, cards: bankQs.length }
       } else if (stat) {
         source = { type: 'stats', sub: stat }
-        kinds = new Set([stat.mode])
+        kinds = new Set(statKinds(stat))
         size = statSize(stat)
       } else if (friendKind && input.friends) {
         source = { type: 'friends', kind: friendKind }
@@ -107,7 +117,11 @@ export function buildLibrary(input: {
         warnings.push(`подкатегория ${sd.id} пуста — нет данных`)
         continue
       }
-      cat.subs.push({ id: sd.id, title: sd.title, weight: sd.weight ?? 1, category: cat, kinds, source, size })
+      const weight = sd.weight ?? 1
+      cat.subs.push({
+        id: sd.id, title: sd.title, weights: { mc: weight, closest: sd.closest ?? weight },
+        subject: sd.subject, aspect: sd.aspect, category: cat, kinds, source, size,
+      })
     }
     if (cat.subs.length) categories.push(cat)
     else warnings.push(`категория ${def.id} пуста`)
@@ -117,15 +131,20 @@ export function buildLibrary(input: {
   return { categories, stats: input.stats, friends: input.friends, heroNames: input.heroNames ?? {}, warnings }
 }
 
+/** Шаблоны (тексты) и карточки колоды — MC и «кто ближе» вместе: карточки у них общие (герой / ответ). */
 function statSize(sub: StatSubcategory): { templates: number; cards: number } {
-  if (sub.mode === 'closest') return { templates: sub.pools.length, cards: sub.pools.length }
-  const pools = sub.pools as Array<{ subject?: string; entries: unknown[]; asks: Array<{ text: string }> }>
+  const pools = sub.pools
+  const near = sub.closest?.pools ?? []
+  const cards = new Set(near.map(p => p.subject))
+  let templates = near.length
   if (pools.some(p => p.subject)) {
-    return { templates: pools.reduce((s, p) => s + p.asks.length, 0), cards: pools.length }
+    templates += pools.reduce((s, p) => s + p.asks.length, 0)
+    for (const p of pools) cards.add(p.subject!)
+  } else {
+    templates += new Set(pools.flatMap(p => p.asks.map(a => a.text))).size
+    for (const p of pools) for (const e of p.entries) cards.add(e[0])
   }
-  const texts = new Set(pools.flatMap(p => p.asks.map(a => a.text)))
-  const names = new Set(pools.flatMap(p => (p.entries as Array<[string]>).map(e => e[0])))
-  return { templates: texts.size, cards: names.size }
+  return { templates, cards: cards.size }
 }
 
 let cached: Library | null = null

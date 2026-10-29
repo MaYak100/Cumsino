@@ -8,7 +8,12 @@ export const SERVER_URL: string = import.meta.env.VITE_SERVER_URL ?? 'http://loc
 export interface LabSub {
   id: string
   title: string
+  /** вес в MC и в «кто ближе» (categories.ts: weight и closest) */
   weight: number
+  closestWeight: number
+  /** тема: постоянный субъект и аспект подкатегории */
+  subject: string | null
+  aspect: string | null
   source: 'bank' | 'stats' | 'friends'
   kinds: Array<'mc' | 'closest'>
   counts: { mc: number; closest: number; number?: number; choice?: number }
@@ -19,6 +24,7 @@ export interface LabCategory {
   id: string
   title: string
   weight: number
+  closestWeight: number
   requires: 'friends' | null
   subs: LabSub[]
 }

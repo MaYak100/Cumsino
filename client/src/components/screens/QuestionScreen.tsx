@@ -10,6 +10,7 @@ import { AnswerProgress } from '../ui/AnswerProgress'
 import { RateQuestion } from '../ui/RateQuestion'
 import { RevealNote } from '../ui/RevealNote'
 import { SelfEffects } from '../ui/SelfEffects'
+import { TopicInline } from '../ui/Topic'
 import { useCountdown } from '../../lib/useCountdown'
 
 /** Вопрос с вариантами — «для всех», керри (отвечает сам) и толпа, которая смотрит на керри.
@@ -107,7 +108,7 @@ export function QuestionScreen() {
           ) : isGladiator ? (
             <span style={{ color: C.hot }} className="font-semibold">Ты керри. Все смотрят на тебя</span>
           ) : (
-            <span>{q?.displayTopic ?? q?.topic}</span>
+            <TopicInline topic={q?.displayTopic ?? q?.topic} />
           )}
           {!revealed && <SelfEffects hexLeft={hexed ? hexLeft : undefined} />}
         </div>

@@ -366,7 +366,7 @@ export function DevPage() {
                 {subs.map(s => (
                   <option key={s.id} value={s.id}>
                     {s.title} · {kind === 'mc' ? s.counts.mc : s.counts.closest}{s.source === 'stats' ? ' карт.' : s.source === 'friends' ? ' сочет.' : ' вопр.'}
-                    {s.weight !== 1 ? ` · вес ${s.weight}` : ''}
+                    {(kind === 'mc' ? s.weight : s.closestWeight) !== 1 ? ` · вес ${kind === 'mc' ? s.weight : s.closestWeight}` : ''}
                   </option>
                 ))}
               </select>
@@ -456,7 +456,7 @@ export function DevPage() {
               <Row k="Категория" v={`${meta.categoryTitle} → ${meta.subTitle}`} />
               <Row k="id подкат." v={meta.sub} mono />
               <Row k="Источник" v={meta.source === 'bank' ? `банк, ${meta.bankKind === 'number' ? 'числовой факт' : 'готовые варианты'}` : meta.source === 'stats' ? 'статистика (собран сейчас)' : 'друзья (собран сейчас)'} />
-              <Row k="Тема" v={`${q.topic}${q.displayTopic && q.displayTopic !== q.topic ? ` · ${q.displayTopic}` : ''}`} />
+              <Row k="Тема" v={(q.displayTopic ?? q.topic).replace('\n', ' / ')} />
               {meta.step !== undefined && <Row k="Шаг" v={`${meta.step}${meta.unit ? ` (${meta.unit})` : ''}`} />}
               <Row k="Ответ" v={<span style={{ color: OK }}>{q.answer ?? q.numericAnswer}{q.numericAnswer !== undefined && meta.unit ? ` ${meta.unit}` : ''}</span>} />
               {q.options && (

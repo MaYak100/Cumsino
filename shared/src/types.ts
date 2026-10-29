@@ -53,6 +53,8 @@ export interface Question {
   id: string
   mode: GameMode
   topic: string
+  /** Тема: субъект и аспект через перенос строки («Lion\nспособности», «Heart of Tarrasque») — shared/src/topic.ts.
+   *  topic — заголовок подкатегории (для /dev и логов). */
   displayTopic?: string
   comment?: string
   text: string

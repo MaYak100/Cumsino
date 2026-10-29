@@ -10,6 +10,7 @@ import { Timer } from '../ui/Timer'
 import { socket } from '../../socket'
 import { FeltOval } from '../ui/TableFelt'
 import { Sticker } from '../ui/Sticker'
+import { TopicStack } from '../ui/Topic'
 import { chipStyle } from '../../lib/chipStyle'
 import { C, DISPLAY } from '../../theme'
 import { FeedTag, useFreshFeed } from '../ui/AnswerProgress'
@@ -347,9 +348,7 @@ export function BettingTableScreen() {
                 <div style={{ marginBottom: 18 }}><Timer seconds={gameState.phaseTimeLeft} /></div>
                 <Sticker seed={`${gameState.currentQuestion.id}-topic`} slam rotate={-3} jag={6} padding="10px 22px 12px"
                   style={{ maxWidth: 520 }}>
-                  <div style={{ fontFamily: DISPLAY, fontSize: 32, lineHeight: 1.05, textAlign: 'center' }}>
-                    {gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic}
-                  </div>
+                  <TopicStack topic={gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic} size={32} aspectScale={0.5} />
                 </Sticker>
                 <div style={{ fontSize: 15, color: C.fg, marginTop: 22 }}>
                   Ставь на то, что ответишь верно
