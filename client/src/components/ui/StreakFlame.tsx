@@ -12,29 +12,38 @@ function rng(seed: number) {
   }
 }
 
-/** Контур бумажного пламени вокруг прямоугольника: языки вверху (и по бокам, если side > 0), низ почти ровный.
- *  top — высота языков в px (рамка выше плашки на эту величину), side — высота боковых языков. */
-function flameClip(seed: number, top: number, side: number, tongues: number): string {
+/** Высота края суперэллипса над центром для x ∈ [0, 1] (доля полувысоты): 1 в середине, 0 у самого бока. */
+function seHalf(x: number, e: number) {
+  return Math.max(0, 1 - Math.abs(2 * x - 1) ** e) ** (1 / e)
+}
+
+/** Контур бумажного пламени: основа — суперэллипс (скруглённый прямоугольник: мягкие углы и сверху, и снизу), по
+ *  верху — языки, равномерно по ширине, выше в центре и сходят на нет к бокам; низ — лёгкая рвань.
+ *  top — высота языков в px: основа начинается ниже на top, языки дорастают до верхнего края. */
+function flameClip(seed: number, top: number, tongues: number): string {
   const r = rng(seed)
+  const E = 5
+  // y в долях основы → css: основа занимает высоту контейнера минус зону языков сверху
+  const pt = (x: number, y: number, up: number) =>
+    `${(x * 100).toFixed(2)}% calc(${top.toFixed(1)}px + ${(y * 100).toFixed(2)}% - ${(y * top).toFixed(1)}px - ${up.toFixed(1)}px)`
   const pts: string[] = []
-  // верх: слева направо, чередуя впадину и язык
-  for (let i = 0; i <= tongues * 2; i++) {
-    const x = (i / (tongues * 2)) * 100
-    const tip = i % 2 === 1
-    const y = tip ? r() * top * 0.45 : top * (0.75 + r() * 0.25)
-    pts.push(`${x.toFixed(1)}% ${y.toFixed(1)}px`)
+  // левый бок снизу вверх (скругление), затем верх слева направо — впадина / язык по очереди
+  pts.push(pt(0, 0.5, 0))
+  const K = tongues * 2
+  for (let k = 0; k <= K; k++) {
+    const x = 0.02 + (k / K) * 0.96
+    const y = 0.5 - 0.5 * seHalf(x, E)
+    const center = 1 - Math.abs(2 * x - 1) ** 1.8          // 1 в центре, 0 у боков
+    const tip = k % 2 === 1
+    const up = tip ? top * (0.3 + 0.7 * center) * (0.75 + 0.25 * r()) : top * 0.1 * center * r()
+    pts.push(pt(x, y, up))
   }
-  // правый бок: вниз, языки наружу
-  for (let i = 1; i <= 4; i++) {
-    const y = top + ((i / 5) * 100)
-    pts.push(`calc(100% - ${(i % 2 ? r() * side * 0.4 : side * (0.7 + r() * 0.3)).toFixed(1)}px) calc(${((i / 5) * 100).toFixed(1)}% + ${(top * (1 - i / 5)).toFixed(1)}px)`)
-    void y
-  }
-  // низ: справа налево, мелкая рвань
-  for (let i = 6; i >= 0; i--) pts.push(`${((i / 6) * 100).toFixed(1)}% calc(100% - ${(r() * 3).toFixed(1)}px)`)
-  // левый бок: вверх
-  for (let i = 4; i >= 1; i--) {
-    pts.push(`${(i % 2 ? r() * side * 0.4 : side * (0.7 + r() * 0.3)).toFixed(1)}px calc(${((i / 5) * 100).toFixed(1)}% + ${(top * (1 - i / 5)).toFixed(1)}px)`)
+  pts.push(pt(1, 0.5, 0))
+  // низ справа налево — мелкая рвань наружу
+  const B = 16
+  for (let k = 1; k < B; k++) {
+    const x = 1 - k / B
+    pts.push(pt(x, 0.5 + 0.5 * seHalf(x, E), -r() * 2.2))
   }
   return `polygon(${pts.join(', ')})`
 }
@@ -52,9 +61,9 @@ const BLUE = [
   { color: '#c9f1ff', k: 0.38 },
 ]
 
-/** Рамка-пламя вокруг плашки за серию верных ответов: 2 — тлеет, 3 и больше — горит, чем дальше, тем выше.
+/** Рамка-пламя вокруг плашки за серию верных ответов: 2 — тлеет, 3 и больше — горит, чем дальше, тем выше; 5+ — синее.
  *  Бумажная: пламя «перерезается» раз в секунду, как покадровая анимация. Меньше 2 — просто содержимое. */
-export function StreakFlame({ streak, children, radius = 12 }: { streak?: number; children: ReactNode; radius?: number }) {
+export function StreakFlame({ streak, children }: { streak?: number; children: ReactNode; radius?: number }) {
   const n = streak ?? 0
   const [tick, setTick] = useState(() => Math.floor(Math.random() * 1000))
   const on = n >= 2
@@ -67,10 +76,10 @@ export function StreakFlame({ streak, children, radius = 12 }: { streak?: number
   if (!on) return <>{children}</>
 
   const hot = n >= 3
-  const top = n === 2 ? 9 : Math.min(34, 16 + (n - 3) * 6)   // высота языков сверху
-  const side = hot ? 3 : 0          // языки по бокам — маленькие: бока не толще верха и низа
-  const sidePad = hot ? 3 : 2       // основа сбоку — тонкая
-  const base = hot ? 7 : 5          // основа сверху и снизу — шире
+  const top = n === 2 ? 10 : Math.min(36, 18 + (n - 3) * 6)   // высота языков в центре
+  // контур скруглён — чтобы углы плашки не торчали, рамка шире плашки по бокам и снизу на пару пикселей больше
+  const sidePad = hot ? 8 : 7
+  const base = hot ? 8 : 6
   const layers = n >= 5 ? BLUE : hot ? LAYERS : LAYERS.slice(1)
   const tongues = hot ? 9 : 7
 
@@ -78,17 +87,16 @@ export function StreakFlame({ streak, children, radius = 12 }: { streak?: number
     <span style={{ position: 'relative', display: 'inline-flex' }}>
       <span aria-hidden style={{
         position: 'absolute', zIndex: 0, pointerEvents: 'none',
-        left: -sidePad - side, right: -sidePad - side, top: -base - top, bottom: -base,
+        left: -sidePad, right: -sidePad, top: -base - top, bottom: -base,
         filter: 'drop-shadow(0 2px 0 rgba(0,0,0,.35))',
       }}>
         {layers.map((l, i) => (
           <span key={i} style={{
             position: 'absolute',
             // внутренние слои — с отступом от краёв: снаружи видно красный, ближе к плашке — оранжевый и жёлтый
-            top: top * (1 - l.k), left: i * 1.2, right: i * 1.2, bottom: i * 2,
-            clipPath: flameClip(tick * 7 + i * 131 + n, top * l.k, side * l.k, tongues),
+            top: top * (1 - l.k), left: i * 1.6, right: i * 1.6, bottom: i * 2,
+            clipPath: flameClip(tick * 7 + i * 131 + n, top * l.k, tongues),
             background: l.color,
-            borderRadius: radius,
           }} />
         ))}
       </span>
