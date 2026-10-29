@@ -18,12 +18,27 @@ export interface QuestionRating {
   difficulty: number | null
 }
 
-/** Отправить оценку, если что-то выбрано. Сервер принимает оценку только последнего посчитанного вопроса —
- *  он остаётся «оцениваемым» до конца следующего вопроса, так что отправка на ANNOUNCE успевает. */
-function flushRating(r: QuestionRating | null) {
-  if (r && (r.score !== null || r.difficulty !== null)) {
-    socket.emit('rate_question', { questionId: r.questionId, score: r.score, difficulty: r.difficulty })
-  }
+/** Оценка уходит на сервер при каждом изменении — через RATING_DEBOUNCE_MS после последнего нажатия (перещёлкал
+ *  шкалу — одна отправка). Голос целиком: null — снято (сервер заменяет прошлый голос). Сервер принимает оценку
+ *  только последнего посчитанного вопроса — он «оцениваемый» до конца следующего вопроса, поэтому отложенная
+ *  отправка досылается сразу на смене раунда и при закрытии вкладки. */
+const RATING_DEBOUNCE_MS = 800
+let ratingTimer: ReturnType<typeof setTimeout> | null = null
+let ratingPending: QuestionRating | null = null
+
+function sendRatingNow() {
+  if (ratingTimer) clearTimeout(ratingTimer)
+  ratingTimer = null
+  const r = ratingPending
+  ratingPending = null
+  if (r) socket.emit('rate_question', { questionId: r.questionId, score: r.score, difficulty: r.difficulty })
+}
+
+function scheduleRating(r: QuestionRating) {
+  if (ratingPending && ratingPending.questionId !== r.questionId) sendRatingNow()
+  ratingPending = r
+  if (ratingTimer) clearTimeout(ratingTimer)
+  ratingTimer = setTimeout(sendRatingNow, RATING_DEBOUNCE_MS)
 }
 
 interface GameStore {
@@ -44,7 +59,8 @@ interface GameStore {
   isLateJoiner: boolean
   bribePrompt: { amount: number; startedAt: number; cycleIndex: number } | null
   bribeEliminatedIdx: number | null
-  /** Своя оценка вопроса раунда — живёт от раскрытия ответа до следующего раунда, отправляется один раз */
+  /** Своя оценка вопроса раунда — живёт от раскрытия ответа до следующего раунда; каждое изменение уходит на
+   *  сервер (с debounce) */
   rating: QuestionRating | null
   /** сам подтвердил ставку в этом раунде (иначе bet_updated за меня — это принудительный блайнд) */
   betSent: boolean
@@ -87,8 +103,8 @@ let joined: { name: string; gameCode: string } | null = null
 let rejoining = false
 
 export const useGameStore = create<GameStore>((set, get) => {
-  // вкладку закрыли посреди итогов — оценка не должна пропасть
-  window.addEventListener('pagehide', () => flushRating(get().rating))
+  // вкладку закрыли посреди итогов — отложенная оценка уходит сразу
+  window.addEventListener('pagehide', sendRatingNow)
 
   socket.on('connect', () => {
     set({ myId: socket.id ?? null })
@@ -107,10 +123,8 @@ export const useGameStore = create<GameStore>((set, get) => {
     const { rating, gameState: before } = get()
     const roundOver = state.phase === 'ANNOUNCE' || state.phase === 'GAME_OVER' || state.phase === 'LOBBY'
       || (before !== null && state.roundIndex !== before.roundIndex)
-    if (rating && roundOver) {
-      flushRating(rating)
-      set({ rating: null })
-    }
+    if (roundOver) sendRatingNow()
+    if (rating && roundOver) set({ rating: null })
     const firstState = get().gameState === null || rejoining
     rejoining = false
     set(prev => {
@@ -335,9 +349,12 @@ export const useGameStore = create<GameStore>((set, get) => {
         if (patch.difficulty !== undefined) next.difficulty = cur.difficulty === patch.difficulty ? null : patch.difficulty
         return { rating: next }
       })
+      const r = get().rating
+      if (r) scheduleRating(r)
     },
 
     reset() {
+      sendRatingNow()
       joined = null
       set({
         gameState: null,
