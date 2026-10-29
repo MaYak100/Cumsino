@@ -978,6 +978,25 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p1').currentBet).toBe(blindFor(500, true))
     })
 
+    it('меньше $10 — BETTING его не ждёт (фишек нет, клиенту нечего подтверждать)', () => {
+      const t = makeRoom(3)
+      t.p('p3').chips = 0
+      toBetting(t)
+      t.room.placeBet('p1', t.p('p1').blind)
+      expect(t.r.phase).toBe('BETTING')
+      t.room.placeBet('p2', t.p('p2').blind)
+      expect(t.r.phase).toBe('QUESTION')
+    })
+
+    it('керри: толпа без денег тоже не задерживает ставки', () => {
+      const t = makeRoom(3)
+      t.p('p3').chips = 5
+      t.setPhase('BETTING', 'kerri')
+      t.r.gladiatorId = 'p1'
+      t.room.placeBet('p2', 50, 'win')
+      expect(t.r.phase).toBe('QUESTION')
+    })
+
     it('блайнд не больше баланса: $10 — олл-ин, у лидера с $35 — $10', () => {
       const t = makeRoom(2)
       t.p('p1').chips = 10

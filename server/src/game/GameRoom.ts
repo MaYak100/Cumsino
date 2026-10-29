@@ -1060,6 +1060,8 @@ export class GameRoom extends EventEmitter {
     if (this.bettingConfirmedIds.size === 0) return false
     for (const [id, p] of this.players) {
       if (p.spectator || (this.currentMode === 'kerri' && id === this.gladiatorId)) continue
+      // меньше $10 — ни одной фишки: клиенту нечего подтверждать, фаза не должна висеть до таймера
+      if (p.chips < 10) continue
       if (!this.bettingConfirmedIds.has(id)) return false
     }
     return true

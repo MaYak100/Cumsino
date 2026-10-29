@@ -11,9 +11,10 @@ type SlotState = 'use' | 'ready' | 'idle' | 'targeting'
 const USE_PHASES = ['ANNOUNCE', 'BETTING', 'QUESTION']
 
 /** Почему предмет сейчас не жмётся — строка для подсказки; null — можно. Блинк применяется кликом по другому варианту. */
-function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, answered: boolean): string | null {
+function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, answered: boolean, spent: boolean, settled: boolean): string | null {
   const def = ITEMS[id]
   if (def.usePhases === 'passive') return 'Работает сам'
+  if (settled) return 'Раунд уже посчитан'
   if (mode === 'kerri') {
     if (isGladiator && id !== 'blink') return 'Керри может только блинк'
     if (!isGladiator && id !== 'bkb') return 'В керри толпе доступен только BKB'
@@ -26,6 +27,8 @@ function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, 
   }
   if (id === 'blink') return answered ? null : 'Сначала ответь, потом передумывай'
   if (id === 'manta' && answered) return 'Только до ответа'
+  // сервер молча не примет второй раз за раунд — не делаем вид, что можно
+  if (spent) return id === 'hex' ? 'Хекс уже брошен в этом раунде' : 'Уже применён в этом раунде'
   return null
 }
 
@@ -40,6 +43,8 @@ export function ItemBar() {
   const targeting = useGameStore(s => s.targeting)
   const setTargeting = useGameStore(s => s.setTargeting)
   const useItem = useGameStore(s => s.useItem)
+  const itemFeed = useGameStore(s => s.itemFeed)
+  const roundResults = useGameStore(s => s.roundResults)
 
   const phase = gs?.phase ?? 'LOBBY'
   const inv = gs?.inventory ?? {}
@@ -48,7 +53,16 @@ export function ItemBar() {
   const owned = ITEM_ORDER.filter(id => id === 'aegis' ? aegisOn : (inv[id] ?? 0) > 0)
   const visible = !!gs && !!me && USE_PHASES.includes(phase) && owned.length > 0
 
-  const why = (id: ItemId) => gs ? blocker(id, phase, gs.mode, isGladiator, answered) : 'нет'
+  // «раз за раунд»: манта (убранный вариант), смок и BKB (свой эффект), хекс (свой бросок в ленте применений)
+  const fx = me?.effects ?? []
+  const spent = (id: ItemId) =>
+    id === 'manta' ? (gs?.removedOptions?.length ?? 0) > 0
+    : id === 'smoke' || id === 'bkb' ? fx.includes(id)
+    : id === 'hex' ? itemFeed.some(e => e.item === 'hex' && e.playerId === myId)
+    : false
+  // окно показа ответа: раунд посчитан, сервер ничего не применяет
+  const settled = phase === 'QUESTION' && roundResults.length > 0
+  const why = (id: ItemId) => gs ? blocker(id, phase, gs.mode, isGladiator, answered, spent(id), settled) : 'нет'
   const stateOf = (id: ItemId): SlotState => {
     if (targeting === id) return 'targeting'
     if (why(id)) return 'idle'
@@ -77,7 +91,8 @@ export function ItemBar() {
   if (!visible) return null
 
   return (
-    <div className="fixed z-50 flex flex-col items-start gap-2" style={{ left: '1.25rem', bottom: '1.1rem' }}>
+    // сам контейнер клики пропускает (промежутки между слотами лежат поверх стола / ников) — ловят только слоты
+    <div className="fixed z-50 flex flex-col items-start gap-2" style={{ left: '1.25rem', bottom: '1.1rem', pointerEvents: 'none' }}>
       <AnimatePresence>
         {targeting && (
           <motion.div
@@ -89,10 +104,12 @@ export function ItemBar() {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex items-end gap-2.5">
+      {/* прицел: панель отходит в сторону — при 7–10 игроках и полном запасе она лежит на плашке соседа снизу слева,
+          а он тоже цель. Отмена — Esc или та же клавиша */}
+      <div className="flex items-end gap-2.5" style={targeting ? { opacity: 0.4 } : undefined}>
         {owned.map(id => (
           <ItemSlot key={id} id={id} count={id === 'aegis' ? 1 : inv[id] ?? 0}
-            state={stateOf(id)} reason={why(id)} onClick={() => act(id)} />
+            state={stateOf(id)} reason={why(id)} onClick={() => act(id)} passThrough={!!targeting} />
         ))}
       </div>
     </div>
@@ -101,8 +118,8 @@ export function ItemBar() {
 
 const tilt = () => (Math.random() * 10 - 5)
 
-function ItemSlot({ id, count, state, reason, onClick }: {
-  id: ItemId; count: number; state: SlotState; reason: string | null; onClick: () => void
+function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
+  id: ItemId; count: number; state: SlotState; reason: string | null; onClick: () => void; passThrough: boolean
 }) {
   const [shape, setShape] = useState(0)        // на наведении бумажка «рвётся» заново
   const [rot, setRot] = useState(() => tilt())
@@ -112,7 +129,7 @@ function ItemSlot({ id, count, state, reason, onClick }: {
   const glow = state === 'targeting' ? C.hot : state === 'ready' ? C.sky : state === 'use' ? C.brass : null
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ pointerEvents: passThrough ? 'none' : 'auto' }}>
       <AnimatePresence>
         {hover && <Tip id={id} reason={reason} />}
       </AnimatePresence>

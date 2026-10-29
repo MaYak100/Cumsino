@@ -76,12 +76,26 @@ interface GameStore {
   reset: () => void
 }
 
+/** куда входили — для повторного входа после обрыва связи */
+let joined: { name: string; gameCode: string } | null = null
+/** после переподключения первый game_state считается первым входом (isLateJoiner) */
+let rejoining = false
+
 export const useGameStore = create<GameStore>((set, get) => {
   // вкладку закрыли посреди итогов — оценка не должна пропасть
   window.addEventListener('pagehide', () => flushRating(get().rating))
 
   socket.on('connect', () => {
     set({ myId: socket.id ?? null })
+  })
+
+  // Обрыв связи: сервер уже убрал старый сокет из комнаты, новый сокет — новый игрок. Без повторного join экран
+  // замирает на старом стейте (мой id сменился, событий нет). Входим заново тем же именем в ту же комнату;
+  // первый стейт после этого — как при первом входе (посреди раунда — зритель до следующего раунда).
+  socket.io.on('reconnect', () => {
+    if (!joined) return
+    rejoining = true
+    socket.emit('join_game', joined)
   })
 
   socket.on('game_state', (state: GameState) => {
@@ -92,6 +106,8 @@ export const useGameStore = create<GameStore>((set, get) => {
       flushRating(rating)
       set({ rating: null })
     }
+    const firstState = get().gameState === null || rejoining
+    rejoining = false
     set(prev => {
       const newRound =
         prev.gameState !== null && state.roundIndex !== prev.gameState.roundIndex
@@ -116,7 +132,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         bankBets: clearRound ? {} : prev.bankBets,
         stagedBets: clearRound ? {} : prev.stagedBets,
         // вошедший в лобби или в лавку — участник (сервер ждёт его «Готов»); посреди раунда — зритель до нового раунда
-        isLateJoiner: prev.gameState === null
+        isLateJoiner: firstState
           ? state.phase !== 'LOBBY' && state.phase !== 'SHOP'
           : state.phase === 'ANNOUNCE' || state.phase === 'SHOP'
             ? false
@@ -166,6 +182,8 @@ export const useGameStore = create<GameStore>((set, get) => {
       roundOptionNotes: optionNotes ?? null,
       roundMode: mode ?? null,
       roundGladiatorId: gladiatorId ?? null,
+      // раунд посчитан — прицел гема больше некуда применить
+      targeting: null,
     })
   })
 
@@ -243,6 +261,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     targeting: null,
 
     connect(name, gameCode) {
+      joined = { name, gameCode }
       if (!socket.connected) socket.connect()
       socket.emit('join_game', { name, gameCode })
     },
@@ -301,6 +320,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     },
 
     reset() {
+      joined = null
       set({
         gameState: null,
         myId: null,
