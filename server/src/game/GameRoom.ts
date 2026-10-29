@@ -340,6 +340,8 @@ export class GameRoom extends EventEmitter {
   buyItem(playerId: string, item: ItemId) {
     const player = this.players.get(playerId)
     if (!player || !BUY_PHASES.includes(this.phase) || !ITEMS[item]) return
+    // нажал «Готов» — лавка для него закрыта (клиент тоже не даёт); передумал — снимает «Готов»
+    if (player.shopReady) return
     // страховка: победитель проверяется до лавки, но покупка никогда не должна отнять победу
     if (player.chips >= WIN_CHIPS) return
     const price = itemPrice(item, player.chips)
@@ -388,7 +390,8 @@ export class GameRoom extends EventEmitter {
       }
       case 'manta': {
         const q = this.currentQuestion
-        if (r.used.has('manta') || !q?.options) return
+        // после ответа манта бесполезна (и подсказала бы, куда блинкнуть) — как и на клиенте
+        if (r.used.has('manta') || !q?.options || player.hasAnswered) return
         const candidates = q.options.map((_, i) => i)
           .filter(i => q.options![i] !== q.answer && !r.removedOptions.includes(i))
         if (!candidates.length) return

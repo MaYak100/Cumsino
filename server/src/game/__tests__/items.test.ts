@@ -438,6 +438,22 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p1').chips).toBe(WIN_CHIPS)
     })
 
+    it('после «Готов» — нельзя; снял «Готов» — снова можно', () => {
+      const t = makeRoom(2)
+      t.r.closestSeen = true   // первый круг уже сыгран — игра начинается с лавки
+      t.room.start('p1')
+      expect(t.r.phase).toBe('SHOP')
+      t.room.setShopReady('p1', true)
+      t.room.buyItem('p1', 'blink')
+      t.room.buyItem('p1', 'aegis')
+      expect(t.p('p1').inventory.blink).toBeUndefined()
+      expect(t.p('p1').aegis).toBeFalsy()
+      expect(t.p('p1').chips).toBe(500)
+      t.room.setShopReady('p1', false)
+      t.room.buyItem('p1', 'blink')
+      expect(t.p('p1').inventory.blink).toBe(1)
+    })
+
     it('цена растёт с балансом', () => {
       const t = makeRoom(1)
       t.r.phase = 'SHOP'
@@ -576,6 +592,17 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p1').inventory.manta).toBe(1)
       t.room.submitAnswer('p2', 'B')   // у других вариант на месте
       expect(t.p('p2').hasAnswered).toBe(true)
+    })
+
+    it('после ответа — нельзя (предмет не тратится)', () => {
+      const t = makeRoom(3)
+      t.give('p1', 'manta')
+      t.toQuestion()
+      t.room.submitAnswer('p1', 'C')
+      t.room.useItem('p1', 'manta')
+      expect(t.p('p1').inventory.manta).toBe(1)
+      expect(t.sent('p1', 'manta_result')).toHaveLength(0)
+      expect(t.room.getStateForPlayer('p1').removedOptions).toBeUndefined()
     })
 
     it('только «для всех»: ни керри, ни толпа, ни «кто ближе»', () => {
