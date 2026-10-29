@@ -45,10 +45,26 @@ def _load(name: str) -> dict:
     return json.loads((DOTA / f"{name}.json").read_text(encoding="utf-8"))
 
 
+class _Caseless(dict):
+    """Токены локализации без учёта регистра: у части способностей ключи `_description`, `_shard_Description`
+    и т.п. — поиск `_Description` терял описание (29), шард (48) и аганим (40) из 745 способностей (2026-10-29)."""
+    def __init__(self, d: dict):
+        super().__init__({k.lower(): v for k, v in d.items()})
+
+    def get(self, k, default=None):
+        return super().get(k.lower(), default)
+
+    def __getitem__(self, k):
+        return super().__getitem__(k.lower())
+
+    def __contains__(self, k):
+        return super().__contains__(k.lower())
+
+
 def _tokens(path: Path) -> dict:
     root = valve_kv.parse_file(path)
     lang = next(iter(root.values()))
-    return lang.get("Tokens", lang)
+    return _Caseless(lang.get("Tokens", lang))
 
 
 def _value_text(v) -> str:

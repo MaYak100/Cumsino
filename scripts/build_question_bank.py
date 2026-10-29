@@ -5,7 +5,8 @@
 Источники (по одному на категорию, см. docs/questions/README.md):
   numeric_lab/out/full1        — числа героев, предметов, нейтралок, чар (без вопросов с флагами);
   numeric_lab/out/costs2       — цены предметов (флаг «шаг очень мелкий» для цен не считается: порог 3% не для цен);
-  numeric_lab/out/talents-full — «какой из этих талантов есть у героя»;
+  numeric_lab/out/talents-v4   — «какой из этих талантов есть у героя» (стиль правды и подделок выровнен, честные
+                                 обманки — шард / аганим / поведение по умолчанию, не больше одной; было talents-full);
   text_lab/out/full1/bank.json — механики после ручного курирования (curate.py).
 
 Вопросы на статистике сюда не входят: сервер собирает их при каждом показе из scripts/data/stats/bank.json.
@@ -50,7 +51,10 @@ import valve_kv
 LAB = Path("scripts/generate")
 FULL1 = LAB / "numeric_lab/out/full1/resolved.json"
 COSTS = LAB / "numeric_lab/out/costs2/resolved.json"
-TALENTS = LAB / "numeric_lab/out/talents-full/questions.json"
+TALENTS = LAB / "numeric_lab/out/talents-v4/questions.json"
+# честная обманка в талантах (вердикт второго прохода) — объясняем после ответа, почему это не талант
+DECOY_NOTE = {"shard": "это Aghanim's Shard", "scepter": "это Aghanim's Scepter",
+              "default": "так способность работает и без таланта"}
 MECHANICS = LAB / "text_lab/out/full1/bank.json"
 OVERRIDES = Path("scripts/data/bank/overrides.json")
 HERO_FILES = Path("scripts/data/dota/game/scripts/npc/heroes")
@@ -327,9 +331,13 @@ def build() -> tuple[list[dict], Counter, list[str]]:
             real = [o for o in q["options"] if o["kind"] == "real"]
             assert len(real) == 1, q
             fakes = [o["text"] for o in q["options"] if o["kind"] != "real"]
+            comment = f"Настоящий талант: {real[0]['text']} ({real[0]['original']})."
+            for o in q["options"]:
+                if o["kind"] != "real" and o.get("verdict") in DECOY_NOTE:
+                    comment += f" «{o['text']}» — {DECOY_NOTE[o['verdict']]}."
             out.append({"id": f"tal:{real[0]['talent_id']}", "sub": "talents_has", "kind": "choice",
                         "text": q["question"], "topic": q["hero"], "options": [real[0]["text"], *fakes],
-                        "comment": f"Настоящий талант: {real[0]['text']} ({real[0]['original']})"})
+                        "comment": comment})
 
     for q in json.loads(MECHANICS.read_text(encoding="utf-8")):
         opts = [q["answer"], *[o for o in q["options"] if o != q["answer"]]]

@@ -93,7 +93,7 @@
 | `neutrals` | нейтралки | числовой | готово: 44 (`out/full1`) |
 | `enhancements` | чары к нейтралкам | числовой | готово: 10 (`out/full1`) |
 | `costs` | цены предметов | числовой | готово: 173, 9 исключено (`out/costs2`) |
-| `talents` | «какой из этих талантов есть у героя» | текстовый | готово: 51 (`out/talents-full`) |
+| `talents` | «какой из этих талантов есть у героя» | текстовый | готово: 95 (`out/talents-v4`, 2026-10-29; был `talents-full`, 51) |
 | `mechanics` | как работает, ложный факт, сработает или нет, чья механика | текстовый | готово: 116 после курирования (`text_lab/out/full1`) |
 | внешние источники | популярность, винрейт героев и предметов | разный | в бэклоге |
 
@@ -316,6 +316,7 @@ Quelling Blade), причина исключения записывается. �
 | `full1` | 68 запросов, 699 вопросов | $4.98, 142 с |
 | `costs2` | цены, 173 вопроса | $0.34 |
 | `talents-full` | 13 запросов + проверка, 52 вопроса (51 после чистки) | $1.92, 70 с |
+| `talents-v4` | 28 запросов с проверкой, 103 вопроса (95 после проверок: стиль, обманки, названия) | $5.85, ~4,5 мин (с тестом и v4a — ~$11.2) |
 | `text_lab/full1` | механики: 26 запросов + проверка, 127 вопросов (116 после курирования) | $5.31 |
 
 ---
@@ -340,8 +341,8 @@ Quelling Blade), причина исключения записывается. �
 | `scripts/generate/numeric_lab/options.py` | эталон генерации вариантов по шагу |
 | `scripts/generate/numeric_lab/prompt_v7.md` | текущий промпт числовых вопросов |
 | `scripts/generate/numeric_lab/prompt_costs_v2.md` | текущий промпт цен |
-| `scripts/generate/numeric_lab/prompt_talents_v3.md`, `prompt_talents_verify.md` | текущие промпты талантов |
-| `scripts/generate/numeric_lab/out/` | все прогоны; финальные — `full1`, `costs2`, `talents-full` |
+| `scripts/generate/numeric_lab/prompt_talents_v4.md`, `prompt_talents_verify.md` | текущие промпты талантов: правда и подделки неотличимы по форме (длина ≤ ×1.3, числа у всех или ни у кого), честная обманка — шард / аганим / по умолчанию, не больше одной |
+| `scripts/generate/numeric_lab/out/` | все прогоны; финальные — `full1`, `costs2`, `talents-v4` |
 | `scripts/generate/text_lab/mechanics_lab.py` | генерация и проверка вопросов про механики |
 | `scripts/generate/text_lab/prompt_mechanics_v4.md`, `prompt_mechanics_verify.md` | текущие промпты механик (v1–v3 — история) |
 | `scripts/generate/text_lab/curate.py` | ручное курирование прогона → `bank.json` |

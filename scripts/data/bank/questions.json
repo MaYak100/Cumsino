@@ -3,7 +3,7 @@
  "sources": {
   "numbers": "scripts\\generate\\numeric_lab\\out\\full1\\resolved.json",
   "costs": "scripts\\generate\\numeric_lab\\out\\costs2\\resolved.json",
-  "talents": "scripts\\generate\\numeric_lab\\out\\talents-full\\questions.json",
+  "talents": "scripts\\generate\\numeric_lab\\out\\talents-v4\\questions.json",
   "mechanics": "scripts\\generate\\text_lab\\out\\full1\\bank.json",
   "overrides": "scripts\\data\\bank\\overrides.json"
  },
@@ -8769,18 +8769,18 @@
    "unit": "золота"
   },
   {
-   "id": "tal:special_bonus_unique_magnus_2",
+   "id": "tal:special_bonus_unique_clockwerk_4",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Magnus?",
-   "topic": "Magnus",
+   "text": "Какой из этих талантов есть у Clockwerk?",
+   "topic": "Clockwerk",
    "options": [
-    "Shockwave возвращается к Magnus",
-    "Skewer в конце рывка выпускает Shockwave",
-    "Empower накладывается на всех союзников вокруг цели",
-    "Reverse Polarity диспелит врагов"
+    "Rocket Flare даёт просвет",
+    "Battery Assault даёт слоу",
+    "Power Cogs бьют невидимых",
+    "Hookshot накладывает брейк"
    ],
-   "comment": "Настоящий талант: Shockwave возвращается к Magnus (Shockwave Returns to Magnus)"
+   "comment": "Настоящий талант: Rocket Flare даёт просвет (Rocket Flare True Sight). «Power Cogs бьют невидимых» — так способность работает и без таланта."
   },
   {
    "id": "tal:special_bonus_unique_phantom_assassin",
@@ -8789,152 +8789,12 @@
    "text": "Какой из этих талантов есть у Phantom Assassin?",
    "topic": "Phantom Assassin",
    "options": [
-    "Stifling Dagger наносит тройной удар",
-    "Phantom Strike можно применять в точку",
-    "Stifling Dagger рикошетит в ещё одну цель",
-    "Убийство героя сбрасывает кд Phantom Strike"
+    "Stifling Dagger бьёт по трём целям",
+    "Phantom Strike получает два заряда",
+    "Coup de Grace даёт два фокуса подряд",
+    "Blur скрывает двух союзников рядом"
    ],
-   "comment": "Настоящий талант: Stifling Dagger наносит тройной удар (Triple Strike Stifling Dagger)"
-  },
-  {
-   "id": "tal:special_bonus_unique_undying_3",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Undying?",
-   "topic": "Undying",
-   "options": [
-    "Tombstone появляется при смерти Undying",
-    "Soul Rip лечит всех союзников рядом с целью",
-    "Зомби Tombstone преследуют цель за пределами радиуса",
-    "Decay оставляет зону, которая продолжает красть силу"
-   ],
-   "comment": "Настоящий талант: Tombstone появляется при смерти Undying (Tombstone On Death)"
-  },
-  {
-   "id": "tal:special_bonus_unique_hoodwink_sharpshooter_vision",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Hoodwink?",
-   "topic": "Hoodwink",
-   "options": [
-    "Sharpshooter даёт обзор во время зарядки",
-    "Bushwhack станит врагов и без дерева рядом",
-    "Scurry даёт инвиз, пока Hoodwink в деревьях",
-    "Sharpshooter не отбрасывает Hoodwink назад"
-   ],
-   "comment": "Настоящий талант: Sharpshooter даёт обзор во время зарядки (Sharpshooter Provides Vision While Charging)"
-  },
-  {
-   "id": "tal:special_bonus_unique_primal_beast_roar_dispells",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Primal Beast?",
-   "topic": "Primal Beast",
-   "options": [
-    "Uproar при касте даёт себе базовый диспел",
-    "Trample больше не дизармит Primal Beast",
-    "Onslaught даёт стак Uproar за каждого задетого героя",
-    "Pulverize больше не требует поддержания"
-   ],
-   "comment": "Настоящий талант: Uproar при касте даёт себе базовый диспел (Basic Self-Dispel on Uproar Cast)"
-  },
-  {
-   "id": "tal:special_bonus_unique_slardar_3",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Slardar?",
-   "topic": "Slardar",
-   "options": [
-    "Corrosive Haze нельзя развеять",
-    "Guardian Sprint оставляет за собой водяной след",
-    "Bash of the Deep накладывает Corrosive Haze",
-    "Slithereen Crush оставляет лужи под задетыми врагами"
-   ],
-   "comment": "Настоящий талант: Corrosive Haze нельзя развеять (Corrosive Haze Undispellable)"
-  },
-  {
-   "id": "tal:special_bonus_unique_legion_commander_duel_refresh_on_victory",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Legion Commander?",
-   "topic": "Legion Commander",
-   "options": [
-    "Победа в Duel сокращает его кд",
-    "В Duel Legion Commander может использовать предметы",
-    "Press The Attack действует по области вокруг цели",
-    "Контратака Moment of Courage бьёт по площади"
-   ],
-   "comment": "Настоящий талант: Победа в Duel сокращает его кд (Duel Advances Cooldown by 30s On Victory)"
-  },
-  {
-   "id": "tal:special_bonus_unique_abaddon_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Abaddon?",
-   "topic": "Abaddon",
-   "options": [
-    "Mist Coil действует по области",
-    "Взрыв Aphotic Shield лечит союзников вокруг",
-    "Curse of Avernus перескакивает на ближайшего врага при смерти цели",
-    "Во время Borrowed Time Mist Coil не тратит здоровье"
-   ],
-   "comment": "Настоящий талант: Mist Coil действует по области (350 AoE Mist Coil)"
-  },
-  {
-   "id": "tal:special_bonus_unique_centaur_1",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Centaur Warrunner?",
-   "topic": "Centaur Warrunner",
-   "options": [
-    "Retaliate становится аурой",
-    "Retaliate срабатывает и от урона заклинаниями",
-    "Double Edge бьёт всех врагов вокруг Centaur",
-    "Hoof Stomp оставляет зону слоу"
-   ],
-   "comment": "Настоящий талант: Retaliate становится аурой (Gains Retaliate Aura)"
-  },
-  {
-   "id": "tal:special_bonus_unique_kunkka_tidebringer_armor_pierce",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Kunkka?",
-   "topic": "Kunkka",
-   "options": [
-    "Tidebringer игнорирует 25% брони",
-    "X Marks the Spot можно наложить на крипов",
-    "Torrent оставляет водоворот, притягивающий врагов",
-    "Tidal Wave сбрасывает кд Tidebringer"
-   ],
-   "comment": "Настоящий талант: Tidebringer игнорирует 25% брони (Tidebringer Ignores 25% Armor)"
-  },
-  {
-   "id": "tal:special_bonus_unique_keeper_of_the_light_14",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Keeper of the Light?",
-   "topic": "Keeper of the Light",
-   "options": [
-    "Chakra Magic даёт сильный диспел",
-    "Illuminate срубает деревья на пути",
-    "Solar Bind перескакивает на ближайшего врага",
-    "Blinding Light притягивает врагов к центру"
-   ],
-   "comment": "Настоящий талант: Chakra Magic даёт сильный диспел (Chakra Magic Strong Dispels)"
-  },
-  {
-   "id": "tal:special_bonus_unique_treant_7",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Treant Protector?",
-   "topic": "Treant Protector",
-   "options": [
-    "Living Armor действует по области 450",
-    "Overgrowth можно применить вокруг союзного героя",
-    "Nature's Grasp выращивает деревья вдоль лозы",
-    "Nature's Guise не сбивается от получения урона"
-   ],
-   "comment": "Настоящий талант: Living Armor действует по области 450 (450 AoE Living Armor)"
+   "comment": "Настоящий талант: Stifling Dagger бьёт по трём целям (Triple Strike Stifling Dagger)."
   },
   {
    "id": "tal:special_bonus_unique_lion_10",
@@ -8944,53 +8804,193 @@
    "topic": "Lion",
    "options": [
     "Earth Spike бьёт конусом в 30 градусов",
-    "Hex развеивает положительные эффекты с цели",
-    "Mana Drain тянет ману со всех врагов вокруг цели",
-    "Удар кулаком после Finger of Death станит цель"
+    "Mana Drain снижает маг. резист на 15%",
+    "Finger of Death бьёт повторно через 3 сек",
+    "Hex по окончании накладывает слоу в 30%"
    ],
-   "comment": "Настоящий талант: Earth Spike бьёт конусом в 30 градусов (Earth Spike affects a 30 degree cone)"
+   "comment": "Настоящий талант: Earth Spike бьёт конусом в 30 градусов (Earth Spike affects a 30 degree cone)."
   },
   {
-   "id": "tal:special_bonus_unique_tidehunter_smash_on_blubber",
+   "id": "tal:special_bonus_unique_mirana_5",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Mirana?",
+   "topic": "Mirana",
+   "options": [
+    "Moonlight Shadow даёт 20% уклонения",
+    "Starstorm даёт 15% спелл-лайфстила",
+    "Celestial Quiver даёт 25% лайфстила",
+    "Leap даёт 25% статус-резиста"
+   ],
+   "comment": "Настоящий талант: Moonlight Shadow даёт 20% уклонения (Moonlight Shadow gives +20% Evasion)."
+  },
+  {
+   "id": "tal:special_bonus_unique_luna_5",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Luna?",
+   "topic": "Luna",
+   "options": [
+    "Lucent Beam бьёт ещё по одной цели",
+    "Eclipse можно кастовать на союзника",
+    "Moon Glaives отскакивают и от зданий",
+    "Lunar Orbit вешает слоу на врагов"
+   ],
+   "comment": "Настоящий талант: Lucent Beam бьёт ещё по одной цели (Lucent Beam Hits An Additional Target). «Eclipse можно кастовать на союзника» — это Aghanim's Scepter."
+  },
+  {
+   "id": "tal:special_bonus_unique_warlock_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Warlock?",
+   "topic": "Warlock",
+   "options": [
+    "Warlock призывает голема при своей смерти",
+    "Warlock лечится от урона по Fatal Bonds",
+    "Warlock призывает импов во время Upheaval",
+    "Warlock диспелит союзников Shadow Word"
+   ],
+   "comment": "Настоящий талант: Warlock призывает голема при своей смерти (Summons a Golem on death). «Warlock призывает импов во время Upheaval» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_troll_warlord_battle_trance_movespeed",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Troll Warlord?",
+   "topic": "Troll Warlord",
+   "options": [
+    "Battle Trance даёт союзникам скорость атаки",
+    "Fervor сохраняет стаки при смене цели атаки",
+    "Whirling Axes (Melee) диспелят Troll Warlord",
+    "Berserker's Rage сетит в форме дальнего боя"
+   ],
+   "comment": "Настоящий талант: Battle Trance даёт союзникам скорость атаки (Allies Receive Battle Trance Attack Speed). «Whirling Axes (Melee) диспелят Troll Warlord» — это Aghanim's Scepter."
+  },
+  {
+   "id": "tal:special_bonus_unique_magnus_2",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Magnus?",
+   "topic": "Magnus",
+   "options": [
+    "Shockwave возвращается к Magnus",
+    "Skewer бьёт сильнее об деревья",
+    "Empower даёт клив и дальникам",
+    "Reverse Polarity накладывает слоу"
+   ],
+   "comment": "Настоящий талант: Shockwave возвращается к Magnus (Shockwave Returns to Magnus). «Skewer бьёт сильнее об деревья» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_largo_8",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Largo?",
+   "topic": "Largo",
+   "options": [
+    "Catchy Lick получает 2 заряда",
+    "Croak of Genius действует на 3 героев",
+    "Bullbelly Blitz бьёт 3 раза за такт",
+    "Amphibian Rhapsody даёт 4 песни"
+   ],
+   "comment": "Настоящий талант: Catchy Lick получает 2 заряда (2 Catchy Lick Charges)."
+  },
+  {
+   "id": "tal:special_bonus_unique_tinker_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Tinker?",
+   "topic": "Tinker",
+   "options": [
+    "Laser поражает врагов в радиусе 250",
+    "Warp Flare рутит врагов в радиусе 275",
+    "Rearm лечит союзников в радиусе 600",
+    "Deploy Turrets станят в радиусе 200"
+   ],
+   "comment": "Настоящий талант: Laser поражает врагов в радиусе 250 (250 AoE Laser)."
+  },
+  {
+   "id": "tal:special_bonus_unique_keeper_of_the_light_14",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Keeper of the Light?",
+   "topic": "Keeper of the Light",
+   "options": [
+    "Chakra Magic даёт сильный диспел",
+    "Blinding Light накладывает сайленс",
+    "Solar Bind накладывает брейк",
+    "Illuminate даёт просвет на пути"
+   ],
+   "comment": "Настоящий талант: Chakra Magic даёт сильный диспел (Chakra Magic Strong Dispels). «Illuminate даёт просвет на пути» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_winter_wyvern_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Winter Wyvern?",
+   "topic": "Winter Wyvern",
+   "options": [
+    "Осколки Splinter Blast станят на 1 сек",
+    "Arctic Burn накладывает сайленс на 2 сек",
+    "Winter's Curse оставляет слоу на 3 сек",
+    "Выход из Cold Embrace даёт хаст на 4 сек"
+   ],
+   "comment": "Настоящий талант: Осколки Splinter Blast станят на 1 сек (Splinter Blast 1s Stun)."
+  },
+  {
+   "id": "tal:special_bonus_unique_marci_unleash_extend_duration",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Marci?",
+   "topic": "Marci",
+   "options": [
+    "Unleash продлевается на 6 сек за убийство",
+    "Dispose станит брошенного врага на 1 сек",
+    "Rebound ускоряет союзника на 4 сек",
+    "Bodyguard даёт союзнику уклонение на 3 сек"
+   ],
+   "comment": "Настоящий талант: Unleash продлевается на 6 сек за убийство (Unleash Duration Extended By 6s On Kill). «Rebound ускоряет союзника на 4 сек» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_witch_doctor_maledict_spread",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Witch Doctor?",
+   "topic": "Witch Doctor",
+   "options": [
+    "Maledict взрывом наносит 75% урона в радиусе 800",
+    "Paralyzing Cask отскоком наносит 50% урона в радиусе 275",
+    "Death Ward атакой наносит 35% урона в радиусе 300",
+    "Voodoo Restoration наносит 30% урона в радиусе 500"
+   ],
+   "comment": "Настоящий талант: Maledict взрывом наносит 75% урона в радиусе 800 (Maledict bursts deal 75% damage in a 800 AoE)."
+  },
+  {
+   "id": "tal:special_bonus_unique_dawnbreaker_celestial_hammer_targets_allies",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Dawnbreaker?",
+   "topic": "Dawnbreaker",
+   "options": [
+    "След Celestial Hammer ускоряет союзников",
+    "Крит Luminosity диспелит союзников",
+    "Starbreaker позволяет свободно двигаться",
+    "Посадка Solar Guardian даёт союзникам щит"
+   ],
+   "comment": "Настоящий талант: След Celestial Hammer ускоряет союзников (Celestial Hammer Trail Grants Movement Speed to Allies). «Starbreaker позволяет свободно двигаться» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_tidehunter_10",
    "sub": "talents_has",
    "kind": "choice",
    "text": "Какой из этих талантов есть у Tidehunter?",
    "topic": "Tidehunter",
    "options": [
-    "Очищение Kraken Shell вызывает Anchor Smash",
-    "Ravage притягивает застаненных врагов к Tidehunter",
-    "Anchor Smash накладывает на врагов эффект Gush",
-    "Активный Kraken Shell возвращает заблокированный урон атакующему"
+    "Anchor Smash задевает постройки",
+    "Ravage бьёт по невидимым врагам",
+    "Gush накладывает брейк на цель",
+    "Kraken Shell отражает урон атак"
    ],
-   "comment": "Настоящий талант: Очищение Kraken Shell вызывает Anchor Smash (Kraken Shell Cleanse triggers Anchor Smash)"
-  },
-  {
-   "id": "tal:special_bonus_unique_ringmaster_the_box_strong_dispel_and_flying",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Ring Master?",
-   "topic": "Ring Master",
-   "options": [
-    "Escape Act даёт сильный диспел и полёт",
-    "Кинжал Impalement Arts возвращается к Ringmaster после попадания",
-    "Escape Act лечит упакованного союзника",
-    "Испуганные Tame the Beasts враги бегут к Wheel of Wonder"
-   ],
-   "comment": "Настоящий талант: Escape Act даёт сильный диспел и полёт (Escape Act Grants Strong Dispel and Flying)"
-  },
-  {
-   "id": "tal:special_bonus_unique_clockwerk_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Clockwerk?",
-   "topic": "Clockwerk",
-   "options": [
-    "Rocket Flare даёт просвет",
-    "Hookshot притягивает цель к Clockwerk",
-    "Power Cogs нельзя разрушить атаками врагов",
-    "Battery Assault бьёт по две цели за разряд"
-   ],
-   "comment": "Настоящий талант: Rocket Flare даёт просвет (Rocket Flare True Sight)"
+   "comment": "Настоящий талант: Anchor Smash задевает постройки (Anchor Smash affects buildings). «Ravage бьёт по невидимым врагам» — так способность работает и без таланта."
   },
   {
    "id": "tal:special_bonus_unique_shadow_demon_purge_poison",
@@ -9000,109 +9000,165 @@
    "topic": "Shadow Demon",
    "options": [
     "Demonic Purge накладывает Shadow Poison",
-    "Иллюзии от Disruption накладывают Shadow Poison атаками",
-    "Disruption накладывает Disseminate на цель",
-    "Release взрывает Shadow Poison по области вокруг цели"
+    "Disruption накладывает стаки Menace",
+    "Shadow Poison накладывает брейк",
+    "Disseminate накладывает сайленс"
    ],
-   "comment": "Настоящий талант: Demonic Purge накладывает Shadow Poison (Demonic Purge Applies Shadow Poison)"
+   "comment": "Настоящий талант: Demonic Purge накладывает Shadow Poison (Demonic Purge Applies Shadow Poison)."
   },
   {
-   "id": "tal:special_bonus_unique_luna_5",
+   "id": "tal:special_bonus_unique_visage_3",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Luna?",
-   "topic": "Luna",
+   "text": "Какой из этих талантов есть у Visage?",
+   "topic": "Visage",
    "options": [
-    "Lucent Beam бьёт ещё одну цель",
-    "Удары Eclipse станят цели",
-    "Lunar Blessing глобальный и днём",
-    "Глефы Lunar Orbit отскакивают как Moon Glaives"
+    "Soul Assumption бьёт сразу по 3 целям",
+    "Grave Chill крадёт скорость у 2 целей",
+    "Gravekeeper's Cloak станит по области 375",
+    "Stone Form длится на 3 сек дольше"
    ],
-   "comment": "Настоящий талант: Lucent Beam бьёт ещё одну цель (Lucent Beam Hits An Additional Target)"
+   "comment": "Настоящий талант: Soul Assumption бьёт сразу по 3 целям (Soul Assumption Hits 3 Targets). «Gravekeeper's Cloak станит по области 375» — это Aghanim's Shard."
   },
   {
-   "id": "tal:special_bonus_unique_spirit_breaker_shield",
+   "id": "tal:special_bonus_unique_death_prophet_exorcism_duration_on_kill",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Spirit Breaker?",
-   "topic": "Spirit Breaker",
+   "text": "Какой из этих талантов есть у Death Prophet?",
+   "topic": "Death Prophet",
    "options": [
-    "Bulldoze даёт барьер от урона на 375",
-    "Bulldoze даёт базовый диспел при касте",
-    "Nether Strike откидывает всех врагов вокруг цели",
-    "Empowering Haste срабатывает и от слоу"
+    "Смерти во время Exorcism продлевают его на 8 сек",
+    "Попадания Crypt Swarm дают слоу на 2 сек",
+    "Убийство под Spirit Siphon пугает врагов на 2 сек",
+    "Цели Silence теряют скорость атаки на 4 сек"
    ],
-   "comment": "Настоящий талант: Bulldoze даёт барьер от урона на 375 (Bulldoze 375 All Damage Barrier)"
+   "comment": "Настоящий талант: Смерти во время Exorcism продлевают его на 8 сек (Deaths During Exorcism Extend Duration By +8s)."
   },
   {
-   "id": "tal:special_bonus_unique_shadow_shaman_7",
+   "id": "tal:special_bonus_unique_rubick_8",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Shadow Shaman?",
-   "topic": "Shadow Shaman",
+   "text": "Какой из этих талантов есть у Rubick?",
+   "topic": "Rubick",
    "options": [
-    "Hex даёт брейк",
-    "Shackles держат сразу двух врагов",
-    "Атаки Serpent Wards накладывают слоу",
-    "Ether Shock даёт мини-стан"
+    "Приземление Telekinesis наносит 300 урона",
+    "Попадание Fade Bolt вешает 30% слоу",
+    "Каст Spell Steal лечит Rubick на 150",
+    "Подъём Telekinesis снимает 200 маны"
    ],
-   "comment": "Настоящий талант: Hex даёт брейк (Hex Breaks)"
+   "comment": "Настоящий талант: Приземление Telekinesis наносит 300 урона (Telekinesis Landing Deals 300 Damage)."
   },
   {
-   "id": "tal:special_bonus_unique_leshrac_pulse_nova_lightning",
+   "id": "tal:special_bonus_unique_tiny_5",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Leshrac?",
-   "topic": "Leshrac",
+   "text": "Какой из этих талантов есть у Tiny?",
+   "topic": "Tiny",
    "options": [
-    "Pulse Nova вызывает Lightning Storm",
-    "Split Earth раскалывает землю повторно в той же точке",
-    "Diabolic Edict следует за целью Lightning Storm",
-    "Lightning Storm накладывает рут на основную цель"
+    "Toss можно применить без цели",
+    "Avalanche можно кастовать в движении",
+    "Grow даёт сплеш атакам без дерева",
+    "Tree Grab накладывает брейк атакой"
    ],
-   "comment": "Настоящий талант: Pulse Nova вызывает Lightning Storm (Pulse Nova triggers Lightning Storm)"
+   "comment": "Настоящий талант: Toss можно применить без цели (Toss Requires No Target)."
   },
   {
-   "id": "tal:special_bonus_unique_ursa_3",
+   "id": "tal:special_bonus_unique_medusa_gorgons_grasp_volleys",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Ursa?",
-   "topic": "Ursa",
+   "text": "Какой из этих талантов есть у Medusa?",
+   "topic": "Medusa",
    "options": [
-    "Earthshock имеет 2 заряда",
-    "Enrage сбрасывает кд Earthshock",
-    "Earthshock вешает стак Fury Swipes на всех задетых",
-    "Overpower заряжается заново после каждого Earthshock"
+    "Gorgon's Grasp бьёт ещё одной группой стрел",
+    "Mystic Snake окаменяет последнюю цель прыжка",
+    "Split Shot накладывает эффекты атаки на все стрелы",
+    "Stone Gaze действует на врагов спиной к Medusa"
    ],
-   "comment": "Настоящий талант: Earthshock имеет 2 заряда (Earthshock has 2 Charges)"
+   "comment": "Настоящий талант: Gorgon's Grasp бьёт ещё одной группой стрел (+1 Gorgon's Grasp Volley). «Split Shot накладывает эффекты атаки на все стрелы» — это Aghanim's Scepter."
   },
   {
-   "id": "tal:special_bonus_unique_chen_12",
+   "id": "tal:special_bonus_unique_techies_4",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Chen?",
-   "topic": "Chen",
+   "text": "Какой из этих талантов есть у Techies?",
+   "topic": "Techies",
    "options": [
-    "Hand of God даёт сильный диспел",
-    "Penitence перескакивает на ближайшего врага",
-    "Holy Persuasion может захватывать древних крипов",
-    "Divine Favor телепортирует союзника к Chen"
+    "Proximity Mines взрываются на 0.8 сек. быстрее",
+    "Blast Off! станит врагов на 0.7 сек. дольше",
+    "Sticky Bomb держит слоу на 1.5 сек. дольше",
+    "M.A.D. взрывается через 0.5 сек. после смерти"
    ],
-   "comment": "Настоящий талант: Hand of God даёт сильный диспел (Hand of God applies a Strong Dispel)"
+   "comment": "Настоящий талант: Proximity Mines взрываются на 0.8 сек. быстрее (-0.8s Proximity Mines Activation Delay)."
   },
   {
-   "id": "tal:special_bonus_unique_timbersaw_exposure_therapy_health",
+   "id": "tal:special_bonus_unique_phantom_lancer_illusion_lances",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Timbersaw?",
-   "topic": "Timbersaw",
+   "text": "Какой из этих талантов есть у Phantom Lancer?",
+   "topic": "Phantom Lancer",
    "options": [
-    "Exposure Therapy лечит на 12 HP за каждое срубленное дерево",
-    "Timber Chain рубит все деревья на своём пути",
-    "Chakram при возврате притягивает врагов к Timbersaw",
-    "Reactive Armor получает стак за каждое срубленное дерево"
+    "Spirit Lance иллюзий наносит 50% урона",
+    "Juxtapose даёт иллюзиям 35% уклонения",
+    "Doppelganger лечит иллюзии на 25% здоровья",
+    "Phantom Rush ускоряет иллюзии на 20%"
    ],
-   "comment": "Настоящий талант: Exposure Therapy лечит на 12 HP за каждое срубленное дерево (Exposure Therapy Heals for 12 HP Per Tree Destroyed)"
+   "comment": "Настоящий талант: Spirit Lance иллюзий наносит 50% урона (50% Illusion Spirit Lance Damage)."
+  },
+  {
+   "id": "tal:special_bonus_unique_hoodwink_sharpshooter_vision",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Hoodwink?",
+   "topic": "Hoodwink",
+   "options": [
+    "Sharpshooter даёт обзор во время зарядки",
+    "Bushwhack оставляет дерево в центре сети",
+    "Scurry даёт проход сквозь деревья",
+    "Acorn Shot накладывает брейк на цель"
+   ],
+   "comment": "Настоящий талант: Sharpshooter даёт обзор во время зарядки (Sharpshooter Provides Vision While Charging). «Scurry даёт проход сквозь деревья» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_dark_seer_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Dark Seer?",
+   "topic": "Dark Seer",
+   "options": [
+    "Surge накладывается по области 350",
+    "Vacuum дизармит врагов на 1.5 сек",
+    "Ion Shell лечит носителя на 40 в сек",
+    "Wall of Replica станит врагов на 1 сек"
+   ],
+   "comment": "Настоящий талант: Surge накладывается по области 350 (350 AoE Surge)."
+  },
+  {
+   "id": "tal:special_bonus_unique_snapfire_firesnap_cookie_additional_charge",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Snapfire?",
+   "topic": "Snapfire",
+   "options": [
+    "Firesnap Cookie получает 2 заряда",
+    "Scatterblast стреляет 2 раза подряд",
+    "Mortimer Kisses станит на 0.5 сек",
+    "Gobble Up глотает сразу 2 союзников"
+   ],
+   "comment": "Настоящий талант: Firesnap Cookie получает 2 заряда (2 Firesnap Cookie Charges)."
+  },
+  {
+   "id": "tal:special_bonus_unique_invoker_2",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Invoker?",
+   "topic": "Invoker",
+   "options": [
+    "Deafening Blast бьёт во все стороны",
+    "Tornado оставляет за собой вихри",
+    "Cold Snap замораживает по области",
+    "E.M.P. взрывается сразу при касте"
+   ],
+   "comment": "Настоящий талант: Deafening Blast бьёт во все стороны (Radial Deafening Blast). «Tornado оставляет за собой вихри» — это Aghanim's Scepter."
   },
   {
    "id": "tal:special_bonus_unique_razor_static_link_aspd",
@@ -9112,263 +9168,11 @@
    "topic": "Razor",
    "options": [
     "Static Link крадёт скорость атаки",
-    "Eye of the Storm бьёт две цели за удар",
-    "Storm Surge срабатывает и от атак Razor",
-    "Plasma Field притягивает врагов при сжатии"
+    "Plasma Field накладывает сайленс",
+    "Eye of the Storm бьёт и по зданиям",
+    "Storm Surge срабатывает от атак Razor"
    ],
-   "comment": "Настоящий талант: Static Link крадёт скорость атаки (Static Link Steals Attack Speed)"
-  },
-  {
-   "id": "tal:special_bonus_unique_warlock_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Warlock?",
-   "topic": "Warlock",
-   "options": [
-    "Призывает голема при смерти",
-    "Upheaval не требует поддержания",
-    "Импы от Eldritch Summoning накладывают Shadow Word",
-    "Голем Chaotic Offering при смерти делится на двух"
-   ],
-   "comment": "Настоящий талант: Призывает голема при смерти (Summons a Golem on death)"
-  },
-  {
-   "id": "tal:special_bonus_unique_windranger_7",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Windranger?",
-   "topic": "Windranger",
-   "options": [
-    "Powershot добивает героев ниже 16% здоровья",
-    "Shackleshot сковывает ещё одну цель за второй",
-    "Focus Fire перескакивает на ближайшего героя после убийства",
-    "Powershot возвращается к Windranger, нанося урон повторно"
-   ],
-   "comment": "Настоящий талант: Powershot добивает героев ниже 16% здоровья (Powershot Executes Enemy Heroes Under 16% Max HP)"
-  },
-  {
-   "id": "tal:special_bonus_unique_void_spirit_3",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Void Spirit?",
-   "topic": "Void Spirit",
-   "options": [
-    "Dissimilate накладывает рут на 2 с",
-    "Aether Remnant притягивает всех врагов в радиусе",
-    "Astral Step оставляет в конце пути Aether Remnant",
-    "Щит Resonant Pulse поглощает и магический урон"
-   ],
-   "comment": "Настоящий талант: Dissimilate накладывает рут на 2 с (Dissimilate Roots for 2s)"
-  },
-  {
-   "id": "tal:special_bonus_unique_skywrath_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Skywrath Mage?",
-   "topic": "Skywrath Mage",
-   "options": [
-    "Concussive Shot по всей карте",
-    "Arcane Bolt отскакивает на второго врага",
-    "Ancient Seal накладывается на врагов вокруг цели",
-    "Mystic Flare следует за целью"
-   ],
-   "comment": "Настоящий талант: Concussive Shot по всей карте (Global Concussive Shot)"
-  },
-  {
-   "id": "tal:special_bonus_unique_templar_assassin_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Templar Assassin?",
-   "topic": "Templar Assassin",
-   "options": [
-    "Refraction даёт диспел",
-    "Meld не спадает при движении",
-    "Полностью заряженная Psionic Trap даёт рут",
-    "Psi Blades переносят эффекты атаки на задетых врагов"
-   ],
-   "comment": "Настоящий талант: Refraction даёт диспел (Refraction Dispels)"
-  },
-  {
-   "id": "tal:special_bonus_unique_storm_spirit_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Storm Spirit?",
-   "topic": "Storm Spirit",
-   "options": [
-    "Ball Lightning сам оставляет Static Remnant по пути",
-    "Electric Vortex притягивает всех врагов вокруг цели",
-    "Ball Lightning заряжает Overload по врагам на пути",
-    "Static Remnant взрывается дважды"
-   ],
-   "comment": "Настоящий талант: Ball Lightning сам оставляет Static Remnant по пути (450 Distance Auto Remnant in Ball Lightning)"
-  },
-  {
-   "id": "tal:special_bonus_unique_beastmaster_wild_axe_cooldown",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Beastmaster?",
-   "topic": "Beastmaster",
-   "options": [
-    "Wild Axes без кд",
-    "Wild Axes притягивают задетых врагов к Beastmaster",
-    "Кабан из Summon Razorback невосприимчив к магии",
-    "Ястребы Summon Raptors пикируют на всех врагов вокруг цели"
-   ],
-   "comment": "Настоящий талант: Wild Axes без кд (No Wild Axes Cooldown)"
-  },
-  {
-   "id": "tal:special_bonus_unique_brewmaster_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Brewmaster?",
-   "topic": "Brewmaster",
-   "options": [
-    "Подожжённый Cinder Brew накладывает фир",
-    "Brewed Up не вызывает похмелья",
-    "Бочка Cinder Brew оставляет за собой горящую дорожку",
-    "Thunder Clap отталкивает врагов от Brewmaster"
-   ],
-   "comment": "Настоящий талант: Подожжённый Cinder Brew накладывает фир (Cinder Brew applies Fear when ignited)"
-  },
-  {
-   "id": "tal:special_bonus_unique_death_prophet_exorcism_duration_on_kill",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Death Prophet?",
-   "topic": "Death Prophet",
-   "options": [
-    "Смерти во время Exorcism продлевают его на 8 с",
-    "Духи Exorcism лечат Death Prophet при каждом ударе",
-    "Spirit Siphon перескакивает на ближайшего врага после смерти цели",
-    "Crypt Swarm добавляет духа Exorcism за каждого задетого героя"
-   ],
-   "comment": "Настоящий талант: Смерти во время Exorcism продлевают его на 8 с (Deaths During Exorcism Extend Duration By +8s)"
-  },
-  {
-   "id": "tal:special_bonus_unique_nevermore_raze_procsattacks",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Shadow Fiend?",
-   "topic": "Shadow Fiend",
-   "options": [
-    "Shadowraze наносит урон от атаки",
-    "Shadowraze даёт душу за каждого задетого героя",
-    "Necromastery не теряет души при смерти",
-    "Убийство героя продлевает Feast of Souls"
-   ],
-   "comment": "Настоящий талант: Shadowraze наносит урон от атаки (Shadowraze Applies Attack Damage)"
-  },
-  {
-   "id": "tal:special_bonus_unique_clinkz_3",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Clinkz?",
-   "topic": "Clinkz",
-   "options": [
-    "Searing Arrows бьют по нескольким целям",
-    "Skeleton Archers следуют за Clinkz",
-    "Атаки под Strafe не выводят из Skeleton Walk",
-    "Burning Barrage не требует ченнелинга"
-   ],
-   "comment": "Настоящий талант: Searing Arrows бьют по нескольким целям (Searing Arrows Multishot)"
-  },
-  {
-   "id": "tal:special_bonus_unique_earth_spirit_2",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Earth Spirit?",
-   "topic": "Earth Spirit",
-   "options": [
-    "Earth Spirit накладывает Magnetize на себя",
-    "Rolling Boulder накладывает Magnetize на задетых врагов",
-    "Geomagnetic Grip притягивает вражеских героев",
-    "Boulder Smash оставляет Stone Remnant в точке приземления"
-   ],
-   "comment": "Настоящий талант: Earth Spirit накладывает Magnetize на себя (Earth Spirit Magnetizes himself)"
-  },
-  {
-   "id": "tal:special_bonus_unique_marci_guardian_strong_dispel",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Marci?",
-   "topic": "Marci",
-   "options": [
-    "Bodyguard даёт сильный диспел",
-    "Unleash обновляет кд Rebound",
-    "Dispose даёт стан в точке приземления",
-    "Rebound даёт цели барьер Bodyguard"
-   ],
-   "comment": "Настоящий талант: Bodyguard даёт сильный диспел (Bodyguard Strong Dispels)"
-  },
-  {
-   "id": "tal:special_bonus_unique_wisp_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Io?",
-   "topic": "Io",
-   "options": [
-    "Атакует цель союзника по Tether (50% урона)",
-    "Spirits взрываются при касании крипов",
-    "Tether станит врагов, касающихся луча",
-    "Equilibrium действует и на союзника по Tether"
-   ],
-   "comment": "Настоящий талант: Атакует цель союзника по Tether (50% урона) (Attack Tethered Ally's Target (50% damage))"
-  },
-  {
-   "id": "tal:special_bonus_unique_winter_wyvern_4",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Winter Wyvern?",
-   "topic": "Winter Wyvern",
-   "options": [
-    "Splinter Blast станит на 1 с",
-    "Splinter Blast задевает и основную цель",
-    "Cold Embrace блокирует и магический урон",
-    "Атаки в Arctic Burn бьют вторую цель рядом"
-   ],
-   "comment": "Настоящий талант: Splinter Blast станит на 1 с (Splinter Blast 1s Stun)"
-  },
-  {
-   "id": "tal:special_bonus_unique_viper_nethertoxin_radius",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Viper?",
-   "topic": "Viper",
-   "options": [
-    "Радиус Nethertoxin постепенно растёт",
-    "Nethertoxin перемещается вслед за Viper",
-    "Viper Strike перескакивает на ещё одного врага",
-    "Poison Attack вешает стаки на врагов рядом с целью"
-   ],
-   "comment": "Настоящий талант: Радиус Nethertoxin постепенно растёт (Nethertoxin Radius increases by 25 every 0.5s)"
-  },
-  {
-   "id": "tal:special_bonus_unique_alchemist_7",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Alchemist?",
-   "topic": "Alchemist",
-   "options": [
-    "Greevil's Greed даёт урон за каждый стак",
-    "Unstable Concoction не взрывается в руках",
-    "Chemical Rage продлевается за каждое убийство",
-    "Acid Spray перемещается вместе с Alchemist"
-   ],
-   "comment": "Настоящий талант: Greevil's Greed даёт урон за каждый стак (Greevil's Greed provides +3 Damage per stack)"
-  },
-  {
-   "id": "tal:special_bonus_unique_bounty_hunter_jinada_no_cooldown",
-   "sub": "talents_has",
-   "kind": "choice",
-   "text": "Какой из этих талантов есть у Bounty Hunter?",
-   "topic": "Bounty Hunter",
-   "options": [
-    "Jinada без кд",
-    "Shuriken Toss отскакивает и на врагов без Track",
-    "Shuriken Toss не выводит из Shadow Walk",
-    "Track вешается на всех врагов в области"
-   ],
-   "comment": "Настоящий талант: Jinada без кд (No Cooldown on Jinada)"
+   "comment": "Настоящий талант: Static Link крадёт скорость атаки (Static Link Steals Attack Speed). «Eye of the Storm бьёт и по зданиям» — это Aghanim's Scepter."
   },
   {
    "id": "tal:special_bonus_unique_lich_7",
@@ -9377,68 +9181,208 @@
    "text": "Какой из этих талантов есть у Lich?",
    "topic": "Lich",
    "options": [
-    "Chain Frost при смерти Lich",
-    "Ice Spire при разрушении выпускает Chain Frost",
-    "Sinister Gaze действует на всех врагов в радиусе",
-    "Frost Shield при окончании взрывается Frost Blast"
+    "Chain Frost срабатывает при смерти Lich",
+    "Sinister Gaze действует по области",
+    "Frost Shield замедляет и скорость атаки",
+    "Sacrifice работает на вражеских крипов"
    ],
-   "comment": "Настоящий талант: Chain Frost при смерти Lich (Chain Frost on Death)"
+   "comment": "Настоящий талант: Chain Frost срабатывает при смерти Lich (Chain Frost on Death). «Sinister Gaze действует по области» — это Aghanim's Scepter."
   },
   {
-   "id": "tal:special_bonus_unique_wraith_king_4",
+   "id": "tal:special_bonus_unique_enigma",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Wraith King?",
-   "topic": "Wraith King",
+   "text": "Какой из этих талантов есть у Enigma?",
+   "topic": "Enigma",
    "options": [
-    "Reincarnation применяет Wraithfire Blast",
-    "Wraithfire Blast отскакивает на второго врага",
-    "Скелеты Bone Guard получают Mortal Strike",
-    "Форма Wraith накладывает слоу вокруг себя"
+    "Demonic Summoning призывает на 4 эйдолона больше",
+    "Event Horizon замедляет врагов на 15% сильнее",
+    "Black Hole держит врагов на 1 секунду дольше",
+    "Midnight Pulse отнимает на 3% здоровья больше"
    ],
-   "comment": "Настоящий талант: Reincarnation применяет Wraithfire Blast (Reincarnation Casts Wraithfire Blast)"
+   "comment": "Настоящий талант: Demonic Summoning призывает на 4 эйдолона больше (+4 Demonic Summoning Eidolons)."
   },
   {
-   "id": "tal:special_bonus_unique_invoker_2",
+   "id": "tal:special_bonus_unique_legion_commander_duel_refresh_on_victory",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Invoker?",
-   "topic": "Invoker",
+   "text": "Какой из этих талантов есть у Legion Commander?",
+   "topic": "Legion Commander",
    "options": [
-    "Deafening Blast во все стороны",
-    "Cold Snap перескакивает на ближайшего врага",
-    "Tornado разделяется на три вихря",
-    "Forge Spirit атакуют по площади"
+    "Duel при победе сокращает свой кд на 30 сек.",
+    "Moment of Courage при ударе станит на 0.5 сек.",
+    "Press The Attack при касте даёт 20% маг. резиста",
+    "Overwhelming Odds при убийстве возвращает 50% маны"
    ],
-   "comment": "Настоящий талант: Deafening Blast во все стороны (Radial Deafening Blast)"
+   "comment": "Настоящий талант: Duel при победе сокращает свой кд на 30 сек. (Duel Advances Cooldown by 30s On Victory)."
   },
   {
-   "id": "tal:special_bonus_unique_troll_warlord_battle_trance_movespeed",
+   "id": "tal:special_bonus_unique_timbersaw_exposure_therapy_health",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Troll Warlord?",
-   "topic": "Troll Warlord",
+   "text": "Какой из этих талантов есть у Timbersaw?",
+   "topic": "Timbersaw",
    "options": [
-    "Союзники получают скорость атаки от Battle Trance",
-    "Fervor сохраняет стаки при смене цели",
-    "Whirling Axes (Ranged) возвращаются к Troll Warlord",
-    "Berserker's Rage даёт ensnare и в ranged-форме"
+    "Exposure Therapy лечит на 12 здоровья за дерево",
+    "Reactive Armor даёт 2 урона за каждый заряд",
+    "Chakram восстанавливает 10 маны за дерево",
+    "Whirling Death даёт 2 брони за каждое дерево"
    ],
-   "comment": "Настоящий талант: Союзники получают скорость атаки от Battle Trance (Allies Receive Battle Trance Attack Speed)"
+   "comment": "Настоящий талант: Exposure Therapy лечит на 12 здоровья за дерево (Exposure Therapy Heals for 12 HP Per Tree Destroyed). «Chakram восстанавливает 10 маны за дерево» — так способность работает и без таланта."
   },
   {
-   "id": "tal:special_bonus_unique_mirana_2",
+   "id": "tal:special_bonus_unique_pugna_decrepify_ally_movespeed",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Mirana?",
-   "topic": "Mirana",
+   "text": "Какой из этих талантов есть у Pugna?",
+   "topic": "Pugna",
    "options": [
-    "Sacred Arrow выпускает +2 стрелы веером",
-    "Leap даёт бонус скорости и союзникам рядом",
-    "Starstorm вызывает вторую волну метеоров",
-    "Celestial Quiver накладывает слоу"
+    "Decrepify ускоряет союзников на 30%",
+    "Nether Blast замедляет врагов на 20%",
+    "Life Drain замедляет цель на 25%",
+    "Nether Ward снижает маг. резист на 15%"
    ],
-   "comment": "Настоящий талант: Sacred Arrow выпускает +2 стрелы веером (+2 Multishot Sacred Arrows)"
+   "comment": "Настоящий талант: Decrepify ускоряет союзников на 30% (+30% Decrepify Movement Speed To Allies)."
+  },
+  {
+   "id": "tal:special_bonus_unique_underlord_6",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Underlord?",
+   "topic": "Underlord",
+   "options": [
+    "Pit of Malice замедляет на 20%",
+    "Firestorm снижает лечение на 25%",
+    "Atrophy Aura замедляет на 15%",
+    "Fiend's Gate лечит союзников на 15%"
+   ],
+   "comment": "Настоящий талант: Pit of Malice замедляет на 20% (Pit of Malice Slows by 20%)."
+  },
+  {
+   "id": "tal:special_bonus_unique_kunkka_tidebringer_slow",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Kunkka?",
+   "topic": "Kunkka",
+   "options": [
+    "Tidebringer замедляет врагов на 60% на 1 сек",
+    "Torrent снижает маг. резист на 20% на 3 сек",
+    "Ghostship замедляет атаку на 40% на 2 сек",
+    "Tidal Wave снижает лечение на 30% на 4 сек"
+   ],
+   "comment": "Настоящий талант: Tidebringer замедляет врагов на 60% на 1 сек (Tidebringer applies 60% slow for 1s)."
+  },
+  {
+   "id": "tal:special_bonus_unique_shadow_shaman_7",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Shadow Shaman?",
+   "topic": "Shadow Shaman",
+   "options": [
+    "Hex накладывает брейк на цель",
+    "Shackles накладывает сайленс",
+    "Hex мгновенно убивает иллюзии",
+    "Ether Shock накладывает слоу"
+   ],
+   "comment": "Настоящий талант: Hex накладывает брейк на цель (Hex Breaks). «Hex мгновенно убивает иллюзии» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_lina_crit_debuff",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Lina?",
+   "topic": "Lina",
+   "options": [
+    "Атаки критуют на 150% по целям под Slow Burn",
+    "Slow Burn снижает маг. резист цели на 15%",
+    "Laguna Blade наносит +20% урона целям под Slow Burn",
+    "Fiery Soul даёт 4% спелл-ампа за каждый заряд"
+   ],
+   "comment": "Настоящий талант: Атаки критуют на 150% по целям под Slow Burn (150% Attack Crit On Targets Affected By Slow Burn)."
+  },
+  {
+   "id": "tal:special_bonus_unique_tusk_shard_dps",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Tusk?",
+   "topic": "Tusk",
+   "options": [
+    "Ice Shards дают слоу 50% и 110 урона в секунду",
+    "Snowball оставляет след с 40% слоу на 3 секунды",
+    "Drinking Buddies даёт 20% статус-резиста на 4 сек.",
+    "Bitter Chill режет скорость атаки на 30 в радиусе 500"
+   ],
+   "comment": "Настоящий талант: Ice Shards дают слоу 50% и 110 урона в секунду (Ice Shards slow by 50% and deal 110 DPS). «Bitter Chill режет скорость атаки на 30 в радиусе 500» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_chen_12",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Chen?",
+   "topic": "Chen",
+   "options": [
+    "Hand of God накладывает сильный диспел",
+    "Penitence накладывает брейк на цель",
+    "Zealot при жертве накладывает стан",
+    "Divine Favor накладывает щит от урона"
+   ],
+   "comment": "Настоящий талант: Hand of God накладывает сильный диспел (Hand of God applies a Strong Dispel)."
+  },
+  {
+   "id": "tal:special_bonus_unique_treant_7",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Treant Protector?",
+   "topic": "Treant Protector",
+   "options": [
+    "Living Armor действует по области радиусом 450",
+    "Nature's Grasp рутит врагов на 1.5 сек. при касании",
+    "Eyes In The Forest дают просвет в радиусе 300",
+    "Living Armor даёт 6 брони цели на время действия"
+   ],
+   "comment": "Настоящий талант: Living Armor действует по области радиусом 450 (450 AoE Living Armor)."
+  },
+  {
+   "id": "tal:special_bonus_unique_spirit_breaker_shield",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Spirit Breaker?",
+   "topic": "Spirit Breaker",
+   "options": [
+    "Bulldoze даёт барьер на 375 урона",
+    "Nether Strike даёт 40% маг. резиста",
+    "Charge of Darkness даёт инвиз на 3 сек.",
+    "Greater Bash даёт 2 сек. дизарма"
+   ],
+   "comment": "Настоящий талант: Bulldoze даёт барьер на 375 урона (Bulldoze 375 All Damage Barrier)."
+  },
+  {
+   "id": "tal:special_bonus_unique_beastmaster_wild_axe_cooldown",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Beastmaster?",
+   "topic": "Beastmaster",
+   "options": [
+    "Wild Axes не имеют кд",
+    "Primal Roar даёт брейк",
+    "Wild Axes вешаются с атак",
+    "Drums of Slom даёт слоу"
+   ],
+   "comment": "Настоящий талант: Wild Axes не имеют кд (No Wild Axes Cooldown). «Wild Axes вешаются с атак» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_doom_11",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Doom?",
+   "topic": "Doom",
+   "options": [
+    "Scorched Earth действует постоянно",
+    "Infernal Blade поджигает по области",
+    "Doom можно накладывать на себя",
+    "Devour восполняет ману со временем"
+   ],
+   "comment": "Настоящий талант: Scorched Earth действует постоянно (Permanent Scorched Earth). «Doom можно накладывать на себя» — это Aghanim's Scepter."
   },
   {
    "id": "tal:special_bonus_unique_monkey_king_6",
@@ -9447,26 +9391,166 @@
    "text": "Какой из этих талантов есть у Monkey King?",
    "topic": "Monkey King",
    "options": [
-    "Дополнительное кольцо Wukong's Command",
-    "Солдаты Wukong's Command получают заряды Jingu Mastery",
-    "Primal Spring можно применять с земли",
-    "Падение с дерева больше не станит"
+    "Wukong's Command создаёт ещё один круг солдат",
+    "Boundless Strike переносит к концу посоха",
+    "Primal Spring оставляет на земле зону слоу",
+    "Mischief даёт инвиз на время превращения"
    ],
-   "comment": "Настоящий талант: Дополнительное кольцо Wukong's Command (Additional Wukong's Command Ring)"
+   "comment": "Настоящий талант: Wukong's Command создаёт ещё один круг солдат (Additional Wukong's Command Ring). «Boundless Strike переносит к концу посоха» — это Aghanim's Shard."
   },
   {
-   "id": "tal:special_bonus_unique_doom_10",
+   "id": "tal:special_bonus_unique_dark_willow_2",
    "sub": "talents_has",
    "kind": "choice",
-   "text": "Какой из этих талантов есть у Doom?",
-   "topic": "Doom",
+   "text": "Какой из этих талантов есть у Dark Willow?",
+   "topic": "Dark Willow",
    "options": [
-    "Doom накладывает мьют",
-    "Devour можно применять на древних крипов",
-    "Infernal Blade поджигает врагов вокруг цели",
-    "Doom переходит на ближайшего врага после смерти цели"
+    "Terrorize наносит 500 урона при попадании",
+    "Cursed Crown наносит 250 урона при стане",
+    "Shadow Realm даёт 20% уклонения после выхода",
+    "Bramble Maze даёт 30% слоу после рута"
    ],
-   "comment": "Настоящий талант: Doom накладывает мьют (Doom applies Mute)"
+   "comment": "Настоящий талант: Terrorize наносит 500 урона при попадании (500 Terrorize Impact Damage)."
+  },
+  {
+   "id": "tal:special_bonus_unique_slardar_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Slardar?",
+   "topic": "Slardar",
+   "options": [
+    "Corrosive Haze нельзя диспелить",
+    "Bash of the Deep пробивает БКБ",
+    "Guardian Sprint даёт уклонение",
+    "Slithereen Crush даёт брейк"
+   ],
+   "comment": "Настоящий талант: Corrosive Haze нельзя диспелить (Corrosive Haze Undispellable). «Bash of the Deep пробивает БКБ» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_leshrac_pulse_nova_lightning",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Leshrac?",
+   "topic": "Leshrac",
+   "options": [
+    "Pulse Nova вызывает Lightning Storm",
+    "Split Earth повторяется в той же точке",
+    "Diabolic Edict замедляет задетых врагов",
+    "Lightning Storm станит основную цель"
+   ],
+   "comment": "Настоящий талант: Pulse Nova вызывает Lightning Storm (Pulse Nova triggers Lightning Storm). «Split Earth повторяется в той же точке» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_batrider_2",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Batrider?",
+   "topic": "Batrider",
+   "options": [
+    "Flamebreak накладывает 4 заряда Sticky Napalm",
+    "Flaming Lasso поджигает цель на 3 сек. после конца",
+    "Firefly замедляет врагов в пламени на 15%",
+    "Sticky Napalm бьёт крипов на 100% урона"
+   ],
+   "comment": "Настоящий талант: Flamebreak накладывает 4 заряда Sticky Napalm (Flamebreak applies 4 Sticky Napalm Stacks)."
+  },
+  {
+   "id": "tal:special_bonus_unique_kez_echo_slash_strike_count",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Kez?",
+   "topic": "Kez",
+   "options": [
+    "Echo Slash наносит +1 повторный удар",
+    "Grappling Claw получает +1 заряд",
+    "Falcon Rush даёт +1 эхо-удар за атаку",
+    "Raven's Veil вешает +1 метку на врага"
+   ],
+   "comment": "Настоящий талант: Echo Slash наносит +1 повторный удар (+1 Echo Slash Attack)."
+  },
+  {
+   "id": "tal:special_bonus_unique_lone_druid_8",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Lone Druid?",
+   "topic": "Lone Druid",
+   "options": [
+    "True Form даёт 70% сопротивления слоу",
+    "Spirit Link даёт 25% статус-резиста",
+    "Savage Roar даёт союзникам 20% уклонения",
+    "Summon Spirit Bear даёт 20% маг. резиста"
+   ],
+   "comment": "Настоящий талант: True Form даёт 70% сопротивления слоу (True Form provides 70% Slow Resistance)."
+  },
+  {
+   "id": "tal:special_bonus_unique_axe_8",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Axe?",
+   "topic": "Axe",
+   "options": [
+    "Battle Hunger ускоряет Axe на 8% за каждый эффект",
+    "Berserker's Call лечит Axe на 3% за каждую цель",
+    "Culling Blade даёт Axe 6% лайфстила за каждый стак",
+    "Counter Helix бьёт на 4% сильнее за каждого врага"
+   ],
+   "comment": "Настоящий талант: Battle Hunger ускоряет Axe на 8% за каждый эффект (+8% Movement Speed per active Battle Hunger)."
+  },
+  {
+   "id": "tal:special_bonus_unique_ringmaster_the_box_strong_dispel_and_flying",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Ring Master?",
+   "topic": "Ring Master",
+   "options": [
+    "Escape Act даёт сильный диспел и полёт",
+    "Impalement Arts даёт сайленс и брейк",
+    "Tame the Beasts даёт рут и дизарм",
+    "Wheel of Wonder даёт просвет и сайленс"
+   ],
+   "comment": "Настоящий талант: Escape Act даёт сильный диспел и полёт (Escape Act Grants Strong Dispel and Flying)."
+  },
+  {
+   "id": "tal:special_bonus_unique_ember_spirit_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Ember Spirit?",
+   "topic": "Ember Spirit",
+   "options": [
+    "Sleight of Fist получает 2 заряда",
+    "Flame Guard отражает 25% маг. урона",
+    "Immolation сжигает 3% маны в секунду",
+    "Fire Remnant станит врагов на 0.6 сек."
+   ],
+   "comment": "Настоящий талант: Sleight of Fist получает 2 заряда (2 Sleight of Fist Charges)."
+  },
+  {
+   "id": "tal:special_bonus_unique_alchemist_7",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Alchemist?",
+   "topic": "Alchemist",
+   "options": [
+    "Greevil's Greed даёт +3 урона за стак",
+    "Corrosive Weaponry снимает 1 броню за стак",
+    "Chemical Rage даёт 12% маг. резиста",
+    "Unstable Concoction даёт +10 брони при варке"
+   ],
+   "comment": "Настоящий талант: Greevil's Greed даёт +3 урона за стак (Greevil's Greed provides +3 Damage per stack)."
+  },
+  {
+   "id": "tal:special_bonus_unique_bounty_hunter_8",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Bounty Hunter?",
+   "topic": "Bounty Hunter",
+   "options": [
+    "Track даёт обзор глазами цели",
+    "Jinada накладывает Track на цель",
+    "Shadow Walk даёт диспел при касте",
+    "Shuriken Toss даёт брейк цели"
+   ],
+   "comment": "Настоящий талант: Track даёт обзор глазами цели (Track Grants Shared Vision)."
   },
   {
    "id": "tal:special_bonus_unique_venomancer_5",
@@ -9476,11 +9560,543 @@
    "topic": "Venomancer",
    "options": [
     "Snakebite нельзя диспелить",
-    "Plague Ward атакуют две цели одновременно",
-    "Venomous Gale оставляет ядовитый след на земле",
-    "Snakebite перескакивает на ближайшего врага"
+    "Plague Ward стоят в инвизе",
+    "Venomous Gale даёт брейк",
+    "Noxious Plague снимает баффы"
    ],
-   "comment": "Настоящий талант: Snakebite нельзя диспелить (Snakebite Undispellable)"
+   "comment": "Настоящий талант: Snakebite нельзя диспелить (Snakebite Undispellable)."
+  },
+  {
+   "id": "tal:special_bonus_unique_vengeful_spirit_wave_of_terror_steal",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Vengeful Spirit?",
+   "topic": "Vengeful Spirit",
+   "options": [
+    "Wave of Terror крадёт 25% снятых урона и брони",
+    "Nether Swap даёт 20% статус-резиста союзнику",
+    "Vengeance Aura даёт 15% лайфстила союзникам",
+    "Magic Missile срезает 20% маг. резиста цели"
+   ],
+   "comment": "Настоящий талант: Wave of Terror крадёт 25% снятых урона и брони (Wave Of Terror Steals 25% Of Reduced Damage And Armor)."
+  },
+  {
+   "id": "tal:special_bonus_unique_mars_arena_of_blood_hp_regen",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Mars?",
+   "topic": "Mars",
+   "options": [
+    "Arena Of Blood даёт союзникам +180 к регену хп",
+    "Bulwark даёт союзникам за спиной +8 брони",
+    "God's Rebuke даёт союзникам +40 скорости атаки",
+    "Spear of Mars даёт союзникам +15% к скорости"
+   ],
+   "comment": "Настоящий талант: Arena Of Blood даёт союзникам +180 к регену хп (Arena Of Blood Grants Team +180 HP Regen)."
+  },
+  {
+   "id": "tal:special_bonus_unique_weaver_5",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Weaver?",
+   "topic": "Weaver",
+   "options": [
+    "+1 атака от Geminate Attack",
+    "+4 жука в стае The Swarm",
+    "+2 сек. отмотки у Time Lapse",
+    "+1 нить у Threads of Fate"
+   ],
+   "comment": "Настоящий талант: +1 атака от Geminate Attack (+1 Geminate Attack)."
+  },
+  {
+   "id": "tal:special_bonus_unique_sand_king_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Sand King?",
+   "topic": "Sand King",
+   "options": [
+    "Sand Storm даёт слоу и ослепление 35%",
+    "Epicenter даёт уклонение и маг. резист 20%",
+    "Stinger даёт снижение брони и лечения 25%",
+    "Burrowstrike даёт снижение маг. резиста 25%"
+   ],
+   "comment": "Настоящий талант: Sand Storm даёт слоу и ослепление 35% (35% Sand Storm Slow and Blind)."
+  },
+  {
+   "id": "tal:special_bonus_unique_muerta_the_calling_num_revenants",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Muerta?",
+   "topic": "Muerta",
+   "options": [
+    "The Calling призывает ещё 2 духа",
+    "Supernatural даёт ещё 3 стака",
+    "Spectral Slug выпускает ещё 3 пули",
+    "Pierce the Veil создаёт ещё 1 копию"
+   ],
+   "comment": "Настоящий талант: The Calling призывает ещё 2 духа (The Calling summons 2 additional revenants)."
+  },
+  {
+   "id": "tal:special_bonus_unique_clinkz_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Clinkz?",
+   "topic": "Clinkz",
+   "options": [
+    "Searing Arrows бьют сразу две цели",
+    "Burning Barrage бьёт в три стороны",
+    "Death Pact съедает двух крипов",
+    "Infernal Shred даёт два стака"
+   ],
+   "comment": "Настоящий талант: Searing Arrows бьют сразу две цели (Searing Arrows Multishot)."
+  },
+  {
+   "id": "tal:special_bonus_unique_brewmaster_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Brewmaster?",
+   "topic": "Brewmaster",
+   "options": [
+    "Cinder Brew при поджоге накладывает страх",
+    "Thunder Clap по центру накладывает стан",
+    "Drunken Brawler при подпитии даёт диспел",
+    "Primal Split при старте бьёт Thunder Clap"
+   ],
+   "comment": "Настоящий талант: Cinder Brew при поджоге накладывает страх (Cinder Brew applies Fear when ignited)."
+  },
+  {
+   "id": "tal:special_bonus_unique_nevermore_raze_procsattacks",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Shadow Fiend?",
+   "topic": "Shadow Fiend",
+   "options": [
+    "Shadowraze наносит урон от атаки",
+    "Requiem of Souls накладывает брейк",
+    "Shadowraze накладывает слоу",
+    "Feast of Souls даёт лайфстил"
+   ],
+   "comment": "Настоящий талант: Shadowraze наносит урон от атаки (Shadowraze Applies Attack Damage). «Shadowraze накладывает слоу» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_skywrath_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Skywrath Mage?",
+   "topic": "Skywrath Mage",
+   "options": [
+    "Concussive Shot бьёт по всей карте",
+    "Arcane Bolt бьёт по области",
+    "Mystic Flare накладывает сайленс",
+    "Ancient Seal диспелит врага"
+   ],
+   "comment": "Настоящий талант: Concussive Shot бьёт по всей карте (Global Concussive Shot)."
+  },
+  {
+   "id": "tal:special_bonus_unique_abaddon_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Abaddon?",
+   "topic": "Abaddon",
+   "options": [
+    "Mist Coil применяется по области радиусом 350",
+    "Borrowed Time лечит союзников в радиусе 450",
+    "Curse of Avernus заражает врагов в радиусе 300",
+    "Aphotic Shield при взрыве даёт рут в радиусе 500"
+   ],
+   "comment": "Настоящий талант: Mist Coil применяется по области радиусом 350 (350 AoE Mist Coil)."
+  },
+  {
+   "id": "tal:special_bonus_unique_ursa_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Ursa?",
+   "topic": "Ursa",
+   "options": [
+    "Earthshock получает 2 заряда",
+    "Fury Swipes вешает 2 стака за удар",
+    "Overpower даёт сплэш на 4 атаки",
+    "Enrage можно применить 2 раза подряд"
+   ],
+   "comment": "Настоящий талант: Earthshock получает 2 заряда (Earthshock has 2 Charges)."
+  },
+  {
+   "id": "tal:special_bonus_unique_wraith_king_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Wraith King?",
+   "topic": "Wraith King",
+   "options": [
+    "Reincarnation бросает Wraithfire Blast во врагов",
+    "Mortal Strike накладывает слоу Wraithfire Blast",
+    "Скелеты Bone Guard получают лайфстил Vampiric Spirit",
+    "Wraithfire Blast призывает скелетов из Bone Guard"
+   ],
+   "comment": "Настоящий талант: Reincarnation бросает Wraithfire Blast во врагов (Reincarnation Casts Wraithfire Blast). «Скелеты Bone Guard получают лайфстил Vampiric Spirit» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_viper_nethertoxin_radius",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Viper?",
+   "topic": "Viper",
+   "options": [
+    "Nethertoxin расширяется на 25 каждые 0,5 сек",
+    "Viper Strike усиливает слоу на 10% каждую сек",
+    "Corrosive Skin крепнет на 4% каждые 2 сек",
+    "Poison Attack копит по 6 урона каждую сек"
+   ],
+   "comment": "Настоящий талант: Nethertoxin расширяется на 25 каждые 0,5 сек (Nethertoxin Radius increases by 25 every 0.5s). «Corrosive Skin крепнет на 4% каждые 2 сек» — это Aghanim's Scepter."
+  },
+  {
+   "id": "tal:special_bonus_unique_chaos_knight",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Chaos Knight?",
+   "topic": "Chaos Knight",
+   "options": [
+    "Reality Rift пробивает невосприимчивость к магии",
+    "Phantasm диспелит Chaos Knight сильным диспелом",
+    "Chaos Strike накладывает брейк на цель при крите",
+    "Reality Rift кастуется от любой своей иллюзии"
+   ],
+   "comment": "Настоящий талант: Reality Rift пробивает невосприимчивость к магии (Reality Rift Pierces Spell Immunity). «Reality Rift кастуется от любой своей иллюзии» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_silencer_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Silencer?",
+   "topic": "Silencer",
+   "options": [
+    "Last Word накладывается по области 250",
+    "Glaives of Wisdom бьют по области 200",
+    "Arcane Curse взрывается по области 300",
+    "Suffer In Silence крадёт инт по области 1100"
+   ],
+   "comment": "Настоящий талант: Last Word накладывается по области 250 (250 AoE Last Word)."
+  },
+  {
+   "id": "tal:special_bonus_unique_disruptor_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Disruptor?",
+   "topic": "Disruptor",
+   "options": [
+    "Glimpse получает 2 заряда",
+    "Kinetic Field ставит 3 барьера",
+    "Thunder Strike рутит на 1 сек",
+    "Static Storm даёт слоу 30%"
+   ],
+   "comment": "Настоящий талант: Glimpse получает 2 заряда (2 Glimpse Charges)."
+  },
+  {
+   "id": "tal:special_bonus_unique_storm_spirit_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Storm Spirit?",
+   "topic": "Storm Spirit",
+   "options": [
+    "Ball Lightning оставляет Static Remnant каждые 450",
+    "Overload заряжается каждые 4 сек без каста",
+    "Electric Vortex станит цель на 0.5 сек в конце",
+    "Static Remnant взрывается повторно через 2 сек"
+   ],
+   "comment": "Настоящий талант: Ball Lightning оставляет Static Remnant каждые 450 (450 Distance Auto Remnant in Ball Lightning)."
+  },
+  {
+   "id": "tal:special_bonus_unique_void_spirit_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Void Spirit?",
+   "topic": "Void Spirit",
+   "options": [
+    "Dissimilate рутит на 2 сек",
+    "Astral Step дизармит на 1.5 сек",
+    "Aether Remnant станит на 0.8 сек",
+    "Resonant Pulse даёт слоу на 3 сек"
+   ],
+   "comment": "Настоящий талант: Dissimilate рутит на 2 сек (Dissimilate Roots for 2s)."
+  },
+  {
+   "id": "tal:special_bonus_unique_oracle_7",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Oracle?",
+   "topic": "Oracle",
+   "options": [
+    "Fortune's End диспелит постоянно",
+    "Fate's Edict дизармит по области",
+    "Purifying Flames не убивает союзников",
+    "False Promise даёт союзнику инвиз"
+   ],
+   "comment": "Настоящий талант: Fortune's End диспелит постоянно (Fortune's End constantly Dispels). «Purifying Flames не убивает союзников» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_earth_spirit_2",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Earth Spirit?",
+   "topic": "Earth Spirit",
+   "options": [
+    "Magnetize действует и на Earth Spirit",
+    "Rolling Boulder проходит сквозь героев",
+    "Boulder Smash толкает и союзников",
+    "Geomagnetic Grip кастуется на врагов"
+   ],
+   "comment": "Настоящий талант: Magnetize действует и на Earth Spirit (Earth Spirit Magnetizes himself). «Boulder Smash толкает и союзников» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_dazzle_poison_touch_attack_range_bonus",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Dazzle?",
+   "topic": "Dazzle",
+   "options": [
+    "+200 к дальности атаки по целям Poison Touch",
+    "+250 к дальности отскоков у Shadow Wave",
+    "+150 к ширине конуса яда Poison Touch",
+    "+300 к дальности применения Nothl Projection"
+   ],
+   "comment": "Настоящий талант: +200 к дальности атаки по целям Poison Touch (+200 Poison Touch Attack Range)."
+  },
+  {
+   "id": "tal:special_bonus_unique_phoenix_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Phoenix?",
+   "topic": "Phoenix",
+   "options": [
+    "+1000 к дальности Icarus Dive",
+    "+2 к числу духов Fire Spirits",
+    "+300 к радиусу Dying Light",
+    "+90 к ширине луча Sun Ray"
+   ],
+   "comment": "Настоящий талант: +1000 к дальности Icarus Dive (+1000 Icarus Dive Cast Range)."
+  },
+  {
+   "id": "tal:special_bonus_unique_lycan_5",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Lycan?",
+   "topic": "Lycan",
+   "options": [
+    "Howl снижает весь урон от атак",
+    "Summon Wolves даёт волкам инвиз",
+    "Feral Impulse действует на союзников",
+    "Shapeshift снимает дебаффы с Lycan"
+   ],
+   "comment": "Настоящий талант: Howl снижает весь урон от атак (Howl Reduces Total Attack Damage). «Summon Wolves даёт волкам инвиз» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_undying_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Undying?",
+   "topic": "Undying",
+   "options": [
+    "Tombstone появляется при смерти Undying",
+    "Flesh Golem продлевается при убийстве героя",
+    "Soul Rip можно применить на Tombstone",
+    "Decay призывает зомби у каждой цели"
+   ],
+   "comment": "Настоящий талант: Tombstone появляется при смерти Undying (Tombstone On Death). «Soul Rip можно применить на Tombstone» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_ancient_apparition_1",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Ancient Apparition?",
+   "topic": "Ancient Apparition",
+   "options": [
+    "Cold Feet действует по области радиусом 450",
+    "Chilling Touch бьёт по области радиусом 275",
+    "Ice Blast всегда взрывается радиусом 1000",
+    "Bone Chill действует по области радиусом 350"
+   ],
+   "comment": "Настоящий талант: Cold Feet действует по области радиусом 450 (450 AoE Cold Feet)."
+  },
+  {
+   "id": "tal:special_bonus_unique_templar_assassin_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Templar Assassin?",
+   "topic": "Templar Assassin",
+   "options": [
+    "Refraction при касте даёт диспел",
+    "Refraction можно кастовать под станом",
+    "Psionic Trap при взрыве даёт рут",
+    "Meld при атаке из инвиза даёт крит"
+   ],
+   "comment": "Настоящий талант: Refraction при касте даёт диспел (Refraction Dispels). «Refraction можно кастовать под станом» — это Aghanim's Shard."
+  },
+  {
+   "id": "tal:special_bonus_unique_windranger_7",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Windranger?",
+   "topic": "Windranger",
+   "options": [
+    "Powershot добивает героев ниже 16% здоровья",
+    "Windrun даёт союзникам рядом 30% уклонения",
+    "Shackleshot усиливает урон по цели на 20%",
+    "Focus Fire даёт 18% лайфстила по цели"
+   ],
+   "comment": "Настоящий талант: Powershot добивает героев ниже 16% здоровья (Powershot Executes Enemy Heroes Under 16% Max HP)."
+  },
+  {
+   "id": "tal:special_bonus_unique_primal_beast_roar_dispells",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Primal Beast?",
+   "topic": "Primal Beast",
+   "options": [
+    "Uproar снимает с Primal Beast дебаффы",
+    "Trample накладывает брейк на врагов рядом",
+    "Pulverize даёт Primal Beast заряды Uproar",
+    "Onslaught вешает сайленс на сбитых врагов"
+   ],
+   "comment": "Настоящий талант: Uproar снимает с Primal Beast дебаффы (Basic Self-Dispel on Uproar Cast)."
+  },
+  {
+   "id": "tal:special_bonus_unique_zeus_5",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Zeus?",
+   "topic": "Zeus",
+   "options": [
+    "Lightning Bolt бьёт по области радиусом 325",
+    "Heavenly Jump даёт обзор на 900 вокруг Zeus",
+    "Thundergod's Wrath бьёт и крипов в радиусе 450",
+    "Arc Lightning замедляет врагов в радиусе 350"
+   ],
+   "comment": "Настоящий талант: Lightning Bolt бьёт по области радиусом 325 (325 AoE Lightning Bolt). «Heavenly Jump даёт обзор на 900 вокруг Zeus» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_drow_ranger_8",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Drow Ranger?",
+   "topic": "Drow Ranger",
+   "options": [
+    "Multishot выпускает на 2 волны больше",
+    "Glacier держится на 3 секунды дольше",
+    "Marksmanship пробивает 2 врага за спиной",
+    "Gust можно применять 2 раза подряд"
+   ],
+   "comment": "Настоящий талант: Multishot выпускает на 2 волны больше (+2 Multishot Waves)."
+  },
+  {
+   "id": "tal:special_bonus_unique_centaur_1",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Centaur Warrunner?",
+   "topic": "Centaur Warrunner",
+   "options": [
+    "Retaliate становится аурой",
+    "Double Edge бьёт по области",
+    "Hoof Stomp накладывает брейк",
+    "Horsepower работает с ботинками"
+   ],
+   "comment": "Настоящий талант: Retaliate становится аурой (Gains Retaliate Aura). «Double Edge бьёт по области» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_gyrocopter_2",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Gyrocopter?",
+   "topic": "Gyrocopter",
+   "options": [
+    "Flak Cannon даёт ещё 3 залпа",
+    "Call Down даёт ещё 2 ракеты",
+    "Homing Missile даёт ещё 2 заряда",
+    "Rocket Barrage даёт ещё 8 ракет"
+   ],
+   "comment": "Настоящий талант: Flak Cannon даёт ещё 3 залпа (+3 Flak Cannon Attacks)."
+  },
+  {
+   "id": "tal:special_bonus_unique_broodmother_web_speed",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Broodmother?",
+   "topic": "Broodmother",
+   "options": [
+    "Spin Web даёт +7% скорости и снимает лимит скорости",
+    "Insatiable Hunger даёт +10% урона и пробивает уклонение",
+    "Spawn Spiderlings даёт +15% слоу и просвет цели",
+    "Spider's Milk даёт +4% лечения и снимает дебаффы"
+   ],
+   "comment": "Настоящий талант: Spin Web даёт +7% скорости и снимает лимит скорости (+7% Spin Web Move Speed and Ignore Speed Limit)."
+  },
+  {
+   "id": "tal:special_bonus_unique_wisp_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Io?",
+   "topic": "Io",
+   "options": [
+    "Io атакует цель союзника по Tether с 50% урона",
+    "Io забирает на себя 25% урона союзника по Tether",
+    "Spirits взрываются при касании крипов с 40% урона",
+    "Overcharge дарит союзникам рядом 35% своих бонусов"
+   ],
+   "comment": "Настоящий талант: Io атакует цель союзника по Tether с 50% урона (Attack Tethered Ally's Target (50% damage))."
+  },
+  {
+   "id": "tal:special_bonus_unique_naga_siren",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Naga Siren?",
+   "topic": "Naga Siren",
+   "options": [
+    "Mirror Image создаёт на 1 иллюзию больше",
+    "Rip Tide срабатывает каждые 4 атаки",
+    "Ensnare наносит 150 урона при попадании",
+    "Song of the Siren длится на 1,5 сек. дольше"
+   ],
+   "comment": "Настоящий талант: Mirror Image создаёт на 1 иллюзию больше (+1 Mirror Image Illusion)."
+  },
+  {
+   "id": "tal:special_bonus_unique_furion_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Nature's Prophet?",
+   "topic": "Nature's Prophet",
+   "options": [
+    "Teleportation полностью без кд",
+    "Wrath of Nature рутит врагов",
+    "Sprout даёт сайленс внутри кольца",
+    "Curse of the Oldgrowth даёт брейк"
+   ],
+   "comment": "Настоящий талант: Teleportation полностью без кд (Removed Teleportation Cooldown). «Wrath of Nature рутит врагов» — это Aghanim's Scepter."
+  },
+  {
+   "id": "tal:special_bonus_unique_meepo_4",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Meepo?",
+   "topic": "Meepo",
+   "options": [
+    "Earthbind даёт атаки без промахов по цели",
+    "Poof накладывает рут в точке прибытия",
+    "Earthbind раскрывает невидимых врагов в сети",
+    "Ransack действует на крипов без ослабления"
+   ],
+   "comment": "Настоящий талант: Earthbind даёт атаки без промахов по цели (Earthbind grants True Strike on Targets). «Earthbind раскрывает невидимых врагов в сети» — так способность работает и без таланта."
+  },
+  {
+   "id": "tal:special_bonus_unique_ogre_magi_3",
+   "sub": "talents_has",
+   "kind": "choice",
+   "text": "Какой из этих талантов есть у Ogre Magi?",
+   "topic": "Ogre Magi",
+   "options": [
+    "Fireblast срабатывает при атаке с шансом 17%",
+    "Bloodlust даёт 12% лайфстила союзнику",
+    "Fire Shield поглощает урон от 5 атак героев",
+    "Ignite снижает скорость атаки цели на 30"
+   ],
+   "comment": "Настоящий талант: Fireblast срабатывает при атаке с шансом 17% (17% Fireblast chance on attack)."
   },
   {
    "id": "mech:Bounty Hunter:Track",

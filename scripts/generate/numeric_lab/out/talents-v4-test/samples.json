@@ -1,0 +1,1405 @@
+[
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_beastmaster",
+    "hero": "Beastmaster",
+    "abilities": [
+     {
+      "name": "Wild Axes",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Beastmaster sends his axes flying and calls them home again, slicing through enemy units and trees along their path.  Each axe can hit an enemy once, and amplifies subsequent damage from Beastmaster and his units.",
+      "notes": {
+       "note0": "This ability destroys trees."
+      }
+     },
+     {
+      "name": "Summon Razorback",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Beastmaster calls forth a Boar to aid in the battlefield. The Boar has a passive poison attack that slows attack and movement speeds.",
+      "notes": {}
+     },
+     {
+      "name": "Summon Raptors",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Beastmaster summons 2 hawks that circle around Beastmaster and dive-bombs at enemies with a base attack rate of every 4s, damaging and rooting them. Attack rate increases with the Hawk's attack speed. Prioritizes heroes.",
+      "notes": {},
+      "shard": "Increases Hawk duration by bonus_durations and summons an additional Hawk."
+     },
+     {
+      "name": "Inner Beast",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Untaps the inner fury of Beastmaster and units he controls, passively increasing their attack speed.",
+      "notes": {
+       "note0": "Break disables the passive attack speed bonus."
+      }
+     },
+     {
+      "name": "Drums of Slom",
+      "role": "scepter",
+      "behavior": "Passive",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Attacks from Beastmaster or a nearby unit he controls will cause him bang his drum, dealing damage to nearby units and healing Beastmaster and units under his control for a portion of the damage dealt. Every attack decreases the interval between drum hits down to a minimum of 0.5s between hits after 20 attacks. If no attacks are made, the intervals gradually increase.\n\nUsing Primal Roar counts as 10 attacks.",
+      "notes": {}
+     },
+     {
+      "name": "Primal Roar",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Beastmaster lets loose a deafening roar that stuns, and shoves open a path to its target. All units in the path of the roar are damaged, while units shoved aside by the roar have their movement and attack speed slowed. Additionally, Beastmaster and his units gain 40% movement speed for 2 seconds.",
+      "notes": {}
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_armor_4",
+      "level": 10,
+      "text": "+4 Armor",
+      "ru": "+4 к броне",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_9",
+      "level": 10,
+      "text": "+1.5% Wild Axes Damage Amp Per Stack",
+      "ru": "+1.5% к доп. урону за эффект Wild Axes",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_5",
+      "level": 15,
+      "text": "+15 Movespeed to Beastmaster and his summons",
+      "ru": "+15 к скорости передв. героя и его существ",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_4",
+      "level": 15,
+      "text": "+200 Primal Roar Cast Range",
+      "ru": "+200 к дальности применения Primal Roar",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_2",
+      "level": 20,
+      "text": "+25 Damage to Beastmaster and his summons",
+      "ru": "+25 к урону от атак героя и его существ",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_6",
+      "level": 20,
+      "text": "+250 Health to Beastmaster and his summons",
+      "ru": "+250 к здоровью героя и его существ",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_wild_axe_cooldown",
+      "level": 25,
+      "text": "No Wild Axes Cooldown",
+      "ru": "Wild Axes без перезарядки",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_beastmaster_7",
+      "level": 25,
+      "text": "-20s Primal Roar Cooldown",
+      "ru": "–20 сек. перезарядки Primal Roar",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_treant",
+    "hero": "Treant Protector",
+    "abilities": [
+     {
+      "name": "Nature's Grasp",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Creates vines towards the target location. Vines slow down and deal damage to enemies that walk through. Does 35% less damage to creeps.",
+      "notes": {}
+     },
+     {
+      "name": "Leech Seed",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Treant's attack plants a life-sapping seed in an enemy unit. That unit takes additional magic damage, is rooted and disarmed for a short duration, and emits 2 healing pulses to up to 5 nearby allies of Treant Protector based on the damage dealt by the attack.",
+      "notes": {}
+     },
+     {
+      "name": "Living Armor",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Infuses the target hero or structure with a protective coating which heals the target and blocks damage from player-controlled sources. Each time this spell blocks damage, the block amount is decreased. If the damage block is decreased to 0, the buff is removed early.",
+      "notes": {
+       "note0": "Instances of damage less than 10 are ignored."
+      }
+     },
+     {
+      "name": "Eyes In The Forest",
+      "role": "shard",
+      "behavior": [
+       "Unit Target",
+       "Hidden",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Treant Protector enchants a tree, which grants him unobstructed vision in that location. The eyes last for 360 seconds and are invisible, but are destroyed if their host tree is destroyed or if they are attacked directly.",
+      "notes": {
+       "note0": "Being entangled by Overgrowth through enchanted trees from Eyes in the Forest does damage.",
+       "note1": "If the enemy has True Sight, they will be able to see which trees are enchanted."
+      }
+     },
+     {
+      "name": "Nature's Guise",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Grants bonus movement speed when near trees. Treant Protector additionally has Tree Walking if he has not taken damage for 2.75 seconds. While Tree Walking, Nature's Guise can be activated to grant Treant invisibility until he attacks or is no longer near a tree.",
+      "notes": {
+       "note0": "While affected by Nature's Guise, Treant can move unobstructed through other trees.",
+       "note1": "Vines from Nature's Grasp are considered trees for this ability.",
+       "note2": "While Tree Walking, taking damage does not disable the active ability or Tree Walking."
+      }
+     },
+     {
+      "name": "Overgrowth",
+      "role": "ultimate",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Summons an overgrowth of vines and branches around Treant that deal damage to afflicted enemies and prevent them from moving, blinking, going invisible, or attacking.",
+      "notes": {
+       "note0": "Works on Debuff Immune units, but if units gain debuff immunity after the effect starts, they'll break free."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_treant_8",
+      "level": 10,
+      "text": "+3s Living Armor Duration",
+      "ru": "+3 сек. действия Living Armor",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_base_damage_50",
+      "level": 10,
+      "text": "+50 Base Damage",
+      "ru": "+50 к базовому урону",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_treant_3",
+      "level": 15,
+      "text": "+10% Leech Seed Damage to Healing",
+      "ru": "+10% к лечению от урона у Leech Seed",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_9",
+      "level": 15,
+      "text": "+25 Nature's Grasp Damage",
+      "ru": "+25 к урону от Nature's Grasp",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_13",
+      "level": 20,
+      "text": "+20 Living Armor Damage Block",
+      "ru": "+20 к блокируемому урону у Living Armor",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_2",
+      "level": 20,
+      "text": "+80 Leech Seed Bonus Damage",
+      "ru": "+80 к дополнительному урону от Leech Seed",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_14",
+      "level": 25,
+      "text": "-3s Leech Seed Cooldown",
+      "ru": "–3 сек. перезарядки Leech Seed",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_7",
+      "level": 25,
+      "text": "450 AoE Living Armor",
+      "ru": "Living Armor применяется по области радиусом 450",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_wisp",
+    "hero": "Io",
+    "abilities": [
+     {
+      "name": "Tether",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Tethers Io to an allied unit, granting bonus movement speed to both. When Io restores health or mana, the tethered unit gains a portion of that amount. The tether breaks when the allied unit moves too far away, or Io cancels the tether. Tether slows enemies touching it.",
+      "notes": {
+       "note0": "If you try to tether a unit that is 700 distance or further away from Io, Io will latch on and pull itself closer to the tethered unit (to a distance of 300).",
+       "note1": "The tethered unit will heal faster and will heal even if Io is at full health.",
+       "note2": "Io's movement speed matches the tethered unit's."
+      },
+      "shard": "Tether damages enemies touching it. Io is healed for 0% of the damage done."
+     },
+     {
+      "name": "Spirits",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Summon five particle spirits that dance in a circle around Io. If a particle collides with an enemy hero, it explodes, damaging all enemy units in an area around it.  Creeps take minor damage from touching a particle spirit, but do not cause them to explode.  When its duration ends, any remaining Spirits explode.",
+      "notes": {
+       "note0": "After summoning, Io can call the spirits in and out."
+      },
+      "scepter": "Spirits now passively spawn around Io constantly every second up to the max. Spirits colliding with enemy Heroes slows them briefly. Can be activated to explode spirits."
+     },
+     {
+      "name": "Overcharge",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Io gains attack speed, spell amplification, and health regeneration based on max health. If Io is Tethered to an ally, that unit also gains any bonuses granted by Overcharge.",
+      "notes": {}
+     },
+     {
+      "name": "Relocate",
+      "role": "ultimate",
+      "behavior": "Point Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Teleports Io and a tethered ally to any location. After the spell expires, Io and the tethered ally will return to their original location. Double-click to teleport to your team's base fountain.",
+      "notes": {
+       "note0": "Enemies receive a visual indicator in the world and on the minimap of the target location during the cast delay.",
+       "note1": "If Io is disabled during the cast delay, Relocate is cancelled.",
+       "note2": "If an allied hero is Tethered, that hero will teleport along with you. You can break the tether at any time to prevent that hero from teleporting with you.",
+       "note3": "Only heroes, creep heroes, and illusions can be relocated."
+      }
+     },
+     {
+      "name": "Equilibrium",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Io gains outgoing damage amplification the closer it is to full health, and Health Restoration and Healing Amplification the closer it is to zero health.",
+      "notes": {}
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_wisp_overcharge_duration",
+      "level": 10,
+      "text": "+1.5s Overcharge Duration",
+      "ru": "+1.5 сек. действия Overcharge",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_strength_8",
+      "level": 10,
+      "text": "+8 Strength",
+      "ru": "+8 к силе",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_wisp_3",
+      "level": 15,
+      "text": "+5% Tether Movement Speed",
+      "ru": "+5% к доп. скорости передвижения от Tether",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp",
+      "level": 15,
+      "text": "+40% Spirits Damage",
+      "ru": "+40% к урону от Spirits",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_10",
+      "level": 20,
+      "text": "+0.2% Overcharge Max HP Regen Bonus",
+      "ru": "+0.2% к восстановлению от макс. здоровья у Overcharge",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_6",
+      "level": 20,
+      "text": "-30s Relocate Cooldown",
+      "ru": "–30 сек. перезарядки Relocate",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_relocate_delay",
+      "level": 25,
+      "text": "-2s Relocate Cast Delay",
+      "ru": "–2 сек. применения Relocate",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_4",
+      "level": 25,
+      "text": "Attack Tethered Ally's Target (50% damage)",
+      "ru": "Атака вместе с целью Tether (50% урона)",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_shadow_shaman",
+    "hero": "Shadow Shaman",
+    "abilities": [
+     {
+      "name": "Ether Shock",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Creates a cone of ethereal energy that strikes multiple enemy units.",
+      "notes": {
+       "note0": "Can hit secondary targets up to 1000 distance away."
+      }
+     },
+     {
+      "name": "Hex",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Transforms an enemy unit into a harmless creature, disabling their attacks and abilities.",
+      "notes": {
+       "note0": "Instantly destroys illusions.",
+       "note1": "The target will have a base movement speed of 100, but buffs granting maximum movement speed won't be disabled."
+      }
+     },
+     {
+      "name": "Shackles",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Channeled"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "CHANNELED - Magically binds an enemy unit so that it cannot move or attack, absorbing their life energy over time.",
+      "notes": {}
+     },
+     {
+      "name": "Fowl Play",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "When taking lethal damage, Shadow Shaman receives a strong dispel and survives as a 1 HP chicken with increased movement speed. Incoming damage is reduced to zero for a short duration and additional chickens are created to confuse the enemy. Cooldown resets when Shadow Shaman respawns.\n\nDISPEL TYPE: Strong Dispel",
+      "notes": {
+       "note0": "Lethal Damage from Axe's Culling Blade and Necrophos's Reaper's Scythe will not be prevented.",
+       "note1": "Incoming damage reduction buff will prevent certain sources of HP removal from killing Shadow Shaman."
+      }
+     },
+     {
+      "name": "Urnaconda",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Throw a snake jar at the target location, damaging all enemies in the AoE and creating a Massive Serpent Ward that has 4x the base Serpent Ward damage and health there that lasts 15s.",
+      "notes": {}
+     },
+     {
+      "name": "Mass Serpent Ward",
+      "role": "ultimate",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Summons 10 Serpent Wards to attack enemy units and structures. The Wards are immune to magic. Creeps deal half damage to the Serpent Ward.",
+      "notes": {}
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_shadow_shaman_6",
+      "level": 10,
+      "text": "+170 Shackles Total Damage",
+      "ru": "+170 к суммарному урону от Shackles",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_mp_regen_175",
+      "level": 10,
+      "text": "+1.75 Mana Regen",
+      "ru": "+1.75 маны в секунду",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_shadow_shaman_8",
+      "level": 15,
+      "text": "+160 Serpent Wards Attack Range",
+      "ru": "+160 к дальн. атаки тотемов от Mass Serpent Ward",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_shadow_shaman_7",
+      "level": 15,
+      "text": "Hex Breaks",
+      "ru": "Hex накладывает истощение",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_shadow_shaman_2",
+      "level": 20,
+      "text": "+1.5s Shackles Duration",
+      "ru": "+1.5 сек. действия Shackles",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_shadow_shaman_1",
+      "level": 20,
+      "text": "+50% Serpent Wards Max HP",
+      "ru": "+50% к атакам для убийства тотема от Mass Serpent Ward",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_shadow_shaman_3",
+      "level": 25,
+      "text": "+250 Ether Shock Damage",
+      "ru": "+250 к урону от Ether Shock",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_shadow_shaman_4",
+      "level": 25,
+      "text": "+1 Ward Attack Targets",
+      "ru": "+1 цель атаки тотемов от Mass Serpent Ward",
+      "kind": "stat"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_bounty_hunter",
+    "hero": "Bounty Hunter",
+    "abilities": [
+     {
+      "name": "Shuriken Toss",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Hurls a deadly shuriken at an enemy unit, dealing damage and slowing the target's movement speed.  The shuriken will bounce to any Tracked units who are within a 1200 radius of each other.",
+      "notes": {},
+      "scepter": "Increases cast range and applies Jinada on hit."
+     },
+     {
+      "name": "Jinada",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Bounty Hunter plans his next hit, dealing bonus damage and stealing some unreliable gold.",
+      "notes": {}
+     },
+     {
+      "name": "Shadow Walk",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Bounty Hunter becomes invisible and gains bonus movement speed and the ability to move through other units until he attacks or casts a spell.  If he breaks the invisibility with an attack, that attack will stun the target for a short duration.",
+      "notes": {
+       "note0": "Will not break most channeling of spells upon activation."
+      }
+     },
+     {
+      "name": "Friendly Shadow",
+      "role": "shard",
+      "behavior": [
+       "Unit Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": [],
+      "dispellable": "No",
+      "desc": "Applies Shadow Walk and all of its bonuses to the target ally. Allied fade time is 0.5s. Does not break Bounty Hunter's invisibility when cast.",
+      "notes": {}
+     },
+     {
+      "name": "Big Game Hunter",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Bounty Hunter receives 20% more kill and assist gold if the dying enemy hero is Big Game. An enemy hero is considered Big Game if they are one of the top 3 net worth heroes on the enemy team.",
+      "notes": {}
+     },
+     {
+      "name": "Track",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Tracks an enemy hero, granting True Sight of the target, increasing the damage they take and providing information on how much gold it is carrying. If the target dies, Bounty Hunter and nearby heroes collect a bonus bounty of gold. Casting Track does not take you out of invisibility.",
+      "notes": {
+       "note0": "Bounty Hunter will get the bonus gold if the target dies while Track is active, regardless of how it died.",
+       "note1": "Track's effect is only visible to allies.",
+       "note2": "You can see the amount of gold the target is carrying by mousing over the debuff icon above the target's ability bar.",
+       "note3": "Bonus gold is reliable gold."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_bounty_hunter_5",
+      "level": 10,
+      "text": "+0.35s Shuriken Toss Slow",
+      "ru": "+0.35 сек. замедления от Shuriken Toss",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_damage_30",
+      "level": 10,
+      "text": "+30 Damage",
+      "ru": "+30 к урону",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_bounty_hunter_9",
+      "level": 15,
+      "text": "-30% Damage Taken in Shadow Walk",
+      "ru": "Shadow Walk снижает получаемый урон на 30%",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_bounty_hunter_3",
+      "level": 15,
+      "text": "+50 Track Gold",
+      "ru": "+50 к золоту от Track",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_bounty_hunter_2",
+      "level": 20,
+      "text": "+190 Shuriken Toss Damage",
+      "ru": "+190 к урону от Shuriken Toss",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_bounty_hunter",
+      "level": 20,
+      "text": "+50 Jinada Gold Steal",
+      "ru": "+50 к похищению золота у Jinada",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_bounty_hunter_8",
+      "level": 25,
+      "text": "Track Grants Shared Vision",
+      "ru": "Жертвы Track делятся своим обзором",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_bounty_hunter_jinada_no_cooldown",
+      "level": 25,
+      "text": "No Cooldown on Jinada",
+      "ru": "Jinada без перезарядки",
+      "kind": "mechanic"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_brewmaster",
+    "hero": "Brewmaster",
+    "abilities": [
+     {
+      "name": "Thunder Clap",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Slams the ground, dealing damage and slowing the movement speed and attack rate of nearby enemy units.",
+      "notes": {}
+     },
+     {
+      "name": "Cinder Brew",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Rolls a barrel of ale at enemies that damages enemies along its path and spills out at the target location.\n\nAny enemy in the path or the spill area is drenched in cinder brew, becoming slowed.  If the enemy receives Magic or Pure damage, they will be ignited, extending the duration by 3s and causing them to take damage over time.",
+      "notes": {}
+     },
+     {
+      "name": "Drunken Brawler",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Brewmaster can switch stances based on the elements he controls.\n\nWhenever Brewmaster casts an ability, he becomes Brewed Up, increasing his stance power by 150% for 5s.  If he casts another ability while Brewed Up, the duration is extended by 2s. After Brewed Up expires, he is hungover and cannot Brew Up again for 9s.\n\nEarth Brawler gains bonus Magic Resistance and Armor.\n\nStorm Brawler gains bonus Evasion and Movement Speed.\n\nFire Brawler gains bonus Attack Speed and chance to critical strike.",
+      "notes": {
+       "note0": "Stacks diminishingly with other sources of Evasion."
+      }
+     },
+     {
+      "name": "Liquid Courage",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": [],
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "When Brewmaster drops below 50% Health he gains a Status Resistance buff and his movement speed alternates every 1s between being faster and being slower. The effect becomes stronger at lower health, scaling from 0 up to max values at 20% Health.",
+      "notes": {}
+     },
+     {
+      "name": "Primal Split",
+      "role": "ultimate",
+      "behavior": "No Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Splits Brewmaster into elements, forming 3 specialized warriors, adept at survival, each with their own abilities. If any of them survive until the end of their summoned timer, the Brewmaster is reborn.  Each Warrior gains its respective Drunken Brawler stance.",
+      "notes": {
+       "note0": "The Earth Element will carry all auras that the Brewmaster has, as well as True Sight.",
+       "note1": "The Fire Element has phased movement.",
+       "note2": "When the spell ends, Brewmaster will take the place of an element in this order, assuming they are alive: Earth, Storm, Fire."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_brewmaster_2",
+      "level": 10,
+      "text": "+13 Brewlings Base Damage",
+      "ru": "+13 к базовому урону воинов от Primal Split",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_brewmaster_brewed_up_duration",
+      "level": 10,
+      "text": "+2/1s Drunken Brawler Brew Up / Extend Duration",
+      "ru": "+2/1 сек. к длительности/продлению подпития от Drunken Brawler",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_brewmaster_5",
+      "level": 15,
+      "text": "+40% Cinder Brew Damage/Duration",
+      "ru": "+40% к длительности и урону от Cinder Brew",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_brewmaster",
+      "level": 15,
+      "text": "+600 Brewlings Health",
+      "ru": "+600 к здоровью воинов от Primal Split",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_brewmaster_primal_split_cooldown",
+      "level": 20,
+      "text": "-12s Primal Split Cooldown",
+      "ru": "–12 сек. перезарядки Primal Split",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_speed_110",
+      "level": 20,
+      "text": "+110 Attack Speed",
+      "ru": "+110 к скорости атаки",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_brewmaster_drunken_brawler_stance_bonus",
+      "level": 25,
+      "text": "1.5x Drunken Brawler Stance Bonuses",
+      "ru": "Бонусы стоек от Drunken Brawler умножаются на 1.5",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_brewmaster_4",
+      "level": 25,
+      "text": "Cinder Brew applies Fear when ignited",
+      "ru": "Горение от Cinder Brew накладывает страх",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_magnataur",
+    "hero": "Magnus",
+    "abilities": [
+     {
+      "name": "Shockwave",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Magnus sends out a wave of force, damaging enemy units in a line, pulling them towards him, and slowing them for a brief period.",
+      "notes": {}
+     },
+     {
+      "name": "Empower",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "When cast on an ally, grants them bonus damage and cleave on attack. \n\n Empower is always on Magnus with 30% larger bonus.",
+      "notes": {
+       "note0": "The bonus damage is based only on base damage and damage from primary attributes.",
+       "note1": "Cleave damage goes through spell immunity.",
+       "note2": "Ranged units cannot Cleave."
+      }
+     },
+     {
+      "name": "Skewer",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Magnus rushes forward, goring enemy units on his massive tusk. Heroes hit on the way will be dragged to the destination, then damaged and affected by slowed movement speed. The damage is increased based on distance traveled.",
+      "notes": {
+       "note0": "Skewer is interrupted if Magnus is stunned, hexed or banished."
+      },
+      "shard": "Increases range and deals additional damage when skewering enemies into trees or cliffs."
+     },
+     {
+      "name": "Horn Toss",
+      "role": "scepter",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Magnus tosses any enemies in front of him, launching them to his rear. Enemies take damage, spend 0.6 seconds in the air, and are stunned while in the air and an additional amount of time after landing.",
+      "notes": {}
+     },
+     {
+      "name": "Solid Core",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": [],
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Magnus has increased slow resistance and suffers less knockback from enemy's abilities and items.",
+      "notes": {}
+     },
+     {
+      "name": "Reverse Polarity",
+      "role": "ultimate",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Strong Dispels Only",
+      "desc": "",
+      "notes": {}
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_mp_regen_150",
+      "level": 10,
+      "text": "+1.5 Mana Regen",
+      "ru": "+1.5 маны в секунду",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_magnus_6",
+      "level": 10,
+      "text": "+1.25s Skewer Slow Duration",
+      "ru": "+1.25 сек. замедления от Skewer",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_magnus_reverse_polarity_stats",
+      "level": 15,
+      "text": "+14 All Attributes per hero hit with Reverse Polarity",
+      "ru": "+14 к атрибутам за героя, задетого Reverse Polarity",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_magnus_7",
+      "level": 15,
+      "text": "-5s Skewer Cooldown",
+      "ru": "–5 сек. перезарядки Skewer",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_magnus",
+      "level": 20,
+      "text": "+125 Shockwave Damage",
+      "ru": "+125 к урону от Shockwave",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_magnus_skewer_damage_distance",
+      "level": 20,
+      "text": "+15% Skewer Damage Per Distance Travelled",
+      "ru": "+15% к урону от расстояния у Skewer",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_magnus_2",
+      "level": 25,
+      "text": "Shockwave Returns to Magnus",
+      "ru": "Волна от Shockwave возвращается к владельцу",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_magnus_5",
+      "level": 25,
+      "text": "+0.8s Reverse Polarity Stun Duration",
+      "ru": "+0.8 сек. оглушения от Reverse Polarity",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_pudge",
+    "hero": "Pudge",
+    "abilities": [
+     {
+      "name": "Meat Hook",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Pure",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Launches a bloody hook toward a unit or location. The hook will snag the first unit it encounters, dragging the unit back to Pudge, killing it if it's a non-ancient creep and dealing damage if it is an enemy otherwise.",
+      "notes": {
+       "note0": "Interrupts channeling spells of the primary target if it's an enemy.",
+       "note1": "Meat Hook hits invisible units.",
+       "note2": "Meat Hook can go through trees, cliffs, buildings, ancient units and Roshan.",
+       "note3": "Meat Hook can drag friendly units, but they won't be damaged.",
+       "note4": "Meat Hook can hit and drag runes to Pudge, refunding the Hook's mana cost."
+      },
+      "shard": "When Meat Hook hits an enemy, it deals bonus damage based on the distance pulled.\n\nWhen Meat Hook hits an ally, Meat Hook's cooldown is reduced by %."
+     },
+     {
+      "name": "Rot",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "A toxic cloud that deals intense damage and slows movement--harming not only enemy units but Pudge himself.",
+      "notes": {
+       "note0": "Using Rot doesn't interrupt channeling.",
+       "note1": "Rot hits invisible units.",
+       "note2": "If Pudge is silenced, he can't deactivate Rot if it's activated.",
+       "note3": "Rot self-damage is non-lethal."
+      },
+      "scepter": "Increases Rot radius by bonus_rot_radius, damage by bonus_rot_damage, and causes it to reduce enemy Health Restoration by %."
+     },
+     {
+      "name": "Meat Shield",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Pudge covers himself with a layer of flesh that blocks damage of any type taken from any source.",
+      "notes": {}
+     },
+     {
+      "name": "Flesh Heap",
+      "role": "innate",
+      "behavior": [
+       "Hidden",
+       "Passive"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Pudge's skin thickens permanently every time he kills an enemy Hero, gaining 2.0 bonus Strength for each stack.",
+      "notes": {
+       "note0": "Enemy Heroes that die within 450 of Pudge grant a stack regardless of its killer."
+      }
+     },
+     {
+      "name": "Dismember",
+      "role": "ultimate",
+      "behavior": [
+       "Unit Target",
+       "Channeled"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Strong Dispels Only",
+      "desc": "CHANNELED - Pudge chows down on an enemy unit, disabling it and dealing damage over time. Damage is increased by Pudge's Strength and heals him for the total amount. Pudge pulls the unit at a rate of 75 units, up to a minimum of 125 range.",
+      "notes": {
+       "note0": "If a unit becomes invisible while Dismembered, it will still be under the effects of Dismember."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_armor_5",
+      "level": 10,
+      "text": "+5 Armor",
+      "ru": "+5 к броне",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_pudge_4",
+      "level": 10,
+      "text": "+10% Rot Slow",
+      "ru": "+10% к замедлению от Rot",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_spell_lifesteal_8",
+      "level": 15,
+      "text": "+8% Spell Lifesteal",
+      "ru": "+8% к вампиризму заклинаниями",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_pudge_7",
+      "level": 15,
+      "text": "+150 Meat Hook Damage",
+      "ru": "+150 к урону от Meat Hook",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_pudge_6",
+      "level": 20,
+      "text": "+0.75s Dismember Duration",
+      "ru": "+0.75 сек. действия Dismember",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_pudge_5",
+      "level": 20,
+      "text": "-4s Meat Hook Cooldown",
+      "ru": "–4 сек. перезарядки Meat Hook",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_pudge_3",
+      "level": 25,
+      "text": "1.5x Dismember Damage/Heal",
+      "ru": "Урон/лечение от Dismember умножаются на 1.5",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_pudge_1",
+      "level": 25,
+      "text": "1.5x Flesh Heap and Meat Shield bonuses",
+      "ru": "Эффекты Flesh Heap и Meat Shield умножаются на 1.5",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_juggernaut",
+    "hero": "Juggernaut",
+    "abilities": [
+     {
+      "name": "Blade Fury",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Causes a bladestorm of destructive force around Juggernaut, rendering him debuff immune with 80% magic resistance and dealing damage every 0.2s to nearby enemy units. Applies a strong dispel at the end of the spin.",
+      "notes": {
+       "note0": "You can use items during Blade Fury.",
+       "note1": "Juggernaut can still perform attacks while in Blade Fury. However, only units that are not affected by Blade Fury, such as wards or structures, will take damage from these attacks."
+      },
+      "scepter": "Increases radius and slows enemies in the area of effect.\n\n Juggernaut preforms an attack on affected enemies every 0s."
+     },
+     {
+      "name": "Healing Ward",
+      "role": "basic",
+      "behavior": [
+       "AOE",
+       "Point Target"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Summons a Healing Ward which heals all nearby allied units, based on their max health.  The Healing Ward moves at 325 movement speed after being summoned.  Lasts 18/20/22/24 seconds.",
+      "notes": {
+       "note0": "The Healing Ward can be controlled.",
+       "note1": "Multiple Healing Wards do not stack."
+      }
+     },
+     {
+      "name": "Blade Dance",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Gives Juggernaut a chance to deal critical damage with Blade Fury and on each attack.",
+      "notes": {}
+     },
+     {
+      "name": "Swiftslash",
+      "role": "scepter",
+      "behavior": "Unit Target",
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Performs a short Omnislash for 1 seconds.",
+      "notes": {}
+     },
+     {
+      "name": "Bladeform",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Juggernaut gains a stack of Bladeform every 2.0s that Juggernaut does not take damage. Each stack grants bonus base Agility and Movement Speed. Stacks fade after 2s upon taking any damage.",
+      "notes": {
+       "note0": "Break disables the gaining of new stacks.",
+       "note1": "Break does not disable the bonuses from existing stacks."
+      }
+     },
+     {
+      "name": "Omnislash",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Juggernaut leaps towards the target enemy units, and then slashes the target and other nearby enemy units at an increased attack rate. Juggernaut is invulnerable for the duration.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {
+       "note0": "You can use items during Omnislash."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_juggernaut_5",
+      "level": 10,
+      "text": "-12s Healing Ward Cooldown",
+      "ru": "–12 сек. перезарядки Healing Ward",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut_3",
+      "level": 10,
+      "text": "-1s Bladeform Stack Gain Interval",
+      "ru": "–1 сек. для получения одного эффекта Bladeform",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut_omnislash_cooldown",
+      "level": 15,
+      "text": "-15s Omnislash Cooldown",
+      "ru": "–15 сек. перезарядки Omnislash",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut_blade_fury_movespeed",
+      "level": 15,
+      "text": "45 Movement Speed During Blade Fury",
+      "ru": "Blade Fury ускоряет передвижение на 45",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut_4",
+      "level": 20,
+      "text": "+15% Blade Dance Crit Damage",
+      "ru": "+15% к критическому урону от Blade Dance",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut",
+      "level": 20,
+      "text": "+120 Blade Fury Damage Per Second",
+      "ru": "+120 к урону в секунду от Blade Fury",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut_omnislash_duration",
+      "level": 25,
+      "text": "+1s Omnislash Duration",
+      "ru": "+1 сек. действия Omnislash",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_juggernaut_blade_dance_lifesteal",
+      "level": 25,
+      "text": "+40% Blade Dance Lifesteal",
+      "ru": "40% вампиризма от Blade Dance",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_lich",
+    "hero": "Lich",
+    "abilities": [
+     {
+      "name": "Frost Blast",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Blasts the target enemy unit with damaging frost, dealing area damage and slowing movement and attack rates for 4.0 seconds.  The primary target receives both base and area damage.",
+      "notes": {}
+     },
+     {
+      "name": "Frost Shield",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": [],
+      "dispellable": "Yes",
+      "desc": "Applies a magical frost shield around the target, reducing damage from attacks against it. While the shield is active, ice magic will affect nearby enemy units every 1.0 seconds, dealing minor damage and slowing them.",
+      "notes": {
+       "note0": "Spell-immune enemies are not affected by the damage or slow.",
+       "note1": "Frost Shield can be cast on buildings."
+      }
+     },
+     {
+      "name": "Sinister Gaze",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Channeled"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "CHANNELED - Hypnotizes an enemy unit, causing it to move towards a point between the two of you and drains a percentage of its current mana.",
+      "notes": {},
+      "scepter": "Sinister Gaze becomes an Area of Effect ability, affecting units within a radius of  in the target area. Sinister Gaze allows Lich to cast other abilities while channeling it."
+     },
+     {
+      "name": "Ice Spire",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "AOE",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Creates an Ice Spire at the target spot, slowing enemies around it. Can take 4 hero hits or 8 creep hits and when destroyed it will create a Frost Blast around it.\n\nChain Frost can be cast on the Spire and can bounce to the Spire and damage the spire by 1 hero attack if there are no other enemies in range.\n\nLich can cast Frost Shield on the Spire. Each Frost Shield tick will heal the spire by 1 hero attack.",
+      "notes": {}
+     },
+     {
+      "name": "Sacrifice",
+      "role": "innate",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Sacrifice an allied creep to convert its current health into mana for Lich and give Lich its experience bounty.\n\nBegins the game on cooldown and with no charges.",
+      "notes": {
+       "note0": "Cannot sacrifice ancients or creep-heroes.",
+       "note1": "Sacrificed creeps count as denies and can give experience to enemy heroes. Lich's experience bounty and enemy heroes' deny experience are independent."
+      }
+     },
+     {
+      "name": "Chain Frost",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Releases an orb of frost that bounces between nearby enemy units up to 10/10/10 times, slowing and damaging each time it hits. Each bounce increases the damage for the subsequent bounces. Chain Frost lingers on its last target if it fails to bounce and can bounce again if new targets become available.",
+      "notes": {
+       "note0": "Chain Frost cannot be disjointed.",
+       "note1": "Chain Frost has a movement speed of 850.",
+       "note2": "Chain Frost doesn't bounce to Zombies."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_lich_8",
+      "level": 10,
+      "text": "+10% Frost Shield Damage Reduction",
+      "ru": "+10% к уменьшению урона от Frost Shield",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_6",
+      "level": 10,
+      "text": "+125 Frost Blast Radius and Area Damage",
+      "ru": "+125 к радиусу и урону по области у Frost Blast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_2",
+      "level": 15,
+      "text": "+0.3s Sinister Gaze Duration",
+      "ru": "+0.3 сек. действия Sinister Gaze",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_3",
+      "level": 15,
+      "text": "-3.5s Frost Blast Cooldown",
+      "ru": "–3.5 сек. перезарядки Frost Blast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_4",
+      "level": 20,
+      "text": "2 Frost Shield Charges",
+      "ru": "2 заряда Frost Shield",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_7",
+      "level": 20,
+      "text": "Chain Frost on Death",
+      "ru": "Применение Chain Frost при смерти",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_lich_1",
+      "level": 25,
+      "text": "Frost Shield Provides +50 HP Regen",
+      "ru": "Frost Shield даёт +50 здоровья в секунду",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_lich_5",
+      "level": 25,
+      "text": "Chain Frost Unlimited Bounces",
+      "ru": "Неограниченное число отскоков у Chain Frost",
+      "kind": "mechanic"
+     }
+    ]
+   }
+  ]
+ }
+]
