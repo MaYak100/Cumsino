@@ -32,18 +32,26 @@ function sessionOf(id: string): LabSession {
       const oldest = [...sessions.entries()].sort((a, b) => a[1].usedAt - b[1].usedAt)[0]
       sessions.delete(oldest[0])
     }
-    s = { history: new QuestionHistory(), rooms: new Map(), usedAt: 0 }
+    s = { history: new LabHistory(), rooms: new Map(), usedAt: 0 }
     sessions.set(id, s)
   }
   s.usedAt = Date.now()
   return s
 }
 
+/** Лаборатория листает срез по кругу: кончился — сразу новая «игра» с теми же карточками. В игре карточки
+ *  прошлой игры заблокированы (history.blockedFor), здесь — только этой. */
+class LabHistory extends QuestionHistory {
+  override blockedFor(deck: string, card: string, gameNo: number): boolean {
+    return this.lastSeen(deck, card)?.gameNo === gameNo
+  }
+}
+
 /** История, в которой свежая и свободная только одна карточка: пикер соберёт ровно этот вопрос (или ничего). */
 class OneCardHistory extends QuestionHistory {
   constructor(private card: string) { super() }
   override isFresh(_deck: string, card: string): boolean { return card === this.card }
-  override usedInGame(_deck: string, card: string): boolean { return card !== this.card }
+  override blockedFor(_deck: string, card: string): boolean { return card !== this.card }
 }
 
 /** Библиотека, урезанная до одной категории (и, если задана, одной подкатегории). */

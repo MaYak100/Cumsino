@@ -7,7 +7,8 @@
 //   q_seen     — последний показ карточки в колоде (круг, номер игры)
 //   q_archive  — «удалить» большинством комнаты: вопрос больше не выпадает (кто, сколько голосов, текст)
 //   q_credit   — кредиты сглаженного выбора
-//   q_rating   — оценки и сложность (одна строка на игрока, вопрос и игру; переоценка заменяет)
+//   q_rating   — оценки и сложность (одна строка на игрока, вопрос и игру; переоценка и снятие заменяют строку).
+//                player — id игрока (сокет; до 2026-10-30 — ник), name — ник
 //   q_showing  — показы: сколько игроков, ответили, верно, ошибки в «ближе всех» — статистика по категориям
 import { Pool } from 'pg'
 import type { HistoryBackend, HistorySnapshot, RatingRow, ShowingRow } from './history'
@@ -34,7 +35,11 @@ create table if not exists q_showing (
   game_no int not null, players int not null, answered int not null, correct int not null,
   rel_errors double precision[], shown_at timestamptz not null default now());
 alter table q_showing add column if not exists room_players int;
+alter table q_rating add column if not exists name text;
 `
+
+/** Голоса показов последних RECENT_GAMES игр грузятся при старте: переоценка после перезапуска заменяет голос. */
+const RECENT_GAMES = 2
 
 export class PgBackend implements HistoryBackend {
   private pool: Pool
@@ -66,13 +71,34 @@ export class PgBackend implements HistoryBackend {
         union all
         select 'sub:' || sub, count(*)::int, sum(team) from s group by sub`),
     ])
+    const gameNo = Number(meta.rows[0]?.value ?? 0)
+    const recent = await this.pool.query(`
+      select sh.question_id, sh.game_no, sh.category, sh.sub,
+        greatest(coalesce(sh.room_players, sh.players), 1) as room_players,
+        r.player, r.name, r.score, r.difficulty
+      from q_showing sh
+      left join q_rating r on r.question_id = sh.question_id and r.game_no = sh.game_no
+      where sh.game_no > $1`, [gameNo - RECENT_GAMES])
+    const shows = new Map<string, NonNullable<HistorySnapshot['shows']>[number]>()
+    for (const r of recent.rows) {
+      const key = `${r.game_no}|${r.question_id}`
+      let sh = shows.get(key)
+      if (!sh) {
+        shows.set(key, (sh = { questionId: r.question_id, gameNo: r.game_no, category: r.category, sub: r.sub,
+          roomPlayers: r.room_players, votes: [] }))
+      }
+      if (r.player != null) {
+        sh.votes.push({ player: r.player, name: r.name ?? undefined, score: r.score, difficulty: r.difficulty })
+      }
+    }
     return {
-      gameNo: Number(meta.rows[0]?.value ?? 0),
+      gameNo,
       cycles: Object.fromEntries(decks.rows.map(r => [r.deck, r.cycle])),
       seen: seen.rows.map(r => ({ deck: r.deck, card: r.card, cycle: r.cycle, gameNo: r.game_no })),
       archived: archived.rows.map(r => r.question_id),
       credits: credits.rows.map(r => ({ scope: r.scope, item: r.item, credit: r.credit })),
       ratings: ratings.rows.map(r => ({ key: r.key, n: r.n, sum: Number(r.sum ?? 0) })),
+      shows: [...shows.values()],
     }
   }
 
@@ -123,14 +149,17 @@ export class PgBackend implements HistoryBackend {
     [questionId, info.by, info.category, info.sub, info.text, info.votes, info.players])
   }
 
+  /** Голос целиком (history.rate сводит частичный голос с прошлым): null — снято. */
   rating(row: RatingRow): void {
-    this.run(`insert into q_rating (question_id, category, sub, game_no, player, score, difficulty)
-      values ($1, $2, $3, $4, $5, $6, $7)
+    this.run(`insert into q_rating (question_id, category, sub, game_no, player, name, score, difficulty)
+      values ($1, $2, $3, $4, $5, $6, $7, $8)
       on conflict (question_id, game_no, player) do update set
-        score = coalesce(excluded.score, q_rating.score),
-        difficulty = coalesce(excluded.difficulty, q_rating.difficulty),
+        name = coalesce(excluded.name, q_rating.name),
+        score = excluded.score,
+        difficulty = excluded.difficulty,
         rated_at = now()`,
-    [row.questionId, row.category, row.sub, row.gameNo, row.player, row.score ?? null, row.difficulty ?? null])
+    [row.questionId, row.category, row.sub, row.gameNo, row.player, row.name ?? null, row.score ?? null,
+      row.difficulty ?? null])
   }
 
   showing(row: ShowingRow): void {

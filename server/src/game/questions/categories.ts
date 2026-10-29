@@ -74,7 +74,7 @@ export const CATEGORIES: CategoryDef[] = [
     ],
   },
   {
-    id: 'match_avg', title: 'Средние за матч', weight: 1, subs: [
+    id: 'match_avg', title: 'Средние за матч', weight: 1.2, closest: 1, subs: [
       { id: 'avg_heal_allies', title: 'Хил союзникам', subject: HEROES, aspect: 'хил союзникам' },
       { id: 'avg_heal_self', title: 'Самолечение', subject: HEROES, aspect: 'самолечение' },
       { id: 'avg_tower', title: 'Урон по строениям', subject: HEROES, aspect: 'урон по строениям' },
@@ -84,7 +84,7 @@ export const CATEGORIES: CategoryDef[] = [
     ],
   },
   {
-    id: 'meta', title: 'Мета героев', weight: 1, subs: [
+    id: 'meta', title: 'Мета героев', weight: 1, closest: 0.6, subs: [
       { id: 'hero_wr', title: 'Винрейт', weight: 2, subject: HEROES, aspect: 'винрейт' },
       // пики в MC делят одну часть: на патче — половина, за год и с 2014 года — по четверти
       { id: 'hero_pick', title: 'Пики на патче', weight: 1, subject: HEROES, aspect: 'пики' },
@@ -99,10 +99,10 @@ export const CATEGORIES: CategoryDef[] = [
     ],
   },
   {
-    id: 'match_items', title: 'Предметы в матчах', weight: 1, subs: [
+    id: 'match_items', title: 'Предметы в матчах', weight: 0.7, subs: [
       { id: 'items', title: 'Популярность', subject: 'Предметы', aspect: 'популярность' },
-      { id: 'items_hero', title: 'Предметы героя', weight: 2, aspect: 'предметы' },
-      { id: 'boots_hero', title: 'Ботинки героя', aspect: 'предметы' },
+      { id: 'items_hero', title: 'Предметы героя', aspect: 'предметы' },
+      { id: 'boots_hero', title: 'Ботинки героя', weight: 0.6, aspect: 'предметы' },
     ],
   },
   {

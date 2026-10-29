@@ -104,6 +104,8 @@ export class GameRoom extends EventEmitter {
   private questions: QuestionSource
   /** вопрос последнего посчитанного раунда — его можно оценить до конца следующего раунда */
   private ratable: Question | null = null
+  /** игроков в комнате при его показе — делитель оценки команды (как в report) */
+  private ratableRoomPlayers = 1
   private bettingConfirmedIds = new Set<string>()
   private seenModes = new Set<string>()
   private bribeConditionCount = 0   // kerri rounds where both win+lose bettors existed
@@ -216,12 +218,13 @@ export class GameRoom extends EventEmitter {
     this.broadcastState()
   }
 
-  /** Оценка вопроса: только последнего посчитанного раунда, только своя (переоценка заменяет). */
+  /** Оценка вопроса: только последнего посчитанного раунда, только своя (переоценка заменяет). Ключ голоса — id
+   *  игрока: у двух игроков с одним ником голоса разные. */
   rateQuestion(playerId: string, questionId: string, vote: RatingVote) {
     const player = this.players.get(playerId)
     const q = this.ratable
     if (!player || !q || q.id !== questionId) return
-    this.questions.rate?.(q, player.name, vote)
+    this.questions.rate?.(q, { id: player.id, name: player.name, roomPlayers: this.ratableRoomPlayers }, vote)
   }
 
   destroy() {
@@ -813,8 +816,9 @@ export class GameRoom extends EventEmitter {
   private reportRound() {
     const q = this.currentQuestion
     if (!q) return
-    this.ratable = q
     const players = Array.from(this.players.values())
+    this.ratable = q
+    this.ratableRoomPlayers = players.length
     const answering = this.currentMode === 'kerri'
       ? players.filter(p => p.id === this.gladiatorId)
       : players.filter(p => !p.spectator)

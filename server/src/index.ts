@@ -5,6 +5,7 @@ import cors from 'cors'
 import { GameEngine } from './game/GameEngine'
 import { registerHandlers } from './socket/handlers'
 import { createHistory } from './game/questions/setup'
+import type { QuestionHistory } from './game/questions/history'
 import { createQuestionLabRouter } from './dev/questionLab'
 
 const app = express()
@@ -32,9 +33,34 @@ if (process.env.NODE_ENV !== 'production') {
 process.on('uncaughtException', err => console.error('[uncaught]', err))
 process.on('unhandledRejection', err => console.error('[unhandled]', err))
 
+const FLUSH_TIMEOUT_MS = 5_000
+
+/** SIGTERM (Render при деплое) / SIGINT (Ctrl+C, tsx watch): дописать очередь записей в Neon и выйти.
+ *  Повторный сигнал — выход сразу. */
+function exitOnSignals(history: QuestionHistory) {
+  let stopping = false
+  const stop = async (signal: string) => {
+    if (stopping) process.exit(1)
+    stopping = true
+    console.log(`[server] ${signal}: дописываю историю вопросов в базу…`)
+    httpServer.close()
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const done = await Promise.race([
+      history.flush().then(() => 'записано'),
+      new Promise<string>(r => { timer = setTimeout(() => r(`не дождался за ${FLUSH_TIMEOUT_MS / 1000} с`), FLUSH_TIMEOUT_MS) }),
+    ])
+    clearTimeout(timer)
+    console.log(`[server] история: ${done}, выход`)
+    process.exit(0)
+  }
+  process.on('SIGTERM', () => void stop('SIGTERM'))
+  process.on('SIGINT', () => void stop('SIGINT'))
+}
+
 async function main() {
   // история вопросов (колоды, оценки) — до первого подключения, чтобы первая игра не начала с пустой памятью
   const history = await createHistory()
+  exitOnSignals(history)
   const engine = new GameEngine(io, history)
 
   io.on('connection', (socket) => {

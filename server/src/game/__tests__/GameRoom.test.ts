@@ -335,6 +335,35 @@ describe('GameRoom', () => {
       expect(r.players.has('p1')).toBe(false)
     })
 
+    it('показ записан до раскрытия ответа; оценка — по id игрока, делитель — игроки комнаты при показе', () => {
+      const calls: string[] = []
+      const votes: Array<{ voter: { id: string; name: string; roomPlayers: number }; score?: number | null }> = []
+      const room = new GameRoom('r1', {
+        pick: () => mcQ,
+        report: (_q, r) => { calls.push(`report:${r.roomPlayers}`) },
+        rate: (_q, voter, vote) => { votes.push({ voter, score: vote.score }) },
+      })
+      room.on('broadcast', ({ event }) => { if (event === 'round_results') calls.push('round_results') })
+      room.addPlayer('p1', 'Вася')
+      room.addPlayer('p2', 'Вася')
+      room.addPlayer('p3', 'Петя')
+      const r = priv(room)
+      r.phase = 'QUESTION'
+      r.currentMode = 'all'
+      r.currentQuestion = { ...mcQ }
+      room.rateQuestion('p1', mcQ.id, { score: 2 })   // до раскрытия — нечего оценивать
+      r.advanceFromQuestion()
+      expect(calls).toEqual(['report:3', 'round_results'])
+      room.removePlayer('p3')                            // ушёл после показа — делитель тот же
+      room.rateQuestion('p1', mcQ.id, { score: 2 })
+      room.rateQuestion('p2', mcQ.id, { score: -1 })
+      room.rateQuestion('p2', 'other', { score: -1 })   // не тот вопрос
+      expect(votes).toEqual([
+        { voter: { id: 'p1', name: 'Вася', roomPlayers: 3 }, score: 2 },
+        { voter: { id: 'p2', name: 'Вася', roomPlayers: 3 }, score: -1 },
+      ])
+    })
+
     it('следующий раунд снова принимает ответы', () => {
       const { room } = makeRoom()
       addPlayers(room, 2)

@@ -13,6 +13,9 @@ export interface HistorySnapshot {
   credits: Array<{ scope: string; item: string; credit: number }>
   /** key `cat:<id>` / `sub:<id>`: n — показов, sum — сумма средних оценок команды по этим показам */
   ratings: Array<{ key: string; n: number; sum: number }>
+  /** показы последних игр с голосами — переоценка после перезапуска заменяет голос, а не добавляет второй */
+  shows?: Array<{ questionId: string; gameNo: number; category: string; sub: string; roomPlayers: number;
+    votes: Array<{ player: string; name?: string; score: number | null; difficulty: number | null }> }>
 }
 
 export interface RatingRow {
@@ -20,10 +23,18 @@ export interface RatingRow {
   category: string
   sub: string
   gameNo: number
+  /** id игрока (сокет) — у двух игроков с одним ником голоса разные */
   player: string
-  score?: number | null        // −2 удалить, −1 слабый, +1 хороший, +2 ахуенный
-  difficulty?: number | null   // −1 легко, +1 сложно
+  /** ник — для архива («кто удалил») и чтения базы глазами */
+  name?: string
+  /** undefined — не менять, null — снять: −2 удалить, −1 слабый, +1 хороший, +2 ахуенный */
+  score?: number | null
+  /** undefined — не менять, null — снять: −1 легко, +1 сложно */
+  difficulty?: number | null
 }
+
+/** Голос игрока целиком (так он и пишется в базу: переоценка заменяет строку). */
+interface Vote { name?: string; score: number | null; difficulty: number | null }
 
 export interface ShowingRow {
   questionId: string
@@ -50,6 +61,8 @@ export interface HistoryBackend {
   archive(questionId: string, info: { by: string; category: string; sub: string; text: string; votes: number; players: number }): void
   rating(row: RatingRow): void
   showing(row: ShowingRow): void
+  /** дождаться записи всего отправленного (остановка сервера) */
+  flush?(): Promise<unknown>
 }
 
 export const memoryBackend: HistoryBackend = {
@@ -71,8 +84,8 @@ export class QuestionHistory {
   private creditMap = new Map<string, Map<string, number>>()
   /** key `cat:<id>` / `sub:<id>` → показов и сумма оценок команды (одна точка на показ, см. rate) */
   private ratingSums = new Map<string, { n: number; sum: number }>()
-  /** показы этого процесса: голоса игроков (переоценка заменяет) */
-  private shows = new Map<string, { roomPlayers: number; category: string; sub: string; votes: Map<string, number> }>()
+  /** показы (этого процесса и последних игр из базы): голоса игроков, переоценка заменяет */
+  private shows = new Map<string, { roomPlayers: number; category: string; sub: string; votes: Map<string, Vote> }>()
 
   constructor(readonly backend: HistoryBackend = memoryBackend) {}
 
@@ -85,6 +98,17 @@ export class QuestionHistory {
     for (const id of snap.archived) this.archived.add(id)
     for (const c of snap.credits) this.creditsOf(c.scope).set(c.item, c.credit)
     for (const r of snap.ratings) this.ratingSums.set(r.key, { n: r.n, sum: r.sum })
+    for (const sh of snap.shows ?? []) {
+      this.shows.set(`${sh.gameNo}|${sh.questionId}`, {
+        roomPlayers: Math.max(1, sh.roomPlayers), category: sh.category, sub: sh.sub,
+        votes: new Map(sh.votes.map(v => [v.player, { name: v.name, score: v.score, difficulty: v.difficulty }])),
+      })
+    }
+  }
+
+  /** Дождаться записи в хранилище (остановка сервера). */
+  flush(): Promise<unknown> {
+    return this.backend.flush?.() ?? Promise.resolve()
   }
 
   startGame(): number {
@@ -113,9 +137,18 @@ export class QuestionHistory {
     return rec.cycle < this.cycleOf(deck) && rec.gameNo < gameNo - 1
   }
 
-  /** Уже была в этой игре — повторять нельзя ни при каком круге. */
-  usedInGame(deck: string, card: string, gameNo: number): boolean {
-    return this.deckSeen(deck).get(card)?.gameNo === gameNo
+  /** Последний показ карточки (круг, номер игры). */
+  lastSeen(deck: string, card: string): SeenRecord | undefined {
+    return this.deckSeen(deck).get(card)
+  }
+
+  /**
+   * Нельзя брать ни при каком круге: была в этой или прошлой игре (маленькие колоды не повторяются в соседних
+   * играх) — или в игре с бо́льшим номером: её взяла соседняя комната, начавшая игру позже.
+   */
+  blockedFor(deck: string, card: string, gameNo: number): boolean {
+    const rec = this.deckSeen(deck).get(card)
+    return rec !== undefined && rec.gameNo >= gameNo - 1
   }
 
   take(deck: string, card: string, gameNo: number): void {
@@ -165,21 +198,35 @@ export class QuestionHistory {
     this.backend.showing(row)
   }
 
-  rate(row: RatingRow, archiveInfo?: { text: string }): void {
-    const show = this.shows.get(`${row.gameNo}|${row.questionId}`)
-    if (row.score != null && show) {
-      const prev = show.votes.get(row.player) ?? 0
-      show.votes.set(row.player, row.score)
-      this.addToKeys(show.category, show.sub, 0, (row.score - prev) / show.roomPlayers)
-      const deletes = [...show.votes.entries()].filter(([, v]) => v <= -2)
-      if (deletes.length * 2 > show.roomPlayers && archiveInfo && !this.archived.has(row.questionId)) {
-        this.archived.add(row.questionId)
-        this.backend.archive(row.questionId, {
-          by: deletes.map(([p]) => p).join(', '), category: row.category, sub: row.sub, text: archiveInfo.text,
-          votes: deletes.length, players: show.roomPlayers,
-        })
-      }
+  /**
+   * Голос игрока. Сразу меняет суммы в памяти (следующий выбор вопроса уже его видит) и сразу пишется в базу —
+   * исход игры не важен. Показ в памяти не нашёлся (сервер перезапускали, лаборатория) — делитель берётся из
+   * события (roomPlayers), число показов не растёт: показ уже учтён при загрузке из q_showing.
+   */
+  rate(row: RatingRow, info: { text: string; roomPlayers: number }): void {
+    const key = `${row.gameNo}|${row.questionId}`
+    let show = this.shows.get(key)
+    if (!show) {
+      show = { roomPlayers: Math.max(1, info.roomPlayers), category: row.category, sub: row.sub, votes: new Map() }
+      this.shows.set(key, show)
     }
-    this.backend.rating(row)
+    const prev: Vote = show.votes.get(row.player) ?? { score: null, difficulty: null }
+    const next: Vote = {
+      name: row.name ?? prev.name,
+      score: row.score !== undefined ? row.score : prev.score,
+      difficulty: row.difficulty !== undefined ? row.difficulty : prev.difficulty,
+    }
+    show.votes.set(row.player, next)
+    const delta = (next.score ?? 0) - (prev.score ?? 0)
+    if (delta) this.addToKeys(show.category, show.sub, 0, delta / show.roomPlayers)
+    const deletes = [...show.votes.values()].filter(v => v.score !== null && v.score <= -2)
+    if (deletes.length * 2 > show.roomPlayers && !this.archived.has(row.questionId)) {
+      this.archived.add(row.questionId)
+      this.backend.archive(row.questionId, {
+        by: deletes.map(v => v.name ?? '?').join(', '), category: row.category, sub: row.sub, text: info.text,
+        votes: deletes.length, players: show.roomPlayers,
+      })
+    }
+    this.backend.rating({ ...row, name: next.name, score: next.score, difficulty: next.difficulty })
   }
 }

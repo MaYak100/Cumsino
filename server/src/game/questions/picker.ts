@@ -6,7 +6,9 @@
 //
 // Колода подкатегории живёт между играми (history.ts): вопрос берётся из тех, что не выпадали в текущем круге;
 // круг кончился — колода начинается заново, но вопросы этой и прошлой игры остаются заблокированы. В одной игре
-// вопрос не повторяется никогда.
+// вопрос не повторяется никогда; не повторяется он и в соседней игре — если брать нечего, подкатегория в этот раз
+// пропускается и выбирается следующая (маленькие колоды: у «Игры вместе» при двух опознанных две карточки).
+// Комната помнит свои карточки сама: соседняя комната перезаписывает запись карточки в history.
 import { withUnit, joinTopic, type GameMode, type Question } from '@cumsino/shared'
 import type { Library, Category, Subcategory, BankQuestion, QuestionKind } from './library'
 import { QuestionHistory } from './history'
@@ -29,15 +31,24 @@ export interface RoundReport {
   relErrors?: number[]
 }
 
+/** undefined — не менять, null — снять */
 export interface RatingVote {
   score?: number | null
   difficulty?: number | null
 }
 
+/** Кто голосует: id — ключ голоса (у двух игроков с одним ником голоса разные), roomPlayers — делитель оценки
+ *  команды, как в report этого показа. */
+export interface Voter {
+  id: string
+  name: string
+  roomPlayers: number
+}
+
 export interface QuestionSource {
   pick(mode: GameMode, ctx?: PickContext): Question
   report?(q: Question, r: RoundReport): void
-  rate?(q: Question, player: string, vote: RatingVote): void
+  rate?(q: Question, voter: Voter, vote: RatingVote): void
 }
 
 // Оценки → веса. Точка — показанный вопрос, её значение — средняя оценка команды (history.ts). Оценка
@@ -114,7 +125,8 @@ export function shuffleOptions(options: string[], notes?: string[], rng: () => n
 
 /**
  * Вопрос из колоды: сначала свежие (не было в текущем круге), круг кончился — новый круг и снова свежие,
- * иначе любые, которых не было в этой игре. build может не собрать вопрос (статистика, друзья) — тогда следующий.
+ * иначе любые свободные (deck.free: в игре — не было ни в этой, ни в прошлой игре). Свободных нет — null, picker
+ * берёт другую подкатегорию. build может не собрать вопрос (статистика, друзья) — тогда следующий.
  * group — выбор сначала группы, потом карточки (друзья: человек, у которого больше карточек, не выпадает чаще).
  */
 export function drawFromDeck<T, Q extends Question = Question>(cands: T[], card: (t: T) => string, deck: DeckAccess,
@@ -161,6 +173,15 @@ type Drafted = Question & { aspect?: string }
 
 export class RoomQuestions implements QuestionSource {
   private gameNo = 0
+  /** свои карточки этой игры (`колода|карточка`): history хранит одну запись на карточку, и соседняя комната
+   *  её перезаписывает — по ней одной комната могла бы взять свою же карточку второй раз */
+  private taken = new Set<string>()
+  /**
+   * Не собравшие вопрос в этой игре (`тип|cat|id`, `тип|sub|id`) — до конца игры не кандидаты: ни в выборе, ни
+   * в начислении кредита. Иначе неспособная подкатегория копит кредит (до +3) и в следующей игре идёт серией.
+   * Расход в игре только растёт (колода, исключения статистики), поэтому раз не собралась — не соберётся.
+   */
+  private exhausted = new Set<string>()
   private stats: StatQuestionBuilder | null
   private friends: FriendsGen | null
 
@@ -173,31 +194,41 @@ export class RoomQuestions implements QuestionSource {
     if (!this.gameNo) this.gameNo = this.history.startGame()
     const kind: QuestionKind = mode === 'closest' ? 'closest' : 'mc'
     const present = [...new Set(ctx.friends ?? [])]
+    const live = (level: 'cat' | 'sub', id: string) => !this.exhausted.has(`${kind}|${level}|${id}`)
     const cats = this.lib.categories.filter(c =>
-      (c.requires !== 'friends' || present.length >= MIN_IDENTIFIED_FRIENDS) && c.subs.some(s => s.kinds.has(kind)))
+      (c.requires !== 'friends' || present.length >= MIN_IDENTIFIED_FRIENDS) && live('cat', c.id) &&
+      c.subs.some(s => s.kinds.has(kind)))
     const catMult = this.multipliers(cats.map(c => ({ key: c.id, weight: c.weights[kind] })), 'cat')
     const catItems = cats.map(c => ({ key: c.id, weight: c.weights[kind] * catMult.get(c.id)! }))
     const catScope = `cat:${kind}`
     const catCredits = this.history.creditsOf(catScope)
 
+    const failedCats = new Set<string>()
     for (const catId of smoothOrder(catItems, catCredits, this.rng)) {
       const cat = cats.find(c => c.id === catId)!
-      const subs = cat.subs.filter(s => s.kinds.has(kind))
+      const subs = cat.subs.filter(s => s.kinds.has(kind) && live('sub', s.id))
       const subBase = subs.map(s => ({ key: s.id, weight: s.weights[kind] }))
       const subMult = this.multipliers(subBase, 'sub', catMult.get(cat.id)!)
       const subItems = subBase.map(s => ({ key: s.key, weight: s.weight * subMult.get(s.key)! }))
       const subScope = `sub:${kind}:${cat.id}`
       const subCredits = this.history.creditsOf(subScope)
+      const failedSubs = new Set<string>()
       for (const subId of smoothOrder(subItems, subCredits, this.rng)) {
         const sub = subs.find(s => s.id === subId)!
         const q = this.build(sub, mode, kind, present)
-        if (!q) continue
-        commitChoice(catItems, catId, catCredits)
-        commitChoice(subItems, subId, subCredits)
+        if (!q) {
+          failedSubs.add(subId)
+          this.exhausted.add(`${kind}|sub|${subId}`)
+          continue
+        }
+        commitChoice(catItems.filter(c => !failedCats.has(c.key)), catId, catCredits)
+        commitChoice(subItems.filter(s => !failedSubs.has(s.key)), subId, subCredits)
         this.history.saveCredits(catScope)
         this.history.saveCredits(subScope)
         return this.decorate(q, mode, cat, sub)
       }
+      failedCats.add(catId)
+      this.exhausted.add(`${kind}|cat|${catId}`)
     }
     throw new Error(`нет ни одного вопроса для режима ${mode}`)
   }
@@ -209,12 +240,12 @@ export class RoomQuestions implements QuestionSource {
     })
   }
 
-  rate(q: Question, player: string, vote: RatingVote): void {
+  rate(q: Question, voter: Voter, vote: RatingVote): void {
     if (!q.category || !q.subcategory) return
     this.history.rate({
-      questionId: q.id, category: q.category, sub: q.subcategory, gameNo: this.gameNo, player,
-      score: vote.score ?? null, difficulty: vote.difficulty ?? null,
-    }, { text: q.text })
+      questionId: q.id, category: q.category, sub: q.subcategory, gameNo: this.gameNo,
+      player: voter.id, name: voter.name, score: vote.score, difficulty: vote.difficulty,
+    }, { text: q.text, roomPlayers: voter.roomPlayers })
   }
 
   /** Относительный множитель оценок среди этих соседей (outer — множитель категории для её подкатегорий). */
@@ -224,10 +255,14 @@ export class RoomQuestions implements QuestionSource {
 
   private deck(sub: Subcategory): DeckAccess {
     const h = this.history
+    const mine = (c: string) => this.taken.has(`${sub.id}|${c}`)
     return {
-      fresh: c => h.isFresh(sub.id, c, this.gameNo),
-      free: c => !h.archived.has(c) && !h.usedInGame(sub.id, c, this.gameNo),
-      take: c => h.take(sub.id, c, this.gameNo),
+      fresh: c => !mine(c) && h.isFresh(sub.id, c, this.gameNo),
+      free: c => !mine(c) && !h.archived.has(c) && !h.blockedFor(sub.id, c, this.gameNo),
+      take: c => {
+        this.taken.add(`${sub.id}|${c}`)
+        h.take(sub.id, c, this.gameNo)
+      },
       newCycle: () => h.newCycle(sub.id),
     }
   }

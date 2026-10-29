@@ -168,10 +168,11 @@ describe('колода', () => {
     const room = new RoomQuestions(lib, history, seeded(1))
     const q = room.pick('closest')
     room.report(q, { roomPlayers: 4, players: 4, answered: 4, correct: 1 })
-    room.rate(q, 'A', { score: -2 })
-    room.rate(q, 'B', { score: -2 })
+    const voter = (id: string) => ({ id, name: id, roomPlayers: 4 })
+    room.rate(q, voter('A'), { score: -2 })
+    room.rate(q, voter('B'), { score: -2 })
     expect(history.archived.has(q.id)).toBe(false)   // 2 из 4 — не больше половины
-    room.rate(q, 'C', { score: -2 })
+    room.rate(q, voter('C'), { score: -2 })
     expect(history.archived.has(q.id)).toBe(true)
     for (let game = 0; game < 10; game++) {
       const r = new RoomQuestions(lib, history, seeded(game + 10))
@@ -237,7 +238,7 @@ describe('веса по типу раунда', () => {
     expect(mc('b1')).toBeCloseTo(0.5, 1)
   })
 
-  it('categories.ts: механики 1.5, «Таланты героя» 1.5; пики MC 1 / 0.5 / 0.5; цены в closest 2', () => {
+  it('categories.ts: механики 1.5, «Таланты героя» 1.5; пики MC 1 / 0.5 / 0.5; цены в closest 2; предметы в матчах 0.7; средние MC 1.2; мета closest 0.6', () => {
     const lib = loadLibrary()
     const cat = (id: string) => lib.categories.find(c => c.id === id)!
     const sub = (id: string) => lib.categories.flatMap(c => c.subs).find(s => s.id === id)!
@@ -251,6 +252,12 @@ describe('веса по типу раунда', () => {
     for (const id of ['avg_kills', 'avg_cs', 'avg_hero_damage', 'avg_tower', 'avg_heal_allies', 'items', 'items_hero']) {
       expect([...sub(id).kinds].sort()).toEqual(['closest', 'mc'])
     }
+    // «Предметы в матчах» (2026-10-30): категория 0.7 в обоих типах, items 1, items_hero 1 (и в closest), ботинки 0.6
+    expect(cat('match_items').weights).toEqual({ mc: 0.7, closest: 0.7 })
+    expect([sub('items'), sub('items_hero'), sub('boots_hero')].map(s => s.weights)).toEqual([
+      { mc: 1, closest: 1 }, { mc: 1, closest: 1 }, { mc: 0.6, closest: 0.6 }])
+    expect(cat('match_avg').weights).toEqual({ mc: 1.2, closest: 1 })   // средние за матч: MC 1.2
+    expect(cat('meta').weights).toEqual({ mc: 1, closest: 0.6 })        // мета героев: в «кто ближе» 0.6
     expect([...sub('avg_heal_self').kinds]).toEqual(['mc'])
     expect([...sub('boots_hero').kinds]).toEqual(['mc'])
   })
@@ -318,16 +325,17 @@ describe('тема: «субъект\\nаспект»', () => {
 describe('оценки', () => {
   const show = { questionId: 'q', category: 'c', sub: 's', mode: 'all', gameNo: 1, roomPlayers: 6, players: 6, answered: 6, correct: 3 }
   const vote = { questionId: 'q', category: 'c', sub: 's', gameNo: 1 }
+  const info = { text: 'q?', roomPlayers: 6 }
 
   it('точка — показ, значение — средняя оценка команды (не нажал = «нормально»)', () => {
     const history = new QuestionHistory()
     history.showing(show)
-    history.rate({ ...vote, player: 'A', score: 2 })
-    history.rate({ ...vote, player: 'B', score: 1 })
+    history.rate({ ...vote, player: 'A', score: 2 }, info)
+    history.rate({ ...vote, player: 'B', score: 1 }, info)
     expect(history.ratingOf('sub:s')).toEqual({ n: 1, sum: 0.5 })   // (2 + 1) / 6 игроков
-    history.rate({ ...vote, player: 'A', score: -1 })                   // переоценка заменяет
+    history.rate({ ...vote, player: 'A', score: -1 }, info)                 // переоценка заменяет
     expect(history.ratingOf('cat:c').sum).toBeCloseTo(0)
-    history.rate({ ...vote, player: 'C', difficulty: 1 })               // только сложность — оценка не меняется
+    history.rate({ ...vote, player: 'C', difficulty: 1 }, info)             // только сложность — оценка не меняется
     expect(history.ratingOf('cat:c').sum).toBeCloseTo(0)
   })
 
@@ -375,7 +383,8 @@ describe('оценки', () => {
     const history = new QuestionHistory()
     for (let g = 1; g <= 30; g++) {
       history.showing({ questionId: `x${g}`, category: 'hot', sub: 'h1', mode: 'all', gameNo: g, roomPlayers: 1, players: 1, answered: 1, correct: 1 })
-      history.rate({ questionId: `x${g}`, category: 'hot', sub: 'h1', gameNo: g, player: 'A', score: 2 })
+      history.rate({ questionId: `x${g}`, category: 'hot', sub: 'h1', gameNo: g, player: 'A', score: 2 },
+        { text: '', roomPlayers: 1 })
     }
     // по отдельности: категория ×1.5 (соседка не ниже ×0.5), подкатегория ×1.5 — вместе было бы ×2.25
     const shown = new Map<string, number>()
@@ -398,7 +407,7 @@ describe('оценки', () => {
       for (let g = 1; g <= questions; g++) {
         const sh = { questionId: `q${g}`, category: 'c', sub: 'hot', mode: 'all', gameNo: g, roomPlayers: 6, players: 6, answered: 6, correct: 3 }
         history.showing(sh)
-        for (const p of ['A', 'B', 'C', 'D', 'E', 'F']) history.rate({ questionId: `q${g}`, category: 'c', sub: 'hot', gameNo: g, player: p, score: 2 })
+        for (const p of ['A', 'B', 'C', 'D', 'E', 'F']) history.rate({ questionId: `q${g}`, category: 'c', sub: 'hot', gameNo: g, player: p, score: 2 }, { text: '', roomPlayers: 6 })
       }
       const neutral = { n: 9, sum: 0 }
       const m = relativeMultipliers([{ key: 'hot', weight: 1 }, ...Array.from({ length: 6 }, (_, i) => ({ key: `n${i}`, weight: 1 }))],
