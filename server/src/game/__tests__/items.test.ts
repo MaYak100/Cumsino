@@ -3,7 +3,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { GameRoom } from '../GameRoom'
 import type { Question, ItemId, GameMode, RoundResult } from '@cumsino/shared'
 import {
-  GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, WIN_CHIPS,
+  GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, WIN_CHIPS,
   itemPrice, blindFor, bkbCap, AEGIS_RESTORE, AEGIS_THRESHOLD, HEX_SECONDS, LAST_ANSWER_GRACE_MS,
   LIGHTNING_GLADIATOR, LIGHTNING_MS, LIGHTNING_SHARE, STREAK_GLADIATOR_BASE,
 } from '@cumsino/shared'
@@ -817,23 +817,25 @@ describe('предметы, бонусы, блайнды', () => {
 
   // ── лавка ──
   describe('лавка (SHOP)', () => {
-    it('перед первым раундом: режим уже «для всех», раунд 1, вопрос скрыт, все не готовы', () => {
+    it('первая лавка (после первого круга): режим уже «для всех», раунд 1, вопрос скрыт, все не готовы', () => {
       const t = makeRoom(3)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
       expect(t.r.phase).toBe('SHOP')
       const st = t.room.getStateForPlayer('p2')
       expect(st.mode).toBe('all')
       expect(st.roundIndex).toBe(1)
       expect(st.currentQuestion).toBeNull()
-      expect(st.phaseTimeLeft).toBe(PHASE_DURATIONS.SHOP)
+      expect(st.phaseTimeLeft).toBe(PHASE_DURATIONS.SHOP! + FIRST_SHOP_EXTRA)
       expect(st.players.map(x => x.shopReady)).toEqual([false, false, false])
       expect(t.r.currentQuestion).not.toBeNull()   // выбран заранее — в анонсе тот же
     })
 
     it('таймер закрывает лавку → ANNOUNCE (первый «для всех» — анонс длиннее), вопрос виден, shopReady нет', () => {
       const t = makeRoom(2)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
-      vi.advanceTimersByTime(PHASE_DURATIONS.SHOP! * 1000)
+      vi.advanceTimersByTime((PHASE_DURATIONS.SHOP! + FIRST_SHOP_EXTRA) * 1000)
       expect(t.r.phase).toBe('ANNOUNCE')
       const st = t.room.getPublicState()
       expect(st.phaseTimeLeft).toBe(PHASE_DURATIONS.ANNOUNCE! + 3)
@@ -841,10 +843,10 @@ describe('предметы, бонусы, блайнды', () => {
       expect(st.players.every(x => x.shopReady === undefined)).toBe(true)
     })
 
-    it('лавка — перед каждым «для всех»: после итогов «кто ближе», а не перед керри и «кто ближе»', () => {
+    it('лавка — только после первого «кто ближе», и перед каждым следующим «для всех»; не перед керри и «кто ближе»', () => {
       const t = makeRoom(2)
       t.room.start('p1')
-      expect([t.r.currentMode, t.r.phase]).toEqual(['all', 'SHOP'])
+      expect([t.r.currentMode, t.r.phase]).toEqual(['all', 'ANNOUNCE'])   // до первого круга лавки нет
       t.r.nextRound()
       expect([t.r.currentMode, t.r.phase]).toEqual(['kerri', 'ANNOUNCE'])
       t.r.nextRound()
@@ -854,8 +856,29 @@ describe('предметы, бонусы, блайнды', () => {
       expect([t.r.currentMode, t.r.phase, t.r.roundIndex]).toEqual(['all', 'SHOP', 4])
     })
 
+    it('перед раундом 1 лавки нет: LOBBY → ANNOUNCE сразу', () => {
+      const t = makeRoom(2)
+      t.room.start('p1')
+      expect([t.r.currentMode, t.r.phase, t.r.roundIndex]).toEqual(['all', 'ANNOUNCE', 1])
+      expect(t.room.getStateForPlayer('p1').players.every(x => x.shopReady === undefined)).toBe(true)
+    })
+
+    it('первая лавка идёт SHOP + FIRST_SHOP_EXTRA, следующая — SHOP', () => {
+      const t = makeRoom(2)
+      t.room.start('p1')
+      t.r.nextRound(); t.r.nextRound()   // kerri, closest
+      t.r.phase = 'REVEAL'; t.r.onPhaseEnd()
+      expect(t.r.phase).toBe('SHOP')
+      expect(t.room.getPublicState().phaseTimeLeft).toBe(PHASE_DURATIONS.SHOP! + FIRST_SHOP_EXTRA)
+      t.r.nextRound(); t.r.nextRound()   // kerri, closest
+      t.r.phase = 'REVEAL'; t.r.onPhaseEnd()
+      expect(t.r.phase).toBe('SHOP')
+      expect(t.room.getPublicState().phaseTimeLeft).toBe(PHASE_DURATIONS.SHOP)
+    })
+
     it('«Готов» туда-обратно; все готовы — лавка закрывается сразу', () => {
       const t = makeRoom(3)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
       t.room.setShopReady('p1', true)
       t.room.setShopReady('p2', true)
@@ -877,6 +900,7 @@ describe('предметы, бонусы, блайнды', () => {
 
     it('ушёл последний неготовый — лавка закрывается; ушёл готовый — нет', () => {
       const t = makeRoom(3)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
       t.room.setShopReady('p1', true)
       t.room.removePlayer('p1')
@@ -888,6 +912,7 @@ describe('предметы, бонусы, блайнды', () => {
 
     it('вошедший в лавке — участник: его «Готов» тоже ждут, он может покупать', () => {
       const t = makeRoom(1)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
       t.room.addPlayer('p9', 'P9')
       expect(t.p('p9')).toMatchObject({ spectator: false, inventory: {} })
@@ -901,6 +926,7 @@ describe('предметы, бонусы, блайнды', () => {
 
     it('покупки лавки не сбрасываются до конца раунда и дальше', () => {
       const t = makeRoom(2)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
       t.room.buyItem('p1', 'bkb')
       t.room.buyItem('p1', 'aegis')
@@ -916,6 +942,7 @@ describe('предметы, бонусы, блайнды', () => {
 
     it('победитель — GAME_OVER после итогов, лавка не открывается', () => {
       const t = makeRoom(2)
+      t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
       t.r.nextRound()
       t.r.nextRound()   // closest — следующий был бы «для всех» с лавкой
