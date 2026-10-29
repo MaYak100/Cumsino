@@ -101,12 +101,13 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
       {/* серия, блайнд, эффекты — бумажной биркой над правым углом, имя не теснят */}
       {player && ((player.effects?.length ?? 0) > 0 || (player.streak ?? 0) >= 2 || player.bigBlind) && (
         <span style={{
-          position: 'absolute', right: -8, top: -20, zIndex: 3, transform: 'rotate(4deg)',
+          position: 'absolute', left: 'calc(100% + 6px)', top: '50%', zIndex: 3, transform: 'translateY(-50%) rotate(4deg)',
+          pointerEvents: 'none', whiteSpace: 'nowrap',
           display: 'flex', alignItems: 'center', gap: 3, padding: '2px 6px', borderRadius: 6,
           background: C.paper, boxShadow: '0 3px 8px rgba(0,0,0,.5)',
         }}>
           {player.bigBlind && (
-            <span title="Большой блайнд: минимум 10% баланса" style={{ fontFamily: DISPLAY, fontSize: 11, color: C.ink }}>ББ</span>
+            <span style={{ fontFamily: DISPLAY, fontSize: 11, color: C.ink }}>ББ</span>
           )}
           <Marks p={player} size={22} />
         </span>

@@ -36,8 +36,8 @@ export const ITEMS: Record<ItemId, ItemDef> = {
     targeted: false, key: 'C', desc: 'Убирает один неверный вариант. Раз за раунд',
   },
   smoke: {
-    id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
-    targeted: false, key: 'V', desc: 'До конца раунда не видно, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
+    id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['BETTING', 'QUESTION'], modes: ['all', 'closest'],
+    targeted: false, key: 'V', desc: 'Разбей ещё на ставках или на вопросе: до конца раунда не видно, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
   },
   hex: {
     id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],

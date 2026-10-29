@@ -73,33 +73,32 @@ describe('предметы, бонусы, блайнды', () => {
       expect(blindFor(5, true)).toBe(0)
     })
 
-    it('на входе в BETTING «для всех» каждому блайнд, первому — большой', () => {
+    it('на входе в BETTING «для всех» каждому блайнд, лидеру по балансу — большой', () => {
       const t = makeRoom(3)
       t.p('p3').chips = 2000
       toBetting(t)
       expect(t.r.phase).toBe('BETTING')
-      expect(t.p('p1')).toMatchObject({ blind: 50, bigBlind: true })
+      expect(t.p('p1')).toMatchObject({ blind: 30, bigBlind: false })
       expect(t.p('p2')).toMatchObject({ blind: 30, bigBlind: false })
-      expect(t.p('p3')).toMatchObject({ blind: 100, bigBlind: false })
-      const pub = t.room.getPublicState().players.find(x => x.id === 'p1')!
-      expect(pub.blind).toBe(50)
+      expect(t.p('p3')).toMatchObject({ blind: 200, bigBlind: true })
+      const pub = t.room.getPublicState().players.find(x => x.id === 'p3')!
+      expect(pub.blind).toBe(200)
       expect(pub.bigBlind).toBe(true)
     })
 
-    it('большой блайнд ходит по кругу в порядке входа, пропуская безденежных', () => {
+    it('ничья наверху — у всех малый блайнд; лидер сменился — большой у нового', () => {
       const t = makeRoom(3)
-      const bigs: string[] = []
-      for (let i = 0; i < 4; i++) {
-        t.r.nextRound()
-        toBetting(t)
-        bigs.push([...t.r.players.values()].find((x: any) => x.bigBlind).id)
-      }
-      expect(bigs).toEqual(['p1', 'p2', 'p3', 'p1'])
-      t.p('p2').chips = 5
-      t.r.nextRound()
-      toBetting(t)   // очередь p2, но у него < $10
-      expect(t.p('p3').bigBlind).toBe(true)
-      expect(t.p('p2').blind).toBe(0)
+      toBetting(t)   // у всех по 500
+      expect([...t.r.players.values()].some((x: any) => x.bigBlind)).toBe(false)
+      expect(t.p('p1').blind).toBe(30)
+      t.p('p1').chips = 800
+      t.p('p2').chips = 800
+      t.r.nextRound(); toBetting(t)
+      expect([...t.r.players.values()].some((x: any) => x.bigBlind)).toBe(false)
+      t.p('p2').chips = 900
+      t.r.nextRound(); toBetting(t)
+      expect(t.p('p2')).toMatchObject({ bigBlind: true, blind: 90 })
+      expect(t.p('p1')).toMatchObject({ bigBlind: false, blind: 40 })
     })
 
     it('ставка меньше блайнда отклоняется, блайнд и больше — принимаются', () => {
@@ -499,6 +498,19 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.sent('p1', 'item_used').at(-1)!.data).toEqual({ playerId: 'p1', item: 'blink' })
       t.r.advanceFromQuestion()
       expect(t.room.getStateForPlayer('p2').players[0].hasAnswered).toBe(true)   // раунд посчитан — видно
+    })
+
+    it('можно разбить заранее, на ставках: на вопросе ответ уже скрыт', () => {
+      const t = makeRoom(3)
+      t.give('p1', 'smoke')
+      t.setPhase('BETTING', 'all')
+      t.room.useItem('p1', 'smoke')
+      expect(t.p('p1').inventory.smoke).toBeUndefined()
+      expect(t.room.getPublicState().players[0].effects).toEqual(['smoke'])
+      t.toQuestion()
+      t.room.submitAnswer('p1', 'B')
+      expect(t.ev('player_answered')).toHaveLength(0)
+      expect(t.room.getStateForPlayer('p2').players[0].hasAnswered).toBe(false)
     })
 
     it('раз за раунд, не в керри', () => {
@@ -966,32 +978,26 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p1').currentBet).toBe(blindFor(500, true))
     })
 
-    it('блайнд не больше баланса: $10 ведущему — олл-ин, $35 ведущему — $10', () => {
+    it('блайнд не больше баланса: $10 — олл-ин, у лидера с $35 — $10', () => {
       const t = makeRoom(2)
       t.p('p1').chips = 10
       t.p('p2').chips = 35
       toBetting(t)
-      expect(t.p('p1')).toMatchObject({ blind: 10, bigBlind: true })
-      t.r.nextRound()
-      toBetting(t)
-      expect(t.p('p2')).toMatchObject({ blind: 10, bigBlind: true })
+      expect(t.p('p2')).toMatchObject({ blind: 10, bigBlind: true })   // лидер — $35
+      expect(t.p('p1')).toMatchObject({ blind: 10, bigBlind: false })   // $10 — олл-ин
       t.r.onPhaseEnd()
       expect(t.p('p2').currentBet).toBe(10)
       expect(t.p('p1').currentBet).toBe(10)
     })
 
-    it('ведущий по кругу не сбивается, когда игроки уходят, и не повторяется после пропуска', () => {
-      const t = makeRoom(4)
+    it('лидер ушёл — большой блайнд у следующего по балансу; зрители не считаются', () => {
+      const t = makeRoom(3)
       const big = () => [...t.r.players.values()].find((x: any) => x.bigBlind)?.id
+      t.p('p1').chips = 1000
+      t.p('p2').chips = 700
       toBetting(t); expect(big()).toBe('p1')
+      t.room.removePlayer('p1')
       t.r.nextRound(); toBetting(t); expect(big()).toBe('p2')
-      t.room.removePlayer('p2')
-      t.r.nextRound(); toBetting(t); expect(big()).toBe('p3')
-      t.p('p4').chips = 0
-      t.r.nextRound(); toBetting(t); expect(big()).toBe('p1')   // p4 пропущен
-      t.p('p4').chips = 500
-      t.r.nextRound(); toBetting(t); expect(big()).toBe('p3')   // после p1 — p3 (p4 был пропущен, не p1 и не p4 дважды)
-      t.r.nextRound(); toBetting(t); expect(big()).toBe('p4')
     })
 
     it('ушёл последний, кто не подтвердил, — блайнды остальных не трогаются', () => {

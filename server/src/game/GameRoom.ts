@@ -113,8 +113,6 @@ export class GameRoom extends EventEmitter {
   /** конец 12 секунд хекснутых — пересчитать «все ответили» */
   private hexTimers: ReturnType<typeof setTimeout>[] = []
   private questionStartAt = 0
-  /** seat последнего большого блайнда — следующий по кругу после него */
-  private lastBigSeat = -1
   private seatCounter = 0
   /** длительность анонса раунда (первый раз в режиме — дольше); лавка уходит в анонс с ней */
   private announceSeconds = PHASE_DURATIONS['ANNOUNCE']!
@@ -490,13 +488,13 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  /** Вход в BETTING «для всех»: каждому участнику блайнд; ведущий (большой) — следующий по кругу в порядке входа
-   *  после прошлого ведущего, пропуская безденежных (< $10). Ушедшие игроки очередь не сбивают. Зрителям — ничего. */
+  /** Вход в BETTING «для всех»: каждому участнику блайнд. Большой (10%) — у единственного лидера по балансу;
+   *  лидеров несколько (ничья наверху) — у всех малый (5%). Зрителям — ничего. */
   private assignBlinds() {
-    const list = Array.from(this.players.values()).filter(p => !p.spectator)   // Map — в порядке входа (seat)
-    const order = [...list.filter(p => p.seat > this.lastBigSeat), ...list.filter(p => p.seat <= this.lastBigSeat)]
-    const big = order.find(p => p.chips >= 10)
-    if (big) this.lastBigSeat = big.seat
+    const list = Array.from(this.players.values()).filter(p => !p.spectator)
+    const top = Math.max(0, ...list.map(p => p.chips))
+    const leaders = list.filter(p => p.chips === top && p.chips >= 10)
+    const big = leaders.length === 1 ? leaders[0] : undefined
     for (const p of list) {
       p.bigBlind = p === big
       p.blind = blindFor(p.chips, p === big)

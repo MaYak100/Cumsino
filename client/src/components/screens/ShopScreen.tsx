@@ -100,8 +100,10 @@ function ShopCard({ id, index, price, have, full, can, onBuy }: {
   const [tilt, setTilt] = useState(() => (index % 2 ? 1.5 : -1.5))
   const [bought, setBought] = useState(0)   // ключ для «+1»
 
-  const when = def.usePhases === 'passive' ? 'сам' : def.usePhases.includes('BETTING') && !def.usePhases.includes('QUESTION')
-    ? def.usePhases.includes('ANNOUNCE') ? 'до вопроса' : 'на ставках' : 'на вопросе'
+  const ph = def.usePhases
+  const when = ph === 'passive' ? 'сам'
+    : ph.includes('QUESTION') ? (ph.includes('BETTING') ? 'ставки, вопрос' : 'на вопросе')
+    : ph.includes('ANNOUNCE') ? 'до вопроса' : 'на ставках'
 
   return (
     <motion.button

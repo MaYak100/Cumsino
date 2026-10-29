@@ -556,7 +556,7 @@ export function BettingTableScreen() {
                 border: `1.5px dashed ${C.brass}`,
               }}
             >
-              {me?.bigBlind ? 'Большой блайнд' : 'Блайнд'}: минимум <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
+              {me?.bigBlind ? 'Большой блайнд' : 'Малый блайнд'}: минимум <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
             </motion.div>
           )}
         </AnimatePresence>

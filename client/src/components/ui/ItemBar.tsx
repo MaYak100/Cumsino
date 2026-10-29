@@ -20,9 +20,9 @@ function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, 
   }
   if (!def.modes.includes(mode as never)) return 'Не в этом режиме'
   if (!def.usePhases.includes(phase as never)) {
-    return def.usePhases.includes('BETTING') && !def.usePhases.includes('QUESTION')
-      ? def.usePhases.includes('ANNOUNCE') ? 'Только до вопроса' : 'Только на ставках'
-      : 'Только на вопросе'
+    const ph = def.usePhases
+    return ph.includes('QUESTION') ? (ph.includes('BETTING') ? 'На ставках или на вопросе' : 'Только на вопросе')
+      : ph.includes('ANNOUNCE') ? 'Только до вопроса' : 'Только на ставках'
   }
   if (id === 'blink') return answered ? null : 'Сначала ответь, потом передумывай'
   if (id === 'manta' && answered) return 'Только до ответа'

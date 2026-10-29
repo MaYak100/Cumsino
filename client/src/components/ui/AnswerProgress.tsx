@@ -110,7 +110,7 @@ export function FeedTag({ item }: { item: ItemId }) {
       exit={{ opacity: 0, y: -8 }}
       transition={{ type: 'spring', stiffness: 520, damping: 18 }}
       className="absolute bottom-full mb-1 flex items-center gap-1 rounded pl-0.5 pr-2 whitespace-nowrap"
-      style={{ background: C.paper, color: C.ink, fontWeight: 800, fontSize: '0.75rem', boxShadow: '0 4px 10px rgba(0,0,0,.5)', zIndex: 60 }}
+      style={{ background: C.paper, color: C.ink, fontWeight: 800, fontSize: '0.75rem', boxShadow: '0 4px 10px rgba(0,0,0,.5)', zIndex: 60, pointerEvents: 'none' }}
     >
       <ItemIcon id={item} size={20} />
       {ITEM_LABEL[item]}
