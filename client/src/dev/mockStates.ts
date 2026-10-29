@@ -306,7 +306,7 @@ export const SCENARIOS: Scenario[] = [
           { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0,   hasAnswered: false, blind: 30, streak: 2, effects: ['aegis'] },
           { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [50, 50], hasAnswered: false, blind: 20, effects: ['hex'] },
           { id: 'dev-3', name: 'Света',  chips: 740, currentBet: 200, betChips: [100, 100], hasAnswered: false, blind: 80, bigBlind: true, streak: 4, effects: ['bkb'] },
-          { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false, blind: 30 },
+          { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false, blind: 30, streak: 6 },
         ],
       }),
       bankBets: {},

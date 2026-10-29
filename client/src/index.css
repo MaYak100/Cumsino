@@ -35,6 +35,14 @@ body {
   color: var(--fg);
   font-family: 'Rubik', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* игра, а не документ: заголовки и кнопки не выделяются мышью; поля ввода — как обычно */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 /* зерно поверх всего — сукно, а не плоская заливка */

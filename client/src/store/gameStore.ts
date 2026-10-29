@@ -46,6 +46,10 @@ interface GameStore {
   bribeEliminatedIdx: number | null
   /** Своя оценка вопроса раунда — живёт от раскрытия ответа до следующего раунда, отправляется один раз */
   rating: QuestionRating | null
+  /** сам подтвердил ставку в этом раунде (иначе bet_updated за меня — это принудительный блайнд) */
+  betSent: boolean
+  /** короткая наклейка поверх экрана («Поставили на ответит») */
+  notice: { text: string; at: number } | null
   /** кто чем пользовался в этом раунде — для бирок над никами (свежие сверху) */
   itemFeed: ItemFeedEntry[]
   /** результаты своего гема: targetId → что выбрано у цели на момент взгляда */
@@ -65,6 +69,7 @@ interface GameStore {
   useItem: (item: ItemId, targetId?: string) => void
   /** выбор цели для гема / хекса: панель предметов включает, клик по игроку завершает, Esc — отмена */
   setTargeting: (item: ItemId | null) => void
+  markBetSent: () => void
   sendHover: (optionIndex: number | null) => void
   startGame: () => void
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
@@ -131,6 +136,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundGladiatorId: clearRound ? null : prev.roundGladiatorId,
         bankBets: clearRound ? {} : prev.bankBets,
         stagedBets: clearRound ? {} : prev.stagedBets,
+        betSent: clearRound ? false : prev.betSent,
         // вошедший в лобби или в лавку — участник (сервер ждёт его «Готов»); посреди раунда — зритель до нового раунда
         isLateJoiner: firstState
           ? state.phase !== 'LOBBY' && state.phase !== 'SHOP'
@@ -152,8 +158,14 @@ export const useGameStore = create<GameStore>((set, get) => {
     set(prev => {
       if (!prev.gameState) return prev
       const { [playerId]: _confirmed, ...stagedBets } = prev.stagedBets   // ставка подтверждена — черновик не нужен
+      // за меня поставил сервер (не подтвердил к концу ставок) — сказать, куда и сколько
+      const forced = playerId === prev.myId && !prev.betSent
+      const notice = forced
+        ? { text: target ? `Поставили на ${target === 'lose' ? 'завалит' : 'ответит'}` : `Поставили $${amount}`, at: Date.now() }
+        : prev.notice
       return {
         stagedBets,
+        notice,
         gameState: {
           ...prev.gameState,
           players: prev.gameState.players.map(p =>
@@ -255,6 +267,8 @@ export const useGameStore = create<GameStore>((set, get) => {
     bribePrompt: null,
     bribeEliminatedIdx: null,
     rating: null,
+    betSent: false,
+    notice: null,
     itemFeed: [],
     gemResults: {},
     gemmedOnMe: 0,
@@ -289,6 +303,10 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     setTargeting(item) {
       set({ targeting: item })
+    },
+
+    markBetSent() {
+      set({ betSent: true })
     },
 
     sendHover(optionIndex) {

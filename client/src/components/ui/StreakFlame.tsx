@@ -45,6 +45,12 @@ const LAYERS = [
   { color: '#ff8a2a', k: 0.68 },
   { color: '#ffd23f', k: 0.38 },
 ]
+/** серия 5+ — синее пламя: горячее обычного */
+const BLUE = [
+  { color: '#2a54d6', k: 1 },
+  { color: '#3fa3ff', k: 0.68 },
+  { color: '#c9f1ff', k: 0.38 },
+]
 
 /** Рамка-пламя вокруг плашки за серию верных ответов: 2 — тлеет, 3 и больше — горит, чем дальше, тем выше.
  *  Бумажная: пламя «перерезается» раз в секунду, как покадровая анимация. Меньше 2 — просто содержимое. */
@@ -62,27 +68,27 @@ export function StreakFlame({ streak, children, radius = 12 }: { streak?: number
 
   const hot = n >= 3
   const top = n === 2 ? 9 : Math.min(34, 16 + (n - 3) * 6)   // высота языков сверху
-  const side = hot ? Math.min(14, 6 + (n - 3) * 2) : 3
-  const pad = hot ? 5 : 3
-  const layers = hot ? LAYERS : LAYERS.slice(1)
+  const side = hot ? 3 : 0          // языки по бокам — маленькие: бока не толще верха и низа
+  const sidePad = hot ? 3 : 2       // основа сбоку — тонкая
+  const base = hot ? 7 : 5          // основа сверху и снизу — шире
+  const layers = n >= 5 ? BLUE : hot ? LAYERS : LAYERS.slice(1)
   const tongues = hot ? 9 : 7
 
   return (
     <span style={{ position: 'relative', display: 'inline-flex' }}>
       <span aria-hidden style={{
         position: 'absolute', zIndex: 0, pointerEvents: 'none',
-        left: -pad - side, right: -pad - side, top: -pad - top, bottom: -pad,
+        left: -sidePad - side, right: -sidePad - side, top: -base - top, bottom: -base,
         filter: 'drop-shadow(0 2px 0 rgba(0,0,0,.35))',
       }}>
         {layers.map((l, i) => (
           <span key={i} style={{
-            position: 'absolute', inset: 0,
-            // внутренние слои ниже и уже — пламя «слоями бумаги»
-            transform: `scale(${1 - i * 0.03}, 1)`, transformOrigin: 'bottom center',
-            clipPath: flameClip(tick * 7 + i * 131 + n, top * l.k + (top * (1 - l.k)), side * l.k, tongues),
+            position: 'absolute',
+            // внутренние слои — с отступом от краёв: снаружи видно красный, ближе к плашке — оранжевый и жёлтый
+            top: top * (1 - l.k), left: i * 1.2, right: i * 1.2, bottom: i * 2,
+            clipPath: flameClip(tick * 7 + i * 131 + n, top * l.k, side * l.k, tongues),
             background: l.color,
             borderRadius: radius,
-            top: top * (1 - l.k),
           }} />
         ))}
       </span>

@@ -59,6 +59,7 @@ export function BettingTableScreen() {
   const targeting   = useGameStore(s => s.targeting)
   const useItem     = useGameStore(s => s.useItem)
   const freshFeed   = useFreshFeed()
+  const markBetSent = useGameStore(s => s.markBetSent)
 
   const sceneScale = useSceneScale()
   const [myStack, setMyStack]         = useState<PhysicalChip[]>([])
@@ -114,6 +115,10 @@ export function BettingTableScreen() {
   const mainBetAmt  = mainPlacedChips.reduce((a, c) => a + c.denom, 0)
   const bankBetAmt  = bankPlacedChips.reduce((a, c) => a + c.denom, 0)
   const stdBetAmt   = stdPlacedChips.reduce((a, c) => a + c.denom, 0)
+  // Черновик ставки соперникам; в керри — с выделенным исходом: не подтвердишь — сервер поставит блайнд туда
+  const stage = (payload: { chips: number[] }, target = mainTarget) =>
+    socket.emit('stage_chip', isKerriCrowd && target ? { ...payload, target } : payload)
+
   // ── Standard mode handlers ───────────────────────────────────────────────
   const stdPlace = (denom: ChipValue) => {
     if (betConfirmed) return
@@ -121,13 +126,13 @@ export function BettingTableScreen() {
     const chip = unplaced[unplaced.length - 1]
     if (!chip) return
     setStdPlacedIds(prev => new Set([...prev, chip.id]))
-    socket.emit('stage_chip', { chips: [...stdPlacedChips, chip].map(c => c.denom) })
+    stage({ chips: [...stdPlacedChips, chip].map(c => c.denom) })
   }
 
   const stdRecall = (id: string) => {
     if (betConfirmed) return
     setStdPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-    socket.emit('stage_chip', { chips: stdPlacedChips.filter(c => c.id !== id).map(c => c.denom) })
+    stage({ chips: stdPlacedChips.filter(c => c.id !== id).map(c => c.denom) })
   }
 
   // ── Kerri crowd handlers ─────────────────────────────────────────────────
@@ -145,17 +150,17 @@ export function BettingTableScreen() {
     } else {
       setBankPlacedIds(prev => new Set([...prev, chip.id]))
     }
-    socket.emit('stage_chip', { chips: [...newMain, ...newBank].map(c => c.denom) })
+    stage({ chips: [...newMain, ...newBank].map(c => c.denom) })
   }
 
   const kerriRecall = (id: string) => {
     if (betConfirmed) return
     if (mainPlacedIds.has(id)) {
       setMainPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-      socket.emit('stage_chip', { chips: [...mainPlacedChips.filter(c => c.id !== id), ...bankPlacedChips].map(c => c.denom) })
+      stage({ chips: [...mainPlacedChips.filter(c => c.id !== id), ...bankPlacedChips].map(c => c.denom) })
     } else if (bankPlacedIds.has(id)) {
       setBankPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-      socket.emit('stage_chip', { chips: [...mainPlacedChips, ...bankPlacedChips.filter(c => c.id !== id)].map(c => c.denom) })
+      stage({ chips: [...mainPlacedChips, ...bankPlacedChips.filter(c => c.id !== id)].map(c => c.denom) })
     }
   }
 
@@ -163,7 +168,9 @@ export function BettingTableScreen() {
     if (betConfirmed) return
     if (mainTarget !== target) {
       setMainPlacedIds(new Set())
-      socket.emit('stage_chip', { chips: bankPlacedChips.map(c => c.denom) })
+      stage({ chips: bankPlacedChips.map(c => c.denom) }, target)
+    } else {
+      stage({ chips: [...mainPlacedChips, ...bankPlacedChips].map(c => c.denom) }, target)
     }
     setMainTarget(target)
     setActiveZone('main')
@@ -173,7 +180,7 @@ export function BettingTableScreen() {
     if (betConfirmed) return
     if (bankTarget !== null && bankTarget !== idx) {
       setBankPlacedIds(new Set())
-      socket.emit('stage_chip', { chips: mainPlacedChips.map(c => c.denom) })
+      stage({ chips: mainPlacedChips.map(c => c.denom) })
     }
     if (bankTarget === idx) {
       if (bankPlacedIds.size === 0) {
@@ -234,12 +241,13 @@ export function BettingTableScreen() {
     pick.forEach((c, i) => quickTimers.current.push(window.setTimeout(() => {
       setIds(prev => new Set([...prev, c.id]))
     }, 60 + i * 55)))
-    socket.emit('stage_chip', { chips: [...pick.map(c => c.denom), ...(isKerriCrowd ? bankPlacedChips.map(c => c.denom) : [])] })
+    stage({ chips: [...pick.map(c => c.denom), ...(isKerriCrowd ? bankPlacedChips.map(c => c.denom) : [])] })
   }
   const myUnit = unitPosition(playerAngle(0, Math.max(1, gameState.players.length)), UNIT_W, UNIT_H, 0)
 
   const handleConfirm = () => {
     if (!canConfirm) return
+    markBetSent()
     if (isKerriCrowd) {
       const withBank = bankTarget !== null && bankBetAmt > 0
       socket.emit('place_bet', {

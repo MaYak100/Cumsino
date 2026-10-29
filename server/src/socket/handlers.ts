@@ -86,9 +86,9 @@ export function registerHandlers(rawSocket: Socket, engine: GameEngine): void {
     engine.getRoom(socket.id)?.placeBankBet(socket.id, optionIndex, amount)
   })
 
-  socket.on('stage_chip', ({ chips }: { chips: number[] }) => {
+  socket.on('stage_chip', ({ chips, target }: { chips: number[]; target?: 'win' | 'lose' }) => {
     if (!isChips(chips)) return
-    engine.getRoom(socket.id)?.stageChip(socket.id, chips)
+    engine.getRoom(socket.id)?.stageChip(socket.id, chips, target === 'win' || target === 'lose' ? target : undefined)
   })
 
   socket.on('identify', ({ friendId }: IdentifyPayload) => {

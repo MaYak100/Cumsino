@@ -31,6 +31,8 @@ interface RoundItems {
   bkb: boolean
   /** сколько вернёт BKB: две цены BKB на момент включения */
   bkbCap: number
+  /** керри-толпа: исход, выделенный на столе до подтверждения (из stage_chip) — туда уйдёт принудительный блайнд */
+  stagedTarget?: 'win' | 'lose'
   /** варианты, убранные мантой (индексы options) */
   removedOptions: number[]
   /** мс от начала QUESTION до последнего ответа (после блинка — новое) */
@@ -505,8 +507,9 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  /** Конец BETTING: кто не подтвердил ставку — ставит блайнд (фишки разложит клиент). Толпа керри — на случайную
-   *  сторону. Банк-ставка (если сделана без подтверждения) остаётся, блайнд — не больше остатка. */
+  /** Конец BETTING: кто не подтвердил ставку — ставит блайнд (фишки разложит клиент). Толпа керри — на исход,
+   *  выделенный на столе, а не выделил — на «ответит». Банк-ставка (если сделана без подтверждения) остаётся, блайнд —
+   *  не больше остатка. Банк-ставка блайнд не закрывает. */
   private forceBlinds() {
     if (this.currentMode !== 'all' && this.currentMode !== 'kerri') return
     for (const p of this.players.values()) {
@@ -517,7 +520,7 @@ export class GameRoom extends EventEmitter {
       p.currentBet = blind
       p.betChips = undefined
       if (this.currentMode === 'kerri') {
-        p.betTarget = Math.random() < 0.5 ? 'win' : 'lose'
+        p.betTarget = p.items.stagedTarget ?? 'win'
         this.broadcast('bet_updated', { playerId: p.id, amount: blind, target: p.betTarget })
       } else {
         this.broadcast('bet_updated', { playerId: p.id, amount: blind })
@@ -525,10 +528,11 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  stageChip(playerId: string, chips: number[]) {
+  stageChip(playerId: string, chips: number[], target?: 'win' | 'lose') {
     if (this.phase !== 'BETTING') return
     const player = this.players.get(playerId)
     if (!player || player.spectator) return
+    if (target && this.currentMode === 'kerri') player.items.stagedTarget = target
     this.broadcastExcept(playerId, 'chip_staged', { playerId, chips })
   }
 

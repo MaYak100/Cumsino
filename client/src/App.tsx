@@ -14,6 +14,7 @@ import { LateJoinScreen } from './components/screens/LateJoinScreen'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TableFelt } from './components/ui/TableFelt'
 import { ItemBar } from './components/ui/ItemBar'
+import { Notice } from './components/ui/Notice'
 import { ShopScreen } from './components/screens/ShopScreen'
 
 export default function App() {
@@ -91,6 +92,7 @@ export default function App() {
         </motion.div>
       </AnimatePresence>
       <ItemBar />
+      <Notice />
     </div>
   )
 }

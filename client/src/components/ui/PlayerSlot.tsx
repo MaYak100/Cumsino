@@ -49,7 +49,7 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
         paddingBottom: 16,
       }}
     >
-      <div style={{ height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end' }}>
+      <div style={{ height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end', marginBottom: 8 }}>   {/* зазор — огню серии есть где гореть */}
         <PhysicalChipStack
           chips={chips}
           interactive={isMe}

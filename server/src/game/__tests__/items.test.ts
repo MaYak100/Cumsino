@@ -199,11 +199,11 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.r.phase).toBe('QUESTION')
     })
 
-    it('не подтвердил к концу BETTING — блайнд на случайную сторону, bet_updated с target', () => {
+    it('не подтвердил к концу BETTING — блайнд на выделенный исход, bet_updated с target', () => {
       const t = makeRoom(3)
       toKerriBetting(t)
       t.room.placeBet('p2', 100, 'win')
-      vi.spyOn(Math, 'random').mockReturnValue(0.7)   // ≥ 0.5 — «завалит»
+      t.room.stageChip('p3', [], 'lose')   // выделил «завалит», фишек не положил
       t.r.onPhaseEnd()   // конец BETTING
       expect(t.r.phase).toBe('QUESTION')
       expect(t.p('p3')).toMatchObject({ currentBet: 30, betTarget: 'lose', betChips: undefined })
@@ -214,11 +214,10 @@ describe('предметы, бонусы, блайнды', () => {
       expect(updates.some(d => d.playerId === 'p1')).toBe(false)
     })
 
-    it('случайная сторона: < 0.5 — «ответит»; единственный в толпе — лидер, у него большой', () => {
+    it('ничего не выделил — блайнд на «ответит»; единственный в толпе — лидер, у него большой', () => {
       const t = makeRoom(2)
       toKerriBetting(t)
       expect(t.p('p2')).toMatchObject({ blind: 50, bigBlind: true })
-      vi.spyOn(Math, 'random').mockReturnValue(0.2)
       t.r.onPhaseEnd()
       expect(t.p('p2')).toMatchObject({ currentBet: 50, betTarget: 'win' })
     })
