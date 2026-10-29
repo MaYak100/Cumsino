@@ -281,7 +281,7 @@ describe('друзья', () => {
     expect(q.options).toContain(q.answer)
     expect(q.optionNotes).toHaveLength(4)
     const c = room.pick('closest', { friends: [1, 2] })
-    expect(c.text).toBe('Аня и Боря: сколько игр вместе в рейтинге?')
+    expect(c.text).toBe('Сколько игр Аня и Боря сыграли вместе в рейтинге?')
     expect(c.numericAnswer).toBe(120)
     expect(c.unit).toBe('игр')
   })
@@ -294,18 +294,25 @@ describe('друзья', () => {
     spans: { ranked: { 1: { own: ['2022-10', '2026-10'] } }, turbo: {} },
   }
 
-  it('мейн: ник меткой, ловушка — мейн другого режима на месте соперника', () => {
+  it('ник компании — в родительном падеже по таблице GENITIVE', () => {
+    const g = new FriendsGen({ people: { 1101588971: { name: 'выбрудок', open: true }, 1548018309: { name: 'Rocinante', open: true } },
+      heroes: { ranked: {}, turbo: {} }, pairs: { ranked: {}, turbo: {} } } as never, {})
+    expect(g.whose(1101588971)).toBe('выбрудка')
+    expect(g.whose(1548018309)).toBe('Rocinante')
+  })
+
+  it('мейн: ник в родительном (нет в таблице — как есть), ловушка — мейн другого режима на месте соперника', () => {
     for (let seed = 1; seed <= 20; seed++) {
       const g = new FriendsGen(withTurbo, names, seeded(seed))
       const cands = kind('hero_main').candidates(g, [1, 3])
       // у Вовы и у Ани в Турбо меньше 4 героев от 20 игр — карточек нет
       expect(cands.map(c => c.card)).toEqual(['fr:hero_main:1:ranked'])
       const q = cands[0].build()!
-      expect(q.text).toBe('Аня: на каком из героев больше всего игр в рейтинге?')
+      expect(q.text).toBe('На каком из героев у Аня больше всего игр в рейтинге?')
       expect(q.answer).toBe('Pudge')
       expect(q.options).toContain('Tiny')
       expect(q.optionNotes![q.options!.indexOf('Tiny')]).toBe('35 игр')
-      expect(q.comment).toBe('Tiny — мейн в Турбо, а не в рейтинге. Вся история STRATZ — с октября 2022.')
+      expect(q.comment).toBe('Tiny — мейн Аня в Турбо, а не в рейтинге. Вся история STRATZ — с октября 2022.')
     }
   })
 
@@ -320,7 +327,7 @@ describe('друзья', () => {
     const wr = { ...metrics, heroes: { ...metrics.heroes, ranked: { ...metrics.heroes.ranked,
       1: { own: { 10: [200, 110], 11: [100, 40], 12: [60, 40], 13: [40, 22], 14: [35, 10] }, company: {} } } } }
     const best = kind('hero_wr').candidates(new FriendsGen(wr, names, seeded(4)), [1])[0].build()!
-    expect(best.text).toBe('Аня: на ком лучший винрейт в рейтинге?')
+    expect(best.text).toBe('На ком у Аня лучший винрейт в рейтинге?')
     expect(best.answer).toBe('Lina')
     expect(best.comment).toBe('Lina — 67% за 60 игр; в вариантах — герои от 30 игр. Вся история STRATZ.')
     // Tiny — 29% на 35 играх: хуже всех, но лидером быть не может (< 50 игр) — и в вариантах его нет
@@ -348,7 +355,7 @@ describe('друзья', () => {
     const cards = kind('self_wr').candidates(g, [1])
     expect(cards.map(c => c.card).sort()).toEqual([44, 45, 46, 47, 48, 49].map(h => `fr:self_wr:1:ranked:${h}`))
     const q = cards[0].build()!
-    expect(q.text).toMatch(/^Аня: какой винрейт на #4\d в рейтинге\?$/)
+    expect(q.text).toMatch(/^Какой винрейт у Аня на #4\d в рейтинге\?$/)
     expect(q.options).toContain(q.answer)
     expect(q.comment).toMatch(/^10\d игр.?, 50 побед\. Вся история STRATZ\.$/)
   })
@@ -356,7 +363,7 @@ describe('друзья', () => {
   it('игры на герое: единица «игр», аноним — «в пати», окно в comment', () => {
     const g = new FriendsGen(metrics, names, seeded(7))
     const [q] = kind('hero_games').candidates(g, [3]).map(c => c.build()!)
-    expect(q.text).toBe('Вова: сколько игр на Io в пати рейтинге?')
+    expect(q.text).toBe('Сколько игр у Вова на Io в пати рейтинге?')
     expect(q.numericAnswer).toBe(90)
     expect(q.unit).toBe('игр')
     expect(q.comment).toBe('Профиль скрыт: только игры в пати с открытыми профилями.')

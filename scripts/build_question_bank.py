@@ -102,6 +102,16 @@ MIXED_WORD = re.compile(r"\b\w*(?:[а-яё][a-z]|[a-z][а-яё])\w*\b", re.I)
 # старые и внутренние имена (модель пишет имя героя по памяти); текущие — scripts/data/dota/heroes.json
 LEGACY_HERO_NAMES = re.compile(r"\b(Outworld Destroyer|Obsidian Destroyer|Skeleton King|Windrunner|Furion|Necrolyte|"
                                r"Nevermore|Rattletrap|Zuus|Magnataur|Doom Bringer|Lord of Avernus)\b")
+CURRENT = Path("scripts/data/dota/current.json")
+
+
+def innate_abilities() -> set[str]:
+    """Ключи врождённых способностей: вопрос про них называет её прямо — «врождёнка X у героя», как нейтралки."""
+    heroes = json.loads(CURRENT.read_text(encoding="utf-8"))["heroes"]
+    return {a["key"] for h in heroes.values() for a in h["abilities"] if a.get("role") == "innate"}
+
+
+INNATE = innate_abilities()
 
 
 def run_questions(path: Path) -> list[dict]:
@@ -249,6 +259,8 @@ def text_problems(q: dict) -> list[str]:
             problems.append(f"латиница и кириллица в одном слове: «{m.group(0)}»")
         for m in LEGACY_HERO_NAMES.finditer(t):
             problems.append(f"старое имя героя: «{m.group(0)}»")
+    if q["id"].startswith("num:") and q["id"].split(":")[1] in INNATE and "врождёнк" not in q["text"].lower():
+        problems.append("врождённая способность: в тексте нужна «врождёнка X у героя»")
     return problems
 
 

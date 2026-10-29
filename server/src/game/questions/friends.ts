@@ -3,7 +3,8 @@
 // «Друзья»). Метрики — scripts/data/friends/metrics.json. Вопросы только про тех, кто опознан в лобби
 // («кто ты» при входе); категория получает вес, когда опознаны ≥ 2 человека.
 //
-// Ник — меткой в начале, без склонения: «выбрудок: на каком из героев больше всего игр в рейтинге?».
+// Ник — в родительном падеже (GENITIVE, формы сверены с компанией): «На каком из героев у выбрудка больше всего
+// игр в рейтинге?». В «Сколько игр X и Y сыграли вместе» — именительный.
 // Срезы: рейтинг (lobbyType RANKED) и Турбо, не смешиваются. Открытый профиль — вся история («в рейтинге»),
 // аноним — игры в пати с кем-то из открытых («в пати рейтинге»); окно выборки — в comment. Пары аноним + аноним
 // не спрашиваем. Отрыв лидера: счётчики ≥ 15%, винрейты ≥ 10 п.п. Герой (человек в «главном напарнике»),
@@ -35,6 +36,16 @@ const TOP_CARDS = 6
 const RANKED_PAIR_TOP_ONLY = 1101588971
 
 export const MIN_IDENTIFIED_FRIENDS = 2
+
+/** Родительный падеж ников компании (по steam id). Кого нет — ник не склоняется. */
+const GENITIVE: Record<number, string> = {
+  1101588971: 'выбрудка',
+  910030283: 'Блоха Иглы',
+  841374410: 'онального трахадоrа',
+  1023791464: 'DUPHЯ',
+  875585992: 'Питахайля',
+  1259367416: 'гнилого кулича',
+}
 
 type Span = [from: string, to: string]   // 'YYYY-MM'
 
@@ -81,6 +92,11 @@ export class FriendsGen {
 
   who(a: number): string {
     return this.m.people[a]?.name ?? String(a)
+  }
+
+  /** родительный падеж ника («у выбрудка»); нет в GENITIVE — ник как есть (Rocinante не склоняется) */
+  whose(a: number): string {
+    return GENITIVE[a] ?? this.who(a)
   }
 
   hero(h: number): string {
@@ -230,8 +246,8 @@ export const FRIEND_KINDS: FriendKind[] = [
           const trapOk = trap !== undefined && trap !== pick[0][0] && !used.has(trap) && gapCount(pick[0][1], gTrap)
           if (trapOk && !pick.some(([h]) => h === trap)) pick[3] = [trap, gTrap]
           const q = g.mc(`fr:hero_main:${a}:${mode}`, key, a,
-            `${g.who(a)}: на каком из героев больше всего игр ${g.where(a, mode)}?`, pick, h => g.hero(h), gamesNote)
-          q.comment = (trapOk ? `${g.hero(trap)} — мейн ${g.where(a, other(mode))}, а не ${g.where(a, mode)}. ` : '')
+            `На каком из героев у ${g.whose(a)} больше всего игр ${g.where(a, mode)}?`, pick, h => g.hero(h), gamesNote)
+          q.comment = (trapOk ? `${g.hero(trap)} — мейн ${g.whose(a)} ${g.where(a, other(mode))}, а не ${g.where(a, mode)}. ` : '')
             + g.window(a, mode)
           return q
         },
@@ -254,7 +270,7 @@ export const FRIEND_KINDS: FriendKind[] = [
         if (!pick) return null
         const [lead, wr] = pick[0]
         const q = g.mc(`fr:hero_wr:${a}:${mode}:${side}`, key, a,
-          `${g.who(a)}: на ком ${side === 'best' ? 'лучший' : 'худший'} винрейт ${g.where(a, mode)}?`,
+          `На ком у ${g.whose(a)} ${side === 'best' ? 'лучший' : 'худший'} винрейт ${g.where(a, mode)}?`,
           pick, h => g.hero(h), pct)
         q.comment = `${g.hero(lead)} — ${pct(wr)} за ${plural(stats.get(lead)!, 'игру', 'игры', 'игр')}; `
           + `в вариантах — герои от ${MIN_WR_GAMES} игр. ${g.window(a, mode)}`
@@ -272,7 +288,7 @@ export const FRIEND_KINDS: FriendKind[] = [
           const values = wrOptions(answer, selfWrStep(games), g.rng)
           return {
             id: `fr:self_wr:${a}:${mode}:${h}`, mode: 'all', topic: 'Друзья', displayTopic: g.who(a),
-            text: `${g.who(a)}: какой винрейт на ${g.hero(h)} ${g.where(a, mode)}?`,
+            text: `Какой винрейт у ${g.whose(a)} на ${g.hero(h)} ${g.where(a, mode)}?`,
             options: g.shuffle(values.map(v => `${v}%`)), answer: `${answer}%`,
             comment: `${plural(games, 'игра', 'игры', 'игр')}, ${plural(wins, 'победа', 'победы', 'побед')}. `
               + g.window(a, mode),
@@ -286,7 +302,7 @@ export const FRIEND_KINDS: FriendKind[] = [
       .map(([h, games]) => ({
         card: `fr:hero_games:${a}:${mode}:${h}`,
         build: () => g.closest(`fr:hero_games:${a}:${mode}:${h}`, g.who(a),
-          `${g.who(a)}: сколько игр на ${g.hero(h)} ${g.where(a, mode)}?`, games, g.window(a, mode)),
+          `Сколько игр у ${g.whose(a)} на ${g.hero(h)} ${g.where(a, mode)}?`, games, g.window(a, mode)),
       }))),
   },
   {
@@ -301,7 +317,7 @@ export const FRIEND_KINDS: FriendKind[] = [
         out.push({
           card: `fr:pair_games:${a}-${b}:${mode}`, group: `${a}-${b}`,
           build: () => g.closest(`fr:pair_games:${a}-${b}:${mode}`, `${g.who(a)} и ${g.who(b)}`,
-            `${g.who(a)} и ${g.who(b)}: сколько игр вместе ${MODE_TEXT[mode]}?`, n,
+            `Сколько игр ${g.who(a)} и ${g.who(b)} сыграли вместе ${MODE_TEXT[mode]}?`, n,
             `В одной команде${from ? `, ${from}` : ''}.`),
         })
       }
@@ -321,7 +337,7 @@ export const FRIEND_KINDS: FriendKind[] = [
           const pick = g.leaderSet(mates, gapCount)
           if (!pick) return null
           const q = g.mc(`fr:pair_top:${a}:${mode}`, key, a,
-            `${g.who(a)}: с кем больше всего общих игр ${MODE_TEXT[mode]}?`, pick, b => g.who(b), gamesNote)
+            `С кем у ${g.whose(a)} больше всего общих игр ${MODE_TEXT[mode]}?`, pick, b => g.who(b), gamesNote)
           // пары считаются по историям открытых профилей (аноним + аноним в варианты не попадает)
           q.comment = g.isOpen(a) ? `В одной команде. ${g.window(a, mode)}` : 'В одной команде, по историям открытых профилей.'
           return q
