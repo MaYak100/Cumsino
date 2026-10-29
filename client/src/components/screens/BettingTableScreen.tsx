@@ -4,7 +4,7 @@ import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore
 import { buildPhysicalChips, buildChipsForPlayer, pileOffset } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import type { ChipValue } from '../ui/Chip'
-import { PlayerSlot } from '../ui/PlayerSlot'
+import { PlayerSlot, UNIT_W, UNIT_H } from '../ui/PlayerSlot'
 import { BetZone } from '../ui/BetZone'
 import { Timer } from '../ui/Timer'
 import { socket } from '../../socket'
@@ -15,6 +15,7 @@ import { C, DISPLAY } from '../../theme'
 import { FeedTag, useFreshFeed } from '../ui/AnswerProgress'
 import {
   playerAngle,
+  unitPosition,
   landingZone,
   FELT_CX, FELT_CY,
   SCENE_W, SCENE_H,
@@ -26,23 +27,25 @@ import { Money } from '../ui/Money'
 // Сверху вниз: [кто отвечает + таймер, вопрос] — блок прибит низом к HEAD_BOTTOM и растёт вверх (зона ставки
 // верхнего соперника — около y≈187, туда не лезем) → две главные зоны в самой широкой части сукна → подпись
 // побочной ставки → 2×2 варианта-квитка → кнопка подтверждения.
-const HEAD_BOTTOM = 328
+const GAP = 12   // один зазор между блоками
+const HEAD_BOTTOM = 320
 const Q_W = 600
 
 const MAIN_W = 272
-const MAIN_H = 84
+const MAIN_H = 76
 const MAIN_GAP = 16
-const MAIN_TOP = 340
+const MAIN_TOP = HEAD_BOTTOM + GAP
 const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2
 const WIN_LEFT  = FELT_CX + MAIN_GAP / 2
 
-const SIDE_LABEL_TOP = MAIN_TOP + MAIN_H + 12
-const OPT_W = 260
-const OPT_H = 52
+const SIDE_LABEL_TOP = MAIN_TOP + MAIN_H + GAP
+const SIDE_LABEL_H = 17
+const OPT_W = 248   // ниже по сукну эллипс уже — шире не влезет
+const OPT_H = 66    // три строки текста
 const OPT_GAP = 8
-const OPT_TOP = SIDE_LABEL_TOP + 24
+const OPT_TOP = SIDE_LABEL_TOP + SIDE_LABEL_H + GAP
 const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2
-const CONFIRM_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 8
+const CONFIRM_TOP = OPT_TOP + 2 * OPT_H + OPT_GAP + GAP
 
 // Chip pixel size inside zones
 const CPIX = 28
@@ -186,11 +189,54 @@ export function BettingTableScreen() {
   }
 
   // ── Confirm ──────────────────────────────────────────────────────────────
-  // блайнд («для всех»): меньше него ставку не подтвердить; не подтвердил — сервер сам поставит блайнд
-  const myBlind = !isKerriMode && me?.blind && me.chips >= me.blind ? me.blind : 0
+  // блайнд («для всех» и толпа керри): меньше него ставку не подтвердить; не подтвердил — сервер поставит блайнд сам
+  // (в керри — на случайный исход)
+  const myBlind = !isGladiator && me?.blind && me.chips >= me.blind ? me.blind : 0
   const canConfirm = !betConfirmed && (
-    isKerriCrowd ? mainTarget !== null && mainBetAmt > 0 : stdBetAmt > 0 && stdBetAmt >= myBlind
+    isKerriCrowd ? mainTarget !== null && mainBetAmt > 0 && mainBetAmt >= myBlind : stdBetAmt > 0 && stdBetAmt >= myBlind
   )
+
+  // ── Быстрая ставка: min / 25% / 50% / all-in ─────────────────────────────
+  // Заменяет выложенное (в керри — основную ставку) на нужную сумму: фишки берутся жадно, от крупных, и летят
+  // каскадом. Ставка уходит только по «Ставлю».
+  const quickTimers = useRef<number[]>([])
+  useEffect(() => () => quickTimers.current.forEach(clearTimeout), [])
+  const balance = me?.chips ?? 0
+  const quickAmounts = (() => {
+    const free = balance - (isKerriCrowd ? bankBetAmt : 0)
+    const ceil10 = (x: number) => Math.ceil(x / 10) * 10
+    const min = Math.max(10, myBlind)
+    const clamp = (x: number) => Math.min(free, Math.max(min, ceil10(x)))
+    return [
+      { label: 'min', amount: Math.min(free, min) },
+      { label: '25%', amount: clamp(balance * 0.25) },
+      { label: '50%', amount: clamp(balance * 0.5) },
+      { label: 'all-in', amount: free },
+    ]
+  })()
+  const quickBet = (target: number) => {
+    if (betConfirmed || target <= 0) return
+    if (isKerriCrowd && !mainTarget) return
+    quickTimers.current.forEach(clearTimeout)
+    quickTimers.current = []
+    const busy = isKerriCrowd ? bankPlacedIds : new Set<string>()
+    const pool = myStack.filter(c => !busy.has(c.id)).sort((a, b) => b.denom - a.denom)
+    let rest = target
+    const pick: PhysicalChip[] = []
+    for (const c of pool) if (c.denom <= rest) { pick.push(c); rest -= c.denom }
+    if (rest > 0) {   // ровно не сложилось — добираем одной фишкой сверху
+      const extra = pool.filter(c => !pick.includes(c)).reverse().find(c => c.denom >= rest)
+      if (extra) pick.push(extra)
+    }
+    const setIds = isKerriCrowd ? setMainPlacedIds : setStdPlacedIds
+    setIds(new Set())
+    if (isKerriCrowd) setActiveZone('main')
+    pick.forEach((c, i) => quickTimers.current.push(window.setTimeout(() => {
+      setIds(prev => new Set([...prev, c.id]))
+    }, 60 + i * 55)))
+    socket.emit('stage_chip', { chips: [...pick.map(c => c.denom), ...(isKerriCrowd ? bankPlacedChips.map(c => c.denom) : [])] })
+  }
+  const myUnit = unitPosition(playerAngle(0, Math.max(1, gameState.players.length)), UNIT_W, UNIT_H, 0)
 
   const handleConfirm = () => {
     if (!canConfirm) return
@@ -338,14 +384,13 @@ export function BettingTableScreen() {
                 return (
                   <div key={target}>
                     <motion.div
-                      whileHover={betConfirmed ? undefined : { y: -2 }}
-                      whileTap={betConfirmed ? undefined : { scale: 0.97 }}
                       style={{
                         position: 'absolute', left, top: MAIN_TOP, width: MAIN_W, height: MAIN_H, zIndex: 6,
                         borderRadius: 16,
                         border: `2px ${sel ? 'solid' : 'dashed'} ${sel ? color : `${color}66`}`,
                         background: active ? `${color}2e` : sel ? `${color}14` : 'rgba(8,17,14,0.5)',
                         boxShadow: active ? `0 0 30px ${color}55, inset 0 0 0 1px ${color}` : 'none',
+                        willChange: 'auto',
                         cursor: betConfirmed ? 'default' : 'pointer',
                         transition: 'border-color .18s, background .18s, box-shadow .18s',
                       }}
@@ -421,28 +466,24 @@ export function BettingTableScreen() {
                               : isActive ? 'rgba(242,182,48,0.16)' : isSel ? 'rgba(242,182,48,0.07)' : 'rgba(8,17,14,0.5)',
                             boxShadow: isActive ? '0 0 20px rgba(242,182,48,0.3)' : 'none',
                             cursor: isCorrect || betConfirmed ? 'default' : 'pointer',
-                            display: 'flex', alignItems: 'center', gap: 10, padding: '0 12px',
+                            display: 'flex', alignItems: 'center', gap: 8, padding: '0 12px 0 14px',
                             transition: 'border-color .18s, background .18s, box-shadow .18s',
                           }}
                           onClick={isCorrect ? undefined : () => selectBankZone(idx)}
                         >
                           <span style={{
-                            width: 22, height: 22, borderRadius: 6, flexShrink: 0,
-                            background: isCorrect ? C.mint : isActive ? C.brass : 'rgba(8,17,14,0.7)',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 11, fontFamily: DISPLAY, color: isCorrect || isActive ? C.ink : C.muted,
-                          }}>
-                            {idx + 1}
-                          </span>
-                          <span style={{
                             flex: 1, fontSize: 14, fontWeight: 600, lineHeight: 1.25,
                             color: isCorrect ? C.mint : isActive ? C.brass : C.fg,
-                            overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical',
                           } as React.CSSProperties}>
                             {opt}
                           </span>
                           {isCorrect ? (
-                            <span style={{ fontSize: 12, fontWeight: 700, color: C.mint, flexShrink: 0 }}>верный</span>
+                            // бейджем на кромке, не в строке — тексту варианта нужна вся ширина
+                            <span style={{
+                              position: 'absolute', top: -9, right: 10, fontSize: 11, fontWeight: 800, lineHeight: 1,
+                              padding: '3px 7px', borderRadius: 999, background: C.mint, color: C.ink,
+                            }}>верный</span>
                           ) : isSel && bankBetAmt > 0 ? (
                             <span style={{ fontFamily: DISPLAY, fontSize: 14, color: C.brass, flexShrink: 0, fontVariantNumeric: 'tabular-nums' }}>
                               <Money v={bankBetAmt} />
@@ -516,7 +557,7 @@ export function BettingTableScreen() {
 
         {/* ── Confirm button (kerri crowd) ── */}
         <AnimatePresence>
-          {isKerriCrowd && !betConfirmed && mainTarget !== null && mainBetAmt > 0 && (
+          {isKerriCrowd && !betConfirmed && mainTarget !== null && mainBetAmt > 0 && mainBetAmt >= myBlind && (
             <motion.div
               initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -546,22 +587,64 @@ export function BettingTableScreen() {
 
         {/* ── Блайнд: сколько минимум (пока ставка не дотягивает) ── */}
         <AnimatePresence>
-          {!isKerriMode && !betConfirmed && myBlind > 0 && stdBetAmt < myBlind && (
+          {!betConfirmed && myBlind > 0 && (isKerriCrowd ? !(mainTarget !== null && mainBetAmt >= myBlind) : stdBetAmt < myBlind) && (
             <motion.div
               initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               style={{
-                position: 'absolute', left: FELT_CX + 80, top: 614, zIndex: 30,
+                position: 'absolute', zIndex: 30,
+                ...(isKerriCrowd ? { left: FELT_CX, top: CONFIRM_TOP + 6, translateX: '-50%' } : { left: FELT_CX + 80, top: 614 }),
                 fontSize: 15, fontWeight: 700, color: C.fg, whiteSpace: 'nowrap',
                 background: 'rgba(12,21,19,0.8)', borderRadius: 999, padding: '6px 14px',
                 border: `1.5px dashed ${C.brass}`,
               }}
             >
               {me?.bigBlind ? 'Большой блайнд' : 'Малый блайнд'}: <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
+              {isKerriCrowd && !mainTarget && <span style={{ color: C.muted, fontWeight: 600 }}> — выбери исход</span>}
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* ── Быстрая ставка: по две кнопки с боков от моей стопки ── */}
+        {!isGladiator && !betConfirmed && me && balance >= 10 && (
+          <>
+            {[quickAmounts.slice(0, 2), quickAmounts.slice(2)].map((col, ci) => (
+              <div key={ci} style={{
+                position: 'absolute', zIndex: 30, top: myUnit.top + 2,
+                left: ci === 0 ? myUnit.left - 86 : myUnit.left + UNIT_W + 6,
+                display: 'flex', flexDirection: 'column', gap: 6,
+              }}>
+                {col.map(q => (
+                  <QuickButton key={q.label} label={q.label} amount={q.amount}
+                    disabled={isKerriCrowd && !mainTarget} onClick={() => quickBet(q.amount)} />
+                ))}
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
+  )
+}
+
+/** Быстрая ставка: подпись и сумма; выкладывает фишки, подтверждать — «Ставлю». */
+function QuickButton({ label, amount, disabled, onClick }: { label: string; amount: number; disabled: boolean; onClick: () => void }) {
+  return (
+    <motion.button
+      onClick={disabled ? undefined : onClick}
+      whileHover={disabled ? undefined : { y: -2 }}
+      whileTap={disabled ? undefined : { scale: 0.92 }}
+      title={disabled ? 'Сначала выбери исход' : undefined}
+      style={{
+        width: 80, height: 40, borderRadius: 10, cursor: disabled ? 'default' : 'pointer',
+        background: C.panel, border: `1.5px solid ${label === 'all-in' ? C.hot : C.line}`,
+        color: C.fg, opacity: disabled ? 0.4 : 1,
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', lineHeight: 1.05,
+        boxShadow: '0 6px 14px rgba(0,0,0,.45)',
+      }}
+    >
+      <span style={{ fontFamily: DISPLAY, fontSize: 13, color: label === 'all-in' ? C.hot : C.brass }}>{label}</span>
+      <span style={{ fontSize: 11, fontWeight: 700, color: C.muted }}><Money v={amount} /></span>
+    </motion.button>
   )
 }
 

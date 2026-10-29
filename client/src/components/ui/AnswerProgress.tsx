@@ -4,7 +4,6 @@ import type { ItemId, Player } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C } from '../../theme'
 import { ItemIcon, ITEM_LABEL } from './ItemIcon'
-import { StreakFlame } from './StreakFlame'
 
 const FEED_MS = 2800
 
@@ -35,7 +34,6 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
             <AnimatePresence>
               {last && <FeedTag key={last.at} item={last.item} />}
             </AnimatePresence>
-            <StreakFlame streak={p.streak} radius={999}>
             <motion.button
               type="button"
               disabled={!target}
@@ -57,7 +55,6 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
               {me ? 'Ты' : p.name}
               <Marks p={p} />
             </motion.button>
-            </StreakFlame>
             {gem && (
               <motion.span
                 initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}

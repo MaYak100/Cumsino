@@ -4,6 +4,7 @@ import { WIN_CHIPS } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { RateQuestion } from '../ui/RateQuestion'
+import { StreakFlame } from '../ui/StreakFlame'
 import { Money } from '../ui/Money'
 
 type Phase = 1 | 2 | 3
@@ -173,8 +174,12 @@ export function RoundResultsScreen() {
                     {rank}
                   </span>
                   <div className="order-2 min-w-0">
-                    <div className="font-bold truncate" style={{ fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
+                    <div className="pt-3">
+                      <StreakFlame streak={playerMap.get(e.playerId)?.streak} radius={6}>
+                        <div className="font-bold truncate px-1.5 rounded-md" style={{ background: C.bg,  fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
                       {me ? 'Ты' : e.name}
+                    </div>
+                      </StreakFlame>
                     </div>
                     {e.sources.length > 0 && (
                       <div className="flex flex-wrap gap-x-3 text-[0.75rem] leading-tight mt-0.5">
