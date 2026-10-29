@@ -188,11 +188,13 @@ export function BettingTableScreen() {
   const handleConfirm = () => {
     if (!canConfirm) return
     if (isKerriCrowd) {
+      const withBank = bankTarget !== null && bankBetAmt > 0
       socket.emit('place_bet', {
         amount: mainBetAmt,
         target: mainTarget,
-        chips: mainPlacedChips.map(c => c.denom),
-        ...(bankTarget !== null && bankBetAmt > 0 ? { bankBet: { optionIndex: bankTarget, amount: bankBetAmt } } : {}),
+        // те же фишки и в том же порядке, что в черновике (stage_chip): основная, затем банк — у соперников ничего не пропадает
+        chips: [...mainPlacedChips, ...(withBank ? bankPlacedChips : [])].map(c => c.denom),
+        ...(withBank ? { bankBet: { optionIndex: bankTarget, amount: bankBetAmt } } : {}),
       })
     } else {
       socket.emit('place_bet', { amount: stdBetAmt, chips: stdPlacedChips.map(c => c.denom) })

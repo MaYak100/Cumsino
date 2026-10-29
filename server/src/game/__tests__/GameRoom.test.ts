@@ -595,6 +595,79 @@ describe('GameRoom', () => {
   })
 
   // -------------------------------------------------------------------------
+  // Фишки ставки на сукне: соперники видят ровно то, что игрок выложил
+  // -------------------------------------------------------------------------
+
+  describe('betChips — фишки ставки для соперников', () => {
+    function betting(room: GameRoom, mode: 'all' | 'kerri') {
+      const r = priv(room)
+      r.phase = 'BETTING'
+      r.currentMode = mode
+      r.gladiatorId = mode === 'kerri' ? 'p1' : undefined
+      r.currentQuestion = { ...mcQ }
+    }
+    const betUpdated = (broadcasts: Array<{ event: string; data: any }>, playerId: string) =>
+      broadcasts.filter(b => b.event === 'bet_updated' && b.data.playerId === playerId).at(-1)?.data
+    const publicChips = (room: GameRoom, id: string) => room.getPublicState().players.find(p => p.id === id)!.betChips
+
+    it('all: номиналы и порядок черновика сохраняются (без сортировки и разложения)', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      betting(room, 'all')
+      room.placeBet('p2', 110, undefined, [50, 10, 50])
+      expect(betUpdated(broadcasts, 'p2').chips).toEqual([50, 10, 50])
+      expect(publicChips(room, 'p2')).toEqual([50, 10, 50])
+    })
+
+    it('kerri: основная + банк — betChips хранит все фишки, currentBet только основную', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      betting(room, 'kerri')
+      room.placeBet('p2', 100, 'lose', [50, 50, 20, 10], { optionIndex: 1, amount: 30 })
+      const p2 = priv(room).players.get('p2')
+      expect(p2.currentBet).toBe(100)
+      expect(p2.bankBet).toEqual({ optionIndex: 1, amount: 30 })
+      expect(betUpdated(broadcasts, 'p2').chips).toEqual([50, 50, 20, 10])
+      expect(publicChips(room, 'p2')).toEqual([50, 50, 20, 10])
+    })
+
+    it('kerri: банк-ставка отклонена — на сукне остаётся только основная', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      betting(room, 'kerri')
+      room.placeBet('p2', 100, 'win', [50, 50, 20, 10], { optionIndex: 0, amount: 30 })   // 0 = верный вариант
+      expect(priv(room).players.get('p2').bankBet).toBeUndefined()
+      expect(betUpdated(broadcasts, 'p2').chips).toEqual([50, 50])
+    })
+
+    it('kerri: без банк-ставки — только основная', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 3)
+      betting(room, 'kerri')
+      room.placeBet('p3', 110, 'win', [100, 10])
+      expect(betUpdated(broadcasts, 'p3').chips).toEqual([100, 10])
+    })
+
+    it('сумма фишек не сходится со ставкой — betChips нет (клиент разложит сумму)', () => {
+      const { room, broadcasts } = makeRoom()
+      addPlayers(room, 2)
+      betting(room, 'all')
+      room.placeBet('p1', 100, undefined, [50, 20])
+      expect(betUpdated(broadcasts, 'p1').chips).toBeUndefined()
+      expect(priv(room).players.get('p1').currentBet).toBe(100)
+    })
+
+    it('game_state посреди BETTING (кто-то зашёл) не затирает betChips', () => {
+      const { room } = makeRoom()
+      addPlayers(room, 3)
+      betting(room, 'kerri')
+      room.placeBet('p2', 100, 'lose', [50, 50, 20, 10], { optionIndex: 1, amount: 30 })
+      room.addPlayer('p4', 'P4')
+      expect(room.getStateForPlayer('p3').players.find(p => p.id === 'p2')!.betChips).toEqual([50, 50, 20, 10])
+    })
+  })
+
+  // -------------------------------------------------------------------------
   // calculateResults — режим ALL
   // -------------------------------------------------------------------------
 

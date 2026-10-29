@@ -25,6 +25,8 @@ export interface Player {
   chips: number
   currentBet: number
   betTarget?: 'win' | 'lose'
+  /** номиналы фишек на сукне в порядке выкладки (как в черновике stage_chip); у толпы керри — основная ставка,
+   *  затем банк-ставка, т. е. сумма может быть больше currentBet */
   betChips?: number[]
   answer?: string | number | string[]
   hasAnswered: boolean
@@ -79,6 +81,7 @@ export interface RoundResult {
 
 // Socket event payloads — Client → Server
 export interface JoinGamePayload { name: string; gameCode: string }
+/** chips — все фишки игрока на сукне (с банк-ставкой: сначала основная, потом банк) — сервер хранит их в betChips */
 export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose'; chips?: number[]; bankBet?: { optionIndex: number; amount: number } }
 export interface PlaceBankBetPayload { optionIndex: number; amount: number }
 export interface SubmitAnswerPayload { answer: string | number | string[] }

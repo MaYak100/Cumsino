@@ -16,6 +16,18 @@ interface PlayerWithBankBet extends Player {
   bankBet?: { optionIndex: number; amount: number }
 }
 
+/** Начало списка фишек, сумма которого ровно total (фишки > 0 — такой префикс один); нет — undefined. */
+function chipsPrefix(chips: number[], total: number): number[] | undefined {
+  if (total === 0) return []
+  let sum = 0
+  for (let i = 0; i < chips.length; i++) {
+    sum += chips[i]
+    if (sum === total) return chips.slice(0, i + 1)
+    if (sum > total) return undefined
+  }
+  return undefined
+}
+
 interface BribeAuctionState {
   price: number
   cycleIndex: number       // 0 = first win turn, increments each time Завалит pays
@@ -165,15 +177,20 @@ export class GameRoom extends EventEmitter {
 
     player.currentBet = amount
     if (target) player.betTarget = target
-    if (chips && chips.reduce((a, b) => a + b, 0) === amount) player.betChips = chips
 
+    let acceptedBank = 0
     if (bankBet && this.currentMode === 'kerri' && this.currentQuestion?.options) {
       const { optionIndex, amount: bankAmount } = bankBet
       if (this.bankBetTargetOk(optionIndex) && bankAmount > 0 && amount + bankAmount <= player.chips) {
         player.bankBet = { optionIndex, amount: bankAmount }
+        acceptedBank = bankAmount
         this.broadcast('bank_bet_updated', { playerId, optionIndex, amount: bankAmount })
       }
     }
+
+    // Фишки на сукне — те же, что были в черновике (stage_chip): у толпы керри это [...основная, ...банк].
+    // Банк-ставку отклонили — остаётся префикс основной; сумма не сходится — нет фишек (клиент разложит сумму).
+    player.betChips = chips && (chipsPrefix(chips, amount + acceptedBank) ?? chipsPrefix(chips, amount))
 
     this.broadcast('bet_updated', { playerId, amount, target, chips: player.betChips })
 
