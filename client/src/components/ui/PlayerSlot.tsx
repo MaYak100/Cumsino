@@ -5,6 +5,7 @@ import type { ChipValue } from './Chip'
 import { PhysicalChipStack } from './PhysicalChipStack'
 import { unitPosition } from '../../lib/tableGeometry'
 import { C, DISPLAY } from '../../theme'
+import { Money } from './Money'
 
 const UNIT_W = 200
 const CHIP_ROW_H = 52
@@ -84,7 +85,7 @@ export function NamePlate({ name, isMe, balance }: { name: string; isMe: boolean
           fontFamily: DISPLAY, fontSize: 16, fontVariantNumeric: 'tabular-nums',
           color: isMe ? C.brass : C.fg, whiteSpace: 'nowrap',
         }}>
-          ${balance}
+          <Money v={balance} />
         </span>
       )}
     </div>

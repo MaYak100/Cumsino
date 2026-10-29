@@ -3,6 +3,7 @@ import { WIN_CHIPS } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { Logo } from '../ui/Logo'
+import { Money } from '../ui/Money'
 
 /** Вошёл посреди раунда: видно стол и гонку, со следующего раунда — в игре. */
 export function LateJoinScreen() {
@@ -41,7 +42,7 @@ export function LateJoinScreen() {
               <div className="relative h-2.5 rounded" style={{ background: C.panel2 }}>
                 <div className="absolute left-0 top-0 h-full rounded" style={{ width: `${pct(p.chips)}%`, background: me ? C.brass : C.muted }} />
               </div>
-              <span className="text-right tnum" style={{ fontFamily: DISPLAY, fontSize: '0.9375rem' }}>${p.chips}</span>
+              <span className="text-right tnum" style={{ fontFamily: DISPLAY, fontSize: '0.9375rem' }}><Money v={p.chips} /></span>
             </motion.div>
           )
         })}

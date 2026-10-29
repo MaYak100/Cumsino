@@ -5,6 +5,7 @@ import { C, DISPLAY } from '../../theme'
 import { Logo } from '../ui/Logo'
 import { Sticker } from '../ui/Sticker'
 import { WhoAreYou } from '../ui/WhoAreYou'
+import { Money } from '../ui/Money'
 
 /** Наклон от имени — у каждого свой и не меняется между рендерами. */
 const tilt = (s: string) => ((s.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 9) - 4) * 0.9
@@ -86,8 +87,8 @@ export function LobbyScreen() {
             style={{ width: `${(STARTING_CHIPS / WIN_CHIPS) * 100}%`, background: C.brass }} />
         </div>
         <div className="flex justify-between mt-2 text-[0.8125rem] tnum" style={{ color: C.muted }}>
-          <span>У всех по ${STARTING_CHIPS}</span>
-          <span>Первый до <b style={{ color: C.fg }}>${WIN_CHIPS}</b> побеждает</span>
+          <span>У всех по <Money v={STARTING_CHIPS} /></span>
+          <span>Первый до <b style={{ color: C.fg }}><Money v={WIN_CHIPS} /></b> побеждает</span>
         </div>
       </div>
     </div>

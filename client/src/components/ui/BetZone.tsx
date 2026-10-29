@@ -3,6 +3,7 @@ import { pileOffset } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import { chipStyle } from '../../lib/chipStyle'
 import { C, DISPLAY } from '../../theme'
+import { Money } from './Money'
 
 interface Props {
   cx: number
@@ -77,7 +78,7 @@ export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
           pointerEvents: 'none',
           zIndex: 40,
         }}>
-          ${total}
+          <Money v={total} />
         </div>
       )}
     </>

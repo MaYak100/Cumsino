@@ -3,6 +3,7 @@ import { WIN_CHIPS } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { Sticker } from '../ui/Sticker'
+import { Money } from '../ui/Money'
 
 export function GameOverScreen() {
   const winner = useGameStore(s => s.winner)
@@ -48,7 +49,7 @@ export function GameOverScreen() {
                   transition={{ delay: 0.8 + i * 0.06, duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
                 />
               </div>
-              <span className="text-right tnum" style={{ fontFamily: DISPLAY, color: i === 0 ? C.brass : C.fg }}>${p.chips}</span>
+              <span className="text-right tnum" style={{ fontFamily: DISPLAY, color: i === 0 ? C.brass : C.fg }}><Money v={p.chips} /></span>
             </motion.div>
           )
         })}

@@ -19,6 +19,7 @@ import {
   SCENE_W, SCENE_H,
   useSceneScale,
 } from '../../lib/tableGeometry'
+import { Money } from '../ui/Money'
 
 // Раскладка керри-толпы в координатах сцены (сукно: центр 650×415, внутренние полуоси 380×248).
 // Сверху вниз: [кто отвечает + таймер, вопрос] — блок прибит низом к HEAD_BOTTOM и растёт вверх (зона ставки
@@ -356,7 +357,7 @@ export function BettingTableScreen() {
                           position: 'absolute', right: 12, bottom: 8,
                           fontFamily: DISPLAY, fontSize: 14, fontVariantNumeric: 'tabular-nums', color,
                         }}>
-                          ${total}
+                          <Money v={total} />
                         </div>
                       )}
                     </motion.div>
@@ -438,7 +439,7 @@ export function BettingTableScreen() {
                             <span style={{ fontSize: 12, fontWeight: 700, color: C.mint, flexShrink: 0 }}>верный</span>
                           ) : isSel && bankBetAmt > 0 ? (
                             <span style={{ fontFamily: DISPLAY, fontSize: 14, color: C.brass, flexShrink: 0, fontVariantNumeric: 'tabular-nums' }}>
-                              ${bankBetAmt}
+                              <Money v={bankBetAmt} />
                             </span>
                           ) : null}
                         </div>
@@ -548,7 +549,7 @@ function ConfirmButton({ amount, onClick }: { amount: number; onClick: () => voi
         boxShadow: '0 4px 0 #a87a17, 0 10px 24px rgba(0,0,0,.5)',
       }}
     >
-      Ставлю <span style={{ fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums' }}>${amount}</span>
+      Ставлю <span style={{ fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums' }}><Money v={amount} /></span>
     </motion.button>
   )
 }

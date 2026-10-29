@@ -4,6 +4,7 @@ import { WIN_CHIPS } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { RateQuestion } from '../ui/RateQuestion'
+import { Money } from '../ui/Money'
 
 type Phase = 1 | 2 | 3
 const TICKS = [500, 1000, 1500, 2000, 2500]
@@ -57,7 +58,7 @@ function Track({ prev, next, phase, compact }: { prev: number; next: number; pha
           transform: inside ? 'translateX(calc(-100% - 6px))' : 'translateX(8px)',
           color: inside ? C.ink : C.fg,
         }}>
-          ${end}
+          <Money v={end} />
         </span>
       </motion.div>
     </div>
@@ -198,7 +199,7 @@ export function RoundResultsScreen() {
                       color: e.delta > 0 ? C.mint : e.delta < 0 ? C.hot : C.muted,
                     }}
                   >
-                    {e.delta > 0 ? '+' : e.delta < 0 ? '−' : ''}${Math.abs(e.delta)}
+                    {e.delta > 0 ? '+' : e.delta < 0 ? '−' : ''}<Money v={Math.abs(e.delta)} />
                   </motion.span>
                 </motion.div>
               )

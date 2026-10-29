@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { WIN_CHIPS } from '@cumsino/shared'
 import { useGameStore, selectMe } from '../../store/gameStore'
 import { C, DISPLAY, MODE, modeColor } from '../../theme'
+import { Money } from './Money'
 
 /** Узкая гонка 0 → 3000: точка на каждого, своя — крупнее. */
 export function MiniRace() {
@@ -69,7 +70,7 @@ export function GameHud() {
 
       {me && (
         <div className="flex items-center gap-2 shrink-0 ml-auto sm:ml-0">
-          <span className="tnum" style={{ fontFamily: DISPLAY, fontSize: '1.4rem', color: C.fg }}>${me.chips}</span>
+          <span className="tnum" style={{ fontFamily: DISPLAY, fontSize: '1.4rem', color: C.fg }}><Money v={me.chips} /></span>
         </div>
       )}
     </div>
