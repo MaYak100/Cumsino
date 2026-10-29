@@ -13,10 +13,12 @@
     comment — что за число и за какое окно.
 
 Формат bank.json:
-  {snapshot, patch, subcategories: [{id, mode: mc|closest, topic, display, comment, weight, gap?, note?, layout?, pools}]}
+  {snapshot, patch, subcategories: [{id, mode: mc|closest, topic, display, comment, weight, gap?, note?, layout?, topLead?, pools}]}
   gap:         {rel | abs, maxRel?}
   note:        count — числа (к/М по максимуму четвёрки) | pct — доля 0…1 → «53.5%» | pct0 — «62%» | pp — п.п. «+1.4»
   layout:      talent_tree — варианты не перемешиваются, стоят как в дереве талантов (сверху 25 ур., снизу 20 ур.)
+  topLead:     true — ответ всегда лидер всего пула (а не «среди показанных»): пул собран здесь (4 записи), между
+               вопросами исключается только герой вопроса, варианты (ботинки) повторяться могут
   mc-пул:      {subject?, entries: [[name, value, note]], asks: [{ask: max|min, text}]}
   exclusive:   [[a, b]] — не ставить в одну четвёрку (компонент и его улучшение: Arcane ≥ Guardian Greaves всегда)
   closest-пул: {subject, text, answer}
@@ -50,7 +52,11 @@ WR_GAP = {"abs": 0.025}            # 1.5 п.п. — почти монетка (2
 PICK_GAP = {"rel": 0.15}
 ITEM_GAP = {"rel": 0.10, "maxRel": 3}
 ITEM_HERO_GAP = {"rel": 0.15, "maxRel": 3}
-BOOTS_GAP = {"rel": 0.15, "maxRel": 2.5}
+# ботинки (2026-10-29): ответ — настоящие самые популярные ботинки героя (topLead), второе место — не дальше ×2.5
+# и не ближе 10% (Gyrocopter 32.3% / 31.4%, Silencer — монетка); из 127 героев остаётся 25 — у остальных одни
+# ботинки с огромным отрывом (Arcane у саппортов, Treads у керри), ответ очевиден
+BOOTS_GAP = {"rel": 0.10, "maxRel": 2.5}
+BOOTS_MIN_SHARE = 0.0005           # 3-й и 4-й варианты — от 0.05%: подпись не меньше «0.1%», не «0.0%»
 HEAL_ALLIES_MIN = 500              # заметный хил союзникам — иначе шум «хилит / не хилит»
 ITEM_MIN_COST = 2000
 ITEM_BASIC_KEEP = {"blink", "aghanims_shard"}           # без рецепта, но законченные предметы
@@ -431,16 +437,32 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
     boots = defaultdict(list)
     for r in load(snap / "stratz/boots.json")["rows"]:
         if r["window_id"] == "boots_patch" and r["hero_id"] is not None and r["item"] not in BOOTS_SKIP:
-            boots[r["hero_id"]].append([r["item"], r["purchases"], sig3(r["purchases"])])
+            boots[r["hero_id"]].append([r["item"], r["purchases"]])
+    bweeks = next(d["window"]["weeks"] for d in load(snap / "stratz/manifest.json")["datasets"]
+                  if d["id"] == "boots_patch")
+    bad = {frozenset(x) for x in upgrade_pairs({e[0] for es in boots.values() for e in es})}
     pools = []
-    for h, entries in sorted(boots.items()):
-        entries.sort(key=lambda e: -e[1])
-        pools.append(mc_pool(entries, ("max", f"Какие из этих ботинок чаще всего собирают на {names[h]}?"),
+    for h, rows_ in sorted(boots.items()):
+        total = sum(v for _, v in rows_)
+        rows_.sort(key=lambda e: -e[1])
+        # лидер + следующие по популярности, без пар компонент / улучшение (Arcane ≥ Guardian Greaves всегда)
+        top = []
+        for name, v in rows_:
+            if len(top) == 4:
+                break
+            if all(frozenset((name, t[0])) not in bad for t in top) and (len(top) < 2 or v / total >= BOOTS_MIN_SHARE):
+                top.append([name, v / total, pct(v / total)])
+        if len(top) < 4 or not (gap_ok(top[0][1], top[1][1], BOOTS_GAP, "max")
+                                and cap_ok(top[0][1], top[1][1], BOOTS_GAP, "max")):
+            continue
+        pools.append(mc_pool(top, ("max", f"Какие из этих ботинок чаще всего собирают на {names[h]}?"),
                              subject=names[h]))
     bank.add({"id": "boots_hero", "mode": "mc", "topic": "Предметы", "display": "Ботинки героя",
-              "comment": f"Число покупок ботинок на герое за патч {bank.patch} ({window}).",
-              "gap": BOOTS_GAP, "note": "count", "weight": 1, "pools": pools,
-              "exclusive": upgrade_pairs({e[0] for p in pools for e in p["entries"]})})
+              "comment": f"Доля среди всех покупок ботинок на герое, кроме Boots of Speed, за патч {bank.patch} "
+                         f"(STRATZ, {weeks_span(bweeks)}). Ответ — самые популярные ботинки на герое вообще, "
+                         f"не только среди показанных.",
+              "gap": BOOTS_GAP, "note": "pct", "weight": 1, "topLead": True, "pools": pools,
+              "exclusive": sorted(sorted(x) for x in bad)})
 
 
 # ---------- main ----------

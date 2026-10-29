@@ -255,6 +255,37 @@ describe('StatQuestionBuilder — closest', () => {
   })
 })
 
+describe('StatQuestionBuilder — topLead (ботинки)', () => {
+  const boots = (hero: string, vals: Array<[string, number]>): StatMcPool =>
+    ({ subject: hero, entries: vals.map(([n, v]) => [n, v, `${v}`]), asks: [{ ask: 'max', text: `Ботинки ${hero}?` }] })
+
+  it('ответ — лидер пула; варианты (ботинки) между героями повторяются, исключается только герой', () => {
+    const b = bank({ topLead: true, gap: { rel: 0.1, maxRel: 2.5 }, note: 'pct', pools: [
+      boots('Dark Willow', [['Tranquil Boots', 0.47], ['Arcane Boots', 0.38], ['Power Treads', 0.06], ['Boots of Travel', 0.03]]),
+      boots('Tusk', [['Tranquil Boots', 0.40], ['Phase Boots', 0.28], ['Arcane Boots', 0.22], ['Power Treads', 0.04]]),
+      boots('Earthshaker', [['Arcane Boots', 0.44], ['Power Treads', 0.25], ['Boots of Travel', 0.14], ['Phase Boots', 0.12]]),
+    ] })
+    for (let seed = 1; seed <= 20; seed++) {
+      const p = picker(b, seeded(seed))
+      const qs = [p.pick('all')!, p.pick('all')!, p.pick('all')!]
+      expect(p.pick('all')).toBeNull()                       // герои кончились
+      const answers = Object.fromEntries(qs.map(q => [q.displayTopic, q.answer]))
+      expect(answers).toEqual({
+        'D: Dark Willow': 'Tranquil Boots', 'D: Tusk': 'Tranquil Boots', 'D: Earthshaker': 'Arcane Boots',
+      })
+      for (const q of qs) expect(q.optionNotes![q.options!.indexOf(q.answer!)]).toMatch(/^4\d\.0%$/)
+    }
+  })
+
+  it('лидер в вариантах, даже когда без него четвёрка проходит гейт (Drow: Treads ×22 от второго)', () => {
+    const b = bank({ topLead: true, gap: { rel: 0.1, maxRel: 1.5 }, pools: [
+      boots('Drow Ranger', [['Power Treads', 945], ['Boots of Travel', 42], ['Boots of Travel 2', 6], ['Phase Boots', 5],
+        ['Tranquil Boots', 2], ['Arcane Boots', 1]]),
+    ] })
+    for (let seed = 1; seed <= 10; seed++) expect(picker(b, seeded(seed)).pick('all')!.answer).toBe('Power Treads')
+  })
+})
+
 describe('настоящий bank.json', () => {
   const file = path.join(__dirname, '..', '..', '..', '..', '..', 'scripts', 'data', 'stats', 'bank.json')
   const real = fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, 'utf-8')) as StatsBank) : null
@@ -297,6 +328,32 @@ describe('настоящий bank.json', () => {
         expect(vs[0]).toBeLessThanOrEqual(vs[1] * cap + 1e-6)
       }
     }
+  })
+
+  it.skipIf(!real)('ботинки: ответ — самые популярные ботинки героя, второе место ×1.1…×2.5, подписи в %', () => {
+    const sub = real!.subcategories.find(s => s.id === 'boots_hero')!
+    expect(sub.topLead).toBe(true)
+    expect(sub.note).toBe('pct')
+    expect(sub.pools.length).toBeGreaterThanOrEqual(20)
+    for (const pool of sub.pools as StatMcPool[]) {
+      const vs = pool.entries.map(e => e[1])
+      expect(vs).toHaveLength(4)
+      expect([...vs].sort((a, c) => c - a)).toEqual(vs)       // по убыванию: [0] — лидер героя
+      expect(vs[0] / vs[1]).toBeGreaterThanOrEqual(1.1 - 1e-9)
+      expect(vs[0] / vs[1]).toBeLessThanOrEqual(2.5 + 1e-9)
+    }
+    const builder = new StatQuestionBuilder(real!, seeded(3))
+    const deck = gameOnlyDeck()
+    const heroes = new Set<string>()
+    for (let i = 0; i < sub.pools.length; i++) {
+      const q = builder.build(sub, 'all', deck)!
+      const pool = (sub.pools as StatMcPool[]).find(p => q.displayTopic === `${sub.display}: ${p.subject}`)!
+      heroes.add(pool.subject!)
+      expect(q.answer).toBe(pool.entries[0][0])
+      expect([...q.options!].sort()).toEqual(pool.entries.map(e => e[0]).sort())
+      for (const n of q.optionNotes!) expect(n).toMatch(/^\d+\.\d%$/)
+    }
+    expect(heroes.size).toBe(sub.pools.length)                // за одну игру — все герои, ботинки не кончаются
   })
 
   it.skipIf(!real)('таланты: в банке layout talent_tree, сверху 25 уровень, снизу 20', () => {

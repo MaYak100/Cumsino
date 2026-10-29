@@ -25,6 +25,11 @@ export interface StatSubcategory {
   note?: StatNoteFormat
   /** talent_tree — варианты не перемешиваются, стоят как в дереве талантов игры. */
   layout?: 'talent_tree'
+  /**
+   * Ответ — лидер всего пула, а не «среди показанных» (ботинки: Arcane у саппорта не выпадает из вариантов).
+   * Пул отобран в банке; между вопросами исключается только герой вопроса — варианты могут повторяться.
+   */
+  topLead?: boolean
   /** Пары, которые не ставятся в одну четвёрку (компонент и его улучшение — ответ угадывается логикой). */
   exclusive?: Array<[string, string]>
   pools: Array<StatMcPool | StatClosestPool>
@@ -100,6 +105,11 @@ export function formatNotes(values: number[], fmt: StatNoteFormat, lead?: number
   return notes
 }
 
+/** Лучшая запись пула по ask (для topLead — ответ). */
+function best(entries: StatEntry[], ask: 'max' | 'min'): StatEntry {
+  return entries.reduce((a, e) => ((ask === 'max' ? e[1] > a[1] : e[1] < a[1]) ? e : a))
+}
+
 /** Доступ к колоде подкатегории (questions/deck.ts): карточка — id вопроса (`stat:<подкатегория>:<имя>`). */
 export interface DeckAccess {
   /** не выпадала в текущем круге колоды (и не в этой / прошлой игре) */
@@ -124,7 +134,8 @@ export function gameOnlyDeck(): DeckAccess {
  *  - колода между играми идёт по карточкам: у пулов с героем вопроса (контрпики, предметы героя) — по герою
  *    вопроса, у общих пулов (средние, винрейт) — по ответу (лидеру), чтобы ответом по кругу побывал каждый;
  *  - в одной игре шаблон без героя вопроса (`Кто больше всех лечит союзников?`) — не больше одного раза;
- *  - герой / предмет, попавший в варианты (и герой вопроса), до конца игры в подкатегории не появляется.
+ *  - герой / предмет, попавший в варианты (и герой вопроса), до конца игры в подкатегории не появляется
+ *    (topLead — только герой вопроса: ботинки повторяются у разных героев);
  * Порядок: четвёрка с отрывом лидера и свежей карточкой → (колода кончилась) новый круг → с отрывом, но
  * карточка не свежая → без гейта. Без гейта лидер отличается от второго и подписью.
  */
@@ -158,7 +169,7 @@ export class StatQuestionBuilder {
     const used = this.usedOf(sub)
     const pools = this.shuffle((sub.pools as StatMcPool[])
       .filter(p => !(p.subject && used.has(p.subject)))
-      .map(p => ({ pool: p, free: p.entries.filter(e => !used.has(e[0])) }))
+      .map(p => ({ pool: p, free: sub.topLead ? p.entries : p.entries.filter(e => !used.has(e[0])) }))
       .filter(({ free }) => free.length >= OPTIONS))
     if (!pools.length) return null
 
@@ -170,7 +181,8 @@ export class StatQuestionBuilder {
         if (pool.subject && !ok(StatQuestionBuilder.card(sub, pool.subject))) continue
         for (const ask of this.shuffle(pool.asks)) {
           if (!pool.subject && this.templates.has(`${sub.id}|${ask.text}`)) continue
-          const leadOk = pool.subject ? () => true : (e: StatEntry) => ok(card(pool, e))
+          const top = sub.topLead ? best(pool.entries, ask.ask) : undefined
+          const leadOk = (e: StatEntry) => (!top || e === top) && (!!pool.subject || ok(card(pool, e)))
           const picked = gated ? this.gatedSet(free, gap, ask.ask, clash, leadOk) : this.ungatedSet(sub, free, ask.ask, clash, leadOk)
           if (picked) return { pool, ask, picked }
         }
@@ -259,7 +271,7 @@ export class StatQuestionBuilder {
     id: string): Question {
     const used = this.usedOf(sub)
     if (pool.subject) used.add(pool.subject)
-    for (const e of picked) used.add(e[0])
+    if (!sub.topLead) for (const e of picked) used.add(e[0])
     const shown = this.arrange(sub, pool, picked)
     const notes = sub.note
       ? formatNotes(shown.map(e => e[1]), sub.note, shown.indexOf(picked[0]))
