@@ -1,0 +1,542 @@
+[
+  {
+    "index": 0,
+    "heroes": [
+      "Beastmaster",
+      "Treant Protector",
+      "Io",
+      "Shadow Shaman",
+      "Bounty Hunter"
+    ],
+    "questions": [
+      {
+        "hero": "Beastmaster",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Beastmaster?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Wild Axes дают слоу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_beastmaster_wild_axe_cooldown",
+            "text": "Wild Axes без кд",
+            "original": "No Wild Axes Cooldown",
+            "original_ru": "Wild Axes без перезарядки",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Primal Roar диспелит",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Wild Axes рубят лес",
+            "verdict": "default",
+            "verify_note": "Wild Axes и так уничтожают деревья (note0)."
+          }
+        ],
+        "style": {
+          "lengths": [
+            19,
+            16,
+            20,
+            19
+          ],
+          "ratio": 1.25,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      },
+      {
+        "hero": "Treant Protector",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Treant Protector?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nature's Grasp рутует врагов на 1.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Leech Seed бьёт по области радиусом 300",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_treant_7",
+            "text": "Living Armor по области радиусом 450",
+            "original": "450 AoE Living Armor",
+            "original_ru": "Living Armor применяется по области радиусом 450",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Overgrowth лечит союзников на 80 в сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            39,
+            39,
+            36,
+            38
+          ],
+          "ratio": 1.08,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": "Слабый сигнал: только у правды нет глагола («Living Armor по области…»), у подделок есть; но конструкция «по области радиусом» есть и у подделки."
+        }
+      },
+      {
+        "hero": "Io",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Io?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Overcharge даёт 25% уклонения цели Tether",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Tether передаёт союзнику 40% урона по Io",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Relocate лечит Io и союзника на 15% хп",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_wisp_4",
+            "text": "Io бьёт цель союзника по Tether с 50% урона",
+            "original": "Attack Tethered Ally's Target (50% damage)",
+            "original_ru": "Атака вместе с целью Tether (50% урона)",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            41,
+            40,
+            38,
+            43
+          ],
+          "ratio": 1.13,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      },
+      {
+        "hero": "Shadow Shaman",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Shaman?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_shadow_shaman_7",
+            "text": "Hex накладывает брейк",
+            "original": "Hex Breaks",
+            "original_ru": "Hex накладывает истощение",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shackles дают сайленс",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Hex уничтожает иллюзии",
+            "verdict": "default",
+            "verify_note": "Hex и так мгновенно уничтожает иллюзии (note0)."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ether Shock даёт слоу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            21,
+            21,
+            22,
+            21
+          ],
+          "ratio": 1.05,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      },
+      {
+        "hero": "Bounty Hunter",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Bounty Hunter?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shuriken Toss накладывает Track",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Shadow Walk даёт инвиз союзнику",
+            "verdict": "shard",
+            "verify_note": "Шард даёт Friendly Shadow — Shadow Walk на союзника."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Jinada накладывает кровотечение",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_bounty_hunter_8",
+            "text": "Track даёт общий обзор с целью",
+            "original": "Track Grants Shared Vision",
+            "original_ru": "Жертвы Track делятся своим обзором",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            31,
+            31,
+            31,
+            30
+          ],
+          "ratio": 1.03,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13614,
+        "output_tokens": 4041,
+        "seconds": 40.2,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 10799,
+        "output_tokens": 2122,
+        "seconds": 19.8,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 1,
+    "heroes": [
+      "Brewmaster",
+      "Magnus",
+      "Pudge",
+      "Juggernaut",
+      "Lich"
+    ],
+    "questions": [
+      {
+        "hero": "Brewmaster",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Brewmaster?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Слоу от Thunder Clap накладывает дизарм",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_brewmaster_4",
+            "text": "Горение от Cinder Brew накладывает страх",
+            "original": "Cinder Brew applies Fear when ignited",
+            "original_ru": "Горение от Cinder Brew накладывает страх",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Крит от Drunken Brawler накладывает стан",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Лужа от Cinder Brew накладывает рут",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            39,
+            40,
+            40,
+            35
+          ],
+          "ratio": 1.14,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      },
+      {
+        "hero": "Magnus",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Magnus?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Skewer бьёт врагов о деревья",
+            "verdict": "shard",
+            "verify_note": "Шард даёт доп. урон при ударе о деревья или утёсы."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Reverse Polarity диспелит врагов",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_magnus_2",
+            "text": "Shockwave возвращается к Magnus",
+            "original": "Shockwave Returns to Magnus",
+            "original_ru": "Волна от Shockwave возвращается к владельцу",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Empower даёт сплеш дальнему бою",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            28,
+            32,
+            31,
+            31
+          ],
+          "ratio": 1.14,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      },
+      {
+        "hero": "Lich",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lich?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Frost Shield отражает часть урона атак",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Sinister Gaze действует по области",
+            "verdict": "scepter",
+            "verify_note": "Аганим делает Sinister Gaze способностью по области."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Frost Blast накладывает сайленс на цель",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lich_5",
+            "text": "Chain Frost отскакивает без ограничений",
+            "original": "Chain Frost Unlimited Bounces",
+            "original_ru": "Неограниченное число отскоков у Chain Frost",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style": {
+          "lengths": [
+            38,
+            34,
+            39,
+            39
+          ],
+          "ratio": 1.15,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": [],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        }
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13770,
+        "output_tokens": 3024,
+        "seconds": 30.1,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 7139,
+        "output_tokens": 881,
+        "seconds": 10.1,
+        "stop": "end_turn"
+      }
+    }
+  }
+]

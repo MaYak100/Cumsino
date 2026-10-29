@@ -1,0 +1,1093 @@
+[
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_wisp",
+    "hero": "Io",
+    "abilities": [
+     {
+      "name": "Tether",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Tethers Io to an allied unit, granting bonus movement speed to both. When Io restores health or mana, the tethered unit gains a portion of that amount. The tether breaks when the allied unit moves too far away, or Io cancels the tether. Tether slows enemies touching it.",
+      "notes": {
+       "note0": "If you try to tether a unit that is 700 distance or further away from Io, Io will latch on and pull itself closer to the tethered unit (to a distance of 300).",
+       "note1": "The tethered unit will heal faster and will heal even if Io is at full health.",
+       "note2": "Io's movement speed matches the tethered unit's."
+      },
+      "shard": "Tether damages enemies touching it. Io is healed for 0% of the damage done."
+     },
+     {
+      "name": "Spirits",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Summon five particle spirits that dance in a circle around Io. If a particle collides with an enemy hero, it explodes, damaging all enemy units in an area around it.  Creeps take minor damage from touching a particle spirit, but do not cause them to explode.  When its duration ends, any remaining Spirits explode.",
+      "notes": {
+       "note0": "After summoning, Io can call the spirits in and out."
+      },
+      "scepter": "Spirits now passively spawn around Io constantly every second up to the max. Spirits colliding with enemy Heroes slows them briefly. Can be activated to explode spirits."
+     },
+     {
+      "name": "Overcharge",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Io gains attack speed, spell amplification, and health regeneration based on max health. If Io is Tethered to an ally, that unit also gains any bonuses granted by Overcharge.",
+      "notes": {}
+     },
+     {
+      "name": "Relocate",
+      "role": "ultimate",
+      "behavior": "Point Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Teleports Io and a tethered ally to any location. After the spell expires, Io and the tethered ally will return to their original location. Double-click to teleport to your team's base fountain.",
+      "notes": {
+       "note0": "Enemies receive a visual indicator in the world and on the minimap of the target location during the cast delay.",
+       "note1": "If Io is disabled during the cast delay, Relocate is cancelled.",
+       "note2": "If an allied hero is Tethered, that hero will teleport along with you. You can break the tether at any time to prevent that hero from teleporting with you.",
+       "note3": "Only heroes, creep heroes, and illusions can be relocated."
+      }
+     },
+     {
+      "name": "Equilibrium",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Io gains outgoing damage amplification the closer it is to full health, and Health Restoration and Healing Amplification the closer it is to zero health.",
+      "notes": {}
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_wisp_overcharge_duration",
+      "level": 10,
+      "text": "+1.5s Overcharge Duration",
+      "ru": "+1.5 сек. действия Overcharge",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_strength_8",
+      "level": 10,
+      "text": "+8 Strength",
+      "ru": "+8 к силе",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_wisp_3",
+      "level": 15,
+      "text": "+5% Tether Movement Speed",
+      "ru": "+5% к доп. скорости передвижения от Tether",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp",
+      "level": 15,
+      "text": "+40% Spirits Damage",
+      "ru": "+40% к урону от Spirits",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_10",
+      "level": 20,
+      "text": "+0.2% Overcharge Max HP Regen Bonus",
+      "ru": "+0.2% к восстановлению от макс. здоровья у Overcharge",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_6",
+      "level": 20,
+      "text": "-30s Relocate Cooldown",
+      "ru": "–30 сек. перезарядки Relocate",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_relocate_delay",
+      "level": 25,
+      "text": "-2s Relocate Cast Delay",
+      "ru": "–2 сек. применения Relocate",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_wisp_4",
+      "level": 25,
+      "text": "Attack Tethered Ally's Target (50% damage)",
+      "ru": "Атака вместе с целью Tether (50% урона)",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_troll_warlord",
+    "hero": "Troll Warlord",
+    "abilities": [
+     {
+      "name": "Battle Stance",
+      "role": "innate",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Troll Warlord swaps from using ranged to melee attacks. While melee, Troll Warlord's base attack time is improved to 1.4.\n\nTroll Warlord gains 1.0 armor per 30 bonus attack speed.",
+      "notes": {}
+     },
+     {
+      "name": "Whirling Axes (Ranged)",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Troll hurls a fistful of five axes in a cone shape over 950.0 range, slowing and damaging enemy units.",
+      "notes": {
+       "note0": "Does not affect Roshan.",
+       "note1": "Does not trigger spell block or spell reflect."
+      },
+      "scepter": "Causes Whirling Axes (Ranged) to dispel enemies. Reduces cooldown and mana cost.\n\nDISPEL TYPE: Basic Dispel"
+     },
+     {
+      "name": "Whirling Axes (Melee)",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Troll hurls two axes around him in a close range area of effect, damaging enemy units and causing them to miss some attacks.",
+      "notes": {
+       "note0": "Does not affect Roshan."
+      },
+      "scepter": "Causes Whirling Axes (Melee) to dispel Troll Warlord. Reduces cooldown and mana cost.\n\nDISPEL TYPE: Basic Dispel"
+     },
+     {
+      "name": "Fervor",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "With each continuous blow on the same target, Troll gains increased attack speed.  If Troll changes targets, the stacks drop to zero.",
+      "notes": {
+       "note0": "Break disables the gaining of new stacks.",
+       "note1": "Break disables the proc chance granted by Aghanim's Shard."
+      },
+      "shard": "Grants Troll % + % chance per Fervor stack of firing an additional ranged attack to any unit within its ranged attack range plus  when attacking an enemy unit."
+     },
+     {
+      "name": "Berserker's Rage",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "While in melee form, Troll Warlord's attacks have a chance to ensnare, preventing the target from moving or using mobility spells and has additional movement speed.\n\nWhen in ranged form, Troll Warlord's attacks have a chance to Maim the target, dealing bonus damage, and slowing the target's movement and attack speed.",
+      "notes": {}
+     },
+     {
+      "name": "Battle Trance",
+      "role": "ultimate",
+      "behavior": null,
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Troll unleashes a powerful battle trance, that forces you to continuously attack the closest enemy unit within 900 range, prioritizing heroes. Damage does not kill you during this mode. Grants you bonus lifesteal, attack speed, slow resistance and movement speed. Applies a Basic Dispel.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {
+       "note0": "Troll can still use his items and abilities while affected by Battle Trance, but not other commands.",
+       "note1": "Troll can still be killed with Axe's Culling Blade.",
+       "note2": "Troll is granted vision over the target."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_troll_warlord_whirling_axes_debuff_duration",
+      "level": 10,
+      "text": "+2.5s Whirling Axes Debuff Duration",
+      "ru": "+2.5 сек. к длительности эффекта у Whirling Axes",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_2",
+      "level": 10,
+      "text": "+20 Berserker's Rage Movement Speed",
+      "ru": "+20 к скорости передв. от Berserker's Rage",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_5",
+      "level": 15,
+      "text": "+4 Fervor Attack Speed",
+      "ru": "+4 к скорости атаки за эффект от Fervor",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord",
+      "level": 15,
+      "text": "+1s Battle Trance Duration",
+      "ru": "+1 сек. действия Battle Trance",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_battle_trance_movespeed",
+      "level": 20,
+      "text": "Allies Receive Battle Trance Attack Speed",
+      "ru": "Скорость атаки от Battle Trance даётся союзникам",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_3",
+      "level": 20,
+      "text": "+160 Whirling Axes Damage",
+      "ru": "+160 к урону от Whirling Axes",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_6",
+      "level": 25,
+      "text": "Whirling Axes Pierce Magic Immunity",
+      "ru": "Whirling Axes сквозь невоспр. к магии",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_4",
+      "level": 25,
+      "text": "Battle Trance Strong Dispels",
+      "ru": "Battle Trance применяет сильное развеивание",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_naga_siren",
+    "hero": "Naga Siren",
+    "abilities": [
+     {
+      "name": "Mirror Image",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Creates multiple images of Naga Siren under her control.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {
+       "note0": "Naga Siren is invulnerable for 0.5 seconds when casting, allowing her to dodge stuns and damage.",
+       "note1": "Upon casting, most effects are removed from Naga Siren.",
+       "note2": "Upon casting, existing Mirror Image illusions are destroyed."
+      }
+     },
+     {
+      "name": "Ensnare",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Interrupts the target and traps them in place, preventing movement or blinking. Can target units affected by Song of the Siren.",
+      "notes": {},
+      "scepter": "Increases cast range and projectile speed.  Allows Ensnare to target and affect Debuff Immune units. Ensnare applies Break."
+     },
+     {
+      "name": "Rip Tide",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Naga Siren and her illusions deal bonus damage to enemies and reduce their armor for 4.0 seconds every 6 attacks.",
+      "notes": {
+       "note0": "Using Rip Tide doesn't interrupt channeling."
+      }
+     },
+     {
+      "name": "Reel In",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Channeled"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "CHANNELED - Naga Siren channels for up to 5 seconds, pulling all units affected by Naga's Ensnare in a 1600 range towards her at a speed of 200. Channeling ends when the Ensnared unit is 100 distance away.",
+      "notes": {},
+      "scepter": "Allows Reel In to affect Spell Immune units."
+     },
+     {
+      "name": "Eelskin",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": [],
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Naga Siren has bonus evasion, increased per every other Naga Siren within 900 radius.",
+      "notes": {}
+     },
+     {
+      "name": "Song of the Siren",
+      "role": "ultimate",
+      "behavior": "No Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "All enemies in range of the Naga Siren are put into a magical stasis where they cannot act or be attacked. Using Song of the Siren again will end the duration early.",
+      "notes": {
+       "note0": "Units affected by Song of the Siren are invulnerable and cannot take damage from any source.",
+       "note1": "The area of the song follows Naga, so if she moves far enough away from affected units, they will wake up."
+      },
+      "shard": "Allies in range of Song of the Siren recover a percentage of their health and mana per second."
+     },
+     {
+      "name": "Song of the Siren End",
+      "role": "ultimate",
+      "behavior": [
+       "Hidden",
+       "No Target"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Release enemy units from your song so they can be targeted again.",
+      "notes": {}
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_naga_siren_reel_in_speed",
+      "level": 10,
+      "text": "+125 Reel In Pull Speed",
+      "ru": "+125 к скорости притягивания у Reel In",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_naga_siren_2",
+      "level": 10,
+      "text": "+30% Rip Tide Damage",
+      "ru": "+30% к урону от Rip Tide",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_naga_siren_4",
+      "level": 15,
+      "text": "+10% Mirror Image Damage",
+      "ru": "+10% к урону иллюзий от Mirror Image",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_naga_siren_3",
+      "level": 15,
+      "text": "-75% Mirror Image Illusion Damage Taken",
+      "ru": "–75% урона по иллюзиям от Mirror Image",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_naga_siren_5",
+      "level": 20,
+      "text": "-25s Song of the Siren Cooldown",
+      "ru": "–25 сек. перезарядки Song of the Siren",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_naga_siren",
+      "level": 20,
+      "text": "+1 Mirror Image Illusion",
+      "ru": "+1 к числу иллюзий от Mirror Image",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_naga_siren_6",
+      "level": 25,
+      "text": "-10s Mirror Image Cooldown",
+      "ru": "–10 сек. перезарядки Mirror Image",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_agility_25",
+      "level": 25,
+      "text": "+25 Agility",
+      "ru": "+25 к ловкости",
+      "kind": "stat"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_furion",
+    "hero": "Nature's Prophet",
+    "abilities": [
+     {
+      "name": "Sprout",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Sprouts a ring of trees around a unit, damaging and trapping it in place and providing vision in a 400 radius.",
+      "notes": {
+       "note0": "Sprout can be cast on any unit, or the ground.",
+       "note1": "Trees created by Sprout have the same interactions with abilities as regular trees."
+      }
+     },
+     {
+      "name": "Teleportation",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Teleports to any point on the map. Gains a barrier after arriving to its destination.",
+      "notes": {
+       "note0": "Mana and cooldown take effect when the cast is completed.  Nature's Prophet will not use any mana or waste the cooldown if the spell is interrupted while casting.",
+       "note1": "When the cast begins, an effect is created at the target location, which is visible to allies and enemies."
+      }
+     },
+     {
+      "name": "Nature's Call",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Converts an area of trees into Treants under the command of Nature's Prophet.",
+      "notes": {
+       "note0": "Nature's Call can only create as many treants as there are trees in the target area."
+      }
+     },
+     {
+      "name": "Curse of the Oldgrowth",
+      "role": "shard",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Applies a curse on all enemy heroes within 900 range, displaying them in fog, slowing them, and dealing damage over time based on the number of trees within 250 radius. Treants count as trees for this purpose.",
+      "notes": {}
+     },
+     {
+      "name": "Spirit of the Forest",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Nature's Prophet gains 2% bonus damage for each nearby tree. Treants also provide this bonus with multiplied values regardless of proximity. Treants also possess this ability.",
+      "notes": {
+       "note0": "Treants gain bonuses from trees and other treants around them.",
+       "note1": "Treant Protector does not provide any bonuses."
+      }
+     },
+     {
+      "name": "Wrath of Nature",
+      "role": "ultimate",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Damaging energy bounces around the map, striking enemies that are in vision starting with those closest to the cast point. Each enemy hit beyond the first adds damage, up to the maximum after 16 are hit.",
+      "notes": {
+       "note0": "Wrath of Nature will not hit units out of vision.",
+       "note1": "Can be cast through the minimap; the nearest valid target will be selected."
+      },
+      "scepter": "Entangles all enemies it hits. Duration scales from s up to s seconds at max bounce."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_furion_6",
+      "level": 10,
+      "text": "-10s Nature's Call Cooldown",
+      "ru": "–10 сек. перезарядки Nature's Call",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_furion_5",
+      "level": 10,
+      "text": "+25 Wrath of Nature Base Damage",
+      "ru": "+25 к базовому урону от Wrath of Nature",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_furion_2",
+      "level": 15,
+      "text": "+50 Treant Movement Speed",
+      "ru": "+50 к скорости передвижения энтов",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_furion_teleportation_barrier",
+      "level": 15,
+      "text": "+100 Teleportation Barrier",
+      "ru": "+100 к барьеру от Teleportation",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_furion_7",
+      "level": 20,
+      "text": "-20s Wrath of Nature Cooldown",
+      "ru": "–20 сек. перезарядки Wrath of Nature",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_furion_4",
+      "level": 20,
+      "text": "+240 Sprout Damage",
+      "ru": "+240 к урону от Sprout",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_furion_3",
+      "level": 25,
+      "text": "Removed Teleportation Cooldown",
+      "ru": "Teleportation без перезарядки",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_furion",
+      "level": 25,
+      "text": "3x Treant HP/Damage",
+      "ru": "Здоровье/урон энтов больше в 3 раза",
+      "kind": "stat"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_meepo",
+    "hero": "Meepo",
+    "abilities": [
+     {
+      "name": "Earthbind",
+      "role": "basic",
+      "behavior": [
+       "AOE",
+       "Point Target"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Tosses a net at the target point, rooting down all enemy units in an area around it.",
+      "notes": {
+       "note0": "Affects invisible units, revealing them.",
+       "note1": "Does not work on Debuff Immune units or Roshan."
+      }
+     },
+     {
+      "name": "Poof",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "Unit Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Drawing mystical energies from the earth, a Meepo can teleport to another Meepo or itself after channeling for 1.5 seconds, damaging the enemy in both the departure and arrival locations. \n\nIf the ability is in alt-cast state, all Meepos will also cast Poof to the target. When cast on the ground, all Meepos except the selected one will Poof to the closest location.",
+      "notes": {
+       "note0": "Can be cast through the minimap.",
+       "note1": "Can teleport to Meepo illusions."
+      }
+     },
+     {
+      "name": "Ransack",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": "Pure",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Steals health from the enemy with each strike and heals all other Meepos for that amount.\n\nReduced to 60% against creeps.",
+      "notes": {
+       "note0": "Amount healed is amplified by Health Restoration Amplification"
+      }
+     },
+     {
+      "name": "Dig",
+      "role": "shard",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Digs into the ground for a short duration, dispelling Meepo and causing him to become invulnerable and untargetable for 3s. Restores 25% of his max health over that duration.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {}
+     },
+     {
+      "name": "MegaMeepo",
+      "role": "scepter",
+      "behavior": [
+       "Instant Cast",
+       "No Target"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Primary Meepo mounts all other Meepos in a 600 radius around him on top of his shoulders. While in this form, he gains 40% of the other Meepo stats and can Fling them at enemies, dealing damage and slowing them.\n\n When cast, Earthbind generates additional nets and Poof deals 50% more damage for each Meepo on top.",
+      "notes": {}
+     },
+     {
+      "name": "Divided We Stand",
+      "role": "ultimate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Meepo summons another Meepo, which levels up and shares items and experience with the main Meepo. Ability cooldowns are independent, but items share cooldowns between Meepos, except Teleport Scrolls. \n\nDamage, attack speed, health, mana, regeneration, mana burn, and proc chance bonuses from items are distributed equally among the amount of Meepos, making them 50/66/75/80% less effective.\n\nIf any Meepo dies, they all die.",
+      "notes": {}
+     },
+     {
+      "name": "Geomancy",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Meepo grants stacking bonuses to himself and his clones based on their terrain.  Each Meepo grants his bonus to the other Meepos.\n\nIf there is a tree within 250 range, he receives 1 HP regen.\n\nIf he is standing on dirt, he receives 2% bonus movement speed.\n\nIf he is in the water, his attacks slow the target by 2% for 2 seconds.",
+      "notes": {
+       "note0": "Dirt includes any terrain that is not water."
+      }
+     },
+     {
+      "name": "MegaMeepo Fling",
+      "role": "scepter",
+      "behavior": [
+       "Unit Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "In MegaMeepo form, Meepo flings the topmost meepo towards a target within a 900 range, dealing damage and slowing their movement speed.",
+      "notes": {
+       "note0": "Does not trigger spell reflect."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_strength_7",
+      "level": 10,
+      "text": "+7 Strength",
+      "ru": "+7 к силе",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_meepo_3",
+      "level": 10,
+      "text": "-1.5s Earthbind Cooldown",
+      "ru": "–1.5 сек. перезарядки Earthbind",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_evasion_15",
+      "level": 15,
+      "text": "+15% Evasion",
+      "ru": "+15% к уклонению",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_meepo_2",
+      "level": 15,
+      "text": "+40 Poof Damage",
+      "ru": "+40 к урону от Poof",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_meepo_4",
+      "level": 20,
+      "text": "Earthbind grants True Strike on Targets",
+      "ru": "Атаки без промахов по жертвам Earthbind",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_meepo_6",
+      "level": 20,
+      "text": "+6 Ransack Health Steal",
+      "ru": "+6 к краже здоровья от Ransack",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_hp_400",
+      "level": 25,
+      "text": "+400 Health",
+      "ru": "+400 к здоровью",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_meepo_poof_cast_point",
+      "level": 25,
+      "text": "-0.75s Poof Cast Duration",
+      "ru": "–0.75 сек. применения Poof",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_ogre_magi",
+    "hero": "Ogre Magi",
+    "abilities": [
+     {
+      "name": "Fireblast",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Blasts an enemy unit with a wave of fire, dealing damage and stunning the target.",
+      "notes": {
+       "note0": "When Multicast, Fireblast hits the same target each time with a 0.6 seconds interval."
+      },
+      "scepter": "Fireblast is refined, reducing cooldown by bonus_AbilityCooldowns and increasing cast speed by 0%."
+     },
+     {
+      "name": "Ignite",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Drenches the target and another random unit in volatile chemicals, causing it to burst into flames. The target is in immense pain, taking damage and moving more slowly.",
+      "notes": {
+       "note0": "Multicast makes this spell have a chance to cast multiple times at random enemy units in a 1400 area of effect.",
+       "note1": "Ignite hitting an already affected unit adds to the burn duration."
+      }
+     },
+     {
+      "name": "Bloodlust",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Incites a frenzy in a friendly unit, increasing its movement speed and attack speed. Gives bonus attack speed if cast on Ogre himself. Can be cast on towers.",
+      "notes": {
+       "note0": "When multicast, nearby allies will be selected randomly in an 700 area of effect to receive Bloodlust."
+      }
+     },
+     {
+      "name": "Unrefined Fireblast",
+      "role": "scepter",
+      "behavior": [
+       "Unit Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Blasts an enemy unit with a wave of fire, dealing 150 + 1.5x Ogre's Strength in damage and stunning the target. Its mana cost is 35% of Ogre Magi's current mana.",
+      "notes": {
+       "note0": "When Multicast, Unrefined Fireblast hits the same target each time with a 0.6 seconds interval."
+      }
+     },
+     {
+      "name": "Fire Shield",
+      "role": "shard",
+      "behavior": [
+       "Unit Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Creates a shield around the target ally, absorbing a percentage of the damage of next 3 attacks from enemy heroes. When damage is absorbed, a fireball is launched at the attacker. Can be cast on towers.",
+      "notes": {
+       "note0": "When multicast, nearby allies will be selected randomly in an 1000 area of effect to receive Fire Shield."
+      }
+     },
+     {
+      "name": "Dumb Luck",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": [],
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Ogre Magi's max Intelligence is 0. He receives mana and mana regeneration from Strength.",
+      "notes": {}
+     },
+     {
+      "name": "Multicast",
+      "role": "ultimate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Enables Ogre Magi to cast his abilities and items multiple times with each use. Each point of Strength adds to Multicast chance. Every 16 Strength adds 1%.",
+      "notes": {
+       "note0": "Only targeted abilities and items have a chance to be multicast.",
+       "note1": "Targeted abilities and items apply to additional enemies and neutrals in an AoE around Ogre. Fireblast and Unrefined Fireblast hit the same target multiple times."
+      }
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_ogre_magi_4",
+      "level": 10,
+      "text": "+10 Ignite Burn Damage",
+      "ru": "+10 к периодическому урону от Ignite",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_ogre_magi_dumb_luck_mana",
+      "level": 10,
+      "text": "+2/0.01 Dumb Luck Mana/Mana Regen Per Strength",
+      "ru": "+2/0.01 к мане и её восстановлению за ед. силы от Dumb Luck",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_damage_80",
+      "level": 15,
+      "text": "+80 Damage",
+      "ru": "+80 к урону",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_ogre_magi",
+      "level": 15,
+      "text": "+20/35 Bloodlust / Self Attack Speed",
+      "ru": "+35/20 к скорости атаки себе/союзникам от Bloodlust",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_strength_30",
+      "level": 20,
+      "text": "+30 Strength",
+      "ru": "+30 к силе",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_ogre_magi_2",
+      "level": 20,
+      "text": "+175 Fireblast Damage",
+      "ru": "+175 к урону от Fireblast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_ogre_magi_3",
+      "level": 25,
+      "text": "17% Fireblast chance on attack",
+      "ru": "Шанс в 17% применить Fireblast при атаке",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_ogre_magi_multicast_chance",
+      "level": 25,
+      "text": "+10% Multicast Chance",
+      "ru": "+10% к шансу многократного срабатывания у Multicast",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_nyx_assassin",
+    "hero": "Nyx Assassin",
+    "abilities": [
+     {
+      "name": "Impale",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Rock spikes burst from the earth along a straight path. Enemy units take damage, then are hurled into the air and stunned.",
+      "notes": {
+       "note0": "The spikes move at 1600 units per second, over 750 range.",
+       "note1": "Impale cannot be blocked by Linken's Sphere."
+      }
+     },
+     {
+      "name": "Mind Flare",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Deals damage equal to a percentage of the target's Max Mana and burns part of it away. Deals additional damage equal to a percentage of the damage the target has taken from Nyx Assassin in the last 15s. Resets accumulated damage before applying damage.",
+      "notes": {}
+     },
+     {
+      "name": "Spiked Carapace",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "When activated while above ground, Spiked Carapace reflects and negates damage dealt to Nyx Assassin (max once from each source), as well as stunning the source of the damage. Activating Spiked Carapace will not break Vendetta invisibility.\n\nWhile Burrowed, Spiked Carapace instantly stuns nearby enemies when cast.",
+      "notes": {
+       "note0": "The damage is calculated after all reductions.",
+       "note1": "Spiked Carapace will only trigger on damage from other player controlled sources.",
+       "note2": "The damage reflected will have the same damage type as it had when it was dealt to Nyx Assassin.",
+       "note3": "Damage done by this ability is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected."
+      }
+     },
+     {
+      "name": "Burrow",
+      "role": "scepter",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Nyx Assassin buries himself beneath the battlefield over a short duration. Once burrowed, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While burrowed, Nyx Assassin is stationary, unable to attack, and invisible. Nyx Assassin gains damage reduction from all damage sources.",
+      "notes": {
+       "note0": "Casting Vendetta will cancel burrow."
+      }
+     },
+     {
+      "name": "Mana Burn",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Nyx Assassin's damage on enemies also burns mana as a percentage of the damage dealt.",
+      "notes": {}
+     },
+     {
+      "name": "Vendetta",
+      "role": "ultimate",
+      "behavior": [
+       "Instant Cast",
+       "No Target"
+      ],
+      "damage_type": "Pure",
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Nyx Assassin becomes invisible and gains a speed bonus. If Nyx Assassin attacks to break the invisibility, massive bonus damage is dealt with the attack that applies a break to the target. Nyx Assassin has 75 additional attack range and a 70% faster attack animation for this attack.",
+      "notes": {
+       "note0": "If a spell is used to break the invisibility, or the invisibility expires, the bonus damage is lost.",
+       "note1": "With Aghanim's Shard, the Break is applied before the bonus damage."
+      },
+      "shard": "Decreases cooldown by bonus_AbilityCooldowns. For the first 0s of Vendetta, Nyx is hasted and has unobstructed pathing."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_nyx_4",
+      "level": 10,
+      "text": "+25% Spiked Carapace Damage Reflect",
+      "ru": "+25% к отражаемому урону у Spiked Carapace",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_nyx_3",
+      "level": 10,
+      "text": "+0.2s Impale Stun Duration",
+      "ru": "+0.2 сек. оглушения от Impale",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_nyx_vendetta_damage",
+      "level": 15,
+      "text": "+50 Vendetta Damage",
+      "ru": "+50 к урону от Vendetta",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_nyx_jolt_cooldown",
+      "level": 15,
+      "text": "-3s Mind Flare Cooldown",
+      "ru": "–3 сек. перезарядки Mind Flare",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_nyx_6",
+      "level": 20,
+      "text": "+0.6s Spiked Carapace Stun Duration",
+      "ru": "+0.6 сек. оглушения от Spiked Carapace",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_nyx_2",
+      "level": 20,
+      "text": "+140 Impale Damage",
+      "ru": "+140 к урону от Impale",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_nyx",
+      "level": 25,
+      "text": "600 Mind Flare Radius",
+      "ru": "Mind Flare по области радиусом 600",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_agility_80",
+      "level": 25,
+      "text": "+80 Agility",
+      "ru": "+80 к ловкости",
+      "kind": "stat"
+     }
+    ]
+   }
+  ]
+ }
+]

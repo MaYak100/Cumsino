@@ -1,7 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { describe, it, expect } from 'vitest'
-import { StatQuestionBuilder, gameOnlyDeck, gapOk, type StatsBank, type StatEntry, type DeckAccess } from '../statQuestions'
+import {
+  StatQuestionBuilder, gameOnlyDeck, gapOk, capOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE,
+  type StatsBank, type StatEntry, type DeckAccess, type StatMcPool,
+} from '../statQuestions'
 import type { GameMode } from '@cumsino/shared'
 
 // детерминированный ГПСЧ (mulberry32) — чтобы проверки не зависели от удачи
@@ -140,6 +143,101 @@ describe('StatQuestionBuilder — несовместимые пары и нич�
   })
 })
 
+describe('верхний предел отрыва (maxRel)', () => {
+  it('capOk: max / min, без предела — всегда да', () => {
+    expect(capOk(250, 100, { maxRel: 2.5 }, 'max')).toBe(true)
+    expect(capOk(251, 100, { maxRel: 2.5 }, 'max')).toBe(false)
+    expect(capOk(100, 300, { maxRel: 3 }, 'min')).toBe(true)
+    expect(capOk(100, 301, { maxRel: 3 }, 'min')).toBe(false)
+    expect(capOk(1000, 1, {}, 'max')).toBe(true)
+  })
+
+  it('лидер не дальше ×maxRel от второго места; доминирующий вариант в варианты не попадает', () => {
+    // 846к — Treads у Drow: с пределом ×2.5 её не с кем сравнить, ни ответом, ни соперником она не будет
+    const vals = [846, 37, 20, 15, 5, 4.4, 1.1, 0.2]
+    const b = bank({ gap: { rel: 0.15, maxRel: 2.5 }, pools: [{ entries: entries(vals), asks: [{ ask: 'max', text: 'q' }] }] })
+    const val = Object.fromEntries(entries(vals).map(e => [e[0], e[1]]))
+    for (let seed = 1; seed <= 60; seed++) {
+      const q = picker(b, seeded(seed)).pick('all')!
+      const vs = q.options!.map(o => val[o]).sort((a, c) => c - a)
+      expect(vs[0]).toBe(val[q.answer!])
+      expect(vs[0]).toBeLessThanOrEqual(vs[1] * 2.5)
+      for (const v of vs.slice(1)) expect(vs[0]).toBeGreaterThanOrEqual(v * 1.15)
+      expect(q.options).not.toContain('H0')
+    }
+  })
+
+  it('ask min: второе место не дальше ×maxRel от лидера', () => {
+    const vals = [1, 10, 12, 15, 30, 40, 80]
+    const b = bank({ gap: { rel: 0.1, maxRel: 3 }, pools: [{ entries: entries(vals), asks: [{ ask: 'min', text: 'q' }] }] })
+    const val = Object.fromEntries(entries(vals).map(e => [e[0], e[1]]))
+    for (let seed = 1; seed <= 40; seed++) {
+      const q = picker(b, seeded(seed)).pick('all')!
+      const vs = q.options!.map(o => val[o]).sort((a, c) => a - c)
+      expect(vs[0]).toBe(val[q.answer!])
+      expect(vs[1]).toBeLessThanOrEqual(vs[0] * 3)
+    }
+  })
+})
+
+describe('formatNotes — одна точность и общий суффикс в четвёрке', () => {
+  it('count: суффикс и точность по максимуму', () => {
+    expect(formatNotes([37.4e6, 10e6, 7.3e6, 5.7e6], 'count')).toEqual(['37.4М', '10.0М', '7.3М', '5.7М'])
+    expect(formatNotes([99_400, 437, 515, 7600], 'count')).toEqual(['99.4к', '0.4к', '0.5к', '7.6к'])
+    expect(formatNotes([342_000, 269_000, 216_000, 162_000], 'count')).toEqual(['342к', '269к', '216к', '162к'])
+    expect(formatNotes([4500, 1000, 2300, 1600], 'count')).toEqual(['4.5к', '1.0к', '2.3к', '1.6к'])
+    expect(formatNotes([118, 60.1, 96.9, 103], 'count')).toEqual(['118', '60', '97', '103'])
+    expect(formatNotes([6, 6.4, 7.7, 5.1], 'count')).toEqual(['6.0', '6.4', '7.7', '5.1'])
+    expect(formatNotes([61_700, 30, 7600, 308], 'count')).toEqual(['61.7к', '<0.1к', '7.6к', '0.3к'])
+  })
+
+  it('pct / pct0 / pp', () => {
+    expect(formatNotes([0.535, 0.513, 0.507, 0.5], 'pct')).toEqual(['53.5%', '51.3%', '50.7%', '50.0%'])
+    expect(formatNotes([0.62, 0.38, 0.78, 0.22], 'pct0')).toEqual(['62%', '38%', '78%', '22%'])
+    expect(formatNotes([-2.2, 0.8, -0.04, 0.03], 'pp')).toEqual(['−2.2', '+0.8', '0.0', '0.0'])
+  })
+
+  it('подпись лидера совпала с чужой — добавляется знак', () => {
+    expect(formatNotes([0.4983, 0.4981, 0.47, 0.46], 'pct', 0)).toEqual(['49.83%', '49.81%', '47.00%', '46.00%'])
+    expect(formatNotes([0.4983, 0.4981, 0.47, 0.46], 'pct')).toEqual(['49.8%', '49.8%', '47.0%', '46.0%'])
+  })
+
+  it('сборщик форматирует подписи по показанной четвёрке', () => {
+    const b = bank({ note: 'count', pools: [{ entries: [['A', 99_400, '99к'], ['B', 437, '437'], ['C', 7600, '7.6к'],
+      ['D', 515, '515']], asks: [{ ask: 'max', text: 'q' }] }] })
+    const q = picker(b, seeded(1)).pick('all')!
+    const want: Record<string, string> = { A: '99.4к', B: '0.4к', C: '7.6к', D: '0.5к' }
+    q.options!.forEach((o, i) => expect(q.optionNotes![i]).toBe(want[o]))
+  })
+})
+
+describe('таланты — раскладка как в игре', () => {
+  // пул — в порядке слотов файла героя: [20 первый, 20 второй, 25 первый, 25 второй]
+  const pool: StatMcPool = {
+    subject: 'Anti-Mage',
+    entries: [['20 ур.: +125 к дальности Blink', 0.688, '69%'], ['20 ур.: +0.8 сек. оглушения от Mana Void', 0.312, '31%'],
+      ['25 ур.: –1 сек. перезарядки Blink', 0.1714, '17%'], ['25 ур.: –50 сек. перезарядки Mana Void', 0.8286, '83%']],
+    asks: [{ ask: 'max', text: 'чаще?' }, { ask: 'min', text: 'реже?' }],
+  }
+
+  it('первый слот пары — справа (сверено в игре на Anti-Mage)', () => {
+    expect(TALENT_FIRST_SLOT_SIDE).toBe('right')
+    expect(talentTreeOrder('right')).toEqual([3, 2, 1, 0])
+    expect(talentTreeOrder('left')).toEqual([2, 3, 0, 1])
+  })
+
+  it('варианты не перемешиваются: сверху 25 (лево, право), снизу 20 (лево, право); ответ и подписи на месте', () => {
+    const b = bank({ gap: { abs: 0.1 }, note: 'pct0', layout: 'talent_tree', pools: [pool] })
+    for (let seed = 1; seed <= 20; seed++) {
+      const q = picker(b, seeded(seed)).pick('all')!
+      expect(q.options).toEqual(['25 ур.: –50 сек. перезарядки Mana Void', '25 ур.: –1 сек. перезарядки Blink',
+        '20 ур.: +0.8 сек. оглушения от Mana Void', '20 ур.: +125 к дальности Blink'])
+      expect(q.optionNotes).toEqual(['83%', '17%', '31%', '69%'])
+      expect(q.answer).toBe(q.text === 'чаще?' ? '25 ур.: –50 сек. перезарядки Mana Void' : '25 ур.: –1 сек. перезарядки Blink')
+    }
+  })
+})
+
 describe('StatQuestionBuilder — closest', () => {
   it('числовой ответ, герой не повторяется', () => {
     const b: StatsBank = {
@@ -154,6 +252,37 @@ describe('StatQuestionBuilder — closest', () => {
     expect(a.options).toBeUndefined()
     expect(p.pick('closest')).toBeNull()
     expect(p.pick('all')).toBeNull()   // MC-подкатегорий нет
+  })
+})
+
+describe('StatQuestionBuilder — topLead (ботинки)', () => {
+  const boots = (hero: string, vals: Array<[string, number]>): StatMcPool =>
+    ({ subject: hero, entries: vals.map(([n, v]) => [n, v, `${v}`]), asks: [{ ask: 'max', text: `Ботинки ${hero}?` }] })
+
+  it('ответ — лидер пула; варианты (ботинки) между героями повторяются, исключается только герой', () => {
+    const b = bank({ topLead: true, gap: { rel: 0.1, maxRel: 2.5 }, note: 'pct', pools: [
+      boots('Dark Willow', [['Tranquil Boots', 0.47], ['Arcane Boots', 0.38], ['Power Treads', 0.06], ['Boots of Travel', 0.03]]),
+      boots('Tusk', [['Tranquil Boots', 0.40], ['Phase Boots', 0.28], ['Arcane Boots', 0.22], ['Power Treads', 0.04]]),
+      boots('Earthshaker', [['Arcane Boots', 0.44], ['Power Treads', 0.25], ['Boots of Travel', 0.14], ['Phase Boots', 0.12]]),
+    ] })
+    for (let seed = 1; seed <= 20; seed++) {
+      const p = picker(b, seeded(seed))
+      const qs = [p.pick('all')!, p.pick('all')!, p.pick('all')!]
+      expect(p.pick('all')).toBeNull()                       // герои кончились
+      const answers = Object.fromEntries(qs.map(q => [q.displayTopic, q.answer]))
+      expect(answers).toEqual({
+        'D: Dark Willow': 'Tranquil Boots', 'D: Tusk': 'Tranquil Boots', 'D: Earthshaker': 'Arcane Boots',
+      })
+      for (const q of qs) expect(q.optionNotes![q.options!.indexOf(q.answer!)]).toMatch(/^4\d\.0%$/)
+    }
+  })
+
+  it('лидер в вариантах, даже когда без него четвёрка проходит гейт (Drow: Treads ×22 от второго)', () => {
+    const b = bank({ topLead: true, gap: { rel: 0.1, maxRel: 1.5 }, pools: [
+      boots('Drow Ranger', [['Power Treads', 945], ['Boots of Travel', 42], ['Boots of Travel 2', 6], ['Phase Boots', 5],
+        ['Tranquil Boots', 2], ['Arcane Boots', 1]]),
+    ] })
+    for (let seed = 1; seed <= 10; seed++) expect(picker(b, seeded(seed)).pick('all')!.answer).toBe('Power Treads')
   })
 })
 
@@ -179,10 +308,58 @@ describe('настоящий bank.json', () => {
             expect(new Set(q.options).size).toBe(4)
             expect(q.options).toContain(q.answer)
             expect(q.optionNotes).toHaveLength(4)
-            for (const n of q.optionNotes!) expect(n.length).toBeLessThanOrEqual(8)
+            for (const n of q.optionNotes!) expect(n.length).toBeLessThanOrEqual(6)
           }
         }
       }
     }
+  })
+
+  it.skipIf(!real)('предел отрыва: ботинки ×2.5, предметы ×3 — у каждой собранной четвёрки', () => {
+    for (const [id, cap] of [['boots_hero', 2.5], ['items_hero', 3], ['items', 3]] as const) {
+      const sub = real!.subcategories.find(s => s.id === id)!
+      expect(sub.gap?.maxRel).toBe(cap)
+      for (let seed = 1; seed <= 40; seed++) {
+        const q = new StatQuestionBuilder(real!, seeded(seed)).build(sub, 'all', gameOnlyDeck())!
+        const pool = (sub.pools as StatMcPool[]).find(p => !p.subject || q.displayTopic === `${sub.display}: ${p.subject}`)!
+        const val = Object.fromEntries(pool.entries.map(e => [e[0], e[1]]))
+        const vs = q.options!.map(o => val[o]).sort((a, c) => c - a)
+        expect(vs[0]).toBe(val[q.answer!])
+        expect(vs[0]).toBeLessThanOrEqual(vs[1] * cap + 1e-6)
+      }
+    }
+  })
+
+  it.skipIf(!real)('ботинки: ответ — самые популярные ботинки героя, второе место ×1.1…×2.5, подписи в %', () => {
+    const sub = real!.subcategories.find(s => s.id === 'boots_hero')!
+    expect(sub.topLead).toBe(true)
+    expect(sub.note).toBe('pct')
+    expect(sub.pools.length).toBeGreaterThanOrEqual(20)
+    for (const pool of sub.pools as StatMcPool[]) {
+      const vs = pool.entries.map(e => e[1])
+      expect(vs).toHaveLength(4)
+      expect([...vs].sort((a, c) => c - a)).toEqual(vs)       // по убыванию: [0] — лидер героя
+      expect(vs[0] / vs[1]).toBeGreaterThanOrEqual(1.1 - 1e-9)
+      expect(vs[0] / vs[1]).toBeLessThanOrEqual(2.5 + 1e-9)
+    }
+    const builder = new StatQuestionBuilder(real!, seeded(3))
+    const deck = gameOnlyDeck()
+    const heroes = new Set<string>()
+    for (let i = 0; i < sub.pools.length; i++) {
+      const q = builder.build(sub, 'all', deck)!
+      const pool = (sub.pools as StatMcPool[]).find(p => q.displayTopic === `${sub.display}: ${p.subject}`)!
+      heroes.add(pool.subject!)
+      expect(q.answer).toBe(pool.entries[0][0])
+      expect([...q.options!].sort()).toEqual(pool.entries.map(e => e[0]).sort())
+      for (const n of q.optionNotes!) expect(n).toMatch(/^\d+\.\d%$/)
+    }
+    expect(heroes.size).toBe(sub.pools.length)                // за одну игру — все герои, ботинки не кончаются
+  })
+
+  it.skipIf(!real)('таланты: в банке layout talent_tree, сверху 25 уровень, снизу 20', () => {
+    const sub = real!.subcategories.find(s => s.id === 'talents')!
+    expect(sub.layout).toBe('talent_tree')
+    const q = new StatQuestionBuilder(real!, seeded(1)).build(sub, 'all', gameOnlyDeck())!
+    expect(q.options!.map(o => o.slice(0, 2))).toEqual(['25', '25', '20', '20'])
   })
 })

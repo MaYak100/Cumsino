@@ -1,21 +1,12 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useGameStore, selectIsGladiator } from './store/gameStore'
 import { JoinScreen } from './components/screens/JoinScreen'
-import { LobbyScreen } from './components/screens/LobbyScreen'
-import { AnnounceScreen } from './components/screens/AnnounceScreen'
-import { BettingTableScreen } from './components/screens/BettingTableScreen'
-import { QuestionScreen } from './components/screens/QuestionScreen'
-import { GladiatorSelfScreen } from './components/screens/GladiatorSelfScreen'
-import { ClosestScreen } from './components/screens/ClosestScreen'
-import { Top5Screen } from './components/screens/Top5Screen'
-import { RoundResultsScreen } from './components/screens/RoundResultsScreen'
-import { GameOverScreen } from './components/screens/GameOverScreen'
+import { screenFor } from './components/screens/screenFor'
 import { LateJoinScreen } from './components/screens/LateJoinScreen'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TableFelt } from './components/ui/TableFelt'
 import { ItemBar } from './components/ui/ItemBar'
 import { Notice } from './components/ui/Notice'
-import { ShopScreen } from './components/screens/ShopScreen'
 
 export default function App() {
   const gameState = useGameStore(s => s.gameState)
@@ -43,38 +34,7 @@ export default function App() {
   )
 
   const phase = gameState.phase
-  const mode = gameState.mode
-
-  let Screen: React.FC
-
-  switch (phase) {
-    case 'LOBBY':
-      Screen = LobbyScreen
-      break
-    case 'SHOP':
-      Screen = ShopScreen
-      break
-    case 'ANNOUNCE':
-      Screen = AnnounceScreen
-      break
-    case 'BETTING':
-      Screen = BettingTableScreen
-      break
-    case 'QUESTION':
-      if (mode === 'closest') Screen = ClosestScreen
-      else if (mode === 'top5') Screen = Top5Screen
-      else if (mode === 'kerri' && isGladiator) Screen = GladiatorSelfScreen
-      else Screen = QuestionScreen
-      break
-    case 'REVEAL':
-      Screen = RoundResultsScreen
-      break
-    case 'GAME_OVER':
-      Screen = GameOverScreen
-      break
-    default:
-      Screen = LobbyScreen
-  }
+  const Screen = screenFor(phase, gameState.mode, isGladiator)
 
   return (
     <div className="stage" style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>

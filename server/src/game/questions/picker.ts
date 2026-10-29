@@ -6,7 +6,7 @@
 // Колода подкатегории живёт между играми (history.ts): вопрос берётся из тех, что не выпадали в текущем круге;
 // круг кончился — колода начинается заново, но вопросы этой и прошлой игры остаются заблокированы. В одной игре
 // вопрос не повторяется никогда.
-import type { GameMode, Question } from '@cumsino/shared'
+import { withUnit, type GameMode, type Question } from '@cumsino/shared'
 import type { Library, Category, Subcategory, BankQuestion, QuestionKind } from './library'
 import { QuestionHistory } from './history'
 import { smoothOrder, commitChoice, type Weighted } from './smooth'
@@ -89,10 +89,11 @@ export function shuffleOptions(options: string[], notes?: string[], rng: () => n
 /**
  * Вопрос из колоды: сначала свежие (не было в текущем круге), круг кончился — новый круг и снова свежие,
  * иначе любые, которых не было в этой игре. build может не собрать вопрос (статистика, друзья) — тогда следующий.
+ * group — выбор сначала группы, потом карточки (друзья: человек, у которого больше карточек, не выпадает чаще).
  */
 export function drawFromDeck<T>(cands: T[], card: (t: T) => string, deck: DeckAccess, rng: () => number,
-  build: (t: T) => Question | null): Question | null {
-  const order = shuffleArray(cands, rng)
+  build: (t: T) => Question | null, group?: (t: T) => string): Question | null {
+  const order = group ? interleaveGroups(shuffleArray(cands, rng), group, rng) : shuffleArray(cands, rng)
   const tryAll = (list: T[]) => {
     for (const t of list) {
       const q = build(t)
@@ -111,6 +112,22 @@ export function drawFromDeck<T>(cands: T[], card: (t: T) => string, deck: DeckAc
   if (!got) return null
   deck.take(card(got.t))
   return got.q
+}
+
+/** Группы в случайном порядке, карточки по кругу: первые карточки всех групп, потом вторые… После фильтра
+ *  свежести первой оказывается карточка случайной группы среди тех, у кого свежие остались. */
+export function interleaveGroups<T>(shuffled: T[], group: (t: T) => string, rng: () => number): T[] {
+  const byGroup = new Map<string, T[]>()
+  for (const t of shuffled) {
+    const g = group(t)
+    let list = byGroup.get(g)
+    if (!list) byGroup.set(g, (list = []))
+    list.push(t)
+  }
+  const lists = shuffleArray([...byGroup.values()], rng)
+  const out: T[] = []
+  for (let i = 0; out.length < shuffled.length; i++) for (const list of lists) if (i < list.length) out.push(list[i])
+  return out
 }
 
 export class RoomQuestions implements QuestionSource {
@@ -193,16 +210,17 @@ export class RoomQuestions implements QuestionSource {
     if (src.type === 'stats') return this.stats?.build(src.sub, mode, this.deck(sub)) ?? null
     if (!this.friends) return null
     const cands = src.kind.candidates(this.friends, present)
-    return drawFromDeck(cands, c => c.card, this.deck(sub), this.rng, c => c.build())
+    return drawFromDeck(cands, c => c.card, this.deck(sub), this.rng, c => c.build(), c => c.group)
   }
 
   private fromBank(q: BankQuestion, kind: QuestionKind): Question {
     const base = { id: q.id, topic: '', displayTopic: q.topic, comment: q.comment, text: q.text }
     if (q.kind === 'number') {
-      if (kind === 'closest') return { ...base, mode: 'closest', numericAnswer: q.answer }
+      if (kind === 'closest') return { ...base, mode: 'closest', numericAnswer: q.answer, unit: q.unit }
       const { values, correct } = makeStepOptions(q.answer, q.step, this.rng)
-      const labels = values.map(formatNumber)
-      return { ...base, mode: 'all', options: shuffleArray(labels, this.rng), answer: labels[correct] }
+      // единица прямо в варианте («175%», «12 сек.»): ответ сравнивается по тексту варианта
+      const labels = values.map(v => withUnit(formatNumber(v), q.unit))
+      return { ...base, mode: 'all', options: shuffleArray(labels, this.rng), answer: labels[correct], unit: q.unit }
     }
     const { options, optionNotes } = shuffleOptions(q.options, q.optionNotes, this.rng)
     return { ...base, mode: 'all', options, optionNotes, answer: q.options[0] }

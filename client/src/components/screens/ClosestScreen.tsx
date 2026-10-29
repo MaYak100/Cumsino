@@ -1,6 +1,7 @@
 import { PHASE_DURATIONS } from '@cumsino/shared'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
+import { withUnit } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY, modeColor } from '../../theme'
 import { GameHud } from '../ui/GameHud'
@@ -36,6 +37,9 @@ export function ClosestScreen() {
   const canBlink = answered && blinks > 0 && !revealed
   const locked = revealed || (answered && !editing)
   const parsed = parseFloat(value.replace(/\s/g, '').replace(',', '.'))
+  // единица числа («золота», «%», «сек.») — суффиксом у поля и у чисел раскрытия
+  const unit = q?.unit
+  const unitMark = unit ? withUnit('', unit).trim() : ''
 
   useEffect(() => { setValue(''); setSent(null); setEditing(false) }, [q?.id])
   useEffect(() => { if (!locked) inputRef.current?.focus() }, [locked])
@@ -85,20 +89,25 @@ export function ClosestScreen() {
                 <div className="text-sm mb-1" style={{ color: C.muted }}>Правильно</div>
                 <div className="tnum" style={{ fontFamily: DISPLAY, fontSize: 'clamp(56px, 8vw, 96px)', lineHeight: 1, color: C.mint }}>
                   {fmt(roundCorrectAnswer as number)}
+                  {unitMark && <span style={{ fontSize: '0.38em', marginLeft: '0.3em', color: C.muted }}>{unitMark}</span>}
                 </div>
               </motion.div>
               {mine !== null && (
                 <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="pb-2">
                   <div className="text-sm mb-1" style={{ color: C.muted }}>Ты сказал</div>
-                  <div className="tnum" style={{ fontFamily: DISPLAY, fontSize: '2.25rem', lineHeight: 1, color: C.fg }}>{fmt(mine)}</div>
+                  <div className="tnum" style={{ fontFamily: DISPLAY, fontSize: '2.25rem', lineHeight: 1, color: C.fg }}>
+                    {fmt(mine)}
+                    {unitMark && <span style={{ fontSize: '0.45em', marginLeft: '0.3em', color: C.muted }}>{unitMark}</span>}
+                  </div>
                   <div className="text-sm mt-1.5 tnum" style={{ color: diff === 0 ? C.mint : C.muted }}>
-                    {diff === 0 ? 'В точку' : `мимо на ${fmt(diff!)}`}
+                    {diff === 0 ? 'В точку' : `мимо на ${withUnit(fmt(diff!), unit)}`}
                   </div>
                 </motion.div>
               )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-stretch gap-3">
+              <div className="relative flex-1 min-w-0">
               <input
                 ref={inputRef}
                 type="text"
@@ -109,13 +118,21 @@ export function ClosestScreen() {
                 disabled={locked}
                 placeholder="0"
                 aria-label="Твоё число"
-                className="tnum flex-1 min-w-0 rounded-2xl px-6 bg-transparent text-center sm:text-left focus:outline-none disabled:opacity-70"
+                className="tnum w-full rounded-2xl px-6 bg-transparent text-center sm:text-left focus:outline-none disabled:opacity-70"
                 style={{
                   fontFamily: DISPLAY, fontSize: 'clamp(44px, 6vw, 72px)', height: '7rem', color: C.fg,
                   background: C.panel, border: `2px solid ${locked ? C.line : color}`,
                   boxShadow: locked ? 'none' : `0 0 0 5px ${color}22`,
+                  paddingRight: unitMark ? '7rem' : undefined,
                 }}
               />
+              {unitMark && (
+                <span className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none"
+                  style={{ fontFamily: DISPLAY, fontSize: '1.5rem', color: C.muted }}>
+                  {unitMark}
+                </span>
+              )}
+              </div>
               {locked && canBlink ? (
                 <motion.button
                   type="button"

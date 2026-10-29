@@ -1,0 +1,6356 @@
+[
+  {
+    "index": 0,
+    "heroes": [
+      "Terrorblade",
+      "Elder Titan",
+      "Lion",
+      "Phoenix",
+      "Oracle"
+    ],
+    "questions": [
+      {
+        "hero": "Lion",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lion?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Mana Drain даёт рут через 3 секунды",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lion_10",
+            "text": "Earth Spike бьёт конусом в 30 градусов",
+            "original": "Earth Spike affects a 30 degree cone",
+            "original_ru": "Earth Spike в 30-градусном конусе",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Hex снижает броню цели на 6 единиц",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Finger of Death бьёт по области 300",
+            "verdict": "invented_ok",
+            "verify_note": "В behavior ультимейта указано AOE, но в описании нет урона по области (только cleave от кулака). Поэтому считаю это подделкой."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            38,
+            34,
+            35
+          ],
+          "ratio": 1.12,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Oracle",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Oracle?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "False Promise даёт инвиз союзнику",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Fortune's End бьёт по неуязвимым",
+            "verdict": "default",
+            "verify_note": "Способность и так действует на неуязвимых (note0)."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Purifying Flames лечит по области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_oracle_7",
+            "text": "Fortune's End диспелит постоянно",
+            "original": "Fortune's End constantly Dispels",
+            "original_ru": "Fortune's End применяет развеивание постоянно",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            33,
+            32,
+            33,
+            32
+          ],
+          "ratio": 1.03,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13694,
+        "output_tokens": 2040,
+        "seconds": 22.3,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5119,
+        "output_tokens": 885,
+        "seconds": 8.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 1,
+    "heroes": [
+      "Centaur Warrunner",
+      "Wraith King",
+      "Treant Protector",
+      "Grimstroke",
+      "Riki"
+    ],
+    "questions": [
+      {
+        "hero": "Centaur Warrunner",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Centaur Warrunner?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Hoof Stomp накладывает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_centaur_1",
+            "text": "Retaliate становится аурой",
+            "original": "Gains Retaliate Aura",
+            "original_ru": "Retaliate становится аурой",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Retaliate бьёт по башням",
+            "verdict": "default",
+            "verify_note": "Retaliate already damages towers (half damage), per the description and note1."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Stampede даёт уклонение",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            28,
+            26,
+            24,
+            23
+          ],
+          "ratio": 1.22,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Wraith King",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Wraith King?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Vampiric Spirit даёт ауру союзникам",
+            "verdict": "scepter",
+            "verify_note": "Aghanim's Scepter turns Vampiric Spirit into an aura for allies."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Wraithfire Blast вызывает скелетов",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_wraith_king_4",
+            "text": "Reincarnation применяет Wraithfire Blast",
+            "original": "Reincarnation Casts Wraithfire Blast",
+            "original_ru": "Применение Wraithfire Blast на жертв Reincarnation",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Mortal Strike станит цель на атаке",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            34,
+            40,
+            34
+          ],
+          "ratio": 1.18,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Treant Protector",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Treant Protector?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Leech Seed действует по области 325",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nature's Guise даёт инвиз по области 350",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nature's Grasp ставит лозы по области 400",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_treant_7",
+            "text": "Living Armor действует по области 450",
+            "original": "450 AoE Living Armor",
+            "original_ru": "Living Armor применяется по области радиусом 450",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            40,
+            41,
+            37
+          ],
+          "ratio": 1.17,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13489,
+        "output_tokens": 3627,
+        "seconds": 36.4,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6968,
+        "output_tokens": 1155,
+        "seconds": 11.1,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 2,
+    "heroes": [
+      "Weaver",
+      "Nyx Assassin",
+      "Undying",
+      "Lone Druid",
+      "Spirit Breaker"
+    ],
+    "questions": [
+      {
+        "hero": "Weaver",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Weaver?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shukuchi оставляет жуков The Swarm",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_weaver_5",
+            "text": "Geminate Attack выпускает три атаки",
+            "original": "+1 Geminate Attack",
+            "original_ru": "+1 к числу атак от Geminate Attack",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "+1 Geminate Attack: две атаки становятся тремя."
+          },
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Time Lapse можно применить на союзника",
+            "verdict": "scepter",
+            "verify_note": "Аганим позволяет применять Time Lapse на союзного героя."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "The Swarm накладывает слоу на цель",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            35,
+            38,
+            34
+          ],
+          "ratio": 1.12,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Nyx Assassin",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Nyx Assassin?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Vendetta бьёт по области радиусом 300",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Impale бьёт по кругу радиусом 450",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_nyx",
+            "text": "Mind Flare бьёт по области радиусом 600",
+            "original": "600 Mind Flare Radius",
+            "original_ru": "Mind Flare по области радиусом 600",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spiked Carapace станит в радиусе 350",
+            "verdict": "scepter",
+            "verify_note": "Под Burrow (аганим) Spiked Carapace мгновенно оглушает врагов рядом."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            37,
+            33,
+            39,
+            36
+          ],
+          "ratio": 1.18,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Undying",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Undying?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Soul Rip может лечить Tombstone",
+            "verdict": "default",
+            "verify_note": "Soul Rip и так может лечить Tombstone."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Flesh Golem ставит Tombstone при касте",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Decay призывает зомби у каждой цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_undying_3",
+            "text": "Tombstone ставится при смерти Undying",
+            "original": "Tombstone On Death",
+            "original_ru": "Призыв надгробия при смерти",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            31,
+            38,
+            35,
+            37
+          ],
+          "ratio": 1.23,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Lone Druid",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lone Druid?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spirit Link даёт 25% статус-резиста",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lone_druid_8",
+            "text": "True Form даёт 70% сопротивления слоу",
+            "original": "True Form provides 70% Slow Resistance",
+            "original_ru": "True Form даёт +70% к сопротивлению замедлениям",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Savage Roar даёт 40% уклонения",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Entangle даёт 20% спелл-ампа по цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            37,
+            30,
+            36
+          ],
+          "ratio": 1.23,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Spirit Breaker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Spirit Breaker?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Charge of Darkness даёт щит на 250 урона",
+            "verdict": "invented_ok",
+            "verify_note": "Похожая механика (щит/барьер), но на другой способности — допустимая обманка."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nether Strike лечит на 300 здоровья",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Greater Bash бьёт по области 250",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_spirit_breaker_shield",
+            "text": "Bulldoze даёт барьер на 375 урона",
+            "original": "Bulldoze 375 All Damage Barrier",
+            "original_ru": "Bulldoze даёт барьер от всех типов урона с 375 здоровья",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "Не указано, что барьер от всех типов урона, но смысл передан."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            40,
+            35,
+            32,
+            33
+          ],
+          "ratio": 1.25,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14310,
+        "output_tokens": 3941,
+        "seconds": 39.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 11533,
+        "output_tokens": 1941,
+        "seconds": 16.0,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 3,
+    "heroes": [
+      "Ember Spirit",
+      "Kunkka",
+      "Huskar",
+      "Largo",
+      "Bounty Hunter"
+    ],
+    "questions": [
+      {
+        "hero": "Ember Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ember Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Searing Chains бьёт 4 раза в секунду",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ember_spirit_4",
+            "text": "Sleight of Fist получает 2 заряда",
+            "original": "2 Sleight of Fist Charges",
+            "original_ru": "2 заряда Sleight of Fist",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Fire Remnant бежит в 3 раза быстрее",
+            "verdict": "scepter",
+            "verify_note": "Aghanim's Scepter increases the initial Fire Remnant speed; by default the remnant already runs at 250% of Ember's speed."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Flame Guard получает 3 заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            36,
+            33,
+            35,
+            29
+          ],
+          "ratio": 1.24,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Kunkka",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Kunkka?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "X Marks the Spot даёт сайленс на 2 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ghostship даёт дизарм на 2.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_kunkka_tidebringer_slow",
+            "text": "Tidebringer даёт слоу 60% на 1 сек",
+            "original": "Tidebringer applies 60% slow for 1s",
+            "original_ru": "Tidebringer замедляет передв. на 60% на 1 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Torrent даёт слоу атаки 40% на 3 сек",
+            "verdict": "invented_ok",
+            "verify_note": "Torrent already slows movement speed, but not attack speed, so this works as a fake."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            38,
+            32,
+            34,
+            36
+          ],
+          "ratio": 1.19,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Largo",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Largo?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Catchy Lick даёт рут на 1.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Hotfeet Hustle даёт 40% уклонения",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Bullbelly Blitz бьёт в радиусе 600",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_largo_5",
+            "text": "Frogstomp топает в 2 раза чаще",
+            "original": "2x Frogstomp Stomps/Interval",
+            "original_ru": "Частота и число притопов у Frogstomp умножаются на 2",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "The talent doubles both the frequency and the number of stomps; «в 2 раза чаще» conveys the meaning, but without explicitly mentioning that the number of stomps also doubles."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            31,
+            33,
+            34,
+            30
+          ],
+          "ratio": 1.13,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Bounty Hunter",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Bounty Hunter?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_bounty_hunter_8",
+            "text": "Track даёт общий обзор с целью",
+            "original": "Track Grants Shared Vision",
+            "original_ru": "Жертвы Track делятся своим обзором",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Track даёт просвет на цель",
+            "verdict": "default",
+            "verify_note": "Track already grants True Sight of the target without any talent."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shuriken Toss накладывает рут",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Jinada накладывает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            30,
+            26,
+            29,
+            24
+          ],
+          "ratio": 1.25,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13881,
+        "output_tokens": 4671,
+        "seconds": 45.7,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9317,
+        "output_tokens": 1695,
+        "seconds": 16.2,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 4,
+    "heroes": [
+      "Phantom Assassin",
+      "Shadow Fiend",
+      "Lich",
+      "Dark Willow",
+      "Doom"
+    ],
+    "questions": [
+      {
+        "hero": "Phantom Assassin",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Phantom Assassin?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Phantom Strike даёт два заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_phantom_assassin",
+            "text": "Stifling Dagger бьёт по трём целям",
+            "original": "Triple Strike Stifling Dagger",
+            "original_ru": "Stifling Dagger по трём целям",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Coup de Grace бьёт двумя критами",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Fan of Knives выпускается дважды",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            30,
+            34,
+            32,
+            32
+          ],
+          "ratio": 1.13,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Shadow Fiend",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Fiend?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Feast of Souls даёт спелл-лайфстил",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Requiem of Souls оставляет горение",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_nevermore_raze_procsattacks",
+            "text": "Shadowraze наносит урон от атаки",
+            "original": "Shadowraze Applies Attack Damage",
+            "original_ru": "Shadowraze наносит урон от атак",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Presence of the Dark Lord даёт брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            34,
+            32,
+            36
+          ],
+          "ratio": 1.12,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Lich",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lich?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Frost Shield взрывается при спадании",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Ice Spire даёт Frost Blast при разрушении",
+            "verdict": "shard",
+            "verify_note": "Ice Spire — способность шарда, при разрушении сама создаёт Frost Blast"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Sinister Gaze кастуется при атаке по Lich",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lich_7",
+            "text": "Chain Frost срабатывает при смерти Lich",
+            "original": "Chain Frost on Death",
+            "original_ru": "Применение Chain Frost при смерти",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            36,
+            41,
+            41,
+            39
+          ],
+          "ratio": 1.14,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Dark Willow",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Dark Willow?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_dark_willow_bedlam_targets",
+            "text": "Bedlam атакует на 2 цели больше",
+            "original": "+2 Bedlam Attack Targets",
+            "original_ru": "+2 к числу целей атаки у Bedlam",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Bramble Maze растит на 3 куста больше",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shadow Realm даёт на 2 атаки больше",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Cursed Crown даёт на 1 заряд больше",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            31,
+            37,
+            35,
+            35
+          ],
+          "ratio": 1.19,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Doom",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Doom?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Doom накладывает брейк на цель",
+            "verdict": "scepter",
+            "verify_note": "Аганим Doom накладывает Break"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Infernal Blade поджигает по области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_doom_11",
+            "text": "Scorched Earth действует постоянно",
+            "original": "Permanent Scorched Earth",
+            "original_ru": "Постоянное действие Scorched Earth",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Devour работает на древних крипов",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            30,
+            35,
+            34,
+            33
+          ],
+          "ratio": 1.17,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14280,
+        "output_tokens": 4366,
+        "seconds": 43.7,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 11468,
+        "output_tokens": 1679,
+        "seconds": 13.6,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 5,
+    "heroes": [
+      "Gyrocopter",
+      "Luna",
+      "Enchantress",
+      "Vengeful Spirit",
+      "Pangolier"
+    ],
+    "questions": [
+      {
+        "hero": "Luna",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Luna?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Lucent Beam даёт Luna бонус к урону",
+            "verdict": "shard",
+            "verify_note": "Шард: Lucent Beam даёт Luna бонус к урону атаки за каждого задетого героя."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Eclipse станит врагов каждым лучом",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_luna_5",
+            "text": "Lucent Beam бьёт по ещё одной цели",
+            "original": "Lucent Beam Hits An Additional Target",
+            "original_ru": "Lucent Beam бьёт по дополнительной жертве",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Lunar Orbit замедляет задетых врагов",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            34,
+            34,
+            36
+          ],
+          "ratio": 1.06,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Vengeful Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Vengeful Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nether Swap даёт союзнику 35% маг. резиста",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Vengeance Aura даёт 20% лайфстила союзникам",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_vengeful_spirit_wave_of_terror_steal",
+            "text": "Wave of Terror крадёт 25% снятых урона и брони",
+            "original": "Wave Of Terror Steals 25% Of Reduced Damage And Armor",
+            "original_ru": "Wave Of Terror крадёт 25% сниженных урона и брони",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Magic Missile снижает маг. резист на 15%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            42,
+            43,
+            46,
+            40
+          ],
+          "ratio": 1.15,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14241,
+        "output_tokens": 2190,
+        "seconds": 22.3,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5192,
+        "output_tokens": 917,
+        "seconds": 8.9,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 6,
+    "heroes": [
+      "Arc Warden",
+      "Sniper",
+      "Templar Assassin",
+      "Lina",
+      "Spectre"
+    ],
+    "questions": [
+      {
+        "hero": "Templar Assassin",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Templar Assassin?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Psionic Trap сайленсит врагов",
+            "verdict": "scepter",
+            "verify_note": "Аганим: сработавшие ловушки накладывают безмолвие."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_templar_assassin_4",
+            "text": "Refraction диспелит при касте",
+            "original": "Refraction Dispels",
+            "original_ru": "Refraction развеивает отрицательные эффекты",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Psi Blades дают слоу по линии",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Inner Peace лечит союзников",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            29,
+            29,
+            29,
+            27
+          ],
+          "ratio": 1.07,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Lina",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lina?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Атаки по жертвам Slow Burn дают лайфстил 15%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Laguna Blade по жертвам Slow Burn сильнее на 25%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lina_crit_debuff",
+            "text": "Атаки по жертвам Slow Burn критуют на 150%",
+            "original": "150% Attack Crit On Targets Affected By Slow Burn",
+            "original_ru": "Атаки наносят 150% крит. урона жертвам Slow Burn",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Атаки по жертвам Slow Burn дают слоу 20%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            44,
+            48,
+            42,
+            40
+          ],
+          "ratio": 1.2,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13777,
+        "output_tokens": 3372,
+        "seconds": 34.6,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5451,
+        "output_tokens": 831,
+        "seconds": 8.3,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 7,
+    "heroes": [
+      "Io",
+      "Slark",
+      "Shadow Shaman",
+      "Earthshaker",
+      "Earth Spirit"
+    ],
+    "questions": [
+      {
+        "hero": "Io",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Io?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spirits взрываются об крипов с 35% урона",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_wisp_4",
+            "text": "Io бьёт цель союзника по Tether на 50% урона",
+            "original": "Attack Tethered Ally's Target (50% damage)",
+            "original_ru": "Атака вместе с целью Tether (50% урона)",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Relocate бьёт врагов в точке на 60% урона",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Overcharge отражает атакующим 25% урона",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            40,
+            44,
+            41,
+            39
+          ],
+          "ratio": 1.13,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Shadow Shaman",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Shaman?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shackles дают сайленс",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Hex убивает иллюзии",
+            "verdict": "default",
+            "verify_note": "Hex и так мгновенно уничтожает иллюзии (note0)."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_shadow_shaman_7",
+            "text": "Hex накладывает брейк",
+            "original": "Hex Breaks",
+            "original_ru": "Hex накладывает истощение",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ether Shock даёт слоу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            21,
+            19,
+            21,
+            21
+          ],
+          "ratio": 1.11,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Earth Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Earth Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Rolling Boulder накладывает Magnetize",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Stone Remnant даёт обзор вокруг себя",
+            "verdict": "invented_ok",
+            "verify_note": "По описанию у Stone Remnant нет обзора, такого таланта нет."
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Magnetize взрывает Stone Remnant рядом",
+            "verdict": "default",
+            "verify_note": "Magnetize и так взрывает ближайшие Stone Remnant."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_earth_spirit_2",
+            "text": "Magnetize вешается и на Earth Spirit",
+            "original": "Earth Spirit Magnetizes himself",
+            "original_ru": "Magnetize применяется на владельца",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            37,
+            36,
+            38,
+            36
+          ],
+          "ratio": 1.06,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14131,
+        "output_tokens": 2846,
+        "seconds": 28.2,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 7477,
+        "output_tokens": 909,
+        "seconds": 8.5,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 8,
+    "heroes": [
+      "Shadow Demon",
+      "Kez",
+      "Jakiro",
+      "Tidehunter",
+      "Disruptor"
+    ],
+    "questions": [
+      {
+        "hero": "Shadow Demon",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Shadow Demon?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Disruption накладывает Disseminate",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_shadow_demon_purge_poison",
+            "text": "Demonic Purge накладывает Shadow Poison",
+            "original": "Demonic Purge Applies Shadow Poison",
+            "original_ru": "Demonic Purge накладывает эффекты Shadow Poison",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Demonic Purge накладывает брейк",
+            "verdict": "scepter",
+            "verify_note": "Аганим даёт Demonic Purge брейк"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Demonic Cleanse снимает Shadow Poison",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            39,
+            31,
+            37
+          ],
+          "ratio": 1.26,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Kez",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Kez?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "+1 заряд у Grappling Claw",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "+1 бросок у Talon Toss",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_kez_echo_slash_strike_count",
+            "text": "+1 выпад у Echo Slash",
+            "original": "+1 Echo Slash Attack",
+            "original_ru": "+1 выпад у Echo Slash",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "+1 волна у Raven's Veil",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            25,
+            22,
+            21,
+            23
+          ],
+          "ratio": 1.19,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Tidehunter",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Tidehunter?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Ravage бьёт по невидимым врагам",
+            "verdict": "default",
+            "verify_note": "Ravage и так бьёт по невидимым (note0)"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Gush диспелит баффы с цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Kraken Shell блокирует и магию",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_tidehunter_10",
+            "text": "Anchor Smash бьёт по постройкам",
+            "original": "Anchor Smash affects buildings",
+            "original_ru": "Anchor Smash действует на постройки",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            31,
+            26,
+            30,
+            31
+          ],
+          "ratio": 1.19,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Disruptor",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Disruptor?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Static Storm получает 2 заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Kinetic Field получает 2 заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Thunder Strike получает 2 заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_disruptor_4",
+            "text": "Glimpse получает 2 заряда",
+            "original": "2 Glimpse Charges",
+            "original_ru": "2 заряда Glimpse",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            30,
+            31,
+            32,
+            25
+          ],
+          "ratio": 1.28,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14573,
+        "output_tokens": 3200,
+        "seconds": 31.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9798,
+        "output_tokens": 1274,
+        "seconds": 10.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 9,
+    "heroes": [
+      "Magnus",
+      "Phantom Lancer",
+      "Dragon Knight",
+      "Snapfire",
+      "Leshrac"
+    ],
+    "questions": [
+      {
+        "hero": "Magnus",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Magnus?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Horn Toss выпускает Shockwave",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_magnus_2",
+            "text": "Shockwave возвращается к Magnus",
+            "original": "Shockwave Returns to Magnus",
+            "original_ru": "Волна от Shockwave возвращается к владельцу",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Skewer бьёт сильнее об деревья",
+            "verdict": "shard",
+            "verify_note": "Шард Skewer даёт доп. урон при насаживании на деревья или скалы."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Empower даёт сплеш и дальникам",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            29,
+            31,
+            30,
+            30
+          ],
+          "ratio": 1.07,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Phantom Lancer",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Phantom Lancer?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Иллюзии делают Phantom Rush с 35% уклонения",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Иллюзии от Doppelganger наносят 40% урона",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_phantom_lancer_illusion_lances",
+            "text": "Иллюзии кидают Spirit Lance с 50% урона",
+            "original": "50% Illusion Spirit Lance Damage",
+            "original_ru": "50% урона копьями от Spirit Lance у иллюзий",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Иллюзии замедляют цель на 25% при атаке",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            43,
+            41,
+            39,
+            39
+          ],
+          "ratio": 1.1,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Snapfire",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Snapfire?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Scatterblast получает второй заряд",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Mortimer Kisses получает второй заряд",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Lil' Shredder получает второй заряд",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_snapfire_firesnap_cookie_additional_charge",
+            "text": "Firesnap Cookie получает второй заряд",
+            "original": "2 Firesnap Cookie Charges",
+            "original_ru": "2 заряда Firesnap Cookie",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            37,
+            35,
+            37
+          ],
+          "ratio": 1.09,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Leshrac",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Leshrac?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Split Earth вызывает Lightning Storm",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Split Earth повторяется в той же точке",
+            "verdict": "shard",
+            "verify_note": "Шард заставляет Split Earth повторяться в той же точке."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_leshrac_pulse_nova_lightning",
+            "text": "Pulse Nova вызывает Lightning Storm",
+            "original": "Pulse Nova triggers Lightning Storm",
+            "original_ru": "Pulse Nova активирует Lightning Storm",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Diabolic Edict вызывает Split Earth",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            36,
+            38,
+            35,
+            35
+          ],
+          "ratio": 1.09,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13577,
+        "output_tokens": 3979,
+        "seconds": 38.4,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 8920,
+        "output_tokens": 1479,
+        "seconds": 12.9,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 10,
+    "heroes": [
+      "Outworld Devourer",
+      "Viper",
+      "Necrophos",
+      "Alchemist",
+      "Batrider"
+    ],
+    "questions": [
+      {
+        "hero": "Viper",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Viper?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Слоу Viper Strike растёт на 5% каждые 0,5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_viper_nethertoxin_radius",
+            "text": "Радиус Nethertoxin растёт на 25 каждые 0,5 сек",
+            "original": "Nethertoxin Radius increases by 25 every 0.5s",
+            "original_ru": "+25 к радиусу Nethertoxin каждые 0.5 сек. действия",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Урон Corrosive Skin растёт на 4 каждые 0,5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Урон Poison Attack растёт на 3 каждые 0,5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            45,
+            46,
+            46,
+            45
+          ],
+          "ratio": 1.02,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Alchemist",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Alchemist?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Corrosive Weaponry даёт +4 урона за стак",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Greevil's Greed даёт +1 брони за стак",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Corrosive Weaponry даёт +3% лайфстила за стак",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_alchemist_7",
+            "text": "Greevil's Greed даёт +3 урона за стак",
+            "original": "Greevil's Greed provides +3 Damage per stack",
+            "original_ru": "+3 к урону от атак за эффект Greevil's Greed",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            40,
+            37,
+            45,
+            37
+          ],
+          "ratio": 1.22,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Batrider",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Batrider?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Firefly накладывает Sticky Napalm",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Атаки накладывают Smoldering Resin",
+            "verdict": "default",
+            "verify_note": "Врождённая Smoldering Resin и так накладывается атаками."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Flaming Lasso накладывает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_batrider_6",
+            "text": "Атаки накладывают Sticky Napalm",
+            "original": "Attacks apply 1 Stack of Sticky Napalm",
+            "original_ru": "Атаки накладывают по одному эффекту Sticky Napalm",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "Опущено «по одному эффекту», но это подразумевается."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            33,
+            34,
+            31,
+            31
+          ],
+          "ratio": 1.1,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13903,
+        "output_tokens": 4678,
+        "seconds": 44.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 7543,
+        "output_tokens": 1381,
+        "seconds": 13.1,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 11,
+    "heroes": [
+      "Bristleback",
+      "Broodmother",
+      "Techies",
+      "Dazzle",
+      "Slardar"
+    ],
+    "questions": [
+      {
+        "hero": "Broodmother",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Broodmother?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spawn Spiderlings даёт +25% слоу и брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_broodmother_web_speed",
+            "text": "Spin Web даёт +7% скорости и снимает лимит",
+            "original": "+7% Spin Web Move Speed and Ignore Speed Limit",
+            "original_ru": "+7% к доп. скорости от Spin Web и снятие лимита на скорость",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "«снимает лимит» — сокращение от «снятие лимита на скорость», смысл сохранён"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Insatiable Hunger даёт +15% уклонения и диспел",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spin Web даёт +10% регена и инвиз паучкам",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            40,
+            42,
+            46,
+            41
+          ],
+          "ratio": 1.15,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Dazzle",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Dazzle?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shadow Wave даёт +175 радиуса урона по врагам",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nothl Projection даёт +300 радиуса обзора духу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_dazzle_poison_touch_attack_range_bonus",
+            "text": "Poison Touch даёт +200 дальности атаки по целям",
+            "original": "+200 Poison Touch Attack Range",
+            "original_ru": "+200 к дальности атаки по жертвам Poison Touch",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shallow Grave даёт +225 к дальности применения",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            45,
+            46,
+            47,
+            46
+          ],
+          "ratio": 1.04,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Slardar",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Slardar?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Guardian Sprint диспелит Slardar",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Corrosive Haze даёт просвет",
+            "verdict": "default",
+            "verify_note": "Corrosive Haze и так даёт True Sight"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Slithereen Crush даёт брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_slardar_3",
+            "text": "Corrosive Haze нельзя диспелить",
+            "original": "Corrosive Haze Undispellable",
+            "original_ru": "Эффект от Corrosive Haze нельзя развеять",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            32,
+            27,
+            27,
+            31
+          ],
+          "ratio": 1.19,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13507,
+        "output_tokens": 4173,
+        "seconds": 40.6,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6720,
+        "output_tokens": 945,
+        "seconds": 8.2,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 12,
+    "heroes": [
+      "Nature's Prophet",
+      "Lycan",
+      "Hoodwink",
+      "Chaos Knight",
+      "Warlock"
+    ],
+    "questions": [
+      {
+        "hero": "Nature's Prophet",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Nature's Prophet?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Sprout даёт просвет",
+            "verdict": "default",
+            "verify_note": "Sprout и так даёт обзор в радиусе 400."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_furion_3",
+            "text": "Teleportation без кд",
+            "original": "Removed Teleportation Cooldown",
+            "original_ru": "Teleportation без перезарядки",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "«кд» — сленг, но смысл «без перезарядки» передан верно."
+          },
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Wrath of Nature даёт рут",
+            "verdict": "scepter",
+            "verify_note": "Аганим: Wrath of Nature опутывает (Entangle) поражённых врагов."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nature's Call без маны",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            19,
+            20,
+            24,
+            22
+          ],
+          "ratio": 1.26,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": [
+          "проверка: обманок 2 (default, scepter), можно одну"
+        ]
+      },
+      {
+        "hero": "Lycan",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lycan?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Shapeshift даёт волкам уклонение",
+            "verdict": "invented_ok",
+            "verify_note": "Уклонение волкам даёт шард через Hightail, но шард привязан к Summon Wolves, а не к Shapeshift."
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Summon Wolves даёт волкам инвиз",
+            "verdict": "default",
+            "verify_note": "Волки получают невидимость на 3-м уровне Summon Wolves."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Feral Impulse даёт волкам лайфстил",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lycan_5",
+            "text": "Howl снижает весь урон от атак",
+            "original": "Howl Reduces Total Attack Damage",
+            "original_ru": "Howl уменьшает общий урон от атак",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": true,
+          "note": "Три подделки построены по шаблону «X даёт волкам Y», а правда — «Howl снижает весь урон от атак», другая конструкция."
+        },
+        "style": {
+          "lengths": [
+            32,
+            31,
+            34,
+            30
+          ],
+          "ratio": 1.13,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": [
+          "проверка: стиль выдаёт ответ (Три подделки построены по шаблону «X даёт волкам Y», а правда — «Howl снижает весь урон от атак», другая конструкция.)"
+        ]
+      },
+      {
+        "hero": "Hoodwink",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Hoodwink?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Bushwhack даёт просвет по области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Scurry даёт инвиз среди деревьев",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_hoodwink_sharpshooter_vision",
+            "text": "Sharpshooter даёт обзор при зарядке",
+            "original": "Sharpshooter Provides Vision While Charging",
+            "original_ru": "Sharpshooter даёт обзор во время подготовки",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Acorn Shot даёт брейк при отскоке",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            33,
+            32,
+            35,
+            33
+          ],
+          "ratio": 1.09,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Chaos Knight",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Chaos Knight?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Chaos Bolt пробивает невосприимчивость к магии",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Reality Rift кастуется на героя рядом с иллюзией",
+            "verdict": "shard",
+            "verify_note": "Шард позволяет применять Reality Rift на героя в 1200 от иллюзии."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_chaos_knight",
+            "text": "Reality Rift пробивает невосприимчивость к магии",
+            "original": "Reality Rift Pierces Spell Immunity",
+            "original_ru": "Reality Rift проходит сквозь невоспр. к магии",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Chaos Strike при крите накладывает брейк на цель",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            46,
+            48,
+            48,
+            48
+          ],
+          "ratio": 1.04,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Warlock",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Warlock?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Призыв импа при Upheaval",
+            "verdict": "shard",
+            "verify_note": "Шард: во время Upheaval призываются малые импы."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Диспел при касте Shadow Word",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Стан при касте Fatal Bonds",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_warlock_4",
+            "text": "Призыв голема при смерти",
+            "original": "Summons a Golem on death",
+            "original_ru": "Призыв голема при смерти",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": true,
+          "note": "Только в настоящем варианте нет названия способности, у всех подделок оно есть."
+        },
+        "style": {
+          "lengths": [
+            24,
+            28,
+            26,
+            24
+          ],
+          "ratio": 1.17,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": [
+          "проверка: стиль выдаёт ответ (Только в настоящем варианте нет названия способности, у всех подделок оно есть.)"
+        ]
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13819,
+        "output_tokens": 3518,
+        "seconds": 34.6,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 10983,
+        "output_tokens": 2328,
+        "seconds": 21.9,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 13,
+    "heroes": [
+      "Abaddon",
+      "Clinkz",
+      "Clockwerk",
+      "Underlord",
+      "Winter Wyvern"
+    ],
+    "questions": [
+      {
+        "hero": "Abaddon",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Abaddon?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Aphotic Shield накладывается по области 400",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_abaddon_4",
+            "text": "Mist Coil применяется по области 350",
+            "original": "350 AoE Mist Coil",
+            "original_ru": "Mist Coil применяется по области радиусом 350",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Curse of Avernus действует по области 275",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Borrowed Time диспелит по области 450",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            43,
+            36,
+            41,
+            37
+          ],
+          "ratio": 1.19,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Clinkz",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Clinkz?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Death Pact поглощает сразу две цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Strafe делит атаку на две цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_clinkz_3",
+            "text": "Searing Arrows бьют сразу две цели",
+            "original": "Searing Arrows Multishot",
+            "original_ru": "Две цели Searing Arrows",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Infernal Shred вешается на две цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            30,
+            34,
+            35
+          ],
+          "ratio": 1.17,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Clockwerk",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Clockwerk?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Hookshot накладывает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Battery Assault даёт сайленс",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Power Cogs дают просвет",
+            "verdict": "invented_ok",
+            "verify_note": "Шестерни и так бьют невидимых, но не дают true sight — подделка допустима."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_clockwerk_4",
+            "text": "Rocket Flare даёт просвет",
+            "original": "Rocket Flare True Sight",
+            "original_ru": "Rocket Flare раскрывает невидимость",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": "Два варианта с «даёт просвет» слегка сужают выбор, но явной выдачи нет."
+        },
+        "style": {
+          "lengths": [
+            26,
+            28,
+            23,
+            25
+          ],
+          "ratio": 1.22,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Underlord",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Underlord?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Firestorm снижает маг. резист на 15%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_underlord_6",
+            "text": "Pit of Malice замедляет на 20%",
+            "original": "Pit of Malice Slows by 20%",
+            "original_ru": "Pit of Malice замедляет на 20%",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Atrophy Aura режет лечение на 25%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Fiend's Gate лечит союзников на 8%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            36,
+            30,
+            33,
+            34
+          ],
+          "ratio": 1.2,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Winter Wyvern",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Winter Wyvern?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Arctic Burn сайленсит на 1.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Cold Embrace даёт инвиз на 2 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Winter's Curse даёт брейк на 4 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_winter_wyvern_4",
+            "text": "Splinter Blast станит на 1 сек",
+            "original": "Splinter Blast 1s Stun",
+            "original_ru": "Осколки от Splinter Blast оглушают на 1 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            32,
+            32,
+            34,
+            30
+          ],
+          "ratio": 1.13,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14069,
+        "output_tokens": 5510,
+        "seconds": 53.6,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 11244,
+        "output_tokens": 1565,
+        "seconds": 13.2,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 14,
+    "heroes": [
+      "Naga Siren",
+      "Dark Seer",
+      "Razor",
+      "Anti-Mage",
+      "Medusa"
+    ],
+    "questions": [
+      {
+        "hero": "Naga Siren",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Naga Siren?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ensnare получает 2 заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Rip Tide срабатывает за 4 атаки",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_naga_siren",
+            "text": "Mirror Image создаёт +1 иллюзию",
+            "original": "+1 Mirror Image Illusion",
+            "original_ru": "+1 к числу иллюзий от Mirror Image",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Song of the Siren длится +2 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            25,
+            31,
+            31,
+            32
+          ],
+          "ratio": 1.28,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Dark Seer",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Dark Seer?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Vacuum оставляет слоу на 2 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ion Shell даёт 15% маг. резиста",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Wall of Replica станит на 0.6 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_dark_seer_3",
+            "text": "Surge действует по области 350",
+            "original": "350 AoE Surge",
+            "original_ru": "Surge применяется по области радиусом 350",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            31,
+            31,
+            34,
+            30
+          ],
+          "ratio": 1.13,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Razor",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Razor?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Plasma Field крадёт броню у врагов",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_razor_static_link_aspd",
+            "text": "Static Link крадёт скорость атаки",
+            "original": "Static Link Steals Attack Speed",
+            "original_ru": "Static Link крадёт скорость атаки",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Eye of the Storm бьёт и по зданиям",
+            "verdict": "scepter",
+            "verify_note": "Аганим позволяет Eye of the Storm бить по строениям"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Storm Surge накладывает сайленс",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            33,
+            34,
+            31
+          ],
+          "ratio": 1.1,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Medusa",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Medusa?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Split Shot выпускает +1 стрелу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Stone Gaze окаменяет за 1.5 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Mystic Snake делает +2 прыжка",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_medusa_gorgons_grasp_volleys",
+            "text": "Gorgon's Grasp выпускает +1 залп",
+            "original": "+1 Gorgon's Grasp Volley",
+            "original_ru": "+1 к числу областей у Gorgon's Grasp",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            30,
+            32,
+            29,
+            32
+          ],
+          "ratio": 1.1,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13285,
+        "output_tokens": 2937,
+        "seconds": 29.1,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 8963,
+        "output_tokens": 1328,
+        "seconds": 10.9,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 15,
+    "heroes": [
+      "Monkey King",
+      "Pugna",
+      "Keeper of the Light",
+      "Crystal Maiden",
+      "Skywrath Mage"
+    ],
+    "questions": [
+      {
+        "hero": "Monkey King",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Monkey King?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Tree Dance можно прожать под уроном",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_monkey_king_3",
+            "text": "Бафф Jingu Mastery не снимается диспелом",
+            "original": "Jingu Mastery Undispellable",
+            "original_ru": "Эффект Jingu Mastery нельзя развеять",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Boundless Strike не может промахнуться",
+            "verdict": "default",
+            "verify_note": "Boundless Strike уже имеет True Strike"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Primal Spring даёт стан при приземлении",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            40,
+            38,
+            39
+          ],
+          "ratio": 1.14,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Pugna",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Pugna?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nether Blast замедляет врагов на 25%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Life Drain замедляет цель на 20%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_pugna_decrepify_ally_movespeed",
+            "text": "Decrepify ускоряет союзников на 30%",
+            "original": "+30% Decrepify Movement Speed To Allies",
+            "original_ru": "Decrepify ускоряет союзников на 30%",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nether Ward ускоряет Pugna на 15%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            36,
+            32,
+            35,
+            33
+          ],
+          "ratio": 1.12,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Keeper of the Light",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Keeper of the Light?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Blinding Light даёт сайленс врагам",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Illuminate даёт просвет на пути",
+            "verdict": "default",
+            "verify_note": "Illuminate и так даёт обзор на пути волны"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Solar Bind действует по области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_keeper_of_the_light_14",
+            "text": "Chakra Magic даёт сильный диспел",
+            "original": "Chakra Magic Strong Dispels",
+            "original_ru": "Chakra Magic применяет сильное развеивание",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            31,
+            31,
+            32
+          ],
+          "ratio": 1.1,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Skywrath Mage",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Skywrath Mage?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_skywrath_4",
+            "text": "Concussive Shot бьёт по всей карте",
+            "original": "Global Concussive Shot",
+            "original_ru": "Concussive Shot с неогр. дальностью применения",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ancient Seal снимает бафы с цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Arcane Bolt даёт стан при попадании",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Mystic Flare даёт слоу в области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            34,
+            32,
+            35,
+            32
+          ],
+          "ratio": 1.09,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14421,
+        "output_tokens": 3329,
+        "seconds": 31.5,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9592,
+        "output_tokens": 1439,
+        "seconds": 12.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 16,
+    "heroes": [
+      "Sven",
+      "Zeus",
+      "Meepo",
+      "Ring Master",
+      "Silencer"
+    ],
+    "questions": [
+      {
+        "hero": "Zeus",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Zeus?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Thundergod's Wrath бьёт по области радиусом 400",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_zeus_5",
+            "text": "Lightning Bolt бьёт по области радиусом 325",
+            "original": "325 AoE Lightning Bolt",
+            "original_ru": "Lightning Bolt по области радиусом 325",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Static Field срабатывает по области радиусом 300",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Heavenly Jump оглушает по области радиусом 350",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            47,
+            43,
+            48,
+            46
+          ],
+          "ratio": 1.12,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Meepo",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Meepo?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Earthbind снимает инвиз с врагов в сети",
+            "verdict": "default",
+            "verify_note": "Earthbind already reveals invisible units (note0)."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Poof накладывает слоу на врагов в точке",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_meepo_4",
+            "text": "Earthbind даёт атаки без промахов по целям",
+            "original": "Earthbind grants True Strike on Targets",
+            "original_ru": "Атаки без промахов по жертвам Earthbind",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ransack накладывает брейк на цели атак",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            39,
+            39,
+            42,
+            38
+          ],
+          "ratio": 1.11,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Ring Master",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ring Master?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Коробка Escape Act даёт невосприимчивость к магии",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Кровотечение от Impalement Arts накладывает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Wheel of Wonder накладывает сайленс на зачарованных",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ringmaster_whip_debuff_immunity",
+            "text": "Замах Tame the Beasts даёт невосприимчивость к эффектам",
+            "original": "Debuff Immunity While Channeling Tame the Beasts",
+            "original_ru": "Невоспр. к эффектам при замахе от Tame the Beasts",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            49,
+            49,
+            51,
+            55
+          ],
+          "ratio": 1.12,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Silencer",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Silencer?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Glaives of Wisdom прорубают по области 200",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_silencer_4",
+            "text": "Last Word накладывается по области 250",
+            "original": "250 AoE Last Word",
+            "original_ru": "Last Word по области радиусом 250",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Arcane Curse накладывает сайленс на 1.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Global Silence накладывает слоу 15%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            42,
+            38,
+            43,
+            35
+          ],
+          "ratio": 1.23,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13849,
+        "output_tokens": 4118,
+        "seconds": 40.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9554,
+        "output_tokens": 1288,
+        "seconds": 10.7,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 17,
+    "heroes": [
+      "Muerta",
+      "Ancient Apparition",
+      "Timbersaw",
+      "Bloodseeker",
+      "Storm Spirit"
+    ],
+    "questions": [
+      {
+        "hero": "Muerta",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Muerta?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Dead Shot пугает на 1.5 секунды дольше",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_muerta_the_calling_num_revenants",
+            "text": "The Calling призывает на 2 духа больше",
+            "original": "The Calling summons 2 additional revenants",
+            "original_ru": "+2 к числу духов от The Calling",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Gunslinger делает на 1 выстрел больше",
+            "verdict": "invented_ok",
+            "verify_note": "Close to the real '+20% Gunslinger chance' talent by topic, but the mechanic is different: an extra shot instead of a higher trigger chance."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spectral Slug бьёт на 2 врага больше",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            38,
+            38,
+            37,
+            36
+          ],
+          "ratio": 1.06,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Ancient Apparition",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ancient Apparition?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Chilling Touch срабатывает по области 300",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Bone Chill накладывается по области 350",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ancient_apparition_1",
+            "text": "Cold Feet накладывается по области 450",
+            "original": "450 AoE Cold Feet",
+            "original_ru": "Cold Feet применяется по области радиусом 450",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ice Blast замораживает по области 300",
+            "verdict": "default",
+            "verify_note": "Ice Blast already hits an area: its radius is 300 + 50×flight time."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            41,
+            39,
+            38,
+            37
+          ],
+          "ratio": 1.11,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Timbersaw",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Timbersaw?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Whirling Death ускоряет на 4% за дерево",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Reactive Armor даёт 2 заряда за дерево",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Flamethrower жжёт на 10 урона за дерево",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_timbersaw_exposure_therapy_health",
+            "text": "Exposure Therapy лечит на 12 хп за дерево",
+            "original": "Exposure Therapy Heals for 12 HP Per Tree Destroyed",
+            "original_ru": "Exposure Therapy исцеляет на 12 здоровья за дерево",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            39,
+            38,
+            39,
+            41
+          ],
+          "ratio": 1.08,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Storm Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Storm Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ball Lightning даёт заряд Overload каждые 400",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_storm_spirit_4",
+            "text": "Ball Lightning оставляет Static Remnant каждые 450",
+            "original": "450 Distance Auto Remnant in Ball Lightning",
+            "original_ru": "Создание копии каждые 450 единиц в Ball Lightning",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ball Lightning кастует Electric Vortex каждые 600",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Static Remnant выпускает Overload каждые 3 секунды",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            45,
+            50,
+            49,
+            50
+          ],
+          "ratio": 1.11,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13447,
+        "output_tokens": 4080,
+        "seconds": 39.3,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 8859,
+        "output_tokens": 1627,
+        "seconds": 14.3,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 18,
+    "heroes": [
+      "Tiny",
+      "Beastmaster",
+      "Queen of Pain",
+      "Mirana",
+      "Death Prophet"
+    ],
+    "questions": [
+      {
+        "hero": "Tiny",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Tiny?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Tree Grab можно применять без дерева",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_tiny_5",
+            "text": "Toss можно применять без цели",
+            "original": "Toss Requires No Target",
+            "original_ru": "Для Toss не нужна цель",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Avalanche можно применять на себя",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Tree Volley можно применять на ходу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            36,
+            29,
+            33,
+            35
+          ],
+          "ratio": 1.24,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Beastmaster",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Beastmaster?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Wild Axes рубят деревья",
+            "verdict": "default",
+            "verify_note": "Wild Axes и так уничтожают деревья (note0)"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Primal Roar даёт дизарм",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_beastmaster_wild_axe_cooldown",
+            "text": "Wild Axes не имеют кд",
+            "original": "No Wild Axes Cooldown",
+            "original_ru": "Wild Axes без перезарядки",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Inner Beast даёт лайфстил",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            23,
+            23,
+            21,
+            25
+          ],
+          "ratio": 1.19,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Mirana",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Mirana?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Celestial Quiver даёт 2 доп. заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Starstorm вызывает 3 доп. метеора",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Leap вызывает 2 доп. Starstorm",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_mirana_2",
+            "text": "Sacred Arrow выпускает 2 доп. стрелы",
+            "original": "+2 Multishot Sacred Arrows",
+            "original_ru": "+2 стрелы у Sacred Arrow",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            35,
+            33,
+            30,
+            36
+          ],
+          "ratio": 1.2,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Death Prophet",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Death Prophet?",
+        "options": [
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_death_prophet_exorcism_duration_on_kill",
+            "text": "Смерти во время Exorcism продлевают его на 8 сек",
+            "original": "Deaths During Exorcism Extend Duration By +8s",
+            "original_ru": "Смерти во время Exorcism продлевают действие на 8 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Попадания Crypt Swarm продлевают Silence на 1.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Каждый Spirit Siphon продлевает Exorcism на 3 сек",
+            "verdict": "invented_ok",
+            "verify_note": "Тоже продление Exorcism, но триггер другой (каждый Spirit Siphon, а не смерти) — допустимо"
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Смерти под Spirit Siphon дают Exorcism на 4 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            48,
+            51,
+            49,
+            47
+          ],
+          "ratio": 1.09,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13047,
+        "output_tokens": 4845,
+        "seconds": 49.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 8498,
+        "output_tokens": 1492,
+        "seconds": 13.4,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 19,
+    "heroes": [
+      "Ogre Magi",
+      "Void Spirit",
+      "Dawnbreaker",
+      "Faceless Void",
+      "Venomancer"
+    ],
+    "questions": [
+      {
+        "hero": "Ogre Magi",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ogre Magi?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Атаки с шансом 25% накладывают Ignite",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ogre_magi_3",
+            "text": "Атаки с шансом 17% применяют Fireblast",
+            "original": "17% Fireblast chance on attack",
+            "original_ru": "Шанс в 17% применить Fireblast при атаке",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Атаки с шансом 15% вешают Bloodlust на себя",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Атаки с шансом 20% дают Fire Shield себе",
+            "verdict": "invented_ok",
+            "verify_note": "Fire Shield is the shard ability, but there is no shard proc on attack."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            37,
+            38,
+            43,
+            40
+          ],
+          "ratio": 1.16,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Void Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Void Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Aether Remnant станит врагов на 1.2 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Astral Step дизармит врагов на 1.5 сек",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_void_spirit_3",
+            "text": "Dissimilate рутит врагов на 2 сек",
+            "original": "Dissimilate Roots for 2s",
+            "original_ru": "Dissimilate накладывает оцепенение на 2 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Resonant Pulse хексует врагов на 1 сек",
+            "verdict": "invented_ok",
+            "verify_note": "Aghanim's makes Resonant Pulse silence, not hex, so this is not the scepter effect."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            39,
+            38,
+            33,
+            38
+          ],
+          "ratio": 1.18,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Dawnbreaker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Dawnbreaker?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "След Celestial Hammer лечит союзников",
+            "verdict": "invented_ok",
+            "verify_note": "Mirrors the real talent (same trail, different effect). Not a duplicate of it, but it narrows the choice to two options."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Solar Guardian диспелит союзников",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Удар Starbreaker дает щит союзникам",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_dawnbreaker_celestial_hammer_targets_allies",
+            "text": "След Celestial Hammer ускоряет союзников",
+            "original": "Celestial Hammer Trail Grants Movement Speed to Allies",
+            "original_ru": "След от Celestial Hammer ускоряет передвижение союзников",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            37,
+            33,
+            35,
+            40
+          ],
+          "ratio": 1.21,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Venomancer",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Venomancer?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Noxious Plague дает сайленс",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_venomancer_5",
+            "text": "Snakebite нельзя диспелить",
+            "original": "Snakebite Undispellable",
+            "original_ru": "Эффект от Snakebite нельзя развеять",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Snakebite бьет по области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Poison Sting дает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            27,
+            26,
+            25,
+            23
+          ],
+          "ratio": 1.17,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13985,
+        "output_tokens": 3524,
+        "seconds": 33.6,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9177,
+        "output_tokens": 1459,
+        "seconds": 13.8,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 20,
+    "heroes": [
+      "Bane",
+      "Marci",
+      "Tinker",
+      "Legion Commander",
+      "Enigma"
+    ],
+    "questions": [
+      {
+        "hero": "Marci",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Marci?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Rebound даёт союзнику барьер",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_marci_guardian_strong_dispel",
+            "text": "Bodyguard даёт сильный диспел",
+            "original": "Bodyguard Strong Dispels",
+            "original_ru": "Сильное развеивание от Bodyguard",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Dispose работает и на союзников",
+            "verdict": "default",
+            "verify_note": "Dispose и так можно применять на союзников."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Unleash даёт брейк при ударах",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            28,
+            29,
+            31,
+            29
+          ],
+          "ratio": 1.11,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Tinker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Tinker?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Warp Flare действует по области радиусом 325",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Keen Conveyance действует по области радиусом 600",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_tinker_4",
+            "text": "Laser действует по области радиусом 250",
+            "original": "250 AoE Laser",
+            "original_ru": "Laser по области радиусом 250",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Deploy Turrets взрываются по области радиусом 275",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            44,
+            49,
+            39,
+            49
+          ],
+          "ratio": 1.26,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Legion Commander",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Legion Commander?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Moment of Courage сокращает кд Duel на 2 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Победа в Duel сокращает кд Press The Attack на 8 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_legion_commander_duel_refresh_on_victory",
+            "text": "Победа в Duel сокращает кд Duel на 30 сек.",
+            "original": "Duel Advances Cooldown by 30s On Victory",
+            "original_ru": "Перезарядка Duel короче на 30 сек. при победе в дуэли",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Overwhelming Odds сокращает кд Duel на 3 сек.",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            45,
+            53,
+            42,
+            45
+          ],
+          "ratio": 1.26,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Enigma",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Enigma?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Malefice создаёт 1 эйдолона при каждом стане",
+            "verdict": "shard",
+            "verify_note": "Шард Malefice создаёт эйдолона при каждом срабатывании стана."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Black Hole призывает 3 эйдолона при касте",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Midnight Pulse призывает 2 эйдолона в центре",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_enigma",
+            "text": "Demonic Summoning призывает ещё 4 эйдолона",
+            "original": "+4 Demonic Summoning Eidolons",
+            "original_ru": "+4 к числу эйдолонов от Demonic Summoning",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": "У правильного варианта нет условия («при касте», «при каждом стане», «в центре»), но различие несущественное."
+        },
+        "style": {
+          "lengths": [
+            44,
+            41,
+            44,
+            42
+          ],
+          "ratio": 1.07,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13231,
+        "output_tokens": 6692,
+        "seconds": 67.4,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 8666,
+        "output_tokens": 1360,
+        "seconds": 12.0,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 21,
+    "heroes": [
+      "Night Stalker",
+      "Windranger",
+      "Morphling",
+      "Primal Beast",
+      "Troll Warlord"
+    ],
+    "questions": [
+      {
+        "hero": "Windranger",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Windranger?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Focus Fire бьёт героев ниже 25% здоровья критом",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_windranger_7",
+            "text": "Powershot добивает героев ниже 16% здоровья",
+            "original": "Powershot Executes Enemy Heroes Under 16% Max HP",
+            "original_ru": "Powershot добивает героев со здоровьем ниже 16% от максимального",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Windrun уменьшает на 25% входящий магический урон",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Tailwind даёт 15% статус-резиста за каждый заряд",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            47,
+            43,
+            49,
+            48
+          ],
+          "ratio": 1.14,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Primal Beast",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Primal Beast?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Trample даёт иммунитет к слоу",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Rock Throw даёт заряды Uproar",
+            "verdict": "shard",
+            "verify_note": "Rock Throw (шард) и так даёт заряды Uproar за каждого задетого героя."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Pulverize даёт брейк цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_primal_beast_roar_dispells",
+            "text": "Uproar даёт диспел на себя",
+            "original": "Basic Self-Dispel on Uproar Cast",
+            "original_ru": "Uproar применяет на владельца нормальное развеивание",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "«Диспел» без уточнения по умолчанию понимается как базовое развеивание, что совпадает с оригиналом."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            29,
+            29,
+            25,
+            26
+          ],
+          "ratio": 1.16,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Troll Warlord",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Troll Warlord?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Battle Stance даёт статус-резист",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Fervor даёт лайфстил за каждый заряд",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_troll_warlord_4",
+            "text": "Battle Trance даёт сильный диспел",
+            "original": "Battle Trance Strong Dispels",
+            "original_ru": "Battle Trance применяет сильное развеивание",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Сеть Berserker's Rage даёт брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            32,
+            36,
+            33,
+            32
+          ],
+          "ratio": 1.12,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 13741,
+        "output_tokens": 3359,
+        "seconds": 31.7,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 7317,
+        "output_tokens": 1439,
+        "seconds": 12.9,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 22,
+    "heroes": [
+      "Chen",
+      "Brewmaster",
+      "Lifestealer",
+      "Ursa",
+      "Omniknight"
+    ],
+    "questions": [
+      {
+        "hero": "Chen",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Chen?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Penitence накладывает брейк",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_chen_12",
+            "text": "Hand of God даёт сильный диспел",
+            "original": "Hand of God applies a Strong Dispel",
+            "original_ru": "Hand of God применяет сильное развеивание",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Holy Persuasion берёт древних",
+            "verdict": "shard",
+            "verify_note": "Шард позволяет Holy Persuasion брать древних крипов."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Divine Favor даёт статус-резист",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            27,
+            31,
+            29,
+            31
+          ],
+          "ratio": 1.15,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      },
+      {
+        "hero": "Brewmaster",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Brewmaster?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Thunder Clap накладывает дизарм в центре",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Primal Split накладывает стан при появлении",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_brewmaster_4",
+            "text": "Cinder Brew накладывает страх при горении",
+            "original": "Cinder Brew applies Fear when ignited",
+            "original_ru": "Горение от Cinder Brew накладывает страх",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "default",
+            "text": "Drunken Brawler даёт крит в огненной стойке",
+            "verdict": "default",
+            "verify_note": "Огненная стойка Drunken Brawler и так даёт шанс крита."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            40,
+            43,
+            41,
+            43
+          ],
+          "ratio": 1.07,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Ursa",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Ursa?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Enrage получает 3 заряда",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Fury Swipes вешает 2 стака",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Earthshock совершает 3 прыжка",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_ursa_3",
+            "text": "Earthshock получает 2 заряда",
+            "original": "Earthshock has 2 Charges",
+            "original_ru": "Перезарядка Earthshock заменяется 2 зарядами",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": true,
+          "note": "Подделки собраны из частей правды: Earthshock встречается дважды, формула «получает N заряда» тоже дважды — пересечение указывает на вариант 3."
+        },
+        "style": {
+          "lengths": [
+            24,
+            26,
+            29,
+            28
+          ],
+          "ratio": 1.21,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": [
+          "проверка: стиль выдаёт ответ (Подделки собраны из частей правды: Earthshock встречается дважды, формула «получает N заряда» тоже дважды — пересечение указывает на вариант 3.)"
+        ]
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 12979,
+        "output_tokens": 3026,
+        "seconds": 29.8,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 6603,
+        "output_tokens": 1192,
+        "seconds": 12.8,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 23,
+    "heroes": [
+      "Axe",
+      "Tusk",
+      "Pudge",
+      "Invoker",
+      "Rubick"
+    ],
+    "questions": [
+      {
+        "hero": "Tusk",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Tusk?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Bitter Chill дает слоу 20% и 40 урона в секунду",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_tusk_shard_dps",
+            "text": "Ice Shards дают слоу 50% и 110 урона в секунду",
+            "original": "Ice Shards slow by 50% and deal 110 DPS",
+            "original_ru": "Осколки от Ice Shards замедляют на 50% и наносят 110 урона/сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Walrus Kick дает слоу 60% и 250 урона по пути",
+            "verdict": "scepter",
+            "verify_note": "Walrus Kick из аганима и так замедляет и наносит урон; числа выдуманы, но сама механика — эффект аганима."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Drinking Buddies дают слоу 25% и 60 урона по области",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            47,
+            46,
+            45,
+            52
+          ],
+          "ratio": 1.16,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Invoker",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Invoker?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Tornado оставляет на пути вихри",
+            "verdict": "scepter",
+            "verify_note": "Вихри вдоль пути Tornado даёт аганим."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Cold Snap морозит от любого урона",
+            "verdict": "invented_ok",
+            "verify_note": "По примечаниям заморозка срабатывает только от урона больше 10, так что «от любого урона» — не дефолт."
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_invoker_2",
+            "text": "Deafening Blast бьет во все стороны",
+            "original": "Radial Deafening Blast",
+            "original_ru": "Deafening Blast вокруг героя",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "E.M.P. взрывается без задержки",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            31,
+            33,
+            35,
+            30
+          ],
+          "ratio": 1.17,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      },
+      {
+        "hero": "Rubick",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Rubick?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Каждый прыжок Fade Bolt лечит Rubick на 40",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Каст Spell Steal снимает 150 маны с цели",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Каждый заряд Curiosity дает Rubick 2 к силе",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_rubick_8",
+            "text": "Приземление после Telekinesis наносит 300 урона",
+            "original": "Telekinesis Landing Deals 300 Damage",
+            "original_ru": "Приземление от Telekinesis наносит 300 урона в области оглушения",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            42,
+            40,
+            43,
+            47
+          ],
+          "ratio": 1.18,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 16067,
+        "output_tokens": 3921,
+        "seconds": 39.3,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9726,
+        "output_tokens": 1466,
+        "seconds": 14.0,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 24,
+    "heroes": [
+      "Witch Doctor",
+      "Mars",
+      "Visage",
+      "Juggernaut",
+      "Sand King"
+    ],
+    "questions": [
+      {
+        "hero": "Witch Doctor",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Witch Doctor?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Voodoo Restoration жжёт врагов на 40% в радиусе 500",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_witch_doctor_maledict_spread",
+            "text": "Взрывы Maledict наносят 75% урона в радиусе 800",
+            "original": "Maledict bursts deal 75% damage in a 800 AoE",
+            "original_ru": "Maledict наносит 75% урона от потерянного здоровья в радиусе 800",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Отскоки Paralyzing Cask наносят 35% урона в радиусе 250",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Атаки Death Ward наносят 50% урона в радиусе 300",
+            "verdict": "invented_ok",
+            "verify_note": "Аганим даёт отскоки атак Death Ward, а не урон по области. Это другая механика, поэтому вариант засчитан как выдумка."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            51,
+            47,
+            55,
+            48
+          ],
+          "ratio": 1.17,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Mars",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Mars?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Bulwark даёт союзникам позади +12 брони",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "God's Rebuke даёт Mars +60 к скорости атаки",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_mars_arena_of_blood_hp_regen",
+            "text": "Arena Of Blood даёт союзникам +180 к регену",
+            "original": "Arena Of Blood Grants Team +180 HP Regen",
+            "original_ru": "Arena of Blood даёт +180 к восст. здоровья союзников",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Spear of Mars даёт Mars +20% к скорости бега",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            39,
+            43,
+            43,
+            44
+          ],
+          "ratio": 1.13,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      },
+      {
+        "hero": "Visage",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Visage?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Grave Chill высасывает с 3 целей",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Stone Form бьёт по области 2 раза",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Silent as the Grave ускоряет 3 героев",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_visage_3",
+            "text": "Soul Assumption бьёт по 3 целям",
+            "original": "Soul Assumption Hits 3 Targets",
+            "original_ru": "Soul Assumption по 3 целям",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            32,
+            33,
+            37,
+            31
+          ],
+          "ratio": 1.19,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Sand King",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Sand King?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Burrowstrike ослепляет и замедляет на 30%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_sand_king_4",
+            "text": "Sand Storm замедляет и ослепляет на 35%",
+            "original": "35% Sand Storm Slow and Blind",
+            "original_ru": "Sand Storm замедляет и ослепляет жертв на 35%",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Caustic Finale снижает броню и урон на 20%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Stinger режет лечение и реген на 40%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            41,
+            39,
+            42,
+            36
+          ],
+          "ratio": 1.17,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 14606,
+        "output_tokens": 4757,
+        "seconds": 45.4,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 9868,
+        "output_tokens": 1327,
+        "seconds": 12.8,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 25,
+    "heroes": [
+      "Puck",
+      "Drow Ranger"
+    ],
+    "questions": [
+      {
+        "hero": "Drow Ranger",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Drow Ranger?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Multishot ускоряет Drow Ranger на 25%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_drow_ranger_gust_selfmovespeed",
+            "text": "Gust ускоряет Drow Ranger на 50%",
+            "original": "50% Gust Self Movement Speed",
+            "original_ru": "50% к доп. скорости передвижения от Gust",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Glacier ускоряет союзников на 20%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Frost Arrows замедляют атаку на 30%",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            37,
+            32,
+            33,
+            35
+          ],
+          "ratio": 1.16,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1
+        },
+        "flags": []
+      },
+      {
+        "hero": "Puck",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Puck?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "+250 к радиусу и дальности Dream Coil",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "+300 к дальности и радиусу Illusory Orb",
+            "verdict": "invented_ok",
+            "verify_note": ""
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_puck_rift_radius",
+            "text": "+350 к радиусу и дальности Waning Rift",
+            "original": "+350 Waning Rift Radius/Max Distance",
+            "original_ru": "+350 к радиусу и макс. дальности Waning Rift",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "В оригинале «макс. дальности», здесь просто «дальности» — смысл сохранён."
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "+150 к радиусу атак при Phase Shift",
+            "verdict": "invented_ok",
+            "verify_note": "Перекликается с шардом (атаки по всем в радиусе атаки при Phase Shift), но прибавки к радиусу шард не даёт."
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            37,
+            39,
+            38,
+            35
+          ],
+          "ratio": 1.11,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 7832,
+        "output_tokens": 1779,
+        "seconds": 19.0,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 5130,
+        "output_tokens": 947,
+        "seconds": 9.1,
+        "stop": "end_turn"
+      }
+    }
+  }
+]
