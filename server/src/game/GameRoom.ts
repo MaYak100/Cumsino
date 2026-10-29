@@ -318,6 +318,8 @@ export class GameRoom extends EventEmitter {
   buyItem(playerId: string, item: ItemId) {
     const player = this.players.get(playerId)
     if (!player || !BUY_PHASES.includes(this.phase) || !ITEMS[item]) return
+    // дошёл до финиша — покупка на итогах не должна отнять победу (победитель проверяется в конце REVEAL)
+    if (player.chips >= WIN_CHIPS) return
     const price = itemPrice(item, player.chips)
     if (player.chips < price) return
     if (item === 'aegis') {
