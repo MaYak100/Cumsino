@@ -252,6 +252,27 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
+    id: 'betting-bigblind-me',
+    group: 'BETTING',
+    label: 'all — у меня большой блайнд',
+    Screen: BettingTableScreen,
+    withFelt: true,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        currentQuestion: MC_QUESTION,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 1240, currentBet: 0,  hasAnswered: false, blind: 120, bigBlind: true, streak: 3 },
+          { id: 'dev-2', name: 'Артём',  chips: 250,  currentBet: 0,  hasAnswered: false, blind: 10 },
+          { id: 'dev-3', name: 'Света',  chips: 540,  currentBet: 30, betChips: [20, 10], hasAnswered: false, blind: 30, effects: ['bkb'] },
+          { id: 'dev-4', name: 'Никита', chips: 420,  currentBet: 0,  hasAnswered: false, blind: 20 },
+        ],
+      }),
+      bankBets: {},
+      stagedBets: {},
+    },
+  },
+  {
     id: 'betting-kerri-crowd',
     group: 'BETTING',
     label: 'kerri — crowd',

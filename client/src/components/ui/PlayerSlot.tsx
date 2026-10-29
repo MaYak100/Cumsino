@@ -100,10 +100,10 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
       }}>
         {name}
       </span>
-      {/* серия, блайнд, эффекты — бумажной биркой над правым углом, имя не теснят */}
+      {/* блайнд, эффекты — бумажной биркой на правом верхнем углу: имя не теснят, справа место кнопкам быстрой ставки */}
       {player && ((player.effects?.length ?? 0) > 0 || player.bigBlind) && (
         <span style={{
-          position: 'absolute', left: 'calc(100% + 6px)', top: '50%', zIndex: 3, transform: 'translateY(-50%) rotate(4deg)',
+          position: 'absolute', right: -10, top: 0, zIndex: 3, transform: 'translateY(-70%) rotate(5deg)',
           pointerEvents: 'none', whiteSpace: 'nowrap',
           display: 'flex', alignItems: 'center', gap: 3, padding: '2px 6px', borderRadius: 6,
           background: C.paper, boxShadow: '0 3px 8px rgba(0,0,0,.5)',

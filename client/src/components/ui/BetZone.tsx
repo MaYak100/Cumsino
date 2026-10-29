@@ -10,6 +10,8 @@ interface Props {
   cy: number
   /** в порядке выкладки — от него зависит место фишки в кучке */
   chips: PhysicalChip[]
+  /** постоянные места своих фишек в кучке (lib/pileSlots) — без них место = порядок */
+  slots?: Map<string, number>
   mine: boolean
   onRecall?: (id: string) => void
 }
@@ -18,10 +20,10 @@ const CHIP_PX = 30
 const UNIT_OFFSET = 16 // кучка чуть выше (cx,cy), под ней — сумма
 
 /** Ставка игрока на сукне: фишки кучкой (каждая краем на соседней), под ней сумма. */
-export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
+export function BetZone({ cx, cy, chips, slots, mine, onRecall }: Props) {
   const total = chips.reduce((s, c) => s + c.denom, 0)
   const at = (chip: PhysicalChip, i: number) => {
-    const o = pileOffset(i, chip.id)
+    const o = pileOffset(slots?.get(chip.id) ?? i, chip.id)
     return { left: cx + o.x - CHIP_PX / 2, top: cy - UNIT_OFFSET + o.y - CHIP_PX / 2, zIndex: 10 + i }
   }
 

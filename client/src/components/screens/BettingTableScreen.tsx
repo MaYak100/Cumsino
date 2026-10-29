@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
 import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
 import { buildPhysicalChips, buildChipsForPlayer, pileOffset } from '../../types/chips'
+import { useStableSlots } from '../../lib/pileSlots'
 import type { PhysicalChip } from '../../types/chips'
 import type { ChipValue } from '../ui/Chip'
 import { PlayerSlot, UNIT_W, UNIT_H } from '../ui/PlayerSlot'
@@ -113,6 +114,10 @@ export function BettingTableScreen() {
   const mainPlacedChips  = inOrder(mainPlacedIds)
   const bankPlacedChips  = inOrder(bankPlacedIds)
   const stdPlacedChips   = inOrder(stdPlacedIds)
+  // места в кучке не зависят от того, что убрали: фишки не переезжают по спирали
+  const stdSlots         = useStableSlots(stdPlacedChips)
+  const mainSlots        = useStableSlots(mainPlacedChips)
+  const bankSlots        = useStableSlots(bankPlacedChips)
   const mainBetAmt  = mainPlacedChips.reduce((a, c) => a + c.denom, 0)
   const bankBetAmt  = bankPlacedChips.reduce((a, c) => a + c.denom, 0)
   const stdBetAmt   = stdPlacedChips.reduce((a, c) => a + c.denom, 0)
@@ -274,9 +279,9 @@ export function BettingTableScreen() {
   const gladiatorName = players.find(p => p.id === gameState.gladiatorId)?.name
 
   // ── Кучка фишек в зоне (общий layoutId со стопкой — фишка перелетает) ───────
-  const renderZoneChips = (chips: PhysicalChip[], cx: number, cy: number, spread: number) =>
+  const renderZoneChips = (chips: PhysicalChip[], slots: Map<string, number>, cx: number, cy: number, spread: number) =>
     chips.map((chip, i) => {
-      const o = pileOffset(i, chip.id, spread)
+      const o = pileOffset(slots.get(chip.id) ?? i, chip.id, spread)
       return (
         <motion.div
           key={chip.id}
@@ -419,7 +424,7 @@ export function BettingTableScreen() {
                         </div>
                       )}
                     </motion.div>
-                    {sel && renderZoneChips(mainPlacedChips, left + MAIN_W / 2, MAIN_TOP + MAIN_H / 2 + 6, 15)}
+                    {sel && renderZoneChips(mainPlacedChips, mainSlots, left + MAIN_W / 2, MAIN_TOP + MAIN_H / 2 + 6, 15)}
                   </div>
                 )
               }
@@ -498,7 +503,7 @@ export function BettingTableScreen() {
                           ) : null}
                         </div>
                         {/* фишки — снаружи квитка, на сукне: текст варианта остаётся читаемым */}
-                        {isSel && renderZoneChips(bankPlacedChips, idx % 2 ? zx + OPT_W + 26 : zx - 26, zy + OPT_H / 2, 8)}
+                        {isSel && renderZoneChips(bankPlacedChips, bankSlots, idx % 2 ? zx + OPT_W + 26 : zx - 26, zy + OPT_H / 2, 8)}
                       </div>
                     )
                   })}
@@ -551,6 +556,7 @@ export function BettingTableScreen() {
                     <BetZone
                       cx={cx} cy={cy}
                       chips={betChips}
+                      slots={isMe ? stdSlots : undefined}
                       mine={isMe && !isKerriCrowd}
                       onRecall={isMe && !betConfirmed && !isKerriCrowd ? stdRecall : undefined}
                     />
