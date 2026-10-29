@@ -1,0 +1,1491 @@
+[
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_winter_wyvern",
+    "hero": "Winter Wyvern",
+    "abilities": [
+     {
+      "name": "Arctic Burn",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Winter Wyvern soars upon an arctic wind, granting her unobstructed movement and allowing her to exhale a blistering chill into each attack. While soaring, her attacks travel further and faster, and slow enemies with a magical freeze that strips them of 4/6/8/10% of their current health each second.",
+      "notes": {
+       "note0": "This ability does not affect Roshan.",
+       "note1": "Reduces Winter Wyvern's attack point to 0.1.",
+       "note2": "The damage and slow from Arctic Burn can be dispelled."
+      },
+      "scepter": "Causes Arctic Burn to be a toggle ability, draining mana every second when active. Increases Winter Wyvern's movement speed.",
+      "desc_ru": "Герой взмывает в небо на арктическом ветре, получая беспрепятственное передвижение и вдыхая жгучий мороз в каждую свою атаку. В полёте можно атаковать дальше и быстрее. Цель морозных атак замедляется и каждую секунду получает урон в размере 4/6/8/10% от текущего запаса здоровья.",
+      "scepter_ru": "Делает способность переключаемой. В активном состоянии она ежесекундно расходует ману и увеличивает скорость передвижения владельца."
+     },
+     {
+      "name": "Splinter Blast",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Launches a ball of brittle ice toward a unit. The ice shatters on impact, leaving the primary target completely unaffected, while hurling damaging splinters into nearby enemies in a 500 base radius. Enemies struck by these splinters are slowed by 27/30/33/36%.",
+      "notes": {
+       "note0": "The primary projectile moves at 1200 movement speed.",
+       "note1": "The primary projectile cannot be disjointed and cannot be targeted towards Winter Wyvern herself."
+      },
+      "desc_ru": "Запускает в выбранное существо ледяной шар, который не причиняет ему ущерб, но после удара разбивается на осколки, летящие в противников в базовом радиусе 500 вокруг цели. Осколки наносят противникам урон и замедляют их на 27/30/33/36%."
+     },
+     {
+      "name": "Cold Embrace",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Encases an ally in an icy cocoon, freezing them solid while healing a base amount as well as a percentage of their maximum health each second. The cocoon blocks all physical damage.",
+      "notes": {},
+      "shard": "Reduces cooldown by  seconds. Allied units gain bonus attack damage when emerging from the icy cocoon.",
+      "desc_ru": "Заковывает союзника в ледяной кокон, замораживая его и ежесекундно восстанавливая определённое количество здоровья плюс процент от максимального запаса здоровья. Кокон полностью блокирует весь физический урон.",
+      "shard_ru": "Уменьшает перезарядку на  сек. Выйдя из кокона, союзные существа получают бонус к урону от атак."
+     },
+     {
+      "name": "Eldwurm's Edda",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Grants Winter Wyvern the item Eldwurm's Edda, which can be consumed to increase the current and maximum level of a basic ability by one and Winter Wyvern's base intelligence by 25% of its current value at the time of consumption.",
+      "notes": {},
+      "desc_ru": "Дарует владельцу расходуемый предмет Eldwurm's Edda. Его можно применить, чтобы увеличить текущий и максимальный уровень выбранной базовой способности на 1, а базовый интеллект владельца — на 25% от значения в момент применения."
+     },
+     {
+      "name": "Winter's Curse",
+      "role": "ultimate",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Winter Wyvern dispells then freezes an enemy in place while striking those nearby with a maddening curse which causes them to attack their frozen ally with increased attack speed. The frozen ally and those cursed to attack their ally are immune to all damage from their enemies with the exception of damage from Winter Wyvern or her controlled units. Enemy heroes which enter the cursed area after the cast add to the duration of the curse.",
+      "notes": {
+       "note0": "If the target dies to its allies, Winter Wyvern will receive credit for the kill.",
+       "note1": "Will only pierce the spell immunity of the primary target, not the target's surrounding allies."
+      },
+      "desc_ru": "Развеивает с выбранного противника эффекты, примораживает его к земле и повергает союзников вокруг него в безумие, заставляя их атаковать цель способности с повышенной скоростью. Жертвы получают урон только от своих союзников, владельца способности и подконтрольных ему существ. Враги, вошедшие в радиус способности во время её действия, также начинают атаковать цель. Длительность зависит от начального числа обезумевших существ и увеличивается с каждым вражеским героем, вошедшим в область действия."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_winter_wyvern_5",
+      "level": 10,
+      "text": "+15 Cold Embrace Base Heal Per Second",
+      "ru": "+15 к базовому лечению в секунду от Cold Embrace",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_damage_30",
+      "level": 10,
+      "text": "+30 Damage",
+      "ru": "+30 к урону",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_winter_wyvern_6",
+      "level": 15,
+      "text": "+3s Arctic Burn Debuff Duration",
+      "ru": "+3 сек. к длительности урона от Arctic Burn",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_winter_wyvern_2",
+      "level": 15,
+      "text": "+175 Splinter Blast Shatter Radius",
+      "ru": "+175 к радиусу разлёта осколков у Splinter Blast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_winter_wyvern_1",
+      "level": 20,
+      "text": "+10% Arctic Burn Slow",
+      "ru": "+10% к замедлению от Arctic Burn",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_winter_wyvern_7",
+      "level": 20,
+      "text": "+100 Splinter Blast Damage",
+      "ru": "+100 к урону от Splinter Blast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_winter_wyvern_3",
+      "level": 25,
+      "text": "+60 Winter's Curse Attack Speed",
+      "ru": "+60 к скорости атаки от Winter's Curse",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_winter_wyvern_4",
+      "level": 25,
+      "text": "Splinter Blast 1s Stun",
+      "ru": "Осколки от Splinter Blast оглушают на 1 сек.",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_rattletrap",
+    "hero": "Clockwerk",
+    "abilities": [
+     {
+      "name": "Battery Assault",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Discharges high-powered shrapnel at random nearby enemy units, dealing minor magical damage and ministun.",
+      "notes": {
+       "note0": "Remains active if Clockwerk is disabled."
+      },
+      "desc_ru": "Выпускает высокомощную шрапнель в случайных существ неподалёку, нанося им незначительный магический урон и ненадолго их оглушая."
+     },
+     {
+      "name": "Power Cogs",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Forms a ring of energized cogs around Clockwerk, trapping any units that are near. Enemies outside the trap that touch a cog are knocked back, losing health and mana. Once a cog has delivered a shock, it will power down. Damage is increased by 50% of the mana burned.\n\n Cogs can be destroyed by enemy attacks, but Clockwerk can push them up to 850/900/950/1000 distance away with one hit. Clockwerk can move through the cogs freely, disabling them as he passes over.",
+      "notes": {
+       "note0": "Cogs can shock invisible units."
+      },
+      "desc_ru": "Создаёт вокруг героя кольцо заряженных шестерней, захватывая в ловушку всех ближайших существ. Шестерни отталкивают коснувшихся их снаружи врагов, сжигая ману и нанося как базовый урон, так и урон в размере 50% от сожжённой маны. Сработавшие шестерни отключаются.\n\nНесколько вражеских атак уничтожат шестерню, а атака владельца оттолкнёт её на расстояние до 850/900/950/1000. Он может свободно проходить сквозь шестерни, но в это время они перестают работать."
+     },
+     {
+      "name": "Rocket Flare",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Fires a global range flare that explodes over a given area. Upon impact, enemies in the area take damage and are briefly slowed. Rocket flare provides vision over the impact area for 6.0 seconds.",
+      "notes": {},
+      "desc_ru": "Выпускает сигнальную ракету в любую точку карты. Ракета даёт обзор указанной зоны на 6.0 сек, наносит урон противникам и ненадолго замедляет их."
+     },
+     {
+      "name": "Overclocking",
+      "role": "scepter",
+      "behavior": [
+       "No Target",
+       "Instant Cast",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Supercharges Clockwerks abilities:\n\nBattery Assault: Increased radius and affects all enemies in its range.\nPower Cogs: Radius increased, and Clockwerk's armor while near Power Cogs is increased.\nRocket Flares: Increased damage, vision and slow duration, and fire additional rockets to either side of the target.\nHookshot: Stun radius and duration increased.\nJetpack: Moves faster.\n\nClockwerk's movement and attack speed becomes slowed to a crawl after the duration runs out.",
+      "notes": {},
+      "desc_ru": "Перегружает способности героя:\n— Battery Assault действует в увеличенном радиусе и срабатывает на всех врагов в нём;\n— Power Cogs создаёт шестерни в большем радиусе и даёт владельцу броню, когда он рядом с ними;\n— Rocket Flare наносит больше урона, даёт больше обзора, замедляет дольше и выпускает по ракете по бокам от цели;\n— Hookshot оглушает дольше и в большем радиусе;\n— Jetpack ускоряет сильнее.\n\nПо окончании действия передвижение и атака владельца сильно замедляются."
+     },
+     {
+      "name": "Jetpack",
+      "role": "shard",
+      "behavior": [
+       "No Target",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "Yes",
+      "desc": "Clockwerk activates a jetpack, gaining flying movement, flying vision, and bonus movement speed. Clockwerk has a severely-limited turn rate during this time and cannot attack. Jetpack can be toggled on and off for the duration of the buff.",
+      "notes": {},
+      "desc_ru": "Герой активирует свой реактивный ранец. Он ускоряет передвижение владельца, а также дарует полёт и беспрепятственный обзор, но снижает скорость поворота и запрещает атаковать. Во время действия реактивный ранец можно включать и выключать."
+     },
+     {
+      "name": "Hookshot",
+      "role": "ultimate",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Fires a grappling device rapidly at the target location.  If the hook hits a unit, Clockwerk launches himself into the target, stunning and dealing damage to everyone in a 175 radius around the hit target. Any enemies Clockwerk collides with along the way are damaged and stunned.",
+      "notes": {
+       "note0": "Hookshot will latch and take Clockwerk to allies, but not damage or disable them."
+      },
+      "desc_ru": "Выпускает в указанном направлении стремительно летящий захватный крюк. Если попасть в существо, владелец способности притянется к нему, оглушит всех врагов в радиусе 175 вокруг жертвы и нанесёт им урон. Любые враги, с которыми герой столкнётся по пути, также получат урон и оглушение."
+     },
+     {
+      "name": "Armor Power",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Clockwerk's outgoing damage increases by 0.25% per point of armor.\n\nClockwerk can consume Chainmails to permanently gain +4 armor per Chainmail consumed. Can stack. Self-cast to consume.",
+      "notes": {},
+      "desc_ru": "Наносимый героем урон увеличивается на 0.25% за каждое очко его брони.\n\nГерой может съесть Chainmail, чтобы навсегда получить +4 к броне. Число таких бонусов не ограничено. Чтобы съесть предмет, примените его на себя."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_mp_regen_150",
+      "level": 10,
+      "text": "+1.5 Mana Regen",
+      "ru": "+1.5 маны в секунду",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk_hookshot_damage",
+      "level": 10,
+      "text": "+75 Hookshot Damage",
+      "ru": "+75 к урону от Hookshot",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk_5",
+      "level": 15,
+      "text": "-8s Hookshot Cooldown",
+      "ru": "–8 сек. перезарядки Hookshot",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk_3",
+      "level": 15,
+      "text": "+25 Battery Assault Damage",
+      "ru": "+25 к урону от Battery Assault",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk_4",
+      "level": 20,
+      "text": "Rocket Flare True Sight",
+      "ru": "Rocket Flare раскрывает невидимость",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk_2",
+      "level": 20,
+      "text": "+80 Power Cogs Mana Burn",
+      "ru": "+80 к сжигаемой мане у Power Cogs",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk_rocket_flare_charges",
+      "level": 25,
+      "text": "3 Rocket Flare Charges",
+      "ru": "3 заряда Rocket Flare",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_clockwerk",
+      "level": 25,
+      "text": "-0.25s Battery Assault Interval",
+      "ru": "–0.25 сек. интервала у Battery Assault",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_treant",
+    "hero": "Treant Protector",
+    "abilities": [
+     {
+      "name": "Nature's Grasp",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Creates vines towards the target location. Vines slow down and deal damage to enemies that walk through. Does 35% less damage to creeps.",
+      "notes": {},
+      "desc_ru": "Протягивает лозы до указанной точки. Они замедляют проходящих по ним врагов и наносят им урон (крипам — на 35% меньше)."
+     },
+     {
+      "name": "Leech Seed",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Treant's attack plants a life-sapping seed in an enemy unit. That unit takes additional magic damage, is rooted and disarmed for a short duration, and emits 2 healing pulses to up to 5 nearby allies of Treant Protector based on the damage dealt by the attack.",
+      "notes": {},
+      "desc_ru": "Атака героя наносит дополнительный магический урон и сажает в жертву истощающее семя, которое ненадолго накладывает оцепенение и бессилие. Жертва 2 раза испускает до 5 целебных сгустков, летящих во владельца способности и его союзников поблизости. Лечение сгустков зависит от урона атаки, посадившей семя."
+     },
+     {
+      "name": "Living Armor",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Infuses the target hero or structure with a protective coating which heals the target and blocks damage from player-controlled sources. Each time this spell blocks damage, the block amount is decreased. If the damage block is decreased to 0, the buff is removed early.",
+      "notes": {
+       "note0": "Instances of damage less than 10 are ignored."
+      },
+      "shard": "Increases the Damage Blocked by Living Armor. Treant now also passively benefits from Living Armor, with the damage block resetting after not taking damage for  seconds.",
+      "desc_ru": "Накладывает на выбранного героя или постройку защитный покров, который восстанавливает здоровье и блокирует урон от существ, подконтрольных игрокам противника. С каждым срабатыванием блок урона снижается. Если он достигнет нуля, покров пропадёт полностью."
+     },
+     {
+      "name": "Eyes In The Forest",
+      "role": "shard",
+      "behavior": [
+       "Unit Target",
+       "Hidden",
+       "AOE"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Treant Protector enchants a tree, which grants him unobstructed vision in that location. The eyes last for 360 seconds and are invisible, but are destroyed if their host tree is destroyed or if they are attacked directly.",
+      "notes": {
+       "note0": "Being entangled by Overgrowth through enchanted trees from Eyes in the Forest does damage.",
+       "note1": "If the enemy has True Sight, they will be able to see which trees are enchanted."
+      },
+      "desc_ru": "Герой сажает в дерево зачарованный росток и получает вокруг него беспрепятственный обзор. Росток существует 360 сек. и невидим для противников, но пропадёт, если уничтожить само дерево или раскрыть невидимость ростка и атаковать его."
+     },
+     {
+      "name": "Nature's Guise",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Grants bonus movement speed when near trees. Treant Protector additionally has Tree Walking if he has not taken damage for 2.75 seconds. While Tree Walking, Nature's Guise can be activated to grant Treant invisibility until he attacks or is no longer near a tree.",
+      "notes": {
+       "note0": "While affected by Nature's Guise, Treant can move unobstructed through other trees.",
+       "note1": "Vines from Nature's Grasp are considered trees for this ability.",
+       "note2": "While Tree Walking, taking damage does not disable the active ability or Tree Walking."
+      },
+      "desc_ru": "Увеличивает скорость передвижения владельца рядом с деревьями. Если в последние 2.75 сек. он не получал урона, то может проходить сквозь деревья и активировать эту способность, чтобы стать невидимым до тех пор, пока не окажется вдали от деревьев или не совершит атаку."
+     },
+     {
+      "name": "Overgrowth",
+      "role": "ultimate",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": "Yes",
+      "desc": "Summons an overgrowth of vines and branches around Treant that deal damage to afflicted enemies and prevent them from moving, blinking, going invisible, or attacking.",
+      "notes": {
+       "note0": "Works on Debuff Immune units, but if units gain debuff immunity after the effect starts, they'll break free."
+      },
+      "scepter": "Decreases Cooldown to 110/100/90 seconds. When casting Overgrowth, Treant Protector draws power from the soil, greatly increasing his size for  seconds. While enlarged, he gains phased movement with a fixed speed of , % bonus Strength, and a splashing attack that deals % of his attack damage in a  unit radius.",
+      "desc_ru": "Вокруг героя разрастаются опутывающие врагов корни и лозы. Жертвы получают периодический урон и не могут перемещаться, телепортироваться, уходить в невидимость или атаковать.",
+      "scepter_ru": "Уменьшает перезарядку до 110/100/90 сек. Применение наполняет владельца силой земли на  сек., отчего он значительно увеличивается в размерах, а также получает +% к силе, фиксированную скорость в  и возможность проходить сквозь существ. Атаки героя становятся массовыми и наносят % урона врагам в радиусе  от цели."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_treant_8",
+      "level": 10,
+      "text": "+3s Living Armor Duration",
+      "ru": "+3 сек. действия Living Armor",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_base_damage_50",
+      "level": 10,
+      "text": "+50 Base Damage",
+      "ru": "+50 к базовому урону",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_treant_3",
+      "level": 15,
+      "text": "+10% Leech Seed Damage to Healing",
+      "ru": "+10% к лечению от урона у Leech Seed",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_9",
+      "level": 15,
+      "text": "+25 Nature's Grasp Damage",
+      "ru": "+25 к урону от Nature's Grasp",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_13",
+      "level": 20,
+      "text": "+20 Living Armor Damage Block",
+      "ru": "+20 к блокируемому урону у Living Armor",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_2",
+      "level": 20,
+      "text": "+80 Leech Seed Bonus Damage",
+      "ru": "+80 к дополнительному урону от Leech Seed",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_14",
+      "level": 25,
+      "text": "-3s Leech Seed Cooldown",
+      "ru": "–3 сек. перезарядки Leech Seed",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_treant_7",
+      "level": 25,
+      "text": "450 AoE Living Armor",
+      "ru": "Living Armor применяется по области радиусом 450",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_lich",
+    "hero": "Lich",
+    "abilities": [
+     {
+      "name": "Frost Blast",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Blasts the target enemy unit with damaging frost, dealing area damage and slowing movement and attack rates for 4.0 seconds.  The primary target receives both base and area damage.",
+      "notes": {},
+      "desc_ru": "Обдаёт указанного врага морозом, нанося урон в области действия и замедляя передвижение и атаку всех задетых противников на 4.0 сек. Основная цель получает как базовый урон, так и урон по площади."
+     },
+     {
+      "name": "Frost Shield",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": [],
+      "dispellable": "Yes",
+      "desc": "Applies a magical frost shield around the target, reducing damage from attacks against it. While the shield is active, ice magic will affect nearby enemy units every 1.0 seconds, dealing minor damage and slowing them.",
+      "notes": {
+       "note0": "Spell-immune enemies are not affected by the damage or slow.",
+       "note1": "Frost Shield can be cast on buildings."
+      },
+      "desc_ru": "Накладывает на цель магический ледяной щит, уменьшая урон от атак по ней. Пока щит действует, он раз в 1.0 сек. наносит немного магического урона вражеским существам вокруг и замедляет их."
+     },
+     {
+      "name": "Sinister Gaze",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Channeled"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "CHANNELED - Hypnotizes an enemy unit, causing it to move towards a point between the two of you and drains a percentage of its current mana.",
+      "notes": {},
+      "scepter": "Sinister Gaze becomes an Area of Effect ability, affecting units within a radius of  in the target area. Sinister Gaze allows Lich to cast other abilities while channeling it.",
+      "desc_ru": "ПРЕРЫВАЕМАЯ — гипнотизирует вражеское существо, отчего оно идёт к определённой точке в направлении владельца способности и отдаёт ему долю от текущей маны.",
+      "scepter_ru": "Способность действует на всех врагов в выбранной области радиусом . Во время её применения можно использовать другие способности."
+     },
+     {
+      "name": "Ice Spire",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "AOE",
+       "Hidden"
+      ],
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Creates an Ice Spire at the target spot, slowing enemies around it. Can take 4 hero hits or 8 creep hits and when destroyed it will create a Frost Blast around it.\n\nChain Frost can be cast on the Spire and can bounce to the Spire and damage the spire by 1 hero attack if there are no other enemies in range.\n\nLich can cast Frost Shield on the Spire. Each Frost Shield tick will heal the spire by 1 hero attack.",
+      "notes": {},
+      "desc_ru": "Создаёт в указанной точке ледяной шпиль, который замедляет всех врагов вокруг. Если уничтожить шпиль, на его месте произойдёт морозный взрыв от способности Frost Blast. Атак героев для уничтожения шпиля: 4. Атак крипов для уничтожения шпиля: 8.\n\nШар от способности Chain Frost может отскочить к шпилю, если поблизости нет врагов, но нанесёт ему урон от 1 атаки героя.\n\nНа шпиль можно применять способности Chain Frost и Frost Shield. Каждое срабатывание последней излечивает шпиль на урон от 1 атаки героя."
+     },
+     {
+      "name": "Sacrifice",
+      "role": "innate",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Sacrifice an allied creep to convert its current health into mana for Lich and give Lich its experience bounty.\n\nBegins the game on cooldown and with no charges.",
+      "notes": {
+       "note0": "Cannot sacrifice ancients or creep-heroes.",
+       "note1": "Sacrificed creeps count as denies and can give experience to enemy heroes. Lich's experience bounty and enemy heroes' deny experience are independent."
+      },
+      "desc_ru": "Герой приносит союзного крипа в жертву, преобразуя его текущее здоровье в ману для себя и получая опыт за его убийство.\n\nВ начале игры эта способность перезаряжается и не имеет зарядов."
+     },
+     {
+      "name": "Chain Frost",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Releases an orb of frost that bounces between nearby enemy units up to 10/10/10 times, slowing and damaging each time it hits. Each bounce increases the damage for the subsequent bounces. Chain Frost lingers on its last target if it fails to bounce and can bounce again if new targets become available.",
+      "notes": {
+       "note0": "Chain Frost cannot be disjointed.",
+       "note1": "Chain Frost has a movement speed of 850.",
+       "note2": "Chain Frost doesn't bounce to Zombies."
+      },
+      "desc_ru": "Создаёт ледяной шар, который отскакивает от противников до 10/10/10 раз, замедляя их и нанося им урон, увеличивающийся с каждым скачком. Если снаряду Chain Frost не в кого отскочить, он будет кружить вокруг последней цели, пока в радиусе отскока не появится новая."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_lich_8",
+      "level": 10,
+      "text": "+10% Frost Shield Damage Reduction",
+      "ru": "+10% к уменьшению урона от Frost Shield",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_6",
+      "level": 10,
+      "text": "+125 Frost Blast Radius and Area Damage",
+      "ru": "+125 к радиусу и урону по области у Frost Blast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_2",
+      "level": 15,
+      "text": "+0.3s Sinister Gaze Duration",
+      "ru": "+0.3 сек. действия Sinister Gaze",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_3",
+      "level": 15,
+      "text": "-3.5s Frost Blast Cooldown",
+      "ru": "–3.5 сек. перезарядки Frost Blast",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_4",
+      "level": 20,
+      "text": "2 Frost Shield Charges",
+      "ru": "2 заряда Frost Shield",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_lich_7",
+      "level": 20,
+      "text": "Chain Frost on Death",
+      "ru": "Применение Chain Frost при смерти",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_lich_1",
+      "level": 25,
+      "text": "Frost Shield Provides +50 HP Regen",
+      "ru": "Frost Shield даёт +50 здоровья в секунду",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_lich_5",
+      "level": 25,
+      "text": "Chain Frost Unlimited Bounces",
+      "ru": "Неограниченное число отскоков у Chain Frost",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_oracle",
+    "hero": "Oracle",
+    "abilities": [
+     {
+      "name": "Fortune's End",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "AOE",
+       "Channeled"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "CHANNELED - Gathers Oracle's power into a bolt of scouring energy that, when released, damages, roots, and dispels enemies of buffs in an area around the target. If target is an ally it will only dispel debuffs. The root duration increases with channeling time.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {
+       "note0": "Affects invulnerable units."
+      },
+      "desc_ru": "ПРЕРЫВАЕМАЯ — собирает мощь героя в заряд выжигающей энергии, который накладывает оцепенение на цель и врагов вокруг неё, наносит им урон и развеивает с них положительные эффекты. Если целью является союзник, то способность только развеет отрицательные эффекты. Длительность оцепенения врагов увеличивается со временем применения способности.\n\nТИП РАЗВЕИВАНИЯ: нормальное"
+     },
+     {
+      "name": "Fate's Edict",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Oracle enraptures a target, disarming them and granting them 100% magic damage resistance.",
+      "notes": {},
+      "desc_ru": "Наполняет цель счастьем, обезоруживая её и даруя ей сопротивление магии в 100%."
+     },
+     {
+      "name": "Purifying Flames",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Burns away impurities, dealing heavy magic damage to the target before causing them to regenerate health over time. The amount of health regenerated over its duration exceeds the amount of initial damage. Can be cast on enemies and allies.",
+      "notes": {
+       "note0": "The healing from Purifying Flames can be stacked with itself.",
+       "note1": "The damage from Purifying Flames cannot be lethal to allies."
+      },
+      "desc_ru": "Выжигает скверну цели, нанося ей значительный магический урон, а затем постепенно восстанавливает её жизненные силы. Количество восстанавливаемого здоровья больше нанесённого урона. Можно применять как на врагов, так и на союзников."
+     },
+     {
+      "name": "Rain of Destiny",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Brings forth rain to the target area. Enemies standing in the area receive damage and have reduced Heal Amplification. Allies in the area heal and have increased incoming Heal Amplification.",
+      "notes": {},
+      "desc_ru": "Герой вызывает в выбранной области дождь, который наносит врагам урон и излечивает союзников. Всё лечение в этой области уменьшается для врагов и увеличивается для союзников."
+     },
+     {
+      "name": "Diviner's Deck",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Oracle pulls a random Tarot Card now and every 90 seconds to receives its buff for 90 seconds. Oracle always knows the next Tarot Card.\n\nDeath: 40% Spell Amplification\nThe Fool: 100% Increased Gold Gain\nThe World: 150% Increased Intelligence\nThe Lovers: 40% Heal Amplification\nThe Tower: 400 All Damage Barrier (regenerates after not taking damage for 7.0s)",
+      "notes": {},
+      "desc_ru": "При получении этой способности и каждые 90 сек. после этого герой вытягивает случайную карту таро. Он всегда знает, какая карта будет следующей. Одновременно может действовать только одна карта.\n\n«Смерть»: +40% к урону от заклинаний.\n«Шут»: +100% к получаемому золоту.\n«Мир»: +150% к интеллекту.\n«Влюблённые»: +40% к усилению лечения.\n«Башня»: барьер от всех типов урона с 400 здоровья (восстанавливается, если не получать урон 7.0 сек.)"
+     },
+     {
+      "name": "False Promise",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Temporarily alters an ally's destiny, delaying any healing or damage taken until False Promise ends. Any healing that is delayed by False Promise is amplified. Removes most negative status effects and disables on initial cast.\n\nDISPEL TYPE: Strong Dispel",
+      "notes": {
+       "note0": "Delayed damage and healing will take armor and magic resistance reductions into account when received.",
+       "note1": "The delayed damage and healing takes effect as soon as the target becomes vulnerable."
+      },
+      "desc_ru": "Отсрочивает судьбу союзника, откладывая любое лечение и получение урона до конца действия этой способности. Любое лечение во время действия этой способности усиливается. Применение снимает с цели большинство отрицательных эффектов.\n\nТИП РАЗВЕИВАНИЯ: сильное"
+     },
+     {
+      "name": "Prognosticate",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Oracle will predict and announce to allies, where the next power rune will spawn (top or bottom) as well as Roshan's exact respawn time.",
+      "notes": {},
+      "desc_ru": "Герой способен предсказывать и сообщать союзникам расположение следующей руны усиления, а также точное время возрождения Рошана."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_oracle_2",
+      "level": 10,
+      "text": "+0.5s Fortune's End Duration",
+      "ru": "+0.5 сек. действия Fortune's End",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_oracle_9",
+      "level": 10,
+      "text": "+8 Armor False Promise",
+      "ru": "False Promise даёт 8 брони",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_oracle_3",
+      "level": 15,
+      "text": "+100 Fortune's End Radius",
+      "ru": "+100 к радиусу Fortune's End",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_oracle_8",
+      "level": 15,
+      "text": "+25% Purifying Flames Enemy Damage",
+      "ru": "+25% к урону врагам от Purifying Flames",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_oracle_6",
+      "level": 20,
+      "text": "-20s False Promise Cooldown",
+      "ru": "–20 сек. перезарядки False Promise",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_oracle_5",
+      "level": 20,
+      "text": "-1s Purifying Flames Cooldown",
+      "ru": "–1 сек. перезарядки Purifying Flames",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_oracle_7",
+      "level": 25,
+      "text": "Fortune's End constantly Dispels",
+      "ru": "Fortune's End применяет развеивание постоянно",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_oracle",
+      "level": 25,
+      "text": "+1.5s False Promise Duration",
+      "ru": "+1.5 сек. действия False Promise",
+      "kind": "tweak"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "patch": "7.41f",
+  "heroes": [
+   {
+    "npc": "npc_dota_hero_void_spirit",
+    "hero": "Void Spirit",
+    "abilities": [
+     {
+      "name": "Aether Remnant",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Void Spirit dispatches a remnant to the target location. The remnant stands watch over the region, facing the direction of his vector. When a unit crosses its gaze, the remnant pulls it in and damages it.",
+      "notes": {},
+      "shard": "Creates an additional watcher path that rotates around the remnant.  The remnant now provides True Sight, and no longer triggers on creeps, instead dealing 0% damage to them every second in both paths. Does not reveal wards.",
+      "desc_ru": "Герой отправляет в указанную точку свою копию. Копия смотрит в сторону, указанную при применении. Когда в её обзор попадает существо, копия притягивает его и наносит урон.",
+      "shard_ru": "Создаёт дополнительную притягивающую линию, которая вращается вокруг копии. Также копия не срабатывает на крипов, а вместо этого наносит им своим взглядом 0% урона в секунду, и раскрывает невидимость врагов поблизости, но не их вардов."
+     },
+     {
+      "name": "Dissimilate",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": null,
+      "desc": "Void Spirit temporarily fades into the aether, creating a number of portals through which he can reassemble himself. Upon exiting a portal, he damages all enemies in the area.",
+      "notes": {},
+      "desc_ru": "Герой временно исчезает в иной мир, создавая несколько порталов, через которые он может собрать свою сущность воедино. Выйдя из портала, герой наносит урон всем врагам в области действия."
+     },
+     {
+      "name": "Resonant Pulse",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Void Spirit wraps himself in a protective shield that absorbs physical damage and emits a single damaging pulse around him. The shield gains increased damage absorption for each enemy hero the pulse hits.",
+      "notes": {},
+      "scepter": "Causes Resonant Pulse to silence and gain  charges.",
+      "desc_ru": "Герой помещает себя в защитную оболочку, которая поглощает физический урон и выпускает одну наносящую урон волну. Оболочка поглощает тем больше урона, чем больше вражеских героев заденет волна.",
+      "scepter_ru": "Перезарядка заменяется  зарядами. Способность накладывает на жертв безмолвие."
+     },
+     {
+      "name": "Intrinsic Edge",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": [],
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Void Spirit gains 15% more attack damage per point of each attribute, and 30% more HP regen from Strength, attack speed from Agility, and mana regen from Intelligence.",
+      "notes": {},
+      "desc_ru": "Повышает урон от атак за единицу каждого атрибута на 15%. Также увеличивает неосновные бонусы от атрибутов на 30%: сила даёт больше восстановления здоровья, ловкость — больше скорости атаки, а интеллект — больше восстановления маны."
+     },
+     {
+      "name": "Astral Step",
+      "role": "ultimate",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "Void Spirit tears a rift through the astral plane to appear at the target location, attacking all enemies along the path. This attack inflicts a void mark that slows for 1.25 seconds and then detonates.",
+      "notes": {
+       "note0": "Astral Step attacks do not cleave."
+      },
+      "desc_ru": "Герой перемещается в указанную точку через астральный разлом, атакуя всех врагов на пути. Эта атака накладывает метку пустоты, которая замедляет жертв на 1.25 сек. и затем наносит урон."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_mp_regen_150",
+      "level": 10,
+      "text": "+1.5 Mana Regen",
+      "ru": "+1.5 маны в секунду",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_4",
+      "level": 10,
+      "text": "+40 Resonant Pulse Damage",
+      "ru": "+40 к урону от Resonant Pulse",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_resonant_pulse_barrier",
+      "level": 15,
+      "text": "+20% Resonant Pulse Barrier",
+      "ru": "+20% к барьеру от Resonant Pulse",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_2",
+      "level": 15,
+      "text": "+65 Aether Remnant Damage",
+      "ru": "+65 к урону от Aether Remnant",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_dissimilate_outerring",
+      "level": 20,
+      "text": "Outer Dissimilate Ring",
+      "ru": "Внешний круг у Dissimilate",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_1",
+      "level": 20,
+      "text": "-3s Astral Step Charge Restore Time",
+      "ru": "–3 сек. восстановления заряда Astral Step",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_8",
+      "level": 25,
+      "text": "140% Astral Step Crit",
+      "ru": "Критические атаки в 140% урона от Astral Step",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_void_spirit_3",
+      "level": 25,
+      "text": "Dissimilate Roots for 2s",
+      "ru": "Dissimilate накладывает оцепенение на 2 сек.",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_sand_king",
+    "hero": "Sand King",
+    "abilities": [
+     {
+      "name": "Burrowstrike",
+      "role": "basic",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Strong Dispels Only",
+      "desc": "Sand King burrows into the ground and tunnels forward, damaging and stunning enemy units above him as he resurfaces. Adds Caustic Finale poison to heroes hit\n\n Can be put on alt-cast to immediately cast in the desired direction, without walking towards the targeted location.",
+      "notes": {
+       "note0": "Does not trigger spell block or spell reflect."
+      },
+      "desc_ru": "Герой погружается в землю и прорывается вперёд, оглушая врагов на пути и нанося им урон. Накладывает эффект способности Caustic Finale на задетых героев.\n\nЕсли включено альтернативное применение, способность мгновенно применяется в указанную сторону, а не в выбранную точку."
+     },
+     {
+      "name": "Sand Storm",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Sand King creates a fearsome sandstorm that damages enemy units and grants Sand King Invisibility while he is in it. The effect ends when Sand King leaves the area.",
+      "notes": {
+       "note0": "Sand Storm can be used to dodge projectiles.",
+       "note1": "Sand King briefly becomes visible upon attacking or using spells while in Sand Storm. Sand King will become invisible again in 0.7 seconds."
+      },
+      "desc_ru": "Герой вызывает ужасающую песчаную бурю, которая делает его невидимым и наносит урон врагам. Эффект прекратится, если владелец способности покинет её область действия."
+     },
+     {
+      "name": "Stinger",
+      "role": "basic",
+      "behavior": [
+       "Point Target",
+       "AOE"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Sand King strikes an area, performing an attack on all enemies in the area of effect, dealing extra damage to each. Enemies within an innermost radius of 125 take 40% extra damage. Applies Caustic Finale and a slow to all enemies hit.",
+      "notes": {},
+      "shard": "A Caustic Finale explosion that deals 0% damage is created around every enemy hero hit in Stinger's innermost radius. Does not apply to strikes created by Aghanim's Scepter upgrade.",
+      "desc_ru": "Герой совершает атаку с дополнительным уроном по всем врагам вокруг указанной точки. Эта атака наносит на 40% больше урона в центральной области радиусом 125. Накладывает на жертв эффект способности Caustic Finale и замедление.",
+      "shard_ru": "На месте каждого вражеского героя в центральной области происходит взрыв от способности Caustic Finale, который наносит 0% обычного урона. Этот эффект не распространяется на удары, вызванные улучшением от Aghanim's Scepter."
+     },
+     {
+      "name": "Caustic Finale",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Sand King's attacks inject a venom that causes enemy units to violently explode when they die that does a flat amount of damage and an additional amount based on the dying units max health.",
+      "notes": {},
+      "desc_ru": "Атаки героя впрыскивают в жертву яд, отчего при смерти её тело взрывается. Помимо фиксированного урона взрыв также наносит урон, зависящий от максимального здоровья убитого."
+     },
+     {
+      "name": "Epicenter",
+      "role": "ultimate",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "After a cast point of 2.0 seconds, Sand King sends a disturbance into the earth, causing it to shudder violently. All enemies caught within range will take damage and become slowed. Each subsequent pulse increases the radius of damage dealt.",
+      "notes": {
+       "note0": "The pulses are centered on Sand King, not where he first cast the spell."
+      },
+      "shard": "Every 3.0s causes a small single Epicenter Pulse around Sand King.",
+      "scepter": "When the pulses start,  Stinger attack areas are created every s at random locations, each measuring % of the Epicenter's current radius, that apply % of Stinger damage to enemies hit. Shard pulses cause  attack(s).",
+      "desc_ru": "После подготовки в 2.0 сек. герой неистово сотрясает землю вокруг себя. Землетрясение наносит урон противникам, замедляет их и увеличивается в радиусе с каждым последующим толчком.",
+      "shard_ru": "Создаёт один маленький толчок от этой способности каждые 3.0 сек.",
+      "scepter_ru": "Когда начинаются толчки, каждые  сек. в  случайных областях размером в % от текущего радиуса Epicenter применяется эффект способности Stinger, наносящий % от её урона. Толчки от Aghanim's Shard создают по  области."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_sand_king_3",
+      "level": 10,
+      "text": "+12% Stinger Slow",
+      "ru": "+12% к замедлению от Stinger",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king_caustic_finale_radius",
+      "level": 10,
+      "text": "+100 Caustic Finale Radius",
+      "ru": "+100 к радиусу Caustic Finale",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king_2",
+      "level": 15,
+      "text": "+25 Sand Storm Damage Per Second",
+      "ru": "+25 к урону в секунду от Sand Storm",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king_8",
+      "level": 15,
+      "text": "+200 Burrowstrike Cast Range",
+      "ru": "+200 к дальности применения Burrowstrike",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king_7",
+      "level": 20,
+      "text": "-3s Burrowstrike Cooldown",
+      "ru": "–3 сек. перезарядки Burrowstrike",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king",
+      "level": 20,
+      "text": "+6 Epicenter Pulses",
+      "ru": "+6 к числу толчков у Epicenter",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king_scorpion_strike_damage",
+      "level": 25,
+      "text": "+125 Stinger Damage",
+      "ru": "+125 к урону от Stinger",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_sand_king_4",
+      "level": 25,
+      "text": "35% Sand Storm Slow and Blind",
+      "ru": "Sand Storm замедляет и ослепляет жертв на 35%",
+      "kind": "tweak"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_kunkka",
+    "hero": "Kunkka",
+    "abilities": [
+     {
+      "name": "Torrent",
+      "role": "basic",
+      "behavior": [
+       "AOE",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Summons a rising torrent that, after a short delay, hurls enemy units into the sky, stunning, dealing damage and slowing movement speed.",
+      "notes": {
+       "note0": "The initial bubble effect is only visible to allies and provides vision in fog of war.",
+       "note1": "Units tossed in the air will be stunned and still able to be attacked."
+      },
+      "desc_ru": "После небольшой задержки создаёт мощный поток воды, который подбрасывает врагов в воздух, оглушает их, наносит урон, а затем снижает скорость их передвижения."
+     },
+     {
+      "name": "Tidebringer",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Physical",
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Kunkka's legendary sword grants increased damage and cleaves a large area of effect in front of him for a single strike.",
+      "notes": {},
+      "desc_ru": "Своим легендарным мечом адмирал бьёт врагов в большой площади перед собой, нанося увеличенный урон."
+     },
+     {
+      "name": "X Marks the Spot",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Targets a friendly or enemy Hero, marks their position with an X, and returns them to it after several seconds.  Kunkka can trigger the return at any time during the duration. Lasts twice as long on allied heroes.",
+      "notes": {
+       "note0": "Interrupts channeling spells."
+      },
+      "desc_ru": "Помечает местоположение союзного или вражеского героя крестом и через несколько секунд или по нажатию кнопки возвращает его на это самое место. На союзниках длится вдвое дольше."
+     },
+     {
+      "name": "Admiral's Rum",
+      "role": "innate",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Damage from enemy heroes, buildings, or Roshan that would reduce Kunkka below 65% threshold causes him to douse himself with The Admiral's Rum, receiving bonus movement speed and a delayed reaction to 18% of incoming damage for 5s.",
+      "notes": {
+       "note0": "Damage dealt after Rum wears off is non-lethal and can never kill a hero."
+      },
+      "desc_ru": "Если урон от героя, постройки или Рошана опускает здоровье владельца способности ниже 65%, он окатывает себя адмиральским ромом, отчего передвигается быстрее, а 18% получаемого им урона наносится с задержкой в 5 сек."
+     },
+     {
+      "name": "Tidal Wave",
+      "role": "shard",
+      "behavior": [
+       "Point Target",
+       "Hidden"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Releases a Tidal Wave that spawns behind Kunkka. Deals damage and drags enemies along it. Enemies cannot attack while being dragged.",
+      "notes": {},
+      "desc_ru": "Герой выпускает из-за себя приливную волну, которая наносит врагам урон и отталкивает их, не давая им атаковать."
+     },
+     {
+      "name": "Ghostship",
+      "role": "ultimate",
+      "behavior": "Point Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Summons a ghostly ship that sails through the battle before smashing apart, damaging and stunning all enemies caught near the wreckage.\n\nAllied heroes touched by the Ghostship are given a 2x strong swig of The Admiral's Rum.",
+      "notes": {
+       "note0": "Actual area of effect of ship's collision is larger than the boat itself.",
+       "note1": "The boat has a movement speed of 650."
+      },
+      "scepter": "Ghostship creates a fleet of  ships at the target point on a  second interval. Each ship now also fires 3 waves of cannonballs from the port and starboard side that deal % of Ghostship's damage as they pass through enemies.",
+      "desc_ru": "Призывает призрачный корабль, который проплывает сквозь битву и разбивается, оглушая врагов в области крушения и нанося им урон.\n\nНа задетых кораблём союзников накладывается ром от способности Admiral's Rum, действующий в 2 раза сильнее.",
+      "scepter_ru": "Призывает флот из  призрачных кораблей, которые разбиваются в указанной точке с интервалом в  сек. Каждый корабль даёт 3 залпа из пушек с каждого борта, нанося % урона от способности врагам, сквозь которых пролетели ядра."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_kunkka_rum_duration",
+      "level": 10,
+      "text": "+1s Admiral's Rum Buff Duration",
+      "ru": "+1 сек. действия рома у Admiral's Rum",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_kunkka_tidebringer_slow",
+      "level": 10,
+      "text": "Tidebringer applies 60% slow for 1s",
+      "ru": "Tidebringer замедляет передв. на 60% на 1 сек.",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_kunkka_7",
+      "level": 15,
+      "text": "+25% Torrent Damage/Knock Up Duration",
+      "ru": "+25% к урону и времени подбрасывания у Torrent",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_kunkka_2",
+      "level": 15,
+      "text": "+75 Tidebringer Damage",
+      "ru": "+75 к дополнительному урону от Tidebringer",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_kunkka_torrent_cooldown",
+      "level": 20,
+      "text": "-4s Torrent Cooldown",
+      "ru": "–4 сек. перезарядки Torrent",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_kunkka_4",
+      "level": 20,
+      "text": "+80% Tidebringer Cleave Damage",
+      "ru": "+80% к прорубающему урону от Tidebringer",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_spell_aoe_100",
+      "level": 25,
+      "text": "+100 Spell Area of Effect",
+      "ru": "+100 к радиусу заклинаний",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_kunkka_tidebringer_armor_pierce",
+      "level": 25,
+      "text": "Tidebringer Ignores 25% Armor",
+      "ru": "Tidebringer игнорирует 25% брони",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_troll_warlord",
+    "hero": "Troll Warlord",
+    "abilities": [
+     {
+      "name": "Battle Stance",
+      "role": "innate",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Troll Warlord swaps from using ranged to melee attacks. While melee, Troll Warlord's base attack time is improved to 1.4.\n\nTroll Warlord gains 1.0 armor per 30 bonus attack speed.",
+      "notes": {},
+      "desc_ru": "Герой переходит из дальнего боя в ближний, отчего его базовый интервал атак снижается до 1.4 сек.\n\nДарует 1.0 брони за каждые 30 скорости атаки сверх базовой."
+     },
+     {
+      "name": "Whirling Axes (Ranged)",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Point Target"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Troll hurls a fistful of five axes in a cone shape over 950.0 range, slowing and damaging enemy units.",
+      "notes": {
+       "note0": "Does not affect Roshan.",
+       "note1": "Does not trigger spell block or spell reflect."
+      },
+      "scepter": "Causes Whirling Axes (Ranged) to dispel enemies. Reduces cooldown and mana cost.\n\nDISPEL TYPE: Basic Dispel",
+      "desc_ru": "Герой бросает пять топоров веером на расстояние в 950.0, замедляя врагов и нанося им урон.",
+      "scepter_ru": "Способность развеивает положительные эффекты с врагов. Уменьшает перезарядку и расход маны.\n\nТИП РАЗВЕИВАНИЯ: нормальное"
+     },
+     {
+      "name": "Whirling Axes (Melee)",
+      "role": "basic",
+      "behavior": [
+       "No Target",
+       "Instant Cast"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Troll hurls two axes around him in a close range area of effect, damaging enemy units and causing them to miss some attacks.",
+      "notes": {
+       "note0": "Does not affect Roshan."
+      },
+      "scepter": "Causes Whirling Axes (Melee) to dispel Troll Warlord. Reduces cooldown and mana cost.\n\nDISPEL TYPE: Basic Dispel",
+      "desc_ru": "Герой вращает два топора в небольшой области вокруг себя, нанося врагам урон и вынуждая их промахиваться атаками.",
+      "scepter_ru": "Способность развеивает отрицательные эффекты с владельца. Уменьшает перезарядку и расход маны.\n\nТИП РАЗВЕИВАНИЯ: нормальное"
+     },
+     {
+      "name": "Fervor",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "With each continuous blow on the same target, Troll gains increased attack speed.  If Troll changes targets, the stacks drop to zero.",
+      "notes": {
+       "note0": "Break disables the gaining of new stacks.",
+       "note1": "Break disables the proc chance granted by Aghanim's Shard."
+      },
+      "shard": "Grants Troll % + % chance per Fervor stack of firing an additional ranged attack to any unit within its ranged attack range plus  when attacking an enemy unit.",
+      "desc_ru": "Каждая последующая атака по одной и той же цели увеличивает скорость атаки героя. Если сменить цель, скорость станет обычной.",
+      "shard_ru": "Даёт владельцу шанс совершить дополнительную атаку дальнего боя по случайному врагу в радиусе атаки + . Шанс дополнительной атаки: % + % за эффект. Срабатывает только при атаках по вражеским существам."
+     },
+     {
+      "name": "Berserker's Rage",
+      "role": "basic",
+      "behavior": "Passive",
+      "damage_type": "Physical",
+      "bkbpierce": "Yes",
+      "dispellable": null,
+      "desc": "While in melee form, Troll Warlord's attacks have a chance to ensnare, preventing the target from moving or using mobility spells and has additional movement speed.\n\nWhen in ranged form, Troll Warlord's attacks have a chance to Maim the target, dealing bonus damage, and slowing the target's movement and attack speed.",
+      "notes": {},
+      "desc_ru": "Сражаясь в ближнем бою, герой получает бонус к скорости передвижения, а также может наложить на цель атаки оцепенение, не давая ей передвигаться или применять способности для перемещения.\n\nСражаясь в дальнем бою, герой может травмировать цель атаки, нанеся ей дополнительный урон и замедлив её передвижение и атаку."
+     },
+     {
+      "name": "Battle Trance",
+      "role": "ultimate",
+      "behavior": null,
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Troll unleashes a powerful battle trance, that forces you to continuously attack the closest enemy unit within 900 range, prioritizing heroes. Damage does not kill you during this mode. Grants you bonus lifesteal, attack speed, slow resistance and movement speed. Applies a Basic Dispel.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {
+       "note0": "Troll can still use his items and abilities while affected by Battle Trance, but not other commands.",
+       "note1": "Troll can still be killed with Axe's Culling Blade.",
+       "note2": "Troll is granted vision over the target."
+      },
+      "desc_ru": "Герой входит в боевой транс, вынуждающий его атаковать ближайшее вражеское существо в радиусе 900 (в первую очередь героев). Под действием этой способности героя нельзя убить. Даёт дополнительные вампиризм, скорость атаки, сопротивление замедлениям и скорость передвижения. Применяет на владельца нормальное развеивание.\n\nТИП РАЗВЕИВАНИЯ: нормальное"
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_unique_troll_warlord_whirling_axes_debuff_duration",
+      "level": 10,
+      "text": "+2.5s Whirling Axes Debuff Duration",
+      "ru": "+2.5 сек. к длительности эффекта у Whirling Axes",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_2",
+      "level": 10,
+      "text": "+20 Berserker's Rage Movement Speed",
+      "ru": "+20 к скорости передв. от Berserker's Rage",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_5",
+      "level": 15,
+      "text": "+4 Fervor Attack Speed",
+      "ru": "+4 к скорости атаки за эффект от Fervor",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord",
+      "level": 15,
+      "text": "+1s Battle Trance Duration",
+      "ru": "+1 сек. действия Battle Trance",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_battle_trance_movespeed",
+      "level": 20,
+      "text": "Allies Receive Battle Trance Attack Speed",
+      "ru": "Скорость атаки от Battle Trance даётся союзникам",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_3",
+      "level": 20,
+      "text": "+160 Whirling Axes Damage",
+      "ru": "+160 к урону от Whirling Axes",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_6",
+      "level": 25,
+      "text": "Whirling Axes Pierce Magic Immunity",
+      "ru": "Whirling Axes сквозь невоспр. к магии",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_troll_warlord_4",
+      "level": 25,
+      "text": "Battle Trance Strong Dispels",
+      "ru": "Battle Trance применяет сильное развеивание",
+      "kind": "mechanic"
+     }
+    ]
+   },
+   {
+    "npc": "npc_dota_hero_doom_bringer",
+    "hero": "Doom",
+    "abilities": [
+     {
+      "name": "Devour",
+      "role": "basic",
+      "behavior": "Unit Target",
+      "damage_type": null,
+      "bkbpierce": null,
+      "dispellable": "No",
+      "desc": "Consumes an enemy or neutral creep, acquiring any special abilities that it possessed. If alt-cast is activated, Doom will not acquire the creep's abilities. Duration is equal to the cooldown.",
+      "notes": {
+       "note0": "Gives Doom the original bounty of the creep, along with the bonus gold.",
+       "note1": "If you devour a creep without abilities, you'll keep the abilities you had previously."
+      },
+      "shard": "Devour has 0 charges and can target Ancients. Stolen creep abilities have 0% increased AoE and 0% increased spell amplification.",
+      "desc_ru": "Пожирает вражеского или нейтрального крипа, перенимая его способности. Если включено альтернативное применение, способности не перенимаются. Длительность действия равна времени перезарядки способности, а по её окончании герой получит дополнительное золото.",
+      "shard_ru": "Заменяет перезарядку 0 зарядами и позволяет пожирать древних крипов. Увеличивает радиусы перенятых способностей на 0%, а их урон — на 0%."
+     },
+     {
+      "name": "Scorched Earth",
+      "role": "basic",
+      "behavior": "No Target",
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "No",
+      "desc": "Carpets the nearby earth in flames which damage enemies, while also granting Doom increased movement speed and health regeneration.",
+      "notes": {
+       "note0": "Scorched Earth follows Doom, centered on his location."
+      },
+      "desc_ru": "Устилает землю вокруг героя пламенем, которое увеличивает его скорость передвижения и восстановление здоровье, а также наносит урон противникам."
+     },
+     {
+      "name": "Infernal Blade",
+      "role": "basic",
+      "behavior": [
+       "Unit Target",
+       "Autocast",
+       "Attack Modifier"
+      ],
+      "damage_type": "Magical",
+      "bkbpierce": "No",
+      "dispellable": "Yes",
+      "desc": "Doom swings his burning sword, igniting the enemy. Stuns for 0.66 seconds and applies a 4 second burn that deals a base damage plus a percentage of the target's Max HP as damage per second.",
+      "notes": {
+       "note0": "Interrupts channeling abilities."
+      },
+      "desc_ru": "Пламенная атака поджигает жертву и оглушает её на 0.66 сек. Цель горит 4 сек. и каждую секунду получает как базовый урон, так и урон, зависящий от её максимального запаса здоровья."
+     },
+     {
+      "name": "Doom",
+      "role": "ultimate",
+      "behavior": "Unit Target",
+      "damage_type": "Pure",
+      "bkbpierce": "Yes",
+      "dispellable": "No",
+      "desc": "Inflicts a curse that dispels an enemy and prevents them from casting spells or healing in any way, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel",
+      "notes": {},
+      "scepter": "Doom applies Break to enemies. Allies in a 0 radius around the doomed target also suffer the effects of Doom. Allows Doom to be self-cast to affect enemies around himself with Doom.",
+      "desc_ru": "Обрушивает на врага злой рок: в момент применения он развеивает положительные эффекты, а затем некоторое время наносит периодический урон, запрещает применять способности и не позволяет как-либо восстанавливать здоровье.\n\nТИП РАЗВЕИВАНИЯ: нормальное",
+      "scepter_ru": "Способность накладывает истощение и действует на союзников жертвы в радиусе 0 от неё. Позволяет применить эту способность на себя, чтобы она действовала на врагов вокруг владельца."
+     },
+     {
+      "name": "Lvl ? Pain",
+      "role": "innate",
+      "behavior": [
+       "Passive",
+       "Hidden"
+      ],
+      "damage_type": [],
+      "bkbpierce": null,
+      "dispellable": null,
+      "desc": "Doom's attacks curse enemy heroes. After 2.5s, the cursed hero bursts with a pillar of fire, damaging itself and all units in a 66 AoE for 10% of the damage taken from Doom during the curse. The damage and radius of the curse is 66% stronger if the enemy's level is a multiple of 6.",
+      "notes": {
+       "note0": "Also applies to all attacks when Doom is at max level."
+      },
+      "desc_ru": "Атаки накладывают на вражеских героев сглаз, спустя 2.5 сек. извергающий из жертвы пламенный столп радиусом 66. 10% урона, который владелец способности нанёс жертве за время сглаза, получают и все задетые пламенем враги. Урон и радиус увеличиваются на 66%, если уровень жертвы кратен 6."
+     }
+    ],
+    "talents": [
+     {
+      "id": "special_bonus_magic_resistance_10",
+      "level": 10,
+      "text": "+10% Magic Resistance",
+      "ru": "+10% к сопротивлению магии",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_doom_4",
+      "level": 10,
+      "text": "+0.2s Infernal Blade Stun Duration",
+      "ru": "+0.2 сек. оглушения от Infernal Blade",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_doom_6",
+      "level": 15,
+      "text": "+7% Scorched Earth Movement Speed",
+      "ru": "+7% к доп. скорости от Scorched Earth",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_doom_1",
+      "level": 15,
+      "text": "+1.5% Infernal Blade Max HP As Damage",
+      "ru": "+1.5% к урону от макс. здоровья у Infernal Blade",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_unique_doom_9",
+      "level": 20,
+      "text": "-10s Doom Cooldown",
+      "ru": "–10 сек. перезарядки Doom",
+      "kind": "tweak"
+     },
+     {
+      "id": "special_bonus_attack_damage_66",
+      "level": 20,
+      "text": "+66 Damage",
+      "ru": "+66 к урону",
+      "kind": "stat"
+     },
+     {
+      "id": "special_bonus_unique_doom_10",
+      "level": 25,
+      "text": "Doom applies Mute",
+      "ru": "Doom накладывает заглушение",
+      "kind": "mechanic"
+     },
+     {
+      "id": "special_bonus_unique_doom_11",
+      "level": 25,
+      "text": "Permanent Scorched Earth",
+      "ru": "Постоянное действие Scorched Earth",
+      "kind": "mechanic"
+     }
+    ]
+   }
+  ]
+ }
+]

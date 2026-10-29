@@ -8,20 +8,29 @@ text_lab/mechanics_lab.py) и все 8 талантов героя (id, уров
 (+200 Health), tweak — правка числа у способности (-3s Meat Hook Cooldown), mechanic — меняет
 поведение («Whirling Axes Pierce Magic Immunity»). Вопросы — только про необычные таланты;
 подделки — выдуманные механики, не больше одной «честной обманки» (то, что даёт шард, аганим
-или способность и так делает). Варианты по-русски со сленгом (prompt_talents_v4.md).
+или способность и так делает).
 
-Главное требование v4 — одинаковый стиль правды и подделок: длина, числа, конструкция.
+v5 (prompt_talents_v5.md, справочник docs/questions/talents-style.md): настоящий вариант — официальная
+русская строка игры дословно (раскрыть можно только сокращения, кроме «сек.»); подделки — правдоподобные
+усиления настоящих механик героя по шаблонам и словарю игры, без сленга. К способностям в пакете
+добавлены русские тексты клиента (desc_ru, shard_ru, scepter_ru). v4 — варианты со сленгом
+(prompt_talents_v4.md + prompt_talents_verify.md, запускать с --prompt/--verify-prompt).
+
+Главное требование с v4 — одинаковый стиль правды и подделок: длина, числа, конструкция.
 
 Проверка в два слоя:
-  1. код: состав 1 + 3, настоящий вариант — талант этого героя, подделка не совпадает с его
-     талантами; стиль — разброс длин (max/min ≤ 1.4), цифры у всех вариантов или ни у одного,
-     длина ≤ 75, не больше одной обманки, латиница только в названиях из игры;
-  2. второй проход модели (prompt_talents_verify.md): настоящий ли каждый вариант, обманка
-     ли (шард / аганим / по умолчанию), не слишком ли подделка близка к таланту, точен ли
-     перевод, выдаёт ли стиль ответ.
+  1. код: состав 1 + 3, настоящий вариант — талант этого героя и его строка `ru` (с точностью до
+     раскрытых сокращений), подделка не совпадает с его талантами и не берёт ту же способность с тем
+     же параметром, что его талант; язык — нет сленга (SLANG), сокращений кроме «сек.», «4с» / «секунды»
+     после числа, дробей через запятую; стиль — разброс длин (max/min ≤ 1.4), цифры у всех вариантов или
+     ни у одного, название способности у всех или ни у одного, шаблон правды есть хотя бы у одной
+     подделки, длина ≤ 75, не больше одной обманки, латиница только в названиях из игры;
+  2. второй проход модели (prompt_talents_verify_v5.md): настоящий ли каждый вариант, обманка
+     ли (шард / аганим / по умолчанию), не слишком ли подделка близка к таланту, дословна ли правда,
+     слова ли игры (language_ok), правдоподобна ли подделка (plausible), выдаёт ли стиль ответ.
 
-  python -X utf8 scripts/generate/numeric_lab/talent_lab.py out/talents-v4-test --heroes 8
-  python -X utf8 scripts/generate/numeric_lab/talent_lab.py out/talents-v4 --full
+  python -X utf8 scripts/generate/numeric_lab/talent_lab.py out/talents-v5-test --npcs npc_dota_hero_lich,...
+  python -X utf8 scripts/generate/numeric_lab/talent_lab.py out/talents-v5 --full
   python -X utf8 scripts/generate/numeric_lab/talent_lab.py out/talents-v4 --npcs npc_dota_hero_axe,... --append
   python -X utf8 scripts/generate/numeric_lab/talent_lab.py --stats out/talents-full      # статистика стиля
 """
@@ -53,6 +62,36 @@ MAX_RATIO = 1.4     # max/min длины вариантов
 MAX_LEN = 75        # символов в варианте
 DECOYS = ["invented", "shard", "scepter", "default"]
 VERDICTS = ["real_talent", "invented_ok", "shard", "scepter", "default", "too_close"]
+# сленг, которого нет ни в одном таланте и ни в одном описании способности русского клиента (talents-style.md §1, §6)
+SLANG = {
+    "стан": r"\bстан(?:а|у|ом|е|ы|ов|ит|ят|ить|ящ\w*)?\b|\bзастан\w*|\bмини-?стан\w*",
+    "рут": r"\bрут(?:а|у|ом|е|ы|ит|ят|ить)?\b",
+    "сайленс": r"сайленс", "слоу": r"\bслоу", "хаст": r"\bхаст|\bх[еэ]йст", "диспел": r"диспел",
+    "дизарм": r"дизарм", "инвиз": r"инвиз", "кд": r"\bкд\b|кулдаун", "хп / мп": r"\b[хм]п\b",
+    "резист": r"резист", "лайфстил": r"лайфстил", "спелл": r"спелл", "брейк": r"брейк", "хекс": r"\bхекс",
+    "мут": r"\bмут(?:ит|ят|а)?\b", "фир": r"\bфир\b", "крит": r"\bкрит(?:а|ом|ы|ов|у)?\b(?!\.)",
+    "просвет": r"просвет", "трусайт": r"трусайт", "бкб": r"\bбкб\b", "иммун": r"иммун", "аое": r"\bаое\b",
+    "клив": r"\bклив", "баш": r"\bбаш(?:ит|ем|а)?\b", "сплеш": r"спл[еэ]ш", "прок": r"\bпрок(?:ает|нет|ать)\b",
+    "мувспид": r"мувспид|\bмс\b", "дамаг": r"дамаг|д[эе]медж", "скилл": r"скилл", "абилка": r"абилк",
+    "ульт": r"\bульт", "бафф": r"\b(?:де)?баф", "стак": r"\bстак", "каст": r"\bкаст(?!ет)", "хил": r"\bхил(?:ит|ят|ка|а|ом)?\b",
+    "армор": r"армор", "агро": r"\bагр(?:о|ит|ят)\b", "тп": r"\bтп\b", "маг. / физ.": r"\b(?:маг|физ)\.",
+}
+_SLANG = [(k, re.compile(p, re.I)) for k, p in SLANG.items()]
+_ABBR = re.compile(r"(?<![A-Za-z])\b([А-Яа-яЁё]+)\.(?=\s|$|[,/)])")
+_BAD_UNIT = re.compile(r"\d\s*(?:с|сек)(?![.\wа-яё])|\d\s*секунд", re.I)
+_WORD = re.compile(r"[a-zа-я0-9]+(?:\.[0-9]+)?\.?")
+# параметры, по которым подделка «близка» к таланту, если говорит о той же способности
+PARAMS = {
+    "заряды": r"(?<!пере)заряд", "перезарядка": r"перезарядк", "радиус / область": r"радиус|по области",
+    "оглушение": r"оглуш", "безмолвие": r"безмолв", "оцепенение": r"оцепен", "замедление": r"замедл",
+    "скорость атаки": r"скорост\w* атак|ускоря\w* атак", "скорость передвижения": r"скорост\w* передв|ускоря\w* передв",
+    "отскоки": r"отскок", "цели": r"\bцел[еьияй]|\bжертв\w* больше", "развеивание": r"развеива|развеять",
+    "невосприимчивость": r"невоспр", "при смерти": r"при смерти", "броня": r"брон", "вампиризм": r"вампиризм",
+    "сопротивление": r"сопротивлени|сопр\.", "длительность": r"сек\. действия|длительност|действует дольше",
+    "дальность": r"дальн", "лечение": r"лечен|излечива|исцеля|здоровья в секунду", "урон в секунду": r"урон\w* в секунду|урона/сек",
+    "невидимость": r"невидим", "страх": r"страх", "ослепление": r"ослеп|промах",
+}
+_PARAMS = {k: re.compile(p, re.I) for k, p in PARAMS.items()}
 # формулы, которые в talents-full встречались почти только у подделок
 TELLS = {
     "вторую цель / две / ещё одну": r"втор\w* цел|\bдв(?:а|е|ум|ух|ойн)\w*|ещ[её] одн|дополнительн\w* цел",
@@ -106,8 +145,16 @@ class _Caseless(dict):
         return super().__contains__(k.lower())
 
 
-def hero_packet(npc: str, current: dict, abilities: dict, tok: dict, hero_talents: dict) -> dict:
+def hero_packet(npc: str, current: dict, abilities: dict, tok: dict, hero_talents: dict,
+                tok_ru: dict | None = None) -> dict:
     mech = mechanics_lab.hero_packet(npc, current, abilities, tok)
+    if tok_ru is not None:   # русские тексты клиента — словарь игры для подделок и обманок
+        ru = mechanics_lab.hero_packet(npc, current, abilities, tok_ru)
+        for a, r in zip(mech["abilities"], ru["abilities"]):
+            a["desc_ru"] = r["desc"]
+            for part in ("shard", "scepter"):
+                if r.get(part):
+                    a[f"{part}_ru"] = r[part]
     names = [a["name"] for a in current["heroes"][npc]["abilities"]]
     talents = []
     for t, level in hero_talents.get(npc, []):
@@ -121,8 +168,9 @@ def hero_packet(npc: str, current: dict, abilities: dict, tok: dict, hero_talent
 def build_samples(npcs: list[str], per_request: int) -> list[dict]:
     current, abilities = _load("current"), _load("abilities")
     tok = _Caseless(mechanics_lab._tokens(mechanics_lab.GAME / "resource/localization/abilities_english.txt"))
+    tok_ru = _Caseless(mechanics_lab._tokens(mechanics_lab.GAME / "resource/localization/abilities_russian.txt"))
     hero_talents = talent_text.hero_talents()
-    heroes = [hero_packet(npc, current, abilities, tok, hero_talents) for npc in npcs]
+    heroes = [hero_packet(npc, current, abilities, tok, hero_talents, tok_ru) for npc in npcs]
     return [{"patch": current["patch"], "heroes": heroes[i:i + per_request]}
             for i in range(0, len(heroes), per_request)]
 
@@ -134,6 +182,7 @@ def known_names() -> set[str]:
     out |= {a["name"] for h in current["heroes"].values() for a in h["abilities"]}
     out |= {a["dname"] for a in abilities.values() if a.get("dname") and "{" not in a["dname"]}
     out |= {i["dname"] for i in items.values() if i.get("dname")}
+    out |= {re.sub(r"\s*\(.*?\)", "", n) for n in out if "(" in n}   # «Whirling Axes (Ranged)» → «Whirling Axes»
     return {n.strip().lower() for n in out}
 
 
@@ -170,8 +219,9 @@ def verify_schema() -> dict:
     check_ = {"type": "object",
               "properties": {"question": {"type": "integer"}, "option": {"type": "integer"},
                              "verdict": {"type": "string", "enum": VERDICTS},
-                             "translation_ok": {"type": "boolean"}, "note": {"type": "string"}},
-              "required": ["question", "option", "verdict", "translation_ok", "note"],
+                             "translation_ok": {"type": "boolean"}, "language_ok": {"type": "boolean"},
+                             "plausible": {"type": "boolean"}, "note": {"type": "string"}},
+              "required": ["question", "option", "verdict", "translation_ok", "language_ok", "plausible", "note"],
               "additionalProperties": False}
     style = {"type": "object",
              "properties": {"question": {"type": "integer"}, "style_gives_away": {"type": "boolean"},
@@ -226,13 +276,78 @@ def style_metrics(options: list[dict]) -> dict:
     return m
 
 
+def _same_as_official(text: str, official: str) -> bool:
+    """text — строка игры слово в слово; сокращение игры («невоспр.») может быть раскрыто
+    любым словом с той же основой («невосприимчивость»), «сек.» остаётся."""
+    ours = _WORD.findall(text.lower().replace("ё", "е"))
+    theirs = _WORD.findall(official.lower().replace("ё", "е"))
+    if len(ours) != len(theirs):
+        return False
+    for a, b in zip(ours, theirs):
+        if b.endswith(".") and not re.fullmatch(r"[\d.]+", b) and b != "сек.":
+            if not a.rstrip(".").startswith(b[:-1]):
+                return False
+        elif a.rstrip(".") != b.rstrip("."):
+            return False
+    return True
+
+
+def _ability_names(hero: dict) -> list[str]:
+    """Названия способностей героя без пометок «(Ranged)», длинные первыми."""
+    out = {re.sub(r"\s*\(.*?\)", "", a["name"]).strip() for a in hero["abilities"]}
+    return sorted((n for n in out if n), key=len, reverse=True)
+
+
+def _mentions(text: str, abilities: list[str]) -> set[str]:
+    low = text.lower()
+    return {n for n in abilities if n.lower() in low}
+
+
+def _template(text: str, abilities: list[str]) -> str:
+    """число («+N к …», «2 заряда X») / способность («X <глагол> …») / существительное («Осколки от X …»)."""
+    t = text.strip()
+    if re.match(r"^[+\-−–]?\d", t):
+        return "число"
+    if any(t.lower().startswith(n.lower()) for n in abilities):
+        return "способность"
+    return "существительное"
+
+
+def _params(text: str) -> set[str]:
+    return {k for k, rx in _PARAMS.items() if rx.search(text)}
+
+
+def language_flags(text: str) -> list[str]:
+    flags = []
+    for name, rx in _SLANG:
+        m = rx.search(text)
+        if m:
+            flags.append(f"сленг «{m.group(0)}» в «{text}» (в игре его нет)")
+    for word in _ABBR.findall(text):
+        if word.lower() != "сек":
+            flags.append(f"сокращение «{word}.» в «{text}» (раскрыть; можно только «сек.»)")
+    m = _BAD_UNIT.search(text)
+    if m:
+        flags.append(f"единица «{m.group(0)}» в «{text}» (игра пишет «N сек.»)")
+    if re.search(r"\d,\d", text):
+        flags.append(f"дробь через запятую в «{text}» (игра пишет через точку)")
+    return flags
+
+
 def check(q: dict, sample: dict, names: set[str]) -> dict:
     hero = next(h for h in sample["heroes"] if h["hero"] == q["hero"])
     real = {t["id"]: t for t in hero["talents"]}
     talent_texts = {_norm(t["text"]) for t in hero["talents"]} | {_norm(t["ru"]) for t in hero["talents"] if t["ru"]}
+    abilities = _ability_names(hero)
+    # таланты героя по способностям: {способность: [(строка, {параметры})]}
+    talent_params: dict[str, list] = {}
+    for t in hero["talents"]:
+        for ab in _mentions(t["ru"] or t["text"], abilities):
+            talent_params.setdefault(ab, []).append((t["ru"] or t["text"], _params(t["ru"] or t["text"])))
     flags = []
     for o in q["options"]:
         text = o["text"].strip()
+        flags += language_flags(text)
         if o["kind"] == "real":
             t = real.get(o["talent_id"])
             if not t:
@@ -243,8 +358,17 @@ def check(q: dict, sample: dict, names: set[str]) -> dict:
                 o["talent_kind"] = t["kind"]
                 if t["kind"] == "stat":
                     flags.append(f"настоящий «{t['text']}» — голый стат")
-        elif _norm(text) in talent_texts:
-            flags.append(f"выдуманный «{text}» совпадает с настоящим талантом героя")
+                if t["ru"] and not _same_as_official(text, t["ru"]):
+                    flags.append(f"настоящий «{text}» не совпадает со строкой игры «{t['ru']}»")
+        else:
+            if _norm(text) in talent_texts:
+                flags.append(f"выдуманный «{text}» совпадает с настоящим талантом героя")
+            mine = _params(text)
+            for ab in _mentions(text, abilities):
+                for t_text, t_params in talent_params.get(ab, []):
+                    common = mine & t_params
+                    if common:
+                        flags.append(f"подделка «{text}» близка к таланту «{t_text}»: {ab}, {', '.join(sorted(common))}")
         if len(text) > MAX_LEN:
             flags.append(f"«{text}» длиннее {MAX_LEN} символов")
         bare = text
@@ -267,6 +391,25 @@ def check(q: dict, sample: dict, names: set[str]) -> dict:
         flags.append(f"стиль: разброс длин {m['ratio']} > {MAX_RATIO} ({m['lengths']})")
     if any(m["digits"]) and not all(m["digits"]):
         flags.append(f"стиль: цифры не у всех вариантов ({m['digits']})")
+    has_ab = [bool(_mentions(o["text"], abilities)) for o in q["options"]]
+    if any(has_ab) and not all(has_ab):
+        flags.append(f"стиль: название способности не у всех вариантов ({has_ab})")
+    templates = [_template(o["text"], abilities) for o in q["options"]]
+    m["templates"] = templates
+    real_t = [t for o, t in zip(q["options"], templates) if o["kind"] == "real"]
+    fake_t = [t for o, t in zip(q["options"], templates) if o["kind"] != "real"]
+    if real_t and real_t[0] not in fake_t:
+        flags.append(f"стиль: шаблон правды «{real_t[0]}» есть только у неё (подделки: {', '.join(fake_t)})")
+    # ответ на пересечении: одна подделка повторяет способность правды, другая — её параметр
+    real_o = next((o for o in q["options"] if o["kind"] == "real"), None)
+    if real_o:
+        r_ab, r_par = _mentions(real_o["text"], abilities), _params(real_o["text"])
+        fakes = [o for o in q["options"] if o["kind"] != "real"]
+        by_ab = [i for i, o in enumerate(fakes) if _mentions(o["text"], abilities) & r_ab]
+        by_par = [i for i, o in enumerate(fakes) if _params(o["text"]) & r_par]
+        if any(i != j for i in by_ab for j in by_par):
+            flags.append(f"стиль: ответ на пересечении — подделки повторяют способность правды "
+                         f"({', '.join(sorted(r_ab))}) и её параметр ({', '.join(sorted(r_par))})")
     return {**q, "style": m, "flags": flags}
 
 
@@ -282,11 +425,17 @@ def apply_verification(questions: list[dict], ver: dict) -> None:
             if c["verdict"] != "real_talent":
                 q["flags"].append(f"проверка: настоящий «{o['text']}» — {c['verdict']} ({c['note']})")
             if not c["translation_ok"]:
-                q["flags"].append(f"проверка: перевод «{o['text']}» неточен ({c['note']})")
+                q["flags"].append(f"проверка: настоящий «{o['text']}» не совпадает со строкой игры ({c['note']})")
         elif c["verdict"] == "real_talent":
             q["flags"].append(f"проверка: подделка «{o['text']}» — реальный талант героя ({c['note']})")
         elif c["verdict"] == "too_close":
             q["flags"].append(f"проверка: подделка «{o['text']}» слишком близка к таланту ({c['note']})")
+        if "language_ok" in c:
+            o["language_ok"], o["plausible"] = c["language_ok"], c.get("plausible", True)
+            if not c["language_ok"]:
+                q["flags"].append(f"проверка: язык «{o['text']}» — не слова игры ({c['note']})")
+            if o["kind"] != "real" and not c.get("plausible", True):
+                q["flags"].append(f"проверка: подделка «{o['text']}» неправдоподобна ({c['note']})")
     for q in questions:
         decoys = [o for o in q["options"] if o["kind"] == "invented" and o.get("verdict") in ("shard", "scepter", "default")]
         if len(decoys) > 1:
@@ -375,8 +524,10 @@ def report(results: list[dict]) -> str:
             lines.append(f"**{q['hero']}** — {q['question']} · длины {m.get('lengths')}, разброс {m.get('ratio')}")
             for o in q["options"]:
                 mark = "✔" if o["kind"] == "real" else "·"
-                extra = (f" ← «{o.get('original', '?')}» ({o.get('talent_kind', '?')})" if o["kind"] == "real"
-                         else (f" [{o['decoy']}]" if o.get("decoy", "invented") != "invented" else ""))
+                same = o.get("original_ru") and o["text"].strip() == o["original_ru"].strip()
+                extra = ((f" ← {'дословно' if same else '«' + str(o.get('original_ru')) + '»'} · «{o.get('original', '?')}» "
+                          f"({o.get('talent_kind', '?')})") if o["kind"] == "real"
+                         else f" [{o.get('decoy', 'invented')}]")
                 ver = f" {{{o['verdict']}}}" if o.get("verdict") else ""
                 lines.append(f"- {mark} {o['text']}{extra}{ver}")
             for f in q["flags"]:
@@ -397,8 +548,8 @@ def main() -> None:
     ap.add_argument("--npcs", help="список героев через запятую (npc_dota_hero_…)")
     ap.add_argument("--per-request", type=int, default=HEROES_PER_REQUEST)
     ap.add_argument("--append", action="store_true", help="дописать группы к questions.json прогона")
-    ap.add_argument("--prompt", default="prompt_talents_v4.md")
-    ap.add_argument("--verify-prompt", default="prompt_talents_verify.md")
+    ap.add_argument("--prompt", default="prompt_talents_v5.md")
+    ap.add_argument("--verify-prompt", default="prompt_talents_verify_v5.md")
     ap.add_argument("--effort", default="high")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--dry-run", action="store_true")

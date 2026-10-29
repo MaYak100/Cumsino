@@ -1,0 +1,807 @@
+[
+  {
+    "index": 0,
+    "heroes": [
+      "Winter Wyvern",
+      "Clockwerk",
+      "Treant Protector",
+      "Lich",
+      "Oracle"
+    ],
+    "questions": [
+      {
+        "hero": "Winter Wyvern",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Winter Wyvern?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Морозные атаки от Arctic Burn ослепляют на 30%",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_winter_wyvern_4",
+            "text": "Осколки от Splinter Blast оглушают на 1 сек.",
+            "original": "Splinter Blast 1s Stun",
+            "original_ru": "Осколки от Splinter Blast оглушают на 1 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Заморозка от Winter's Curse наносит 100 урона/сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Кокон от Cold Embrace даёт 15% сопротивления магии",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            46,
+            44,
+            50,
+            50
+          ],
+          "ratio": 1.14,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": true,
+          "real_longest": false,
+          "real_rank": 1,
+          "templates": [
+            "существительное",
+            "существительное",
+            "существительное",
+            "существительное"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Clockwerk",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Clockwerk?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Hookshot накладывает истощение",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Power Cogs накладывают безмолвие",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_clockwerk_4",
+            "text": "Rocket Flare раскрывает невидимость",
+            "original": "Rocket Flare True Sight",
+            "original_ru": "Rocket Flare раскрывает невидимость",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Battery Assault действует на постройки",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            30,
+            32,
+            35,
+            38
+          ],
+          "ratio": 1.27,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Treant Protector",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Treant Protector?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Nature's Grasp накладывает оцепенение на 1.5 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Overgrowth снижает сопротивление магии на 20%",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Leech Seed применяется по области радиусом 350",
+            "verdict": "invented_ok",
+            "verify_note": "Копирует формулировку настоящего таланта Living Armor.",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_treant_7",
+            "text": "Living Armor применяется по области радиусом 450",
+            "original": "450 AoE Living Armor",
+            "original_ru": "Living Armor применяется по области радиусом 450",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": "Вариант 2 повторяет формулу правды «применяется по области радиусом N», что сужает выбор до двух, но не выдаёт ответ однозначно."
+        },
+        "style": {
+          "lengths": [
+            49,
+            45,
+            46,
+            48
+          ],
+          "ratio": 1.09,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Lich",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Lich?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "shard",
+            "text": "Взрыв Frost Blast при гибели Ice Spire",
+            "verdict": "shard",
+            "verify_note": "Ice Spire от шарда и так создаёт Frost Blast при разрушении.",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_lich_7",
+            "text": "Применение Chain Frost при смерти",
+            "original": "Chain Frost on Death",
+            "original_ru": "Применение Chain Frost при смерти",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Эффект от Frost Shield нельзя развеять",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Истощение у жертв Sinister Gaze",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            38,
+            33,
+            38,
+            31
+          ],
+          "ratio": 1.23,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2,
+          "templates": [
+            "существительное",
+            "существительное",
+            "существительное",
+            "существительное"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Oracle",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Oracle?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Fate's Edict применяет сильное развеивание",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "False Promise делает союзника невидимым",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Purifying Flames накладывает безмолвие на врагов",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_oracle_7",
+            "text": "Fortune's End применяет развеивание постоянно",
+            "original": "Fortune's End constantly Dispels",
+            "original_ru": "Fortune's End применяет развеивание постоянно",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            42,
+            39,
+            48,
+            45
+          ],
+          "ratio": 1.23,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 21516,
+        "output_tokens": 4922,
+        "seconds": 44.8,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 16431,
+        "output_tokens": 2810,
+        "seconds": 26.3,
+        "stop": "end_turn"
+      }
+    }
+  },
+  {
+    "index": 1,
+    "heroes": [
+      "Void Spirit",
+      "Sand King",
+      "Kunkka",
+      "Troll Warlord",
+      "Doom"
+    ],
+    "questions": [
+      {
+        "hero": "Void Spirit",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Void Spirit?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Aether Remnant накладывает безмолвие на 1.5 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_void_spirit_3",
+            "text": "Dissimilate накладывает оцепенение на 2 сек.",
+            "original": "Dissimilate Roots for 2s",
+            "original_ru": "Dissimilate накладывает оцепенение на 2 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Astral Step оглушает жертв на 0.8 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Resonant Pulse замедляет на 35% на 2 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            48,
+            44,
+            38,
+            41
+          ],
+          "ratio": 1.26,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 3,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Sand King",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Sand King?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Burrowstrike накладывает оцепенение на 1.5 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Epicenter снижает сопротивление магии на 15%",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_sand_king_4",
+            "text": "Sand Storm замедляет и ослепляет жертв на 35%",
+            "original": "35% Sand Storm Slow and Blind",
+            "original_ru": "Sand Storm замедляет и ослепляет жертв на 35%",
+            "talent_kind": "tweak",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Stinger снижает восстановление здоровья на 30%",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            47,
+            44,
+            45,
+            46
+          ],
+          "ratio": 1.07,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Kunkka",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Kunkka?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "X Marks the Spot накладывает бессилие на 1.5 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Tidal Wave накладывает оцепенение на 1.5 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "Талант на способность от шарда — менее вероятно, но допустимо",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Ghostship ослепляет жертв на 35% на 3 сек.",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_kunkka_tidebringer_slow",
+            "text": "Tidebringer замедляет передвижение на 60% на 1 сек.",
+            "original": "Tidebringer applies 60% slow for 1s",
+            "original_ru": "Tidebringer замедляет передв. на 60% на 1 сек.",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "Раскрыто сокращение «передв.» — допустимо",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            49,
+            45,
+            42,
+            51
+          ],
+          "ratio": 1.21,
+          "digits": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "real_shortest": false,
+          "real_longest": true,
+          "real_rank": 4,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": []
+      },
+      {
+        "hero": "Troll Warlord",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Troll Warlord?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Whirling Axes развеивают положительные эффекты",
+            "verdict": "scepter",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_troll_warlord_4",
+            "text": "Battle Trance применяет сильное развеивание",
+            "original": "Battle Trance Strong Dispels",
+            "original_ru": "Battle Trance применяет сильное развеивание",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Berserker's Rage накладывает бессилие",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Battle Trance раскрывает невидимость врагов",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": true,
+          "note": "Battle Trance встречается дважды, развеивание тоже дважды. Правильный ответ находится на пересечении этих двух признаков."
+        },
+        "style": {
+          "lengths": [
+            46,
+            43,
+            37,
+            43
+          ],
+          "ratio": 1.24,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 2,
+          "templates": [
+            "способность",
+            "способность",
+            "способность",
+            "способность"
+          ]
+        },
+        "flags": [
+          "стиль: ответ на пересечении — подделки повторяют способность правды (Battle Trance) и её параметр (развеивание)",
+          "проверка: стиль выдаёт ответ (Battle Trance встречается дважды, развеивание тоже дважды. Правильный ответ находится на пересечении этих двух признаков.)"
+        ]
+      },
+      {
+        "hero": "Doom",
+        "type": "has",
+        "question": "Какой из этих талантов есть у Doom?",
+        "options": [
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Двойное дополнительное золото от Devour",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "invented",
+            "text": "Эффект от Infernal Blade нельзя развеять",
+            "verdict": "invented_ok",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "real",
+            "talent_id": "special_bonus_unique_doom_11",
+            "text": "Постоянное действие Scorched Earth",
+            "original": "Permanent Scorched Earth",
+            "original_ru": "Постоянное действие Scorched Earth",
+            "talent_kind": "mechanic",
+            "verdict": "real_talent",
+            "verify_note": "",
+            "language_ok": true,
+            "plausible": true
+          },
+          {
+            "kind": "invented",
+            "decoy": "scepter",
+            "text": "Применение Doom на себя по области",
+            "verdict": "scepter",
+            "verify_note": "Формулировка немного неуклюжая",
+            "language_ok": true,
+            "plausible": true
+          }
+        ],
+        "style_verdict": {
+          "gives_away": false,
+          "note": ""
+        },
+        "style": {
+          "lengths": [
+            39,
+            40,
+            34,
+            34
+          ],
+          "ratio": 1.18,
+          "digits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "real_shortest": false,
+          "real_longest": false,
+          "real_rank": 1,
+          "templates": [
+            "существительное",
+            "существительное",
+            "существительное",
+            "существительное"
+          ]
+        },
+        "flags": []
+      }
+    ],
+    "usage": {
+      "generate": {
+        "input_tokens": 20031,
+        "output_tokens": 5231,
+        "seconds": 47.9,
+        "stop": "end_turn"
+      },
+      "verify": {
+        "input_tokens": 14887,
+        "output_tokens": 2582,
+        "seconds": 22.4,
+        "stop": "end_turn"
+      }
+    }
+  }
+]
