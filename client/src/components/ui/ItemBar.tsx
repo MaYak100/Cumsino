@@ -1,26 +1,36 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ITEMS, ITEM_ORDER, BUY_PHASES, type ItemId } from '@cumsino/shared'
+import { ITEMS, ITEM_ORDER, type ItemId } from '@cumsino/shared'
 import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { roughClip } from './Sticker'
 import { ItemIcon } from './ItemIcon'
-import { Money } from './Money'
 
-type SlotState = 'buy' | 'cantBuy' | 'use' | 'ready' | 'idle' | 'targeting'
+type SlotState = 'use' | 'ready' | 'idle' | 'targeting'
 
-/** Можно ли применить предмет прямо сейчас (без учёта запаса). Блинк применяется кликом по другому варианту. */
-function usableNow(id: ItemId, phase: string, mode: string, isGladiator: boolean, answered: boolean): boolean {
+const USE_PHASES = ['ANNOUNCE', 'BETTING', 'QUESTION']
+
+/** Почему предмет сейчас не жмётся — строка для подсказки; null — можно. Блинк применяется кликом по другому варианту. */
+function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, answered: boolean): string | null {
   const def = ITEMS[id]
-  if (def.usePhases === 'passive' || id === 'blink') return false
-  if (!def.usePhases.includes(phase as never) || !def.modes.includes(mode as never)) return false
-  if (mode === 'kerri') return id === 'bkb' ? !isGladiator : isGladiator
-  if (id === 'gem' || id === 'manta' || id === 'smoke') return !answered || id !== 'manta'
-  return true
+  if (def.usePhases === 'passive') return 'Работает сам'
+  if (mode === 'kerri') {
+    if (isGladiator && id !== 'blink') return 'Керри может только блинк'
+    if (!isGladiator && id !== 'bkb') return 'В керри толпе доступен только BKB'
+  }
+  if (!def.modes.includes(mode as never)) return 'Не в этом режиме'
+  if (!def.usePhases.includes(phase as never)) {
+    return def.usePhases.includes('BETTING') && !def.usePhases.includes('QUESTION')
+      ? def.usePhases.includes('ANNOUNCE') ? 'Только до вопроса' : 'Только на ставках'
+      : 'Только на вопросе'
+  }
+  if (id === 'blink') return answered ? null : 'Сначала ответь, потом передумывай'
+  if (id === 'manta' && answered) return 'Только до ответа'
+  return null
 }
 
-/** Предметы в углу: на итогах и в анонсе — покупка (под наклейкой цена), на ставках и вопросе — применение.
- *  Клавиши Z X C V B N; гем и хекс просят выбрать игрока (Esc — отмена). */
+/** Свой запас в углу: только то, что есть, и только в фазах применения (анонс, ставки, вопрос). Покупка — в лавке.
+ *  Клавиши Z X C V B N; гем и хекс просят выбрать игрока (Esc — отмена). Наведение — подсказка на бумажке. */
 export function ItemBar() {
   const gs = useGameStore(s => s.gameState)
   const me = useGameStore(selectMe)
@@ -29,32 +39,23 @@ export function ItemBar() {
   const myId = useGameStore(s => s.myId)
   const targeting = useGameStore(s => s.targeting)
   const setTargeting = useGameStore(s => s.setTargeting)
-  const buyItem = useGameStore(s => s.buyItem)
   const useItem = useGameStore(s => s.useItem)
 
   const phase = gs?.phase ?? 'LOBBY'
-  const visible = !!gs && !!me && !['LOBBY', 'GAME_OVER'].includes(phase)
-  const buyPhase = (BUY_PHASES as string[]).includes(phase)
   const inv = gs?.inventory ?? {}
   const answered = !!myId && answeredIds.has(myId)
   const aegisOn = me?.effects?.includes('aegis') ?? false
+  const owned = ITEM_ORDER.filter(id => id === 'aegis' ? aegisOn : (inv[id] ?? 0) > 0)
+  const visible = !!gs && !!me && USE_PHASES.includes(phase) && owned.length > 0
 
+  const why = (id: ItemId) => gs ? blocker(id, phase, gs.mode, isGladiator, answered) : 'нет'
   const stateOf = (id: ItemId): SlotState => {
-    const n = inv[id] ?? 0
-    const price = gs?.prices?.[id] ?? ITEMS[id].basePrice
-    if (buyPhase) {
-      const full = id === 'aegis' ? !!gs?.aegisBought : n >= ITEMS[id].max
-      return !full && (me?.chips ?? 0) >= price ? 'buy' : 'cantBuy'
-    }
     if (targeting === id) return 'targeting'
-    if (id === 'blink') return n > 0 && answered && phase === 'QUESTION' ? 'ready' : 'idle'
-    if (n > 0 && usableNow(id, phase, gs!.mode, isGladiator, answered)) return 'use'
-    return 'idle'
+    if (why(id)) return 'idle'
+    return id === 'blink' ? 'ready' : 'use'
   }
-
   const act = (id: ItemId) => {
     const st = stateOf(id)
-    if (st === 'buy') return buyItem(id)
     if (st === 'targeting') return setTargeting(null)
     if (st !== 'use') return
     if (ITEMS[id].targeted) setTargeting(id)
@@ -66,8 +67,8 @@ export function ItemBar() {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return
       if (e.key === 'Escape') return setTargeting(null)
-      const id = ITEM_ORDER.find(i => ITEMS[i].key === e.code.replace('Key', ''))
-      if (id && !buyPhase) act(id)
+      const id = owned.find(i => ITEMS[i].key === e.code.replace('Key', ''))
+      if (id) act(id)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -84,21 +85,14 @@ export function ItemBar() {
             className="text-sm font-semibold px-3 py-1 rounded-full"
             style={{ background: C.hot, color: C.ink }}
           >
-            {targeting === 'gem' ? 'Чей ответ подсмотреть?' : 'Кого превратить в овцу?'} Клик по игроку, Esc — отмена
+            {targeting === 'gem' ? 'Чей ответ просветить?' : 'Кого превратить в овцу?'} Клик по игроку, Esc — отмена
           </motion.div>
         )}
       </AnimatePresence>
       <div className="flex items-end gap-2.5">
-        {ITEM_ORDER.map(id => (
-          <ItemSlot
-            key={id}
-            id={id}
-            count={id === 'aegis' ? (aegisOn ? 1 : 0) : inv[id] ?? 0}
-            price={gs!.prices?.[id] ?? ITEMS[id].basePrice}
-            state={stateOf(id)}
-            buyPhase={buyPhase}
-            onClick={() => act(id)}
-          />
+        {owned.map(id => (
+          <ItemSlot key={id} id={id} count={id === 'aegis' ? 1 : inv[id] ?? 0}
+            state={stateOf(id)} reason={why(id)} onClick={() => act(id)} />
         ))}
       </div>
     </div>
@@ -107,24 +101,28 @@ export function ItemBar() {
 
 const tilt = () => (Math.random() * 10 - 5)
 
-function ItemSlot({ id, count, price, state, buyPhase, onClick }: {
-  id: ItemId; count: number; price: number; state: SlotState; buyPhase: boolean; onClick: () => void
+function ItemSlot({ id, count, state, reason, onClick }: {
+  id: ItemId; count: number; state: SlotState; reason: string | null; onClick: () => void
 }) {
   const [shape, setShape] = useState(0)        // на наведении бумажка «рвётся» заново
   const [rot, setRot] = useState(() => tilt())
+  const [hover, setHover] = useState(false)
   const def = ITEMS[id]
-  const live = state === 'buy' || state === 'use' || state === 'targeting'
-  const dim = state === 'idle' ? (count > 0 ? 0.6 : 0.32) : state === 'cantBuy' ? 0.38 : 1
+  const live = state === 'use' || state === 'targeting'
   const glow = state === 'targeting' ? C.hot : state === 'ready' ? C.sky : state === 'use' ? C.brass : null
 
   return (
-    <div className="flex flex-col items-center gap-1" title={`${def.name} — ${def.desc}`}>
+    <div className="relative">
+      <AnimatePresence>
+        {hover && <Tip id={id} reason={reason} />}
+      </AnimatePresence>
       <motion.button
         type="button"
         onClick={onClick}
-        onHoverStart={() => { setShape(s => s + 1); setRot(tilt()) }}
-        animate={{ rotate: rot, opacity: dim, scale: state === 'targeting' ? 1.12 : 1 }}
-        whileHover={live ? { scale: 1.16, y: -8 } : { scale: 1.05 }}
+        onHoverStart={() => { setShape(s => s + 1); setRot(tilt()); setHover(true) }}
+        onHoverEnd={() => setHover(false)}
+        animate={{ rotate: rot, opacity: state === 'idle' ? 0.55 : 1, scale: state === 'targeting' ? 1.12 : 1 }}
+        whileHover={{ scale: live ? 1.16 : 1.06, y: live ? -8 : -3 }}
         whileTap={live ? { scale: 0.9 } : undefined}
         transition={{ type: 'spring', stiffness: 420, damping: 18 }}
         className="relative"
@@ -140,34 +138,55 @@ function ItemSlot({ id, count, price, state, buyPhase, onClick }: {
             background: `linear-gradient(120deg, rgba(255,255,255,.25), rgba(255,255,255,0) 45%), ${C.paper}`,
           }}
         >
-          <ItemIcon id={id} size={46} />
+          <ItemIcon id={id} size={50} />
         </div>
-        {/* количество */}
-        {!buyPhase && id !== 'aegis' || count > 0 ? (
-          <span
-            className="absolute flex items-center justify-center tnum"
-            style={{
-              top: -7, right: -7, minWidth: 22, height: 22, padding: '0 5px', borderRadius: 11,
-              background: count > 0 ? C.ink : '#3a4741', color: count > 0 ? C.paper : C.muted,
-              border: `2px solid ${C.paper}`, fontFamily: DISPLAY, fontSize: 12, lineHeight: 1,
-            }}
-          >
-            {id === 'aegis' ? '✓' : count}
-          </span>
-        ) : null}
-        {def.key && !buyPhase && (
-          <span className="absolute" style={{
-            left: 5, bottom: 3, fontFamily: DISPLAY, fontSize: 10, color: C.ink, opacity: 0.55,
+        {id !== 'aegis' && (
+          <span className="absolute flex items-center justify-center tnum" style={{
+            top: -7, right: -7, minWidth: 22, height: 22, padding: '0 5px', borderRadius: 11,
+            background: C.ink, color: C.paper, border: `2px solid ${C.paper}`,
+            fontFamily: DISPLAY, fontSize: 12, lineHeight: 1,
           }}>
+            {count}
+          </span>
+        )}
+        {def.key && (
+          <span className="absolute" style={{ left: 5, bottom: 3, fontFamily: DISPLAY, fontSize: 10, color: C.ink, opacity: 0.55 }}>
             {def.key}
           </span>
         )}
       </motion.button>
-      {buyPhase && (
-        <span className="text-[0.8rem] font-semibold" style={{ color: state === 'buy' ? C.brass : C.muted }}>
-          <Money v={price} />
-        </span>
-      )}
     </div>
+  )
+}
+
+/** Подсказка — бумажка над слотом: название, что делает, клавиша, почему сейчас нельзя. */
+function Tip({ id, reason }: { id: ItemId; reason: string | null }) {
+  const def = ITEMS[id]
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, rotate: -4, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, rotate: -1.5, scale: 1 }}
+      exit={{ opacity: 0, y: 6, transition: { duration: 0.1 } }}
+      transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+      className="absolute pointer-events-none"
+      style={{
+        left: -6, bottom: 'calc(100% + 14px)', width: '17rem', zIndex: 70,
+        filter: 'drop-shadow(0 3px 0 rgba(0,0,0,.35)) drop-shadow(0 12px 18px rgba(0,0,0,.5))',
+      }}
+    >
+      <div style={{
+        clipPath: roughClip(`tip-${id}`, 4, 6),
+        background: C.paper, color: C.ink, padding: '0.8rem 0.95rem 0.85rem',
+      }}>
+        <div className="flex items-center justify-between gap-2">
+          <span style={{ fontFamily: DISPLAY, fontSize: '1rem', lineHeight: 1.1 }}>{def.name}</span>
+          {def.key && (
+            <span className="rounded px-1.5" style={{ fontFamily: DISPLAY, fontSize: 12, background: C.ink, color: C.paper }}>{def.key}</span>
+          )}
+        </div>
+        <div className="mt-1 text-[0.85rem] leading-snug" style={{ color: '#3d4a44' }}>{def.desc}</div>
+        {reason && <div className="mt-1.5 text-[0.8rem] font-bold" style={{ color: '#b8264b' }}>{reason}</div>}
+      </div>
+    </motion.div>
   )
 }

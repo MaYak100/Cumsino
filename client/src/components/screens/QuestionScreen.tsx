@@ -168,7 +168,7 @@ export function QuestionScreen() {
               {gemmedOnMe > 0 && (
                 <motion.span initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
                   className="text-[0.8125rem] font-semibold" style={{ color: C.hot }}>
-                  На тебя посмотрели гемом
+                  Твой ответ просветили
                 </motion.span>
               )}
             </div>

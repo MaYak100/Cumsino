@@ -60,6 +60,8 @@ interface GameStore {
   setPendingTarget: (target: 'win' | 'lose' | null) => void
   submitAnswer: (answer: string | number | string[], blink?: boolean) => void
   buyItem: (item: ItemId) => void
+  /** лавка: готов / передумал */
+  shopReady: (ready: boolean) => void
   useItem: (item: ItemId, targetId?: string) => void
   /** выбор цели для гема / хекса: панель предметов включает, клик по игроку завершает, Esc — отмена */
   setTargeting: (item: ItemId | null) => void
@@ -254,6 +256,10 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     buyItem(item) {
       socket.emit('buy_item', { item })
+    },
+
+    shopReady(ready) {
+      socket.emit('shop_ready', { ready })
     },
 
     useItem(item, targetId) {

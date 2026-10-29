@@ -14,6 +14,7 @@ import { LateJoinScreen } from './components/screens/LateJoinScreen'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TableFelt } from './components/ui/TableFelt'
 import { ItemBar } from './components/ui/ItemBar'
+import { ShopScreen } from './components/screens/ShopScreen'
 
 export default function App() {
   const gameState = useGameStore(s => s.gameState)
@@ -48,6 +49,9 @@ export default function App() {
   switch (phase) {
     case 'LOBBY':
       Screen = LobbyScreen
+      break
+    case 'SHOP':
+      Screen = ShopScreen
       break
     case 'ANNOUNCE':
       Screen = AnnounceScreen

@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import type { GameState, GamePhase, GameMode, Player, RoundResult } from '@cumsino/shared'
 import { ITEM_ORDER, itemPrice } from '@cumsino/shared'
 import { LobbyScreen } from '../components/screens/LobbyScreen'
+import { ShopScreen } from '../components/screens/ShopScreen'
 import { AnnounceScreen } from '../components/screens/AnnounceScreen'
 import { BettingTableScreen } from '../components/screens/BettingTableScreen'
 import { QuestionScreen } from '../components/screens/QuestionScreen'
@@ -155,6 +156,26 @@ function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = 
 // ── scenarios ─────────────────────────────────────────────────────────────────
 
 export const SCENARIOS: Scenario[] = [
+
+  // ── SHOP ──
+  {
+    id: 'shop',
+    group: 'SHOP',
+    label: 'лавка перед «для всех»',
+    Screen: ShopScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('SHOP', 'all', {
+        phaseTimeLeft: 25,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0, hasAnswered: false },
+          { id: 'dev-2', name: 'Артём',  chips: 350, currentBet: 0, hasAnswered: false, shopReady: true },
+          { id: 'dev-3', name: 'Света',  chips: 740, currentBet: 0, hasAnswered: false },
+          { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0, hasAnswered: false, shopReady: true },
+        ],
+      }),
+    },
+  },
 
   // ── LOBBY ──
   {
