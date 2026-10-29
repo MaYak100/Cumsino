@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ITEMS, ITEM_ORDER, WIN_CHIPS, type ItemId } from '@cumsino/shared'
+import { ITEMS, ITEM_ORDER, WIN_CHIPS, AEGIS_THRESHOLD, type ItemId } from '@cumsino/shared'
 import { useGameStore, selectMe } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { TimeBar } from '../ui/TimeBar'
@@ -19,6 +19,7 @@ export function ShopScreen() {
   const inv = gs.inventory ?? {}
   const chips = me?.chips ?? 0
   const ready = !!me?.shopReady
+  const aegisOn = me?.effects?.includes('aegis') ?? false
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -49,7 +50,9 @@ export function ShopScreen() {
             const price = gs.prices?.[id] ?? ITEMS[id].basePrice
             const have = id === 'aegis' ? (gs.aegisBought ? 1 : 0) : inv[id] ?? 0
             const full = id === 'aegis' ? !!gs.aegisBought : have >= ITEMS[id].max
-            const can = !ready && !full && chips >= price && chips < WIN_CHIPS
+            // аегис нельзя купить «в прибыль» (останется меньше $50), а с активным аегисом не уйти покупками ниже $50
+            const floorOk = (id === 'aegis' || aegisOn) ? chips - price >= AEGIS_THRESHOLD : true
+            const can = !ready && !full && chips >= price && chips < WIN_CHIPS && floorOk
             return (
               <ShopCard key={id} id={id} index={i} price={price} have={have} full={full} can={can}
                 onBuy={() => buyItem(id)} />

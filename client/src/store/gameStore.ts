@@ -115,9 +115,10 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundGladiatorId: clearRound ? null : prev.roundGladiatorId,
         bankBets: clearRound ? {} : prev.bankBets,
         stagedBets: clearRound ? {} : prev.stagedBets,
+        // вошедший в лобби или в лавку — участник (сервер ждёт его «Готов»); посреди раунда — зритель до нового раунда
         isLateJoiner: prev.gameState === null
-          ? state.phase !== 'LOBBY'
-          : state.phase === 'ANNOUNCE'
+          ? state.phase !== 'LOBBY' && state.phase !== 'SHOP'
+          : state.phase === 'ANNOUNCE' || state.phase === 'SHOP'
             ? false
             : prev.isLateJoiner,
         bribePrompt: clearBribe ? null : prev.bribePrompt,
