@@ -82,7 +82,6 @@ export const CATEGORIES: CategoryDef[] = [
   {
     id: 'friends', title: 'Друзья', weight: 1, requires: 'friends', subs: [
       { id: 'friends_hero_main', title: 'Мейн' },
-      { id: 'friends_mode_trap', title: 'Мейн: рейтинг или Турбо' },
       { id: 'friends_hero_wr', title: 'Лучший и худший герой' },
       { id: 'friends_self_wr', title: 'Винрейт на герое' },
       { id: 'friends_hero_games', title: 'Игры на герое' },

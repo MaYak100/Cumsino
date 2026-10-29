@@ -6,6 +6,7 @@ import { smoothOrder, commitChoice } from '../smooth'
 import { makeStepOptions, formatNumber } from '../stepOptions'
 import { gameOnlyDeck } from '../../stats/statQuestions'
 import type { CategoryDef } from '../categories'
+import { FriendsGen, FRIEND_KINDS, selfWrStep, wrOptions } from '../friends'
 
 function seeded(seed: number): () => number {
   let a = seed
@@ -167,6 +168,28 @@ describe('колода', () => {
     deck.take('a')
     expect(drawFromDeck(['a'], x => x, deck, seeded(1), () => ({ id: 'a', mode: 'all', topic: '', text: '' }))).toBeNull()
   })
+
+  it('drawFromDeck с группами: группа выпадает поровну, сколько бы карточек у неё ни было', () => {
+    // у A 10 карточек, у B одна: без групп B выпадал бы в 1/11 случаев
+    const cards = [...Array.from({ length: 10 }, (_, i) => `A${i}`), 'B0']
+    let b = 0
+    for (let seed = 1; seed <= 400; seed++) {
+      const q = drawFromDeck(cards, x => x, gameOnlyDeck(), seeded(seed), x => ({ id: x, mode: 'all', topic: '', text: '' }),
+        x => x[0])
+      if (q!.id === 'B0') b++
+    }
+    expect(b / 400).toBeGreaterThan(0.4)
+    expect(b / 400).toBeLessThan(0.6)
+  })
+
+  it('drawFromDeck с группами: у группы нет свежих — берётся другая', () => {
+    for (let seed = 1; seed <= 20; seed++) {
+      const deck = gameOnlyDeck()
+      deck.take('B0')
+      const q = drawFromDeck(['A0', 'B0'], x => x, deck, seeded(seed), x => ({ id: x, mode: 'all', topic: '', text: '' }), x => x[0])
+      expect(q!.id).toBe('A0')
+    }
+  })
 })
 
 describe('оценки', () => {
@@ -258,8 +281,85 @@ describe('друзья', () => {
     expect(q.options).toContain(q.answer)
     expect(q.optionNotes).toHaveLength(4)
     const c = room.pick('closest', { friends: [1, 2] })
-    expect(c.text).toBe('Сколько игр Аня и Боря сыграли вместе в рейтинге?')
+    expect(c.text).toBe('Аня и Боря: сколько игр вместе в рейтинге?')
     expect(c.numericAnswer).toBe(120)
+    expect(c.unit).toBe('игр')
+  })
+
+  const names = { 10: 'Pudge', 11: 'Lion', 12: 'Lina', 13: 'Zeus', 14: 'Tiny', 20: 'Axe', 21: 'Sven', 22: 'Lich', 23: 'Ursa', 30: 'Io' }
+  const kind = (id: string) => FRIEND_KINDS.find(k => k.id === id)!
+  const withTurbo = {
+    ...metrics,
+    heroes: { ...metrics.heroes, turbo: { ...metrics.heroes.turbo, 1: { own: { 14: [300, 150] }, company: {} } } },
+    spans: { ranked: { 1: { own: ['2022-10', '2026-10'] } }, turbo: {} },
+  }
+
+  it('мейн: ник меткой, ловушка — мейн другого режима на месте соперника', () => {
+    for (let seed = 1; seed <= 20; seed++) {
+      const g = new FriendsGen(withTurbo, names, seeded(seed))
+      const cands = kind('hero_main').candidates(g, [1, 3])
+      // у Вовы и у Ани в Турбо меньше 4 героев от 20 игр — карточек нет
+      expect(cands.map(c => c.card)).toEqual(['fr:hero_main:1:ranked'])
+      const q = cands[0].build()!
+      expect(q.text).toBe('Аня: на каком из героев больше всего игр в рейтинге?')
+      expect(q.answer).toBe('Pudge')
+      expect(q.options).toContain('Tiny')
+      expect(q.optionNotes![q.options!.indexOf('Tiny')]).toBe('35 игр')
+      expect(q.comment).toBe('Tiny — мейн в Турбо, а не в рейтинге. Вся история STRATZ — с октября 2022.')
+    }
+  })
+
+  it('мейн без ловушки — только окно выборки', () => {
+    const g = new FriendsGen(metrics, names, seeded(3))
+    const q = kind('hero_main').candidates(g, [2])[0].build()!
+    expect(q.answer).toBe('Axe')
+    expect(q.comment).toBe('Вся история STRATZ.')
+  })
+
+  it('винрейт героя: лидер от 50 игр, более редкий экстремум в варианты не попадает', () => {
+    const wr = { ...metrics, heroes: { ...metrics.heroes, ranked: { ...metrics.heroes.ranked,
+      1: { own: { 10: [200, 110], 11: [100, 40], 12: [60, 40], 13: [40, 22], 14: [35, 10] }, company: {} } } } }
+    const best = kind('hero_wr').candidates(new FriendsGen(wr, names, seeded(4)), [1])[0].build()!
+    expect(best.text).toBe('Аня: на ком лучший винрейт в рейтинге?')
+    expect(best.answer).toBe('Lina')
+    expect(best.comment).toBe('Lina — 67% за 60 игр; в вариантах — герои от 30 игр. Вся история STRATZ.')
+    // Tiny — 29% на 35 играх: хуже всех, но лидером быть не может (< 50 игр) — и в вариантах его нет
+    const worst = kind('hero_wr').candidates(new FriendsGen(wr, names, seeded(5)), [1])[1].build()!
+    expect(worst.answer).toBe('Lion')
+    expect(worst.options).not.toContain('Tiny')
+  })
+
+  it('свой винрейт: шаг от выборки, варианты в (0, 100), карточки — только топ героев', () => {
+    expect(selfWrStep(40)).toBe(8)
+    expect(selfWrStep(100)).toBe(5)
+    expect(selfWrStep(600)).toBe(5)
+    for (let seed = 1; seed <= 50; seed++) {
+      for (const answer of [3, 50, 97]) {
+        const v = wrOptions(answer, 8, seeded(seed))
+        expect(v).toContain(answer)
+        expect(Math.min(...v)).toBeGreaterThan(0)
+        expect(Math.max(...v)).toBeLessThan(100)
+        expect(v[1] - v[0]).toBe(8)
+      }
+    }
+    const many = { ...metrics, heroes: { ...metrics.heroes, ranked: { ...metrics.heroes.ranked,
+      1: { own: Object.fromEntries(Array.from({ length: 10 }, (_, i) => [String(40 + i), [100 + i, 50]])), company: {} } } } }
+    const g = new FriendsGen(many, names, seeded(6))
+    const cards = kind('self_wr').candidates(g, [1])
+    expect(cards.map(c => c.card).sort()).toEqual([44, 45, 46, 47, 48, 49].map(h => `fr:self_wr:1:ranked:${h}`))
+    const q = cards[0].build()!
+    expect(q.text).toMatch(/^Аня: какой винрейт на #4\d в рейтинге\?$/)
+    expect(q.options).toContain(q.answer)
+    expect(q.comment).toMatch(/^10\d игр.?, 50 побед\. Вся история STRATZ\.$/)
+  })
+
+  it('игры на герое: единица «игр», аноним — «в пати», окно в comment', () => {
+    const g = new FriendsGen(metrics, names, seeded(7))
+    const [q] = kind('hero_games').candidates(g, [3]).map(c => c.build()!)
+    expect(q.text).toBe('Вова: сколько игр на Io в пати рейтинге?')
+    expect(q.numericAnswer).toBe(90)
+    expect(q.unit).toBe('игр')
+    expect(q.comment).toBe('Профиль скрыт: только игры в пати с открытыми профилями.')
   })
 })
 

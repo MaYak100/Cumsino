@@ -5,12 +5,18 @@
 Вопрос собирает сервер при каждом показе (server/src/game/stats/statQuestions.ts) — здесь только подкатегории,
 пулы и значения. Правила (docs/questions/stratz-research.md):
   - MC: 4 варианта из пула; ответ — лидер среди показанных (ask: max / min); лидер отрывается от каждого из трёх
-    остальных на gap (rel — во сколько раз, abs — на сколько единиц); нет такой четвёрки — гейт снимается;
+    остальных на gap (rel — во сколько раз, abs — на сколько единиц), но не дальше maxRel от второго места
+    (иначе ответ очевиден: Treads 846к против BoT 2 5к); нет такой четвёрки — гейт снимается;
   - герой / предмет, попавший в варианты (и герой вопроса), исключается из подкатегории до конца игры;
-  - note — истинное значение варианта (показ после ответа, до ~6 символов), comment — что за число и за какое окно.
+  - note — истинное значение варианта (до ~6 символов); в игре подписи форматирует сервер по value всей показанной
+    четвёрки (одна точность и общий суффикс к/М, формат — поле note подкатегории), note в entries — запасной;
+    comment — что за число и за какое окно.
 
 Формат bank.json:
-  {snapshot, patch, subcategories: [{id, mode: mc|closest, topic, display, comment, weight, gap?, pools}]}
+  {snapshot, patch, subcategories: [{id, mode: mc|closest, topic, display, comment, weight, gap?, note?, layout?, pools}]}
+  gap:         {rel | abs, maxRel?}
+  note:        count — числа (к/М по максимуму четвёрки) | pct — доля 0…1 → «53.5%» | pct0 — «62%» | pp — п.п. «+1.4»
+  layout:      talent_tree — варианты не перемешиваются, стоят как в дереве талантов (сверху 25 ур., снизу 20 ур.)
   mc-пул:      {subject?, entries: [[name, value, note]], asks: [{ask: max|min, text}]}
   exclusive:   [[a, b]] — не ставить в одну четвёрку (компонент и его улучшение: Arcane ≥ Guardian Greaves всегда)
   closest-пул: {subject, text, answer}
@@ -24,6 +30,7 @@ import json
 import random
 import sys
 from collections import defaultdict
+from itertools import combinations
 from pathlib import Path
 
 STATS = Path("scripts/data/stats")
@@ -32,15 +39,18 @@ OUT = STATS / "bank.json"
 
 # пороги из решений 2026-10-27
 AVG_GAP = {"rel": 0.10}
+# maxRel — лидер не дальше ×N от второго места (2026-10-29): ботинки — медиана отрыва была ×4.9, ×3+ в 62%
+# (у 75 из 127 героев одни ботинки ≥ 70% покупок); такие ботинки сами выпадают из вариантов — их не с кем сравнить
 COUNTER_GAP = {"abs": 2.5}         # п.п. преимущества
 COUNTER_MIN_GAMES = 5000
 COUNTER_MIN_RIVALS = 25            # меньше — пул мал (Chen, Batrider, Elder Titan)
 TALENT_GAP = {"abs": 0.10}         # доля внутри пары уровня
 BAN_GAP = {"abs": 0.025}
-WR_GAP = {"abs": 0.015}
+WR_GAP = {"abs": 0.025}            # 1.5 п.п. — почти монетка (2026-10-29)
 PICK_GAP = {"rel": 0.15}
-ITEM_GAP = {"rel": 0.10}
-ITEM_HERO_GAP = {"rel": 0.15}
+ITEM_GAP = {"rel": 0.10, "maxRel": 3}
+ITEM_HERO_GAP = {"rel": 0.15, "maxRel": 3}
+BOOTS_GAP = {"rel": 0.15, "maxRel": 2.5}
 HEAL_ALLIES_MIN = 500              # заметный хил союзникам — иначе шум «хилит / не хилит»
 ITEM_MIN_COST = 2000
 ITEM_BASIC_KEEP = {"blink", "aghanims_shard"}           # без рецепта, но законченные предметы
@@ -49,7 +59,7 @@ ITEM_INTERMEDIATE = {"yasha", "sange", "kaya", "lesser_crit", "soul_booster", "o
 BOOTS_SKIP = {"Boots of Speed"}    # база — её покупают все, кто собирает ботинки
 ITEMS_PER_HERO = 8
 CLOSEST_BAN_TOP = 30
-CLOSEST_PICK_TOP = 40
+CLOSEST_PICK_MIN = 0.05            # пики closest: от 5% (верх и середина; ниже — ошибка в разы на малых числах)
 
 
 # ---------- форматирование подписей ----------
@@ -69,7 +79,53 @@ def pct(v: float, digits: int = 1) -> str:
 
 
 def signed(v: float) -> str:
-    return f"{'+' if v >= 0 else '−'}{abs(v):.1f}"
+    t = f"{abs(v):.1f}"
+    return t if t == "0.0" else f"{'+' if v > 0 else '−'}{t}"
+
+
+def ru_date(iso: str) -> str:
+    """2026-09-17 → 17.09.2026"""
+    y, m, d = iso[:10].split("-")
+    return f"{d}.{m}.{y}"
+
+
+def weeks_span(weeks: list) -> str:
+    """Недели STRATZ (дата начала недели) → «17.09–21.10.2026»: до конца последней недели."""
+    from datetime import date, timedelta
+    a, b = date.fromisoformat(weeks[0]), date.fromisoformat(weeks[-1]) + timedelta(days=6)
+    return f"{a:%d.%m}–{b:%d.%m.%Y}" if a.year == b.year else f"{a:%d.%m.%Y}–{b:%d.%m.%Y}"
+
+
+def days_span(frm: str, to: str) -> str:
+    """Окно [from, to) с временем → «16.09–26.10.2026» (to не включительно: 2026-10-27T00:00 — конец 26-го)."""
+    from datetime import datetime, timedelta
+    a = datetime.fromisoformat(frm.replace("Z", "+00:00"))
+    b = datetime.fromisoformat(to.replace("Z", "+00:00")) - timedelta(seconds=1)
+    return f"{a:%d.%m}–{b:%d.%m.%Y}" if a.year == b.year else f"{a:%d.%m.%Y}–{b:%d.%m.%Y}"
+
+
+def gap_months(months: list) -> str:
+    """[2014-09 … 2024-09, 2025-09 … 2026-08] → «с 09.2014 по 08.2026; нет данных за 10.2024–08.2025»."""
+    mm = lambda ym: f"{ym[5:7]}.{ym[:4]}"
+    idx = lambda ym: int(ym[:4]) * 12 + int(ym[5:7]) - 1
+    ym = lambda i: f"{i // 12}-{i % 12 + 1:02d}"
+    holes = [(ym(idx(a) + 1), ym(idx(b) - 1)) for a, b in zip(months, months[1:]) if idx(b) - idx(a) > 1]
+    text = f"с {mm(months[0])} по {mm(months[-1])}"
+    if holes:
+        text += "; нет данных за " + ", ".join(mm(a) if a == b else f"{mm(a)}–{mm(b)}" for a, b in holes)
+    return text
+
+
+MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+              "ноября", "декабря"]
+MONTHS_NOM = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь",
+              "ноябрь", "декабрь"]
+
+
+def month_ru(ym: str, case: list) -> str:
+    """2025-09 → «сентября 2025» / «сентябрь 2025»"""
+    y, m = ym.split("-")
+    return f"{case[int(m) - 1]} {y}"
 
 
 # ---------- проверка пулов ----------
@@ -84,9 +140,31 @@ def gap_ok(lead: float, other: float, gap: dict, ask: str) -> bool:
     return base > 0 and d >= gap["rel"] * base
 
 
-def leaders(entries: list, gap: dict, ask: str) -> int:
-    """Сколько вариантов могут быть ответом (у них ≥ 3 соперника с нужным отрывом)."""
-    return sum(1 for _, v, _ in entries if sum(gap_ok(v, o, gap, ask) for _, o, _ in entries) >= 3)
+def cap_ok(lead: float, other: float, gap: dict, ask: str) -> bool:
+    """Лидер не дальше maxRel от соперника (для второго места): иначе ответ очевиден."""
+    if "maxRel" not in gap:
+        return True
+    hi, lo = (lead, other) if ask == "max" else (other, lead)
+    return lo > 0 and hi <= gap["maxRel"] * lo + 1e-9
+
+
+def leaders(entries: list, gap: dict, ask: str, exclusive: list | None = None) -> int:
+    """Сколько вариантов могут быть ответом: у них ≥ 3 соперника с нужным отрывом, ближайший — в пределах maxRel.
+    С exclusive — точно, перебором троек (пулы с exclusive малы: предметы, ботинки)."""
+    bad = {frozenset(x) for x in exclusive or []}
+
+    def can_lead(e):
+        rivals = [o for o in entries if gap_ok(e[1], o[1], gap, ask) and frozenset((e[0], o[0])) not in bad]
+        if not bad:
+            return len(rivals) >= 3 and any(cap_ok(e[1], o[1], gap, ask) for o in rivals)
+        for trio in combinations(rivals, 3):
+            if any(frozenset((a[0], b[0])) in bad for a, b in combinations(trio, 2)):
+                continue
+            second = (max if ask == "max" else min)(o[1] for o in trio)
+            if cap_ok(e[1], second, gap, ask):
+                return True
+        return False
+    return sum(1 for e in entries if can_lead(e))
 
 
 def first_try(entries: list, gap: dict, ask: str, rng: random.Random, n: int = 300) -> float:
@@ -94,7 +172,9 @@ def first_try(entries: list, gap: dict, ask: str, rng: random.Random, n: int = 3
     for _ in range(n):
         s = rng.sample(entries, 4)
         lead = (max if ask == "max" else min)(s, key=lambda e: e[1])
-        ok += all(gap_ok(lead[1], e[1], gap, ask) for e in s if e is not lead)
+        rest = [e for e in s if e is not lead]
+        second = (max if ask == "max" else min)(rest, key=lambda e: e[1])
+        ok += all(gap_ok(lead[1], e[1], gap, ask) for e in rest) and cap_ok(lead[1], second[1], gap, ask)
     return ok / n
 
 
@@ -132,8 +212,10 @@ class Bank:
 
     def add(self, sub: dict) -> None:
         if sub["mode"] == "mc":
+            ex = sub.get("exclusive")
             for p in sub["pools"]:
-                p["asks"] = [a for a in p["asks"] if len(p["entries"]) >= 4 and leaders(p["entries"], sub["gap"], a["ask"])]
+                p["asks"] = [a for a in p["asks"]
+                             if len(p["entries"]) >= 4 and leaders(p["entries"], sub["gap"], a["ask"], ex)]
             sub["pools"] = [p for p in sub["pools"] if p["asks"]]
         if sub["pools"]:
             self.subs.append(sub)
@@ -144,7 +226,7 @@ class Bank:
 def avg_subs(bank: Bank, snap: Path) -> None:
     rows = load(snap / "stratz/hero_avg.json")["rows"]
     weeks = load(snap / "stratz/hero_avg.json")["weeks"]
-    window = f"STRATZ, недели {weeks[0][5:]}…{weeks[-1][5:]}, все ранги"
+    window = f"STRATZ, {weeks_span(weeks)}, все ранги"
 
     def pool(field, ask, text, take, exclude=(), fmt=sig3, where=None):
         rs = [r for r in rows if r["hero"] not in exclude and r.get(field) is not None and (where is None or where(r))]
@@ -177,7 +259,8 @@ def avg_subs(bank: Bank, snap: Path) -> None:
     ]
     for sid, display, what, pools in specs:
         bank.add({"id": sid, "mode": "mc", "topic": "Средние за матч", "display": display,
-                  "comment": f"{what} на {bank.patch} ({window}).", "gap": AVG_GAP, "weight": 1, "pools": pools})
+                  "comment": f"{what} на {bank.patch} ({window}).", "gap": AVG_GAP, "note": "count", "weight": 1,
+                  "pools": pools})
 
 
 def counter_sub(bank: Bank, snap: Path, names: dict) -> None:
@@ -189,9 +272,9 @@ def counter_sub(bank: Bank, snap: Path, names: dict) -> None:
                                 for ask, word in (("min", "реже"), ("max", "чаще"))), subject=names[h])
              for h, entries in sorted(by_hero.items()) if len(entries) >= COUNTER_MIN_RIVALS]
     bank.add({"id": "counter", "mode": "mc", "topic": "Контрпики", "display": "Контрпики",
-              "comment": f"Преимущество героя против соперника, п.п. — винрейт с поправкой на силу обоих "
-                         f"(STRATZ, {bank.patch}, все ранги).",
-              "gap": COUNTER_GAP, "weight": 2, "pools": pools})
+              "comment": f"Подписи — преимущество героя против соперника в процентных пунктах: винрейт с поправкой "
+                         f"на силу обоих (STRATZ, {bank.patch}, все ранги).",
+              "gap": COUNTER_GAP, "note": "pp", "weight": 2, "pools": pools})
 
 
 def talent_sub(bank: Bank, snap: Path, names: dict, hero_keys: dict) -> None:
@@ -202,6 +285,8 @@ def talent_sub(bank: Bank, snap: Path, names: dict, hero_keys: dict) -> None:
     for r in load(snap / "stratz/talents.json")["rows"]:
         games[(r["hero_id"], r["ability"])] += r["games"]
     pools, missing = [], []
+    # entries — в порядке слотов AbilityN файла героя: [20 первый, 20 второй, 25 первый, 25 второй];
+    # layout talent_tree — сервер ставит их как в дереве игры: первый слот пары — справа (statQuestions.ts)
     for hid, key in sorted(hero_keys.items()):
         entries = []
         for lvl, label in ((3, 20), (4, 25)):
@@ -222,16 +307,18 @@ def talent_sub(bank: Bank, snap: Path, names: dict, hero_keys: dict) -> None:
         print(f"  таланты: нет текстов или данных STRATZ по всем 4 талантам у {len(missing)} героев")
     bank.add({"id": "talents", "mode": "mc", "topic": "Таланты", "display": "Таланты",
               "comment": f"Доля внутри пары талантов одного уровня (STRATZ, {bank.patch}, все ранги).",
-              "gap": TALENT_GAP, "weight": 2, "pools": pools})
+              "gap": TALENT_GAP, "note": "pct0", "layout": "talent_tree", "weight": 2, "pools": pools})
 
 
 def ban_subs(bank: Bank, snap: Path) -> None:
     d = load(snap / "stratz/bans_ranked.json")
     rows = sorted(d["rows"], key=lambda r: -r["ban_rate"])
-    comment = f"Доля рейтинговых матчей, где героя забанили ({bank.patch}, выборка {d['sample_matches']} матчей STRATZ)."
+    win = next(x["window"] for x in load(snap / "stratz/manifest.json")["datasets"] if x["id"] == "bans_ranked_patch")
+    comment = (f"Доля рейтинговых матчей, где героя забанили ({bank.patch}, выборка {d['sample_matches']} матчей "
+               f"STRATZ за {days_span(win['from'], win['to'])}).")
     top = rows[:30]
     bank.add({"id": "bans", "mode": "mc", "topic": "Баны", "display": "Баны", "comment": comment, "gap": BAN_GAP,
-              "weight": 1, "pools": [mc_pool([[r["hero"], round(r["ban_rate"], 4), pct(r["ban_rate"])] for r in top],
+              "note": "pct", "weight": 1, "pools": [mc_pool([[r["hero"], round(r["ban_rate"], 4), pct(r["ban_rate"])] for r in top],
                                              ("max", f"Кого из этих героев чаще всего банят в рейтинге на {bank.patch}?"))]})
     bank.add({"id": "bans_closest", "mode": "closest", "topic": "Баны", "display": "Баны", "comment": comment,
               "weight": 1, "pools": [{"subject": r["hero"], "answer": round(100 * r["ban_rate"]),
@@ -243,7 +330,7 @@ def hero_subs(bank: Bank, snap: Path) -> None:
     od = [r for r in load(snap / "heroes.json")["rows"] if r["window_id"] == "hero_wr_patch" and r["bracket"] == "all"]
     st = load(snap / "stratz/heroes.json")["rows"]
     od_win = load(snap / "manifest.json")
-    od_from = next(d["window"]["from"][:10] for d in od_win["datasets"] if d["id"] == "hero_wr_patch")
+    od_from = ru_date(next(d["window"]["from"] for d in od_win["datasets"] if d["id"] == "hero_wr_patch"))
     p = bank.patch
 
     def entries(rs, key, fmt):
@@ -255,7 +342,8 @@ def hero_subs(bank: Bank, snap: Path) -> None:
 
     wr = lambda r: r["winrate"]
     bank.add({"id": "hero_wr", "mode": "mc", "topic": "Винрейт героев", "display": f"Винрейт на {p}",
-              "comment": f"Винрейт за патч {p} (OpenDota, с {od_from}, все ранги).", "gap": WR_GAP, "weight": 2,
+              "comment": f"Винрейт за патч {p} (OpenDota, с {od_from}, все ранги).", "gap": WR_GAP, "note": "pct",
+              "weight": 2,
               "pools": top_bottom(od, wr, pct, f"У кого из этих героев самый высокий винрейт на {p}?",
                                   f"У кого из этих героев самый низкий винрейт на {p}?")})
 
@@ -264,34 +352,36 @@ def hero_subs(bank: Bank, snap: Path) -> None:
     pr = lambda r: r["pick_rate"]
     pick_comment = f"Доля матчей, где героя выбрали (OpenDota, {p} с {od_from}, все ранги)."
     bank.add({"id": "hero_pick", "mode": "mc", "topic": "Популярность героев", "display": f"Пики на {p}",
-              "comment": pick_comment, "gap": PICK_GAP, "weight": 2,
+              "comment": pick_comment, "gap": PICK_GAP, "note": "pct", "weight": 2,
               "pools": top_bottom(od, pr, pct, f"Кого из этих героев чаще всего пикают на {p}?",
                                   f"Кого из этих героев реже всего пикают на {p}?")})
     bank.add({"id": "hero_pick_closest", "mode": "closest", "topic": "Популярность героев", "display": f"Пики на {p}",
               "comment": pick_comment, "weight": 1,
               "pools": [{"subject": r["hero"], "answer": round(100 * r["pick_rate"]),
                          "text": f"В каком проценте матчей пикают {r['hero']} на {p}?"}
-                        for r in sorted(od, key=pr, reverse=True)[:CLOSEST_PICK_TOP]]})
+                        for r in sorted(od, key=pr, reverse=True) if pr(r) >= CLOSEST_PICK_MIN]})
 
     months = load(snap / "stratz/manifest.json")["datasets"]
     yw = next(d["window"]["months"] for d in months if d["id"] == "hero_year_months")
     # герой, вышедший внутри окна (Largo — 2025-12), в «пиках за год» занижен — не берём
     year = [r for r in st if r["window_id"] == "hero_year_months" and r["bracket"] == "all"
             and (r.get("first_month") or "9999") <= yw[0]]
+    # окно — честное: снимок 2026-10-27, а год кончается 2026-08 — «за последний год» было бы неправдой
+    span = f"с {month_ru(yw[0], MONTHS_GEN)} по {month_ru(yw[-1], MONTHS_NOM)}"
     bank.add({"id": "hero_pick_year", "mode": "mc", "topic": "Популярность героев", "display": "Пики за год",
-              "comment": f"Доля матчей с героем за {yw[0]} … {yw[-1]} (STRATZ, все ранги).", "gap": PICK_GAP,
+              "comment": f"Доля матчей с героем {span} (STRATZ, все ранги).", "gap": PICK_GAP, "note": "pct",
               "weight": 1,
-              "pools": top_bottom(year, pr, pct, "Кого из этих героев чаще всего пикали за последний год?",
-                                  "Кого из этих героев реже всего пикали за последний год?")})
+              "pools": top_bottom(year, pr, pct, f"Кого из этих героев чаще всего пикали {span}?",
+                                  f"Кого из этих героев реже всего пикали {span}?")})
 
     aw = next(d["window"]["months"] for d in months if d["id"] == "hero_all_months")
     allm = [r for r in st if r["window_id"] == "hero_all_months" and r["bracket"] == "all"]
     # только верх: внизу — новые герои (Largo, Kez), там вопрос про дату выхода, а не про популярность
     bank.add({"id": "hero_pick_all", "mode": "mc", "topic": "Популярность героев", "display": "Пики за всё время",
-              "comment": f"Доля матчей с героем с {aw[0]} по {aw[-1]} (STRATZ; нет данных за 2024-10 … 2025-08).",
-              "gap": PICK_GAP, "weight": 1,
+              "comment": f"Доля матчей с героем {gap_months(aw)} (STRATZ).",
+              "gap": PICK_GAP, "note": "pct", "weight": 1,
               "pools": [mc_pool(entries(half(allm, pr, True), pr, pct),
-                                ("max", "Кого из этих героев пикали чаще всего за всю историю Dota 2?"))]})
+                                ("max", f"Кого из этих героев пикали чаще всего с {aw[0][:4]} года?"))]})
 
 
 def upgrade_pairs(names: set) -> list:
@@ -315,11 +405,11 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
     rows = [r for r in load(snap / "stratz/items.json")["rows"] if r["window_id"] == "items_patch"]
     good = lambda r: item_ok(*meta.get(r["item"], (None, None)))
     weeks = next(d["window"]["weeks"] for d in load(snap / "stratz/manifest.json")["datasets"] if d["id"] == "items_patch")
-    window = f"STRATZ, недели {weeks[0][5:]}…{weeks[-1][5:]}"
+    window = f"STRATZ, {weeks_span(weeks)}"
     glob = sorted((r for r in rows if r["hero_id"] is None and good(r)), key=lambda r: -r["purchases"])[:30]
     bank.add({"id": "items", "mode": "mc", "topic": "Предметы", "display": "Популярные предметы",
               "comment": f"Число покупок за патч {bank.patch} ({window}; без ботинок и расходников).",
-              "gap": ITEM_GAP, "weight": 1, "exclusive": upgrade_pairs({r["item"] for r in glob}),
+              "gap": ITEM_GAP, "note": "count", "weight": 1, "exclusive": upgrade_pairs({r["item"] for r in glob}),
               "pools": [mc_pool([[r["item"], r["purchases"], sig3(r["purchases"])] for r in glob],
                                 ("max", f"Какой из этих предметов чаще всего покупают на {bank.patch}?"))]})
 
@@ -335,7 +425,7 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
                              subject=names[h]))
     bank.add({"id": "items_hero", "mode": "mc", "topic": "Предметы", "display": "Предметы героя",
               "comment": f"Число покупок на герое за патч {bank.patch} ({window}; без ботинок и расходников).",
-              "gap": ITEM_HERO_GAP, "weight": 2, "pools": pools,
+              "gap": ITEM_HERO_GAP, "note": "count", "weight": 2, "pools": pools,
               "exclusive": upgrade_pairs({e[0] for p in pools for e in p["entries"]})})
 
     boots = defaultdict(list)
@@ -349,7 +439,7 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
                              subject=names[h]))
     bank.add({"id": "boots_hero", "mode": "mc", "topic": "Предметы", "display": "Ботинки героя",
               "comment": f"Число покупок ботинок на герое за патч {bank.patch} ({window}).",
-              "gap": ITEM_HERO_GAP, "weight": 1, "pools": pools,
+              "gap": BOOTS_GAP, "note": "count", "weight": 1, "pools": pools,
               "exclusive": upgrade_pairs({e[0] for p in pools for e in p["entries"]})})
 
 
@@ -363,7 +453,7 @@ def report(bank: Bank) -> None:
             print(f"{s['id']:20} {'closest':7} {len(s['pools']):5}")
             continue
         sizes = [len(p["entries"]) for p in s["pools"]]
-        lead = [leaders(p["entries"], s["gap"], a["ask"]) for p in s["pools"] for a in p["asks"]]
+        lead = [leaders(p["entries"], s["gap"], a["ask"], s.get("exclusive")) for p in s["pools"] for a in p["asks"]]
         ft = [first_try(p["entries"], s["gap"], a["ask"], rng, 100) for p in s["pools"][:40] for a in p["asks"]]
         print(f"{s['id']:20} {'mc':7} {len(sizes):5} {min(sizes):4}–{max(sizes):<4}  {min(lead):3}–{max(lead):<4} "
               f"{sum(ft) / len(ft):6.0%}")

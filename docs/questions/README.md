@@ -331,6 +331,7 @@ Quelling Blade), причина исключения записывается. �
 | `scripts/fetch_stratz.py`, `scripts/stratz_client.py` | снимок STRATZ → `scripts/data/stats/<дата>/stratz/` |
 | `scripts/fetch_friends.py` | статистика компании друзей → `scripts/data/friends/` (в .gitignore только `matches.jsonl`, `state.json`) |
 | `scripts/build_question_bank.py` | финальные прогоны → `scripts/data/bank/questions.json` (единый банк для игры) |
+| `scripts/data/bank/overrides.json` | ручные правки банка (удалить, текст, шаг, единица, варианты) с причинами; переживают перегенерацию, проверки сборки — в docstring `build_question_bank.py` |
 | `server/src/game/questions/` | выбор вопроса в игре: категории, колоды, оценки, Neon ([system.md](system.md)) |
 | `scripts/generate/numeric_lab/build_sample.py` | выборки: фиксированная, случайная, полная (`--full`), цены |
 | `scripts/generate/numeric_lab/run_api.py` | генерация числовых вопросов и цен через API |
