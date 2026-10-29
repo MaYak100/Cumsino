@@ -1,4 +1,5 @@
 // shared/src/types.ts
+import type { ItemId } from './items'
 
 export type GamePhase =
   | 'LOBBY'
@@ -32,7 +33,16 @@ export interface Player {
   hasAnswered: boolean
   /** account id человека из компании, которым игрок назвался в лобби («кто ты»); нет — пропустил */
   friendId?: number
+  /** верных раундов подряд (docs/items.md) */
+  streak?: number
+  /** минимальная ставка этого раунда («для всех»): 5% баланса, у ведущего — 10% */
+  blind?: number
+  bigBlind?: boolean
+  /** видимые всем эффекты этого раунда: bkb, hex (на нём), smoke; aegis — есть аегис (держится до срабатывания) */
+  effects?: PublicEffect[]
 }
+
+export type PublicEffect = 'bkb' | 'hex' | 'smoke' | 'aegis'
 
 export interface FriendProfile { id: number; name: string }
 
@@ -70,6 +80,17 @@ export interface GameState {
   phaseTimeLeft: number
   /** кем можно назваться в лобби (компания из вопросов про друзей) */
   friendRoster?: FriendProfile[]
+  // ── личное (только в getStateForPlayer для самого игрока) ──
+  /** свой запас предметов */
+  inventory?: Partial<Record<ItemId, number>>
+  /** свои цены сейчас (зависят от баланса) */
+  prices?: Record<ItemId, number>
+  /** аегис уже покупался в этой игре */
+  aegisBought?: boolean
+  /** на тебе хекс: сколько секунд осталось на ответ (в QUESTION) */
+  hexTimeLeft?: number
+  /** варианты, убранные мантой (индексы options) */
+  removedOptions?: number[]
 }
 
 export interface RoundResult {
@@ -84,7 +105,10 @@ export interface JoinGamePayload { name: string; gameCode: string }
 /** chips — все фишки игрока на сукне (с банк-ставкой: сначала основная, потом банк) — сервер хранит их в betChips */
 export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose'; chips?: number[]; bankBet?: { optionIndex: number; amount: number } }
 export interface PlaceBankBetPayload { optionIndex: number; amount: number }
-export interface SubmitAnswerPayload { answer: string | number | string[] }
+/** blink — сменить уже отправленный ответ (тратит блинк) */
+export interface SubmitAnswerPayload { answer: string | number | string[]; blink?: boolean }
+export interface BuyItemPayload { item: ItemId }
+export interface UseItemPayload { item: ItemId; targetId?: string }
 export interface GladiatorHoverPayload { optionIndex: number | null }
 export interface IdentifyPayload { friendId: number | null }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
@@ -107,6 +131,12 @@ export interface RoundResultsPayload {
   gladiatorId?: string
 }
 export interface GameOverPayload { winner: Player }
+/** кто-то применил предмет. targetId — только у хекса (всем) и у гема (только самой цели: onYou). optionIndex — манта керри
+ *  (толпа видит, что убрали) */
+export interface ItemUsedPayload { playerId: string; item: ItemId; targetId?: string; onYou?: boolean; optionIndex?: number }
+/** результат гема — только тому, кто смотрел: выбранный сейчас ответ цели (null — ещё не ответил), smoked — цель в смоке */
+export interface GemResultPayload { targetId: string; answer: string | number | null; smoked: boolean }
+export interface MantaResultPayload { optionIndex: number }
 export interface ChipStagedPayload { playerId: string; chips: number[] }
 
 export interface BribePromptPayload { amount: number; cycleIndex: number }
