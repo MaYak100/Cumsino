@@ -12,7 +12,7 @@ export interface ItemDef {
   max: number
   /** когда применяется; passive — срабатывает сам */
   usePhases: GamePhase[] | 'passive'
-  /** в каких режимах применяется (kerri — только тот, кто отвечает, кроме bkb — у толпы) */
+  /** в каких режимах применяется. kerri: керри — только блинк; толпа — только bkb */
   modes: GameMode[]
   /** нужно выбрать игрока */
   targeted: boolean
@@ -25,38 +25,38 @@ export interface ItemDef {
 export const ITEMS: Record<ItemId, ItemDef> = {
   blink: {
     id: 'blink', name: 'Blink', basePrice: 50, max: 5, usePhases: ['QUESTION'], modes: ['all', 'kerri', 'closest'],
-    targeted: false, key: 'Z', desc: 'Поменять уже отправленный ответ. Сколько блинков — столько раз',
+    targeted: false, key: 'Z', desc: 'Передумал после ответа — жми другой вариант. Один блинк — одна смена ответа',
   },
   gem: {
     id: 'gem', name: 'Gem of True Sight', basePrice: 150, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
-    targeted: true, key: 'X', desc: 'Подсмотреть, что сейчас выбрано у игрока',
+    targeted: true, key: 'X', desc: 'Подсмотри, что сейчас выбрано у игрока. Все видят, что ты смотрел, но не на кого',
   },
   manta: {
-    id: 'manta', name: 'Manta Style', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all', 'kerri'],
-    targeted: false, key: 'C', desc: 'Убрать один неверный вариант. Раз за раунд',
+    id: 'manta', name: 'Manta Style', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all'],
+    targeted: false, key: 'C', desc: 'Убирает один неверный вариант. Раз за раунд',
   },
   smoke: {
     id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
-    targeted: false, key: 'V', desc: 'Не видно, ответил ли ты и чем пользуешься; гем на тебя слепнет',
+    targeted: false, key: 'V', desc: 'До конца раунда не видно, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
   },
   hex: {
     id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],
-    targeted: true, key: 'B', desc: 'На ставках: у цели будет только 12 секунд на ответ',
+    targeted: true, key: 'B', desc: 'Бросается на ставках: у цели будет всего 12 секунд на ответ',
   },
   bkb: {
     id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all', 'kerri'],
-    targeted: false, key: 'N', desc: 'Проигрыш раунда возвращается до $400, серия не сбивается',
+    targeted: false, key: 'N', desc: 'Включи до вопроса: проигрыш вернётся (до двух цен BKB), серия не собьётся',
   },
   aegis: {
     id: 'aegis', name: 'Aegis', basePrice: 100, max: 1, usePhases: 'passive', modes: ['all', 'kerri', 'closest'],
-    targeted: false, desc: 'Один на игру. Упал ниже $50 — встаёшь с $300',
+    targeted: false, desc: 'Один на игру, работает сам: упал ниже $50 — встаёшь с $300',
   },
 }
 
 export const ITEM_ORDER: ItemId[] = ['blink', 'gem', 'manta', 'smoke', 'hex', 'bkb', 'aegis']
 
-/** Покупка — только на итогах и в анонсе (на ставках стопка фишек уже собрана из баланса). */
-export const BUY_PHASES: GamePhase[] = ['REVEAL', 'ANNOUNCE']
+/** Покупка — только в лавке (фаза SHOP перед каждым раундом «для всех»). */
+export const BUY_PHASES: GamePhase[] = ['SHOP']
 
 export const round10 = (x: number) => Math.round(x / 10) * 10
 const ceil10 = (x: number) => Math.ceil(x / 10) * 10
@@ -69,17 +69,18 @@ export function itemPrice(id: ItemId, balance: number): number {
 
 // ── параметры предметов ──
 export const HEX_SECONDS = 12
-export const BKB_CAP = 400
+/** сейв BKB растёт с его ценой: две цены BKB на момент включения ($400 при базовой) */
+export const bkbCap = (balance: number) => 2 * itemPrice('bkb', balance)
 export const AEGIS_THRESHOLD = 50
 export const AEGIS_RESTORE = 300
 /** после последнего ответа раунд считается через секунду: успеть блинкнуть в последний момент */
 export const LAST_ANSWER_GRACE_MS = 1000
 
 // ── бонусы (платит казино) ──
-/** «Молния»: верный ответ в первые 3 секунды вопроса — +25% ставки (керри — +$50) */
-export const LIGHTNING_MS = 3000
+/** «Молния»: верный ответ в первые 5 секунд вопроса — +25% ставки (керри — +$100) */
+export const LIGHTNING_MS = 5000
 export const LIGHTNING_SHARE = 0.25
-export const LIGHTNING_GLADIATOR = 50
+export const LIGHTNING_GLADIATOR = 100
 
 /** «Серия»: доля ставки сверху за N верных раундов подряд (с двух). Сброс — ошибка или пропуск хода. */
 export function streakShare(streak: number): number {

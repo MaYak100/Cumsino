@@ -3,6 +3,7 @@ import type { ItemId } from './items'
 
 export type GamePhase =
   | 'LOBBY'
+  | 'SHOP'
   | 'ANNOUNCE'
   | 'BETTING'
   | 'QUESTION'
@@ -38,6 +39,8 @@ export interface Player {
   /** минимальная ставка этого раунда («для всех»): 5% баланса, у ведущего — 10% */
   blind?: number
   bigBlind?: boolean
+  /** в лавке нажал «Готов» */
+  shopReady?: boolean
   /** видимые всем эффекты этого раунда: bkb, hex (на нём), smoke; aegis — есть аегис (держится до срабатывания) */
   effects?: PublicEffect[]
 }
@@ -109,6 +112,8 @@ export interface PlaceBankBetPayload { optionIndex: number; amount: number }
 export interface SubmitAnswerPayload { answer: string | number | string[]; blink?: boolean }
 export interface BuyItemPayload { item: ItemId }
 export interface UseItemPayload { item: ItemId; targetId?: string }
+/** лавка: готов / передумал */
+export interface ShopReadyPayload { ready: boolean }
 export interface GladiatorHoverPayload { optionIndex: number | null }
 export interface IdentifyPayload { friendId: number | null }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
