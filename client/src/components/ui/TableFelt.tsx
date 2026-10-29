@@ -9,6 +9,10 @@ import {
 } from '../../lib/tableGeometry'
 import { UNIT_W, CHIP_ROW_H, BALANCE_H, UNIT_H, NamePlate } from './PlayerSlot'
 import { chipStyle } from '../../lib/chipStyle'
+import { pileOffset } from '../../types/chips'
+
+/** Та же кучка, что у BetZone на столе ставок: фон не «схлопывает» ставки при переходе к вопросу. */
+const pileAt = (i: number, id: string) => { const o = pileOffset(i, id); return { left: o.x, top: o.y } }
 import { FELT } from '../../theme'
 
 interface Props {
@@ -87,12 +91,14 @@ export function TableFelt({ blurred }: Props) {
           const angle = playerAngle(i, N)
           const zone = landingZone(angle)
           return (
-            <div key={`chips-${player.id}`} style={{ position: 'absolute', left: zone.cx - 14, top: zone.cy - 14 }}>
+            <div key={`chips-${player.id}`} style={{ position: 'absolute', left: zone.cx - 15, top: zone.cy - 31 }}>
               {chips.map((denom, ci) => (
                 <div
                   key={ci}
-                  style={{ ...chipStyle(denom, 28), position: 'absolute', top: -ci * 5, left: 0 }}
-                />
+                  style={{ ...chipStyle(denom, 30), position: 'absolute', zIndex: ci, ...pileAt(ci, `${ci}-${denom}-${player.id}`) }}
+                >
+                  {denom}
+                </div>
               ))}
             </div>
           )
