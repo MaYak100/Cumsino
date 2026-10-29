@@ -2,7 +2,7 @@
 import { EventEmitter } from 'events'
 import type { GameState, GamePhase, GameMode, Player, RoundResult, Question, FriendProfile, ItemId, PublicEffect } from '@cumsino/shared'
 import {
-  STARTING_CHIPS, WIN_CHIPS, BRIBE_ENABLED, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
+  STARTING_CHIPS, WIN_CHIPS, BRIBE_ENABLED, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
   decomposeToChips,
   ITEMS, ITEM_ORDER, BUY_PHASES, itemPrice, round10, blindFor, streakShare,
   HEX_SECONDS, bkbCap, AEGIS_THRESHOLD, AEGIS_RESTORE, LAST_ANSWER_GRACE_MS,
@@ -691,8 +691,10 @@ export class GameRoom extends EventEmitter {
     const isFirstMode = !this.seenModes.has(mode)
     this.seenModes.add(mode)
     this.announceSeconds = PHASE_DURATIONS['ANNOUNCE']! + (isFirstMode ? 3 : 0)
-    // раунд «для всех» начинается с лавки: раунд, режим и вопрос уже этого раунда, вопрос в стейте скрыт
-    if (mode === 'all') this.startShop()
+    // раунд «для всех» начинается с лавки — но только после первого круга (первого «кто ближе»): до этого предметов
+    // никто не видит. Раунд, режим и вопрос уже этого раунда, вопрос в стейте скрыт
+    if (mode === 'closest') this.closestSeen = true
+    if (mode === 'all' && this.closestSeen) this.startShop()
     else this.schedulePhase('ANNOUNCE', this.announceSeconds)
   }
 
@@ -700,8 +702,14 @@ export class GameRoom extends EventEmitter {
 
   private startShop() {
     for (const p of this.players.values()) p.shopReady = false
-    this.schedulePhase('SHOP', PHASE_DURATIONS['SHOP']!)
+    // первая лавка — предметы видят впервые, читают описания: дольше
+    this.schedulePhase('SHOP', PHASE_DURATIONS['SHOP']! + (this.shopsShown === 0 ? FIRST_SHOP_EXTRA : 0))
+    this.shopsShown++
   }
+
+  /** был ли уже «кто ближе» (лавка открывается только после первого круга) и сколько лавок прошло */
+  private closestSeen = false
+  private shopsShown = 0
 
   /** «Готов» / передумал. Все готовы — лавка закрывается сразу. */
   setShopReady(playerId: string, ready: boolean) {

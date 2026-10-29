@@ -8,7 +8,7 @@ import { AnswerOptions } from '../ui/AnswerOptions'
 import { AnswerProgress } from '../ui/AnswerProgress'
 import { RateQuestion } from '../ui/RateQuestion'
 import { RevealNote } from '../ui/RevealNote'
-import { ItemIcon } from '../ui/ItemIcon'
+import { SelfEffects } from '../ui/SelfEffects'
 import { useCountdown } from '../../lib/useCountdown'
 
 /** Вопрос с вариантами — «для всех», керри (отвечает сам) и толпа, которая смотрит на керри.
@@ -29,7 +29,6 @@ export function QuestionScreen() {
   const payBribe = useGameStore(s => s.payBribe)
   const me = useGameStore(selectMe)
   const gemResults = useGameStore(s => s.gemResults)
-  const gemmedOnMe = useGameStore(s => s.gemmedOnMe)
 
   const q = gameState.currentQuestion
   const options = q?.options ?? []
@@ -93,8 +92,8 @@ export function QuestionScreen() {
     <div className="min-h-screen flex flex-col">
       <GameHud />
       {hexed
-        ? <TimeBar seconds={gameState.hexTimeLeft!} color={C.hot} stopped={revealed || hexDead} />
-        : <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} />}
+        ? <TimeBar seconds={gameState.hexTimeLeft!} color={C.hot} stopped={revealed || hexDead} lightning={!isCrowd} />
+        : <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} lightning={!isCrowd} />}
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
@@ -106,16 +105,7 @@ export function QuestionScreen() {
           ) : (
             <span>{q?.displayTopic ?? q?.topic}</span>
           )}
-          {hexed && !revealed && (
-            <motion.span
-              initial={{ scale: 1.8, opacity: 0, rotate: -10 }} animate={{ scale: 1, opacity: 1, rotate: -3 }}
-              className="ml-auto flex items-center gap-1.5 font-bold rounded-lg pl-1 pr-3 py-0.5"
-              style={{ background: C.paper, color: C.ink }}
-            >
-              <ItemIcon id="hex" size={30} />
-              {hexDead ? 'Время вышло' : `Ты овца: ${hexLeft} с`}
-            </motion.span>
-          )}
+          {!revealed && <SelfEffects hexLeft={hexed ? hexLeft : undefined} />}
         </div>
 
         <h1 className="font-semibold leading-tight mb-7" style={{ fontSize: 'clamp(1.45rem, 2.4vw, 2.75rem)', color: C.fg, textWrap: 'balance' } as CSSProperties}>
@@ -165,12 +155,6 @@ export function QuestionScreen() {
                 {hexDead ? 'Не успел' : canBlink ? `Ответ принят. Передумал — жми другой вариант (блинков: ${blinks})`
                   : myAnswered ? 'Ответ принят' : 'Можно жать 1–4'}
               </span>
-              {gemmedOnMe > 0 && (
-                <motion.span initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-                  className="text-[0.8125rem] font-semibold" style={{ color: C.hot }}>
-                  Твой ответ просветили
-                </motion.span>
-              )}
             </div>
           )}
 

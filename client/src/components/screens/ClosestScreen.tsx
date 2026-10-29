@@ -8,6 +8,7 @@ import { AnswerProgress } from '../ui/AnswerProgress'
 import { RateQuestion } from '../ui/RateQuestion'
 import { RevealNote } from '../ui/RevealNote'
 import { GuessLine } from '../ui/GuessLine'
+import { SelfEffects } from '../ui/SelfEffects'
 
 const fmt = (n: number) => n.toLocaleString('ru-RU', { maximumFractionDigits: 2 })
 
@@ -62,7 +63,10 @@ export function ClosestScreen() {
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
-        <div className="mb-3 text-base" style={{ color: C.muted }}>{q?.displayTopic ?? q?.topic}</div>
+        <div className="mb-3 flex items-center gap-3 text-base" style={{ color: C.muted }}>
+          <span>{q?.displayTopic ?? q?.topic}</span>
+          {!revealed && <SelfEffects />}
+        </div>
         <h1 className="font-semibold leading-tight mb-8" style={{ fontSize: 'clamp(1.45rem, 2.4vw, 2.75rem)', textWrap: 'balance' } as CSSProperties}>
           {q?.text}
         </h1>

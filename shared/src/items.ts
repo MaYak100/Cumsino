@@ -25,7 +25,7 @@ export interface ItemDef {
 export const ITEMS: Record<ItemId, ItemDef> = {
   blink: {
     id: 'blink', name: 'Blink', basePrice: 50, max: 5, usePhases: ['QUESTION'], modes: ['all', 'kerri', 'closest'],
-    targeted: false, key: 'Z', desc: 'Передумал после ответа — жми другой вариант. Один блинк — одна смена ответа',
+    targeted: false, desc: 'Передумал после ответа — жми другой вариант. Один блинк — одна смена ответа',
   },
   gem: {
     id: 'gem', name: 'Gem of True Sight', basePrice: 150, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
@@ -33,19 +33,19 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   manta: {
     id: 'manta', name: 'Manta Style', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all'],
-    targeted: false, key: 'C', desc: 'Убирает один неверный вариант. Раз за раунд',
+    targeted: false, key: 'Z', desc: 'Убирает один неверный вариант. Раз за раунд',
   },
   smoke: {
     id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['BETTING', 'QUESTION'], modes: ['all', 'closest'],
-    targeted: false, key: 'V', desc: 'Разбей ещё на ставках или на вопросе: до конца раунда не видно, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
+    targeted: false, key: 'C', desc: 'Разбей ещё на ставках или на вопросе: до конца раунда не видно, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
   },
   hex: {
     id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],
-    targeted: true, key: 'B', desc: 'Бросается на ставках: у цели будет всего 12 секунд на ответ',
+    targeted: true, key: 'V', desc: 'Бросается на ставках: у цели будет всего 12 секунд на ответ',
   },
   bkb: {
     id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all', 'kerri'],
-    targeted: false, key: 'N', desc: 'Включи до вопроса: проигрыш вернётся (до двух цен BKB), серия не собьётся',
+    targeted: false, key: 'B', desc: 'Включи до вопроса: проигрыш вернётся (до двух цен BKB), серия не собьётся',
   },
   aegis: {
     id: 'aegis', name: 'Aegis', basePrice: 100, max: 1, usePhases: 'passive', modes: ['all', 'kerri', 'closest'],
@@ -53,7 +53,8 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
 }
 
-export const ITEM_ORDER: ItemId[] = ['blink', 'gem', 'manta', 'smoke', 'hex', 'bkb', 'aegis']
+/** порядок на панели и в лавке */
+export const ITEM_ORDER: ItemId[] = ['manta', 'gem', 'bkb', 'blink', 'hex', 'smoke', 'aegis']
 
 /** Покупка — только в лавке (фаза SHOP перед каждым раундом «для всех»). */
 export const BUY_PHASES: GamePhase[] = ['SHOP']

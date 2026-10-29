@@ -45,7 +45,7 @@ export function ShopScreen() {
           </div>
         </div>
 
-        <div className="grid gap-5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(13.5rem, 1fr))' }}>
+        <div className="flex flex-wrap justify-center gap-5">
           {ITEM_ORDER.map((id, i) => {
             const price = gs.prices?.[id] ?? ITEMS[id].basePrice
             const have = id === 'aegis' ? (gs.aegisBought ? 1 : 0) : inv[id] ?? 0
@@ -118,6 +118,7 @@ function ShopCard({ id, index, price, have, full, can, onBuy }: {
       transition={{ type: 'spring', stiffness: 380, damping: 20, delay: 0.04 * index }}
       className="relative text-left"
       style={{
+        width: '15rem',
         cursor: can ? 'pointer' : 'default',
         filter: 'drop-shadow(0 4px 0 rgba(0,0,0,.35)) drop-shadow(0 14px 20px rgba(0,0,0,.45))',
       }}

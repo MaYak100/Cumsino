@@ -25,3 +25,6 @@ export const SPECIAL_MODE_CHANCE = 0.3
 
 // Взятка (аукцион за подсказку керри в kerri) выключена до переделки: работала криво (2026-10-28)
 export const BRIBE_ENABLED = false
+
+/** Первая лавка (после первого «кто ближе», когда предметы видят впервые) — на столько секунд дольше */
+export const FIRST_SHOP_EXTRA = 20
