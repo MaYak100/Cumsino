@@ -41,10 +41,10 @@ export function GuessLine({ guesses, correct }: { guesses: Guess[]; correct: num
             animate={{ left: `${x(g.value)}%`, opacity: 1 }}
             transition={{ delay: 0.35 + i * 0.06, type: 'spring', stiffness: 160, damping: 20 }}
           >
-            <span className="whitespace-nowrap text-[12px] font-semibold leading-tight text-center"
+            <span className="whitespace-nowrap text-[0.75rem] font-semibold leading-tight text-center"
               style={{ color, textShadow: `0 0 6px ${C.bg}, 0 0 3px ${C.bg}` }}>
               {g.me ? 'Ты' : g.name}
-              <span className="block tnum" style={{ fontFamily: DISPLAY, fontSize: 11, opacity: 0.8 }}>{g.value.toLocaleString('ru-RU')}</span>
+              <span className="block tnum" style={{ fontFamily: DISPLAY, fontSize: '0.6875rem', opacity: 0.8 }}>{g.value.toLocaleString('ru-RU')}</span>
             </span>
             <span style={{
               width: 10, height: 10, borderRadius: '50%', background: color, margin: '3px 0',

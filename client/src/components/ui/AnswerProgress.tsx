@@ -18,7 +18,7 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
             key={p.id}
             animate={done ? { scale: [1, 1.12, 1] } : { scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="text-[13px] font-semibold rounded-full px-2.5 py-0.5"
+            className="text-[0.8125rem] font-semibold rounded-full px-2.5 py-0.5"
             style={{
               background: done ? color : 'transparent',
               color: done ? C.ink : C.muted,

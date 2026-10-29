@@ -16,7 +16,7 @@ function Track({ prev, next, phase, compact }: { prev: number; next: number; pha
   const gain = next > prev
   const loss = next < prev
   const end = moving ? next : prev
-  const h = compact ? 14 : 18
+  const h = compact ? '0.875rem' : '1.125rem'
   // число встаёт за концом закрашенного: при потере — за малиновым хвостом; у финиша — внутрь полосы
   const labelAt = moving && loss ? prev : end
   const inside = pct(labelAt) > 86
@@ -41,7 +41,7 @@ function Track({ prev, next, phase, compact }: { prev: number; next: number; pha
         <motion.div
           className="absolute top-0 h-full"
           style={{ left: `${pct(prev)}%`, background: C.mint, borderRadius: '0 4px 4px 0', boxShadow: `0 0 14px ${C.mint}88` }}
-          initial={{ width: 0 }}
+          initial={{ width: '0rem' }}
           animate={{ width: moving ? `${pct(next) - pct(prev)}%` : 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         />
@@ -57,7 +57,7 @@ function Track({ prev, next, phase, compact }: { prev: number; next: number; pha
           transform: inside ? 'translateX(calc(-100% - 6px))' : 'translateX(8px)',
           color: inside ? C.ink : C.fg,
         }}>
-          {end}
+          ${end}
         </span>
       </motion.div>
     </div>
@@ -73,7 +73,7 @@ interface RowEntry {
   prevBalance: number
 }
 
-const ROW_GRID = 'grid grid-cols-[30px_1fr_76px] sm:grid-cols-[30px_200px_1fr_84px] items-center gap-x-3 sm:gap-x-5'
+const ROW_GRID = 'grid grid-cols-[1.9rem_1fr_4.75rem] sm:grid-cols-[1.9rem_12.5rem_1fr_5.5rem] items-center gap-x-3 sm:gap-x-5'
 
 export function RoundResultsScreen() {
   const gameState = useGameStore(s => s.gameState)!
@@ -107,14 +107,14 @@ export function RoundResultsScreen() {
   const color = modeColor(gameState.mode)
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-4 sm:px-8 pt-8 pb-10">
-      <div className="w-full flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-6" style={{ maxWidth: 980 }}>
+    <div className="min-h-screen flex flex-col items-center px-4 sm:px-8 justify-center py-8">
+      <div className="w-full flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-6" style={{ maxWidth: '61.25rem' }}>
         <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-4">
           <span style={{ fontFamily: DISPLAY, fontSize: 'clamp(30px, 4vw, 44px)', lineHeight: 1 }}>
             Раунд {gameState.roundIndex}
           </span>
           <span style={{
-            fontFamily: DISPLAY, fontSize: 14, color: C.ink, background: color,
+            fontFamily: DISPLAY, fontSize: '0.875rem', color: C.ink, background: color,
             padding: '4px 10px 5px', borderRadius: 4, transform: 'rotate(-3deg)', display: 'inline-block',
           }}>
             {MODE[gameState.mode]?.short}
@@ -122,24 +122,24 @@ export function RoundResultsScreen() {
         </motion.div>
         {roundCorrectAnswer !== null && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-            className="text-[15px] max-w-full sm:max-w-[50%] truncate" style={{ color: C.muted }}>
+            className="text-[0.9375rem] max-w-full sm:max-w-[50%] truncate" style={{ color: C.muted }}>
             Ответ <b style={{ color: C.mint }}>{String(roundCorrectAnswer)}</b>
           </motion.div>
         )}
       </div>
 
-      <div className="w-full" style={{ maxWidth: 980 }}>
+      <div className="w-full" style={{ maxWidth: '61.25rem' }}>
         {/* ось */}
         <div className={`${ROW_GRID} mb-2`} style={{ padding: compact ? '0 12px' : '0 14px' }}>
           <span />
           <span className="hidden sm:block" />
-          <div className="relative h-5 col-span-2 sm:col-span-1 text-[11px] tnum" style={{ color: C.muted }}>
+          <div className="relative h-5 col-span-2 sm:col-span-1 text-[0.6875rem] tnum" style={{ color: C.muted }}>
             <span className="absolute left-0">0</span>
             {TICKS.map(t => (
               <span key={t} className="absolute -translate-x-1/2" style={{ left: `${pct(t)}%` }}>{t}</span>
             ))}
             <span className="absolute right-0 font-bold flex items-center gap-1.5" style={{ color: C.fg }}>
-              <span style={{ width: 10, height: 10, background: `repeating-conic-gradient(${C.fg} 0 25%, ${C.bg} 0 50%) 0 0 / 5px 5px` }} />
+              <span style={{ width: '0.625rem', height: '0.625rem', background: `repeating-conic-gradient(${C.fg} 0 25%, ${C.bg} 0 50%) 0 0 / 5px 5px` }} />
               {WIN_CHIPS}
             </span>
           </div>
@@ -176,7 +176,7 @@ export function RoundResultsScreen() {
                       {me ? 'Ты' : e.name}
                     </div>
                     {e.sources.length > 0 && (
-                      <div className="flex flex-wrap gap-x-3 text-[12px] leading-tight mt-0.5">
+                      <div className="flex flex-wrap gap-x-3 text-[0.75rem] leading-tight mt-0.5">
                         {e.sources.map((s, si) => (
                           <span key={si} style={{ color: s.delta >= 0 ? C.mint : C.hot }}>
                             {s.label}{e.sources.length > 1 && <span className="tnum"> {s.delta > 0 ? '+' : ''}{s.delta}</span>}
@@ -198,7 +198,7 @@ export function RoundResultsScreen() {
                       color: e.delta > 0 ? C.mint : e.delta < 0 ? C.hot : C.muted,
                     }}
                   >
-                    {e.delta > 0 ? '+' : e.delta < 0 ? '−' : ''}{Math.abs(e.delta)}
+                    {e.delta > 0 ? '+' : e.delta < 0 ? '−' : ''}${Math.abs(e.delta)}
                   </motion.span>
                 </motion.div>
               )

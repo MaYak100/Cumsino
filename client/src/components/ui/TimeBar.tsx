@@ -20,8 +20,8 @@ export function TimeBar({ seconds, color = C.brass, stopped }: { seconds: number
   const frac = maxRef.current > 0 ? Math.max(0, current - (stopped ? 0 : 1)) / maxRef.current : 0
 
   return (
-    <div className="flex items-center gap-3 px-4 sm:px-7" style={{ height: 22 }}>
-      <div style={{ flex: 1, height: 4, background: C.line, borderRadius: 4, overflow: 'hidden' }}>
+    <div className="flex items-center gap-3 px-4 sm:px-7" style={{ height: '1.375rem' }}>
+      <div style={{ flex: 1, height: '0.25rem', background: C.line, borderRadius: 4, overflow: 'hidden' }}>
         <div style={{
           height: '100%', width: `${frac * 100}%`, background: c, borderRadius: 4,
           transition: stopped ? 'width .3s ease' : 'width 1s linear, background-color .3s',
@@ -30,7 +30,7 @@ export function TimeBar({ seconds, color = C.brass, stopped }: { seconds: number
         }} />
       </div>
       <span className="tnum" style={{
-        fontFamily: DISPLAY, fontSize: 15, minWidth: 24, textAlign: 'right',
+        fontFamily: DISPLAY, fontSize: '0.9375rem', minWidth: '1.5rem', textAlign: 'right',
         color: stopped ? C.muted : c,
       }}>
         {current}

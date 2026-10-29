@@ -73,7 +73,7 @@ export function AnnounceScreen() {
         {topicShown && topic && (
           // ниже центра: стикер ложится на нижнюю половину надписи режима, верх режима торчит
           <div className="absolute inset-0 flex items-center justify-center px-6 pb-[8vh] pointer-events-none"
-            style={{ paddingTop: 'clamp(60px, 9vw, 150px)' }}>
+            style={{ paddingTop: 'clamp(24px, 4.5vw, 84px)' }}>
             <Sticker
               seed={`${q?.id}-topic`}
               slam

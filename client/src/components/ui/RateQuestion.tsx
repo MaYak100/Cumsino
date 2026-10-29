@@ -17,9 +17,9 @@ function SideButton({ label, active, color, onClick, order }: {
       onClick={onClick}
       whileTap={{ scale: 0.93 }}
       aria-pressed={active}
-      className={`${order} flex-1 sm:flex-none font-bold text-[15px] rounded-xl transition-colors`}
+      className={`${order} flex-1 sm:flex-none font-bold text-[0.9375rem] rounded-xl transition-colors`}
       style={{
-        minWidth: 112, height: 60,
+        minWidth: '7rem', height: '3.75rem',
         border: `2px solid ${active ? color : C.line}`,
         background: active ? color : 'transparent',
         color: active ? C.ink : color,
@@ -49,7 +49,7 @@ export function RateQuestion({ delay = 0 }: { delay?: number }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, type: 'spring', stiffness: 260, damping: 26 }}
       className="w-full"
-      style={{ maxWidth: 760 }}
+      style={{ maxWidth: '47.5rem' }}
     >
       <div className="text-sm mb-2.5 text-center" style={{ color: C.muted }}>Как вопрос?</div>
       <div className="flex flex-wrap sm:flex-nowrap items-stretch gap-2.5">
@@ -58,7 +58,7 @@ export function RateQuestion({ delay = 0 }: { delay?: number }) {
 
         <div
           className="order-1 sm:order-2 w-full sm:flex-1 grid grid-cols-4 rounded-xl overflow-hidden"
-          style={{ height: 60, border: `2px solid ${C.line}`, background: C.panel }}
+          style={{ height: '3.75rem', border: `2px solid ${C.line}`, background: C.panel }}
           role="radiogroup"
           aria-label="Оценка вопроса"
         >
@@ -71,7 +71,7 @@ export function RateQuestion({ delay = 0 }: { delay?: number }) {
                 aria-checked={active}
                 onClick={() => setRating(qid, { score: s })}
                 whileTap={{ scale: 0.94 }}
-                className="relative font-bold text-[13px] sm:text-[15px]"
+                className="relative font-bold text-[0.8125rem] sm:text-[0.9375rem]"
                 style={{
                   color: active ? C.ink : color,
                   borderLeft: i ? `1px solid ${C.line}` : undefined,

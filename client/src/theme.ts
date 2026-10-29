@@ -24,7 +24,7 @@ export const FELT = {
   cloth: 'radial-gradient(ellipse at 50% 38%, #24664d 0%, #164434 52%, #0c271e 100%)',
 } as const
 
-export const DISPLAY = "'Dela Gothic One', 'Onest', sans-serif"
+export const DISPLAY = "'Dela Gothic One', 'Rubik', sans-serif"
 
 /** У каждого режима свой цвет: он ведёт весь раунд — анонс, таймер, акценты. */
 export const MODE: Record<GameMode, { name: string; short: string; desc: string; color: string }> = {

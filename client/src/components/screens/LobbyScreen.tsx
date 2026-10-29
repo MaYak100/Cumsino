@@ -32,7 +32,7 @@ export function LobbyScreen() {
 
         <div className="w-full flex flex-col items-center gap-4">
           <span className="text-sm tnum" style={{ color: C.muted }}>За столом {gameState.players.length}</span>
-          <div className="flex flex-wrap justify-center gap-3" style={{ maxWidth: 600 }}>
+          <div className="flex flex-wrap justify-center gap-3" style={{ maxWidth: '37.5rem' }}>
             {gameState.players.map((p, i) => {
               const me = p.id === myId
               const friend = friendName(p.friendId)
@@ -48,11 +48,11 @@ export function LobbyScreen() {
                   textColor={me ? C.ink : C.fg}
                   padding="8px 16px 9px"
                 >
-                  <div className="font-bold text-[17px] leading-tight max-w-[180px] truncate">
-                    {p.name}{p.id === gameState.hostId && <span style={{ opacity: 0.55 }} className="font-semibold text-[13px]"> хост</span>}
+                  <div className="font-bold text-[1.0625rem] leading-tight max-w-[11.25rem] truncate">
+                    {p.name}{p.id === gameState.hostId && <span style={{ opacity: 0.55 }} className="font-semibold text-[0.8125rem]"> хост</span>}
                   </div>
                   {friend && friend !== p.name && (
-                    <div className="text-[12px] leading-tight" style={{ opacity: 0.7 }}>это {friend}</div>
+                    <div className="text-[0.75rem] leading-tight" style={{ opacity: 0.7 }}>это {friend}</div>
                   )}
                 </Sticker>
               )
@@ -73,7 +73,7 @@ export function LobbyScreen() {
             Начать игру
           </motion.button>
         ) : (
-          <div className="text-[15px] text-center" style={{ color: C.muted }}>
+          <div className="text-[0.9375rem] text-center" style={{ color: C.muted }}>
             Ждём хоста. Пока не рыпайтесь.
           </div>
         )}
@@ -85,9 +85,9 @@ export function LobbyScreen() {
           <div className="absolute left-0 top-0 h-full rounded-full"
             style={{ width: `${(STARTING_CHIPS / WIN_CHIPS) * 100}%`, background: C.brass }} />
         </div>
-        <div className="flex justify-between mt-2 text-[13px] tnum" style={{ color: C.muted }}>
-          <span>У всех по {STARTING_CHIPS}</span>
-          <span>Первый до <b style={{ color: C.fg }}>{WIN_CHIPS}</b> побеждает</span>
+        <div className="flex justify-between mt-2 text-[0.8125rem] tnum" style={{ color: C.muted }}>
+          <span>У всех по ${STARTING_CHIPS}</span>
+          <span>Первый до <b style={{ color: C.fg }}>${WIN_CHIPS}</b> побеждает</span>
         </div>
       </div>
     </div>

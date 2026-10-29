@@ -22,12 +22,18 @@
   box-sizing: border-box;
 }
 
+/* rem растёт с экраном: ~17px на 1440×900, ~20px на 1920×1080, не меньше 16 на телефоне.
+   Экраны вне стола размечены в rem; стол масштабируется отдельно (useSceneScale). */
+html {
+  font-size: clamp(16px, calc(5px + 0.5vw + 0.55vh), 22px);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background: var(--bg);
   color: var(--fg);
-  font-family: 'Onest', system-ui, sans-serif;
+  font-family: 'Rubik', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -43,7 +49,7 @@ body::after {
 }
 
 .font-display {
-  font-family: 'Dela Gothic One', 'Onest', sans-serif;
+  font-family: 'Dela Gothic One', 'Rubik', sans-serif;
   font-weight: 400;
   letter-spacing: 0.01em;
 }

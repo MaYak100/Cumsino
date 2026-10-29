@@ -67,8 +67,9 @@ export function QuestionScreen() {
       <GameHud />
       <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} />
 
-      <main className="w-full max-w-3xl mx-auto px-4 sm:px-6 pt-[5vh] pb-10 flex flex-col">
-        <div className="mb-3 flex items-center gap-3 text-sm" style={{ color: C.muted }}>
+      {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
+      <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
+        <div className="mb-3 flex items-center gap-3 text-base" style={{ color: C.muted }}>
           {isCrowd && gladiator ? (
             <span>Отвечает <b style={{ color: C.hot }}>{gladiator.name}</b>, ты смотришь</span>
           ) : isGladiator ? (
@@ -78,7 +79,7 @@ export function QuestionScreen() {
           )}
         </div>
 
-        <h1 className="font-semibold leading-tight mb-7" style={{ fontSize: 'clamp(22px, 2.7vw, 32px)', color: C.fg, textWrap: 'balance' } as CSSProperties}>
+        <h1 className="font-semibold leading-tight mb-7" style={{ fontSize: 'clamp(1.45rem, 2.4vw, 2.75rem)', color: C.fg, textWrap: 'balance' } as CSSProperties}>
           {q?.text}
         </h1>
 
@@ -98,7 +99,7 @@ export function QuestionScreen() {
         />
 
         {/* лоток под вариантами: статус → пояснение и оценка */}
-        <div className="mt-6 flex flex-col items-center gap-6" style={{ minHeight: 140 }}>
+        <div className="mt-7 flex flex-col items-center gap-5" style={{ height: '13rem' }}>
           {revealed ? (
             <>
               {roundComment && <RevealNote text={roundComment} />}
@@ -119,7 +120,7 @@ export function QuestionScreen() {
           ) : (
             <div className="flex flex-col items-center gap-3">
               <AnswerProgress color={color} only={isGladiator && gladiator ? [gladiator.id] : undefined} />
-              <span className="text-[13px]" style={{ color: C.muted }}>
+              <span className="text-[0.8125rem]" style={{ color: C.muted }}>
                 {myAnswered ? 'Ответ принят' : 'Можно жать 1–4'}
               </span>
             </div>

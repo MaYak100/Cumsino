@@ -68,7 +68,7 @@ export function AnswerOptions({
             transition={{ duration: isCorrect ? 0.45 : 0.2 }}
             className="group relative text-left rounded-2xl"
             style={{
-              minHeight: 92,
+              minHeight: '5.75rem',
               padding: '16px 18px',
               border: `2px ${hint ? 'dashed' : 'solid'} ${border}`,
               background: bg,
@@ -86,7 +86,7 @@ export function AnswerOptions({
               <span
                 className="shrink-0 flex items-center justify-center rounded-lg transition-colors"
                 style={{
-                  width: 36, height: 36, fontFamily: DISPLAY, fontSize: 16,
+                  width: '2.25rem', height: '2.25rem', fontFamily: DISPLAY, fontSize: '1rem',
                   background: isCorrect ? C.ink : isMine ? (missed ? C.hot : color) : C.panel2,
                   color: isCorrect ? C.mint : isMine ? C.ink : C.muted,
                   border: `1px solid ${isCorrect || isMine ? 'transparent' : C.line}`,
@@ -95,7 +95,7 @@ export function AnswerOptions({
                 {KEYS[idx]}
               </span>
               <span
-                className="font-semibold text-[16px] sm:text-[17px] leading-snug"
+                className="font-semibold text-[1rem] sm:text-[1.0625rem] leading-snug"
                 style={{ textDecoration: isEliminated ? 'line-through' : undefined }}
               >
                 {option}
@@ -110,7 +110,7 @@ export function AnswerOptions({
             {watched && (
               <motion.span
                 className="absolute rounded-full"
-                style={{ top: 10, right: 10, width: 10, height: 10, background: C.hot }}
+                style={{ top: 10, right: 10, width: '0.625rem', height: '0.625rem', background: C.hot }}
                 animate={{ opacity: [1, 0.25, 1] }}
                 transition={{ repeat: Infinity, duration: 0.9 }}
               />
@@ -128,7 +128,7 @@ export function AnswerOptions({
                   textColor={isCorrect ? C.mint : C.ink}
                   padding="3px 10px 4px"
                 >
-                  <span className="tnum" style={{ fontFamily: DISPLAY, fontSize: 15, whiteSpace: 'nowrap' }}>{note}</span>
+                  <span className="tnum" style={{ fontFamily: DISPLAY, fontSize: '0.9375rem', whiteSpace: 'nowrap' }}>{note}</span>
                 </Sticker>
               </span>
             )}

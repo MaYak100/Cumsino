@@ -54,14 +54,15 @@ export function ClosestScreen() {
       <GameHud />
       <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} />
 
-      <main className="w-full max-w-3xl mx-auto px-4 sm:px-6 pt-[5vh] pb-10 flex flex-col">
-        <div className="mb-3 text-sm" style={{ color: C.muted }}>{q?.displayTopic ?? q?.topic}</div>
-        <h1 className="font-semibold leading-tight mb-8" style={{ fontSize: 'clamp(22px, 2.7vw, 32px)', textWrap: 'balance' } as CSSProperties}>
+      {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
+      <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
+        <div className="mb-3 text-base" style={{ color: C.muted }}>{q?.displayTopic ?? q?.topic}</div>
+        <h1 className="font-semibold leading-tight mb-8" style={{ fontSize: 'clamp(1.45rem, 2.4vw, 2.75rem)', textWrap: 'balance' } as CSSProperties}>
           {q?.text}
         </h1>
 
         {/* поле и раскрытие одной высоты — ничего не прыгает */}
-        <div style={{ minHeight: 132 }}>
+        <div style={{ height: '8rem' }}>
           {revealed ? (
             <div className="flex flex-wrap items-end gap-x-10 gap-y-3">
               <motion.div
@@ -78,16 +79,11 @@ export function ClosestScreen() {
               {mine !== null && (
                 <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="pb-2">
                   <div className="text-sm mb-1" style={{ color: C.muted }}>Ты сказал</div>
-                  <div className="tnum" style={{ fontFamily: DISPLAY, fontSize: 36, lineHeight: 1, color: C.fg }}>{fmt(mine)}</div>
+                  <div className="tnum" style={{ fontFamily: DISPLAY, fontSize: '2.25rem', lineHeight: 1, color: C.fg }}>{fmt(mine)}</div>
                   <div className="text-sm mt-1.5 tnum" style={{ color: diff === 0 ? C.mint : C.muted }}>
                     {diff === 0 ? 'В точку' : `мимо на ${fmt(diff!)}`}
                   </div>
                 </motion.div>
-              )}
-              {guesses.length > 1 && (
-                <div className="w-full mt-4">
-                  <GuessLine guesses={guesses} correct={roundCorrectAnswer as number} />
-                </div>
               )}
             </div>
           ) : (
@@ -104,7 +100,7 @@ export function ClosestScreen() {
                 aria-label="Твоё число"
                 className="tnum flex-1 min-w-0 rounded-2xl px-6 bg-transparent text-center sm:text-left focus:outline-none disabled:opacity-70"
                 style={{
-                  fontFamily: DISPLAY, fontSize: 'clamp(44px, 6vw, 72px)', height: 112, color: C.fg,
+                  fontFamily: DISPLAY, fontSize: 'clamp(44px, 6vw, 72px)', height: '7rem', color: C.fg,
                   background: C.panel, border: `2px solid ${locked ? C.line : color}`,
                   boxShadow: locked ? 'none' : `0 0 0 5px ${color}22`,
                 }}
@@ -114,7 +110,7 @@ export function ClosestScreen() {
                 disabled={locked || isNaN(parsed)}
                 whileTap={{ scale: 0.95 }}
                 className="rounded-2xl px-8 font-bold text-lg disabled:opacity-35"
-                style={{ height: 112, minWidth: 170, background: color, color: C.ink }}
+                style={{ height: '7rem', minWidth: '10.625rem', background: color, color: C.ink }}
               >
                 {locked ? 'Принято' : 'Ответить'}
               </motion.button>
@@ -122,16 +118,21 @@ export function ClosestScreen() {
           )}
         </div>
 
-        <div className="mt-8 flex flex-col items-center gap-6" style={{ minHeight: 140 }}>
+        <div className="mt-7 flex flex-col items-center gap-5" style={{ height: '17rem' }}>
           {revealed ? (
             <>
+              {guesses.length > 1 && (
+                <div className="w-full">
+                  <GuessLine guesses={guesses} correct={roundCorrectAnswer as number} />
+                </div>
+              )}
               {roundComment && <RevealNote text={roundComment} />}
               <RateQuestion delay={roundComment ? 0.5 : 0.3} />
             </>
           ) : (
             <div className="flex flex-col items-center gap-3">
               <AnswerProgress color={color} />
-              <span className="text-[13px]" style={{ color: C.muted }}>
+              <span className="text-[0.8125rem]" style={{ color: C.muted }}>
                 {locked ? 'Ждём остальных' : 'Enter — отправить'}
               </span>
             </div>

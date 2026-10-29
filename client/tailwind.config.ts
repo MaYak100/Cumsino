@@ -18,8 +18,8 @@ export default {
         mint: '#3ee08f',
       },
       fontFamily: {
-        display: ['"Dela Gothic One"', 'Onest', 'sans-serif'],
-        sans: ['Onest', 'system-ui', 'sans-serif'],
+        display: ['"Dela Gothic One"', 'Rubik', 'sans-serif'],
+        sans: ['Rubik', 'system-ui', 'sans-serif'],
       },
     },
   },

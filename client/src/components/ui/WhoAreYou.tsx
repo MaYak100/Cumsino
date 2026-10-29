@@ -30,7 +30,7 @@ export function WhoAreYou() {
               whileTap={{ scale: 0.94 }}
               onClick={() => identify(mine ? null : f.id)}
               title={taken ? `уже выбрал ${taken}` : undefined}
-              className="px-3.5 h-10 rounded-full text-[15px] font-semibold transition-colors disabled:cursor-not-allowed"
+              className="px-3.5 h-10 rounded-full text-[0.9375rem] font-semibold transition-colors disabled:cursor-not-allowed"
               style={{
                 background: mine ? C.brass : 'transparent',
                 color: mine ? C.ink : taken ? '#4b5a54' : C.fg,
@@ -43,7 +43,7 @@ export function WhoAreYou() {
           )
         })}
       </div>
-      <span className="text-[13px] tnum" style={{ color: known >= 2 ? C.mint : C.muted }}>
+      <span className="text-[0.8125rem] tnum" style={{ color: known >= 2 ? C.mint : C.muted }}>
         {known >= 2 ? 'Вопросы про своих включены' : `Вопросы про своих включатся, когда назовутся двое (сейчас ${known})`}
       </span>
     </div>

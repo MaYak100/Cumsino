@@ -27,7 +27,7 @@ export function GameOverScreen() {
         </Sticker>
       </div>
 
-      <div className="w-full flex flex-col gap-2.5" style={{ maxWidth: 640 }}>
+      <div className="w-full flex flex-col gap-2.5" style={{ maxWidth: '40rem' }}>
         {standings.map((p, i) => {
           const me = p.id === myId
           return (
@@ -43,12 +43,12 @@ export function GameOverScreen() {
                 <motion.div
                   className="absolute left-0 top-0 h-full rounded"
                   style={{ background: i === 0 ? C.brass : C.muted }}
-                  initial={{ width: 0 }}
+                  initial={{ width: '0rem' }}
                   animate={{ width: `${pct(p.chips)}%` }}
                   transition={{ delay: 0.8 + i * 0.06, duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
                 />
               </div>
-              <span className="text-right tnum" style={{ fontFamily: DISPLAY, color: i === 0 ? C.brass : C.fg }}>{p.chips}</span>
+              <span className="text-right tnum" style={{ fontFamily: DISPLAY, color: i === 0 ? C.brass : C.fg }}>${p.chips}</span>
             </motion.div>
           )
         })}
