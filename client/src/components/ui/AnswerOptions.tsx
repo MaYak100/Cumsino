@@ -16,7 +16,12 @@ interface Props {
   notes?: string[] | null
   /** куда смотрит керри (видит толпа) */
   hoverIdx?: number | null
-  eliminatedIdx?: number | null
+  /** убранные варианты (манта, взятка) */
+  eliminated?: number[]
+  /** блинк: уже выбранный ответ можно сменить */
+  allowChange?: boolean
+  /** гем: у кого какой вариант выбран (индекс → имена) */
+  peeks?: Record<number, string[]>
   /** верный ответ известен заранее (толпа в керри) — помечаем пунктиром */
   knownCorrect?: string | null
   color: string
@@ -27,7 +32,7 @@ interface Props {
 /** Сетка вариантов 2×2. Все строки одной высоты (grid-auto-rows: 1fr), а подписи значений после раскрытия —
  *  бирки поверх верхней кромки (absolute), поэтому раскрытие ничего не сдвигает. */
 export function AnswerOptions({
-  options, interactive, myPick, onPick, onHover, correct, notes, hoverIdx, eliminatedIdx, knownCorrect, color, seed,
+  options, interactive, myPick, onPick, onHover, correct, notes, hoverIdx, eliminated, allowChange, peeks, knownCorrect, color, seed,
 }: Props) {
   const revealed = correct !== null
 
@@ -36,9 +41,9 @@ export function AnswerOptions({
       {options.map((option, idx) => {
         const isCorrect = revealed && option === correct
         const isMine = myPick === idx
-        const isEliminated = !revealed && eliminatedIdx === idx
+        const isEliminated = !revealed && !!eliminated?.includes(idx)
         const watched = !revealed && hoverIdx === idx
-        const canPick = interactive && !revealed && !isEliminated && myPick === null
+        const canPick = interactive && !revealed && !isEliminated && (myPick === null || (!!allowChange && !isMine))
         const note = revealed ? notes?.[idx] : undefined
         const missed = revealed && isMine && !isCorrect
         const hint = !revealed && !!knownCorrect && option === knownCorrect && !watched
@@ -52,7 +57,9 @@ export function AnswerOptions({
         const bg = isCorrect ? C.mint
           : isMine && !revealed ? `${color}1f`
           : C.panel
-        const dim = (revealed && !isCorrect && !isMine) || isEliminated || (!revealed && myPick !== null && !isMine)
+        // с блинком в запасе прочие варианты не гаснут: их можно выбрать
+        const dim = (revealed && !isCorrect && !isMine) || isEliminated || (!revealed && myPick !== null && !isMine && !allowChange)
+        const seen = peeks?.[idx]
 
         return (
           <motion.button
@@ -114,6 +121,23 @@ export function AnswerOptions({
                 animate={{ opacity: [1, 0.25, 1] }}
                 transition={{ repeat: Infinity, duration: 0.9 }}
               />
+            )}
+
+            {seen && seen.length > 0 && (
+              <span className="absolute flex gap-1" style={{ left: '0.75rem', bottom: '-0.7rem', zIndex: 2 }}>
+                {seen.map(name => (
+                  <motion.span
+                    key={name}
+                    initial={{ scale: 1.6, opacity: 0, rotate: -8 }}
+                    animate={{ scale: 1, opacity: 1, rotate: -3 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 18 }}
+                    className="text-[0.75rem] font-bold px-2 py-0.5 rounded"
+                    style={{ background: C.sky, color: C.ink, boxShadow: '0 3px 8px rgba(0,0,0,.45)' }}
+                  >
+                    {name}
+                  </motion.span>
+                ))}
+              </span>
             )}
 
             {note && (

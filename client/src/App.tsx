@@ -13,6 +13,7 @@ import { GameOverScreen } from './components/screens/GameOverScreen'
 import { LateJoinScreen } from './components/screens/LateJoinScreen'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TableFelt } from './components/ui/TableFelt'
+import { ItemBar } from './components/ui/ItemBar'
 
 export default function App() {
   const gameState = useGameStore(s => s.gameState)
@@ -85,6 +86,7 @@ export default function App() {
           <Screen />
         </motion.div>
       </AnimatePresence>
+      <ItemBar />
     </div>
   )
 }

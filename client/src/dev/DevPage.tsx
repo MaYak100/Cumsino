@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
+import { ItemBar } from '../components/ui/ItemBar'
 import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
 
 function refreshDynamic(state: ScenarioState): ScenarioState {
@@ -193,6 +194,7 @@ export function DevPage() {
           <>
             {!active.withFelt && <TableFelt blurred={true} />}
             {(() => { const Screen = active.Screen; return <Screen /> })()}
+            <ItemBar />
           </>
         ) : (
           <div style={{

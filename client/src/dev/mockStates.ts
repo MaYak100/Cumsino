@@ -1,6 +1,7 @@
 // client/src/dev/mockStates.ts
 import type { FC } from 'react'
 import type { GameState, GamePhase, GameMode, Player, RoundResult } from '@cumsino/shared'
+import { ITEM_ORDER, itemPrice } from '@cumsino/shared'
 import { LobbyScreen } from '../components/screens/LobbyScreen'
 import { AnnounceScreen } from '../components/screens/AnnounceScreen'
 import { BettingTableScreen } from '../components/screens/BettingTableScreen'
@@ -144,6 +145,9 @@ function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = 
     players: BASE_PLAYERS,
     phaseTimeLeft: 25,
     friendRoster: FRIEND_ROSTER,
+    // свой запас и цены — чтобы в сценариях была видна панель предметов
+    inventory: { blink: 2, gem: 1, manta: 1, hex: 1 },
+    prices: Object.fromEntries(ITEM_ORDER.map(id => [id, itemPrice(id, 580)])) as GameState['prices'],
     ...overrides,
   }
 }
@@ -267,6 +271,53 @@ export const SCENARIOS: Scenario[] = [
   },
 
   // ── QUESTION ──
+  {
+    id: 'betting-all-items',
+    group: 'BETTING',
+    label: 'all + блайнды, хекс, серии',
+    Screen: BettingTableScreen,
+    withFelt: true,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        currentQuestion: MC_QUESTION,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0,   hasAnswered: false, blind: 30, streak: 2, effects: ['aegis'] },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [50, 50], hasAnswered: false, blind: 20, effects: ['hex'] },
+          { id: 'dev-3', name: 'Света',  chips: 740, currentBet: 200, betChips: [100, 100], hasAnswered: false, blind: 80, bigBlind: true, streak: 4, effects: ['bkb'] },
+          { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false, blind: 30 },
+        ],
+      }),
+      bankBets: {},
+      stagedBets: {},
+      itemFeed: [{ playerId: 'dev-3', item: 'hex', targetId: 'dev-2', at: Date.now() + 600000 }],
+    },
+  },
+  {
+    id: 'question-all-items',
+    group: 'QUESTION',
+    label: 'all + гем, блинк, смок, хекс',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'all', {
+        currentQuestion: MC_QUESTION,
+        hexTimeLeft: 9,
+        removedOptions: [3],
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, hasAnswered: true, streak: 2, effects: ['hex'] },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: true, effects: ['bkb'] },
+          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, hasAnswered: false, streak: 3 },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  hasAnswered: false, effects: ['smoke'] },
+        ],
+      }),
+      roundCorrectAnswer: null,
+      answeredIds: new Set<string>(['dev-1', 'dev-2']),
+      gemResults: { 'dev-2': { answer: MC_QUESTION.options[1], smoked: false } },
+      gemmedOnMe: 1,
+      itemFeed: [{ playerId: 'dev-2', item: 'blink', at: Date.now() + 600000 }],
+    },
+  },
   {
     id: 'question-all',
     group: 'QUESTION',

@@ -12,6 +12,7 @@ import { FeltOval } from '../ui/TableFelt'
 import { Sticker } from '../ui/Sticker'
 import { chipStyle } from '../../lib/chipStyle'
 import { C, DISPLAY } from '../../theme'
+import { FeedTag, useFreshFeed } from '../ui/AnswerProgress'
 import {
   playerAngle,
   landingZone,
@@ -52,6 +53,9 @@ export function BettingTableScreen() {
   const me        = useGameStore(selectMe)
   const isGladiator = useGameStore(selectIsGladiator)
   const stagedBets  = useGameStore(s => s.stagedBets)
+  const targeting   = useGameStore(s => s.targeting)
+  const useItem     = useGameStore(s => s.useItem)
+  const freshFeed   = useFreshFeed()
 
   const sceneScale = useSceneScale()
   const [myStack, setMyStack]         = useState<PhysicalChip[]>([])
@@ -182,8 +186,10 @@ export function BettingTableScreen() {
   }
 
   // ── Confirm ──────────────────────────────────────────────────────────────
+  // блайнд («для всех»): меньше него ставку не подтвердить; не подтвердил — сервер сам поставит блайнд
+  const myBlind = !isKerriMode && me?.blind && me.chips >= me.blind ? me.blind : 0
   const canConfirm = !betConfirmed && (
-    isKerriCrowd ? mainTarget !== null && mainBetAmt > 0 : stdBetAmt > 0
+    isKerriCrowd ? mainTarget !== null && mainBetAmt > 0 : stdBetAmt > 0 && stdBetAmt >= myBlind
   )
 
   const handleConfirm = () => {
@@ -484,6 +490,13 @@ export function BettingTableScreen() {
                           : stdPlace
                         : undefined
                     }
+                    onTarget={targeting === 'hex' && !isMe && !player.effects?.includes('hex')
+                      ? () => useItem('hex', player.id) : undefined}
+                    above={(() => {
+                      // хекс — бирка над целью; остальное — над тем, кто применил
+                      const e = freshFeed.find(f => f.item === 'hex' ? f.targetId === player.id : f.playerId === player.id)
+                      return e ? <FeedTag key={e.at} item={e.item} /> : null
+                    })()}
                   />
                   {/* Standard-mode my zone, or all opponent zones */}
                   {(!isMe || !isKerriCrowd) && (
@@ -518,7 +531,7 @@ export function BettingTableScreen() {
 
         {/* ── Confirm button (all mode) ── */}
         <AnimatePresence>
-          {!isGladiator && !isKerriCrowd && !betConfirmed && stdPlacedIds.size > 0 && (
+          {!isGladiator && !isKerriCrowd && !betConfirmed && stdPlacedIds.size > 0 && stdBetAmt >= myBlind && (
             <motion.div
               initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -527,6 +540,23 @@ export function BettingTableScreen() {
               style={{ position: 'absolute', left: FELT_CX + 80, top: 606, zIndex: 30 }}
             >
               <ConfirmButton amount={stdBetAmt} onClick={handleConfirm} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Блайнд: сколько минимум (пока ставка не дотягивает) ── */}
+        <AnimatePresence>
+          {!isKerriMode && !betConfirmed && myBlind > 0 && stdBetAmt < myBlind && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              style={{
+                position: 'absolute', left: FELT_CX + 80, top: 614, zIndex: 30,
+                fontSize: 15, fontWeight: 700, color: C.fg, whiteSpace: 'nowrap',
+                background: 'rgba(12,21,19,0.8)', borderRadius: 999, padding: '6px 14px',
+                border: `1.5px dashed ${C.brass}`,
+              }}
+            >
+              {me?.bigBlind ? 'Большой блайнд' : 'Блайнд'}: минимум <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
             </motion.div>
           )}
         </AnimatePresence>

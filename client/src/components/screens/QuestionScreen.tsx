@@ -8,6 +8,8 @@ import { AnswerOptions } from '../ui/AnswerOptions'
 import { AnswerProgress } from '../ui/AnswerProgress'
 import { RateQuestion } from '../ui/RateQuestion'
 import { RevealNote } from '../ui/RevealNote'
+import { ItemIcon } from '../ui/ItemIcon'
+import { useCountdown } from '../../lib/useCountdown'
 
 /** Вопрос с вариантами — «для всех», керри (отвечает сам) и толпа, которая смотрит на керри.
  *  Раскладка прибита к верху: вопрос и варианты не двигаются, всё новое (пояснение, оценка) появляется ниже. */
@@ -26,6 +28,8 @@ export function QuestionScreen() {
   const bribePrompt = useGameStore(s => s.bribePrompt)
   const payBribe = useGameStore(s => s.payBribe)
   const me = useGameStore(selectMe)
+  const gemResults = useGameStore(s => s.gemResults)
+  const gemmedOnMe = useGameStore(s => s.gemmedOnMe)
 
   const q = gameState.currentQuestion
   const options = q?.options ?? []
@@ -39,12 +43,35 @@ export function QuestionScreen() {
   const [pick, setPick] = useState<number | null>(null)
   useEffect(() => setPick(null), [q?.id])
 
-  const interactive = !isCrowd && !myAnswered && !revealed
+  // хекс: у тебя своё короткое время на ответ
+  const hexLeft = useCountdown(revealed ? undefined : gameState.hexTimeLeft)
+  const hexed = hexLeft !== undefined
+  const hexDead = hexed && hexLeft <= 0
+  // блинк: пока есть в запасе — ответ можно сменить
+  const blinks = gameState.inventory?.blink ?? 0
+  const canBlink = !isCrowd && myAnswered && blinks > 0 && !revealed && !hexDead
+  const eliminated = [
+    ...(gameState.removedOptions ?? []),
+    ...(isGladiator && bribeEliminatedIdx !== null ? [bribeEliminatedIdx] : []),
+  ]
+  // гем: у кого что выбрано
+  const peeks: Record<number, string[]> = {}
+  for (const [targetId, r] of Object.entries(gemResults)) {
+    const idx = typeof r.answer === 'string' ? options.indexOf(r.answer) : -1
+    const name = gameState.players.find(p => p.id === targetId)?.name
+    if (idx >= 0 && name) (peeks[idx] ??= []).push(name)
+  }
+
+  const interactive = !isCrowd && !revealed && !hexDead && (!myAnswered || canBlink)
   const choose = (idx: number) => {
-    if (!interactive || pick !== null) return
-    if (isGladiator && bribeEliminatedIdx === idx) return
-    setPick(idx)
-    submitAnswer(options[idx])
+    if (!interactive || eliminated.includes(idx)) return
+    if (!myAnswered && pick === null) {
+      setPick(idx)
+      submitAnswer(options[idx])
+    } else if (canBlink && idx !== pick) {
+      setPick(idx)
+      submitAnswer(options[idx], true)
+    }
   }
 
   // 1–4 на клавиатуре
@@ -65,7 +92,9 @@ export function QuestionScreen() {
   return (
     <div className="min-h-screen flex flex-col">
       <GameHud />
-      <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} />
+      {hexed
+        ? <TimeBar seconds={gameState.hexTimeLeft!} color={C.hot} stopped={revealed || hexDead} />
+        : <TimeBar seconds={gameState.phaseTimeLeft} color={color} stopped={revealed} />}
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
@@ -76,6 +105,16 @@ export function QuestionScreen() {
             <span style={{ color: C.hot }} className="font-semibold">Ты керри. Все смотрят на тебя</span>
           ) : (
             <span>{q?.displayTopic ?? q?.topic}</span>
+          )}
+          {hexed && !revealed && (
+            <motion.span
+              initial={{ scale: 1.8, opacity: 0, rotate: -10 }} animate={{ scale: 1, opacity: 1, rotate: -3 }}
+              className="ml-auto flex items-center gap-1.5 font-bold rounded-lg pl-1 pr-3 py-0.5"
+              style={{ background: C.paper, color: C.ink }}
+            >
+              <ItemIcon id="hex" size={30} />
+              {hexDead ? 'Время вышло' : `Ты овца: ${hexLeft} с`}
+            </motion.span>
           )}
         </div>
 
@@ -92,7 +131,9 @@ export function QuestionScreen() {
           correct={revealed ? (roundCorrectAnswer as string) : null}
           notes={roundOptionNotes}
           hoverIdx={isCrowd ? gladiatorHoverIndex : null}
-          eliminatedIdx={isGladiator ? bribeEliminatedIdx : null}
+          eliminated={eliminated}
+          allowChange={canBlink}
+          peeks={peeks}
           knownCorrect={isCrowd ? gameState.gladiatorAnswer : null}
           color={color}
           seed={q?.id ?? 'q'}
@@ -120,9 +161,16 @@ export function QuestionScreen() {
           ) : (
             <div className="flex flex-col items-center gap-3">
               <AnswerProgress color={color} only={isGladiator && gladiator ? [gladiator.id] : undefined} />
-              <span className="text-[0.8125rem]" style={{ color: C.muted }}>
-                {myAnswered ? 'Ответ принят' : 'Можно жать 1–4'}
+              <span className="text-[0.8125rem]" style={{ color: canBlink ? C.sky : C.muted }}>
+                {hexDead ? 'Не успел' : canBlink ? `Ответ принят. Передумал — жми другой вариант (блинков: ${blinks})`
+                  : myAnswered ? 'Ответ принят' : 'Можно жать 1–4'}
               </span>
+              {gemmedOnMe > 0 && (
+                <motion.span initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                  className="text-[0.8125rem] font-semibold" style={{ color: C.hot }}>
+                  На тебя посмотрели гемом
+                </motion.span>
+              )}
             </div>
           )}
 

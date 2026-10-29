@@ -6,8 +6,11 @@ import type {
   GladiatorHoveringPayload, GameOverPayload,
   BankBetUpdatedPayload, RoundResultsPayload,
   ChipStagedPayload,
+  ItemId, ItemUsedPayload, GemResultPayload, MantaResultPayload,
   BribePromptPayload, BribeMsgPayload,
 } from '@cumsino/shared'
+
+export interface ItemFeedEntry { playerId: string; item: ItemId; targetId?: string; at: number }
 
 export interface QuestionRating {
   questionId: string
@@ -43,12 +46,23 @@ interface GameStore {
   bribeEliminatedIdx: number | null
   /** Своя оценка вопроса раунда — живёт от раскрытия ответа до следующего раунда, отправляется один раз */
   rating: QuestionRating | null
+  /** кто чем пользовался в этом раунде — для бирок над никами (свежие сверху) */
+  itemFeed: ItemFeedEntry[]
+  /** результаты своего гема: targetId → что выбрано у цели на момент взгляда */
+  gemResults: Record<string, { answer: string | number | null; smoked: boolean }>
+  /** на меня посмотрели гемом (сколько раз за раунд) */
+  gemmedOnMe: number
+  targeting: ItemId | null
 
   payBribe: () => void
 
   connect: (name: string, gameCode: string) => void
   setPendingTarget: (target: 'win' | 'lose' | null) => void
-  submitAnswer: (answer: string | number | string[]) => void
+  submitAnswer: (answer: string | number | string[], blink?: boolean) => void
+  buyItem: (item: ItemId) => void
+  useItem: (item: ItemId, targetId?: string) => void
+  /** выбор цели для гема / хекса: панель предметов включает, клик по игроку завершает, Esc — отмена */
+  setTargeting: (item: ItemId | null) => void
   sendHover: (optionIndex: number | null) => void
   startGame: () => void
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
@@ -106,6 +120,11 @@ export const useGameStore = create<GameStore>((set, get) => {
             : prev.isLateJoiner,
         bribePrompt: clearBribe ? null : prev.bribePrompt,
         bribeEliminatedIdx: clearRound ? null : prev.bribeEliminatedIdx,
+        itemFeed: clearRound ? [] : prev.itemFeed,
+        gemResults: clearRound ? {} : prev.gemResults,
+        gemmedOnMe: clearRound ? 0 : prev.gemmedOnMe,
+        // цель выбирают в своей фазе (хекс — ставки, гем — вопрос): сменилась фаза — выбор снят
+        targeting: prev.gameState?.phase === state.phase ? prev.targeting : null,
       }
     })
   })
@@ -171,6 +190,27 @@ export const useGameStore = create<GameStore>((set, get) => {
     }
   })
 
+  socket.on('item_used', ({ playerId, item, targetId, onYou }: ItemUsedPayload) => {
+    set(prev => ({
+      itemFeed: [{ playerId, item, targetId, at: Date.now() }, ...prev.itemFeed].slice(0, 30),
+      gemmedOnMe: onYou ? prev.gemmedOnMe + 1 : prev.gemmedOnMe,
+    }))
+  })
+
+  socket.on('gem_result', ({ targetId, answer, smoked }: GemResultPayload) => {
+    set(prev => ({ gemResults: { ...prev.gemResults, [targetId]: { answer, smoked } } }))
+  })
+
+  // убранный мантой вариант придёт и в game_state (removedOptions) — событие только чтобы не ждать стейта
+  socket.on('manta_result', ({ optionIndex }: MantaResultPayload) => {
+    set(prev => prev.gameState ? {
+      gameState: {
+        ...prev.gameState,
+        removedOptions: [...new Set([...(prev.gameState.removedOptions ?? []), optionIndex])],
+      },
+    } : prev)
+  })
+
   socket.on('game_over', ({ winner }: GameOverPayload) => {
     set({ winner })
   })
@@ -194,6 +234,10 @@ export const useGameStore = create<GameStore>((set, get) => {
     bribePrompt: null,
     bribeEliminatedIdx: null,
     rating: null,
+    itemFeed: [],
+    gemResults: {},
+    gemmedOnMe: 0,
+    targeting: null,
 
     connect(name, gameCode) {
       if (!socket.connected) socket.connect()
@@ -204,8 +248,21 @@ export const useGameStore = create<GameStore>((set, get) => {
       set({ pendingTarget: target })
     },
 
-    submitAnswer(answer) {
-      socket.emit('submit_answer', { answer })
+    submitAnswer(answer, blink) {
+      socket.emit('submit_answer', blink ? { answer, blink: true } : { answer })
+    },
+
+    buyItem(item) {
+      socket.emit('buy_item', { item })
+    },
+
+    useItem(item, targetId) {
+      socket.emit('use_item', targetId ? { item, targetId } : { item })
+      set({ targeting: null })
+    },
+
+    setTargeting(item) {
+      set({ targeting: item })
     },
 
     sendHover(optionIndex) {
@@ -256,6 +313,10 @@ export const useGameStore = create<GameStore>((set, get) => {
         bribePrompt: null,
         bribeEliminatedIdx: null,
         rating: null,
+        itemFeed: [],
+        gemResults: {},
+        gemmedOnMe: 0,
+        targeting: null,
       })
       socket.disconnect()
     },

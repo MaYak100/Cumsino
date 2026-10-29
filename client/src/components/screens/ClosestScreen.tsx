@@ -27,17 +27,23 @@ export function ClosestScreen() {
   const color = modeColor(gameState.mode)
   const myAnswered = myId ? answeredIds.has(myId) : false
   const revealed = typeof roundCorrectAnswer === 'number'
-  const locked = myAnswered || revealed || sent !== null
+  const [editing, setEditing] = useState(false)
+  const answered = myAnswered || sent !== null
+  // блинк: пока есть в запасе — отправленное число можно поменять
+  const blinks = gameState.inventory?.blink ?? 0
+  const canBlink = answered && blinks > 0 && !revealed
+  const locked = revealed || (answered && !editing)
   const parsed = parseFloat(value.replace(/\s/g, '').replace(',', '.'))
 
-  useEffect(() => { setValue(''); setSent(null) }, [q?.id])
+  useEffect(() => { setValue(''); setSent(null); setEditing(false) }, [q?.id])
   useEffect(() => { if (!locked) inputRef.current?.focus() }, [locked])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (locked || isNaN(parsed)) return
     setSent(parsed)
-    submitAnswer(parsed)
+    submitAnswer(parsed, answered)
+    setEditing(false)
   }
 
   const me = gameState.players.find(p => p.id === myId)
@@ -93,7 +99,7 @@ export function ClosestScreen() {
                 type="text"
                 inputMode="decimal"
                 autoComplete="off"
-                value={sent !== null ? fmt(sent) : value}
+                value={sent !== null && !editing ? fmt(sent) : value}
                 onChange={e => setValue(e.target.value.replace(/[^\d.,\s-]/g, ''))}
                 disabled={locked}
                 placeholder="0"
@@ -105,6 +111,17 @@ export function ClosestScreen() {
                   boxShadow: locked ? 'none' : `0 0 0 5px ${color}22`,
                 }}
               />
+              {locked && canBlink ? (
+                <motion.button
+                  type="button"
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => { setEditing(true); setValue(sent !== null ? String(sent) : '') }}
+                  className="rounded-2xl px-6 font-bold text-lg"
+                  style={{ height: '7rem', minWidth: '10.625rem', background: 'transparent', color: C.sky, border: `2px solid ${C.sky}` }}
+                >
+                  Блинк: изменить
+                </motion.button>
+              ) : (
               <motion.button
                 type="submit"
                 disabled={locked || isNaN(parsed)}
@@ -112,8 +129,9 @@ export function ClosestScreen() {
                 className="rounded-2xl px-8 font-bold text-lg disabled:opacity-35"
                 style={{ height: '7rem', minWidth: '10.625rem', background: color, color: C.ink }}
               >
-                {locked ? 'Принято' : 'Ответить'}
+                {locked ? 'Принято' : editing ? 'Изменить' : 'Ответить'}
               </motion.button>
+              )}
             </form>
           )}
         </div>

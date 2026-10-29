@@ -1,35 +1,119 @@
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import type { ItemId, Player } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
-import { C } from '../../theme'
+import { C, DISPLAY } from '../../theme'
+import { ItemIcon, ITEM_LABEL } from './ItemIcon'
 
-/** Кто уже ответил: имя заливается цветом режима. */
+const FEED_MS = 2800
+
+/** Игроки раунда: имя заливается цветом режима, когда ответил. Над ником — кто чем воспользовался (свежая бирка),
+ *  рядом — серия и активные эффекты, под ником — что показал твой гем. В режиме гема ники — мишени. */
 export function AnswerProgress({ color, only }: { color: string; only?: string[] }) {
   const players = useGameStore(s => s.gameState?.players ?? [])
   const answeredIds = useGameStore(s => s.answeredIds)
   const myId = useGameStore(s => s.myId)
+  const gemResults = useGameStore(s => s.gemResults)
+  const targeting = useGameStore(s => s.targeting)
+  const useItem = useGameStore(s => s.useItem)
+  const options = useGameStore(s => s.gameState?.currentQuestion?.options)
   const list = only ? players.filter(p => only.includes(p.id)) : players
 
+  const fresh = useFreshFeed()
+
   return (
-    <div className="flex flex-wrap justify-center gap-1.5">
+    <div className="flex flex-wrap justify-center gap-x-2.5 gap-y-7 pt-6 pb-5">
       {list.map(p => {
         const done = answeredIds.has(p.id)
+        const me = p.id === myId
+        const target = targeting === 'gem' && !me
+        const last = fresh.find(e => e.playerId === p.id)
+        const gem = gemResults[p.id]
         return (
-          <motion.span
-            key={p.id}
-            animate={done ? { scale: [1, 1.12, 1] } : { scale: 1 }}
-            transition={{ duration: 0.3 }}
-            className="text-[0.8125rem] font-semibold rounded-full px-2.5 py-0.5"
-            style={{
-              background: done ? color : 'transparent',
-              color: done ? C.ink : C.muted,
-              border: `1.5px ${done ? 'solid' : 'dashed'} ${done ? color : C.line}`,
-              transition: 'background-color .2s, color .2s',
-            }}
-          >
-            {p.id === myId ? 'Ты' : p.name}
-          </motion.span>
+          <div key={p.id} className="relative flex flex-col items-center">
+            <AnimatePresence>
+              {last && <FeedTag key={last.at} item={last.item} />}
+            </AnimatePresence>
+            <motion.button
+              type="button"
+              disabled={!target}
+              onClick={target ? () => useItem('gem', p.id) : undefined}
+              animate={done ? { scale: [1, 1.12, 1] } : { scale: 1 }}
+              whileHover={target ? { scale: 1.08, y: -2 } : undefined}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-1.5 text-[0.8125rem] font-semibold rounded-full pl-2.5 pr-2.5 py-0.5"
+              style={{
+                background: done ? color : 'transparent',
+                color: done ? C.ink : C.muted,
+                border: `1.5px ${done ? 'solid' : 'dashed'} ${target ? C.hot : done ? color : C.line}`,
+                boxShadow: target ? `0 0 0 3px ${C.hot}55` : 'none',
+                cursor: target ? 'crosshair' : 'default',
+                opacity: p.effects?.includes('smoke') && !me ? 0.55 : 1,
+                transition: 'background-color .2s, color .2s',
+              }}
+            >
+              {me ? 'Ты' : p.name}
+              <Marks p={p} streakColor={done ? C.ink : C.hot} />
+            </motion.button>
+            {gem && (
+              <motion.span
+                initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full mt-1 whitespace-nowrap text-[0.75rem] font-bold"
+                style={{ color: C.sky }}
+              >
+                {gem.smoked ? 'в дыму' : gem.answer === null ? 'ещё думает'
+                  : typeof gem.answer === 'string' && options?.includes(gem.answer)
+                    ? `выбрал №${options.indexOf(gem.answer) + 1}` : `выбрал ${gem.answer}`}
+              </motion.span>
+            )}
+          </div>
         )
       })}
     </div>
+  )
+}
+
+/** Свежие применения предметов (последние FEED_MS) — тикает сам, чтобы бирки исчезали без новых событий. */
+export function useFreshFeed() {
+  const itemFeed = useGameStore(s => s.itemFeed)
+  const [now, setNow] = useState(Date.now())
+  const fresh = itemFeed.filter(e => now - e.at < FEED_MS)
+  useEffect(() => {
+    if (!fresh.length) return
+    const id = setTimeout(() => setNow(Date.now()), 400)
+    return () => clearTimeout(id)
+  })
+  useEffect(() => setNow(Date.now()), [itemFeed])
+  return fresh
+}
+
+/** Серия и активные эффекты рядом с ником. */
+export function Marks({ p, size = 16, streakColor = C.hot }: { p: Player; size?: number; streakColor?: string }) {
+  const fx = p.effects ?? []
+  if (!fx.length && (p.streak ?? 0) < 2) return null
+  return (
+    <span className="flex items-center gap-0.5">
+      {(p.streak ?? 0) >= 2 && (
+        <span title={`Серия: ${p.streak} верных подряд`} style={{ fontFamily: DISPLAY, fontSize: size * 0.75, color: streakColor, lineHeight: 1 }}>×{p.streak}</span>
+      )}
+      {fx.map(f => <ItemIcon key={f} id={f as ItemId} size={size} />)}
+    </span>
+  )
+}
+
+/** Свежая бирка «Блинк» / «Гем» над ником — шлепок и исчезновение. */
+export function FeedTag({ item }: { item: ItemId }) {
+  return (
+    <motion.span
+      initial={{ scale: 1.9, opacity: 0, rotate: -12, y: 4 }}
+      animate={{ scale: 1, opacity: 1, rotate: -4, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ type: 'spring', stiffness: 520, damping: 18 }}
+      className="absolute bottom-full mb-1 flex items-center gap-1 rounded pl-0.5 pr-2 whitespace-nowrap"
+      style={{ background: C.paper, color: C.ink, fontWeight: 800, fontSize: '0.75rem', boxShadow: '0 4px 10px rgba(0,0,0,.5)', zIndex: 60 }}
+    >
+      <ItemIcon id={item} size={20} />
+      {ITEM_LABEL[item]}
+    </motion.span>
   )
 }
