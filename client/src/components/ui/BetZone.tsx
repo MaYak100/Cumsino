@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { chipScatter } from '../../types/chips'
+import { pileOffset } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import { chipStyle } from '../../lib/chipStyle'
 import { C, DISPLAY } from '../../theme'
@@ -7,99 +7,79 @@ import { C, DISPLAY } from '../../theme'
 interface Props {
   cx: number
   cy: number
+  /** в порядке выкладки — от него зависит место фишки в кучке */
   chips: PhysicalChip[]
   mine: boolean
   onRecall?: (id: string) => void
 }
 
 const CHIP_PX = 30
-const SCATTER_XY = 15
-const UNIT_OFFSET = 16 // shift chips up so (cx,cy) is center of chips+label block
+const UNIT_OFFSET = 16 // кучка чуть выше (cx,cy), под ней — сумма
 
+/** Ставка игрока на сукне: фишки кучкой (каждая краем на соседней), под ней сумма. */
 export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
   const total = chips.reduce((s, c) => s + c.denom, 0)
-
-  const totalLabel = total > 0 ? (
-    <div style={{
-      position: 'absolute',
-      left: cx - 30,
-      top: cy - UNIT_OFFSET + 38,
-      width: 60,
-      textAlign: 'center',
-      fontSize: 14,
-      fontFamily: DISPLAY,
-      color: C.fg,
-      fontVariantNumeric: 'tabular-nums',
-      background: 'rgba(12,21,19,0.75)',
-      borderRadius: 999,
-      padding: '2px 6px',
-      pointerEvents: 'none',
-      zIndex: 15,
-    }}>
-      {total}
-    </div>
-  ) : null
-
-  if (!mine) {
-    return (
-      <>
-        <AnimatePresence>
-          {chips.map((chip, i) => {
-            const ox = chipScatter(chip.id + 'x', SCATTER_XY * 2)
-            const oy = chipScatter(chip.id + 'y', SCATTER_XY * 2)
-            const left = cx + ox - CHIP_PX / 2
-            const top = cy - UNIT_OFFSET + oy - CHIP_PX / 2
-            return (
-              <motion.div
-                key={chip.id}
-                style={{ position: 'absolute', left, top, zIndex: 10 }}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.25, delay: i * 0.04 }}
-              >
-                <div style={chipStyle(chip.denom, CHIP_PX)}>
-                  {chip.denom}
-                </div>
-              </motion.div>
-            )
-          })}
-        </AnimatePresence>
-        {totalLabel}
-      </>
-    )
+  const at = (chip: PhysicalChip, i: number) => {
+    const o = pileOffset(i, chip.id)
+    return { left: cx + o.x - CHIP_PX / 2, top: cy - UNIT_OFFSET + o.y - CHIP_PX / 2, zIndex: 10 + i }
   }
 
   return (
     <>
-      {chips.map(chip => {
-        const ox = chipScatter(chip.id + 'x', SCATTER_XY * 2)
-        const oy = chipScatter(chip.id + 'y', SCATTER_XY * 2)
-        const left = cx + ox - CHIP_PX / 2
-        const top = cy + oy - CHIP_PX / 2
-
-        const inner = (
-          <div
-            className="cursor-pointer hover:scale-110 hover:-translate-y-1 transition-transform"
-            style={chipStyle(chip.denom, CHIP_PX)}
-            onClick={() => onRecall?.(chip.id)}
-          >
-            {chip.denom}
-          </div>
-        )
-
-        return (
+      {mine ? (
+        // свои — без AnimatePresence: перелёт со стопки и обратно ведёт общий layoutId
+        chips.map((chip, i) => (
           <motion.div
             key={chip.id}
             layoutId={chip.id}
-            style={{ position: 'absolute', left, top, zIndex: 10, borderRadius: '50%' }}
+            style={{ position: 'absolute', ...at(chip, i), borderRadius: '50%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
           >
-            {inner}
+            <div
+              className="cursor-pointer hover:-translate-y-1 transition-transform"
+              style={chipStyle(chip.denom, CHIP_PX)}
+              onClick={() => onRecall?.(chip.id)}
+            >
+              {chip.denom}
+            </div>
           </motion.div>
-        )
-      })}
-      {totalLabel}
+        ))
+      ) : (
+        <AnimatePresence>
+          {chips.map((chip, i) => (
+            <motion.div
+              key={chip.id}
+              style={{ position: 'absolute', ...at(chip, i) }}
+              initial={{ opacity: 0, y: -14, scale: 1.15 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+            >
+              <div style={chipStyle(chip.denom, CHIP_PX)}>{chip.denom}</div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      )}
+      {total > 0 && (
+        <div style={{
+          position: 'absolute',
+          left: cx - 34,
+          top: cy - UNIT_OFFSET + 44,
+          width: 68,
+          textAlign: 'center',
+          fontSize: 14,
+          fontFamily: DISPLAY,
+          color: C.fg,
+          fontVariantNumeric: 'tabular-nums',
+          background: 'rgba(12,21,19,0.78)',
+          borderRadius: 999,
+          padding: '2px 6px',
+          pointerEvents: 'none',
+          zIndex: 40,
+        }}>
+          ${total}
+        </div>
+      )}
     </>
   )
 }

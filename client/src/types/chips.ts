@@ -43,3 +43,12 @@ export function chipScatter(id: string, range: number): number {
   }
   return ((hash & 0xffff) / 0xffff - 0.5) * range
 }
+
+/** Место фишки в кучке по порядку выкладки: спираль по золотому углу + лёгкий разброс от id.
+ *  Соседние фишки ложатся краем друг на друга, а не стопкой; позиция не зависит от того, сколько фишек после. */
+export function pileOffset(i: number, id: string, spread = 16): { x: number; y: number } {
+  if (i === 0) return { x: chipScatter(id + 'px', 4), y: chipScatter(id + 'py', 4) }
+  const r = spread * Math.sqrt(i) + chipScatter(id + 'pr', 4)
+  const a = i * 2.39996 + chipScatter(id + 'pa', 0.6)
+  return { x: Math.cos(a) * r, y: Math.sin(a) * r * 0.8 }
+}

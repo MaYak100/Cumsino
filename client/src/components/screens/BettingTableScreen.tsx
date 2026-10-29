@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
 import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
-import { buildPhysicalChips, buildChipsForPlayer, chipScatter } from '../../types/chips'
+import { buildPhysicalChips, buildChipsForPlayer, pileOffset } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import type { ChipValue } from '../ui/Chip'
 import { PlayerSlot } from '../ui/PlayerSlot'
@@ -16,31 +16,31 @@ import {
   playerAngle,
   landingZone,
   FELT_CX, FELT_CY,
-  OUTER_RY,
   SCENE_W, SCENE_H,
   useSceneScale,
 } from '../../lib/tableGeometry'
 
-// Zone layout constants — positions in scene coord space
-// Felt inner bottom = FELT_CY + FELT_RY = 415+248 = 663. All zones must stay above it.
-// Header starts at 270 (below top opponent bet zone cy≈225), ends ~348. Q_TOP=365 leaves 17px gap.
+// Раскладка керри-толпы в координатах сцены (сукно: центр 650×415, внутренние полуоси 380×248).
+// Сверху вниз: [кто отвечает + таймер, вопрос] — блок прибит низом к HEAD_BOTTOM и растёт вверх (зона ставки
+// верхнего соперника — около y≈187, туда не лезем) → две главные зоны в самой широкой части сукна → подпись
+// побочной ставки → 2×2 варианта-квитка → кнопка подтверждения.
+const HEAD_BOTTOM = 328
+const Q_W = 600
 
-const OPT_W = 220
-const OPT_H = 68
+const MAIN_W = 272
+const MAIN_H = 84
+const MAIN_GAP = 16
+const MAIN_TOP = 340
+const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2
+const WIN_LEFT  = FELT_CX + MAIN_GAP / 2
+
+const SIDE_LABEL_TOP = MAIN_TOP + MAIN_H + 12
+const OPT_W = 260
+const OPT_H = 52
 const OPT_GAP = 8
-const OPT_TOP = 412
-const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2   // = 650 − 256 − 4 = 390
-
-const MAIN_W = 200
-const MAIN_H = 72
-const MAIN_GAP = 14
-const MAIN_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 14  // = 452+104+14 = 570
-const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2       // = 650−290−7 = 353
-const WIN_LEFT  = FELT_CX + MAIN_GAP / 2                // = 657
-
-const Q_TOP = 306
-const Q_CX  = FELT_CX  // = 650
-const Q_W   = 440
+const OPT_TOP = SIDE_LABEL_TOP + 24
+const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2
+const CONFIRM_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 8
 
 // Chip pixel size inside zones
 const CPIX = 28
@@ -97,9 +97,12 @@ export function BettingTableScreen() {
 
   // ── Derived ──────────────────────────────────────────────────────────────
   const allPlacedIds     = new Set([...mainPlacedIds, ...bankPlacedIds])
-  const mainPlacedChips  = myStack.filter(c => mainPlacedIds.has(c.id))
-  const bankPlacedChips  = myStack.filter(c => bankPlacedIds.has(c.id))
-  const stdPlacedChips   = myStack.filter(c => stdPlacedIds.has(c.id))
+  // в порядке выкладки: от него зависит место фишки в кучке (Set хранит порядок вставки)
+  const chipById         = new Map(myStack.map(c => [c.id, c]))
+  const inOrder          = (ids: Set<string>) => [...ids].flatMap(id => chipById.get(id) ?? [])
+  const mainPlacedChips  = inOrder(mainPlacedIds)
+  const bankPlacedChips  = inOrder(bankPlacedIds)
+  const stdPlacedChips   = inOrder(stdPlacedIds)
   const mainBetAmt  = mainPlacedChips.reduce((a, c) => a + c.denom, 0)
   const bankBetAmt  = bankPlacedChips.reduce((a, c) => a + c.denom, 0)
   const stdBetAmt   = stdPlacedChips.reduce((a, c) => a + c.denom, 0)
@@ -206,32 +209,34 @@ export function BettingTableScreen() {
   const N             = orderedPlayers.length
   const gladiatorName = players.find(p => p.id === gameState.gladiatorId)?.name
 
-  // ── Zone chip renderer (shared layoutId with PhysicalChipStack) ───────────
-  const renderZoneChips = (
-    chips: PhysicalChip[],
-    zx: number, zy: number, zw: number, zh: number,
-  ) => chips.map(chip => {
-    const ox = chipScatter(chip.id + 'zx', zw * 0.18)
-    const oy = chipScatter(chip.id + 'zy', zh * 0.22)
-    return (
-      <motion.div
-        key={chip.id}
-        layoutId={chip.id}
-        style={{
-          ...chipStyle(chip.denom, CPIX),
-          position: 'absolute',
-          left: zx + zw / 2 + ox - CPIX / 2,
-          top:  zy + zh / 2 + oy - CPIX / 2,
-          zIndex: 20,
-          cursor: 'pointer',
-        }}
-        onClick={() => kerriRecall(chip.id)}
-        transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-      >
-        {chip.denom}
-      </motion.div>
-    )
-  })
+  // ── Кучка фишек в зоне (общий layoutId со стопкой — фишка перелетает) ───────
+  const renderZoneChips = (chips: PhysicalChip[], cx: number, cy: number, spread: number) =>
+    chips.map((chip, i) => {
+      const o = pileOffset(i, chip.id, spread)
+      return (
+        <motion.div
+          key={chip.id}
+          layoutId={chip.id}
+          style={{
+            ...chipStyle(chip.denom, CPIX),
+            position: 'absolute',
+            left: cx + o.x - CPIX / 2,
+            top:  cy + o.y - CPIX / 2,
+            zIndex: 20 + i,
+            cursor: 'pointer',
+          }}
+          onClick={() => kerriRecall(chip.id)}
+          transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+        >
+          {chip.denom}
+        </motion.div>
+      )
+    })
+
+  // сколько всего на кону у исхода: подтверждённые ставки соперников + своя
+  const sideTotal = (target: 'win' | 'lose') =>
+    players.reduce((a, p) => a + (p.id !== myId && p.betTarget === target ? p.currentBet : 0), 0)
+    + (mainTarget === target ? mainBetAmt : 0)
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -258,21 +263,11 @@ export function BettingTableScreen() {
 
             <FeltOval zIndex={1} />
 
-            {/* ── In-felt header: kerri mode ── */}
-            {isKerriMode && (
+            {/* ── Керри сам: таймер над стикером ── */}
+            {isGladiator && isKerriMode && (
               <div style={{
-                position: 'absolute',
-                left: 0, top: FELT_CY - OUTER_RY + 75,
-                width: SCENE_W, zIndex: 5, pointerEvents: 'none',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', gap: 6,
+                position: 'absolute', left: FELT_CX - 25, top: FELT_CY - 150, zIndex: 5, pointerEvents: 'none',
               }}>
-                {isKerriCrowd && gladiatorName && (
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-                    <span style={{ fontSize: 14, color: C.muted }}>Отвечает</span>
-                    <span style={{ fontFamily: DISPLAY, fontSize: 22, color: C.hot }}>{gladiatorName}</span>
-                  </div>
-                )}
                 <Timer seconds={gameState.phaseTimeLeft} color={C.hot} size={50} />
               </div>
             )}
@@ -320,200 +315,136 @@ export function BettingTableScreen() {
               </div>
             )}
 
-            {/* ══ KERRI CROWD: felt zones ══════════════════════════════════ */}
+            {/* ══ KERRI CROWD ═════════════════════════════════════════════ */}
             {isKerriCrowd && gameState.currentQuestion && (() => {
               const q  = gameState.currentQuestion!
               const opts = q.options ?? []
+              const mainZone = (target: 'win' | 'lose') => {
+                const win = target === 'win'
+                const color = win ? C.mint : C.hot
+                const sel = mainTarget === target
+                const active = sel && activeZone === 'main'
+                const left = win ? WIN_LEFT : LOSE_LEFT
+                const total = sideTotal(target)
+                return (
+                  <div key={target}>
+                    <motion.div
+                      whileHover={betConfirmed ? undefined : { y: -2 }}
+                      whileTap={betConfirmed ? undefined : { scale: 0.97 }}
+                      style={{
+                        position: 'absolute', left, top: MAIN_TOP, width: MAIN_W, height: MAIN_H, zIndex: 6,
+                        borderRadius: 16,
+                        border: `2px ${sel ? 'solid' : 'dashed'} ${sel ? color : `${color}66`}`,
+                        background: active ? `${color}2e` : sel ? `${color}14` : 'rgba(8,17,14,0.5)',
+                        boxShadow: active ? `0 0 30px ${color}55, inset 0 0 0 1px ${color}` : 'none',
+                        cursor: betConfirmed ? 'default' : 'pointer',
+                        transition: 'border-color .18s, background .18s, box-shadow .18s',
+                      }}
+                      onClick={() => selectMainZone(target)}
+                    >
+                      <div style={{
+                        position: 'absolute', left: 0, right: 0, top: 10, textAlign: 'center',
+                        fontFamily: DISPLAY, fontSize: 26, lineHeight: 1, color: sel ? color : `${color}bb`,
+                        opacity: sel && mainBetAmt > 0 ? 0.35 : 1, transition: 'opacity .2s',   // фишки поверх надписи
+                      }}>
+                        {win ? 'Ответит' : 'Завалит'}
+                      </div>
+                      {total > 0 && (
+                        <div style={{
+                          position: 'absolute', right: 12, bottom: 8,
+                          fontFamily: DISPLAY, fontSize: 14, fontVariantNumeric: 'tabular-nums', color,
+                        }}>
+                          ${total}
+                        </div>
+                      )}
+                    </motion.div>
+                    {sel && renderZoneChips(mainPlacedChips, left + MAIN_W / 2, MAIN_TOP + MAIN_H / 2 + 6, 15)}
+                  </div>
+                )
+              }
               return (
                 <>
-                  {/* Question text */}
+                  {/* кто отвечает + таймер, под ним вопрос — растёт вверх от HEAD_BOTTOM */}
                   <div style={{
-                    position: 'absolute',
-                    left: Q_CX - Q_W / 2, top: Q_TOP, width: Q_W,
-                    textAlign: 'center', zIndex: 5, pointerEvents: 'none',
+                    position: 'absolute', left: FELT_CX - Q_W / 2, width: Q_W, bottom: SCENE_H - HEAD_BOTTOM,
+                    zIndex: 5, pointerEvents: 'none',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, textAlign: 'center',
                   }}>
-                    <div style={{ fontSize: 18, fontWeight: 600, color: C.fg, lineHeight: 1.4 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <Timer seconds={gameState.phaseTimeLeft} color={C.hot} size={40} />
+                      {gladiatorName && (
+                        <span style={{ fontSize: 15, color: C.muted }}>
+                          Отвечает <span style={{ fontFamily: DISPLAY, fontSize: 22, color: C.hot }}>{gladiatorName}</span>
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ fontSize: 19, fontWeight: 600, color: C.fg, lineHeight: 1.35, textWrap: 'balance' } as React.CSSProperties}>
                       {q.text}
                     </div>
                   </div>
 
-                  {/* ── Option zones (2 × 2) ── */}
+                  {mainZone('lose')}
+                  {mainZone('win')}
+
+                  {/* побочная ставка: на вариант, который он выберет вместо верного */}
+                  <div style={{
+                    position: 'absolute', left: 0, width: SCENE_W, top: SIDE_LABEL_TOP, zIndex: 5,
+                    textAlign: 'center', fontSize: 14, color: C.muted, pointerEvents: 'none',
+                  }}>
+                    Угадай, где ошибётся — <span style={{ fontFamily: DISPLAY, color: C.brass }}>×4</span>
+                  </div>
+
                   {opts.map((opt, idx) => {
                     const isCorrect = opt === gameState.gladiatorAnswer
-                    const row = Math.floor(idx / 2)
-                    const col = idx % 2
-                    const zx = OPT_LEFT + col * (OPT_W + OPT_GAP)
-                    const zy = OPT_TOP  + row * (OPT_H + OPT_GAP)
-
-                    const isSel    = bankTarget === idx
+                    const zx = OPT_LEFT + (idx % 2) * (OPT_W + OPT_GAP)
+                    const zy = OPT_TOP + Math.floor(idx / 2) * (OPT_H + OPT_GAP)
+                    const isSel = bankTarget === idx
                     const isActive = isSel && activeZone === 'bank'
-
-                    const borderColor = isCorrect ? C.mint
-                      : isActive ? C.brass
-                      : isSel   ? '#9a7630'
-                      : 'rgba(237,232,222,0.2)'
-
-                    const bg = isCorrect ? 'rgba(62,224,143,0.14)'
-                      : isActive ? 'rgba(242,182,48,0.14)'
-                      : isSel   ? 'rgba(242,182,48,0.07)'
-                      : 'rgba(8,17,14,0.45)'
-
-                    const tagX = idx % 2 === 1 ? zx + OPT_W + 8 : zx - 46
-
                     return (
                       <div key={idx}>
                         <div
                           style={{
-                            position: 'absolute', left: zx, top: zy,
-                            width: OPT_W, height: OPT_H, zIndex: 6,
+                            position: 'absolute', left: zx, top: zy, width: OPT_W, height: OPT_H, zIndex: 6,
                             borderRadius: 10,
-                            border: `2px ${isCorrect ? 'solid' : 'dashed'} ${borderColor}`,
-                            background: bg,
-                            cursor: isCorrect ? 'default' : 'pointer',
-                            display: 'flex', alignItems: 'center', gap: 8,
-                            padding: '8px 10px',
+                            border: `2px ${isCorrect || isSel ? 'solid' : 'dashed'} ${
+                              isCorrect ? `${C.mint}88` : isActive ? C.brass : isSel ? '#9a7630' : 'rgba(237,232,222,0.18)'}`,
+                            background: isCorrect ? 'rgba(62,224,143,0.08)'
+                              : isActive ? 'rgba(242,182,48,0.16)' : isSel ? 'rgba(242,182,48,0.07)' : 'rgba(8,17,14,0.5)',
+                            boxShadow: isActive ? '0 0 20px rgba(242,182,48,0.3)' : 'none',
+                            cursor: isCorrect || betConfirmed ? 'default' : 'pointer',
+                            display: 'flex', alignItems: 'center', gap: 10, padding: '0 12px',
                             transition: 'border-color .18s, background .18s, box-shadow .18s',
-                            boxShadow: isActive ? `0 0 18px rgba(251,191,36,0.28)` : 'none',
                           }}
                           onClick={isCorrect ? undefined : () => selectBankZone(idx)}
                         >
-                          {/* номер варианта — как на экране вопроса */}
-                          <div style={{
+                          <span style={{
                             width: 22, height: 22, borderRadius: 6, flexShrink: 0,
-                            background: isCorrect ? C.mint : isActive ? C.brass : 'rgba(8,17,14,0.6)',
+                            background: isCorrect ? C.mint : isActive ? C.brass : 'rgba(8,17,14,0.7)',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 11, fontFamily: DISPLAY,
-                            color: isCorrect || isActive ? C.ink : C.muted,
+                            fontSize: 11, fontFamily: DISPLAY, color: isCorrect || isActive ? C.ink : C.muted,
                           }}>
                             {idx + 1}
-                          </div>
-                          <div style={{
-                            fontSize: 12.5, fontWeight: 600,
-                            lineHeight: 1.3,
+                          </span>
+                          <span style={{
+                            flex: 1, fontSize: 14, fontWeight: 600, lineHeight: 1.25,
                             color: isCorrect ? C.mint : isActive ? C.brass : C.fg,
-                            flex: 1,
-                          }}>
+                            overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+                          } as React.CSSProperties}>
                             {opt}
-                          </div>
+                          </span>
+                          {isCorrect ? (
+                            <span style={{ fontSize: 12, fontWeight: 700, color: C.mint, flexShrink: 0 }}>верный</span>
+                          ) : isSel && bankBetAmt > 0 ? (
+                            <span style={{ fontFamily: DISPLAY, fontSize: 14, color: C.brass, flexShrink: 0, fontVariantNumeric: 'tabular-nums' }}>
+                              ${bankBetAmt}
+                            </span>
+                          ) : null}
                         </div>
-                        {/* Outside tag: amount + ×4 */}
-                        {isSel && (
-                          <div style={{
-                            position: 'absolute', left: tagX, top: zy,
-                            height: OPT_H, zIndex: 7, width: 38,
-                            display: 'flex', flexDirection: 'column',
-                            alignItems: 'center', justifyContent: 'center', gap: 1,
-                            pointerEvents: 'none',
-                          }}>
-                            {bankBetAmt > 0 && (
-                              <div style={{
-                                fontSize: 13, fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums',
-                                color: isActive ? C.brass : '#9a7630',
-                              }}>{bankBetAmt}</div>
-                            )}
-                            <div style={{
-                              fontSize: 12, fontFamily: DISPLAY,
-                              color: isActive ? C.brass : '#9a7630',
-                            }}>×4</div>
-                          </div>
-                        )}
-                        {/* Chips inside this bank zone */}
-                        {isSel && renderZoneChips(bankPlacedChips, zx, zy, OPT_W, OPT_H)}
+                        {/* фишки — снаружи квитка, на сукне: текст варианта остаётся читаемым */}
+                        {isSel && renderZoneChips(bankPlacedChips, idx % 2 ? zx + OPT_W + 26 : zx - 26, zy + OPT_H / 2, 8)}
                       </div>
                     )
                   })}
-
-                  {/* ── LOSE zone ── */}
-                  <div>
-                    <div
-                      style={{
-                        position: 'absolute', left: LOSE_LEFT, top: MAIN_TOP,
-                        width: MAIN_W, height: MAIN_H, zIndex: 6,
-                        borderRadius: 14,
-                        border: `2px ${mainTarget === 'lose' ? 'solid' : 'dashed'} ${
-                          mainTarget === 'lose' && activeZone === 'main' ? C.hot
-                          : mainTarget === 'lose' ? '#b8264b'
-                          : 'rgba(255,61,110,0.4)'
-                        }`,
-                        background: mainTarget === 'lose' && activeZone === 'main'
-                          ? 'rgba(255,61,110,0.18)'
-                          : mainTarget === 'lose'
-                          ? 'rgba(255,61,110,0.08)'
-                          : 'rgba(8,17,14,0.45)',
-                        cursor: 'pointer',
-                        display: 'flex', flexDirection: 'column',
-                        alignItems: 'center', justifyContent: 'center', gap: 3,
-                        transition: 'border-color .18s, background .18s, box-shadow .18s',
-                        boxShadow: mainTarget === 'lose' && activeZone === 'main'
-                          ? '0 0 26px rgba(255,61,110,0.35)' : 'none',
-                      }}
-                      onClick={() => selectMainZone('lose')}
-                    >
-                      <div style={{
-                        fontFamily: DISPLAY, fontSize: 22,
-                        color: mainTarget === 'lose' ? C.hot : 'rgba(255,61,110,0.75)',
-                        opacity: mainTarget === 'lose' && mainBetAmt > 0 ? 0.3 : 1, transition: 'opacity .2s',
-                      }}>
-                        Завалит
-                      </div>
-                    </div>
-                    {mainTarget === 'lose' && mainBetAmt > 0 && (
-                      <div style={{
-                        position: 'absolute', left: LOSE_LEFT - 44, top: MAIN_TOP,
-                        width: 38, height: MAIN_H, zIndex: 7, pointerEvents: 'none',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 14, fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums',
-                        color: activeZone === 'main' ? C.hot : '#b8264b',
-                      }}>{mainBetAmt}</div>
-                    )}
-                    {mainTarget === 'lose' && renderZoneChips(mainPlacedChips, LOSE_LEFT, MAIN_TOP, MAIN_W, MAIN_H)}
-                  </div>
-
-                  {/* ── WIN zone ── */}
-                  <div>
-                    <div
-                      style={{
-                        position: 'absolute', left: WIN_LEFT, top: MAIN_TOP,
-                        width: MAIN_W, height: MAIN_H, zIndex: 6,
-                        borderRadius: 14,
-                        border: `2px ${mainTarget === 'win' ? 'solid' : 'dashed'} ${
-                          mainTarget === 'win' && activeZone === 'main' ? C.mint
-                          : mainTarget === 'win' ? '#22a565'
-                          : 'rgba(62,224,143,0.4)'
-                        }`,
-                        background: mainTarget === 'win' && activeZone === 'main'
-                          ? 'rgba(62,224,143,0.16)'
-                          : mainTarget === 'win'
-                          ? 'rgba(62,224,143,0.07)'
-                          : 'rgba(8,17,14,0.45)',
-                        cursor: 'pointer',
-                        display: 'flex', flexDirection: 'column',
-                        alignItems: 'center', justifyContent: 'center', gap: 3,
-                        transition: 'border-color .18s, background .18s, box-shadow .18s',
-                        boxShadow: mainTarget === 'win' && activeZone === 'main'
-                          ? '0 0 26px rgba(62,224,143,0.32)' : 'none',
-                      }}
-                      onClick={() => selectMainZone('win')}
-                    >
-                      <div style={{
-                        fontFamily: DISPLAY, fontSize: 22,
-                        color: mainTarget === 'win' ? C.mint : 'rgba(62,224,143,0.75)',
-                        opacity: mainTarget === 'win' && mainBetAmt > 0 ? 0.3 : 1, transition: 'opacity .2s',
-                      }}>
-                        Ответит
-                      </div>
-                    </div>
-                    {mainTarget === 'win' && mainBetAmt > 0 && (
-                      <div style={{
-                        position: 'absolute', left: WIN_LEFT + MAIN_W + 6, top: MAIN_TOP,
-                        width: 38, height: MAIN_H, zIndex: 7, pointerEvents: 'none',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 14, fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums',
-                        color: activeZone === 'main' ? C.mint : '#22a565',
-                      }}>{mainBetAmt}</div>
-                    )}
-                    {mainTarget === 'win' && renderZoneChips(mainPlacedChips, WIN_LEFT, MAIN_TOP, MAIN_W, MAIN_H)}
-                  </div>
                 </>
               )
             })()}
@@ -531,7 +462,8 @@ export function BettingTableScreen() {
                 : stagedDenoms !== undefined
                   ? stagedDenoms.map((denom, i) => ({ id: `${i}-${denom}-${player.id}`, denom } as PhysicalChip))
                   : player.betChips?.length
-                    ? player.betChips.map((denom, i) => ({ id: `${player.id}-bet-${i}`, denom } as PhysicalChip))
+                    // та же схема id, что у черновика: подтверждение не перерисовывает фишки заново
+                    ? player.betChips.map((denom, i) => ({ id: `${i}-${denom}-${player.id}`, denom } as PhysicalChip))
                     : buildChipsForPlayer(player.id, player.currentBet)
 
               return (
@@ -574,7 +506,7 @@ export function BettingTableScreen() {
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 0.7 }}
               transition={{ type: 'spring', stiffness: 500, damping: 22 }}
-              style={{ position: 'absolute', left: FELT_CX, top: MAIN_TOP + MAIN_H + 14, zIndex: 20, translateX: '-50%' }}
+              style={{ position: 'absolute', left: FELT_CX, top: CONFIRM_TOP, zIndex: 30, translateX: '-50%' }}
             >
               <ConfirmButton amount={mainBetAmt + bankBetAmt} onClick={handleConfirm} />
             </motion.div>
@@ -589,7 +521,7 @@ export function BettingTableScreen() {
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 0.7 }}
               transition={{ type: 'spring', stiffness: 500, damping: 22 }}
-              style={{ position: 'absolute', left: FELT_CX + 70, top: 612, zIndex: 20 }}
+              style={{ position: 'absolute', left: FELT_CX + 80, top: 606, zIndex: 30 }}
             >
               <ConfirmButton amount={stdBetAmt} onClick={handleConfirm} />
             </motion.div>
@@ -608,13 +540,13 @@ function ConfirmButton({ amount, onClick }: { amount: number; onClick: () => voi
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.92 }}
       style={{
-        height: 44, padding: '0 20px', borderRadius: 999, border: 'none', cursor: 'pointer',
+        height: 46, padding: '0 22px', borderRadius: 999, border: 'none', cursor: 'pointer',
         background: C.brass, color: C.ink, whiteSpace: 'nowrap',
         fontSize: 16, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 8,
         boxShadow: '0 4px 0 #a87a17, 0 10px 24px rgba(0,0,0,.5)',
       }}
     >
-      Ставлю <span style={{ fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums' }}>{amount}</span>
+      Ставлю <span style={{ fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums' }}>${amount}</span>
     </motion.button>
   )
 }

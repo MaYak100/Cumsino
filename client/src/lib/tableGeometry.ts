@@ -13,7 +13,8 @@ export const SCENE_W = 1300
 export const SCENE_H = 820
 
 export function useSceneScale(): number {
-  const compute = () => Math.min(1, window.innerWidth / SCENE_W, window.innerHeight / SCENE_H)
+  // растёт и на больших экранах (до 1.4): на 1920×1080 стол не должен оставаться «ноутбучным»
+  const compute = () => Math.min(1.4, window.innerWidth / SCENE_W, window.innerHeight / (SCENE_H + 90))   // +90: плашки игроков сверху и снизу выходят за сцену
   const [scale, setScale] = useState(compute)
   useEffect(() => {
     const handler = () => setScale(compute())

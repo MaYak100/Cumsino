@@ -115,7 +115,7 @@ export function TableFelt({ blurred }: Props) {
                 justifyContent: 'center',
               }}
             >
-              <NamePlate name={player.name} isMe={isMe} />
+              <NamePlate name={player.name} isMe={isMe} balance={player.chips} />
             </div>
           )
         })}
