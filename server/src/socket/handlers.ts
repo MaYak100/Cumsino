@@ -4,7 +4,7 @@ import type {
   JoinGamePayload, PlaceBetPayload,
   SubmitAnswerPayload, GladiatorHoverPayload,
   PlaceBankBetPayload, IdentifyPayload, RateQuestionPayload,
-  BuyItemPayload, UseItemPayload, ItemId,
+  BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId,
 } from '@cumsino/shared'
 import { ITEM_ORDER } from '@cumsino/shared'
 
@@ -69,6 +69,11 @@ export function registerHandlers(rawSocket: Socket, engine: GameEngine): void {
     if (!isItem(item)) return
     if (targetId !== undefined && (typeof targetId !== 'string' || targetId.length > 64)) return
     engine.getRoom(socket.id)?.useItem(socket.id, item, targetId)
+  })
+
+  socket.on('shop_ready', ({ ready }: ShopReadyPayload) => {
+    if (typeof ready !== 'boolean') return
+    engine.getRoom(socket.id)?.setShopReady(socket.id, ready)
   })
 
   socket.on('gladiator_hover', ({ optionIndex }: GladiatorHoverPayload) => {

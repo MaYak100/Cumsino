@@ -97,20 +97,22 @@ describe('GameRoom', () => {
       expect(priv(room).phase).toBe('LOBBY')
     })
 
-    it('start() хостом переводит в ANNOUNCE', () => {
+    it('start() хостом открывает лавку перед первым раундом «для всех»', () => {
       const { room } = makeRoom()
       addPlayers(room, 2)
       room.start('p1')
-      expect(priv(room).phase).toBe('ANNOUNCE')
+      expect(priv(room).phase).toBe('SHOP')
+      expect(priv(room).currentMode).toBe('all')
     })
 
     it('start() повторно игнорируется (не LOBBY)', () => {
       const { room } = makeRoom()
       addPlayers(room, 2)
       room.start('p1')
-      expect(priv(room).phase).toBe('ANNOUNCE')
+      expect(priv(room).phase).toBe('SHOP')
       room.start('p1') // second call
-      expect(priv(room).phase).toBe('ANNOUNCE') // stays ANNOUNCE, not re-set
+      expect(priv(room).phase).toBe('SHOP')
+      expect(priv(room).roundIndex).toBe(1)
     })
 
     it('стартовые чипы у каждого игрока = STARTING_CHIPS', () => {
@@ -495,7 +497,7 @@ describe('GameRoom', () => {
       room.removePlayer('p1')
       expect(priv(room).hostId).toBe('p2')
       room.start('p2')
-      expect(priv(room).phase).toBe('ANNOUNCE')
+      expect(priv(room).phase).toBe('SHOP')
     })
 
     it('ушёл последний, кто не ответил, — раунд считается (через окно после последнего ответа)', () => {
