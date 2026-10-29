@@ -1,5 +1,5 @@
 // client/src/dev/DevPage.tsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
 import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
@@ -30,6 +30,15 @@ export function DevPage() {
   const [collapsed, setCollapsed] = useState(true)
   const [activeId, setActiveId] = useState<string | null>(null)
   const [playerCount, setPlayerCount] = useState(4)
+
+  // ?s=<id сценария>&n=<игроки> — открыть сценарий сразу (скриншоты, ссылки)
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search)
+    const sc = SCENARIOS.find(s => s.id === q.get('s'))
+    const n = Number(q.get('n')) || playerCount
+    if (q.get('n')) setPlayerCount(n)
+    if (sc) activate(sc, n)
+  }, [])
 
   function activate(scenario: Scenario, count = playerCount) {
     useGameStore.setState(refreshDynamic(applyCount(scenario, count)))
@@ -179,8 +188,7 @@ export function DevPage() {
         height: '100vh',
         overflow: 'hidden',
         position: 'relative',
-        background: '#060606',
-      }}>
+      }} className="stage">
         {active ? (
           <>
             {!active.withFelt && <TableFelt blurred={true} />}

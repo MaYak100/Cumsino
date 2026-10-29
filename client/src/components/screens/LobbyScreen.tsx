@@ -1,72 +1,95 @@
-import { useGameStore, selectMe } from '../../store/gameStore'
-import { PlayerCard } from '../ui/PlayerCard'
+import { motion } from 'framer-motion'
+import { STARTING_CHIPS, WIN_CHIPS } from '@cumsino/shared'
+import { useGameStore } from '../../store/gameStore'
+import { C, DISPLAY } from '../../theme'
+import { Logo } from '../ui/Logo'
+import { Sticker } from '../ui/Sticker'
 import { WhoAreYou } from '../ui/WhoAreYou'
+
+/** Наклон от имени — у каждого свой и не меняется между рендерами. */
+const tilt = (s: string) => ((s.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 9) - 4) * 0.9
 
 export function LobbyScreen() {
   const gameState = useGameStore(s => s.gameState)!
-  const me = useGameStore(selectMe)
   const myId = useGameStore(s => s.myId)
   const startGame = useGameStore(s => s.startGame)
   const isHost = myId !== null && myId === gameState.hostId
-  const friendLabel = (id?: number) => {
-    const f = gameState.friendRoster?.find(r => r.id === id)
-    return f ? `это ${f.name}` : undefined
-  }
+  const friendName = (id?: number) => gameState.friendRoster?.find(r => r.id === id)?.name
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <h1 className="text-4xl text-yellow-400 mb-2 font-serif" style={{
-        textShadow: '0 0 20px rgba(255,215,0,0.4)'
-      }}>
-        ♠ CUMSINO ♠
-      </h1>
+    <div className="min-h-screen flex flex-col items-center px-4 pt-8 pb-12">
+      <Logo size={40} animated />
 
-      <div className="mb-6 text-center">
-        <div className="text-xs uppercase tracking-widest text-gray-400">Код комнаты</div>
-        <div className="text-5xl font-mono text-white tracking-[0.3em] mt-1">
-          {gameState.id}
+      <div className="flex-1 w-full max-w-2xl flex flex-col items-center justify-center gap-8 py-6">
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-sm" style={{ color: C.muted }}>Код комнаты</span>
+          <Sticker seed={`room-${gameState.id}`} slam rotate={-2} jag={7} padding="10px 30px 14px">
+            <span style={{ fontFamily: DISPLAY, fontSize: 'clamp(56px, 8vw, 88px)', letterSpacing: '0.18em', lineHeight: 1 }}>
+              {gameState.id}
+            </span>
+          </Sticker>
         </div>
-      </div>
 
-      <div className="w-full max-w-sm mb-6">
-        <div className="text-xs uppercase tracking-widest text-gray-500 mb-2 text-center">
-          Игроки ({gameState.players.length})
-        </div>
-        <div className="flex flex-wrap justify-center gap-2">
-          {gameState.players.map(player => (
-            <div key={player.id} style={{ width: 'calc(33.33% - 6px)' }}>
-              <PlayerCard
-                player={player}
-                isMe={player.id === me?.id}
-                hideChips
-                friendName={friendLabel(player.friendId)}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <WhoAreYou />
-
-      {isHost ? (
-        <button
-          onClick={startGame}
-          className="px-10 py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold text-lg rounded-xl hover:brightness-110 transition-all shadow-lg"
-        >
-          ▶ НАЧАТЬ ИГРУ
-        </button>
-      ) : (
-        <div className="text-center">
-          <div className="text-gray-300 text-sm tracking-wide">
-            Ожидаем хоста и ждем игроков. Пока не рыпайтесь.
+        <div className="w-full flex flex-col items-center gap-4">
+          <span className="text-sm tnum" style={{ color: C.muted }}>За столом {gameState.players.length}</span>
+          <div className="flex flex-wrap justify-center gap-3" style={{ maxWidth: 600 }}>
+            {gameState.players.map((p, i) => {
+              const me = p.id === myId
+              const friend = friendName(p.friendId)
+              return (
+                <Sticker
+                  key={p.id}
+                  seed={p.id}
+                  slam
+                  delay={i * 0.05}
+                  rotate={tilt(p.id)}
+                  jag={4}
+                  color={me ? C.brass : C.panel2}
+                  textColor={me ? C.ink : C.fg}
+                  padding="8px 16px 9px"
+                >
+                  <div className="font-bold text-[17px] leading-tight max-w-[180px] truncate">
+                    {p.name}{p.id === gameState.hostId && <span style={{ opacity: 0.55 }} className="font-semibold text-[13px]"> хост</span>}
+                  </div>
+                  {friend && friend !== p.name && (
+                    <div className="text-[12px] leading-tight" style={{ opacity: 0.7 }}>это {friend}</div>
+                  )}
+                </Sticker>
+              )
+            })}
           </div>
         </div>
-      )}
 
-      <p className="text-gray-400 text-xs mt-5 text-center leading-relaxed">
-        Ставьте ставки · Отвечайте на вопросы<br />
-        Начинайте с 500 фишек · Заработайте 3000
-      </p>
+        <WhoAreYou />
+
+        {isHost ? (
+          <motion.button
+            onClick={startGame}
+            whileHover={{ y: -3, rotate: -1 }}
+            whileTap={{ scale: 0.95 }}
+            className="rounded-2xl px-12 h-16 text-xl"
+            style={{ fontFamily: DISPLAY, background: C.brass, color: C.ink, boxShadow: `0 6px 0 #a87a17, 0 14px 30px ${C.brass}40` }}
+          >
+            Начать игру
+          </motion.button>
+        ) : (
+          <div className="text-[15px] text-center" style={{ color: C.muted }}>
+            Ждём хоста. Пока не рыпайтесь.
+          </div>
+        )}
+      </div>
+
+      {/* правила одной линией: старт → финиш */}
+      <div className="w-full max-w-md">
+        <div className="relative h-2 rounded-full" style={{ background: C.line }}>
+          <div className="absolute left-0 top-0 h-full rounded-full"
+            style={{ width: `${(STARTING_CHIPS / WIN_CHIPS) * 100}%`, background: C.brass }} />
+        </div>
+        <div className="flex justify-between mt-2 text-[13px] tnum" style={{ color: C.muted }}>
+          <span>У всех по {STARTING_CHIPS}</span>
+          <span>Первый до <b style={{ color: C.fg }}>{WIN_CHIPS}</b> побеждает</span>
+        </div>
+      </div>
     </div>
   )
 }

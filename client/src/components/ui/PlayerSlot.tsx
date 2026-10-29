@@ -4,6 +4,7 @@ import type { PhysicalChip } from '../../types/chips'
 import type { ChipValue } from './Chip'
 import { PhysicalChipStack } from './PhysicalChipStack'
 import { unitPosition } from '../../lib/tableGeometry'
+import { C, DISPLAY } from '../../theme'
 
 const UNIT_W = 170
 const CHIP_ROW_H = 48
@@ -50,43 +51,38 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
       </div>
 
       <div style={{
-        fontSize: 13,
-        fontWeight: 700,
-        color: isMe ? '#fbbf24' : '#d1d5db',
+        fontSize: 15,
+        fontFamily: DISPLAY,
+        color: isMe ? C.brass : C.fg,
         fontVariantNumeric: 'tabular-nums',
-        letterSpacing: '0.04em',
-        marginBottom: 3,
+        marginBottom: 2,
       }}>
-        ${player.chips}
+        {player.chips}
       </div>
 
-      <div
-        style={{
-          background: isMe ? '#100e00' : 'linear-gradient(135deg,#121212,#0a0a0a)',
-          border: `1.5px solid ${isMe ? '#fbbf24' : '#333'}`,
-          borderRadius: 8,
-          padding: '5px 14px',
-          boxShadow: isMe
-            ? '0 0 18px rgba(251,191,36,0.12), 0 4px 24px rgba(0,0,0,0.8)'
-            : '0 4px 24px rgba(0,0,0,0.8)',
-          whiteSpace: 'nowrap',
-          maxWidth: UNIT_W,
-          overflow: 'hidden',
-        }}
-      >
-        <div
-          style={{
-            fontSize: 13,
-            fontWeight: 600,
-            color: isMe ? '#fbbf24' : '#aaa',
-            letterSpacing: '0.01em',
-            textOverflow: 'ellipsis',
-            overflow: 'hidden',
-          }}
-        >
-          {player.name}
-        </div>
-      </div>
+      <NamePlate name={player.name} isMe={isMe} />
+    </div>
+  )
+}
+
+/** Именная плашка у стола (общая для стола ставок и фонового стола). */
+export function NamePlate({ name, isMe }: { name: string; isMe: boolean }) {
+  return (
+    <div style={{
+      background: isMe ? C.brass : C.panel,
+      color: isMe ? C.ink : C.fg,
+      border: `1.5px solid ${isMe ? C.brass : C.line}`,
+      borderRadius: 999,
+      padding: '5px 16px 6px',
+      fontSize: 14,
+      fontWeight: 700,
+      whiteSpace: 'nowrap',
+      maxWidth: UNIT_W,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      boxShadow: '0 6px 18px rgba(0,0,0,.55)',
+    }}>
+      {name}
     </div>
   )
 }

@@ -8,11 +8,15 @@ import { PlayerSlot } from '../ui/PlayerSlot'
 import { BetZone } from '../ui/BetZone'
 import { Timer } from '../ui/Timer'
 import { socket } from '../../socket'
+import { FeltOval } from '../ui/TableFelt'
+import { Sticker } from '../ui/Sticker'
+import { chipStyle } from '../../lib/chipStyle'
+import { C, DISPLAY } from '../../theme'
 import {
   playerAngle,
   landingZone,
   FELT_CX, FELT_CY,
-  OUTER_RX, OUTER_RY,
+  OUTER_RY,
   SCENE_W, SCENE_H,
   useSceneScale,
 } from '../../lib/tableGeometry'
@@ -22,33 +26,24 @@ import {
 // Header starts at 270 (below top opponent bet zone cy≈225), ends ~348. Q_TOP=365 leaves 17px gap.
 
 const OPT_W = 220
-const OPT_H = 60
+const OPT_H = 68
 const OPT_GAP = 8
 const OPT_TOP = 412
 const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2   // = 650 − 256 − 4 = 390
 
 const MAIN_W = 200
-const MAIN_H = 80
+const MAIN_H = 72
 const MAIN_GAP = 14
 const MAIN_TOP = OPT_TOP + 2 * (OPT_H + OPT_GAP) + 14  // = 452+104+14 = 570
 const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2       // = 650−290−7 = 353
 const WIN_LEFT  = FELT_CX + MAIN_GAP / 2                // = 657
 
-const Q_TOP = 300
+const Q_TOP = 306
 const Q_CX  = FELT_CX  // = 650
 const Q_W   = 440
 
 // Chip pixel size inside zones
-const CPIX = 26
-
-// Chip inline styles matching PhysicalChipStack CHIP_COLORS
-const CHIP_BG: Record<number, { background: string; color: string }> = {
-  10:  { background: 'linear-gradient(135deg,#e5e7eb,#6b7280)', color: '#111827' },
-  20:  { background: 'linear-gradient(135deg,#4ade80,#15803d)', color: '#fff' },
-  50:  { background: 'linear-gradient(135deg,#60a5fa,#1d4ed8)', color: '#fff' },
-  100: { background: 'linear-gradient(135deg,#f87171,#b91c1c)', color: '#fff' },
-  500: { background: 'linear-gradient(135deg,#374151,#000)',    color: '#fbbf24' },
-}
+const CPIX = 28
 
 export function BettingTableScreen() {
   const gameState = useGameStore(s => s.gameState)!
@@ -223,18 +218,12 @@ export function BettingTableScreen() {
         key={chip.id}
         layoutId={chip.id}
         style={{
+          ...chipStyle(chip.denom, CPIX),
           position: 'absolute',
           left: zx + zw / 2 + ox - CPIX / 2,
           top:  zy + zh / 2 + oy - CPIX / 2,
           zIndex: 20,
-          width: CPIX, height: CPIX,
-          borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontWeight: 800, fontSize: 8,
           cursor: 'pointer',
-          boxShadow: '0 3px 10px rgba(0,0,0,0.85)',
-          border: '1.5px solid rgba(255,255,255,0.15)',
-          ...CHIP_BG[chip.denom],
         }}
         onClick={() => kerriRecall(chip.id)}
         transition={{ type: 'spring', stiffness: 300, damping: 28 }}
@@ -252,7 +241,6 @@ export function BettingTableScreen() {
         width: '100vw',
         height: '100vh',
         overflow: 'hidden',
-        background: 'radial-gradient(ellipse at 50% 35%, #1c1600 0%, #060606 70%)',
         userSelect: 'none',
       }}
     >
@@ -268,26 +256,7 @@ export function BettingTableScreen() {
         <LayoutGroup>
           <div style={{ width: SCENE_W, height: SCENE_H, position: 'relative' }}>
 
-            {/* ── Felt SVG ── */}
-            <svg
-              style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible', pointerEvents: 'none', zIndex: 1 }}
-              width={SCENE_W} height={SCENE_H}
-            >
-              <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX + 16} ry={OUTER_RY + 16} fill="#3d2600" />
-              <ellipse cx={FELT_CX} cy={FELT_CY} rx={OUTER_RX + 5}  ry={OUTER_RY + 5}  fill="#150900" />
-              <defs>
-                <radialGradient id="felt-g" cx="35%" cy="38%" r="65%">
-                  <stop offset="0%"   stopColor="#278320" />
-                  <stop offset="55%"  stopColor="#0e4a0a" />
-                  <stop offset="100%" stopColor="#071e06" />
-                </radialGradient>
-              </defs>
-              <ellipse
-                cx={FELT_CX} cy={FELT_CY}
-                rx={OUTER_RX} ry={OUTER_RY}
-                fill="url(#felt-g)"
-              />
-            </svg>
+            <FeltOval zIndex={1} />
 
             {/* ── In-felt header: kerri mode ── */}
             {isKerriMode && (
@@ -299,11 +268,12 @@ export function BettingTableScreen() {
                 alignItems: 'center', gap: 6,
               }}>
                 {isKerriCrowd && gladiatorName && (
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#fbbf24', letterSpacing: '.02em', marginBottom: 10 }}>
-                    Ваш Керри: {gladiatorName}
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+                    <span style={{ fontSize: 14, color: C.muted }}>Отвечает</span>
+                    <span style={{ fontFamily: DISPLAY, fontSize: 22, color: C.hot }}>{gladiatorName}</span>
                   </div>
                 )}
-                <Timer seconds={gameState.phaseTimeLeft} />
+                <Timer seconds={gameState.phaseTimeLeft} color={C.hot} size={50} />
               </div>
             )}
 
@@ -316,20 +286,15 @@ export function BettingTableScreen() {
                 display: 'flex', flexDirection: 'column',
                 alignItems: 'center',
               }}>
-                <div style={{ marginBottom: 11 }}><Timer seconds={gameState.phaseTimeLeft} /></div>
-                <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '.16em', color: '#c4c9d4' }}>
-                  Тема
-                </div>
-                <div style={{
-                  fontSize: 32, fontWeight: 800, color: '#fbbf24',
-                  letterSpacing: '.04em', textAlign: 'center',
-                  textShadow: '0 0 24px rgba(251,191,36,0.45)',
-                  marginBottom: 21,
-                }}>
-                  {gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic}
-                </div>
-                <div style={{ fontSize: 13, color: '#e5e7eb' }}>
-                  Ставьте ставку на то, что ответите верно
+                <div style={{ marginBottom: 18 }}><Timer seconds={gameState.phaseTimeLeft} /></div>
+                <Sticker seed={`${gameState.currentQuestion.id}-topic`} slam rotate={-3} jag={6} padding="10px 22px 12px"
+                  style={{ maxWidth: 520 }}>
+                  <div style={{ fontFamily: DISPLAY, fontSize: 32, lineHeight: 1.05, textAlign: 'center' }}>
+                    {gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic}
+                  </div>
+                </Sticker>
+                <div style={{ fontSize: 15, color: C.fg, marginTop: 22 }}>
+                  Ставь на то, что ответишь верно
                 </div>
               </div>
             )}
@@ -342,15 +307,15 @@ export function BettingTableScreen() {
                 transform: 'translate(-50%,-50%)',
                 textAlign: 'center', pointerEvents: 'none', zIndex: 5,
               }}>
-                <div style={{ fontSize: 16, fontWeight: 'bold', color: '#fbbf24', marginBottom: 12 }}>Ты избранный Керри.</div>
-                <div style={{ fontSize: 13, color: '#e5e7eb', maxWidth: 340, lineHeight: 1.65, marginBottom: 10 }}>
-                  Ответишь верно: получишь 300 фишек.
+                <Sticker seed={`kerri-${gameState.roundIndex}`} slam rotate={-4} jag={7}
+                  color={C.hot} textColor={C.ink} padding="12px 28px 14px">
+                  <div style={{ fontFamily: DISPLAY, fontSize: 44, lineHeight: 1 }}>Ты керри</div>
+                </Sticker>
+                <div style={{ fontSize: 17, color: C.fg, maxWidth: 360, lineHeight: 1.5, margin: '22px auto 8px' }}>
+                  Ответишь верно — <b style={{ color: C.mint }}>+300</b>
                 </div>
-                <div style={{ fontSize: 13, color: '#e5e7eb', maxWidth: 340, lineHeight: 1.65, marginBottom: 10 }}>
-                  Сейчас на тебя ставят ставки и все будут смотреть за твоим позором.
-                </div>
-                <div style={{ fontSize: 13, color: '#e5e7eb', maxWidth: 340, lineHeight: 1.65 }}>
-                  Твоя задача порассуждать чутка вслух, потянуть интригу и может это окупится.
+                <div style={{ fontSize: 14, color: C.muted, maxWidth: 360, lineHeight: 1.55, margin: '0 auto' }}>
+                  Сейчас на тебя ставят и все смотрят. Рассуждай вслух, тяни интригу.
                 </div>
               </div>
             )}
@@ -367,10 +332,7 @@ export function BettingTableScreen() {
                     left: Q_CX - Q_W / 2, top: Q_TOP, width: Q_W,
                     textAlign: 'center', zIndex: 5, pointerEvents: 'none',
                   }}>
-                    <div style={{ fontSize: 11, color: 'rgba(255,255,255,.55)', letterSpacing: '.14em', textTransform: 'uppercase', marginBottom: 6 }}>
-                      ВОПРОС
-                    </div>
-                    <div style={{ fontSize: 18, fontWeight: 600, color: '#e5e7eb', lineHeight: 1.45 }}>
+                    <div style={{ fontSize: 18, fontWeight: 600, color: C.fg, lineHeight: 1.4 }}>
                       {q.text}
                     </div>
                   </div>
@@ -386,15 +348,15 @@ export function BettingTableScreen() {
                     const isSel    = bankTarget === idx
                     const isActive = isSel && activeZone === 'bank'
 
-                    const borderColor = isCorrect ? '#4ade80'
-                      : isActive ? '#fbbf24'
-                      : isSel   ? '#a16207'
-                      : 'rgba(255,255,255,0.18)'
+                    const borderColor = isCorrect ? C.mint
+                      : isActive ? C.brass
+                      : isSel   ? '#9a7630'
+                      : 'rgba(237,232,222,0.2)'
 
-                    const bg = isCorrect ? 'rgba(5,46,22,0.6)'
-                      : isActive ? 'rgba(28,18,0,0.7)'
-                      : isSel   ? 'rgba(20,12,0,0.5)'
-                      : 'rgba(0,0,0,0.32)'
+                    const bg = isCorrect ? 'rgba(62,224,143,0.14)'
+                      : isActive ? 'rgba(242,182,48,0.14)'
+                      : isSel   ? 'rgba(242,182,48,0.07)'
+                      : 'rgba(8,17,14,0.45)'
 
                     const tagX = idx % 2 === 1 ? zx + OPT_W + 8 : zx - 46
 
@@ -415,29 +377,24 @@ export function BettingTableScreen() {
                           }}
                           onClick={isCorrect ? undefined : () => selectBankZone(idx)}
                         >
-                          {/* Letter chip */}
+                          {/* номер варианта — как на экране вопроса */}
                           <div style={{
-                            width: 20, height: 20, borderRadius: '50%', flexShrink: 0,
-                            background: isCorrect ? '#14532d' : isActive ? '#422006' : '#1f2937',
-                            border: `1px solid ${isCorrect ? '#4ade80' : isActive ? '#fbbf24' : '#374151'}`,
+                            width: 22, height: 22, borderRadius: 6, flexShrink: 0,
+                            background: isCorrect ? C.mint : isActive ? C.brass : 'rgba(8,17,14,0.6)',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 10, fontWeight: 800,
-                            color: isCorrect ? '#4ade80' : isActive ? '#fbbf24' : '#c4c9d4',
+                            fontSize: 11, fontFamily: DISPLAY,
+                            color: isCorrect || isActive ? C.ink : C.muted,
                           }}>
-                            {String.fromCharCode(65 + idx)}
+                            {idx + 1}
                           </div>
-                          {/* Label */}
                           <div style={{
-                            fontSize: 12, fontWeight: 500,
+                            fontSize: 12.5, fontWeight: 600,
                             lineHeight: 1.3,
-                            color: isCorrect ? '#4ade80' : isActive ? '#fbbf24' : '#e5e7eb',
+                            color: isCorrect ? C.mint : isActive ? C.brass : C.fg,
                             flex: 1,
                           }}>
                             {opt}
                           </div>
-                          {isCorrect && (
-                            <div style={{ fontSize: 10, color: '#4ade80', fontWeight: 700, flexShrink: 0 }}>✓</div>
-                          )}
                         </div>
                         {/* Outside tag: amount + ×4 */}
                         {isSel && (
@@ -450,13 +407,13 @@ export function BettingTableScreen() {
                           }}>
                             {bankBetAmt > 0 && (
                               <div style={{
-                                fontSize: 11, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
-                                color: isActive ? '#fbbf24' : '#a16207',
-                              }}>${bankBetAmt}</div>
+                                fontSize: 13, fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums',
+                                color: isActive ? C.brass : '#9a7630',
+                              }}>{bankBetAmt}</div>
                             )}
                             <div style={{
-                              fontSize: 10, fontWeight: 800, letterSpacing: '.04em',
-                              color: isActive ? '#fbbf24' : '#a16207',
+                              fontSize: 12, fontFamily: DISPLAY,
+                              color: isActive ? C.brass : '#9a7630',
                             }}>×4</div>
                           </div>
                         )}
@@ -473,30 +430,31 @@ export function BettingTableScreen() {
                         position: 'absolute', left: LOSE_LEFT, top: MAIN_TOP,
                         width: MAIN_W, height: MAIN_H, zIndex: 6,
                         borderRadius: 14,
-                        border: `2px dashed ${
-                          mainTarget === 'lose' && activeZone === 'main' ? '#f87171'
-                          : mainTarget === 'lose' ? '#dc2626'
-                          : 'rgba(248,113,113,0.32)'
+                        border: `2px ${mainTarget === 'lose' ? 'solid' : 'dashed'} ${
+                          mainTarget === 'lose' && activeZone === 'main' ? C.hot
+                          : mainTarget === 'lose' ? '#b8264b'
+                          : 'rgba(255,61,110,0.4)'
                         }`,
                         background: mainTarget === 'lose' && activeZone === 'main'
-                          ? 'rgba(127,29,29,0.5)'
+                          ? 'rgba(255,61,110,0.18)'
                           : mainTarget === 'lose'
-                          ? 'rgba(90,15,15,0.4)'
-                          : 'rgba(0,0,0,0.3)',
+                          ? 'rgba(255,61,110,0.08)'
+                          : 'rgba(8,17,14,0.45)',
                         cursor: 'pointer',
                         display: 'flex', flexDirection: 'column',
                         alignItems: 'center', justifyContent: 'center', gap: 3,
                         transition: 'border-color .18s, background .18s, box-shadow .18s',
                         boxShadow: mainTarget === 'lose' && activeZone === 'main'
-                          ? '0 0 22px rgba(248,113,113,0.32)' : 'none',
+                          ? '0 0 26px rgba(255,61,110,0.35)' : 'none',
                       }}
                       onClick={() => selectMainZone('lose')}
                     >
                       <div style={{
-                        fontSize: 14, fontWeight: 800, letterSpacing: '.04em',
-                        color: mainTarget === 'lose' ? '#f87171' : 'rgba(248,113,113,0.55)',
+                        fontFamily: DISPLAY, fontSize: 22,
+                        color: mainTarget === 'lose' ? C.hot : 'rgba(255,61,110,0.75)',
+                        opacity: mainTarget === 'lose' && mainBetAmt > 0 ? 0.3 : 1, transition: 'opacity .2s',
                       }}>
-                        💀 ОН ЗАВАЛИТ
+                        Завалит
                       </div>
                     </div>
                     {mainTarget === 'lose' && mainBetAmt > 0 && (
@@ -504,9 +462,9 @@ export function BettingTableScreen() {
                         position: 'absolute', left: LOSE_LEFT - 44, top: MAIN_TOP,
                         width: 38, height: MAIN_H, zIndex: 7, pointerEvents: 'none',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 11, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
-                        color: activeZone === 'main' ? '#f87171' : '#b91c1c',
-                      }}>${mainBetAmt}</div>
+                        fontSize: 14, fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums',
+                        color: activeZone === 'main' ? C.hot : '#b8264b',
+                      }}>{mainBetAmt}</div>
                     )}
                     {mainTarget === 'lose' && renderZoneChips(mainPlacedChips, LOSE_LEFT, MAIN_TOP, MAIN_W, MAIN_H)}
                   </div>
@@ -518,30 +476,31 @@ export function BettingTableScreen() {
                         position: 'absolute', left: WIN_LEFT, top: MAIN_TOP,
                         width: MAIN_W, height: MAIN_H, zIndex: 6,
                         borderRadius: 14,
-                        border: `2px dashed ${
-                          mainTarget === 'win' && activeZone === 'main' ? '#4ade80'
-                          : mainTarget === 'win' ? '#16a34a'
-                          : 'rgba(74,222,128,0.32)'
+                        border: `2px ${mainTarget === 'win' ? 'solid' : 'dashed'} ${
+                          mainTarget === 'win' && activeZone === 'main' ? C.mint
+                          : mainTarget === 'win' ? '#22a565'
+                          : 'rgba(62,224,143,0.4)'
                         }`,
                         background: mainTarget === 'win' && activeZone === 'main'
-                          ? 'rgba(20,83,45,0.5)'
+                          ? 'rgba(62,224,143,0.16)'
                           : mainTarget === 'win'
-                          ? 'rgba(10,55,25,0.4)'
-                          : 'rgba(0,0,0,0.3)',
+                          ? 'rgba(62,224,143,0.07)'
+                          : 'rgba(8,17,14,0.45)',
                         cursor: 'pointer',
                         display: 'flex', flexDirection: 'column',
                         alignItems: 'center', justifyContent: 'center', gap: 3,
                         transition: 'border-color .18s, background .18s, box-shadow .18s',
                         boxShadow: mainTarget === 'win' && activeZone === 'main'
-                          ? '0 0 22px rgba(74,222,128,0.32)' : 'none',
+                          ? '0 0 26px rgba(62,224,143,0.32)' : 'none',
                       }}
                       onClick={() => selectMainZone('win')}
                     >
                       <div style={{
-                        fontSize: 14, fontWeight: 800, letterSpacing: '.04em',
-                        color: mainTarget === 'win' ? '#4ade80' : 'rgba(74,222,128,0.55)',
+                        fontFamily: DISPLAY, fontSize: 22,
+                        color: mainTarget === 'win' ? C.mint : 'rgba(62,224,143,0.75)',
+                        opacity: mainTarget === 'win' && mainBetAmt > 0 ? 0.3 : 1, transition: 'opacity .2s',
                       }}>
-                        👍 ОН ОТВЕТИТ
+                        Ответит
                       </div>
                     </div>
                     {mainTarget === 'win' && mainBetAmt > 0 && (
@@ -549,9 +508,9 @@ export function BettingTableScreen() {
                         position: 'absolute', left: WIN_LEFT + MAIN_W + 6, top: MAIN_TOP,
                         width: 38, height: MAIN_H, zIndex: 7, pointerEvents: 'none',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 11, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
-                        color: activeZone === 'main' ? '#4ade80' : '#16a34a',
-                      }}>${mainBetAmt}</div>
+                        fontSize: 14, fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums',
+                        color: activeZone === 'main' ? C.mint : '#22a565',
+                      }}>{mainBetAmt}</div>
                     )}
                     {mainTarget === 'win' && renderZoneChips(mainPlacedChips, WIN_LEFT, MAIN_TOP, MAIN_W, MAIN_H)}
                   </div>
@@ -611,22 +570,13 @@ export function BettingTableScreen() {
         <AnimatePresence>
           {isKerriCrowd && !betConfirmed && mainTarget !== null && mainBetAmt > 0 && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.75 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.75 }}
-              transition={{ duration: 0.15 }}
-              style={{ position: 'absolute', left: FELT_CX - 18, top: MAIN_TOP + MAIN_H + 12, zIndex: 20 }}
+              initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+              style={{ position: 'absolute', left: FELT_CX, top: MAIN_TOP + MAIN_H + 14, zIndex: 20, translateX: '-50%' }}
             >
-              <motion.button
-                onClick={handleConfirm}
-                whileTap={{ background: '#166534', borderColor: '#4ade80', scale: 0.92 }}
-                style={{
-                  width: 36, height: 36, borderRadius: 8, border: '2px solid #16a34a',
-                  background: '#0f3d22', color: '#4ade80',
-                  fontSize: 22, cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >✓</motion.button>
+              <ConfirmButton amount={mainBetAmt + bankBetAmt} onClick={handleConfirm} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -635,26 +585,36 @@ export function BettingTableScreen() {
         <AnimatePresence>
           {!isGladiator && !isKerriCrowd && !betConfirmed && stdPlacedIds.size > 0 && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.75 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.75 }}
-              transition={{ duration: 0.15 }}
-              style={{ position: 'absolute', left: 697, top: 625, zIndex: 20 }}
+              initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+              style={{ position: 'absolute', left: FELT_CX + 70, top: 612, zIndex: 20 }}
             >
-              <motion.button
-                onClick={handleConfirm}
-                whileTap={{ background: '#166534', borderColor: '#4ade80', scale: 0.92 }}
-                style={{
-                  width: 36, height: 36, borderRadius: 8, border: '2px solid #16a34a',
-                  background: '#0f3d22', color: '#4ade80',
-                  fontSize: 22, cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >✓</motion.button>
+              <ConfirmButton amount={stdBetAmt} onClick={handleConfirm} />
             </motion.div>
           )}
         </AnimatePresence>
       </div>
     </div>
+  )
+}
+
+/** Подтвердить ставку: латунная плашка с суммой. */
+function ConfirmButton({ amount, onClick }: { amount: number; onClick: () => void }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.92 }}
+      style={{
+        height: 44, padding: '0 20px', borderRadius: 999, border: 'none', cursor: 'pointer',
+        background: C.brass, color: C.ink, whiteSpace: 'nowrap',
+        fontSize: 16, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 8,
+        boxShadow: '0 4px 0 #a87a17, 0 10px 24px rgba(0,0,0,.5)',
+      }}
+    >
+      Ставлю <span style={{ fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums' }}>{amount}</span>
+    </motion.button>
   )
 }

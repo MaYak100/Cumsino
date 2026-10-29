@@ -30,7 +30,7 @@ export default function App() {
   if (!gameState) return <JoinScreen />
 
   if (isLateJoiner) return (
-    <div style={{ height: '100vh', overflow: 'hidden', position: 'relative', background: '#060606' }}>
+    <div className="stage" style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <AnimatePresence>
         <motion.div key="late-join" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}>
           <LateJoinScreen />
@@ -71,7 +71,7 @@ export default function App() {
   }
 
   return (
-    <div style={{ height: '100vh', overflow: 'hidden', position: 'relative', background: '#060606' }}>
+    <div className="stage" style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <TableFelt blurred={phase !== 'BETTING'} />
       <AnimatePresence>
         <motion.div

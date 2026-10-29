@@ -1,4 +1,6 @@
+import { motion } from 'framer-motion'
 import { useGameStore, selectMe } from '../../store/gameStore'
+import { C } from '../../theme'
 
 /** «Кто ты» в лобби: назваться человеком из компании (для вопросов про друзей) или пропустить. */
 export function WhoAreYou() {
@@ -13,39 +15,37 @@ export function WhoAreYou() {
   const known = gameState.players.filter(p => p.friendId !== undefined).length
 
   return (
-    <div className="w-full max-w-sm mb-6">
-      <div className="text-xs uppercase tracking-widest mb-2 text-center" style={{ color: '#c4c9d4' }}>
-        Кто ты? <span className="normal-case tracking-normal">— для вопросов про компанию, можно пропустить</span>
-      </div>
-      <div className="flex flex-wrap justify-center gap-1.5">
+    <div className="w-full max-w-xl flex flex-col items-center gap-3">
+      <span className="text-sm text-center" style={{ color: C.muted }}>
+        Кто ты из компании? Для вопросов про своих, можно не выбирать
+      </span>
+      <div className="flex flex-wrap justify-center gap-2">
         {roster.map(f => {
           const mine = me.friendId === f.id
           const taken = takenBy.get(f.id)
           return (
-            <button
+            <motion.button
               key={f.id}
               disabled={!!taken}
+              whileTap={{ scale: 0.94 }}
               onClick={() => identify(mine ? null : f.id)}
               title={taken ? `уже выбрал ${taken}` : undefined}
-              className={`px-3 py-1.5 rounded-lg border text-sm transition-colors ${
-                mine ? 'border-yellow-400 bg-[#2a4a2a] text-yellow-400'
-                  : taken ? 'border-[#2a4a2a] text-gray-600 cursor-not-allowed'
-                    : 'border-[#3a6a3a] bg-[#1a3a1a] hover:border-yellow-600'}`}
-              style={mine || taken ? undefined : { color: '#e5e7eb' }}
+              className="px-3.5 h-10 rounded-full text-[15px] font-semibold transition-colors disabled:cursor-not-allowed"
+              style={{
+                background: mine ? C.brass : 'transparent',
+                color: mine ? C.ink : taken ? '#4b5a54' : C.fg,
+                border: `2px solid ${mine ? C.brass : C.line}`,
+                textDecoration: taken ? 'line-through' : undefined,
+              }}
             >
               {f.name}
-            </button>
+            </motion.button>
           )
         })}
-        {me.friendId !== undefined && (
-          <button onClick={() => identify(null)} className="px-3 py-1.5 rounded-lg text-sm" style={{ color: '#c4c9d4' }}>
-            не я ✕
-          </button>
-        )}
       </div>
-      <div className="text-[11px] mt-2 text-center" style={{ color: '#c4c9d4' }}>
-        {known >= 2 ? 'Вопросы про компанию включены' : `Вопросы про компанию — когда назовутся двое (сейчас ${known})`}
-      </div>
+      <span className="text-[13px] tnum" style={{ color: known >= 2 ? C.mint : C.muted }}>
+        {known >= 2 ? 'Вопросы про своих включены' : `Вопросы про своих включатся, когда назовутся двое (сейчас ${known})`}
+      </span>
     </div>
   )
 }

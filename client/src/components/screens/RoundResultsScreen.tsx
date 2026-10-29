@@ -1,83 +1,65 @@
 import { useState, useEffect } from 'react'
 import { motion, LayoutGroup } from 'framer-motion'
-import { useGameStore } from '../../store/gameStore'
 import { WIN_CHIPS } from '@cumsino/shared'
+import { useGameStore } from '../../store/gameStore'
+import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { RateQuestion } from '../ui/RateQuestion'
 
 type Phase = 1 | 2 | 3
+const TICKS = [500, 1000, 1500, 2000, 2500]
+const pct = (v: number) => Math.min(100, Math.max(0, (v / WIN_CHIPS) * 100))
+const EASE = [0.65, 0, 0.35, 1] as const
 
-function toPct(balance: number) {
-  return Math.min(100, Math.max(0, (balance / WIN_CHIPS) * 100))
-}
-
-function ProgressBar({ prevBalance, newBalance, phase }: {
-  prevBalance: number
-  newBalance: number
-  phase: Phase
-}) {
-  const prevPct = toPct(prevBalance)
-  const newPct = toPct(newBalance)
-  const isGain = newBalance > prevBalance
-  const isLoss = newBalance < prevBalance
-  const animating = phase >= 2
+/** Дорожка 0 → 3000: старый баланс латунью, прирост — мятой, потеря — малиновым хвостом. */
+function Track({ prev, next, phase, compact }: { prev: number; next: number; phase: Phase; compact: boolean }) {
+  const moving = phase >= 2
+  const gain = next > prev
+  const loss = next < prev
+  const end = moving ? next : prev
+  const h = compact ? 14 : 18
+  // число встаёт за концом закрашенного: при потере — за малиновым хвостом; у финиша — внутрь полосы
+  const labelAt = moving && loss ? prev : end
+  const inside = pct(labelAt) > 86
 
   return (
-    <div style={{ marginTop: 10 }}>
-      {/* Track */}
-      <div style={{ position: 'relative', height: 8, background: '#0d1f0d', borderRadius: 4, overflow: 'hidden' }}>
-        {/* Red underlayer — revealed as gold shrinks */}
-        {isLoss && (
-          <div style={{
-            position: 'absolute', left: 0, top: 0, height: '100%',
-            width: `${prevPct}%`, background: '#f87171', borderRadius: 4,
-          }} />
-        )}
-        {/* Gold fill */}
+    <div className="relative" style={{ height: h }}>
+      <div className="absolute inset-0 rounded" style={{
+        background: C.panel2,
+        backgroundImage: `repeating-linear-gradient(90deg, transparent 0 calc(${100 / 6}% - 1px), ${C.line} calc(${100 / 6}% - 1px) ${100 / 6}%)`,
+      }} />
+      {loss && (
+        <div className="absolute left-0 top-0 h-full rounded" style={{ width: `${pct(prev)}%`, background: C.hot }} />
+      )}
+      <motion.div
+        className="absolute left-0 top-0 h-full rounded"
+        style={{ background: `linear-gradient(90deg, #a87a17, ${C.brass})` }}
+        initial={false}
+        animate={{ width: `${pct(moving && loss ? next : prev)}%` }}
+        transition={{ duration: moving ? 0.9 : 0, ease: EASE }}
+      />
+      {gain && (
         <motion.div
-          style={{
-            position: 'absolute', left: 0, top: 0, height: '100%',
-            background: 'linear-gradient(90deg, #b45309, #fbbf24)',
-            borderRadius: isGain ? '4px 0 0 4px' : 4,
-          }}
-          animate={{ width: `${animating && isLoss ? newPct : prevPct}%` }}
-          transition={{ duration: animating ? 0.8 : 0, ease: 'easeInOut' }}
+          className="absolute top-0 h-full"
+          style={{ left: `${pct(prev)}%`, background: C.mint, borderRadius: '0 4px 4px 0', boxShadow: `0 0 14px ${C.mint}88` }}
+          initial={{ width: 0 }}
+          animate={{ width: moving ? `${pct(next) - pct(prev)}%` : 0 }}
+          transition={{ duration: 0.9, ease: EASE }}
         />
-        {/* Green extension */}
-        {isGain && (
-          <motion.div
-            style={{
-              position: 'absolute', top: 0, height: '100%',
-              left: `${prevPct}%`, background: '#4ade80', borderRadius: '0 4px 4px 0',
-            }}
-            initial={{ width: '0%' }}
-            animate={{ width: animating ? `${newPct - prevPct}%` : '0%' }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-          />
-        )}
-      </div>
-
-      {/* Marker + edge labels */}
-      <div style={{ position: 'relative', height: 22, overflow: 'visible' }}>
-        <span style={{ position: 'absolute', bottom: 0, left: 0, color: '#6b7280', fontSize: 9 }}>0</span>
-        <span style={{ position: 'absolute', bottom: 0, right: 0, color: '#6b7280', fontSize: 9 }}>3000</span>
-        <motion.div
-          style={{ position: 'absolute', top: 2 }}
-          animate={{ left: `${animating ? newPct : prevPct}%` }}
-          transition={{ duration: animating ? 0.8 : 0, ease: 'easeInOut' }}
-        >
-          <div style={{ transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{
-              width: 0, height: 0,
-              borderLeft: '4px solid transparent',
-              borderRight: '4px solid transparent',
-              borderBottom: '6px solid #fbbf24',
-            }} />
-            <div style={{ color: '#fbbf24', fontSize: 9, fontWeight: 700, marginTop: 1, whiteSpace: 'nowrap' }}>
-              {animating ? newBalance : prevBalance}
-            </div>
-          </div>
-        </motion.div>
-      </div>
+      )}
+      <motion.div
+        className="absolute top-0 h-full flex items-center"
+        initial={false}
+        animate={{ left: `${pct(labelAt)}%` }}
+        transition={{ duration: moving && !loss ? 0.9 : 0, ease: EASE }}
+      >
+        <span className="tnum whitespace-nowrap" style={{
+          fontFamily: DISPLAY, fontSize: compact ? 12 : 14,
+          transform: inside ? 'translateX(calc(-100% - 6px))' : 'translateX(8px)',
+          color: inside ? C.ink : C.fg,
+        }}>
+          {end}
+        </span>
+      </motion.div>
     </div>
   )
 }
@@ -91,95 +73,22 @@ interface RowEntry {
   prevBalance: number
 }
 
-const RANK_COLORS = ['#fbbf24', '#d1d5db', '#cd7f32']
-
-function rankColor(rank: number) {
-  return rank <= 3 ? RANK_COLORS[rank - 1] : '#9ca3af'
-}
-
-function PlayerRow({ entry, isMe, phase, enterDelay, compact, rank }: {
-  entry: RowEntry
-  isMe: boolean
-  phase: Phase
-  enterDelay: number
-  compact: boolean
-  rank: number
-}) {
-  const isGain = entry.delta > 0
-
-  return (
-    <motion.div
-      layout
-      layoutId={entry.playerId}
-      initial={{ opacity: 0, x: -12 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.35, delay: enterDelay, layout: { duration: 0.5, ease: 'easeInOut' } }}
-      className={`rounded-xl border ${isMe ? 'border-yellow-400 bg-[#2a4a2a]' : 'border-[#3a6a3a] bg-[#1a3a1a]'}`}
-      style={{ padding: compact ? '8px 12px 6px' : '10px 14px 8px' }}
-    >
-      {/* Name + total delta */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 2 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-          <span style={{ color: rankColor(rank), fontWeight: 700, fontSize: compact ? 11 : 12, minWidth: 16 }}>
-            {rank}.
-          </span>
-          <span style={{
-            color: '#fbbf24', fontWeight: 700,
-            fontSize: compact ? 13 : 14,
-          }}>
-            {entry.name}{isMe && ' (ты)'}
-          </span>
-        </div>
-        {entry.delta !== 0 && (
-          <span style={{
-            color: isGain ? '#4ade80' : '#f87171',
-            fontWeight: 700,
-            fontSize: compact ? 13 : 15,
-            fontVariantNumeric: 'tabular-nums',
-          }}>
-            {isGain ? '+' : ''}{entry.delta}
-          </span>
-        )}
-      </div>
-
-      {/* Sources */}
-      {entry.sources.map((s, i) => (
-        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 1 }}>
-          <span style={{ color: s.delta >= 0 ? '#4ade80' : '#f87171' }}>
-            {s.delta >= 0 ? '✓' : '✗'} {s.label}
-          </span>
-          {entry.sources.length > 1 && (
-            <span style={{ color: s.delta >= 0 ? '#4ade80' : '#f87171', fontVariantNumeric: 'tabular-nums' }}>
-              {s.delta > 0 ? '+' : ''}{s.delta}
-            </span>
-          )}
-        </div>
-      ))}
-
-      <ProgressBar
-        prevBalance={entry.prevBalance}
-        newBalance={entry.newBalance}
-        phase={phase}
-      />
-    </motion.div>
-  )
-}
+const ROW_GRID = 'grid grid-cols-[30px_1fr_76px] sm:grid-cols-[30px_200px_1fr_84px] items-center gap-x-3 sm:gap-x-5'
 
 export function RoundResultsScreen() {
   const gameState = useGameStore(s => s.gameState)!
   const roundResults = useGameStore(s => s.roundResults)
+  const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
   const myId = useGameStore(s => s.myId)
-
   const [phase, setPhase] = useState<Phase>(1)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase(2), 1500)
-    const t2 = setTimeout(() => setPhase(3), 3500)
+    const t1 = setTimeout(() => setPhase(2), 1200)
+    const t2 = setTimeout(() => setPhase(3), 3200)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
   const playerMap = new Map(gameState.players.map(p => [p.id, p]))
-
   const entries: RowEntry[] = roundResults.flatMap(r => {
     const player = playerMap.get(r.playerId)
     if (!player) return []
@@ -192,60 +101,115 @@ export function RoundResultsScreen() {
       prevBalance: player.chips - r.delta,
     }]
   })
-
   const sorted = [...entries].sort((a, b) =>
-    phase >= 3 ? b.newBalance - a.newBalance : b.prevBalance - a.prevBalance
-  )
-
-  const twoCol = entries.length > 5
-  const compact = twoCol
+    phase >= 3 ? b.newBalance - a.newBalance : b.prevBalance - a.prevBalance)
+  const compact = entries.length > 6
+  const color = modeColor(gameState.mode)
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-5 px-4">
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-        className="text-yellow-400 font-bold tracking-wide mb-1"
-        style={{ fontSize: 22 }}
-      >
-        ИТОГИ РАУНДА
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.15 }}
-        className="text-gray-500 mb-4"
-        style={{ fontSize: 11 }}
-      >
-        Раунд {gameState.roundIndex}
-      </motion.div>
+    <div className="min-h-screen flex flex-col items-center px-4 sm:px-8 pt-8 pb-10">
+      <div className="w-full flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-6" style={{ maxWidth: 980 }}>
+        <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-4">
+          <span style={{ fontFamily: DISPLAY, fontSize: 'clamp(30px, 4vw, 44px)', lineHeight: 1 }}>
+            Раунд {gameState.roundIndex}
+          </span>
+          <span style={{
+            fontFamily: DISPLAY, fontSize: 14, color: C.ink, background: color,
+            padding: '4px 10px 5px', borderRadius: 4, transform: 'rotate(-3deg)', display: 'inline-block',
+          }}>
+            {MODE[gameState.mode]?.short}
+          </span>
+        </motion.div>
+        {roundCorrectAnswer !== null && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+            className="text-[15px] max-w-full sm:max-w-[50%] truncate" style={{ color: C.muted }}>
+            Ответ <b style={{ color: C.mint }}>{String(roundCorrectAnswer)}</b>
+          </motion.div>
+        )}
+      </div>
 
-
-      <LayoutGroup>
-        <div style={{
-          width: '100%',
-          maxWidth: twoCol ? 860 : 460,
-          display: twoCol ? 'grid' : 'flex',
-          gridTemplateColumns: twoCol ? '1fr 1fr' : undefined,
-          flexDirection: twoCol ? undefined : 'column',
-          gap: 8,
-        }}>
-          {sorted.map((entry, i) => (
-            <PlayerRow
-              key={entry.playerId}
-              entry={entry}
-              isMe={entry.playerId === myId}
-              phase={phase}
-              enterDelay={i * 0.06}
-              compact={compact}
-              rank={i + 1}
-            />
-          ))}
+      <div className="w-full" style={{ maxWidth: 980 }}>
+        {/* ось */}
+        <div className={`${ROW_GRID} mb-2`} style={{ padding: compact ? '0 12px' : '0 14px' }}>
+          <span />
+          <span className="hidden sm:block" />
+          <div className="relative h-5 col-span-2 sm:col-span-1 text-[11px] tnum" style={{ color: C.muted }}>
+            <span className="absolute left-0">0</span>
+            {TICKS.map(t => (
+              <span key={t} className="absolute -translate-x-1/2" style={{ left: `${pct(t)}%` }}>{t}</span>
+            ))}
+            <span className="absolute right-0 font-bold flex items-center gap-1.5" style={{ color: C.fg }}>
+              <span style={{ width: 10, height: 10, background: `repeating-conic-gradient(${C.fg} 0 25%, ${C.bg} 0 50%) 0 0 / 5px 5px` }} />
+              {WIN_CHIPS}
+            </span>
+          </div>
+          <span className="hidden sm:block" />
         </div>
-      </LayoutGroup>
 
-      <RateQuestion />
+        <LayoutGroup>
+          <div className="flex flex-col" style={{ gap: compact ? 4 : 8 }}>
+            {sorted.map((e, i) => {
+              const me = e.playerId === myId
+              const rank = i + 1
+              return (
+                <motion.div
+                  key={e.playerId}
+                  layout
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.05, layout: { duration: 0.55, ease: EASE } }}
+                  className={`${ROW_GRID} rounded-xl gap-y-2`}
+                  style={{
+                    padding: compact ? '6px 12px' : '10px 14px',
+                    background: me ? `${C.brass}14` : 'transparent',
+                    boxShadow: me ? `inset 3px 0 0 ${C.brass}` : 'none',
+                  }}
+                >
+                  <span className="tnum order-1" style={{
+                    fontFamily: DISPLAY, fontSize: compact ? 15 : 18,
+                    color: phase >= 3 && rank === 1 ? C.brass : C.muted,
+                  }}>
+                    {rank}
+                  </span>
+                  <div className="order-2 min-w-0">
+                    <div className="font-bold truncate" style={{ fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
+                      {me ? 'Ты' : e.name}
+                    </div>
+                    {e.sources.length > 0 && (
+                      <div className="flex flex-wrap gap-x-3 text-[12px] leading-tight mt-0.5">
+                        {e.sources.map((s, si) => (
+                          <span key={si} style={{ color: s.delta >= 0 ? C.mint : C.hot }}>
+                            {s.label}{e.sources.length > 1 && <span className="tnum"> {s.delta > 0 ? '+' : ''}{s.delta}</span>}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="order-4 sm:order-3 col-span-3 sm:col-span-1">
+                    <Track prev={e.prevBalance} next={e.newBalance} phase={phase} compact={compact} />
+                  </div>
+                  <motion.span
+                    className="order-3 sm:order-4 text-right tnum"
+                    initial={{ opacity: 0, scale: 1.5 }}
+                    animate={phase >= 2 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.5 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 18, delay: 0.5 + i * 0.04 }}
+                    style={{
+                      fontFamily: DISPLAY, fontSize: compact ? 18 : 24,
+                      color: e.delta > 0 ? C.mint : e.delta < 0 ? C.hot : C.muted,
+                    }}
+                  >
+                    {e.delta > 0 ? '+' : e.delta < 0 ? '−' : ''}{Math.abs(e.delta)}
+                  </motion.span>
+                </motion.div>
+              )
+            })}
+          </div>
+        </LayoutGroup>
+      </div>
+
+      <div className="w-full flex justify-center mt-10">
+        <RateQuestion delay={0.8} />
+      </div>
     </div>
   )
 }

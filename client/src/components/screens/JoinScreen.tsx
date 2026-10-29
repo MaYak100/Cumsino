@@ -1,61 +1,71 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
+import { C, DISPLAY } from '../../theme'
+import { Logo } from '../ui/Logo'
+
+const field = 'w-full rounded-xl px-4 focus:outline-none transition-colors'
 
 export function JoinScreen() {
   const [name, setName] = useState('')
   const [code, setCode] = useState('')
   const connect = useGameStore(s => s.connect)
+  const ready = !!name.trim() && code.length >= 4
 
   function handleJoin(e: React.FormEvent) {
     e.preventDefault()
-    if (!name.trim() || !code.trim()) return
+    if (!ready) return
     connect(name.trim(), code.trim().toUpperCase())
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="stage min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-5xl text-yellow-400 text-center mb-2 font-serif" style={{
-          textShadow: '0 0 30px rgba(255,215,0,0.5)'
-        }}>
-          ♠ CUMSINO ♠
-        </h1>
-        <form onSubmit={handleJoin} className="space-y-4">
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">
-              Твоё имя
-            </label>
+        <div className="text-center mb-14">
+          <Logo size={60} animated />
+        </div>
+
+        <form onSubmit={handleJoin} className="flex flex-col gap-4">
+          <label className="block">
+            <span className="block text-sm mb-1.5" style={{ color: C.muted }}>Имя</span>
             <input
               type="text"
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={20}
-              placeholder="Введи имя"
-              className="w-full bg-[#2a4a2a] border border-[#3a6a3a] rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400"
+              placeholder="Как тебя звать"
+              autoFocus
+              className={`${field} h-14 text-lg font-semibold`}
+              style={{ background: C.panel, border: `2px solid ${C.line}`, color: C.fg }}
             />
-          </div>
+          </label>
 
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">
-              Код комнаты
-            </label>
+          <label className="block">
+            <span className="block text-sm mb-1.5" style={{ color: C.muted }}>Код комнаты</span>
             <input
               type="text"
               value={code}
-              onChange={e => setCode(e.target.value.toUpperCase())}
+              onChange={e => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
               maxLength={4}
               placeholder="XXXX"
-              className="w-full bg-[#2a4a2a] border border-[#3a6a3a] rounded-lg px-4 py-3 text-white placeholder-gray-500 font-mono text-center text-2xl tracking-widest focus:outline-none focus:border-yellow-400"
+              autoComplete="off"
+              className={`${field} h-20 text-center`}
+              style={{
+                background: C.panel, border: `2px solid ${C.line}`, color: C.fg,
+                fontFamily: DISPLAY, fontSize: 40, letterSpacing: '0.3em', paddingLeft: '0.3em',
+              }}
             />
-          </div>
+          </label>
 
-          <button
+          <motion.button
             type="submit"
-            disabled={!name.trim() || code.length < 4}
-            className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold py-3 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 transition-all"
+            disabled={!ready}
+            whileTap={{ scale: 0.96 }}
+            className="mt-2 h-14 rounded-xl font-bold text-lg disabled:opacity-35 transition-opacity"
+            style={{ background: C.brass, color: C.ink }}
           >
-            ВОЙТИ В ИГРУ
-          </button>
+            Войти
+          </motion.button>
         </form>
       </div>
     </div>

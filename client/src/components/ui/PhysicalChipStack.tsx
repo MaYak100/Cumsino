@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import type { ChipValue } from './Chip'
 import type { PhysicalChip } from '../../types/chips'
+import { chipStyle } from '../../lib/chipStyle'
 
 interface Props {
   chips: PhysicalChip[]
@@ -11,18 +12,10 @@ interface Props {
   size?: 'sm' | 'md'
 }
 
-const CHIP_PX = { sm: 20, md: 28 } as const
+const CHIP_PX = { sm: 22, md: 32 } as const
 const STEP_PX = { sm: 5, md: 6 } as const
 
 const DENOM_ORDER: ChipValue[] = [500, 100, 50, 20, 10]
-
-const CHIP_COLORS: Record<ChipValue, string> = {
-  10:  'bg-gradient-to-br from-gray-200 to-gray-500 text-gray-900 border-gray-300/40',
-  20:  'bg-gradient-to-br from-green-400 to-green-700 text-white border-green-300/40',
-  50:  'bg-gradient-to-br from-blue-400 to-blue-700 text-white border-blue-300/40',
-  100: 'bg-gradient-to-br from-red-400 to-red-700 text-white border-red-300/40',
-  500: 'bg-gradient-to-br from-gray-700 to-black text-yellow-400 border-yellow-600/30',
-}
 
 export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick, size = 'md' }: Props) {
   const px = CHIP_PX[size]
@@ -54,19 +47,11 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
         const unplaced = group.filter(c => !(placedIds?.has(c.id) ?? false))
 
         const inner = unplaced.map((chip, i) => {
-          const wrapperClass = [
-            CHIP_COLORS[denom],
-            'rounded-full border flex items-center justify-center font-bold select-none',
-            'shadow-[0_3px_8px_rgba(0,0,0,0.7)]',
-          ].join(' ')
-
           const wrapperStyle: React.CSSProperties = {
+            ...chipStyle(denom, px),
             position: 'absolute',
-            width: px,
-            height: px,
             bottom: i * step,
             zIndex: i + 1,
-            fontSize: size === 'sm' ? 8 : 10,
           }
 
           if (interactive) {
@@ -74,8 +59,7 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
               <motion.div
                 key={chip.id}
                 layoutId={chip.id}
-                className={wrapperClass}
-                style={{ ...wrapperStyle, borderRadius: '50%' }}
+                style={wrapperStyle}
               >
                 {denom}
               </motion.div>
@@ -85,7 +69,6 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
           return (
             <div
               key={chip.id}
-              className={wrapperClass}
               style={wrapperStyle}
             >
               {denom}
@@ -98,7 +81,8 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
             <motion.div
               key={denom}
               style={containerStyle}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.92 }}
               transition={{ type: 'spring', stiffness: 300, damping: 28 }}
               onClick={() => onDenomClick!(denom)}
             >

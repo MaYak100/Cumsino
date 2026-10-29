@@ -9,6 +9,20 @@ import type {
   BribePromptPayload, BribeMsgPayload,
 } from '@cumsino/shared'
 
+export interface QuestionRating {
+  questionId: string
+  score: number | null
+  difficulty: number | null
+}
+
+/** Отправить оценку, если что-то выбрано. Сервер принимает оценку только последнего посчитанного вопроса —
+ *  он остаётся «оцениваемым» до конца следующего вопроса, так что отправка на ANNOUNCE успевает. */
+function flushRating(r: QuestionRating | null) {
+  if (r && (r.score !== null || r.difficulty !== null)) {
+    socket.emit('rate_question', { questionId: r.questionId, score: r.score, difficulty: r.difficulty })
+  }
+}
+
 interface GameStore {
   gameState: GameState | null
   myId: string | null
@@ -27,6 +41,8 @@ interface GameStore {
   isLateJoiner: boolean
   bribePrompt: { amount: number; startedAt: number; cycleIndex: number } | null
   bribeEliminatedIdx: number | null
+  /** Своя оценка вопроса раунда — живёт от раскрытия ответа до следующего раунда, отправляется один раз */
+  rating: QuestionRating | null
 
   payBribe: () => void
 
@@ -39,15 +55,27 @@ interface GameStore {
   identify: (friendId: number | null) => void
   /** Оценка вопроса раунда: score −2…+2 (без 0), difficulty −1 легко / +1 сложно; null — снять */
   rateQuestion: (questionId: string, vote: { score?: number | null; difficulty?: number | null }) => void
+  /** Поменять свою оценку (повторный выбор того же значения снимает его) */
+  setRating: (questionId: string, patch: { score?: number | null; difficulty?: number | null }) => void
   reset: () => void
 }
 
-export const useGameStore = create<GameStore>((set) => {
+export const useGameStore = create<GameStore>((set, get) => {
+  // вкладку закрыли посреди итогов — оценка не должна пропасть
+  window.addEventListener('pagehide', () => flushRating(get().rating))
+
   socket.on('connect', () => {
     set({ myId: socket.id ?? null })
   })
 
   socket.on('game_state', (state: GameState) => {
+    const { rating, gameState: before } = get()
+    const roundOver = state.phase === 'ANNOUNCE' || state.phase === 'GAME_OVER' || state.phase === 'LOBBY'
+      || (before !== null && state.roundIndex !== before.roundIndex)
+    if (rating && roundOver) {
+      flushRating(rating)
+      set({ rating: null })
+    }
     set(prev => {
       const newRound =
         prev.gameState !== null && state.roundIndex !== prev.gameState.roundIndex
@@ -165,6 +193,7 @@ export const useGameStore = create<GameStore>((set) => {
     isLateJoiner: false,
     bribePrompt: null,
     bribeEliminatedIdx: null,
+    rating: null,
 
     connect(name, gameCode) {
       if (!socket.connected) socket.connect()
@@ -195,6 +224,18 @@ export const useGameStore = create<GameStore>((set) => {
       socket.emit('rate_question', { questionId, ...vote })
     },
 
+    setRating(questionId, patch) {
+      set(prev => {
+        const cur = prev.rating?.questionId === questionId
+          ? prev.rating
+          : { questionId, score: null, difficulty: null }
+        const next = { ...cur }
+        if (patch.score !== undefined) next.score = cur.score === patch.score ? null : patch.score
+        if (patch.difficulty !== undefined) next.difficulty = cur.difficulty === patch.difficulty ? null : patch.difficulty
+        return { rating: next }
+      })
+    },
+
     reset() {
       set({
         gameState: null,
@@ -214,6 +255,7 @@ export const useGameStore = create<GameStore>((set) => {
         isLateJoiner: false,
         bribePrompt: null,
         bribeEliminatedIdx: null,
+        rating: null,
       })
       socket.disconnect()
     },

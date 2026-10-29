@@ -1,158 +1,97 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, type CSSProperties } from 'react'
+import { motion } from 'framer-motion'
 import { useGameStore } from '../../store/gameStore'
-
-const MODE_NAMES: Record<string, string> = {
-  all:     'ВОПРОС ДЛЯ ВСЕХ',
-  kerri:   'КЕРРИ',
-  closest: 'КТО БЛИЖЕ',
-  top5:    'ТОП 5',
-}
-
-const MODE_DESCRIPTIONS: Record<string, string> = {
-  all:     'Ставьте ставки на себя. Если ответите, а другие — нет, то поделите их ставки.',
-  kerri:   'Случайно выбирается керри. Он будет отвечать на вопрос. Вы видите вопрос и ставите на исход.',
-  closest: 'Без ставок. Просто кто угадает число ближе остальных — забирает банк.',
-  top5:    'Назови пятёрку',
-}
-
-// Spring preset that gives snappy entry without overshoot (no brightness flicker)
-const SPRING = { type: 'spring' as const, stiffness: 220, damping: 28 }
+import { C, DISPLAY, MODE, modeColor } from '../../theme'
+import { GameHud } from '../ui/GameHud'
+import { Sticker } from '../ui/Sticker'
 
 const seenModes = new Set<string>()
 
+/** Анонс раунда: режим во весь экран → поверх него с размаху клеится стикер темы. */
 export function AnnounceScreen() {
   const gameState = useGameStore(s => s.gameState)!
-  const [step, setStep] = useState<'mode' | 'topic'>('mode')
+  const [topicShown, setTopicShown] = useState(false)
 
   useEffect(() => {
-    setStep('mode')
+    setTopicShown(false)
+    // новый режим — дольше, чтобы успели прочитать правила
     const isFirst = !seenModes.has(gameState.mode)
     seenModes.add(gameState.mode)
-    const t = setTimeout(() => setStep('topic'), isFirst ? 7000 : 5000)
+    const t = setTimeout(() => setTopicShown(true), isFirst ? 5200 : 3000)
     return () => clearTimeout(t)
-  }, [gameState.phase])
+  }, [gameState.phase, gameState.roundIndex])
 
-  const modeName = MODE_NAMES[gameState.mode] ?? gameState.mode
-  const modeDesc = MODE_DESCRIPTIONS[gameState.mode] ?? ''
-  const topic = gameState.currentQuestion?.displayTopic ?? gameState.currentQuestion?.topic ?? ''
+  const mode = MODE[gameState.mode]
+  const color = modeColor(gameState.mode)
+  const q = gameState.currentQuestion
+  const topic = q?.displayTopic ?? q?.topic ?? ''
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 32,
-      textAlign: 'center',
-    }}>
-      <AnimatePresence mode="wait">
+    <div className="min-h-screen flex flex-col overflow-hidden">
+      <GameHud />
 
-        {step === 'mode' && (
+      <motion.div
+        className="flex-1 flex flex-col items-center justify-center px-6 pb-[8vh] relative"
+        animate={topicShown ? { x: [0, -14, 11, -6, 3, 0], y: [0, 6, -4, 2, 0, 0] } : { x: 0, y: 0 }}
+        transition={{ duration: 0.38, delay: 0.09 }}
+      >
+        {/* режим */}
+        <motion.div
+          animate={topicShown
+            ? { opacity: 0.6, scale: 0.96 }
+            : { opacity: 1, scale: 1 }}
+          transition={{ duration: 0.25, delay: topicShown ? 0.08 : 0 }}
+          className="flex flex-col items-center text-center"
+        >
           <motion.div
-            key="mode"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -24, transition: { duration: 0.4 } }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', willChange: 'transform' }}
+            initial={{ x: '-60vw', skewX: 18, opacity: 0 }}
+            animate={{ x: 0, skewX: 0, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 24, delay: 0.15 }}
+            style={{
+              fontFamily: DISPLAY, color, lineHeight: 1, rotate: '-3deg',
+              fontSize: 'clamp(54px, 10vw, 150px)',
+              textShadow: `0 0 60px ${color}55`,
+              textWrap: 'balance',
+            } as CSSProperties}
           >
-            {/* Label */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0, duration: 0.45 }}
-              style={{
-                fontSize: 12, textTransform: 'uppercase',
-                letterSpacing: '0.22em', color: '#c4c9d4',
-                marginBottom: 24,
-              }}
-            >
-              Режим
-            </motion.div>
-
-            {/* Mode name */}
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, ...SPRING }}
-              style={{
-                fontSize: 58,
-                fontWeight: 900,
-                color: '#fbbf24',
-                letterSpacing: '0.04em',
-                lineHeight: 1,
-                textShadow: '0 0 80px rgba(251,191,36,0.35)',
-                marginBottom: 30,
-                willChange: 'transform',
-              }}
-            >
-              {modeName}
-            </motion.div>
-
-            {/* Description */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.55, duration: 0.5 }}
-              style={{
-                fontSize: 16,
-                color: '#c4c9d4',
-                maxWidth: 460,
-                lineHeight: 1.65,
-              }}
-            >
-              {modeDesc}
-            </motion.div>
+            {mode?.name ?? gameState.mode}
           </motion.div>
-        )}
 
-        {step === 'topic' && (
-          <motion.div
-            key="topic"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -24, transition: { duration: 0.4 } }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          {/* гаснет, но держит место — режим не прыгает, когда прилетает тема */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={topicShown ? { opacity: 0, y: 0 } : { opacity: 1, y: 0 }}
+            transition={topicShown ? { duration: 0.12 } : { delay: 0.75, duration: 0.4 }}
+            className="mt-10 text-lg sm:text-xl leading-relaxed"
+            style={{ color: C.fg, maxWidth: 560 }}
           >
-            {/* Label */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10, transition: { duration: 0.3 } }}
-              transition={{ delay: 0, duration: 0.45 }}
-              style={{
-                fontSize: 12, textTransform: 'uppercase',
-                letterSpacing: '0.22em', color: '#c4c9d4',
-                marginBottom: 24,
-              }}
-            >
-              Тема
-            </motion.div>
+            {mode?.desc}
+          </motion.p>
+        </motion.div>
 
-            {/* Topic name */}
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20, transition: { duration: 0.35 } }}
-              transition={{ delay: 1.2, ...SPRING }}
-              style={{
-                fontSize: 54,
-                fontWeight: 900,
-                color: '#fbbf24',
-                letterSpacing: '0.04em',
-                lineHeight: 1,
-                textShadow: '0 0 80px rgba(251,191,36,0.35)',
-                willChange: 'transform',
-              }}
+        {/* тема — стикер поверх режима */}
+        {topicShown && topic && (
+          // ниже центра: стикер ложится на нижнюю половину надписи режима, верх режима торчит
+          <div className="absolute inset-0 flex items-center justify-center px-6 pb-[8vh] pointer-events-none"
+            style={{ paddingTop: 'clamp(60px, 9vw, 150px)' }}>
+            <Sticker
+              seed={`${q?.id}-topic`}
+              slam
+              rotate={gameState.roundIndex % 2 ? 3.5 : -4}
+              jag={9}
+              padding="clamp(14px, 2vw, 26px) clamp(22px, 3vw, 44px)"
+              style={{ maxWidth: 'min(900px, 88vw)' }}
             >
-              {topic}
-            </motion.div>
-
-          </motion.div>
+              <div style={{
+                fontFamily: DISPLAY, fontSize: 'clamp(34px, 6vw, 86px)', lineHeight: 1,
+                textAlign: 'center', textWrap: 'balance',
+              } as CSSProperties}>
+                {topic}
+              </div>
+            </Sticker>
+          </div>
         )}
-
-      </AnimatePresence>
+      </motion.div>
     </div>
   )
 }

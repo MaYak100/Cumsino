@@ -134,7 +134,7 @@ const FRIEND_ROSTER = [
 
 function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = {}): GameState {
   return {
-    id: 'dev-room',
+    id: 'KX7Q',
     phase,
     roundIndex: 2,
     lastMainMode: 'all',
@@ -405,7 +405,10 @@ export const SCENARIOS: Scenario[] = [
     Screen: ClosestScreen,
     state: {
       myId: MY_ID,
-      gameState: base('QUESTION', 'closest', { currentQuestion: CN_QUESTION, players: BET_PLAYERS }),
+      gameState: base('QUESTION', 'closest', {
+        currentQuestion: CN_QUESTION,
+        players: BET_PLAYERS.map((p, i) => ({ ...p, hasAnswered: true, answer: [2400, 1900, 2250, 3100][i] })),
+      }),
       roundCorrectAnswer: 2250,
     },
   },
@@ -530,6 +533,7 @@ export const SCENARIOS: Scenario[] = [
       myId: MY_ID,
       gameState: base('REVEAL', 'kerri', {
         gladiatorId: 'dev-2',
+        currentQuestion: MC_QUESTION,
         players: [
           { id: 'dev-1', name: 'Ты',     chips: 880, currentBet: 100, hasAnswered: true, betTarget: 'win'  },
           { id: 'dev-2', name: 'Артём',  chips: 800, currentBet: 0,   hasAnswered: true, answer: MC_QUESTION.options[0] },
@@ -556,6 +560,7 @@ export const SCENARIOS: Scenario[] = [
     state: {
       myId: MY_ID,
       gameState: base('REVEAL', 'closest', {
+        currentQuestion: CN_QUESTION,
         players: [
           { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0, hasAnswered: true, answer: 2300 },
           { id: 'dev-2', name: 'Артём',  chips: 350, currentBet: 0, hasAnswered: true, answer: 2100 },
@@ -582,6 +587,7 @@ export const SCENARIOS: Scenario[] = [
     state: {
       myId: MY_ID,
       gameState: base('REVEAL', 'all', {
+        currentQuestion: MC_QUESTION,
         players: [
           { id: 'dev-1',  name: 'Ты',     chips: 780, currentBet: 100, hasAnswered: true },
           { id: 'dev-2',  name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: true },

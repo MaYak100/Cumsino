@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { chipScatter } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
-import type { ChipValue } from './Chip'
+import { chipStyle } from '../../lib/chipStyle'
+import { C, DISPLAY } from '../../theme'
 
 interface Props {
   cx: number
@@ -11,17 +12,9 @@ interface Props {
   onRecall?: (id: string) => void
 }
 
-const CHIP_PX = 28
+const CHIP_PX = 30
 const SCATTER_XY = 15
 const UNIT_OFFSET = 16 // shift chips up so (cx,cy) is center of chips+label block
-
-const CHIP_COLORS: Record<ChipValue, string> = {
-  10:  'bg-gradient-to-br from-gray-200 to-gray-500 text-gray-900 border-gray-300/40',
-  20:  'bg-gradient-to-br from-green-400 to-green-700 text-white border-green-300/40',
-  50:  'bg-gradient-to-br from-blue-400 to-blue-700 text-white border-blue-300/40',
-  100: 'bg-gradient-to-br from-red-400 to-red-700 text-white border-red-300/40',
-  500: 'bg-gradient-to-br from-gray-700 to-black text-yellow-400 border-yellow-600/30',
-}
 
 export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
   const total = chips.reduce((s, c) => s + c.denom, 0)
@@ -29,21 +22,21 @@ export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
   const totalLabel = total > 0 ? (
     <div style={{
       position: 'absolute',
-      left: cx - 22,
+      left: cx - 30,
       top: cy - UNIT_OFFSET + 38,
-      width: 44,
+      width: 60,
       textAlign: 'center',
-      fontSize: 13,
-      fontWeight: 700,
-      color: '#e5e7eb',
+      fontSize: 14,
+      fontFamily: DISPLAY,
+      color: C.fg,
       fontVariantNumeric: 'tabular-nums',
-      background: 'rgba(0,0,0,0.55)',
-      borderRadius: 6,
-      padding: '1px 4px',
+      background: 'rgba(12,21,19,0.75)',
+      borderRadius: 999,
+      padding: '2px 6px',
       pointerEvents: 'none',
       zIndex: 15,
     }}>
-      ${total}
+      {total}
     </div>
   ) : null
 
@@ -65,10 +58,7 @@ export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.25, delay: i * 0.04 }}
               >
-                <div
-                  className={`${CHIP_COLORS[chip.denom]} rounded-full border flex items-center justify-center font-bold select-none shadow-[0_3px_12px_rgba(0,0,0,0.8)]`}
-                  style={{ width: CHIP_PX, height: CHIP_PX, fontSize: 10 }}
-                >
+                <div style={chipStyle(chip.denom, CHIP_PX)}>
                   {chip.denom}
                 </div>
               </motion.div>
@@ -90,13 +80,8 @@ export function BetZone({ cx, cy, chips, mine, onRecall }: Props) {
 
         const inner = (
           <div
-            className={`
-              ${CHIP_COLORS[chip.denom]}
-              rounded-full border flex items-center justify-center font-bold select-none
-              shadow-[0_3px_12px_rgba(0,0,0,0.8)]
-              cursor-pointer hover:scale-110 hover:-translate-y-1 transition-transform
-            `}
-            style={{ width: CHIP_PX, height: CHIP_PX, fontSize: 10 }}
+            className="cursor-pointer hover:scale-110 hover:-translate-y-1 transition-transform"
+            style={chipStyle(chip.denom, CHIP_PX)}
             onClick={() => onRecall?.(chip.id)}
           >
             {chip.denom}

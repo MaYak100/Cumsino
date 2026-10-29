@@ -1,50 +1,43 @@
 import { useEffect, useRef, useState } from 'react'
+import { C, DISPLAY } from '../../theme'
 
 interface TimerProps {
   seconds: number
+  color?: string
+  size?: number
 }
 
-export function Timer({ seconds }: TimerProps) {
+/** Кольцо-таймер (на столе). ≤5с — малиновый, без пульсации. */
+export function Timer({ seconds, color = C.brass, size = 56 }: TimerProps) {
   const [current, setCurrent] = useState(seconds)
   const maxRef = useRef(seconds)
 
   useEffect(() => {
-    if (seconds > current) maxRef.current = seconds
+    if (seconds > maxRef.current) maxRef.current = seconds
     setCurrent(seconds)
     const id = setInterval(() => setCurrent(p => Math.max(0, p - 1)), 1000)
     return () => clearInterval(id)
   }, [seconds])
 
-  const isUrgent = current <= 5
-  const r = 20
+  const c = current <= 5 ? C.hot : color
+  const half = size / 2
+  const r = half - 4
   const circ = 2 * Math.PI * r
-  const frac = maxRef.current > 0 ? current / maxRef.current : 0
-  const dash = circ * frac
+  const dash = circ * (maxRef.current > 0 ? current / maxRef.current : 0)
 
   return (
-    <svg
-      width={52} height={52}
-      style={{ flexShrink: 0 }}
-    >
-      <circle cx={26} cy={26} r={r} fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.1)" strokeWidth={3.5} />
+    <svg width={size} height={size} style={{ flexShrink: 0 }}>
+      <circle cx={half} cy={half} r={r} fill={C.bg} fillOpacity={0.55} stroke={C.line} strokeWidth={4} />
       <circle
-        cx={26} cy={26} r={r}
-        fill="none"
-        stroke={isUrgent ? '#ef4444' : '#fbbf24'}
-        strokeWidth={3.5}
+        cx={half} cy={half} r={r}
+        fill="none" stroke={c} strokeWidth={4}
         strokeDasharray={`${dash} ${circ - dash}`}
         strokeLinecap="round"
-        transform="rotate(-90 26 26)"
+        transform={`rotate(-90 ${half} ${half})`}
+        style={{ transition: 'stroke-dasharray 1s linear, stroke .3s' }}
       />
-      <text
-        x={26} y={26}
-        dominantBaseline="middle"
-        textAnchor="middle"
-        fill={isUrgent ? '#ef4444' : '#fbbf24'}
-        fontSize={13}
-        fontWeight="bold"
-        fontFamily="monospace"
-      >
+      <text x={half} y={half + 1} dominantBaseline="middle" textAnchor="middle" fill={c}
+        fontSize={size * 0.3} fontFamily={DISPLAY}>
         {current}
       </text>
     </svg>

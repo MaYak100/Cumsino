@@ -1,60 +1,47 @@
 import { motion } from 'framer-motion'
+import { WIN_CHIPS } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
+import { C, DISPLAY } from '../../theme'
+import { Logo } from '../ui/Logo'
 
+/** Вошёл посреди раунда: видно стол и гонку, со следующего раунда — в игре. */
 export function LateJoinScreen() {
   const gameState = useGameStore(s => s.gameState)!
   const myId = useGameStore(s => s.myId)
+  const standings = [...gameState.players].sort((a, b) => b.chips - a.chips)
+  const pct = (v: number) => Math.min(100, Math.max(0, (v / WIN_CHIPS) * 100))
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 24,
-      gap: 24,
-    }}>
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        style={{ textAlign: 'center' }}
-      >
-        <div style={{ fontSize: 22, fontWeight: 'bold', color: '#fbbf24', marginBottom: 6 }}>
-          ИГРА ИДЁТ
-        </div>
-        <div style={{ fontSize: 13, color: '#6b7280' }}>
-          Ждём нового раунда…
-        </div>
-      </motion.div>
+    <div className="stage min-h-screen flex flex-col items-center justify-center px-4 py-10 gap-10">
+      <Logo size={40} />
+      <div className="text-center">
+        <div style={{ fontFamily: DISPLAY, fontSize: 32 }}>Игра уже идёт</div>
+        <motion.div
+          className="mt-2 text-[15px]"
+          style={{ color: C.muted }}
+          animate={{ opacity: [1, 0.45, 1] }}
+          transition={{ repeat: Infinity, duration: 1.8 }}
+        >
+          Подсядешь со следующего раунда
+        </motion.div>
+      </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center', maxWidth: 480 }}>
-        {gameState.players.map((player, i) => {
-          const isMe = player.id === myId
+      <div className="w-full flex flex-col gap-2.5" style={{ maxWidth: 560 }}>
+        {standings.map((p, i) => {
+          const me = p.id === myId
           return (
             <motion.div
-              key={player.id}
+              key={p.id}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              style={{
-                background: '#1a2e1a',
-                border: `1px solid ${isMe ? '#fbbf24' : '#2d4d2d'}`,
-                borderRadius: 12,
-                padding: '12px 20px',
-                minWidth: 140,
-                textAlign: 'center',
-              }}
+              transition={{ delay: i * 0.06 }}
+              className="grid grid-cols-[110px_1fr_56px] items-center gap-4"
             >
-              <div style={{ fontWeight: 'bold', color: isMe ? '#fbbf24' : '#e5e7eb', fontSize: 14 }}>
-                {player.name} {isMe && '(ты)'}
+              <span className="font-bold truncate" style={{ color: me ? C.brass : C.fg }}>{me ? 'Ты' : p.name}</span>
+              <div className="relative h-2.5 rounded" style={{ background: C.panel2 }}>
+                <div className="absolute left-0 top-0 h-full rounded" style={{ width: `${pct(p.chips)}%`, background: me ? C.brass : C.muted }} />
               </div>
-              <div style={{ fontSize: 20, fontWeight: 'bold', color: '#4ade80', marginTop: 4 }}>
-                {player.chips}
-              </div>
-              <div style={{ fontSize: 10, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                фишек
-              </div>
+              <span className="text-right tnum" style={{ fontFamily: DISPLAY, fontSize: 15 }}>{p.chips}</span>
             </motion.div>
           )
         })}
