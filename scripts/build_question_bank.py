@@ -306,6 +306,28 @@ def step_problems(q: dict) -> list[str]:
     return problems
 
 
+# Словарь сленга (docs/questions/README.md, «Язык и сленг»): чего писать нельзя. Таланты не проверяются — у них правда
+# и подделки в стиле строки локализации дословно.
+SLANG = [(re.compile(p, re.I), rule) for p, rule in [
+    (r"\bканал\w*|\bподдержани\w*|\bченнел\w*", "канал / поддержание → каст"),
+    (r"\bневидим\w*", "невидимый → в инвизе"),
+    (r"\bразвеива\w*|\bразвеян\w*|\bразвеять\b", "развеивание → диспел"),
+    (r"\bоглуш\w*", "оглушение → стан"),
+    (r"\bобезоруж\w*", "обезоруживание → дизарм"),
+    (r"\bобездвиж\w*", "обездвиживание → рут"),
+    (r"\bпревращени\w*", "превращение → хекс"),
+    (r"\bвампиризм\w*", "вампиризм → лайфстил"),
+    (r"\bсопротивлени\w* (?:эффект|маги)\w*", "сопротивление эффектам / магии → статус-резист / маг. резист"),
+    (r"\bистинн\w* зрени\w*", "истинное зрение → просвет"),
+    (r"\bкритическ\w* удар\w*", "критический удар → крит"),
+    (r"\bперезарядк\w*", "перезарядка → кд"),
+    (r"\bслоу\w*", "слоу → замедление"),
+    (r"\bсайленс\w*", "сайленс → безмолвие"),
+    (r"\bспелл-?амп\w*", "спелл-амп → увеличение урона заклинаний"),
+    (r"\bхаст\w*", "«хаст» — выдумка, как в локализации"),
+]]
+
+
 def text_problems(q: dict) -> list[str]:
     problems = []
     texts = [q["text"], q.get("comment") or "", *q.get("options", [])]
@@ -314,9 +336,51 @@ def text_problems(q: dict) -> list[str]:
             problems.append(f"латиница и кириллица в одном слове: «{m.group(0)}»")
         for m in LEGACY_HERO_NAMES.finditer(t):
             problems.append(f"старое имя героя: «{m.group(0)}»")
+        if q["sub"] != "talents_has":
+            for pattern, rule in SLANG:
+                for m in pattern.finditer(t):
+                    problems.append(f"не по словарю ({rule}): «{m.group(0)}»")
     if q["id"].startswith("num:") and q["id"].split(":")[1] in INNATE and "врождёнк" not in q["text"].lower():
         problems.append("врождённая способность: в тексте нужна «врождёнка X у героя»")
     return problems
+
+
+# --- тема не должна выдавать ответ ---------------------------------------------------------------------------
+# «Чья способность…» с вариантами-способностями разных героев: тема «Ogre Magi» выдаёт Ignite. Если герой темы
+# владеет только верным вариантом, а неверные — чужие, субъект темы — «Герои» (как у пиков и банов: тема не повторяет
+# вопрос). Владельцы — способности и имена героев из scripts/data/dota/current.json, самое длинное совпадение.
+
+TOPIC_GROUP = "Герои"
+
+
+def _owners_index() -> tuple[dict[str, set[str]], list[str]]:
+    owner: dict[str, set[str]] = {}
+    for h in json.loads(CURRENT.read_text(encoding="utf-8"))["heroes"].values():
+        owner.setdefault(h["name"], set()).add(h["name"])
+        for a in h["abilities"]:
+            owner.setdefault(a["name"], set()).add(h["name"])
+    return owner, sorted(owner, key=len, reverse=True)
+
+
+def mentioned_heroes(text: str, owner: dict[str, set[str]], names: list[str]) -> set[str]:
+    found: set[str] = set()
+    taken: list[tuple[int, int]] = []
+    for n in names:
+        for m in re.finditer(r"(?<!\w)" + re.escape(n) + r"(?!\w)", text):
+            if any(s < m.end() and m.start() < e for s, e in taken):
+                continue
+            taken.append((m.start(), m.end()))
+            found |= owner[n]
+    return found
+
+
+def topic_gives_answer(q: dict, owner: dict[str, set[str]], names: list[str]) -> bool:
+    hero = q["topic"]
+    if q["kind"] != "choice" or hero not in owner:
+        return False
+    right = mentioned_heroes(q["options"][0], owner, names)
+    wrong = [mentioned_heroes(o, owner, names) for o in q["options"][1:]]
+    return hero in right and all(hero not in w for w in wrong) and any(w for w in wrong)
 
 
 # --- ручные правки -------------------------------------------------------------------------------------------
@@ -429,6 +493,7 @@ def build() -> tuple[list[dict], Counter, list[str]]:
 
     errors: list[str] = []
     kept: list[dict] = []
+    owner, owner_names = _owners_index()
     for q in out:
         o = overrides.get(q["id"], {})
         if "drop" in o:
@@ -460,6 +525,9 @@ def build() -> tuple[list[dict], Counter, list[str]]:
         else:
             if len(q["options"]) != 4 or len(set(q["options"])) != 4:
                 problems.append("нужно 4 разных варианта")
+            if topic_gives_answer(q, owner, owner_names):
+                print(f"  тема → «{TOPIC_GROUP}» (герой темы владеет только верным вариантом): {q['id']}")
+                q["topic"] = TOPIC_GROUP
         errors += [f"{q['id']}: {p} — {q['text']}" for p in problems]
         kept.append(q)
     return kept, dropped, errors
