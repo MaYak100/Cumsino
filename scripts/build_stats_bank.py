@@ -425,10 +425,13 @@ def hero_subs(bank: Bank, snap: Path) -> None:
     aw = next(d["window"]["months"] for d in months if d["id"] == "hero_all_months")
     allm = [r for r in st if r["window_id"] == "hero_all_months" and r["bracket"] == "all"]
     # только верх: внизу — новые герои (Largo, Kez), там вопрос про дату выхода, а не про популярность
-    bank.add({"id": "hero_pick_all", "comment": f"Доля матчей с героем {gap_months(aw)} (STRATZ).",
+    # «с 2014 года» обещало «по сей день», а у STRATZ данные кончаются раньше снимка и с дырой почти в год
+    # (10.2024–08.2025) — в тексте годы окна, в комментарии честно: что за месяцы и чего в доле нет
+    bank.add({"id": "hero_pick_all",
+              "comment": f"Доля матчей с героем по STRATZ {gap_months(aw)} — эти месяцы в долю не входят.",
               "gap": PICK_GAP, "note": "pct",
               "pools": [mc_pool(entries(half(allm, pr, True), pr, pct),
-                                ("max", f"Кого из этих героев пикали чаще всего с {aw[0][:4]} года?"))]})
+                                ("max", f"Кого из этих героев пикали чаще всего за {aw[0][:4]}–{aw[-1][:4]} годы?"))]})
 
 
 def upgrade_pairs(names: set) -> list:

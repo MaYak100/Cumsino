@@ -23,20 +23,22 @@ id вопроса постоянный — по нему игра помнит, 
   num:<fact_id>:<level>      tal:<talent_id>      mech:<герой>:<способность>
 
 Ручные правки — scripts/data/bank/overrides.json (переживают перегенерацию прогонов):
-  {"questions": {<id>: {"drop": "причина"} | {"why": "причина", text?, step?, unit?, sub?, options?, comment?, ok?}}}
-  options — целиком, options[0] правильный; ok — «проверка шага не применяется, потому что …».
+  {"questions": {<id>: {"drop": "причина"} | {"why": "причина", text?, step?, unit?, ceil?, sub?, options?, comment?, ok?}}}
+  options — целиком, options[0] правильный; ok — «проверка шага не применяется, потому что …»;
+  ceil — все варианты строго меньше (проценты, где 100% и больше невозможно: маг. резист, замедление, промах).
   Неизвестный id или поле — ошибка сборки.
 
 При сборке:
   - врождённые с ростом от уровня героя (hero_levelup в файлах героя) — ответ на 30-м уровне героя,
     текст обязан это называть (правка в overrides);
   - единицы приводятся к словарю (UNIT_ALIAS, UNIT_RULES): игрок видит их прямо в вариантах («175 HP», «12 сек.»);
-  - проверки (падают, если не исправлено в overrides): ответ ≤ 3 шагов (правильный тогда никогда не бывает
-    наибольшим), «ответ выдаёт круглость», латиница внутри русских слов, старые имена героев.
+  - проверки (падают, если не исправлено в overrides): ответ ≤ 5 шагов (правильный тогда редко бывает наибольшим:
+    при ≤ 3 шагах никогда, ≤ 4 — в 3% показов, ≤ 5 — в 12.5%, ≤ 6 — в 22%, дальше ровно 25%), то же у потолка ceil
+    (ответ редко наименьший), «ответ выдаёт круглость», латиница внутри русских слов, старые имена героев.
 
 Формат:
   {built_at, sources, questions: [
-    {id, sub, kind: "number", text, topic, aspect?, answer, step, unit, comment?},   # MC по шагу и «ближе всех»
+    {id, sub, kind: "number", text, topic, aspect?, answer, step, unit, ceil?, comment?},   # MC по шагу и «ближе всех»
     {id, sub, kind: "choice", text, topic, aspect?, options, comment?}               # options[0] — правильный
   ]}
 
@@ -75,7 +77,7 @@ MECH_SUB = {"how": "mech_how", "interaction": "mech_interaction", "false_fact": 
 MAX_HERO_LEVEL = 30
 LEVELUP_FIELD = {"cd": "AbilityCooldown"}   # имя факта в прогоне → ключ в AbilityValues
 
-OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "sub", "options", "comment", "ok"}
+OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok"}
 
 # --- единицы -------------------------------------------------------------------------------------------------
 
@@ -97,13 +99,34 @@ UNIT_RULES = [
     (r"интеллект", "интеллекта"),
     (r"здоров|\bhp\b|\bхп\b|лечит|барьер|щит", "HP"),
 ]
-UNITS = {"%", "сек.", "урона", "золота", "золота в минуту", "опыта", "×", "× ловкости", "× интеллекта", "атак",
+UNITS = {"%", "сек.", "урона", "урона/сек.", "золота", "золота в минуту", "опыта", "×", "× ловкости", "× интеллекта", "атак",
          "раз", "маны", "маны/сек.", "HP", "HP/сек.", "брони", "скорости атаки", "скорости", "силы", "ловкости",
          "интеллекта", "к атрибутам", *COUNT_WORDS}
 INTEGER_UNITS = {"атак", "раз", *COUNT_WORDS}
 OVERRIDE_ONLY_UNITS = {"ед."}   # только явной правкой: когда ни одно слово не подходит
 
+# урон в секунду: модель пишет «урона», а это поток — «урона/сек.» (как HP/сек.); «без учёта урона в секунду» — нет
+DPS_TEXT = re.compile(r"урон\w* в секунду|урона за секунду")
+DPS_NOT = re.compile(r"без учёта урона в секунду")
+
 # --- проверки текста -----------------------------------------------------------------------------------------
+
+# Опечатки модели, которые повторятся при перегенерации, — правятся при сборке во всех текстах (вопрос, comment,
+# варианты). «кд» — среднего рода, как в большинстве вопросов (36 «Какое кд» против 4 «Какой кд»).
+TEXT_FIXES = [
+    (re.compile(r"\b([Кк])акой кд\b"), r"\1акое кд"),
+    (re.compile(r"\b([Нн])асколько (увеличива|уменьша|сокраща|снижа|усилива|продлева|режет|ускоря|замедля)"),
+     r"\1а сколько \2"),
+    (re.compile(r"\b([Дд])о скольки\b"), r"\1о скольких"),
+    (re.compile(r"(\d) %"), r"\1%"),   # «16 %» → «16%», как в вариантах (withUnit)
+]
+
+
+def fix_text(t: str) -> str:
+    for pattern, repl in TEXT_FIXES:
+        t = pattern.sub(repl, t)
+    return t
+
 
 MIXED_WORD = re.compile(r"\b\w*(?:[а-яё][a-z]|[a-z][а-яё])\w*\b", re.I)
 # старые и внутренние имена (модель пишет имя героя по памяти); текущие — scripts/data/dota/heroes.json
@@ -151,13 +174,15 @@ def hero_sub(q: dict, unit: str) -> str:
         return "hero_time"   # кулдауны (21 вопрос) и длительности вместе — время в секундах
     if unit == "%":
         return "hero_pct"
-    if unit == "урона" or (("damage" in field or "dmg" in field) and not HEAL_TEXT.search(q["question"])):
+    if unit in ("урона", "урона/сек.") or (("damage" in field or "dmg" in field) and not HEAL_TEXT.search(q["question"])):
         return "hero_damage"   # поле «*_damage» бывает и лечением (Demonic Cleanse) — его в прочие
     return "hero_other"
 
 
 def normalize_unit(unit: str, text: str) -> str | None:
     unit = UNIT_ALIAS.get(unit, unit)
+    if unit == "урона" and DPS_TEXT.search(text) and not DPS_NOT.search(text):
+        return "урона/сек."
     if unit not in ("ед.", "шт."):
         return unit
     t = text.lower()
@@ -225,6 +250,11 @@ def apply_levelup(q: dict, out: dict, levelups: dict, names: dict) -> bool:
 
 # --- проверки шага -------------------------------------------------------------------------------------------
 
+# Ответ дальше MIN_STEPS шагов от нуля (и от потолка ceil): иначе позиция ответа нечестная. Промежутки 1 или 2 шага,
+# поэтому наибольшим ответ бывает, только если все промежутки влезают под ответ: при ответе в k шагов доля показов,
+# где он наибольший, — 0 (k ≤ 3), 3% (k ≤ 4), 12.5% (k ≤ 5), 22% (k ≤ 6), 25% (k > 6).
+MIN_STEPS = 5
+
 ROUND_LEVELS = [(1000, 6), (100, 5), (50, 4), (25, 3), (10, 3), (5, 2), (1, 1)]
 COSTS_ROUND_CAP = 5   # цены: шаг 100 при ответе 2000 — нормально, все варианты кратны 100
 
@@ -238,28 +268,37 @@ def round_level(x: Fraction, answer: Fraction | None = None) -> int:
     return 0
 
 
-def layouts(answer: Fraction, step: Fraction, n: int = 4) -> list[list[Fraction]]:
+def layouts(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None) -> list[list[Fraction]]:
     """Все раскладки makeStepOptions (server/src/game/questions/stepOptions.ts): соседи через 1 или 2 шага, фейки при
-    каждой допустимой позиции ответа; не встаёт ни одна позиция — сервер берёт промежутки по одному шагу."""
+    каждой допустимой позиции ответа (все варианты > 0 и < ceil); не встаёт ни одна позиция — сервер берёт
+    промежутки по одному шагу."""
+    def fits(offsets: list[int], p: int) -> bool:
+        return all(0 < answer + (o - offsets[p]) * step and (ceil is None or answer + (o - offsets[p]) * step < ceil)
+                   for o in offsets)
+
     out = []
     for gaps in product((1, 2), repeat=n - 1):
         offsets = [0, *accumulate(gaps)]
-        valid = [p for p in range(n) if all(answer + (o - offsets[p]) * step > 0 for o in offsets)]
+        valid = [p for p in range(n) if fits(offsets, p)]
         if not valid:
             offsets = list(range(n))
-            valid = [p for p in range(n) if all(answer + (o - offsets[p]) * step > 0 for o in offsets)]
+            valid = [p for p in range(n) if fits(offsets, p)]
         out += [[answer + (o - offsets[p]) * step for i, o in enumerate(offsets) if i != p] for p in valid]
     return out
 
 
 def step_problems(q: dict) -> list[str]:
     a, s = Fraction(str(q["answer"])), Fraction(str(q["step"]))
+    ceil = Fraction(str(q["ceil"])) if q.get("ceil") is not None else None
     problems = []
-    if a <= 3 * s:
-        problems.append(f"ответ {q['answer']} ≤ 3 × шаг {q['step']}: правильный никогда не бывает наибольшим")
+    if a <= MIN_STEPS * s:
+        problems.append(f"ответ {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: правильный редко бывает наибольшим")
+    if ceil is not None and ceil - a <= MIN_STEPS * s:
+        problems.append(f"до потолка {q['ceil']} от ответа {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: "
+                        f"правильный редко бывает наименьшим")
     cap = COSTS_ROUND_CAP if q["sub"] == "costs" else 6
     la = min(round_level(a, a), cap)
-    fakes = [f for lay in layouts(a, s) for f in lay]
+    fakes = [f for lay in layouts(a, s, ceil=ceil) for f in lay]
     if la and fakes and max(min(round_level(f), cap) for f in fakes) < la:
         problems.append(f"ответ {q['answer']} круглее любого фейка при шаге {q['step']}")
     if q["unit"] in INTEGER_UNITS and s.denominator != 1:
@@ -300,12 +339,12 @@ def apply_override(q: dict, o: dict) -> None:
     if q["kind"] == "number":
         if "options" in o:
             sys.exit(f"overrides {q['id']}: options у числового вопроса")
-        for key in ("step", "unit"):
+        for key in ("step", "unit", "ceil"):
             if key in o:
                 q[key] = o[key]
     else:
-        if "step" in o or "unit" in o:
-            sys.exit(f"overrides {q['id']}: step/unit у вопроса с вариантами")
+        if "step" in o or "unit" in o or "ceil" in o:
+            sys.exit(f"overrides {q['id']}: step/unit/ceil у вопроса с вариантами")
         if "options" in o:
             q["options"] = o["options"]
 
@@ -327,8 +366,10 @@ def build() -> tuple[list[dict], Counter, list[str]]:
         elif out_q["sub"] is None:
             out_q["sub"] = hero_sub(q, unit)
         values = q.get("all_values") or []
-        if len(values) > 1:   # по уровням — после ответа видно, откуда взялось число
-            out_q["comment"] = f"{q['entity']}: {' / '.join(fmt_num(v) for v in values)} {out_q['unit']} по уровням"
+        if len(values) > 1:   # по уровням — после ответа видно, откуда взялось число; «%» и «×» слитно
+            levels = " / ".join(fmt_num(v) for v in values)
+            sep = "" if out_q["unit"] in ("%", "×") else " "
+            out_q["comment"] = f"{q['entity']}: {levels}{sep}{out_q['unit']} по уровням"
         if q.get("category") == "heroes" and apply_levelup(q, out_q, levelups, names):
             levelup_ids.add(out_q["id"])
         return out_q
@@ -394,6 +435,9 @@ def build() -> tuple[list[dict], Counter, list[str]]:
             dropped["overrides"] += 1
             continue
         apply_override(q, o)
+        for key in ("text", "comment"):   # и после правок; варианты не трогаем: правда талантов — строка игры дословно
+            if q.get(key):
+                q[key] = fix_text(q[key])
         if q.pop("_unit_unknown", None) is not None and "unit" not in o:
             errors.append(f"{q['id']}: единица «{q['unit']}» не распознана — unit в overrides ({q['text']})")
         if q["sub"] is None:
@@ -403,6 +447,8 @@ def build() -> tuple[list[dict], Counter, list[str]]:
         if q["kind"] == "number":
             if not (q["step"] > 0 and q["answer"] > 0):
                 problems.append("нет шага или ответа")
+            if q.get("ceil") is not None and not q["answer"] < q["ceil"]:
+                problems.append(f"ответ {q['answer']} не ниже потолка {q['ceil']}")
             allowed = UNITS | (OVERRIDE_ONLY_UNITS if "unit" in o else set())
             if q["unit"] not in allowed:
                 problems.append(f"единица «{q['unit']}» не из словаря")

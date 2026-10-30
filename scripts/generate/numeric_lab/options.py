@@ -19,16 +19,17 @@ def _decimals(x: float) -> int:
 
 
 def make_options(answer: float, step: float, rng: random.Random, n: int = 4,
-                 floor: float = 0.0) -> tuple[list[float], int]:
-    """→ (варианты по возрастанию, индекс правильного). Порядок показа перемешивает игра."""
+                 floor: float = 0.0, ceil: float = float("inf")) -> tuple[list[float], int]:
+    """→ (варианты по возрастанию, индекс правильного). Порядок показа перемешивает игра. Все варианты строго
+    между floor и ceil (ceil — у процентов, где 100% и больше невозможно: поле ceil в банке)."""
     step = abs(step)
     gaps = [rng.choice((1, 2)) for _ in range(n - 1)]
     offsets = [0]
     for g in gaps:
         offsets.append(offsets[-1] + g)
 
-    def valid_for(offs):   # позиции, при которых самый маленький вариант остаётся выше floor
-        return [p for p in range(n) if answer - offs[p] * step > floor]
+    def valid_for(offs):   # позиции, при которых все варианты остаются между floor и ceil
+        return [p for p in range(n) if answer - offs[p] * step > floor and answer + (offs[-1] - offs[p]) * step < ceil]
 
     valid = valid_for(offsets)
     if not valid:
