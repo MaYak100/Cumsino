@@ -14,6 +14,19 @@ type SlotState = 'use' | 'ready' | 'idle' | 'targeting'
 const USE_PHASES = ['ANNOUNCE', 'BETTING', 'QUESTION']
 
 /** Почему предмет сейчас не жмётся — строка для подсказки; null — можно. Блинк применяется кликом по другому варианту. */
+/** Узкий экран (телефон): слоты мельче — панель не закрывает варианты и оценку. Граница — как у .below-itembar. */
+const NARROW = '(max-width: 767px)'
+function useNarrow(): boolean {
+  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia(NARROW).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(NARROW)
+    const on = () => setNarrow(mq.matches)
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+  return narrow
+}
+
 function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, answered: boolean, spent: boolean, settled: boolean): string | null {
   const def = ITEMS[id]
   if (def.usePhases === 'passive') return 'Работает сам'
@@ -47,6 +60,7 @@ export function ItemBar({ inline }: { inline?: boolean } = {}) {
   const answeredIds = useGameStore(s => s.answeredIds)
   const myId = useGameStore(s => s.myId)
   const targeting = useGameStore(s => s.targeting)
+  const narrow = useNarrow()
   const setTargeting = useGameStore(s => s.setTargeting)
   const useItem = useGameStore(s => s.useItem)
   const itemFeed = useGameStore(s => s.itemFeed)
@@ -92,9 +106,9 @@ export function ItemBar({ inline }: { inline?: boolean } = {}) {
   useEffect(() => {
     if (!visible || inline) return
     const root = document.documentElement
-    root.style.setProperty('--itembar-pad', '5.75rem')
+    root.style.setProperty('--itembar-pad', narrow ? '4.5rem' : '5.75rem')
     return () => { root.style.removeProperty('--itembar-pad') }
-  }, [visible])
+  }, [visible, narrow])
 
   useEffect(() => {
     if (!visible) return
@@ -150,6 +164,7 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
   // тач: наведения нет — первый тап показывает подсказку, второй (пока она видна) применяет
   const [tapTip, setTapTip] = useState(false)
   const touch = useRef(false)
+  const narrow = useNarrow()
   useEffect(() => {
     if (!tapTip) return
     const t = setTimeout(() => setTapTip(false), 3000)
@@ -185,7 +200,7 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
         transition={{ type: 'spring', stiffness: 420, damping: 18 }}
         className="relative"
         style={{
-          width: '4rem', height: '4rem', cursor: live ? 'pointer' : 'default',
+          width: narrow ? '3rem' : '4rem', height: narrow ? '3rem' : '4rem', cursor: live ? 'pointer' : 'default',
           filter: `drop-shadow(0 3px 0 rgba(0,0,0,.35)) drop-shadow(0 10px 14px rgba(0,0,0,.45))${glow ? ` drop-shadow(0 0 8px ${glow})` : ''}`,
         }}
       >
@@ -196,7 +211,7 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
             background: `linear-gradient(120deg, rgba(255,255,255,.25), rgba(255,255,255,0) 45%), ${C.paper}`,
           }}
         >
-          <ItemIcon id={id} size={50} />
+          <ItemIcon id={id} size={narrow ? 38 : 50} />
         </div>
         {id !== 'aegis' && (
           <span className="absolute flex items-center justify-center tnum" style={{
