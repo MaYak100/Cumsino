@@ -58,7 +58,7 @@ export function MockPage() {
   const active = SCENARIOS.find(s => s.id === activeId)
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: '100dvh', overflow: 'hidden' }}>
 
       {/* ── Sidebar ─────────────────────────────────────────────────────── */}
       <div style={{
@@ -188,7 +188,7 @@ export function MockPage() {
       {/* ── Game area ───────────────────────────────────────────────────── */}
       <div style={{
         flex: 1,
-        height: '100vh',
+        height: '100dvh',
         overflow: 'hidden',
         position: 'relative',
       }} className="stage">

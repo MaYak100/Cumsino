@@ -12,6 +12,8 @@ import { RevealNote } from '../ui/RevealNote'
 import { GuessLine } from '../ui/GuessLine'
 import { SelfEffects } from '../ui/SelfEffects'
 import { TopicInline } from '../ui/Topic'
+import { parseNumber } from '../../lib/parseNumber'
+import { useAnswerAck } from '../../lib/useAnswerAck'
 
 const fmt = (n: number) => n.toLocaleString('ru-RU', { maximumFractionDigits: 2 })
 
@@ -37,17 +39,21 @@ export function ClosestScreen() {
   const blinks = gameState.inventory?.blink ?? 0
   const canBlink = answered && blinks > 0 && !revealed
   const locked = revealed || (answered && !editing)
-  const parsed = parseFloat(value.replace(/\s/g, '').replace(',', '.'))
+  const parsed = parseNumber(value)
+  // ответ ушёл, а сервер не засчитал — снова можно ввести
+  const [lost, setLost] = useState(false)
+  useAnswerAck(sent !== null, myAnswered, () => { setSent(null); setEditing(false); setLost(true) })
   // единица числа («золота», «%», «сек.») — суффиксом у поля и у чисел раскрытия
   const unit = q?.unit
   const unitMark = unit ? withUnit('', unit).trim() : ''
 
-  useEffect(() => { setValue(''); setSent(null); setEditing(false) }, [q?.id])
+  useEffect(() => { setValue(''); setSent(null); setEditing(false); setLost(false) }, [q?.id])
   useEffect(() => { if (!locked) inputRef.current?.focus() }, [locked])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (locked || isNaN(parsed)) return
+    if (locked || parsed === null) return
+    setLost(false)
     setSent(parsed)
     submitAnswer(parsed, answered)
     setEditing(false)
@@ -63,13 +69,13 @@ export function ClosestScreen() {
   })
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <GameHud />
       <TimeBar seconds={gameState.phaseTimeLeft} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed} />
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
-      <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
-        <div className="mb-3 flex items-center gap-3 text-base" style={{ color: C.muted }}>
+      <main className="below-itembar flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 flex flex-col justify-center">
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-base" style={{ color: C.muted }}>
           <TopicInline topic={q?.displayTopic ?? q?.topic} />
           {!revealed && <SelfEffects />}
         </div>
@@ -77,8 +83,9 @@ export function ClosestScreen() {
           {q?.text}
         </h1>
 
-        {/* поле и раскрытие одной высоты — ничего не прыгает */}
-        <div style={{ height: '8rem' }}>
+        {/* поле и раскрытие одной высоты — ничего не прыгает. На телефоне поле и кнопка друг под другом (кнопка
+            обязана быть видна: у цифровой клавиатуры iOS нет Enter), поэтому блок выше */}
+        <div className="h-[9.75rem] sm:h-[8rem]">
           {revealed ? (
             <div className="flex flex-wrap items-end gap-x-10 gap-y-3">
               <motion.div
@@ -119,9 +126,9 @@ export function ClosestScreen() {
                 disabled={locked}
                 placeholder="0"
                 aria-label="Твоё число"
-                className="tnum w-full rounded-2xl px-6 bg-transparent text-center sm:text-left focus:outline-none disabled:opacity-70"
+                className="tnum w-full h-[5.5rem] sm:h-[7rem] rounded-2xl px-6 bg-transparent text-center sm:text-left focus:outline-none disabled:opacity-70"
                 style={{
-                  fontFamily: DISPLAY, fontSize: 'clamp(44px, 6vw, 72px)', height: '7rem', color: C.fg,
+                  fontFamily: DISPLAY, fontSize: 'clamp(44px, 6vw, 72px)', color: C.fg,
                   background: C.panel, border: `2px solid ${locked ? C.line : color}`,
                   boxShadow: locked ? 'none' : `0 0 0 5px ${color}22`,
                   paddingRight: unitMark ? '7rem' : undefined,
@@ -139,18 +146,18 @@ export function ClosestScreen() {
                   type="button"
                   whileTap={{ scale: 0.95 }}
                   onClick={() => { setEditing(true); setValue(sent !== null ? String(sent) : '') }}
-                  className="rounded-2xl px-6 font-bold text-lg"
-                  style={{ height: '7rem', minWidth: '10.625rem', background: 'transparent', color: C.sky, border: `2px solid ${C.sky}` }}
+                  className="h-[3.5rem] sm:h-[7rem] rounded-2xl px-6 font-bold text-lg"
+                  style={{ minWidth: '10.625rem', background: 'transparent', color: C.sky, border: `2px solid ${C.sky}` }}
                 >
                   Блинк: изменить
                 </motion.button>
               ) : (
               <motion.button
                 type="submit"
-                disabled={locked || isNaN(parsed)}
+                disabled={locked || parsed === null}
                 whileTap={{ scale: 0.95 }}
-                className="rounded-2xl px-8 font-bold text-lg disabled:opacity-35"
-                style={{ height: '7rem', minWidth: '10.625rem', background: color, color: C.ink }}
+                className="h-[3.5rem] sm:h-[7rem] rounded-2xl px-8 font-bold text-lg disabled:opacity-35"
+                style={{ minWidth: '10.625rem', background: color, color: C.ink }}
               >
                 {locked ? 'Принято' : editing ? 'Изменить' : 'Ответить'}
               </motion.button>
@@ -173,9 +180,14 @@ export function ClosestScreen() {
           ) : (
             <div className="flex flex-col items-center gap-3">
               <AnswerProgress color={color} />
-              <span className="text-[0.8125rem]" style={{ color: C.muted }}>
-                {locked ? 'Ждём остальных' : 'Enter — отправить'}
-              </span>
+              {lost && !locked ? (
+                <span className="text-[0.8125rem] font-semibold" style={{ color: C.hot }}>Ответ не засчитан, отправь ещё раз</span>
+              ) : locked ? (
+                <span className="text-[0.8125rem]" style={{ color: C.muted }}>Ждём остальных</span>
+              ) : (
+                // на тач-экране Enter может не быть — подсказка только для клавиатуры
+                <span className="text-[0.8125rem] [@media(pointer:coarse)]:hidden" style={{ color: C.muted }}>Enter — отправить</span>
+              )}
             </div>
           )}
         </div>

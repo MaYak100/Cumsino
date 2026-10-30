@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, LayoutGroup } from 'framer-motion'
-import { WIN_CHIPS } from '@cumsino/shared'
+import { WIN_CHIPS, withUnit } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { RateQuestion } from '../ui/RateQuestion'
@@ -75,7 +75,9 @@ interface RowEntry {
   prevBalance: number
 }
 
-const ROW_GRID = 'grid grid-cols-[1.9rem_1fr_4.75rem] sm:grid-cols-[1.9rem_12.5rem_1fr_5.5rem] items-center gap-x-3 sm:gap-x-5'
+// телефон: [место | имя | итог] и полоса отдельной строкой во всю ширину (итог — auto: полосы от него не зависят);
+// шире: [место | имя | полоса | итог] — ширины фиксированы, чтобы полосы всех строк и ось совпадали
+const ROW_GRID = 'grid grid-cols-[1.9rem_1fr_auto] sm:grid-cols-[1.9rem_12.5rem_1fr_6.5rem] items-center gap-x-3 sm:gap-x-5'
 
 export function RoundResultsScreen() {
   const gameState = useGameStore(s => s.gameState)!
@@ -109,8 +111,8 @@ export function RoundResultsScreen() {
   const color = modeColor(gameState.mode)
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-4 sm:px-8 justify-center py-8">
-      <div className="w-full flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-6" style={{ maxWidth: '61.25rem' }}>
+    <div className={`min-h-dvh flex flex-col items-center px-4 sm:px-8 justify-center ${compact ? 'py-5' : 'py-8'}`}>
+      <div className={`w-full flex flex-wrap items-end justify-between gap-x-6 gap-y-2 ${compact ? 'mb-4' : 'mb-6'}`} style={{ maxWidth: '61.25rem' }}>
         <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-4">
           <span style={{ fontFamily: DISPLAY, fontSize: 'clamp(30px, 4vw, 44px)', lineHeight: 1 }}>
             Раунд {gameState.roundIndex}
@@ -125,24 +127,30 @@ export function RoundResultsScreen() {
         {roundCorrectAnswer !== null && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             className="text-[0.9375rem] max-w-full sm:max-w-[50%] truncate" style={{ color: C.muted }}>
-            Ответ <b style={{ color: C.mint }}>{String(roundCorrectAnswer)}</b>
+            Ответ <b style={{ color: C.mint }}>{typeof roundCorrectAnswer === 'number'
+              // число «кто ближе» — как на экране вопроса: разряды и единица («2 250 золота»)
+              ? withUnit(roundCorrectAnswer.toLocaleString('ru-RU', { maximumFractionDigits: 2 }), gameState.currentQuestion?.unit)
+              : roundCorrectAnswer}</b>
           </motion.div>
         )}
       </div>
 
       <div className="w-full" style={{ maxWidth: '61.25rem' }}>
-        {/* ось */}
+        {/* ось — над полосами: на телефоне во всю ширину строки, как и полоса */}
         <div className={`${ROW_GRID} mb-2`} style={{ padding: compact ? '0 12px' : '0 14px' }}>
-          <span />
           <span className="hidden sm:block" />
-          <div className="relative h-5 col-span-2 sm:col-span-1 text-[0.6875rem] tnum" style={{ color: C.muted }}>
-            <span className="absolute left-0">0</span>
-            {TICKS.map(t => (
-              <span key={t} className="absolute -translate-x-1/2" style={{ left: `${pct(t)}%` }}>{t}</span>
+          <span className="hidden sm:block" />
+          <div className="relative h-5 col-span-3 sm:col-span-1 text-[0.6875rem] tnum" style={{ color: C.muted }}>
+            <span className="absolute left-0"><Money v={0} /></span>
+            {/* на телефоне — через одну: подписи не слипаются */}
+            {TICKS.map((t, i) => (
+              <span key={t} className={`absolute -translate-x-1/2 ${i % 2 ? '' : 'hidden sm:inline'}`} style={{ left: `${pct(t)}%` }}>
+                <Money v={t} />
+              </span>
             ))}
             <span className="absolute right-0 font-bold flex items-center gap-1.5" style={{ color: C.fg }}>
               <span style={{ width: '0.625rem', height: '0.625rem', background: `repeating-conic-gradient(${C.fg} 0 25%, ${C.bg} 0 50%) 0 0 / 5px 5px` }} />
-              {WIN_CHIPS}
+              <Money v={WIN_CHIPS} />
             </span>
           </div>
           <span className="hidden sm:block" />
@@ -162,7 +170,7 @@ export function RoundResultsScreen() {
                   transition={{ duration: 0.3, delay: i * 0.05, layout: { duration: 0.55, ease: EASE } }}
                   className={`${ROW_GRID} rounded-xl gap-y-2`}
                   style={{
-                    padding: compact ? '6px 12px' : '10px 14px',
+                    padding: compact ? '4px 12px' : '10px 14px',
                     background: me ? `${C.brass}14` : 'transparent',
                     boxShadow: me ? `inset 3px 0 0 ${C.brass}` : 'none',
                   }}
@@ -174,7 +182,7 @@ export function RoundResultsScreen() {
                     {rank}
                   </span>
                   <div className="order-2 min-w-0">
-                    <div className="pt-3">
+                    <div className={compact ? 'pt-2' : 'pt-3'}>   {/* над ником — место пламени серии */}
                       <StreakFlame streak={playerMap.get(e.playerId)?.streak} radius={6}>
                         <div className="font-bold truncate px-1.5 rounded-md" style={{ background: C.bg,  fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
                       {me ? 'Ты' : e.name}
@@ -185,7 +193,9 @@ export function RoundResultsScreen() {
                       <div className="flex flex-wrap gap-x-3 text-[0.75rem] leading-tight mt-0.5">
                         {e.sources.map((s, si) => (
                           <span key={si} style={{ color: s.delta >= 0 ? C.mint : C.hot }}>
-                            {s.label}{e.sources.length > 1 && <span className="tnum"> {s.delta > 0 ? '+' : ''}{s.delta}</span>}
+                            {s.label}{e.sources.length > 1 && (
+                              <span className="tnum whitespace-nowrap"> {s.delta > 0 ? '+' : s.delta < 0 ? '−' : ''}<Money v={Math.abs(s.delta)} /></span>
+                            )}
                           </span>
                         ))}
                       </div>
@@ -195,7 +205,7 @@ export function RoundResultsScreen() {
                     <Track prev={e.prevBalance} next={e.newBalance} phase={phase} compact={compact} />
                   </div>
                   <motion.span
-                    className="order-3 sm:order-4 text-right tnum"
+                    className="order-3 sm:order-4 text-right tnum whitespace-nowrap"
                     initial={{ opacity: 0, scale: 1.5 }}
                     animate={phase >= 2 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.5 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 18, delay: 0.5 + i * 0.04 }}
@@ -213,7 +223,7 @@ export function RoundResultsScreen() {
         </LayoutGroup>
       </div>
 
-      <div className="w-full flex justify-center mt-10">
+      <div className={`w-full flex justify-center ${compact ? 'mt-6' : 'mt-10'}`}>
         <RateQuestion delay={0.8} />
       </div>
     </div>

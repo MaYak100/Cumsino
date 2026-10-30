@@ -18,7 +18,7 @@ export function LobbyScreen() {
   const friendName = (id?: number) => gameState.friendRoster?.find(r => r.id === id)?.name
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-4 pt-8 pb-12">
+    <div className="min-h-dvh flex flex-col items-center px-4 pt-8 pb-12">
       <Logo size={40} animated />
 
       <div className="flex-1 w-full max-w-2xl flex flex-col items-center justify-center gap-8 py-6">

@@ -4,6 +4,7 @@ import type { ItemId, Player } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C } from '../../theme'
 import { ItemIcon, ITEM_LABEL } from './ItemIcon'
+import { isSpectator } from '../../lib/players'
 
 const FEED_MS = 2800
 
@@ -17,7 +18,8 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
   const targeting = useGameStore(s => s.targeting)
   const useItem = useGameStore(s => s.useItem)
   const options = useGameStore(s => s.gameState?.currentQuestion?.options)
-  const list = only ? players.filter(p => only.includes(p.id)) : players
+  // зритель (вошёл посреди раунда) не отвечает — в «кто ответил» его нет, целью гема он тоже не бывает
+  const list = (only ? players.filter(p => only.includes(p.id)) : players).filter(p => !isSpectator(p))
 
   const fresh = useFreshFeed()
 
@@ -61,7 +63,7 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
                 className="absolute top-full mt-1 whitespace-nowrap text-[0.75rem] font-bold"
                 style={{ color: C.sky }}
               >
-                {gem.smoked ? 'в дыму' : gem.answer === null ? 'ещё думает'
+                {gem.smoked ? 'в смоке' : gem.answer === null ? 'ещё думает'
                   : typeof gem.answer === 'string' && options?.includes(gem.answer)
                     ? `выбрал №${options.indexOf(gem.answer) + 1}` : `выбрал ${gem.answer}`}
               </motion.span>

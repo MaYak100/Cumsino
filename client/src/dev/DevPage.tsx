@@ -50,7 +50,7 @@ function GameView({ screenKey }: { screenKey: string }) {
   if (!gameState) return null
   const Screen = isLateJoiner ? LateJoinScreen : screenFor(gameState.phase, gameState.mode, isGladiator)
   return (
-    <div className="stage" style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+    <div className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
       {!isLateJoiner && <TableFelt blurred={gameState.phase !== 'BETTING'} />}
       <AnimatePresence>
         <motion.div
@@ -177,6 +177,18 @@ export function DevPage() {
       identify: friendId => useGameStore.setState(s => s.gameState ? {
         gameState: { ...s.gameState, players: s.gameState.players.map(p => p.id === MY_ID ? { ...p, friendId: friendId ?? undefined } : p) },
       } : {}),
+      // оценку экран ставит через setRating (rateQuestion в игре не вызывается): подменяем его — выбор виден на
+      // шкале, но на сервер не уходит (настоящий setRating отправил бы rate_question через сокет)
+      setRating: (questionId, patch) => {
+        useGameStore.setState(s => {
+          const cur = s.rating?.questionId === questionId ? s.rating : { questionId, score: null, difficulty: null }
+          const next = { ...cur }
+          if (patch.score !== undefined) next.score = cur.score === patch.score ? null : patch.score
+          if (patch.difficulty !== undefined) next.difficulty = cur.difficulty === patch.difficulty ? null : patch.difficulty
+          return { rating: next }
+        })
+        console.info('[лаборатория] оценка не отправляется:', questionId, patch)
+      },
       rateQuestion: (questionId, vote) => console.info('[лаборатория] оценка не отправляется:', questionId, vote),
       reset: () => setScenario(null),
     })
@@ -299,7 +311,7 @@ export function DevPage() {
   const screenKey = scenario ? `sc|${scenario}|${count}` : `${stage === 'answer' ? 'question' : stage}|${q?.id}|${q?.text}|${mode}`
 
   return (
-    <div style={{ height: '100vh', overflow: 'hidden', position: 'relative', background: '#060606' }}>
+    <div style={{ height: '100dvh', overflow: 'hidden', position: 'relative', background: '#060606' }}>
       {showGame ? <GameView screenKey={screenKey} /> : (
         <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: MUTED, fontSize: 14, padding: 24, textAlign: 'center' }}>
           {offline ?? (loading ? 'Загружаю вопрос…' : error ?? 'Нет вопроса')}

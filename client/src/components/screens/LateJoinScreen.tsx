@@ -13,7 +13,7 @@ export function LateJoinScreen() {
   const pct = (v: number) => Math.min(100, Math.max(0, (v / WIN_CHIPS) * 100))
 
   return (
-    <div className="stage min-h-screen flex flex-col items-center justify-center px-4 py-10 gap-10">
+    <div className="stage min-h-dvh flex flex-col items-center justify-center px-4 py-10 gap-10">
       <Logo size={40} />
       <div className="text-center">
         <div style={{ fontFamily: DISPLAY, fontSize: '2rem' }}>Игра уже идёт</div>

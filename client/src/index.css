@@ -31,6 +31,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
   color: var(--fg);
   font-family: 'Rubik', system-ui, sans-serif;
@@ -78,6 +79,17 @@ input:focus-visible {
     radial-gradient(1100px 520px at 50% -12%, #18352c 0%, rgba(24, 53, 44, 0) 65%),
     radial-gradient(900px 420px at 50% 115%, #10251e 0%, rgba(16, 37, 30, 0) 65%),
     var(--bg);
+}
+
+/* Экран вопроса над панелью предметов: панель fixed внизу слева, на узком экране она закрывала бы вариант 4 и
+   оценку — пока она видна (ItemBar ставит --itembar-pad), под содержимым оставляем место под неё */
+.below-itembar {
+  padding-bottom: 2rem;
+}
+@media (max-width: 767px) {
+  .below-itembar {
+    padding-bottom: calc(2rem + var(--itembar-pad, 0px));
+  }
 }
 
 input::placeholder {

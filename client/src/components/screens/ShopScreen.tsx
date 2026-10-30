@@ -22,7 +22,7 @@ export function ShopScreen() {
   const aegisOn = me?.effects?.includes('aegis') ?? false
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <TimeBar seconds={gs.phaseTimeLeft} color={C.brass} />
 
       <main className="flex-1 w-full max-w-[72rem] mx-auto px-4 sm:px-8 py-4 flex flex-col justify-center gap-6">

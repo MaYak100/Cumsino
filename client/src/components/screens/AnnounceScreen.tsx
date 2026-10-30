@@ -6,7 +6,24 @@ import { GameHud } from '../ui/GameHud'
 import { Sticker } from '../ui/Sticker'
 import { TopicStack } from '../ui/Topic'
 
+/** какие режимы уже объявлялись в этой игре (первый раз — дольше, чтобы прочитали правила). Модульный, но
+ *  сбрасывается с новой игрой — иначе во второй игре без перезагрузки правила мелькали бы быстро */
 const seenModes = new Set<string>()
+/** решение «первый раз» на раунд — повторный запуск эффекта (StrictMode, ремоунт) не превращает его в «уже видели» */
+const firstByRound = new Map<number, boolean>()
+
+let lastRound = 0
+
+function isFirstShow(roundIndex: number, mode: string): boolean {
+  // номер раунда пошёл назад — это новая игра
+  if (roundIndex < lastRound) { seenModes.clear(); firstByRound.clear() }
+  lastRound = roundIndex
+  if (!firstByRound.has(roundIndex)) {
+    firstByRound.set(roundIndex, !seenModes.has(mode))
+    seenModes.add(mode)
+  }
+  return firstByRound.get(roundIndex)!
+}
 
 /** Анонс раунда: режим во весь экран → поверх него с размаху клеится стикер темы. */
 export function AnnounceScreen() {
@@ -16,8 +33,7 @@ export function AnnounceScreen() {
   useEffect(() => {
     setTopicShown(false)
     // новый режим — дольше, чтобы успели прочитать правила
-    const isFirst = !seenModes.has(gameState.mode)
-    seenModes.add(gameState.mode)
+    const isFirst = isFirstShow(gameState.roundIndex, gameState.mode)
     const t = setTimeout(() => setTopicShown(true), isFirst ? 5200 : 3000)
     return () => clearTimeout(t)
   }, [gameState.phase, gameState.roundIndex])
@@ -28,7 +44,7 @@ export function AnnounceScreen() {
   const topic = q?.displayTopic ?? q?.topic ?? ''
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden">
+    <div className="min-h-dvh flex flex-col overflow-hidden">
       <GameHud />
 
       <motion.div

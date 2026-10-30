@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ITEMS, ITEM_ORDER, type ItemId } from '@cumsino/shared'
 import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { roughClip } from './Sticker'
 import { ItemIcon } from './ItemIcon'
+import { ignoreHotkey } from '../../lib/pressable'
+import { isSpectator } from '../../lib/players'
 
 type SlotState = 'use' | 'ready' | 'idle' | 'targeting'
 
@@ -33,7 +35,9 @@ function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, 
 }
 
 /** Свой запас в углу: только то, что есть, и только в фазах применения (анонс, ставки, вопрос). Покупка — в лавке.
- *  Клавиши Z X C V B N; гем и хекс просят выбрать игрока (Esc — отмена). Наведение — подсказка на бумажке. */
+ *  Клавиши — ITEMS[id].key (Z манта, X гем, C смок, V хекс, B BKB; у блинка клавиши нет); гем и хекс просят выбрать
+ *  игрока (Esc — отмена). Подсказка на бумажке — по наведению мыши, на тач-экране — по первому тапу (второй применяет).
+ *  Пока панель на экране, она выставляет --itembar-pad: экраны вопроса оставляют под ней место (.below-itembar). */
 export function ItemBar() {
   const gs = useGameStore(s => s.gameState)
   const me = useGameStore(selectMe)
@@ -62,7 +66,11 @@ export function ItemBar() {
     : false
   // окно показа ответа: раунд посчитан, сервер ничего не применяет
   const settled = phase === 'QUESTION' && roundResults.length > 0
-  const why = (id: ItemId) => gs ? blocker(id, phase, gs.mode, isGladiator, answered, spent(id), settled) : 'нет'
+  // гем и хекс — только в другого игрока, не зрителя (сервер иначе молча откажет, а прицел погаснет)
+  const hasTarget = !!gs?.players.some(p => p.id !== myId && !isSpectator(p))
+  const why = (id: ItemId) => !gs ? 'нет'
+    : blocker(id, phase, gs.mode, isGladiator, answered, spent(id), settled)
+      ?? (ITEMS[id].targeted && !hasTarget ? 'Не в кого: остальные зрители' : null)
   const stateOf = (id: ItemId): SlotState => {
     if (targeting === id) return 'targeting'
     if (why(id)) return 'idle'
@@ -78,8 +86,16 @@ export function ItemBar() {
 
   useEffect(() => {
     if (!visible) return
+    const root = document.documentElement
+    root.style.setProperty('--itembar-pad', '5.75rem')
+    return () => { root.style.removeProperty('--itembar-pad') }
+  }, [visible])
+
+  useEffect(() => {
+    if (!visible) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement) return
+      // Ctrl+C — не смок, Ctrl+Z — не манта; зажатая клавиша не тратит предмет повтором
+      if (ignoreHotkey(e)) return
       if (e.key === 'Escape') return setTargeting(null)
       const id = owned.find(i => ITEMS[i].key === e.code.replace('Key', ''))
       if (id) act(id)
@@ -124,6 +140,14 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
   const [shape, setShape] = useState(0)        // на наведении бумажка «рвётся» заново
   const [rot, setRot] = useState(() => tilt())
   const [hover, setHover] = useState(false)
+  // тач: наведения нет — первый тап показывает подсказку, второй (пока она видна) применяет
+  const [tapTip, setTapTip] = useState(false)
+  const touch = useRef(false)
+  useEffect(() => {
+    if (!tapTip) return
+    const t = setTimeout(() => setTapTip(false), 3000)
+    return () => clearTimeout(t)
+  }, [tapTip])
   const def = ITEMS[id]
   const live = state === 'use' || state === 'targeting'
   const glow = state === 'targeting' ? C.hot : state === 'ready' ? C.sky : state === 'use' ? C.brass : null
@@ -131,12 +155,17 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
   return (
     <div className="relative" style={{ pointerEvents: passThrough ? 'none' : 'auto' }}>
       <AnimatePresence>
-        {hover && <Tip id={id} reason={reason} />}
+        {(hover || tapTip) && <Tip id={id} reason={reason} tapAgain={tapTip && state === 'use'} />}
       </AnimatePresence>
       <motion.button
         type="button"
-        onClick={onClick}
-        onHoverStart={() => { setShape(s => s + 1); setRot(tilt()); setHover(true) }}
+        onPointerDown={e => { touch.current = e.pointerType !== 'mouse' }}
+        onClick={() => {
+          if (!touch.current || tapTip || state === 'targeting') { setTapTip(false); onClick(); return }
+          setShape(s => s + 1)
+          setTapTip(true)
+        }}
+        onHoverStart={() => { if (touch.current) return; setShape(s => s + 1); setRot(tilt()); setHover(true) }}
         onHoverEnd={() => setHover(false)}
         animate={{ rotate: rot, opacity: state === 'idle' ? 0.55 : 1, scale: state === 'targeting' ? 1.12 : 1 }}
         whileHover={{ scale: live ? 1.16 : 1.06, y: live ? -8 : -3 }}
@@ -177,7 +206,7 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
 }
 
 /** Подсказка — бумажка над слотом: название, что делает, клавиша, почему сейчас нельзя. */
-function Tip({ id, reason }: { id: ItemId; reason: string | null }) {
+function Tip({ id, reason, tapAgain }: { id: ItemId; reason: string | null; tapAgain?: boolean }) {
   const def = ITEMS[id]
   return (
     <motion.div
@@ -203,6 +232,7 @@ function Tip({ id, reason }: { id: ItemId; reason: string | null }) {
         </div>
         <div className="mt-1 text-[0.85rem] leading-snug" style={{ color: '#3d4a44' }}>{def.desc}</div>
         {reason && <div className="mt-1.5 text-[0.8rem] font-bold" style={{ color: '#b8264b' }}>{reason}</div>}
+        {!reason && tapAgain && <div className="mt-1.5 text-[0.8rem] font-bold" style={{ color: C.ink }}>Тапни ещё раз — применить</div>}
       </div>
     </motion.div>
   )

@@ -12,6 +12,9 @@ import { RevealNote } from '../ui/RevealNote'
 import { SelfEffects } from '../ui/SelfEffects'
 import { TopicInline } from '../ui/Topic'
 import { useCountdown } from '../../lib/useCountdown'
+import { useAnswerAck } from '../../lib/useAnswerAck'
+import { ignoreHotkey } from '../../lib/pressable'
+import { Money } from '../ui/Money'
 
 /** Вопрос с вариантами — «для всех», керри (отвечает сам) и толпа, которая смотрит на керри.
  *  Раскладка прибита к верху: вопрос и варианты не двигаются, всё новое (пояснение, оценка) появляется ниже. */
@@ -42,7 +45,9 @@ export function QuestionScreen() {
   const gladiator = gameState.players.find(p => p.id === gameState.gladiatorId)
 
   const [pick, setPick] = useState<number | null>(null)
-  useEffect(() => setPick(null), [q?.id])
+  // ответ ушёл, а сервер не засчитал (хекс кончился в пути) — выбор снимается, можно снова
+  const [lost, setLost] = useState(false)
+  useEffect(() => { setPick(null); setLost(false) }, [q?.id])
 
   // хекс: у тебя своё короткое время на ответ
   const hexLeft = useCountdown(revealed ? undefined : gameState.hexTimeLeft)
@@ -63,11 +68,14 @@ export function QuestionScreen() {
     if (idx >= 0 && name) (peeks[idx] ??= []).push(name)
   }
 
+  useAnswerAck(pick !== null && !isCrowd && !revealed, myAnswered, () => { setPick(null); setLost(true) })
+
   const interactive = !isCrowd && !revealed && !hexDead && (!myAnswered || canBlink)
   const choose = (idx: number) => {
     if (!interactive || eliminated.includes(idx)) return
     if (!myAnswered && pick === null) {
       setPick(idx)
+      setLost(false)
       submitAnswer(options[idx])
     } else if (canBlink && idx !== pick) {
       setPick(idx)
@@ -79,6 +87,7 @@ export function QuestionScreen() {
   useEffect(() => {
     if (!interactive) return
     const onKey = (e: KeyboardEvent) => {
+      if (ignoreHotkey(e)) return
       const n = Number(e.key)
       if (n >= 1 && n <= options.length) choose(n - 1)
     }
@@ -91,7 +100,7 @@ export function QuestionScreen() {
     : undefined
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <GameHud />
       {hexed
         // key: разные полосы — разные экземпляры (иначе хексовая унаследует длину 45 с от обычной и «побежит» неровно)
@@ -101,8 +110,8 @@ export function QuestionScreen() {
             lightning={!isCrowd} />}
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
-      <main className="flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 pb-8 flex flex-col justify-center">
-        <div className="mb-3 flex items-center gap-3 text-base" style={{ color: C.muted }}>
+      <main className="below-itembar flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 flex flex-col justify-center">
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-base" style={{ color: C.muted }}>
           {isCrowd && gladiator ? (
             <span>Отвечает <b style={{ color: C.hot }}>{gladiator.name}</b>, ты смотришь</span>
           ) : isGladiator ? (
@@ -145,7 +154,7 @@ export function QuestionScreen() {
             <div className="flex flex-col items-center gap-2 text-sm" style={{ color: C.muted }}>
               {me?.currentBet ? (
                 <span>
-                  Твоя ставка <b className="tnum" style={{ color: C.fg }}>{me.currentBet}</b> на то, что он{' '}
+                  Твоя ставка <b className="tnum" style={{ color: C.fg }}><Money v={me.currentBet} /></b> на то, что он{' '}
                   <b style={{ color: me.betTarget === 'lose' ? C.hot : C.mint }}>
                     {me.betTarget === 'lose' ? 'завалит' : 'ответит'}
                   </b>
@@ -156,10 +165,16 @@ export function QuestionScreen() {
           ) : (
             <div className="flex flex-col items-center gap-3">
               <AnswerProgress color={color} only={isGladiator && gladiator ? [gladiator.id] : undefined} />
-              <span className="text-[0.8125rem]" style={{ color: canBlink ? C.sky : C.muted }}>
-                {hexDead ? 'Не успел' : canBlink ? `Ответ принят. Передумал — жми другой вариант (блинков: ${blinks})`
-                  : myAnswered ? 'Ответ принят' : 'Можно жать 1–4'}
-              </span>
+              {lost && !myAnswered && !hexDead ? (
+                <span className="text-[0.8125rem] font-semibold" style={{ color: C.hot }}>Ответ не засчитан, выбери ещё раз</span>
+              ) : (
+                // «1–4» — подсказка для клавиатуры, на тач-экране её нет
+                <span className={`text-[0.8125rem] ${!hexDead && !canBlink && !myAnswered ? '[@media(pointer:coarse)]:hidden' : ''}`}
+                  style={{ color: canBlink ? C.sky : C.muted }}>
+                  {hexDead ? 'Не успел' : canBlink ? `Ответ принят. Передумал — жми другой вариант (блинков: ${blinks})`
+                    : myAnswered ? 'Ответ принят' : pick !== null ? 'Отправляем…' : 'Можно жать 1–4'}
+                </span>
+              )}
             </div>
           )}
 
@@ -203,10 +218,10 @@ function BribePrompt({ amount, startedAt, cycle, lose, canPay, onPay }: {
     >
       <div className="text-sm mb-3" style={{ color: C.fg }}>
         {lose
-          ? <>Заплати <b>{amount}</b>, чтобы керри не убрали неверный вариант</>
+          ? <>Заплати <b><Money v={amount} /></b>, чтобы керри не убрали неверный вариант</>
           : cycle > 0
-            ? <>Твою попытку перебили. <b>{amount}</b> — и керри всё же уберут неверный вариант</>
-            : <>Заплати <b>{amount}</b> — и керри уберут один неверный вариант</>}
+            ? <>Твою попытку перебили. <b><Money v={amount} /></b> — и керри всё же уберут неверный вариант</>
+            : <>Заплати <b><Money v={amount} /></b> — и керри уберут один неверный вариант</>}
       </div>
       <div className="flex items-center justify-center gap-3">
         <span className="tnum font-display text-xl w-8 text-right" style={{ color: left <= 2 ? C.hot : C.brass }}>
@@ -218,7 +233,7 @@ function BribePrompt({ amount, startedAt, cycle, lose, canPay, onPay }: {
           className="rounded-xl px-5 py-2.5 font-bold disabled:opacity-40"
           style={{ background: C.hot, color: C.ink }}
         >
-          Заплатить {amount}
+          Заплатить <Money v={amount} />
         </button>
       </div>
     </motion.div>

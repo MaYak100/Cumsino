@@ -15,7 +15,7 @@ export function GameOverScreen() {
   const pct = (v: number) => Math.min(100, Math.max(0, (v / WIN_CHIPS) * 100))
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10 gap-10">
+    <div className="min-h-dvh flex flex-col items-center justify-center px-4 py-10 gap-10">
       <div className="flex flex-col items-center gap-5 text-center">
         <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-lg" style={{ color: C.muted }}>
           {isWinner ? 'Касса твоя' : 'Кассу забрал'}

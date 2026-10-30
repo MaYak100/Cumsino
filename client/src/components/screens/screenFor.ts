@@ -10,7 +10,6 @@ import { BettingTableScreen } from './BettingTableScreen'
 import { QuestionScreen } from './QuestionScreen'
 import { GladiatorSelfScreen } from './GladiatorSelfScreen'
 import { ClosestScreen } from './ClosestScreen'
-import { Top5Screen } from './Top5Screen'
 import { RoundResultsScreen } from './RoundResultsScreen'
 import { GameOverScreen } from './GameOverScreen'
 
@@ -22,7 +21,6 @@ export function screenFor(phase: GamePhase, mode: GameMode, isGladiator: boolean
     case 'BETTING': return BettingTableScreen
     case 'QUESTION':
       if (mode === 'closest') return ClosestScreen
-      if (mode === 'top5') return Top5Screen
       if (mode === 'kerri' && isGladiator) return GladiatorSelfScreen
       return QuestionScreen
     case 'REVEAL': return RoundResultsScreen

@@ -27,7 +27,7 @@ export function MiniRace() {
         return (
           <motion.div
             key={p.id}
-            title={`${p.name}: ${p.chips}`}
+            title={`${p.name} — $${p.chips}`}
             initial={false}
             animate={{ left: `${pct(p.chips)}%` }}
             transition={{ type: 'spring', stiffness: 120, damping: 20 }}

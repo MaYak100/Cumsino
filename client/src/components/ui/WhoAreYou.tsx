@@ -17,7 +17,7 @@ export function WhoAreYou() {
   return (
     <div className="w-full max-w-xl flex flex-col items-center gap-3">
       <span className="text-sm text-center" style={{ color: C.muted }}>
-        Кто ты из компании? Для вопросов про своих, можно не выбирать
+        Кто ты из компании? Это для вопросов про своих — можно не выбирать
       </span>
       <div className="flex flex-wrap justify-center gap-2">
         {roster.map(f => {
