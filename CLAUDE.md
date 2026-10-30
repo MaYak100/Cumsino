@@ -41,7 +41,8 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
   в сессии срез не повторяется, кончился — новый круг). Клиент: `client/src/dev/` — `DevPage.tsx`, `labApi.ts`,
   `labState.ts` (вопрос + режим + стадия → состояние `gameStore`), `scenarios.ts`.
 - `/mocks?s=<id сценария>&n=<игроки>` — без сервера: `dev/MockPage.tsx` + `dev/mockStates.ts` (лавка, предметы,
-  блайнды, серии, керри-стол; `betting-bigblind-me`, `betting-all-full`, `betting-kerri-crowd-full` и др.).
+  блайнды, серии, керри-стол; `betting-bigblind-me`, `betting-all-full`, `betting-kerri-crowd-full`, `lobby-bots`,
+  `question-smoke-gemmed` и др.); игроков 1–8. Боты (`ui/BotMark.tsx` — пометка «бот», если в имени не сказано).
 
 ### Windows
 
@@ -209,10 +210,13 @@ SHOP — только перед `all` и только после первого
   общий с `/dev`): LOBBY → `LobbyScreen`, SHOP → `ShopScreen`, ANNOUNCE → `AnnounceScreen`, BETTING →
   `BettingTableScreen`, QUESTION → `ClosestScreen` / `QuestionScreen` (`GladiatorSelfScreen` — реэкспорт), REVEAL →
   `RoundResultsScreen`, GAME_OVER → `GameOverScreen`. Под экранами всегда `TableFelt` (вне BETTING — `blur(14px)`,
-  opacity 0.13), поверх — `ItemBar` и `Notice`. Экран — в `motion.div` с `pointerEvents: 'auto'`: Framer Motion 11
+  opacity 0.13; на BETTING рисует только сукно — плашки и кучки там у `BettingTableScreen`, общий `PLATE_TOP` с
+  `PlayerSlot`; на компактных ставках фон размыт), поверх — `ItemBar` и `Notice`. Экран — в `motion.div` с `pointerEvents: 'auto'`: Framer Motion 11
   ставит `pointer-events: none` элементу с `initial={{opacity: 0}}`, и это наследуют поля и кнопки. Раз в 10 мин —
   `/health` (Render не засыпает посреди игры).
-- **Экраны:** `LobbyScreen` (игроки-стикеры, «кто ты» — `WhoAreYou`, старт только у хоста), `AnnounceScreen` (режим во
+- **Экраны:** `LobbyScreen` (игроки-стикеры; хосту — «+ бот» пустым местом и крестик на наклейке бота; «кто ты» —
+  `WhoAreYou`: люди компании наклейками — свободные бумага, своя латунь со шлепком, занятые зачёркнуты с подписью кем,
+  «Я не …», точки «назвались N/2»; ботам не показывается; старт только у хоста), `AnnounceScreen` (режим во
   весь экран, затем стикер темы; модульный `seenModes` — дольше в первый раз, сбрасывается с новой игрой),
   `ShopScreen`, `BettingTableScreen`, `QuestionScreen` (все / керри / толпа керри), `ClosestScreen`,
   `RoundResultsScreen` (общая ось 0 → 3000, пересортировка по новому балансу), `GameOverScreen`, `LateJoinScreen`.
@@ -220,7 +224,9 @@ SHOP — только перед `all` и только после первого
   `pileSlots.ts` (`useStableSlots` — фишка держит место в кучке), `chipStyle.ts`, `pressable.ts` (`pressable()` —
   div как кнопка с клавиатуры; `ignoreHotkey()` — хоткеи не срабатывают с Ctrl/Alt/Meta, на автоповторе и в поле
   ввода), `useAnswerAck.ts` (ответ, не засчитанный сервером, снимается через 2.5 с — «Ответ не засчитан»),
-  `parseNumber.ts` (строгий разбор числа «кто ближе»), `players.ts` (`isSpectator`), `useCountdown.ts`.
+  `parseNumber.ts` (строгий разбор числа «кто ближе»), `players.ts` (`isSpectator`), `useCountdown.ts`,
+  `useBetting.ts` (вся логика ставок — черновик `stage_chip`, подтверждение, автоподтверждение, быстрые ставки,
+  блайнд; общая для круглого стола и компактных ставок, черновик переживает поворот телефона).
 
 ### Стол ставок (BETTING)
 
@@ -242,6 +248,11 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   черновика перед концом фазы — на клиенте; не успел — сервер ставит блайнд.
 - Плашка игрока «имя | $баланс» (`NamePlate` в `PlayerSlot.tsx`), бирка «ББ» на углу у большого блайнда, `StreakFlame`
   вокруг плашки при серии ≥ 2.
+- **Телефон — `CompactBetting`** вместо круглого стола, когда ширина < 640 px или масштаб сцены < `COMPACT_SCALE`
+  (0.55; `useCompactBetting` в `tableGeometry.ts`): шапка (режим, таймер, тема; в керри — кто отвечает и вопрос), своя
+  зона-сукно (в керри — «Завалит / Ответит» и квитки ×4 колонкой), соперники полосой (мини-кучка, сумма, «думает»,
+  исход, цель хекса), `ItemBar` в потоке (`inline`); док снизу — стопки, min / 25% / 50% / all-in, «Ставлю $N»,
+  «Отмена», блайнд (`ui/BetButtons.tsx`). В альбомной ориентации ниже 560 px док прокручивается со страницей.
 - Керри-толпа: шапка (кто отвечает + вопрос, верный отмечен), две зоны «Завалит / Ответит» с суммой на кону, ниже
   2×2 квитка 210×64 «где ошибётся ×4» (верный не кликается, банк-фишки лежат внутри квитка); кучки соперников
   компактные (`BetZone size="sm"`). `place_bet.chips` = основная + банк в порядке черновика. Керри видит только
@@ -273,7 +284,8 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   скетчем. `ui/ItemBar.tsx` — внизу в ANNOUNCE / BETTING / QUESTION, только купленное; недоступное — тусклое с
   подсказкой почему (на таче — первый тап подсказка, второй применяет); клавиши `ITEMS[id].key`: Z манта, X гем,
   C смок, V хекс, B BKB (блинк — через смену ответа); цель гема/хекса — выбор игрока (зрители не цели), Esc — отмена.
-  Под панелью место — `.below-itembar` / `--itembar-pad`. `ui/SelfEffects.tsx` — наклейки про эффекты на тебе;
+  Под панелью место — `.below-itembar` / `--itembar-pad`. `ui/SelfEffects.tsx` — наклейки про эффекты на тебе (гем
+  в того, кто в смоке, — «Твой ответ пытались просветить»: клиент помнит, был ли смок, когда пришёл гем);
   эффекты на других — значки у ника (`Player.effects`). Порядок (лавка и бар): манта, гем, BKB, блинк, хекс, смок,
   аегис.
 - **Серия** — `ui/StreakFlame.tsx`: бумажное пламя вокруг плашки (2 — тлеет, 3+ — выше, 5+ — синее); только на
@@ -344,8 +356,8 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 
 - **П1: переподключение = новый игрок** с $500 (сессий нет) — главный пункт [аудита](docs/audit-2026-10-28-game.md).
 - Минимум игроков для старта (сейчас можно одному; для соло-тестов есть боты).
-- Смок: скрывает ли хекс / BKB (сейчас нет); «Твой ответ просветили» у цели, которая в смоке (гем ничего не увидел).
-- Стол ставок на телефоне.
+- Смок: скрывает ли хекс / BKB (сейчас нет).
+- Телефон: на экране вопроса угловая панель предметов ещё может перекрывать низ контента.
 - Позже: звук, баланс камбэка.
 
 ## Deployment
