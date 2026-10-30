@@ -185,7 +185,8 @@ export function RoundResultsScreen() {
                   <div className="order-2 min-w-0">
                     <div className={compact ? 'pt-2' : 'pt-3'}>   {/* над ником — место пламени серии */}
                       <StreakFlame streak={playerMap.get(e.playerId)?.streak} radius={6}>
-                        <div className="font-bold truncate px-1.5 rounded-md" style={{ background: C.bg,  fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
+                        {/* inline-block: без серии StreakFlame отдаёт ник как есть — блочный тянул тёмную плашку на всю ячейку */}
+                        <div className="inline-block max-w-full align-top font-bold truncate px-1.5 rounded-md" style={{ background: C.bg,  fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
                       {me ? 'Ты' : e.name}
                       {needsBotMark(playerMap.get(e.playerId)) && <> <BotMark /></>}
                     </div>
