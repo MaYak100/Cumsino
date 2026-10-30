@@ -7,7 +7,7 @@ import type {
   BankBetUpdatedPayload, RoundResultsPayload,
   ChipStagedPayload,
   ItemId, ItemUsedPayload, GemResultPayload, MantaResultPayload,
-  BribePromptPayload, BribeMsgPayload,
+  BribePromptPayload, BribeMsgPayload, JoinErrorPayload,
 } from '@cumsino/shared'
 
 export interface ItemFeedEntry { playerId: string; item: ItemId; targetId?: string; at: number }
@@ -25,13 +25,16 @@ export interface QuestionRating {
 const RATING_DEBOUNCE_MS = 800
 let ratingTimer: ReturnType<typeof setTimeout> | null = null
 let ratingPending: QuestionRating | null = null
+/** ключ раунда (currentQuestion.id — до расчёта сервер не говорит настоящий id) → настоящий id из round_results */
+const realQuestionIds = new Map<string, string>()
+const realId = (questionId: string) => realQuestionIds.get(questionId) ?? questionId
 
 function sendRatingNow() {
   if (ratingTimer) clearTimeout(ratingTimer)
   ratingTimer = null
   const r = ratingPending
   ratingPending = null
-  if (r) socket.emit('rate_question', { questionId: r.questionId, score: r.score, difficulty: r.difficulty })
+  if (r) socket.emit('rate_question', { questionId: realId(r.questionId), score: r.score, difficulty: r.difficulty })
 }
 
 function scheduleRating(r: QuestionRating) {
@@ -50,13 +53,20 @@ interface GameStore {
   roundOptionNotes: string[] | null
   roundMode: GameMode | null
   roundGladiatorId: string | null
+  /** настоящий id вопроса раунда — приходит в round_results (в game_state currentQuestion.id — ключ раунда) */
+  roundQuestionId: string | null
   winner: Player | null
   answeredIds: Set<string>
   gladiatorHoverIndex: number | null
   pendingTarget: 'win' | 'lose' | null
+  /** банк-ставки толпы керри (сервер шлёт их только толпе — керри и зрители их не получают) */
   bankBets: Record<string, { optionIndex: number; amount: number }>
   stagedBets: Record<string, number[]>
+  /** я зритель этого раунда (вошёл посреди раунда) — по серверному Player.spectator */
   isLateJoiner: boolean
+  /** отказ во входе (join_error): комната полна, сервер полон, пустое имя, плохой код; null — нет. Снимается
+   *  новой попыткой входа (connect) и reset */
+  joinError: JoinErrorPayload | null
   bribePrompt: { amount: number; startedAt: number; cycleIndex: number } | null
   bribeEliminatedIdx: number | null
   /** Своя оценка вопроса раунда — живёт от раскрытия ответа до следующего раунда; каждое изменение уходит на
@@ -99,8 +109,6 @@ interface GameStore {
 
 /** куда входили — для повторного входа после обрыва связи */
 let joined: { name: string; gameCode: string } | null = null
-/** после переподключения первый game_state считается первым входом (isLateJoiner) */
-let rejoining = false
 
 export const useGameStore = create<GameStore>((set, get) => {
   // вкладку закрыли посреди итогов — отложенная оценка уходит сразу
@@ -115,8 +123,11 @@ export const useGameStore = create<GameStore>((set, get) => {
   // первый стейт после этого — как при первом входе (посреди раунда — зритель до следующего раунда).
   socket.io.on('reconnect', () => {
     if (!joined) return
-    rejoining = true
     socket.emit('join_game', joined)
+  })
+
+  socket.on('join_error', (err: JoinErrorPayload) => {
+    set({ joinError: err })
   })
 
   socket.on('game_state', (state: GameState) => {
@@ -125,8 +136,8 @@ export const useGameStore = create<GameStore>((set, get) => {
       || (before !== null && state.roundIndex !== before.roundIndex)
     if (roundOver) sendRatingNow()
     if (rating && roundOver) set({ rating: null })
-    const firstState = get().gameState === null || rejoining
-    rejoining = false
+    // зритель — пока сервер так считает (до следующего раунда), а не по фазе первого стейта
+    const me = state.players.find(p => p.id === socket.id)
     set(prev => {
       const newRound =
         prev.gameState !== null && state.roundIndex !== prev.gameState.roundIndex
@@ -148,15 +159,12 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundOptionNotes: clearRound ? null : prev.roundOptionNotes,
         roundMode: clearRound ? null : prev.roundMode,
         roundGladiatorId: clearRound ? null : prev.roundGladiatorId,
+        roundQuestionId: clearRound ? null : prev.roundQuestionId,
         bankBets: clearRound ? {} : prev.bankBets,
         stagedBets: clearRound ? {} : prev.stagedBets,
         betSent: clearRound ? false : prev.betSent,
-        // вошедший в лобби или в лавку — участник (сервер ждёт его «Готов»); посреди раунда — зритель до нового раунда
-        isLateJoiner: firstState
-          ? state.phase !== 'LOBBY' && state.phase !== 'SHOP'
-          : state.phase === 'ANNOUNCE' || state.phase === 'SHOP'
-            ? false
-            : prev.isLateJoiner,
+        // вошедший в лобби или в лавку — участник; посреди раунда — зритель, пока сервер не снимет флаг (nextRound)
+        isLateJoiner: !!me?.spectator,
         bribePrompt: clearBribe ? null : prev.bribePrompt,
         bribeEliminatedIdx: clearRound ? null : prev.bribeEliminatedIdx,
         itemFeed: clearRound ? [] : prev.itemFeed,
@@ -200,8 +208,13 @@ export const useGameStore = create<GameStore>((set, get) => {
     set({ gladiatorHoverIndex: optionIndex })
   })
 
-  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, comment, optionNotes, mode, gladiatorId }: RoundResultsPayload) => {
+  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, comment, optionNotes, mode, gladiatorId, questionId, questionKey }: RoundResultsPayload) => {
+    if (questionKey && questionId) {
+      realQuestionIds.set(questionKey, questionId)
+      if (realQuestionIds.size > 50) realQuestionIds.delete(realQuestionIds.keys().next().value!)
+    }
     set({
+      roundQuestionId: questionId ?? null,
       roundResults: results,
       roundCorrectAnswer: correctAnswer ?? correctNumericAnswer ?? null,
       roundComment: comment ?? null,
@@ -271,6 +284,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     roundOptionNotes: null,
     roundMode: null,
     roundGladiatorId: null,
+    roundQuestionId: null,
     winner: null,
     answeredIds: new Set(),
     gladiatorHoverIndex: null,
@@ -278,6 +292,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     bankBets: {},
     stagedBets: {},
     isLateJoiner: false,
+    joinError: null,
     bribePrompt: null,
     bribeEliminatedIdx: null,
     rating: null,
@@ -290,6 +305,7 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     connect(name, gameCode) {
       joined = { name, gameCode }
+      set({ joinError: null })
       if (!socket.connected) socket.connect()
       socket.emit('join_game', { name, gameCode })
     },
@@ -336,7 +352,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     },
 
     rateQuestion(questionId, vote) {
-      socket.emit('rate_question', { questionId, ...vote })
+      socket.emit('rate_question', { questionId: realId(questionId), ...vote })
     },
 
     setRating(questionId, patch) {
@@ -365,6 +381,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundOptionNotes: null,
         roundMode: null,
         roundGladiatorId: null,
+        roundQuestionId: null,
         winner: null,
         answeredIds: new Set(),
         gladiatorHoverIndex: null,
@@ -372,6 +389,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         bankBets: {},
         stagedBets: {},
         isLateJoiner: false,
+        joinError: null,
         bribePrompt: null,
         bribeEliminatedIdx: null,
         rating: null,
