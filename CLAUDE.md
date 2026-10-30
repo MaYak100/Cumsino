@@ -75,8 +75,8 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
   «Протокол»).
 - `constants.ts` — `STARTING_CHIPS=500`, `WIN_CHIPS=3000`, `GLADIATOR_BONUS=300`, `CLOSEST_WINNER_BONUS=200`
   (+`CLOSEST_EXACT_BONUS=200` за точное), `MAX_PLAYERS=8`, `MIN_CHIP=10`, `PHASE_DURATIONS` (SHOP 25, ANNOUNCE 9,
-  BETTING 30, QUESTION 45, REVEAL 14 с), `NEW_MODE_ANNOUNCE_EXTRA=3`, `FIRST_SHOP_EXTRA=20`, `ANSWER_REVEAL_MS=4000`
-  / `ANSWER_REVEAL_NOTES_MS=6000`, `BRIBE_ENABLED=false`.
+  BETTING 30, QUESTION 45, REVEAL 14 с), `NEW_MODE_ANNOUNCE_EXTRA=3`, `FIRST_SHOP_EXTRA=20`, `ANSWER_REVEAL_MS=5500`
+  / `ANSWER_REVEAL_NOTES_MS=7500`, `BRIBE_ENABLED=false`.
 - `items.ts` — предметы, цены (`itemPrice` растёт с балансом), блайнды (`blindFor`), молния и серия (от выигрыша,
   `floor10`), BKB (`bkbCap(цена покупки)`), аегис — правила в [docs/items.md](docs/items.md).
 - `chips.ts` — `decomposeToChips(amount)` (80% крупными 500/100, 20% мелкими 50/20/10, `normalizeMax7()` — стопка
@@ -108,8 +108,8 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
     `advanceFromQuestion()`: `revealing = true` (идемпотентно: поздний ответ / дисконнект не считают раунд второй
     раз), `calculateResults()` = `baseResults()` + `applyBonuses()` (молния → серия → BKB → аегис; серии и аегисы в
     `pending`, применяет `commitSettlement()` — тесты могут звать `calculateResults()` повторно), `applyDeltas`
-    (флор 0), `reportRound()` (показ для оценок), `game_state` и `round_results`; фаза остаётся QUESTION ещё 4 с
-    (6 с с `optionNotes`) — клиенты показывают ответ — потом REVEAL. Ошибка расчёта — нулевые итоги «Ошибка расчёта».
+    (флор 0), `reportRound()` (показ для оценок), `game_state` и `round_results`; фаза остаётся QUESTION ещё 5.5 с
+    (7.5 с с `optionNotes`) — клиенты показывают ответ — потом REVEAL. Ошибка расчёта — нулевые итоги «Ошибка расчёта».
   - **Керри — «мешок»** (`kerriBag`): каждый участник по разу в случайном порядке, потом новый круг из всех. Ушедший
     выпадает из мешка; вошедший посреди круга добавляется в текущий круг (к тем, кто ещё не был керри), вошедший
     после конца круга — в следующий. Зритель керри не становится и остаётся в мешке. Боты — тоже керри.
@@ -187,7 +187,7 @@ gladiatorId}`, `game_over {winner}`, `item_used`, `gem_result`, `manta_result`, 
 ### Phase flow
 
 ```
-LOBBY → [SHOP 25 с (45 с первая) →] ANNOUNCE 9 с (+3 новый режим) → [BETTING 30 с →] QUESTION 45 с → [показ ответа 4/6 с] → REVEAL 14 с → следующий раунд | GAME_OVER
+LOBBY → [SHOP 25 с (45 с первая) →] ANNOUNCE 9 с (+3 новый режим) → [BETTING 30 с →] QUESTION 45 с → [показ ответа 5.5/7.5 с] → REVEAL 14 с → следующий раунд | GAME_OVER
 ```
 
 SHOP — только перед `all` и только после первого `closest`. BETTING — у `all` и `kerri`, если есть кому ставить.

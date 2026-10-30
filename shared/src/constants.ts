@@ -22,8 +22,8 @@ export const PHASE_DURATIONS: Partial<Record<GamePhase, number>> = {
 export const NEW_MODE_ANNOUNCE_EXTRA = 3
 
 // Сколько фаза QUESTION показывает правильный ответ до REVEAL; с подписями значений вариантов — дольше
-export const ANSWER_REVEAL_MS = 4000
-export const ANSWER_REVEAL_NOTES_MS = 6000
+export const ANSWER_REVEAL_MS = 5500
+export const ANSWER_REVEAL_NOTES_MS = 7500
 
 // Взятка (аукцион за подсказку керри в kerri) выключена до переделки: работала криво (2026-10-28)
 export const BRIBE_ENABLED = false
