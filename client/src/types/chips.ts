@@ -2,20 +2,25 @@ import { decomposeToChips, decomposeStartingChips, STARTING_CHIPS } from '@cumsi
 import type { ChipValue } from '../components/ui/Chip'
 
 export interface PhysicalChip {
-  id: string // crypto.randomUUID() — stable for chip's lifetime
+  id: string // постоянный на всю жизнь фишки (layoutId перелёта, место в кучке)
   denom: ChipValue
 }
 
-/** Decompose a chip total into an ordered array of PhysicalChip objects.
- *  Order: high denominations first, within each denom index 0 = base (bottom of stack). */
-export function buildPhysicalChips(total: number): PhysicalChip[] {
+/** Уникальные id без crypto.randomUUID: его нет вне secure context (игра по LAN — http://192.168…). */
+let chipSeq = 0
+const sessionTag = Math.random().toString(36).slice(2, 7)
+
+/** Разложить сумму на фишки по порядку: крупные первыми, внутри номинала индекс 0 — низ стопки.
+ *  prefix — стабильные id (стопка соперника: один и тот же набор на каждый рендер, узлы не пересоздаются);
+ *  без него — новые уникальные id (своя стопка: собирается заново на каждые ставки). */
+export function buildPhysicalChips(total: number, prefix?: string): PhysicalChip[] {
   const breakdown = total === STARTING_CHIPS ? decomposeStartingChips() : decomposeToChips(total)
   const chips: PhysicalChip[] = []
   const denoms: ChipValue[] = [500, 100, 50, 20, 10]
   denoms.forEach(denom => {
     const count = breakdown[denom]
     for (let i = 0; i < count; i++) {
-      chips.push({ id: crypto.randomUUID(), denom })
+      chips.push({ id: prefix ? `${prefix}-${denom}-${i}` : `c${sessionTag}${++chipSeq}`, denom })
     }
   })
   return chips

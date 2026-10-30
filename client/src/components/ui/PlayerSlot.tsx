@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import type { Player } from '@cumsino/shared'
 import { buildPhysicalChips } from '../../types/chips'
@@ -10,6 +10,7 @@ import { C, DISPLAY } from '../../theme'
 import { Money } from './Money'
 import { Marks } from './AnswerProgress'
 import { StreakFlame } from './StreakFlame'
+import { pressable } from '../../lib/pressable'
 
 const UNIT_W = 200
 const CHIP_ROW_H = 52
@@ -32,7 +33,9 @@ interface Props {
 
 export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomClick, onTarget, above }: Props) {
   const { left, top } = unitPosition(angle, UNIT_W, UNIT_H, 0)
-  const chips = isMe ? (myChips ?? []) : buildPhysicalChips(player.chips)
+  // стопка соперника — стабильные id: на каждый клик и chip_staged узлы не пересоздаются
+  const theirs = useMemo(() => buildPhysicalChips(player.chips, `stack-${player.id}`), [player.chips, player.id])
+  const chips = isMe ? (myChips ?? []) : theirs
 
   return (
     <div
@@ -63,6 +66,7 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
       <motion.div
         className="relative flex flex-col items-center"
         onClick={onTarget}
+        {...(onTarget ? pressable(onTarget, `Цель: ${player.name}`) : {})}
         whileHover={onTarget ? { scale: 1.08, y: -3 } : undefined}
         style={{
           cursor: onTarget ? 'crosshair' : undefined, borderRadius: 14,

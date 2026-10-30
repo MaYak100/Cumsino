@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import type { ChipValue } from './Chip'
 import type { PhysicalChip } from '../../types/chips'
 import { chipStyle } from '../../lib/chipStyle'
+import { pressable } from '../../lib/pressable'
+import { useFlightTransform } from '../../lib/tableGeometry'
 
 interface Props {
   chips: PhysicalChip[]
@@ -18,6 +20,7 @@ const STEP_PX = { sm: 5, md: 6 } as const
 const DENOM_ORDER: ChipValue[] = [500, 100, 50, 20, 10]
 
 export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick, size = 'md' }: Props) {
+  const flight = useFlightTransform()
   const px = CHIP_PX[size]
   const step = STEP_PX[size]
 
@@ -59,6 +62,7 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
               <motion.div
                 key={chip.id}
                 layoutId={chip.id}
+                transformTemplate={flight}
                 style={wrapperStyle}
               >
                 {denom}
@@ -85,6 +89,7 @@ export function PhysicalChipStack({ chips, interactive, placedIds, onDenomClick,
               whileTap={{ scale: 0.92 }}
               transition={{ type: 'spring', stiffness: 300, damping: 28 }}
               onClick={() => onDenomClick!(denom)}
+              {...pressable(() => onDenomClick!(denom), `Поставить фишку $${denom}`)}
             >
               {inner}
             </motion.div>

@@ -4,6 +4,8 @@ import type { PhysicalChip } from '../../types/chips'
 import { chipStyle } from '../../lib/chipStyle'
 import { C, DISPLAY } from '../../theme'
 import { Money } from './Money'
+import { pressable } from '../../lib/pressable'
+import { useFlightTransform } from '../../lib/tableGeometry'
 
 interface Props {
   cx: number
@@ -14,16 +16,22 @@ interface Props {
   slots?: Map<string, number>
   mine: boolean
   onRecall?: (id: string) => void
+  /** sm — керри-толпа: середину сукна занимают исходы и квитки, кучки соседей у края должны быть компактнее */
+  size?: 'md' | 'sm'
 }
 
-const CHIP_PX = 30
-const UNIT_OFFSET = 16 // кучка чуть выше (cx,cy), под ней — сумма
+const SIZES = {
+  md: { chip: 30, spread: 16, offset: 16, pill: 44 },
+  sm: { chip: 24, spread: 11, offset: 12, pill: 34 },
+} as const
 
 /** Ставка игрока на сукне: фишки кучкой (каждая краем на соседней), под ней сумма. */
-export function BetZone({ cx, cy, chips, slots, mine, onRecall }: Props) {
+export function BetZone({ cx, cy, chips, slots, mine, onRecall, size = 'md' }: Props) {
+  const { chip: CHIP_PX, spread, offset: UNIT_OFFSET, pill } = SIZES[size]
+  const flight = useFlightTransform()
   const total = chips.reduce((s, c) => s + c.denom, 0)
   const at = (chip: PhysicalChip, i: number) => {
-    const o = pileOffset(slots?.get(chip.id) ?? i, chip.id)
+    const o = pileOffset(slots?.get(chip.id) ?? i, chip.id, spread)
     return { left: cx + o.x - CHIP_PX / 2, top: cy - UNIT_OFFSET + o.y - CHIP_PX / 2, zIndex: 10 + i }
   }
 
@@ -35,6 +43,7 @@ export function BetZone({ cx, cy, chips, slots, mine, onRecall }: Props) {
           <motion.div
             key={chip.id}
             layoutId={chip.id}
+            transformTemplate={flight}
             style={{ position: 'absolute', ...at(chip, i), borderRadius: '50%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
           >
@@ -42,6 +51,7 @@ export function BetZone({ cx, cy, chips, slots, mine, onRecall }: Props) {
               className="cursor-pointer hover:-translate-y-1 transition-transform"
               style={chipStyle(chip.denom, CHIP_PX)}
               onClick={() => onRecall?.(chip.id)}
+              {...(onRecall ? pressable(() => onRecall(chip.id), `Убрать фишку $${chip.denom}`) : {})}
             >
               {chip.denom}
             </div>
@@ -67,10 +77,10 @@ export function BetZone({ cx, cy, chips, slots, mine, onRecall }: Props) {
         <div style={{
           position: 'absolute',
           left: cx - 34,
-          top: cy - UNIT_OFFSET + 44,
+          top: cy - UNIT_OFFSET + pill,
           width: 68,
           textAlign: 'center',
-          fontSize: 14,
+          fontSize: size === 'sm' ? 13 : 14,
           fontFamily: DISPLAY,
           color: C.fg,
           fontVariantNumeric: 'tabular-nums',
@@ -78,7 +88,7 @@ export function BetZone({ cx, cy, chips, slots, mine, onRecall }: Props) {
           borderRadius: 999,
           padding: '2px 6px',
           pointerEvents: 'none',
-          zIndex: 40,
+          zIndex: 40,   // кнопки «Ставлю» и подпись блайнда — выше (60): своя кнопка не уходит под чужую сумму
         }}>
           <Money v={total} />
         </div>

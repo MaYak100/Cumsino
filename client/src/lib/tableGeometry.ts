@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext, useContext, useMemo } from 'react'
 
 export const FELT_CX = 650
 export const FELT_CY = 415
@@ -22,6 +22,25 @@ export function useSceneScale(): number {
     return () => window.removeEventListener('resize', handler)
   }, [])
   return scale
+}
+
+/** Масштаб сцены стола (CSS scale у обёртки) — для поправки перелёта фишек, см. useFlightTransform. */
+export const SceneScaleContext = createContext(1)
+
+/** Перелёт фишки по layoutId внутри отмасштабированной сцены. Framer Motion меряет старую и новую рамку на экране
+ *  и сдвигает элемент translate'ом на разницу в экранных пикселях — а translate применяется внутри scale(s) предка
+ *  и вырастает в s раз: на 1920×1080 фишка стартовала на ~30 px ниже стопки и в конце догоняла. Масштаб предка FM
+ *  не учитывает (и motion-обёртка со style.scale не помогает — ошибка только растёт), поэтому делим сдвиг сами:
+ *  transformTemplate получает готовую строку проекции. */
+export function useFlightTransform(scale?: number) {
+  const ctx = useContext(SceneScaleContext)
+  const s = scale ?? ctx
+  return useMemo(() => {
+    if (s === 1) return undefined
+    return (_: unknown, generated: string) =>
+      generated.replace(/translate3d\(([^,]+)px, ([^,]+)px,/, (_m, x: string, y: string) =>
+        `translate3d(${parseFloat(x) / s}px, ${parseFloat(y) / s}px,`)
+  }, [s])
 }
 
 export function playerAngle(i: number, N: number): number {
