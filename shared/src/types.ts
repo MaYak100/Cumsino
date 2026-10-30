@@ -10,6 +10,7 @@ export type GamePhase =
   | 'REVEAL'
   | 'GAME_OVER'
 
+/** top5 — старый режим: сервер его не выбирает и не считает; в типе, пока у клиента есть Top5Screen */
 export type GameMode = 'all' | 'kerri' | 'closest' | 'top5'
 export type MainMode = 'all' | 'kerri'
 
@@ -43,6 +44,9 @@ export interface Player {
   shopReady?: boolean
   /** видимые всем эффекты этого раунда: bkb, hex (на нём), smoke; aegis — есть аегис (держится до срабатывания) */
   effects?: PublicEffect[]
+  /** вошёл посреди раунда: до следующего раунда только смотрит (не ставит, не отвечает, не цель предметов, не
+   *  керри, его не ждут). Нет поля — участник. */
+  spectator?: boolean
 }
 
 export type PublicEffect = 'bkb' | 'hex' | 'smoke' | 'aegis'
@@ -78,8 +82,11 @@ export interface GameState {
   id: string
   phase: GamePhase
   roundIndex: number
-  lastMainMode: MainMode
+  /** @deprecated сервер больше не присылает; поле осталось, пока его заполняют моки клиента */
+  lastMainMode?: MainMode
   mode: GameMode
+  /** Вопрос раунда без ответа. id здесь — непрозрачный ключ раунда («r3-k8f2…»), а не id вопроса из банка: настоящий
+   *  id (у статистики в нём ответ) приходит только в round_results (questionId). */
   currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'orderedItems' | 'comment' | 'optionNotes'> | null
   gladiatorId?: string
   gladiatorAnswer?: string
@@ -112,7 +119,6 @@ export interface RoundResult {
 export interface JoinGamePayload { name: string; gameCode: string }
 /** chips — все фишки игрока на сукне (с банк-ставкой: сначала основная, потом банк) — сервер хранит их в betChips */
 export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose'; chips?: number[]; bankBet?: { optionIndex: number; amount: number } }
-export interface PlaceBankBetPayload { optionIndex: number; amount: number }
 /** blink — сменить уже отправленный ответ (тратит блинк) */
 export interface SubmitAnswerPayload { answer: string | number | string[]; blink?: boolean }
 export interface BuyItemPayload { item: ItemId }
@@ -122,17 +128,26 @@ export interface ShopReadyPayload { ready: boolean }
 export interface GladiatorHoverPayload { optionIndex: number | null }
 export interface IdentifyPayload { friendId: number | null }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
- *  null — снять отметку; поле не передано — не менять. */
+ *  null — снять отметку; поле не передано — не менять. questionId — настоящий id (round_results.questionId) или ключ
+ *  раунда (currentQuestion.id): сервер оценивает только последний посчитанный вопрос комнаты. */
 export interface RateQuestionPayload { questionId: string; score?: number | null; difficulty?: number | null }
 
 // Socket event payloads — Server → Client
-export interface PhaseChangedPayload { phase: GamePhase; timeLeft: number }
+/** отказ во входе (join_game): комната полна, сервер полон, пустое имя, плохой код. message — готовый текст */
+export interface JoinErrorPayload {
+  reason: 'room_full' | 'server_full' | 'bad_name' | 'bad_code'
+  message: string
+}
 export interface BetUpdatedPayload { playerId: string; amount: number; target?: 'win' | 'lose'; chips?: number[] }
+/** банк-ставка толпы — только толпе керри (не самому керри и не зрителям) */
 export interface BankBetUpdatedPayload { playerId: string; optionIndex: number; amount: number }
 export interface PlayerAnsweredPayload { playerId: string }
 export interface GladiatorHoveringPayload { optionIndex: number | null }
 export interface RoundResultsPayload {
   results: RoundResult[]
+  /** настоящий id вопроса (до расчёта не виден) и ключ раунда (= currentQuestion.id) */
+  questionId?: string | null
+  questionKey?: string | null
   correctAnswer?: string | null
   correctNumericAnswer?: number | null
   comment?: string | null
@@ -140,17 +155,16 @@ export interface RoundResultsPayload {
   mode?: GameMode
   gladiatorId?: string
 }
+/** winner — публичная проекция игрока (как в game_state) */
 export interface GameOverPayload { winner: Player }
-/** кто-то применил предмет. targetId — только у хекса (всем) и у гема (только самой цели: onYou). optionIndex — манта керри
- *  (толпа видит, что убрали) */
-export interface ItemUsedPayload { playerId: string; item: ItemId; targetId?: string; onYou?: boolean; optionIndex?: number }
+/** кто-то применил предмет. targetId — только у хекса (всем) и у гема (только самой цели: onYou) */
+export interface ItemUsedPayload { playerId: string; item: ItemId; targetId?: string; onYou?: boolean }
 /** результат гема — только тому, кто смотрел: выбранный сейчас ответ цели (null — ещё не ответил), smoked — цель в смоке */
 export interface GemResultPayload { targetId: string; answer: string | number | null; smoked: boolean }
 export interface MantaResultPayload { optionIndex: number }
 export interface ChipStagedPayload { playerId: string; chips: number[] }
 
 export interface BribePromptPayload { amount: number; cycleIndex: number }
-export interface BribePromptCancelPayload { dummy?: never }
 export interface BribeMsgPayload {
   type: 'helping' | 'betrayed' | 'helped'
   eliminatedOptionIndex?: number

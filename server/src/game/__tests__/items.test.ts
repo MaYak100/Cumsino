@@ -222,18 +222,18 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2')).toMatchObject({ currentBet: 50, betTarget: 'win' })
     })
 
-    it('банк-ставка без подтверждения: блайнд не больше остатка', () => {
+    it('банк-ставка без подтверждения (страховка: клиент шлёт её только в place_bet): блайнд не больше остатка', () => {
       const t = makeRoom(3)
       t.p('p2').chips = 120
       toKerriBetting(t)
       expect(t.p('p2').blind).toBe(10)
-      t.room.placeBankBet('p2', 1, 110)
+      t.p('p2').bankBet = { optionIndex: 1, amount: 110 }
       t.r.onPhaseEnd()
       expect(t.p('p2').currentBet).toBe(10)
       t.r.nextRound()
       t.p('p2').chips = 120
       toKerriBetting(t)
-      t.room.placeBankBet('p2', 1, 120)   // на основную не осталось — блайнда нет
+      t.p('p2').bankBet = { optionIndex: 1, amount: 120 }   // на основную не осталось — блайнда нет
       t.r.onPhaseEnd()
       expect(t.p('p2').currentBet).toBe(0)
     })

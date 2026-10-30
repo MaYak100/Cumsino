@@ -1,5 +1,6 @@
 // shared/src/items.ts — предметы, бонусы (молния, серия) и блайнды. Правила — docs/items.md.
 import type { GameMode, GamePhase } from './types'
+import { MIN_CHIP } from './constants'
 
 export type ItemId = 'blink' | 'gem' | 'manta' | 'smoke' | 'hex' | 'bkb' | 'aegis'
 
@@ -22,6 +23,12 @@ export interface ItemDef {
   desc: string
 }
 
+/** хекс: столько секунд у цели на ответ */
+export const HEX_SECONDS = 15
+/** аегис: упал ниже порога после раунда — баланс становится AEGIS_RESTORE */
+export const AEGIS_THRESHOLD = 50
+export const AEGIS_RESTORE = 300
+
 export const ITEMS: Record<ItemId, ItemDef> = {
   blink: {
     id: 'blink', name: 'Blink', basePrice: 50, max: 5, usePhases: ['QUESTION'], modes: ['all', 'kerri', 'closest'],
@@ -41,7 +48,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   hex: {
     id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],
-    targeted: true, key: 'V', desc: 'Бросается на ставках: у цели будет всего 15 секунд на ответ',
+    targeted: true, key: 'V', desc: `Бросается на ставках: у цели будет всего ${HEX_SECONDS} секунд на ответ`,
   },
   bkb: {
     id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all', 'kerri'],
@@ -49,7 +56,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   aegis: {
     id: 'aegis', name: 'Aegis', basePrice: 100, max: 1, usePhases: 'passive', modes: ['all', 'kerri', 'closest'],
-    targeted: false, desc: 'Один на игру, работает сам: упал ниже $50 — встаёшь с $300',
+    targeted: false, desc: `Один на игру, работает сам: упал ниже $${AEGIS_THRESHOLD} — встаёшь с $${AEGIS_RESTORE}`,
   },
 }
 
@@ -69,11 +76,8 @@ export function itemPrice(id: ItemId, balance: number): number {
 }
 
 // ── параметры предметов ──
-export const HEX_SECONDS = 15
 /** сейв BKB растёт с его ценой: две цены BKB на момент включения ($400 при базовой) */
 export const bkbCap = (balance: number) => 2 * itemPrice('bkb', balance)
-export const AEGIS_THRESHOLD = 50
-export const AEGIS_RESTORE = 300
 /** после последнего ответа раунд считается через секунду: успеть блинкнуть в последний момент */
 export const LAST_ANSWER_GRACE_MS = 1000
 
@@ -97,6 +101,6 @@ export const BIG_BLIND = 0.1
 
 /** Минимальная ставка раунда: 5% баланса (ведущему — 10%), вверх до $10, не меньше $10 и не больше баланса. */
 export function blindFor(balance: number, big: boolean): number {
-  if (balance < 10) return 0
-  return Math.min(Math.floor(balance / 10) * 10, Math.max(10, ceil10(balance * (big ? BIG_BLIND : SMALL_BLIND))))
+  if (balance < MIN_CHIP) return 0
+  return Math.min(Math.floor(balance / MIN_CHIP) * MIN_CHIP, Math.max(MIN_CHIP, ceil10(balance * (big ? BIG_BLIND : SMALL_BLIND))))
 }

@@ -44,13 +44,3 @@ export function decomposeToChips(amount: number): ChipBreakdown {
 export function decomposeStartingChips(): ChipBreakdown {
   return { 500: 0, 100: 2, 50: 4, 20: 3, 10: 4 }
 }
-
-export function totalChips(breakdown: ChipBreakdown): number {
-  return (
-    breakdown[500] * 500 +
-    breakdown[100] * 100 +
-    breakdown[50] * 50 +
-    breakdown[20] * 20 +
-    breakdown[10] * 10
-  )
-}

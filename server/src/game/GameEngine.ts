@@ -1,9 +1,16 @@
 import type { Server, Socket } from 'socket.io'
 import { GameRoom } from './GameRoom'
-import type { FriendProfile } from '@cumsino/shared'
+import type { FriendProfile, JoinErrorPayload } from '@cumsino/shared'
+import { MAX_PLAYERS } from '@cumsino/shared'
 import { loadLibrary, type Library } from './questions/library'
 import { RoomQuestions } from './questions/picker'
 import { QuestionHistory } from './questions/history'
+
+/** комнат на процесс не больше: каждая держит таймеры и колоды в памяти */
+export const MAX_ROOMS = 200
+
+/** Что движку нужно от сокета (для тестов хватает заглушки). */
+type JoinSocket = Pick<Socket, 'id' | 'join' | 'leave' | 'emit'>
 
 export class GameEngine {
   private rooms: Map<string, GameRoom> = new Map()
@@ -12,26 +19,49 @@ export class GameEngine {
   private library: Library
   private friendRoster: FriendProfile[]
 
-  constructor(private io: Server, private history: QuestionHistory = new QuestionHistory()) {
-    this.library = loadLibrary()   // вопросы читаются при старте сервера
+  constructor(private io: Server, private history: QuestionHistory = new QuestionHistory(), library?: Library) {
+    this.library = library ?? loadLibrary()   // вопросы читаются при старте сервера
     this.friendRoster = Object.entries(this.library.friends?.people ?? {})
       .map(([id, p]) => ({ id: Number(id), name: p.name }))
   }
 
-  joinRoom(socket: Socket, name: string, gameCode: string): void {
+  get roomCount() { return this.rooms.size }
+
+  /** Вход в комнату (создаёт её). Комната полна / сервер полон — join_error, а игрок остаётся, где был. */
+  joinRoom(socket: JoinSocket, name: string, gameCode: string): void {
     const prev = this.playerRoom.get(socket.id)
+    let room = this.rooms.get(gameCode)
+    const rejoin = prev === gameCode && !!room?.has(socket.id)
+    // проверки — до выхода из старой комнаты: отказ не должен выкидывать игрока из игры
+    if (!rejoin) {
+      if (room?.isFull) {
+        this.joinError(socket, 'room_full', `В комнате уже ${MAX_PLAYERS} игроков`)
+        return
+      }
+      if (!room && this.rooms.size >= MAX_ROOMS) {
+        this.joinError(socket, 'server_full', 'Сервер переполнен — попробуй позже')
+        return
+      }
+    }
     if (prev && prev !== gameCode) {   // переход в другую комнату — без «призрака» в старой
       this.leaveRoom(socket.id)
       socket.leave(prev)
     }
-    let room = this.rooms.get(gameCode)
     if (!room) {
       room = this.createRoom(gameCode)
       console.log(`[room] created ${gameCode} | total rooms: ${this.rooms.size}`)
     }
+    if (!room.addPlayer(socket.id, name)) {
+      this.joinError(socket, 'room_full', `В комнате уже ${MAX_PLAYERS} игроков`)
+      return
+    }
     socket.join(gameCode)
     this.playerRoom.set(socket.id, gameCode)
-    room.addPlayer(socket.id, name)
+  }
+
+  private joinError(socket: JoinSocket, reason: JoinErrorPayload['reason'], message: string) {
+    const payload: JoinErrorPayload = { reason, message }
+    socket.emit('join_error', payload)
   }
 
   leaveRoom(socketId: string): void {

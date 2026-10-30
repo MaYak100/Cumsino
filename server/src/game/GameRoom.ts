@@ -3,6 +3,7 @@ import { EventEmitter } from 'events'
 import type { GameState, GamePhase, GameMode, Player, RoundResult, Question, FriendProfile, ItemId, PublicEffect } from '@cumsino/shared'
 import {
   STARTING_CHIPS, WIN_CHIPS, BRIBE_ENABLED, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
+  MAX_PLAYERS, MIN_CHIP, NEW_MODE_ANNOUNCE_EXTRA,
   decomposeToChips,
   ITEMS, ITEM_ORDER, BUY_PHASES, itemPrice, round10, blindFor, streakShare,
   HEX_SECONDS, bkbCap, AEGIS_THRESHOLD, AEGIS_RESTORE, LAST_ANSWER_GRACE_MS,
@@ -10,7 +11,6 @@ import {
 } from '@cumsino/shared'
 import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
-import { distributeTop5 } from './economy/distributeTop5'
 import { applyBankBets } from './economy/applyBankBets'
 import { RoundSelector } from './RoundSelector'
 import type { QuestionSource, RatingVote } from './questions/picker'
@@ -25,6 +25,8 @@ interface RoundItems {
   hexed: boolean
   /** до какого момента (Date.now) хекснутый может отвечать — ставится на старте QUESTION */
   hexDeadline?: number
+  /** таймер хекса сработал: время вышло, даже если Date.now() ещё на миллисекунду до дедлайна */
+  hexDone?: boolean
   smoked: boolean
   /** смок включён до ответа: другим не видно, что ответил (после ответа — уже видели player_answered) */
   smokeHidesAnswer: boolean
@@ -97,6 +99,8 @@ export class GameRoom extends EventEmitter {
   private roundIndex = 0
   private currentMode: GameMode = 'all'
   private currentQuestion: Question | null = null
+  /** что клиенты видят вместо id вопроса до расчёта: у статистики id = ответ (stat:<sub>:<лидер>) */
+  private questionKey = ''
   private gladiatorId?: string
   private phaseTimer?: ReturnType<typeof setTimeout>
   private phaseEndTime = 0
@@ -104,6 +108,8 @@ export class GameRoom extends EventEmitter {
   private questions: QuestionSource
   /** вопрос последнего посчитанного раунда — его можно оценить до конца следующего раунда */
   private ratable: Question | null = null
+  /** ключ раунда оцениваемого вопроса — клиент может прислать оценку и по нему */
+  private ratableKey = ''
   /** игроков в комнате при его показе — делитель оценки команды (как в report) */
   private ratableRoomPlayers = 1
   private bettingConfirmedIds = new Set<string>()
@@ -130,9 +136,17 @@ export class GameRoom extends EventEmitter {
     this.selector = new RoundSelector()
   }
 
-  addPlayer(id: string, name: string) {
-    if (this.players.has(id)) { this.broadcastState(); return }   // повторный join того же сокета — не сбрасывать фишки
-    if (this.players.size >= 12) return
+  get isFull() { return this.players.size >= MAX_PLAYERS }
+
+  has(id: string) { return this.players.has(id) }
+
+  /** false — не вошёл (комната полна). Повторный join того же сокета — фишки не сбрасываются, стейт только ему. */
+  addPlayer(id: string, name: string): boolean {
+    if (this.players.has(id)) {
+      this.sendToPlayer(id, 'game_state', this.getStateForPlayer(id))
+      return true
+    }
+    if (this.isFull) return false
     if (this.players.size === 0) this.hostId = id
     this.players.set(id, {
       id, name,
@@ -149,6 +163,7 @@ export class GameRoom extends EventEmitter {
       spectator: !['LOBBY', 'SHOP'].includes(this.phase),
     })
     this.broadcastState()
+    return true
   }
 
   removePlayer(id: string) {
@@ -166,6 +181,11 @@ export class GameRoom extends EventEmitter {
     // керри ушёл до вопроса: толпа уже видела ответ, нового керри не назначить — раунд не считается
     if (this.phase === 'BETTING' && this.currentMode === 'kerri' && id === this.gladiatorId) {
       this.cancelRound('Керри сбежал — раунд не считается')
+      return
+    }
+    // ушёл последний участник раунда — остались одни зрители: ждать некого
+    if (['ANNOUNCE', 'BETTING', 'QUESTION'].includes(this.phase) && !this.revealing && !this.participants().length) {
+      this.cancelRound('Игроки раунда ушли — раунд не считается')
       return
     }
     // ушёл последний, кого ждали, — фаза не висит до таймера
@@ -197,17 +217,27 @@ export class GameRoom extends EventEmitter {
     }))
     this.broadcastState()
     this.broadcast('round_results', {
-      results, correctAnswer: this.currentQuestion?.answer ?? null,
+      results, ...this.questionIds(), correctAnswer: this.currentQuestion?.answer ?? null,
       correctNumericAnswer: this.currentQuestion?.numericAnswer ?? null, comment: reason, optionNotes: null,
       mode: this.currentMode, gladiatorId: this.gladiatorId,
     })
     this.schedulePhase('REVEAL', PHASE_DURATIONS['REVEAL']!)
   }
 
+  /** id вопроса для round_results: настоящий (виден только после расчёта) и ключ раунда (= currentQuestion.id). */
+  private questionIds() {
+    return { questionId: this.currentQuestion?.id ?? null, questionKey: this.currentQuestion ? this.publicKey() : null }
+  }
+
+  private publicKey() {
+    return this.questionKey || `r${this.roundIndex}`
+  }
+
   /** «Кто ты» в лобби: человек из компании или null (пропустить). Одним человеком назваться может только один. */
   identify(playerId: string, friendId: number | null) {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'LOBBY') return
+    if ((player.friendId ?? null) === friendId) return   // ничего не изменилось — стейт не рассылаем
     if (friendId === null) {
       player.friendId = undefined
     } else {
@@ -219,11 +249,12 @@ export class GameRoom extends EventEmitter {
   }
 
   /** Оценка вопроса: только последнего посчитанного раунда, только своя (переоценка заменяет). Ключ голоса — id
-   *  игрока: у двух игроков с одним ником голоса разные. */
+   *  игрока: у двух игроков с одним ником голоса разные. questionId — настоящий id или ключ раунда (что видел
+   *  клиент до расчёта); чужой / старый — мимо. */
   rateQuestion(playerId: string, questionId: string, vote: RatingVote) {
     const player = this.players.get(playerId)
     const q = this.ratable
-    if (!player || !q || q.id !== questionId) return
+    if (!player || !q || (q.id !== questionId && this.ratableKey !== questionId)) return
     this.questions.rate?.(q, { id: player.id, name: player.name, roomPlayers: this.ratableRoomPlayers }, vote)
   }
 
@@ -243,8 +274,13 @@ export class GameRoom extends EventEmitter {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'BETTING' || player.spectator) return
     if (this.currentMode === 'kerri' && playerId === this.gladiatorId) return   // керри не ставит на себя
-    const existingBankAmount = player.bankBet?.amount ?? 0
-    if (amount + existingBankAmount > player.chips) return
+    // банк-ставка толпы керри из этого же подтверждения: подходит (неверный вариант, > 0, влезает с основной) —
+    // заменяет прежнюю; иначе прежняя остаётся, и основная проверяется вместе с ней
+    const newBank = bankBet && this.currentMode === 'kerri' && this.bankBetTargetOk(bankBet.optionIndex)
+      && bankBet.amount > 0 && amount + bankBet.amount <= player.chips
+      ? { optionIndex: bankBet.optionIndex, amount: bankBet.amount }
+      : undefined
+    if (!newBank && amount + (player.bankBet?.amount ?? 0) > player.chips) return
     // блайнд («для всех» и толпа керри): меньше нельзя (если баланса на блайнд хватает)
     const blind = player.blind ?? 0
     if (amount < blind && player.chips >= blind) return
@@ -255,13 +291,11 @@ export class GameRoom extends EventEmitter {
     if (target) player.betTarget = target
 
     let acceptedBank = 0
-    if (bankBet && this.currentMode === 'kerri' && this.currentQuestion?.options) {
-      const { optionIndex, amount: bankAmount } = bankBet
-      if (this.bankBetTargetOk(optionIndex) && bankAmount > 0 && amount + bankAmount <= player.chips) {
-        player.bankBet = { optionIndex, amount: bankAmount }
-        acceptedBank = bankAmount
-        this.broadcast('bank_bet_updated', { playerId, optionIndex, amount: bankAmount })
-      }
+    if (newBank) {
+      player.bankBet = newBank
+      acceptedBank = newBank.amount
+      // керри не должен знать, куда толпа ставит ×4 (только на неверные — отбросил бы варианты)
+      this.sendToCrowd('bank_bet_updated', { playerId, ...newBank })
     }
 
     // Фишки на сукне — те же, что были в черновике (stage_chip): у толпы керри это [...основная, ...банк].
@@ -277,16 +311,6 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  placeBankBet(playerId: string, optionIndex: number, amount: number) {
-    const player = this.players.get(playerId)
-    if (!player || this.phase !== 'BETTING' || this.currentMode !== 'kerri' || player.spectator) return
-    if (playerId === this.gladiatorId || !this.bankBetTargetOk(optionIndex)) return
-    if (player.currentBet + amount > player.chips) return
-
-    player.bankBet = { optionIndex, amount }
-    this.broadcast('bank_bet_updated', { playerId, optionIndex, amount })
-  }
-
   /** Банк-ставка ×4 — только на ошибку керри: на верный вариант (его толпа видит) — нельзя. */
   private bankBetTargetOk(optionIndex: number): boolean {
     const q = this.currentQuestion
@@ -294,14 +318,11 @@ export class GameRoom extends EventEmitter {
     return optionIndex >= 0 && optionIndex < q.options.length && q.options[optionIndex] !== q.answer
   }
 
-  /** Ответ подходит вопросу: вариант из списка, конечное число, список вариантов для top5. */
+  /** Ответ подходит вопросу: вариант из списка или конечное число («кто ближе»). */
   private answerOk(answer: unknown): boolean {
     const q = this.currentQuestion
     if (!q) return false
     if (this.currentMode === 'closest') return typeof answer === 'number' && Number.isFinite(answer)
-    if (this.currentMode === 'top5') {
-      return Array.isArray(answer) && answer.length <= 5 && answer.every(a => typeof a === 'string' && (q.items ?? []).includes(a))
-    }
     return typeof answer === 'string' && (q.options ?? []).includes(answer)
   }
 
@@ -370,6 +391,8 @@ export class GameRoom extends EventEmitter {
     const player = this.players.get(playerId)
     if (!player || !ITEMS[item] || item === 'blink' || item === 'aegis') return
     if (!this.canUse(player, item)) return
+    // время хекса вышло — из раунда выбыл: ни ответа, ни блинка, ни предметов (манта подсказала бы чужим, гем — зачем)
+    if (this.hexExpired(player)) return
     const r = player.items
     // цель — участник раунда, не сам применивший (зрители, ушедшие и «никто» — мимо, предмет не тратится)
     const target = targetId !== undefined ? this.players.get(targetId) : undefined
@@ -403,7 +426,7 @@ export class GameRoom extends EventEmitter {
         r.used.add('manta')
         r.removedOptions.push(optionIndex)
         this.sendToPlayer(playerId, 'manta_result', { optionIndex })
-        this.announceItem(player, this.currentMode === 'kerri' ? { playerId, item, optionIndex } : { playerId, item })
+        this.announceItem(player, { playerId, item })
         break
       }
       case 'smoke': {
@@ -465,7 +488,9 @@ export class GameRoom extends EventEmitter {
   }
 
   private hexExpired(p: PlayerWithBankBet): boolean {
-    return this.phase === 'QUESTION' && p.items.hexDeadline !== undefined && Date.now() >= p.items.hexDeadline
+    if (this.phase !== 'QUESTION' || p.items.hexDeadline === undefined) return false
+    // таймер хекса мог сработать на миллисекунду раньше дедлайна по Date.now — его отметка решает
+    return !!p.items.hexDone || Date.now() >= p.items.hexDeadline
   }
 
   /** Все ответили — раунд считается через секунду; повторный вызов перезапускает отсчёт. */
@@ -490,7 +515,9 @@ export class GameRoom extends EventEmitter {
     for (const p of this.players.values()) {
       if (!p.items.hexed) continue
       p.items.hexDeadline = this.questionStartAt + HEX_SECONDS * 1000
+      const items = p.items
       this.hexTimers.push(setTimeout(() => this.safely('hex', () => {
+        items.hexDone = true
         if (this.phase !== 'QUESTION' || this.revealing) return
         if (!this.graceTimer && this.allAnswered()) this.startGrace()
         this.broadcastState()
@@ -505,7 +532,7 @@ export class GameRoom extends EventEmitter {
     const list = Array.from(this.players.values())
       .filter(p => !p.spectator && !(this.currentMode === 'kerri' && p.id === this.gladiatorId))
     const top = Math.max(0, ...list.map(p => p.chips))
-    const leaders = list.filter(p => p.chips === top && p.chips >= 10)
+    const leaders = list.filter(p => p.chips === top && p.chips >= MIN_CHIP)
     const big = leaders.length === 1 ? leaders[0] : undefined
     for (const p of list) {
       p.bigBlind = p === big
@@ -583,41 +610,45 @@ export class GameRoom extends EventEmitter {
       id: this.id,
       phase: this.phase,
       roundIndex: this.roundIndex,
-      lastMainMode: this.selector.lastMainMode,
       mode: this.currentMode,
       currentQuestion: this.currentQuestion && showQuestion
         ? {
-            id: this.currentQuestion.id,
+            // не настоящий id: у статистики он = ответ, у талантов — внутреннее имя (настоящий — в round_results)
+            id: this.publicKey(),
             mode: this.currentQuestion.mode,
             topic: this.currentQuestion.topic,
             displayTopic: this.currentQuestion.displayTopic,
             text: this.currentQuestion.text,
             options: this.currentQuestion.options,
-            items: this.currentQuestion.items,
+            unit: this.currentQuestion.unit,
             category: this.currentQuestion.category,
             subcategory: this.currentQuestion.subcategory,
           }
         : null,
       gladiatorId: this.gladiatorId,
       hostId: this.hostId,
-      players: Array.from(this.players.values()).map(p => {
-        const effects = this.effectsOf(p)
-        return {
-          id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
-          betTarget: p.betTarget, betChips: p.betChips,
-          // смок: другим не видно, ответил ли (до расчёта раунда)
-          hasAnswered: p.items.smokeHidesAnswer && !settled && p.id !== viewerId ? false : p.hasAnswered,
-          // чужие ответы — только после расчёта раунда (в «ближе всех» иначе можно подсмотреть число)
-          ...(settled ? { answer: p.answer } : {}),
-          friendId: p.friendId,
-          streak: p.streak ?? 0,
-          ...(p.blind !== undefined ? { blind: p.blind, bigBlind: p.bigBlind } : {}),
-          ...(this.phase === 'SHOP' ? { shopReady: !!p.shopReady } : {}),
-          ...(effects.length ? { effects } : {}),
-        }
-      }),
+      players: Array.from(this.players.values()).map(p => this.publicPlayer(p, settled, viewerId)),
       phaseTimeLeft: timeLeft,
       friendRoster: this.friendRoster,
+    }
+  }
+
+  /** Игрок, каким его видят другие: без запаса, банк-ставки, раундовых предметов; ответ — только после расчёта. */
+  private publicPlayer(p: PlayerWithBankBet, settled: boolean, viewerId?: string): Player {
+    const effects = this.effectsOf(p)
+    return {
+      id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
+      betTarget: p.betTarget, betChips: p.betChips,
+      // смок: другим не видно, ответил ли (до расчёта раунда)
+      hasAnswered: p.items.smokeHidesAnswer && !settled && p.id !== viewerId ? false : p.hasAnswered,
+      // чужие ответы — только после расчёта раунда (в «ближе всех» иначе можно подсмотреть число)
+      ...(settled ? { answer: p.answer } : {}),
+      friendId: p.friendId,
+      streak: p.streak ?? 0,
+      ...(p.blind !== undefined ? { blind: p.blind, bigBlind: p.bigBlind } : {}),
+      ...(this.phase === 'SHOP' ? { shopReady: !!p.shopReady } : {}),
+      ...(effects.length ? { effects } : {}),
+      ...(p.spectator ? { spectator: true } : {}),
     }
   }
 
@@ -632,16 +663,18 @@ export class GameRoom extends EventEmitter {
 
   getStateForPlayer(playerId: string): GameState {
     const base = this.getPublicState(playerId)
+    const me = this.players.get(playerId)
+    // ответ керри — только толпе: участнику раунда, не самому керри и не зрителю (и не постороннему)
     const showAnswer =
       this.currentMode === 'kerri' &&
-      playerId !== this.gladiatorId &&
+      !!me && !me.spectator &&
+      this.gladiatorId !== undefined && playerId !== this.gladiatorId &&
       (this.phase === 'BETTING' || this.phase === 'QUESTION') &&
       this.currentQuestion?.answer !== undefined
     if (showAnswer) {
       base.gladiatorAnswer = this.currentQuestion!.answer
     }
     // личное: запас, цены, аегис, хекс на мне, убранные мантой варианты
-    const me = this.players.get(playerId)
     if (me) {
       base.inventory = { ...me.inventory }
       base.prices = Object.fromEntries(ITEM_ORDER.map(id => [id, itemPrice(id, me.chips)])) as Record<ItemId, number>
@@ -649,7 +682,7 @@ export class GameRoom extends EventEmitter {
       if (me.items.hexed && (this.phase === 'BETTING' || this.phase === 'QUESTION')) {
         base.hexTimeLeft = me.items.hexDeadline === undefined
           ? HEX_SECONDS
-          : Math.max(0, Math.ceil((me.items.hexDeadline - Date.now()) / 1000))
+          : me.items.hexDone ? 0 : Math.max(0, Math.ceil((me.items.hexDeadline - Date.now()) / 1000))
       }
       if (me.items.removedOptions.length) base.removedOptions = [...me.items.removedOptions]
     }
@@ -678,6 +711,7 @@ export class GameRoom extends EventEmitter {
     this.gladiatorId = undefined
     this.currentQuestion = question
     this.roundIndex++
+    this.questionKey = `r${this.roundIndex}-${Math.random().toString(36).slice(2, 10)}`
 
     this.bettingConfirmedIds.clear()
     for (const p of this.players.values()) {
@@ -696,7 +730,7 @@ export class GameRoom extends EventEmitter {
 
     const isFirstMode = !this.seenModes.has(mode)
     this.seenModes.add(mode)
-    this.announceSeconds = PHASE_DURATIONS['ANNOUNCE']! + (isFirstMode ? 3 : 0)
+    this.announceSeconds = PHASE_DURATIONS['ANNOUNCE']! + (isFirstMode ? NEW_MODE_ANNOUNCE_EXTRA : 0)
     // раунд «для всех» начинается с лавки — но только после первого круга (первого «кто ближе»): до этого предметов
     // никто не видит. Раунд, режим и вопрос уже этого раунда, вопрос в стейте скрыт
     if (mode === 'closest') this.closestSeen = true
@@ -721,6 +755,7 @@ export class GameRoom extends EventEmitter {
   setShopReady(playerId: string, ready: boolean) {
     const player = this.players.get(playerId)
     if (!player || this.phase !== 'SHOP') return
+    if (!!player.shopReady === ready) return   // ничего не изменилось — стейт не рассылаем
     player.shopReady = ready
     if (this.allShopReady()) this.endShop()
     else this.broadcastState()
@@ -754,9 +789,15 @@ export class GameRoom extends EventEmitter {
         break
 
       case 'ANNOUNCE':
+        // в комнате остались одни зрители (вошли посреди раунда) — керри не из кого, отвечать некому
+        if (!this.participants().length) {
+          this.cancelRound('Некому играть — раунд не считается')
+          break
+        }
         if (this.currentMode === 'kerri') this.selectGladiator()   // до блайндов: керри блайнда нет
         if (this.currentMode === 'all' || this.currentMode === 'kerri') this.assignBlinds()
-        if (this.currentMode === 'closest') {
+        // «кто ближе» без ставок; ставить некому (керри один, у толпы нет денег) — сразу вопрос
+        if (this.currentMode === 'closest' || !this.bettingNeeded().length) {
           this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
         } else {
           this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
@@ -775,15 +816,30 @@ export class GameRoom extends EventEmitter {
       case 'REVEAL': {
         const winner = this.checkWinner()
         if (winner) {
-          this.phase = 'GAME_OVER'
-          this.broadcast('game_over', { winner })
-          this.broadcastState()
-        } else {
+          this.endGame(winner)
+          break
+        }
+        try {
           this.nextRound()
+        } catch (err) {
+          // вопрос не собрался ни в одном режиме — комната не должна застыть в итогах: конец игры, побеждает лидер
+          console.error(`[room ${this.id}] следующий раунд не начался — конец игры:`, err)
+          const leader = this.leader()
+          if (leader) this.endGame(leader)
         }
         break
       }
     }
+  }
+
+  private endGame(winner: PlayerWithBankBet) {
+    clearTimeout(this.phaseTimer)
+    this.clearRoundTimers()
+    this.clearBribeAuction()
+    this.phase = 'GAME_OVER'
+    // наружу — публичная проекция (без запаса, банк-ставки и раундовых предметов)
+    this.broadcast('game_over', { winner: this.publicPlayer(winner, true) })
+    this.broadcastState()
   }
 
   private advanceFromQuestion() {
@@ -792,13 +848,25 @@ export class GameRoom extends EventEmitter {
     this.revealing = true
     this.clearRoundTimers()
     this.clearBribeAuction()
-    const results = this.calculateResults()
-    this.applyDeltas(results)
-    this.commitSettlement()
-    this.reportRound()
+    let results: RoundResult[]
+    try {
+      results = this.calculateResults()
+      this.applyDeltas(results)
+      this.commitSettlement()
+    } catch (err) {
+      // ошибка расчёта не должна вешать комнату (revealing уже стоит): раунд не считается, игра идёт дальше
+      console.error(`[room ${this.id}] расчёт раунда упал — раунд не считается:`, err)
+      this.pending = null
+      results = Array.from(this.players.values()).map(p => ({
+        playerId: p.id, delta: 0, chipBreakdown: decomposeToChips(0),
+        sources: [{ label: 'Ошибка расчёта — раунд не считается', delta: 0 }],
+      }))
+    }
+    this.safely('reportRound', () => this.reportRound())
     this.broadcastState()
     this.broadcast('round_results', {
       results,
+      ...this.questionIds(),
       correctAnswer: this.currentQuestion?.answer ?? null,
       correctNumericAnswer: this.currentQuestion?.numericAnswer ?? null,
       comment: this.currentQuestion?.comment ?? null,
@@ -818,6 +886,7 @@ export class GameRoom extends EventEmitter {
     if (!q) return
     const players = Array.from(this.players.values())
     this.ratable = q
+    this.ratableKey = this.publicKey()
     this.ratableRoomPlayers = players.length
     const answering = this.currentMode === 'kerri'
       ? players.filter(p => p.id === this.gladiatorId)
@@ -882,7 +951,7 @@ export class GameRoom extends EventEmitter {
       if (mode === 'all') {
         won = p.hasAnswered && p.answer === q.answer
         streakBase = p.currentBet
-        if (won && fast) add('Молния', Math.max(10, round10(p.currentBet * LIGHTNING_SHARE)))
+        if (won && fast) add('Молния', Math.max(MIN_CHIP, round10(p.currentBet * LIGHTNING_SHARE)))
       } else if (mode === 'kerri') {
         if (isGladiator) {
           won = kerriCorrect
@@ -1047,17 +1116,6 @@ export class GameRoom extends EventEmitter {
       })
     }
 
-    if (this.currentMode === 'top5') {
-      const entries = players
-        .filter(p => Array.isArray(p.answer))
-        .map(p => ({ id: p.id, answer: p.answer as string[] }))
-      const deltas = distributeTop5(entries, this.currentQuestion!.orderedItems!)
-      return players.map(p => {
-        const delta = deltas.get(p.id) ?? 0
-        return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources: [] }
-      })
-    }
-
     return []
   }
 
@@ -1087,15 +1145,20 @@ export class GameRoom extends EventEmitter {
     }
   }
 
+  /** Участники раунда — все, кроме вошедших посреди раунда. */
+  private participants(): PlayerWithBankBet[] {
+    return Array.from(this.players.values()).filter(p => !p.spectator)
+  }
+
+  /** Кого ждёт BETTING: участники, кроме керри, у кого есть хоть одна фишка (меньше MIN_CHIP — подтверждать нечего). */
+  private bettingNeeded(): PlayerWithBankBet[] {
+    return this.participants().filter(p =>
+      !(this.currentMode === 'kerri' && p.id === this.gladiatorId) && p.chips >= MIN_CHIP)
+  }
+
+  /** Все, кого ждём, подтвердили (ждать некого — тоже да). */
   private allBettingConfirmed(): boolean {
-    if (this.bettingConfirmedIds.size === 0) return false
-    for (const [id, p] of this.players) {
-      if (p.spectator || (this.currentMode === 'kerri' && id === this.gladiatorId)) continue
-      // меньше $10 — ни одной фишки: клиенту нечего подтверждать, фаза не должна висеть до таймера
-      if (p.chips < 10) continue
-      if (!this.bettingConfirmedIds.has(id)) return false
-    }
-    return true
+    return this.bettingNeeded().every(p => this.bettingConfirmedIds.has(p.id))
   }
 
   private allAnswered(): boolean {
@@ -1107,8 +1170,17 @@ export class GameRoom extends EventEmitter {
     return Array.from(this.players.values()).every(p => p.spectator || p.hasAnswered || this.hexExpired(p))
   }
 
-  private checkWinner(): Player | undefined {
-    return Array.from(this.players.values()).find(p => p.chips >= WIN_CHIPS)
+  /** Победитель — самый богатый из дошедших до WIN_CHIPS; точная ничья — кто раньше вошёл (ждёт решения). */
+  private checkWinner(): PlayerWithBankBet | undefined {
+    const leader = this.leader()
+    return leader && leader.chips >= WIN_CHIPS ? leader : undefined
+  }
+
+  /** Самый богатый; при равенстве — кто раньше в списке (раньше вошёл). */
+  private leader(): PlayerWithBankBet | undefined {
+    let best: PlayerWithBankBet | undefined
+    for (const p of this.players.values()) if (!best || p.chips > best.chips) best = p
+    return best
   }
 
   private pickQuestion(mode: GameMode): Question {
@@ -1141,6 +1213,14 @@ export class GameRoom extends EventEmitter {
 
   private sendToPlayer(playerId: string, event: string, data: unknown) {
     this.emit('sendToPlayer', { playerId, event, data })
+  }
+
+  /** Толпе керри: участникам раунда, кроме самого керри (зрителю — тоже нет: второй вкладкой подсмотрел бы). */
+  private sendToCrowd(event: string, data: unknown) {
+    for (const p of this.players.values()) {
+      if (p.spectator || p.id === this.gladiatorId) continue
+      this.sendToPlayer(p.id, event, data)
+    }
   }
 
   private sendToGladiator(event: string, data: unknown) {

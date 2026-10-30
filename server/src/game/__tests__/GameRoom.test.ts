@@ -10,6 +10,7 @@ import {
   ANSWER_REVEAL_MS,
   ANSWER_REVEAL_NOTES_MS,
   LAST_ANSWER_GRACE_MS,
+  MAX_PLAYERS,
 } from '@cumsino/shared'
 
 // ---------------------------------------------------------------------------
@@ -84,10 +85,13 @@ describe('GameRoom', () => {
       expect(priv(room).hostId).toBe('p1')
     })
 
-    it('лимит 12 игроков', () => {
+    it(`лимит ${MAX_PLAYERS} игроков: лишний не входит, addPlayer → false`, () => {
       const { room } = makeRoom()
-      for (let i = 1; i <= 13; i++) room.addPlayer(`p${i}`, `P${i}`)
-      expect(priv(room).players.size).toBe(12)
+      for (let i = 1; i <= MAX_PLAYERS; i++) expect(room.addPlayer(`p${i}`, `P${i}`)).toBe(true)
+      expect(room.isFull).toBe(true)
+      expect(room.addPlayer('extra', 'X')).toBe(false)
+      expect(priv(room).players.size).toBe(MAX_PLAYERS)
+      expect(room.addPlayer('p1', 'P1')).toBe(true)   // повторный join своего сокета — не отказ
     })
 
     it('start() отклоняет не-хоста', () => {
@@ -567,18 +571,17 @@ describe('GameRoom', () => {
       addPlayers(room, 2)
       question(room, 'kerri', 'BETTING')
       room.placeBet('p1', 100, 'win', undefined, { optionIndex: 1, amount: 100 })
-      room.placeBankBet('p1', 2, 100)
       expect(priv(room).players.get('p1').currentBet).toBe(0)
       expect(priv(room).players.get('p1').bankBet).toBeUndefined()
     })
 
     it('банк-ставка толпы на верный вариант отклоняется', () => {
       const { room } = makeRoom()
-      addPlayers(room, 2)
+      addPlayers(room, 3)
       question(room, 'kerri', 'BETTING')
-      room.placeBankBet('p2', 0, 100)   // options[0] = 'A' = ответ
+      room.placeBet('p2', 100, 'win', undefined, { optionIndex: 0, amount: 100 })   // options[0] = 'A' = ответ
       expect(priv(room).players.get('p2').bankBet).toBeUndefined()
-      room.placeBankBet('p2', 1, 100)
+      room.placeBet('p2', 100, 'win', undefined, { optionIndex: 1, amount: 100 })
       expect(priv(room).players.get('p2').bankBet).toEqual({ optionIndex: 1, amount: 100 })
     })
 

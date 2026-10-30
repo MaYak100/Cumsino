@@ -4,6 +4,7 @@ import { Server } from 'socket.io'
 import cors from 'cors'
 import { GameEngine } from './game/GameEngine'
 import { registerHandlers } from './socket/handlers'
+import { CLIENT_ORIGIN, originAllowed } from './socket/origin'
 import { createHistory } from './game/questions/setup'
 import type { QuestionHistory } from './game/questions/history'
 import { createQuestionLabRouter } from './dev/questionLab'
@@ -11,15 +12,19 @@ import { createQuestionLabRouter } from './dev/questionLab'
 const app = express()
 const httpServer = createServer(app)
 
-const CLIENT_ORIGIN: string | RegExp = process.env.CLIENT_ORIGIN ?? /^http:\/\/localhost(:\d+)?$/
-
 const io = new Server(httpServer, {
   cors: { origin: CLIENT_ORIGIN, methods: ['GET', 'POST'] },
+  // самое большое честное событие — ставка с 40 фишками; мегабайтный мусор не разбираем
+  maxHttpBufferSize: 32_000,
+  allowRequest: (req, callback) => {
+    const ok = originAllowed(req.headers.origin)
+    if (!ok) console.warn(`[socket] чужой Origin отклонён: ${req.headers.origin}`)
+    callback(null, ok)
+  },
 })
 
 app.use(cors({ origin: CLIENT_ORIGIN }))
 app.get('/health', (_req, res) => {
-  console.log(`[ping] health check — сервер жив`)
   res.json({ ok: true })
 })
 
@@ -64,7 +69,6 @@ async function main() {
   const engine = new GameEngine(io, history)
 
   io.on('connection', (socket) => {
-    console.log('connected:', socket.id)
     registerHandlers(socket, engine)
   })
 
