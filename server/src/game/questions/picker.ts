@@ -146,9 +146,11 @@ export function shuffleOptions(options: string[], notes?: string[], rng: () => n
  * иначе любые свободные (deck.free: в игре — не было ни в этой, ни в прошлой игре). Свободных нет — null, picker
  * берёт другую подкатегорию. build может не собрать вопрос (статистика, друзья) — тогда следующий.
  * group — выбор сначала группы, потом карточки (друзья: человек, у которого больше карточек, не выпадает чаще).
+ * weight — у групп веса (drawWeighted): опознанные друзья выпадают чаще.
  */
 export function drawFromDeck<T, Q extends Question = Question>(cands: T[], card: (t: T) => string, deck: DeckAccess,
-  rng: () => number, build: (t: T) => Q | null, group?: (t: T) => string): Q | null {
+  rng: () => number, build: (t: T) => Q | null, group?: (t: T) => string, weight?: (t: T) => number): Q | null {
+  if (group && weight) return drawWeighted(cands, card, deck, rng, build, group, weight)
   const order = group ? interleaveGroups(shuffleArray(cands, rng), group, rng) : shuffleArray(cands, rng)
   const tryAll = (list: T[]) => {
     for (const t of list) {
@@ -168,6 +170,38 @@ export function drawFromDeck<T, Q extends Question = Question>(cands: T[], card:
   if (!got) return null
   deck.take(card(got.t))
   return got.q
+}
+
+/**
+ * Группа по весу, потом её карточка. Вес действует на частоту, а не только на порядок внутри круга: группа
+ * выбирается среди всех, у кого есть свободные карточки (не было в этой и прошлой игре), с вероятностью ∝ весу;
+ * внутри группы — сначала свежие (не было в текущем круге), потом свободные. Свежих нет ни у кого — новый круг.
+ * (Обычный путь — первая группа со свежими — за круг показывает каждую карточку по разу, и вес бы выровнялся.)
+ */
+export function drawWeighted<T, Q extends Question = Question>(cands: T[], card: (t: T) => string, deck: DeckAccess,
+  rng: () => number, build: (t: T) => Q | null, group: (t: T) => string, weight: (t: T) => number): Q | null {
+  const free = cands.filter(t => deck.free(card(t)))
+  if (!free.length) return null
+  if (!free.some(t => deck.fresh(card(t)))) deck.newCycle()
+  const byGroup = new Map<string, { w: number; list: T[] }>()
+  for (const t of shuffleArray(free, rng)) {
+    const g = group(t)
+    let rec = byGroup.get(g)
+    if (!rec) byGroup.set(g, (rec = { w: Math.max(1e-9, weight(t)), list: [] }))
+    rec.list.push(t)
+  }
+  // взвешенный порядок без возвращения (Efraimidis–Spirakis): ключ u^(1/w), по убыванию
+  const order = [...byGroup.values()].map(r => ({ r, key: Math.pow(rng(), 1 / r.w) })).sort((a, b) => b.key - a.key)
+  for (const { r } of order) {
+    const list = [...r.list.filter(t => deck.fresh(card(t))), ...r.list.filter(t => !deck.fresh(card(t)))]
+    for (const t of list) {
+      const q = build(t)
+      if (!q) continue
+      deck.take(card(t))
+      return q
+    }
+  }
+  return null
 }
 
 /** Группы в случайном порядке, карточки по кругу: первые карточки всех групп, потом вторые… После фильтра
@@ -335,7 +369,9 @@ export class RoomQuestions implements QuestionSource {
     if (src.type === 'stats') return this.stats?.build(src.sub, mode, this.deck(sub)) ?? null
     if (!this.friends) return null
     const cands = src.kind.candidates(this.friends, present)
-    return drawFromDeck(cands, c => c.card, this.deck(sub), this.rng, c => c.build(), c => c.group)
+    const weighted = cands.some(c => c.weight !== undefined)
+    return drawFromDeck(cands, c => c.card, this.deck(sub), this.rng, c => c.build(), c => c.group,
+      weighted ? c => c.weight ?? 1 : undefined)
   }
 
   private fromBank(q: BankQuestion, kind: QuestionKind): Drafted {

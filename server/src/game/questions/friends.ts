@@ -1,7 +1,9 @@
 // server/src/game/questions/friends.ts
 // Вопросы про друзей (перенос прототипа scripts/friends_questions.py, правила — docs/questions/stratz-research.md,
-// «Друзья»). Метрики — scripts/data/friends/metrics.json. Вопросы только про тех, кто опознан в лобби
-// («кто ты» при входе); категория получает вес, когда опознаны ≥ 2 человека.
+// «Друзья»). Метрики — scripts/data/friends/metrics.json. Категория получает вес, когда в лобби («кто ты» при входе)
+// опознаны ≥ 2 человека. «Мейн», «винрейт героя» и «главный напарник» — про любого из компании (присутствующие
+// выпадают в PRESENT_WEIGHT раз чаще), «игры вместе» — пары, где опознан хотя бы один; «свой винрейт» и «игры на
+// герое» — только про опознанных. Иначе при двух-трёх опознанных колоды — по 2–5 карточек (решение 2026-10-30).
 //
 // Ник — в родительном падеже (GENITIVE, формы сверены с компанией): «На каком из героев у выбрудка больше всего
 // игр в рейтинге?». В «Сколько игр X и Y сыграли вместе» — именительный.
@@ -37,6 +39,8 @@ const TOP_CARDS = 6
 const RANKED_PAIR_TOP_ONLY = 1101588971
 
 export const MIN_IDENTIFIED_FRIENDS = 2
+/** во сколько раз чаще выпадает опознанный (присутствующий) человек — или пара, где опознаны оба */
+export const PRESENT_WEIGHT = 3
 
 /** Родительный падеж ников компании (по steam id). Кого нет — ник не склоняется. */
 const GENITIVE: Record<number, string> = {
@@ -59,8 +63,9 @@ export interface FriendsMetrics {
   pairSpans?: Record<Mode, Record<string, Span>>
 }
 
-/** group — человек (или пара): колода выбирает сначала человека, потом карточку (picker.ts drawFromDeck) */
-export interface FriendCandidate { card: string; group: string; build: () => Question | null }
+/** group — человек (или пара): колода выбирает сначала человека, потом карточку (picker.ts drawFromDeck).
+ *  weight — вес группы (присутствующий — PRESENT_WEIGHT, остальные 1); нет — все группы поровну. */
+export interface FriendCandidate { card: string; group: string; weight?: number; build: () => Question | null }
 
 export interface FriendKind {
   id: string
@@ -212,12 +217,16 @@ const pct = (v: number) => `${Math.round(100 * v)}%`
 const gamesNote = (v: number) => plural(v, 'игра', 'игры', 'игр')
 const other = (mode: Mode): Mode => mode === 'ranked' ? 'turbo' : 'ranked'
 
-function perPerson(present: number[],
-  fn: (a: number, mode: Mode) => Omit<FriendCandidate, 'group'> | Array<Omit<FriendCandidate, 'group'>> | null): FriendCandidate[] {
+type Draft = Omit<FriendCandidate, 'group' | 'weight'>
+
+/** Карточки по людям subjects; present задан — у каждой карточки вес: опознанный PRESENT_WEIGHT, остальные 1. */
+function perPerson(subjects: number[], fn: (a: number, mode: Mode) => Draft | Draft[] | null, present?: number[]):
+  FriendCandidate[] {
   const out: FriendCandidate[] = []
-  for (const a of present) for (const mode of MODES) {
+  for (const a of subjects) for (const mode of MODES) {
     const c = fn(a, mode)
-    for (const x of Array.isArray(c) ? c : c ? [c] : []) out.push({ ...x, group: String(a) })
+    const weight = present ? (present.includes(a) ? PRESENT_WEIGHT : 1) : undefined
+    for (const x of Array.isArray(c) ? c : c ? [c] : []) out.push({ ...x, group: String(a), ...(weight ? { weight } : {}) })
   }
   return out
 }
@@ -227,7 +236,7 @@ export const FRIEND_KINDS: FriendKind[] = [
     // Ловушка (бывший mode_trap): мейн другого режима, если он здесь не лидер, — на месте случайного соперника.
     // Сколько у неё игр в этом режиме, не важно (бывает и 0): она неправильный ответ, а контраст — и есть вопрос.
     id: 'hero_main', kinds: ['mc'], templates: 14,
-    candidates: (g, present) => perPerson(present, (a, mode) => {
+    candidates: (g, present) => perPerson(g.people(), (a, mode) => {
       // меньше 4 героев от MIN_HERO_GAMES игр — у человека нет «мейна» в этом срезе (аноним с малым покрытием)
       if (g.heroes(a, mode).filter(([, games]) => games >= MIN_HERO_GAMES).length < 4) return null
       return {
@@ -251,11 +260,11 @@ export const FRIEND_KINDS: FriendKind[] = [
           return q
         },
       }
-    }),
+    }, present),
   },
   {
     id: 'hero_wr', kinds: ['mc'], templates: 28,
-    candidates: (g, present) => perPerson(present, (a, mode) => (['best', 'worst'] as const).map(side => ({
+    candidates: (g, present) => perPerson(g.people(), (a, mode) => (['best', 'worst'] as const).map(side => ({
       card: `fr:hero_wr:${a}:${mode}:${side}`,
       build: () => {
         const key = `hero_wr:${a}:${mode}`
@@ -275,7 +284,7 @@ export const FRIEND_KINDS: FriendKind[] = [
           + `в вариантах — герои от ${MIN_WR_GAMES} игр. ${g.window(a, mode)}`
         return q
       },
-    }))),
+    })), present),
   },
   {
     id: 'self_wr', kinds: ['mc'], templates: 0,
@@ -305,16 +314,20 @@ export const FRIEND_KINDS: FriendKind[] = [
       }))),
   },
   {
+    // пары, где опознан хотя бы один; опознаны оба — пара выпадает в PRESENT_WEIGHT раз чаще
     id: 'pair_games', kinds: ['closest'], templates: 0,
     candidates: (g, present) => {
       const out: FriendCandidate[] = []
-      for (const mode of MODES) for (let i = 0; i < present.length; i++) for (let j = i + 1; j < present.length; j++) {
-        const [a, b] = [present[i], present[j]].sort((x, y) => x - y)
+      const people = g.people()
+      for (const mode of MODES) for (let i = 0; i < people.length; i++) for (let j = i + 1; j < people.length; j++) {
+        const [a, b] = [people[i], people[j]].sort((x, y) => x - y)
+        const here = Number(present.includes(a)) + Number(present.includes(b))
+        if (!here) continue
         const n = g.pair(a, b, mode)
         if (!g.pairOk(a, b) || n < MIN_PAIR_GAMES) continue
         const from = g.pairSince(a, b, mode)
         out.push({
-          card: `fr:pair_games:${a}-${b}:${mode}`, group: `${a}-${b}`,
+          card: `fr:pair_games:${a}-${b}:${mode}`, group: `${a}-${b}`, weight: here === 2 ? PRESENT_WEIGHT : 1,
           build: () => g.closest(`fr:pair_games:${a}-${b}:${mode}`, `${g.who(a)} и ${g.who(b)}`,
             `Сколько игр ${g.who(a)} и ${g.who(b)} сыграли вместе ${MODE_TEXT[mode]}?`, n,
             `В одной команде${from ? `, ${from}` : ''}.`),
@@ -325,7 +338,7 @@ export const FRIEND_KINDS: FriendKind[] = [
   },
   {
     id: 'pair_top', kinds: ['mc'], templates: 8,
-    candidates: (g, present) => perPerson(present, (a, mode) => {
+    candidates: (g, present) => perPerson(g.people(), (a, mode) => {
       if (mode === 'ranked' && a !== RANKED_PAIR_TOP_ONLY) return null
       return {
         card: `fr:pair_top:${a}:${mode}`,
@@ -342,6 +355,6 @@ export const FRIEND_KINDS: FriendKind[] = [
           return q
         },
       }
-    }),
+    }, present),
   },
 ]

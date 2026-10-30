@@ -6,7 +6,7 @@ import { smoothOrder, commitChoice } from '../smooth'
 import { makeStepOptions, formatNumber } from '../stepOptions'
 import { gameOnlyDeck, type StatsBank } from '../../stats/statQuestions'
 import { CATEGORIES, type CategoryDef } from '../categories'
-import { FriendsGen, FRIEND_KINDS, selfWrStep, wrOptions } from '../friends'
+import { FriendsGen, FRIEND_KINDS, PRESENT_WEIGHT, selfWrStep, wrOptions } from '../friends'
 
 function seeded(seed: number): () => number {
   let a = seed
@@ -231,6 +231,43 @@ describe('колода', () => {
     }
     expect(b / 400).toBeGreaterThan(0.4)
     expect(b / 400).toBeLessThan(0.6)
+  })
+
+  it('drawFromDeck с весами групп: группа выпадает пропорционально весу, сколько бы карточек у неё ни было', () => {
+    // A (вес 3, одна карточка) против B, C, D (вес 1, по 5 карточек): A — 3/6 = 50%, каждая из остальных — ~17%
+    const cards = ['A0', ...['B', 'C', 'D'].flatMap(g => Array.from({ length: 5 }, (_, i) => `${g}${i}`))]
+    const hits = new Map<string, number>()
+    for (let seed = 1; seed <= 2000; seed++) {
+      const q = drawFromDeck(cards, x => x, gameOnlyDeck(), seeded(seed), x => ({ id: x, mode: 'all', topic: '', text: '' }),
+        x => x[0], x => (x[0] === 'A' ? 3 : 1))
+      hits.set(q!.id[0], (hits.get(q!.id[0]) ?? 0) + 1)
+    }
+    expect(hits.get('A')! / 2000).toBeGreaterThan(0.45)
+    expect(hits.get('A')! / 2000).toBeLessThan(0.55)
+    for (const g of ['B', 'C', 'D']) expect(hits.get(g)! / 2000).toBeGreaterThan(0.13)
+  })
+
+  it('drawFromDeck с весами: вес держится и между играми — у присутствующего карточки «несвежие», но свободные', () => {
+    // история между играми: круг колоды, блок этой и прошлой игры. У A две карточки, у B, C, D — по десять
+    const history = new QuestionHistory()
+    const cards = ['A0', 'A1', ...['B', 'C', 'D'].flatMap(g => Array.from({ length: 10 }, (_, i) => `${g}${i}`))]
+    const rng = seeded(11)
+    let a = 0
+    const games = 600
+    for (let n = 0; n < games; n++) {
+      const gameNo = history.startGame()
+      const deck = {
+        fresh: (c: string) => history.isFresh('sub', c, gameNo),
+        free: (c: string) => !history.blockedFor('sub', c, gameNo),
+        take: (c: string) => history.take('sub', c, gameNo),
+        newCycle: () => history.newCycle('sub'),
+      }
+      const q = drawFromDeck(cards, x => x, deck, rng, x => ({ id: x, mode: 'all', topic: '', text: '' }), x => x[0],
+        x => (x[0] === 'A' ? PRESENT_WEIGHT : 1))
+      if (q!.id[0] === 'A') a++
+    }
+    // A не может две игры подряд одной карточкой, но карточек две — ~3/6 игр; без веса было бы ~1/4 (и ~1/16 по кругу)
+    expect(a / games).toBeGreaterThan(0.38)
   })
 
   it('drawFromDeck с группами: у группы нет свежих — берётся другая', () => {
@@ -526,22 +563,72 @@ describe('друзья', () => {
     categories: cats,
   })
 
+  it('при двух опознанных в «Друзьях» — доля опознанных ≈ PRESENT_WEIGHT × на человека против остальных', () => {
+    const many = {
+      people: Object.fromEntries(Array.from({ length: 7 }, (_, i) => [i + 1, { name: `P${i + 1}`, open: true }])),
+      heroes: {
+        ranked: Object.fromEntries(Array.from({ length: 7 }, (_, i) => [i + 1, {
+          own: { 10: [400, 200], 11: [200, 100], 12: [120, 60], 13: [60, 30], 14: [30, 15] }, company: {} }])),
+        turbo: Object.fromEntries(Array.from({ length: 7 }, (_, i) => [i + 1, {
+          own: { 20: [400, 200], 21: [200, 100], 22: [120, 60], 23: [60, 30], 24: [30, 15] }, company: {} }])),
+      },
+      pairs: { ranked: {}, turbo: {} },
+    } as any
+    // друзей ~1 вопрос за игру (как в настоящей игре по одной подкатегории — реже): блок «эта и прошлая игра» не мешает
+    const lib7 = buildLibrary({
+      bank: Array.from({ length: 300 }, (_, i) => num(`q${i}`, 's')), stats: null, friends: many, heroNames: names,
+      categories: [{ id: 'friends', title: 'Друзья', weight: 1, requires: 'friends', subs: [{ id: 'friends_hero_main', title: 'Мейн' }] },
+        { id: 'base', title: 'База', weight: 5, subs: [{ id: 's', title: 'S' }] }],
+    })
+    const history = new QuestionHistory()
+    const by = new Map<string, number>()
+    for (let game = 0; game < 400; game++) {
+      const room = new RoomQuestions(lib7, history, seeded(100 + game))
+      for (let r = 0; r < 6; r++) {
+        const q = room.pick('all', { friends: [1, 2] })
+        if (q.category === 'friends') by.set(q.displayTopic!, (by.get(q.displayTopic!) ?? 0) + 1)
+      }
+    }
+    const present = ((by.get('P1') ?? 0) + (by.get('P2') ?? 0)) / 2
+    const absent = [3, 4, 5, 6, 7].reduce((s, i) => s + (by.get(`P${i}`) ?? 0), 0) / 5
+    expect(present / absent).toBeGreaterThan(2)
+    expect(present / absent).toBeLessThan(4.5)
+  })
+
   it('меньше двух опознанных — категории нет', () => {
     const room = new RoomQuestions(lib, new QuestionHistory(), seeded(1))
     for (let i = 0; i < 10; i++) expect(room.pick('all', { friends: [1] }).category).toBe('base')
   })
 
-  it('двое опознанных — вопросы только про них', () => {
+  it('двое опознанных: мейн — про любого с данными; «игры вместе» — пары, где опознан хотя бы один', () => {
     const room = new RoomQuestions(lib, new QuestionHistory(), seeded(2))
-    const q = room.pick('all', { friends: [1, 2] })
+    const q = room.pick('all', { friends: [1, 3] })
     expect(q.category).toBe('friends')
-    expect(['Аня', 'Боря']).toContain(q.displayTopic)
+    expect(['Аня', 'Боря']).toContain(q.displayTopic)   // у Вовы мейна нет (один герой)
     expect(q.options).toContain(q.answer)
     expect(q.optionNotes).toHaveLength(4)
-    const c = room.pick('closest', { friends: [1, 2] })
+    const g = new FriendsGen(metrics, names, seeded(2))
+    const pairs = kind('pair_games').candidates(g, [2, 3])
+    expect(pairs.map(c => [c.card, c.weight])).toEqual([
+      ['fr:pair_games:1-2:ranked', 1], ['fr:pair_games:1-3:ranked', 1], ['fr:pair_games:2-3:ranked', PRESENT_WEIGHT],
+    ])
+    const c = pairs[0].build()!
     expect(c.text).toBe('Сколько игр Аня и Боря сыграли вместе в рейтинге?')
     expect(c.numericAnswer).toBe(120)
     expect(c.unit).toBe('игр')
+    // никто из пары не опознан — пары нет
+    expect(kind('pair_games').candidates(g, [3]).map(c => c.card)).toEqual(['fr:pair_games:1-3:ranked', 'fr:pair_games:2-3:ranked'])
+  })
+
+  it('мейн, винрейт героя, напарник — про всех (опознанный с весом PRESENT_WEIGHT); свой винрейт и игры на герое — только опознанные', () => {
+    const g = new FriendsGen(withTurbo, names, seeded(3))
+    const main = kind('hero_main').candidates(g, [2])
+    expect(main.map(c => [c.group, c.weight])).toEqual([['1', 1], ['2', PRESENT_WEIGHT]])
+    expect(kind('hero_wr').candidates(g, [2]).map(c => c.group)).toEqual(['1', '1', '1', '1', '2', '2', '2', '2', '3', '3', '3', '3'])
+    expect(kind('pair_top').candidates(g, [1]).every(c => c.weight === (c.group === '1' ? PRESENT_WEIGHT : 1))).toBe(true)
+    expect(new Set(kind('hero_games').candidates(g, [2]).map(c => c.group))).toEqual(new Set(['2']))
+    expect(new Set(kind('self_wr').candidates(g, [1]).map(c => c.group))).toEqual(new Set(['1']))
+    expect(kind('hero_games').candidates(g, [2]).every(c => c.weight === undefined)).toBe(true)
   })
 
   const names = { 10: 'Pudge', 11: 'Lion', 12: 'Lina', 13: 'Zeus', 14: 'Tiny', 20: 'Axe', 21: 'Sven', 22: 'Lich', 23: 'Ursa', 30: 'Io' }
@@ -563,8 +650,8 @@ describe('друзья', () => {
     for (let seed = 1; seed <= 20; seed++) {
       const g = new FriendsGen(withTurbo, names, seeded(seed))
       const cands = kind('hero_main').candidates(g, [1, 3])
-      // у Вовы и у Ани в Турбо меньше 4 героев от 20 игр — карточек нет
-      expect(cands.map(c => c.card)).toEqual(['fr:hero_main:1:ranked'])
+      // у Вовы и у Ани в Турбо меньше 4 героев от 20 игр — карточек нет; Боря (не опознан) — тоже в колоде
+      expect(cands.map(c => c.card)).toEqual(['fr:hero_main:1:ranked', 'fr:hero_main:2:ranked'])
       const q = cands[0].build()!
       expect(q.text).toBe('На каком из героев у Аня больше всего игр в рейтинге?')
       expect(q.answer).toBe('Pudge')
@@ -576,7 +663,7 @@ describe('друзья', () => {
 
   it('мейн без ловушки — только окно выборки', () => {
     const g = new FriendsGen(metrics, names, seeded(3))
-    const q = kind('hero_main').candidates(g, [2])[0].build()!
+    const q = kind('hero_main').candidates(g, [2]).find(c => c.group === '2')!.build()!
     expect(q.answer).toBe('Axe')
     expect(q.comment).toBe('Вся история STRATZ.')
   })
