@@ -5,7 +5,7 @@ import {
   STARTING_CHIPS, WIN_CHIPS, BRIBE_ENABLED, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
   MAX_PLAYERS, MIN_CHIP, NEW_MODE_ANNOUNCE_EXTRA,
   decomposeToChips,
-  ITEMS, ITEM_ORDER, BUY_PHASES, itemPrice, round10, floor10, blindFor, streakShare,
+  ITEMS, ITEM_ORDER, BUY_PHASES, lockedItems, itemPrice, round10, floor10, blindFor, streakShare,
   HEX_SECONDS, bkbCap, AEGIS_THRESHOLD, AEGIS_RESTORE, LAST_ANSWER_GRACE_MS,
   LIGHTNING_MS, LIGHTNING_SHARE, LIGHTNING_GLADIATOR, STREAK_GLADIATOR_BASE,
 } from '@cumsino/shared'
@@ -201,6 +201,16 @@ export class GameRoom extends EventEmitter {
     this.broadcastState()
     return true
   }
+
+  /** Хост в лобби ставит / снимает «играем впервые»: предметы в лавке открываются по два (lockedItems). */
+  setFirstGame(requesterId: string, on: boolean) {
+    if (this.phase !== 'LOBBY' || requesterId !== this.hostId || this.firstGame === on) return
+    this.firstGame = on
+    this.broadcastState()
+  }
+
+  /** «играем впервые» — предметы открываются постепенно */
+  private firstGame = false
 
   /** Хост в лобби убирает бота. */
   removeBot(requesterId: string, botId: string) {
@@ -479,6 +489,8 @@ export class GameRoom extends EventEmitter {
     if (player.chips >= WIN_CHIPS) return
     const price = itemPrice(item, player.chips)
     if (player.chips < price) return
+    // «играем впервые»: этот предмет ещё не открыт
+    if (lockedItems(this.firstGame, this.shopsShown).includes(item)) return
     // ограничений по порогу аегиса нет: аегис не поднимает выше баланса перед раундом (после лавки), так что
     // «купи аегис на последние и получи $300» не работает
     if (item === 'aegis') {
@@ -764,6 +776,8 @@ export class GameRoom extends EventEmitter {
       players: Array.from(this.players.values()).map(p => this.publicPlayer(p, settled, viewerId)),
       phaseTimeLeft: timeLeft,
       friendRoster: this.friendRoster,
+      firstGame: this.firstGame,
+      ...(this.firstGame ? { lockedItems: lockedItems(true, this.shopsShown) } : {}),
     }
   }
 

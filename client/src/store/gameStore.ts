@@ -97,6 +97,8 @@ interface GameStore {
   /** Боты для соло-тестов: только хост в лобби; сервер отвечает game_state (Player.bot) */
   addBot: () => void
   removeBot: (id: string) => void
+  /** «Играем впервые» (хост, лобби): предметы в лавке открываются по два */
+  setFirstGame: (on: boolean) => void
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
   identify: (friendId: number | null) => void
   /** Оценка вопроса раунда: score −2…+2 (без 0), difficulty −1 легко / +1 сложно; null — снять */
@@ -340,6 +342,10 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     removeBot(id) {
       socket.emit('remove_bot', { id })
+    },
+
+    setFirstGame(on) {
+      socket.emit('set_first_game', { on })
     },
 
     identify(friendId) {

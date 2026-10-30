@@ -9,7 +9,7 @@ function setup() {
   const room = {
     start: vi.fn(), placeBet: vi.fn(), submitAnswer: vi.fn(), buyItem: vi.fn(), useItem: vi.fn(),
     setShopReady: vi.fn(), relayHover: vi.fn(), stageChip: vi.fn(), identify: vi.fn(), rateQuestion: vi.fn(),
-    payBribe: vi.fn(), addBot: vi.fn(), removeBot: vi.fn(),
+    payBribe: vi.fn(), addBot: vi.fn(), removeBot: vi.fn(), setFirstGame: vi.fn(),
   }
   const engine = { joinRoom: vi.fn(), getRoom: vi.fn(() => room), leaveRoom: vi.fn() }
   const socket = {
@@ -81,6 +81,11 @@ describe('socket/handlers', () => {
     ['remove_bot', { id: 7 }, null],
     ['remove_bot', { id: 'x'.repeat(65) }, null],
     ['remove_bot', undefined, null],
+    // «играем впервые»: только boolean
+    ['set_first_game', { on: true }, 'setFirstGame'],
+    ['set_first_game', { on: false }, 'setFirstGame'],
+    ['set_first_game', { on: 'yes' }, null],
+    ['set_first_game', undefined, null],
   ]
 
   it.each(rows)('%s %j → %s', (event, payload, method) => {

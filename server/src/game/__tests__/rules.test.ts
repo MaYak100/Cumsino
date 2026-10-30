@@ -1,11 +1,11 @@
-// Решения 2026-10-30: возврат предметов отменённого раунда, «мешок» керри, боты — docs/items.md, CLAUDE.md
+// Решения 2026-10-30: возврат предметов отменённого раунда, «мешок» керри, боты, «играем впервые» — docs/items.md, CLAUDE.md
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { GameRoom } from '../GameRoom'
 import { GameEngine } from '../GameEngine'
 import { QuestionHistory } from '../questions/history'
 import type { Library } from '../questions/library'
 import type { Question, GameMode, GamePhase } from '@cumsino/shared'
-import { PHASE_DURATIONS, MAX_PLAYERS, itemPrice } from '@cumsino/shared'
+import { PHASE_DURATIONS, MAX_PLAYERS, itemPrice, lockedItems } from '@cumsino/shared'
 
 const mcQ: Question = { id: 'q-mc', mode: 'all', topic: 'T', text: 'Q?', options: ['A', 'B', 'C', 'D'], answer: 'A' }
 const cnQ: Question = { id: 'q-cn', mode: 'closest', topic: 'T', text: 'Сколько?', numericAnswer: 330 }
@@ -292,6 +292,52 @@ describe('решения 2026-10-30', () => {
       t.r.phase = 'LOBBY'
       t.room.removeBot('p1', botId)
       expect(t.r.botTimers.has(botId)).toBe(false)
+    })
+  })
+
+  describe('«играем впервые»', () => {
+    it('lockedItems: без галочки всё открыто; с ней по два за лавку (манта, гем → блинк, BKB → хекс, смок), аегис всегда', () => {
+      expect(lockedItems(false, 1)).toEqual([])
+      expect(lockedItems(true, 0)).toEqual(['blink', 'bkb', 'hex', 'smoke'])
+      expect(lockedItems(true, 1)).toEqual(['blink', 'bkb', 'hex', 'smoke'])
+      expect(lockedItems(true, 2)).toEqual(['hex', 'smoke'])
+      expect(lockedItems(true, 3)).toEqual([])
+    })
+
+    it('ставит только хост и только в лобби; видно всем', () => {
+      const t = makeRoom(2)
+      t.room.setFirstGame('p2', true)
+      expect(t.room.getPublicState().firstGame).toBe(false)
+      t.room.setFirstGame('p1', true)
+      expect(t.room.getPublicState().firstGame).toBe(true)
+      expect(t.room.getPublicState().lockedItems).toEqual(['blink', 'bkb', 'hex', 'smoke'])
+      t.r.phase = 'ANNOUNCE'
+      t.room.setFirstGame('p1', false)
+      expect(t.room.getPublicState().firstGame).toBe(true)
+    })
+
+    it('закрытое в лавке не купить; следующая лавка открывает следующие два; аегис — с первой', () => {
+      const t = makeRoom(2)
+      t.room.setFirstGame('p1', true)
+      t.r.startShop()
+      t.room.buyItem('p1', 'blink')
+      t.room.buyItem('p1', 'manta')
+      t.room.buyItem('p2', 'aegis')
+      expect(t.p('p1').inventory).toEqual({ manta: 1 })
+      expect(t.p('p2').aegisBought).toBe(true)
+      t.r.startShop()
+      expect(t.room.getPublicState().lockedItems).toEqual(['hex', 'smoke'])
+      t.room.buyItem('p1', 'blink')
+      t.room.buyItem('p1', 'hex')
+      expect(t.p('p1').inventory).toEqual({ manta: 1, blink: 1 })
+    })
+
+    it('без галочки в первой лавке открыто всё', () => {
+      const t = makeRoom(2)
+      t.r.startShop()
+      t.room.buyItem('p1', 'smoke')
+      expect(t.p('p1').inventory).toEqual({ smoke: 1 })
+      expect(t.room.getPublicState().lockedItems).toBeUndefined()
     })
   })
 })

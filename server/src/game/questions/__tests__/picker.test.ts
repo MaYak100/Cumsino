@@ -41,7 +41,7 @@ describe('shuffleOptions', () => {
 })
 
 describe('makeStepOptions', () => {
-  it('соседи через один или два шага (50 / 50), все > 0, правильный на случайной позиции', () => {
+  it('соседи через два шага (66%) или один (34%), все > 0, правильный на случайной позиции', () => {
     const positions = new Set<number>()
     const gaps = { 1: 0, 2: 0 }
     for (let seed = 1; seed <= 400; seed++) {
@@ -57,8 +57,8 @@ describe('makeStepOptions', () => {
       positions.add(correct)
     }
     expect(positions.size).toBe(4)
-    expect(gaps[1] / (gaps[1] + gaps[2])).toBeGreaterThan(0.4)
-    expect(gaps[1] / (gaps[1] + gaps[2])).toBeLessThan(0.6)
+    expect(gaps[1] / (gaps[1] + gaps[2])).toBeGreaterThan(0.27)
+    expect(gaps[1] / (gaps[1] + gaps[2])).toBeLessThan(0.41)
   })
 
   it('верхняя граница: варианты строго ниже ceil', () => {
@@ -709,7 +709,7 @@ describe('друзья', () => {
   it('игры на герое: единица «игр», аноним — «в пати», окно в comment', () => {
     const g = new FriendsGen(metrics, names, seeded(7))
     const [q] = kind('hero_games').candidates(g, [3]).map(c => c.build()!)
-    expect(q.text).toBe('Сколько игр у Вова на Io в пати рейтинге?')
+    expect(q.text).toBe('Сколько игр у Вова на Io в пати в рейтинге?')
     expect(q.numericAnswer).toBe(90)
     expect(q.unit).toBe('игр')
     expect(q.comment).toBe('Профиль скрыт: только игры в пати с открытыми профилями.')

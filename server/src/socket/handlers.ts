@@ -4,7 +4,7 @@ import type {
   JoinGamePayload, PlaceBetPayload,
   SubmitAnswerPayload, GladiatorHoverPayload,
   IdentifyPayload, RateQuestionPayload,
-  BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId, JoinErrorPayload, RemoveBotPayload,
+  BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId, JoinErrorPayload, RemoveBotPayload, SetFirstGamePayload,
 } from '@cumsino/shared'
 import { ITEM_ORDER } from '@cumsino/shared'
 import type { RatingVote } from '../game/questions/picker'
@@ -97,6 +97,11 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
   // боты для соло-тестов: только хост и только в лобби (проверяет комната)
   socket.on('add_bot', () => {
     engine.getRoom(socket.id)?.addBot(socket.id)
+  })
+
+  socket.on('set_first_game', ({ on }: SetFirstGamePayload) => {
+    if (typeof on !== 'boolean') return
+    engine.getRoom(socket.id)?.setFirstGame(socket.id, on)
   })
 
   socket.on('remove_bot', ({ id }: RemoveBotPayload) => {

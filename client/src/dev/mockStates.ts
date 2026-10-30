@@ -175,6 +175,21 @@ export const SCENARIOS: Scenario[] = [
     },
   },
 
+  {
+    id: 'shop-first-game',
+    group: 'SHOP',
+    label: '«играем впервые» — первая лавка, 4 закрыто',
+    Screen: ShopScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('SHOP', 'all', {
+        phaseTimeLeft: 45,
+        firstGame: true,
+        lockedItems: ['blink', 'bkb', 'hex', 'smoke'],
+      }),
+    },
+  },
+
   // ── LOBBY ──
   {
     id: 'lobby-host',
@@ -199,6 +214,20 @@ export const SCENARIOS: Scenario[] = [
       myId: MY_ID,
       gameState: base('LOBBY', 'all', {
         players: BASE_PLAYERS.map((p, i) => (i === 0 ? { ...p, friendId: 1101588971 } : i === 2 ? { ...p, friendId: 1023791464 } : p)),
+      }),
+    },
+  },
+
+  {
+    id: 'lobby-first-game',
+    group: 'LOBBY',
+    label: 'host, «играем впервые» включено, «кто ты»',
+    Screen: LobbyScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('LOBBY', 'all', {
+        firstGame: true,
+        players: BASE_PLAYERS.map((p, i) => (i === 0 ? { ...p, friendId: 1101588971 } : p)),
       }),
     },
   },

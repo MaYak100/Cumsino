@@ -60,8 +60,18 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
 }
 
-/** порядок на панели и в лавке */
-export const ITEM_ORDER: ItemId[] = ['manta', 'gem', 'bkb', 'blink', 'hex', 'smoke', 'aegis']
+/** порядок на панели и в лавке; он же — порядок открытия в игре «впервые» (lockedItems) */
+export const ITEM_ORDER: ItemId[] = ['manta', 'gem', 'blink', 'bkb', 'hex', 'smoke', 'aegis']
+
+/** «Играем впервые» (галочка хоста в лобби): в каждой лавке открываются следующие два предмета по ITEM_ORDER */
+export const UNLOCK_PER_SHOP = 2
+
+/** Закрытые в лавке предметы: без галочки — ни одного; с ней в лавке номер shopsShown (с 1) открыто
+ *  UNLOCK_PER_SHOP × shopsShown первых предметов. Аегис доступен всегда. */
+export function lockedItems(firstGame: boolean, shopsShown: number): ItemId[] {
+  if (!firstGame) return []
+  return ITEM_ORDER.filter(id => id !== 'aegis').slice(UNLOCK_PER_SHOP * Math.max(1, shopsShown))
+}
 
 /** Покупка — только в лавке (фаза SHOP перед каждым раундом «для всех»). */
 export const BUY_PHASES: GamePhase[] = ['SHOP']

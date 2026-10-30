@@ -1,6 +1,6 @@
 // server/src/game/questions/stepOptions.ts
 // Варианты числового вопроса по шагу (эталон — scripts/generate/numeric_lab/options.py): позиция правильного
-// ответа по величине случайная среди тех, где все варианты > floor, соседи — через один или два шага (50 / 50).
+// ответа по величине случайная среди тех, где все варианты > floor, соседи — через два шага (66%) или один (34%).
 // Порядок показа перемешивает вызывающий.
 
 function decimals(x: number): number {
@@ -11,14 +11,16 @@ function decimals(x: number): number {
 }
 
 /**
- * → варианты по возрастанию и индекс правильного среди них. Промежуток между соседними вариантами — один или два шага
- * с равным шансом (решение 2026-10-29: ровный шаг слишком сложен — соседи почти неотличимы). Все варианты строго
+ * → варианты по возрастанию и индекс правильного среди них. Промежуток между соседними вариантами — два шага с шансом
+ * DOUBLE_GAP_CHANCE, иначе один (2026-10-29 — 50 / 50: ровный шаг слишком сложен; 2026-10-30 — 66%, общее упрощение). Все варианты строго
  * между floor и ceil; если при выпавших промежутках ответ никуда не встаёт — промежутки по одному шагу.
  */
+export const DOUBLE_GAP_CHANCE = 0.66
+
 export function makeStepOptions(answer: number, step: number, rng: () => number = Math.random, n = 4, floor = 0,
   ceil = Infinity): { values: number[]; correct: number } {
   step = Math.abs(step)
-  const gaps = Array.from({ length: n - 1 }, () => (rng() < 0.5 ? 1 : 2))
+  const gaps = Array.from({ length: n - 1 }, () => (rng() < DOUBLE_GAP_CHANCE ? 2 : 1))
   const fits = (offsets: number[], p: number) =>
     offsets.every(o => answer + (o - offsets[p]) * step > floor && answer + (o - offsets[p]) * step < ceil)
   let offsets = gapOffsets(gaps)

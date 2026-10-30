@@ -92,6 +92,10 @@ export interface GameState {
   phaseTimeLeft: number
   /** кем можно назваться в лобби (компания из вопросов про друзей) */
   friendRoster?: FriendProfile[]
+  /** «играем впервые» (галочка хоста в лобби): предметы открываются по два в каждой лавке */
+  firstGame?: boolean
+  /** в лавке ещё закрыты (по порядку открытия) — только при firstGame */
+  lockedItems?: ItemId[]
   // ── личное (только в getStateForPlayer для самого игрока) ──
   /** свой запас предметов */
   inventory?: Partial<Record<ItemId, number>>
@@ -126,6 +130,8 @@ export interface GladiatorHoverPayload { optionIndex: number | null }
 export interface IdentifyPayload { friendId: number | null }
 /** add_bot — без данных (хост, лобби); remove_bot — убрать бота по id (хост, лобби) */
 export interface RemoveBotPayload { id: string }
+/** set_first_game — галочка «играем впервые» (хост, лобби) */
+export interface SetFirstGamePayload { on: boolean }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
  *  null — снять отметку; поле не передано — не менять. questionId — настоящий id (round_results.questionId) или ключ
  *  раунда (currentQuestion.id): сервер оценивает только последний посчитанный вопрос комнаты. */

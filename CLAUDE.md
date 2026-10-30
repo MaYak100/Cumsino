@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (455 тестов)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (468)
+npm run test:server                     # vitest сервера (463 теста)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (476)
 npx vitest run server/src/game/economy/__tests__/applyBankBets.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -171,7 +171,8 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
 Клиент → сервер: `join_game {name, gameCode}`, `start_game` (только хост), `identify {friendId|null}` (лобби),
 `shop_ready {ready}`, `buy_item {item}`, `use_item {item, targetId?}`, `stage_chip {chips, target?}`,
 `place_bet {amount, target?, chips?, bankBet?}`, `gladiator_hover {optionIndex|null}`, `submit_answer {answer, blink?}`,
-`rate_question {questionId, score?, difficulty?}` (`null` — снять), `pay_bribe`, `add_bot` (хост, лобби),
+`rate_question {questionId, score?, difficulty?}` (`null` — снять), `pay_bribe`, `set_first_game {on}` (хост, лобби —
+«играем впервые»: `GameState.firstGame` / `lockedItems`, docs/items.md), `add_bot` (хост, лобби),
 `remove_bot {id}` (хост, лобби; в сторе `addBot()` / `removeBot(id)`).
 
 Сервер → клиент: `game_state` (личный, `getStateForPlayer`; без изменений `identify` / `shop_ready` / повторный join
@@ -214,7 +215,8 @@ SHOP — только перед `all` и только после первого
   `PlayerSlot`; на компактных ставках фон размыт), поверх — `ItemBar` и `Notice`. Экран — в `motion.div` с `pointerEvents: 'auto'`: Framer Motion 11
   ставит `pointer-events: none` элементу с `initial={{opacity: 0}}`, и это наследуют поля и кнопки. Раз в 10 мин —
   `/health` (Render не засыпает посреди игры).
-- **Экраны:** `LobbyScreen` (игроки-стикеры; хосту — «+ бот» пустым местом и крестик на наклейке бота; «кто ты» —
+- **Экраны:** `LobbyScreen` (игроки-стикеры; хосту — «+ бот» пустым местом и крестик на наклейке бота, галочка
+  «Играем впервые» рядом с «Начать игру»; «кто ты» —
   `WhoAreYou`: люди компании наклейками — свободные бумага, своя латунь со шлепком, занятые зачёркнуты с подписью кем,
   «Я не …», точки «назвались N/2»; ботам не показывается; старт только у хоста), `AnnounceScreen` (режим во
   весь экран, затем стикер темы; модульный `seenModes` — дольше в первый раз, сбрасывается с новой игрой),
@@ -286,8 +288,8 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   C смок, V хекс, B BKB (блинк — через смену ответа); цель гема/хекса — выбор игрока (зрители не цели), Esc — отмена.
   Под панелью место — `.below-itembar` / `--itembar-pad`; до 767 px слоты 3rem (иконка 38 px), резерв 4.5rem. `ui/SelfEffects.tsx` — наклейки про эффекты на тебе (гем
   в того, кто в смоке, — «Твой ответ пытались просветить»: клиент помнит, был ли смок, когда пришёл гем);
-  эффекты на других — значки у ника (`Player.effects`). Порядок (лавка и бар): манта, гем, BKB, блинк, хекс, смок,
-  аегис.
+  эффекты на других — значки у ника (`Player.effects`). Порядок (лавка и бар, он же порядок открытия в
+  «играем впервые» — по два за лавку, аегис всегда): манта, гем, блинк, BKB, хекс, смок, аегис.
 - **Серия** — `ui/StreakFlame.tsx`: бумажное пламя вокруг плашки (2 — тлеет, 3+ — выше, 5+ — синее); только на
   столе и в итогах.
 - **Принудительная ставка** — `ui/Notice.tsx` на 3 с: «Поставили $30» / «Поставили на ответит».
@@ -318,7 +320,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   героя», слова не по словарю сленга (`SLANG`, кроме талантов). Опечатки модели правит `TEXT_FIXES`; тему, которая
   выдаёт ответ («Чья способность…» среди чужих способностей), сборка сама меняет на «Герои».
 - **Варианты** числа строит сервер при каждом показе (`stepOptions.ts`, эталон `options.py`): случайная позиция ответа,
-  соседи через 1 или 2 шага (50/50), все > 0 и < `ceil`, отдельное перемешивание показа.
+  соседи через 2 шага (66%) или 1 (34%), все > 0 и < `ceil`, отдельное перемешивание показа.
 - **Язык** — словарь в docs/questions/README.md, «Язык и сленг»: сленг (стан, кд — среднего рода, стак, каст…) — да;
   «замедление», «безмолвие», «увеличение урона заклинаний», «базовое время атаки» — без сленга; таланты — строка
   русской локализации дословно ([talents-style.md](docs/questions/talents-style.md)).
@@ -333,7 +335,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 468 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 455 — `npm run test:server`.
+не нужно). 476 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 463 — `npm run test:server`.
 
 | Файл | Что покрыто |
 |---|---|
@@ -342,9 +344,9 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 | `game/__tests__/GameRoom.test.ts` (96) | игроки, расчёт по режимам, флор 0, победитель, `gladiatorAnswer`, `optionNotes`/`comment` только в `round_results` и пауза перед REVEAL, окно показа ответа, ставки и ответы, уход игроков (керри ушёл в QUESTION — отмена), блок «аудит» (хост, керри сбежал, банк на верный, проверка ответов, повторный join, ошибка пикера), аукцион взяток (методы напрямую) |
 | `game/__tests__/items.test.ts` (111) | блайнды (в т.ч. керри, принудительный на выделенную сторону / «ответит»), молния и серия от выигрыша (вниз до $10, без проигравших — нет), лавка (первая после «кто ближе», «Готов», таймер), покупка, все предметы (BKB — сейв от цены покупки, аегис — не выше баланса перед раундом, обход «купил на последние»), окно 1 с после ответа, керри (керри — только блинк, толпа — только BKB), «кто ближе», края, вошедший посреди раунда |
 | `game/__tests__/review.test.ts` (36) | утечки до расчёта по фазе × роли (id, notes, `gladiatorAnswer`, `bank_bet_updated`, чужие ответы, лавка), оценка по ключу / id, `present` и `settle`, зрители и отмена раунда, BETTING без ставящих, лимиты ставок, сброс раунда, сумма `sources` = delta, граница аегиса, победитель (точная ничья — играем дальше), хекс, ошибки не вешают комнату, без лишних `game_state` |
-| `game/__tests__/rules.test.ts` (13) | решения 2026-10-30: возврат предметов отменённого раунда (керри сбежал в BETTING / QUESTION, ошибка расчёта), «мешок» керри (круг, ушедший, вошедший, зритель), боты (хост / лобби / лимит / имена, без стейта, полный цикл режимов сами, не в оценках, комната из одних ботов закрывается, таймеры) |
+| `game/__tests__/rules.test.ts` (17) | решения 2026-10-30: возврат предметов отменённого раунда (керри сбежал в BETTING / QUESTION, ошибка расчёта), «мешок» керри (круг, ушедший, вошедший, зритель), боты (хост / лобби / лимит / имена, без стейта, полный цикл режимов сами, не в оценках, комната из одних ботов закрывается, таймеры), «играем впервые» (по два предмета за лавку, только хост и лобби) |
 | `game/__tests__/GameEngine.test.ts` | вход, полная комната / `MAX_ROOMS` → `join_error`, переход между комнатами, удаление пустой |
-| `socket/__tests__/handlers.test.ts` (77) | проверки payload всех событий, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
+| `socket/__tests__/handlers.test.ts` (81) | проверки payload всех событий, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
 | `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, единицы, сглаженный выбор, колоды (круг, соседние игры, группы с весами), веса MC / closest, тема, оценки и пределы множителей, друзья (про всех / только опознанные, доля опознанных ≈ ×3), прогон настоящего банка |
 | `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты |
 | `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, предел отрыва, дерево талантов, `topLead`, настоящий `bank.json` |

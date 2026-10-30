@@ -17,18 +17,20 @@ export function LobbyScreen() {
   const startGame = useGameStore(s => s.startGame)
   const addBot = useGameStore(s => s.addBot)
   const removeBot = useGameStore(s => s.removeBot)
+  const setFirstGame = useGameStore(s => s.setFirstGame)
+  const firstGame = !!gameState.firstGame
   const isHost = myId !== null && myId === gameState.hostId
   const friendName = (id?: number) => gameState.friendRoster?.find(r => r.id === id)?.name
 
   return (
-    <div className="min-h-dvh flex flex-col items-center px-4 pt-8 pb-12">
+    <div className="min-h-dvh flex flex-col items-center px-4 pt-6 pb-6">
       <Logo size={40} animated />
 
-      <div className="flex-1 w-full max-w-2xl flex flex-col items-center justify-center gap-8 py-6">
-        <div className="flex flex-col items-center gap-3">
+      <div className="flex-1 w-full max-w-2xl flex flex-col items-center justify-center gap-5 py-3">
+        <div className="flex flex-col items-center gap-2">
           <span className="text-sm" style={{ color: C.muted }}>Код комнаты</span>
           <Sticker seed={`room-${gameState.id}`} slam rotate={-2} jag={7} padding="10px 30px 14px">
-            <span style={{ fontFamily: DISPLAY, fontSize: 'clamp(56px, 8vw, 88px)', letterSpacing: '0.18em', lineHeight: 1 }}>
+            <span style={{ fontFamily: DISPLAY, fontSize: 'clamp(44px, min(8vw, 8.5vh), 88px)', letterSpacing: '0.18em', lineHeight: 1 }}>
               {gameState.id}
             </span>
           </Sticker>
@@ -103,18 +105,22 @@ export function LobbyScreen() {
         <WhoAreYou />
 
         {isHost ? (
-          <motion.button
-            onClick={startGame}
-            whileHover={{ y: -3, rotate: -1 }}
-            whileTap={{ scale: 0.95 }}
-            className="rounded-2xl px-12 h-16 text-xl"
-            style={{ fontFamily: DISPLAY, background: C.brass, color: C.ink, boxShadow: `0 6px 0 #a87a17, 0 14px 30px ${C.brass}40` }}
-          >
-            Начать игру
-          </motion.button>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            <motion.button
+              onClick={startGame}
+              whileHover={{ y: -3, rotate: -1 }}
+              whileTap={{ scale: 0.95 }}
+              className="rounded-2xl px-12 h-16 text-xl"
+              style={{ fontFamily: DISPLAY, background: C.brass, color: C.ink, boxShadow: `0 6px 0 #a87a17, 0 14px 30px ${C.brass}40` }}
+            >
+              Начать игру
+            </motion.button>
+            <FirstGameToggle on={firstGame} onToggle={() => setFirstGame(!firstGame)} />
+          </div>
         ) : (
-          <div className="text-[0.9375rem] text-center" style={{ color: C.muted }}>
-            Ждём хоста. Пока не рыпайтесь.
+          <div className="flex flex-col items-center gap-1 text-[0.9375rem] text-center" style={{ color: C.muted }}>
+            <span>Ждём хоста. Пока не рыпайтесь.</span>
+            {firstGame && <span style={{ color: C.brass }}>Играем впервые: предметы откроются по два за лавку</span>}
           </div>
         )}
       </div>
@@ -131,5 +137,36 @@ export function LobbyScreen() {
         </div>
       </div>
     </div>
+  )
+}
+
+/** Галочка хоста «Играем впервые»: предметы в лавке открываются по два (сервер — lockedItems). */
+function FirstGameToggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
+  return (
+    <motion.button
+      type="button"
+      role="checkbox"
+      aria-checked={on}
+      onClick={onToggle}
+      whileTap={{ scale: 0.95 }}
+      className="flex items-center gap-3 text-left"
+      title="Предметы в лавке открываются не сразу, а по два за лавку: манта и гем, потом блинк и BKB, потом хекс и смок. Аегис — всегда"
+    >
+      <span className="flex items-center justify-center rounded-md shrink-0"
+        style={{ width: 28, height: 28, border: `2px solid ${on ? C.brass : C.line}`, background: on ? C.brass : 'transparent' }}>
+        <AnimatePresence>
+          {on && (
+            <motion.svg key="tick" width={18} height={18} viewBox="0 0 18 18"
+              initial={{ scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.4, opacity: 0 }}>
+              <path d="M3.5 9.5 L7.5 13 L14.5 4.5" fill="none" stroke={C.ink} strokeWidth={2.8} strokeLinecap="round" strokeLinejoin="round" />
+            </motion.svg>
+          )}
+        </AnimatePresence>
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="font-bold text-[1rem]" style={{ color: on ? C.brass : C.fg }}>Играем впервые</span>
+        <span className="text-[0.8125rem]" style={{ color: C.muted }}>предметы откроются по два за лавку</span>
+      </span>
+    </motion.button>
   )
 }
