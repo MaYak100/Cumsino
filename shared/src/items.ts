@@ -25,7 +25,7 @@ export interface ItemDef {
 
 /** хекс: столько секунд у цели на ответ */
 export const HEX_SECONDS = 15
-/** аегис: упал ниже порога после раунда — баланс становится AEGIS_RESTORE */
+/** аегис: упал ниже порога после раунда — баланс поднимается до AEGIS_RESTORE, но не выше, чем был перед раундом */
 export const AEGIS_THRESHOLD = 50
 export const AEGIS_RESTORE = 300
 
@@ -56,7 +56,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   aegis: {
     id: 'aegis', name: 'Aegis', basePrice: 100, max: 1, usePhases: 'passive', modes: ['all', 'kerri', 'closest'],
-    targeted: false, desc: `Один на игру, работает сам: упал ниже $${AEGIS_THRESHOLD} — встаёшь с $${AEGIS_RESTORE}`,
+    targeted: false, desc: `Один на игру, работает сам: упал за раунд ниже $${AEGIS_THRESHOLD} — проигрыш раунда вернётся, но не выше $${AEGIS_RESTORE}`,
   },
 }
 
@@ -67,6 +67,8 @@ export const ITEM_ORDER: ItemId[] = ['manta', 'gem', 'bkb', 'blink', 'hex', 'smo
 export const BUY_PHASES: GamePhase[] = ['SHOP']
 
 export const round10 = (x: number) => Math.round(x / 10) * 10
+/** вниз до $10 — бонусы с выигрыша */
+export const floor10 = (x: number) => Math.floor(x / 10) * 10
 const ceil10 = (x: number) => Math.ceil(x / 10) * 10
 
 /** Цена растёт с балансом: до $500 — базовая, $1000 — ×1.25, $2000 — ×1.75, с $2500 — ×2. */
@@ -76,23 +78,25 @@ export function itemPrice(id: ItemId, balance: number): number {
 }
 
 // ── параметры предметов ──
-/** сейв BKB растёт с его ценой: две цены BKB на момент включения ($400 при базовой) */
-export const bkbCap = (balance: number) => 2 * itemPrice('bkb', balance)
+/** сейв BKB — две цены, заплаченные за этот BKB при покупке ($400 при базовой) */
+export const bkbCap = (paid: number) => 2 * paid
 /** после последнего ответа раунд считается через секунду: успеть блинкнуть в последний момент */
 export const LAST_ANSWER_GRACE_MS = 1000
 
 // ── бонусы (платит казино) ──
-/** «Молния»: верный ответ в первые 5 секунд вопроса — +25% ставки (керри — +$100) */
+// «Для всех» и толпа керри: база бонуса — чистый выигрыш игрока из основного пула раунда (без банк-ставки и других
+// бонусов). Никто не проиграл — выигрыша нет, нет и бонусов (0 × 1.25 = 0). Округление вниз до $10.
+/** «Молния»: верный ответ в первые 5 секунд вопроса — +25% выигрыша (не меньше $10; керри — +$100) */
 export const LIGHTNING_MS = 5000
 export const LIGHTNING_SHARE = 0.25
 export const LIGHTNING_GLADIATOR = 100
 
-/** «Серия»: доля ставки сверху за N верных раундов подряд (с двух). Сброс — ошибка или пропуск хода. */
+/** «Серия»: доля выигрыша сверху за N верных раундов подряд (с двух). Сброс — ошибка или пропуск хода. */
 export function streakShare(streak: number): number {
   if (streak < 2) return 0
   return [0, 0, 0.2, 0.35, 0.5][streak] ?? 0.6
 }
-/** у керри ставки нет — серия считается от бонуса керри */
+/** у керри ставки нет — серия считается от этой базы (в «кто ближе» — от CLOSEST_WINNER_BONUS) */
 export const STREAK_GLADIATOR_BASE = 300
 
 // ── блайнды («для всех» и толпа керри; керри и зрителям — нет) ──

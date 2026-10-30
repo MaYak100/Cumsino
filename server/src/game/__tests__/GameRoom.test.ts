@@ -480,16 +480,25 @@ describe('GameRoom', () => {
   // -------------------------------------------------------------------------
 
   describe('removePlayer', () => {
-    it('дисконнект гладиатора в QUESTION (kerri) вызывает досрочный round_results', () => {
+    it('дисконнект гладиатора в QUESTION (kerri) — раунд отменяется: «Керри сбежал», нулевые дельты, ставки целы', () => {
       const { room, broadcasts } = makeRoom()
-      addPlayers(room, 2)
+      addPlayers(room, 3)
       const r = priv(room)
       r.phase = 'QUESTION'
       r.currentMode = 'kerri'
       r.gladiatorId = 'p1'
       r.currentQuestion = { ...mcQ }
+      Object.assign(r.players.get('p2'), { currentBet: 100, betTarget: 'win', bankBet: { optionIndex: 1, amount: 50 } })
+      Object.assign(r.players.get('p3'), { currentBet: 200, betTarget: 'lose' })
       room.removePlayer('p1')
-      expect(broadcasts.find(b => b.event === 'round_results')).toBeDefined()
+      const rr = broadcasts.filter(b => b.event === 'round_results') as Array<{ event: string; data: any }>
+      expect(rr).toHaveLength(1)
+      expect(rr[0].data.results.every((x: any) => x.delta === 0)).toBe(true)
+      expect(rr[0].data.results[0].sources[0].label).toMatch(/Керри сбежал/)
+      expect(r.players.get('p2').chips).toBe(500)
+      expect(r.players.get('p3').chips).toBe(500)
+      expect(r.players.get('p3').streak).toBe(0)
+      expect(r.revealing).toBe(true)
     })
 
     it('дисконнект обычного игрока в QUESTION не завершает раунд', () => {

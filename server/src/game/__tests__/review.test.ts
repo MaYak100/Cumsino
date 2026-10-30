@@ -434,26 +434,23 @@ describe('ревью 2026-10-30', () => {
       expect(p.aegis).toBe(true)
     })
 
-    it(`на $10 ниже — срабатывает, баланс $${AEGIS_RESTORE}`, () => {
+    it(`на $10 ниже — срабатывает: обратно до баланса перед раундом (не выше $${AEGIS_RESTORE})`, () => {
       const p = settle(AEGIS_THRESHOLD + 90, 100)
-      expect(p.chips).toBe(AEGIS_RESTORE)
+      expect(p.chips).toBe(AEGIS_THRESHOLD + 90)
       expect(p.aegis).toBe(false)
+      const rich = settle(600, 600)
+      expect(rich.chips).toBe(AEGIS_RESTORE)
+      expect(rich.aegis).toBe(false)
     })
 
-    it('купить аегис так, что останется ровно порог, — можно; на $10 меньше — нет', () => {
+    it('купить аегис на последние — можно (порога при покупке нет)', () => {
       const t = makeRoom(1)
       t.r.phase = 'SHOP'
       const price = itemPrice('aegis', 150)
-      t.p('p1').chips = AEGIS_THRESHOLD + price
-      expect(itemPrice('aegis', t.p('p1').chips)).toBe(price)
+      t.p('p1').chips = AEGIS_THRESHOLD + price - 10
       t.room.buyItem('p1', 'aegis')
       expect(t.p('p1').aegis).toBe(true)
-      expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD)
-      const u = makeRoom(1)
-      u.r.phase = 'SHOP'
-      u.p('p1').chips = AEGIS_THRESHOLD + price - 10
-      u.room.buyItem('p1', 'aegis')
-      expect(u.p('p1').aegis).toBe(false)
+      expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD - 10)
     })
   })
 
@@ -473,11 +470,26 @@ describe('ревью 2026-10-30', () => {
       for (const k of ['inventory', 'items', 'bankBet', 'aegisBought', 'seat']) expect(winner).not.toHaveProperty(k)
     })
 
-    it('ничья — кто раньше вошёл (ждёт решения)', () => {
-      const t = makeRoom(2)
+    it('точная ничья ≥ 3000 — победителя нет, игра идёт ещё раунд; лидер один — победил', () => {
+      const t = makeRoom(3)
+      t.p('p1').chips = WIN_CHIPS + 200
+      t.p('p2').chips = WIN_CHIPS + 200
+      t.p('p3').chips = WIN_CHIPS
+      expect(t.r.checkWinner()).toBeUndefined()
+      t.r.phase = 'REVEAL'
+      t.r.onPhaseEnd()
+      expect(t.r.phase).not.toBe('GAME_OVER')
+      expect(t.r.roundIndex).toBe(1)
+      t.p('p2').chips = WIN_CHIPS + 210
+      expect(t.r.checkWinner().id).toBe('p2')
+    })
+
+    it('ничья ниже лидера не мешает: лидер один ≥ 3000 — победил', () => {
+      const t = makeRoom(3)
       t.p('p1').chips = WIN_CHIPS
       t.p('p2').chips = WIN_CHIPS
-      expect(t.r.checkWinner().id).toBe('p1')
+      t.p('p3').chips = WIN_CHIPS + 10
+      expect(t.r.checkWinner().id).toBe('p3')
     })
   })
 

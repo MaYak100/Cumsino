@@ -5,7 +5,7 @@ import {
   STARTING_CHIPS, WIN_CHIPS, BRIBE_ENABLED, GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
   MAX_PLAYERS, MIN_CHIP, NEW_MODE_ANNOUNCE_EXTRA,
   decomposeToChips,
-  ITEMS, ITEM_ORDER, BUY_PHASES, itemPrice, round10, blindFor, streakShare,
+  ITEMS, ITEM_ORDER, BUY_PHASES, itemPrice, round10, floor10, blindFor, streakShare,
   HEX_SECONDS, bkbCap, AEGIS_THRESHOLD, AEGIS_RESTORE, LAST_ANSWER_GRACE_MS,
   LIGHTNING_MS, LIGHTNING_SHARE, LIGHTNING_GLADIATOR, STREAK_GLADIATOR_BASE,
 } from '@cumsino/shared'
@@ -31,8 +31,12 @@ interface RoundItems {
   /** смок включён до ответа: другим не видно, что ответил (после ответа — уже видели player_answered) */
   smokeHidesAnswer: boolean
   bkb: boolean
-  /** сколько вернёт BKB: две цены BKB на момент включения */
+  /** сколько вернёт BKB: две цены, заплаченные за включённый BKB */
   bkbCap: number
+  /** цена включённого BKB (для возврата в запас) */
+  bkbPaid?: number
+  /** предметы, потраченные в этом раунде (по порядку) — раунд отменили, они вернутся в запас */
+  spent: ItemId[]
   /** керри-толпа: исход, выделенный на столе до подтверждения (из stage_chip) — туда уйдёт принудительный блайнд */
   stagedTarget?: 'win' | 'lose'
   /** варианты, убранные мантой (индексы options) */
@@ -43,13 +47,15 @@ interface RoundItems {
 
 const freshRound = (): RoundItems => ({
   used: new Set(), hexThrown: false, hexed: false, smoked: false, smokeHidesAnswer: false, bkb: false, bkbCap: 0,
-  removedOptions: [],
+  removedOptions: [], spent: [],
 })
 
-interface PlayerWithBankBet extends Player {
+interface PlayerWithBankBet extends Omit<Player, 'bot'> {
   bankBet?: { optionIndex: number; amount: number }
   /** запас предметов — личное, в публичный стейт не попадает */
   inventory: Partial<Record<ItemId, number>>
+  /** цены BKB в запасе, по порядку покупки: сейв включённого — две его цены (первым включается купленный раньше) */
+  bkbPaid: number[]
   /** аегис куплен и ещё не сработал */
   aegis: boolean
   aegisBought: boolean
@@ -57,6 +63,8 @@ interface PlayerWithBankBet extends Player {
   /** вошёл посреди раунда (не в лобби и не в лавке): до следующего раунда только смотрит — не ставит, не отвечает,
    *  не применяет предметы, не керри, без блайнда, никого не задерживает. Сбрасывается в nextRound. */
   spectator: boolean
+  /** бот (add_bot): ходит сам, в оценках, «кто ты» и рассылках не участвует */
+  bot: boolean
 }
 
 /** Что расчёт раунда меняет кроме фишек: серии и сработавшие аегисы (применяет commitSettlement). */
@@ -124,6 +132,12 @@ export class GameRoom extends EventEmitter {
   /** длительность анонса раунда (первый раз в режиме — дольше); лавка уходит в анонс с ней */
   private announceSeconds = PHASE_DURATIONS['ANNOUNCE']!
   private pending: PendingSettlement | null = null
+  /** чистый выигрыш каждого из основного пула раунда (baseResults) — база молнии и серии «для всех» и толпы керри */
+  private poolWins = new Map<string, number>()
+  /** «мешок» керри: кто ещё не был керри в этом круге. Пуст — новый круг из всех участников */
+  private kerriBag: string[] = []
+  /** таймеры ходов ботов (по боту) — снимаются на смене фазы, при уходе бота и в destroy */
+  private botTimers = new Map<string, ReturnType<typeof setTimeout>[]>()
 
   constructor(id: string, questions: QuestionSource | ((mode: GameMode) => Question),
     private friendRoster: FriendProfile[] = []) {
@@ -135,6 +149,9 @@ export class GameRoom extends EventEmitter {
 
   get isFull() { return this.players.size >= MAX_PLAYERS }
 
+  /** людей в комнате (без ботов): ноль — комната пустая, движок её закрывает */
+  get humanCount() { return [...this.players.values()].filter(p => !p.bot).length }
+
   has(id: string) { return this.players.has(id) }
 
   /** false — не вошёл (комната полна). Повторный join того же сокета — фишки не сбрасываются, стейт только ему. */
@@ -144,7 +161,13 @@ export class GameRoom extends EventEmitter {
       return true
     }
     if (this.isFull) return false
-    if (this.players.size === 0) this.hostId = id
+    if (!this.humanCount) this.hostId = id
+    this.join(id, name, false)
+    this.broadcastState()
+    return true
+  }
+
+  private join(id: string, name: string, bot: boolean) {
     this.players.set(id, {
       id, name,
       chips: STARTING_CHIPS,
@@ -152,30 +175,114 @@ export class GameRoom extends EventEmitter {
       hasAnswered: false,
       streak: 0,
       inventory: {},
+      bkbPaid: [],
       aegis: false,
       aegisBought: false,
       items: freshRound(),
       // в лобби и в лавке раунд ещё не начался — участвует; иначе смотрит до следующего раунда
       spectator: !['LOBBY', 'SHOP'].includes(this.phase),
+      bot,
     })
+    // круг керри идёт — вошедший попадает в него (к тем, кто ещё не был керри); круг кончился — попадёт в новый
+    if (this.kerriBag.length) this.kerriBag.push(id)
+  }
+
+  // ── боты (соло-тесты) ──
+
+  /** Хост в лобби добавляет бота «Бот N» (N — наименьший свободный номер). false — не хост, не лобби, комната полна. */
+  addBot(requesterId: string): boolean {
+    if (this.phase !== 'LOBBY' || requesterId !== this.hostId || this.isFull) return false
+    const names = new Set([...this.players.values()].filter(p => p.bot).map(p => p.name))
+    let n = 1
+    while (names.has(`Бот ${n}`)) n++
+    let id = `bot-${n}`
+    while (this.players.has(id)) id += '_'
+    this.join(id, `Бот ${n}`, true)
     this.broadcastState()
     return true
   }
 
+  /** Хост в лобби убирает бота. */
+  removeBot(requesterId: string, botId: string) {
+    if (this.phase !== 'LOBBY' || requesterId !== this.hostId) return
+    if (!this.players.get(botId)?.bot) return
+    this.removePlayer(botId)
+  }
+
+  private clearBotTimers(botId?: string) {
+    for (const [id, list] of this.botTimers) {
+      if (botId !== undefined && id !== botId) continue
+      for (const t of list) clearTimeout(t)
+      this.botTimers.delete(id)
+    }
+  }
+
+  /** Ход бота через 0.5–3 с (бот всё ещё в комнате и фаза та же — иначе ход не нужен). */
+  private botLater(bot: PlayerWithBankBet, act: () => void) {
+    const phase = this.phase
+    const t = setTimeout(() => this.safely('bot', () => {
+      if (this.players.get(bot.id) !== bot || this.phase !== phase) return
+      act()
+    }), 500 + Math.random() * 2500)
+    const list = this.botTimers.get(bot.id) ?? []
+    list.push(t)
+    this.botTimers.set(bot.id, list)
+  }
+
+  /** На входе в фазу боты делают то, что от них ждут: лавка — «Готов» (ничего не покупают); ставки — блайнд (толпа
+   *  керри — на случайный исход, без банк-ставки); вопрос — ответ (керри-бот тоже). Предметы и оценки — никогда. */
+  private runBots() {
+    this.clearBotTimers()
+    for (const bot of this.players.values()) {
+      if (!bot.bot || bot.spectator) continue
+      const isGladiator = this.currentMode === 'kerri' && bot.id === this.gladiatorId
+      if (this.phase === 'SHOP') {
+        this.botLater(bot, () => this.setShopReady(bot.id, true))
+      } else if (this.phase === 'BETTING') {
+        if (isGladiator || bot.chips < MIN_CHIP) continue
+        this.botLater(bot, () => {
+          const target = this.currentMode === 'kerri' ? (Math.random() < 0.5 ? 'win' : 'lose') : undefined
+          this.placeBet(bot.id, Math.min(bot.blind ?? 0, bot.chips), target)
+        })
+      } else if (this.phase === 'QUESTION') {
+        if (this.currentMode === 'kerri' && !isGladiator) continue
+        this.botLater(bot, () => {
+          const answer = this.botAnswer()
+          if (answer !== undefined) this.submitAnswer(bot.id, answer)
+        })
+      }
+    }
+  }
+
+  /** Ответ бота: MC — с вероятностью 40% верный, иначе случайный вариант; «кто ближе» — 40% в пределах ±10% от
+   *  ответа, иначе ±50% (целое, не меньше 0). */
+  private botAnswer(): string | number | undefined {
+    const q = this.currentQuestion
+    if (!q) return undefined
+    const lucky = Math.random() < 0.4
+    if (this.currentMode === 'closest') {
+      const a = q.numericAnswer
+      if (a === undefined) return undefined
+      const v = a * (1 + (Math.random() * 2 - 1) * (lucky ? 0.1 : 0.5))
+      return Math.abs(a) >= 10 ? Math.round(v) : Math.round(v * 10) / 10
+    }
+    const options = q.options ?? []
+    if (!options.length) return undefined
+    return lucky && q.answer !== undefined ? q.answer : options[Math.floor(Math.random() * options.length)]
+  }
+
   removePlayer(id: string) {
     if (!this.players.has(id)) return
-    if (this.phase === 'QUESTION' && !this.revealing && this.currentMode === 'kerri' && id === this.gladiatorId) {
-      clearTimeout(this.phaseTimer)
-      this.advanceFromQuestion()
-      this.players.delete(id)
-      this.reassignHost(id)
-      return
-    }
     this.players.delete(id)
+    this.kerriBag = this.kerriBag.filter(x => x !== id)
+    this.clearBotTimers(id)
     this.reassignHost(id)
-    if (!this.players.size) return
-    // керри ушёл до вопроса: толпа уже видела ответ, нового керри не назначить — раунд не считается
-    if (this.phase === 'BETTING' && this.currentMode === 'kerri' && id === this.gladiatorId) {
+    // людей не осталось (одни боты или никого) — движок закрывает комнату, раунд доигрывать некому
+    if (!this.humanCount) return
+    // керри ушёл до конца вопроса: толпа видела ответ, нового керри не назначить — раунд не считается (ставки и
+    // банк-ставки не списываются, потраченные предметы возвращаются)
+    if ((this.phase === 'BETTING' || (this.phase === 'QUESTION' && !this.revealing))
+      && this.currentMode === 'kerri' && id === this.gladiatorId) {
       this.cancelRound('Керри сбежал — раунд не считается')
       return
     }
@@ -199,15 +306,18 @@ export class GameRoom extends EventEmitter {
 
   private reassignHost(leftId: string) {
     if (leftId !== this.hostId) return
-    this.hostId = this.players.keys().next().value ?? ''
+    // хост — всегда человек (боты не нажмут «Начать»)
+    this.hostId = [...this.players.values()].find(p => !p.bot)?.id ?? ''
   }
 
-  /** Раунд без расчёта: ставки не списываются, все видят причину в итогах. */
+  /** Раунд без расчёта: ставки не списываются, потраченные в нём предметы возвращаются, все видят причину в итогах. */
   private cancelRound(reason: string) {
     clearTimeout(this.phaseTimer)
     this.clearRoundTimers()
     this.clearBribeAuction()
     this.revealing = true
+    this.pending = null
+    this.refundRoundItems()
     const results: RoundResult[] = Array.from(this.players.values()).map(p => ({
       playerId: p.id, delta: 0, chipBreakdown: decomposeToChips(0), sources: [{ label: reason, delta: 0 }],
     }))
@@ -250,7 +360,7 @@ export class GameRoom extends EventEmitter {
   rateQuestion(playerId: string, questionId: string, vote: RatingVote) {
     const player = this.players.get(playerId)
     const q = this.ratable
-    if (!player || !q || (q.id !== questionId && this.ratableKey !== questionId)) return
+    if (!player || player.bot || !q || (q.id !== questionId && this.ratableKey !== questionId)) return
     this.questions.rate?.(q, { id: player.id, name: player.name, roomPlayers: this.ratableRoomPlayers }, vote)
   }
 
@@ -260,6 +370,7 @@ export class GameRoom extends EventEmitter {
     clearTimeout(this.phaseTimer)
     this.clearRoundTimers()
     this.clearBribeAuction()
+    this.clearBotTimers()
   }
 
   start(requesterId: string) {
@@ -368,9 +479,8 @@ export class GameRoom extends EventEmitter {
     if (player.chips >= WIN_CHIPS) return
     const price = itemPrice(item, player.chips)
     if (player.chips < price) return
-    // с аегисом (и самим аегисом) нельзя докупиться ниже порога: иначе он сработает после ближайшего раунда сам —
-    // «купи аегис на последние $100 и получи $300»
-    if ((player.aegis || item === 'aegis') && player.chips - price < AEGIS_THRESHOLD) return
+    // ограничений по порогу аегиса нет: аегис не поднимает выше баланса перед раундом (после лавки), так что
+    // «купи аегис на последние и получи $300» не работает
     if (item === 'aegis') {
       if (player.aegisBought) return
       player.aegisBought = true
@@ -379,6 +489,7 @@ export class GameRoom extends EventEmitter {
       const have = player.inventory[item] ?? 0
       if (have >= ITEMS[item].max) return
       player.inventory[item] = have + 1
+      if (item === 'bkb') player.bkbPaid.push(price)
     }
     player.chips -= price
     this.broadcastState()
@@ -449,7 +560,9 @@ export class GameRoom extends EventEmitter {
         this.consume(player, item)
         r.used.add('bkb')
         r.bkb = true
-        r.bkbCap = bkbCap(player.chips)
+        // первым включается купленный раньше; цены нет (выдан в обход лавки) — базовая
+        r.bkbPaid = player.bkbPaid.shift() ?? ITEMS.bkb.basePrice
+        r.bkbCap = bkbCap(r.bkbPaid)
         this.broadcast('item_used', { playerId, item })
         break
       }
@@ -477,6 +590,29 @@ export class GameRoom extends EventEmitter {
     const left = (player.inventory[item] ?? 0) - 1
     if (left > 0) player.inventory[item] = left
     else delete player.inventory[item]
+    player.items.spent.push(item)
+  }
+
+  /** Вернуть потраченный в этом раунде предмет в запас (BKB — с его ценой, первым в очередь). */
+  private refund(player: PlayerWithBankBet, item: ItemId) {
+    const i = player.items.spent.lastIndexOf(item)
+    if (i < 0) return
+    player.items.spent.splice(i, 1)
+    player.inventory[item] = (player.inventory[item] ?? 0) + 1
+    if (item === 'bkb') {
+      player.bkbPaid.unshift(player.items.bkbPaid ?? ITEMS.bkb.basePrice)
+      player.items.bkb = false
+      player.items.bkbCap = 0
+      player.items.bkbPaid = undefined
+      player.items.used.delete('bkb')
+    }
+  }
+
+  /** Раунд отменён: всё потраченное в нём (блинк, гем, манта, смок, хекс, BKB) — обратно в запас. Аегис не тратился. */
+  private refundRoundItems() {
+    for (const p of this.players.values()) {
+      for (const item of [...p.items.spent].reverse()) this.refund(p, item)
+    }
   }
 
   /** item_used всем; применивший в смоке — только себе. */
@@ -647,6 +783,7 @@ export class GameRoom extends EventEmitter {
       ...(this.phase === 'SHOP' ? { shopReady: !!p.shopReady } : {}),
       ...(effects.length ? { effects } : {}),
       ...(p.spectator ? { spectator: true } : {}),
+      ...(p.bot ? { bot: true as const } : {}),
     }
   }
 
@@ -775,6 +912,7 @@ export class GameRoom extends EventEmitter {
     if (phase === 'QUESTION') this.onQuestionStart()
     this.broadcastState()
     this.phaseTimer = setTimeout(() => this.safely('onPhaseEnd', () => this.onPhaseEnd()), seconds * 1000)
+    this.runBots()
     if (BRIBE_ENABLED && phase === 'QUESTION' && this.currentMode === 'kerri') {
       this.checkAndStartBribeEvent()
     }
@@ -855,6 +993,7 @@ export class GameRoom extends EventEmitter {
       // ошибка расчёта не должна вешать комнату (revealing уже стоит): раунд не считается, игра идёт дальше
       console.error(`[room ${this.id}] расчёт раунда упал — раунд не считается:`, err)
       this.pending = null
+      this.refundRoundItems()
       results = Array.from(this.players.values()).map(p => ({
         playerId: p.id, delta: 0, chipBreakdown: decomposeToChips(0),
         sources: [{ label: 'Ошибка расчёта — раунд не считается', delta: 0 }],
@@ -882,10 +1021,11 @@ export class GameRoom extends EventEmitter {
   private reportRound() {
     const q = this.currentQuestion
     if (!q) return
-    const players = Array.from(this.players.values())
+    // боты не считаются ни в делителе оценки, ни в голосующих, ни в статистике ответов
+    const players = Array.from(this.players.values()).filter(p => !p.bot)
     this.ratable = q
     this.ratableKey = this.publicKey()
-    this.ratableRoomPlayers = players.length
+    this.ratableRoomPlayers = Math.max(1, players.length)
     // голосовать за вопрос смогут только бывшие в комнате при показе (и зрители — делитель тот же)
     const present = players.map(p => p.id)
     const answering = this.currentMode === 'kerri'
@@ -945,13 +1085,18 @@ export class GameRoom extends EventEmitter {
       const isGladiator = mode === 'kerri' && p.id === this.gladiatorId
       const fast = p.items.answerAt !== undefined && p.items.answerAt < LIGHTNING_MS
 
-      // исход раунда для серии: true — +1, false — сброс, null — без изменений
+      // исход раунда для серии: true — +1, false — сброс, null — без изменений.
+      // База бонусов: «для всех» и толпа керри — чистый выигрыш из основного пула (никто не проиграл — 0, бонусов
+      // нет), округление вниз до $10; керри и «кто ближе» — фиксированные базы.
       let won: boolean | null = null
       let streakBase = 0
+      let fromWin = false
+      const win = this.poolWins.get(p.id) ?? 0
       if (mode === 'all') {
         won = p.hasAnswered && p.answer === q.answer
-        streakBase = p.currentBet
-        if (won && fast) add('Молния', Math.max(MIN_CHIP, round10(p.currentBet * LIGHTNING_SHARE)))
+        streakBase = win
+        fromWin = true
+        if (won && fast && win > 0) add('Молния', Math.max(MIN_CHIP, floor10(win * LIGHTNING_SHARE)))
       } else if (mode === 'kerri') {
         if (isGladiator) {
           won = kerriCorrect
@@ -960,7 +1105,8 @@ export class GameRoom extends EventEmitter {
         } else if (p.currentBet > 0) {
           // пропустить ставку толпа не может (блайнд принудительный); ставки нет — только у безденежного: серия не меняется
           won = kerriCorrect ? p.betTarget === 'win' : p.betTarget === 'lose'
-          streakBase = p.currentBet
+          streakBase = win
+          fromWin = true
         }
       } else if (mode === 'closest') {
         // «кто ближе» серию не сбивает: ближайший +1, остальные (и не ответившие) — без изменений
@@ -973,13 +1119,20 @@ export class GameRoom extends EventEmitter {
       if (won === true) streak = prev + 1
       else if (won === false && !p.items.bkb) streak = 0   // под BKB серия не сбивается
       pending.streaks.set(p.id, streak)
-      if (won === true && streak >= 2) add(`Серия ×${streak}`, round10(streakBase * streakShare(streak)))
+      if (won === true && streak >= 2) {
+        const bonus = streakBase * streakShare(streak)
+        add(`Серия ×${streak}`, fromWin ? floor10(bonus) : round10(bonus))
+      }
 
       if (p.items.bkb && delta < 0) add('BKB', Math.min(-delta, p.items.bkbCap))
 
-      // аегис — по предсказанному балансу; после него баланс ровно AEGIS_RESTORE
-      if (p.aegis && p.chips + delta < AEGIS_THRESHOLD) {
-        add('Аегис', AEGIS_RESTORE - (p.chips + delta))
+      // аегис — по предсказанному балансу: ниже порога — поднимает до AEGIS_RESTORE, но не выше баланса перед
+      // раундом (p.chips до расчёта — это баланс после лавки: в раунде фишки меняет только расчёт). Поднимать
+      // некуда — не срабатывает и остаётся
+      const after = p.chips + delta
+      const restoreTo = Math.min(AEGIS_RESTORE, p.chips)
+      if (p.aegis && after < AEGIS_THRESHOLD && restoreTo > after) {
+        add('Аегис', restoreTo - after)
         pending.aegisUsed.add(p.id)
       }
 
@@ -1005,6 +1158,7 @@ export class GameRoom extends EventEmitter {
   private baseResults(): RoundResult[] {
     const players = Array.from(this.players.values())
     type Source = { label: string; delta: number }
+    this.poolWins = new Map()
 
     if (this.currentMode === 'all') {
       const q = this.currentQuestion!
@@ -1019,6 +1173,7 @@ export class GameRoom extends EventEmitter {
             [...winnerIds].map(id => ({ id, stake: this.players.get(id)!.currentBet })),
             [...loserIds].map(id => ({ id, stake: this.players.get(id)!.currentBet })),
           )
+      for (const id of winnerIds) this.poolWins.set(id, Math.max(0, deltas.get(id) ?? 0))
 
       return players.map(p => {
         const delta = deltas.get(p.id) ?? 0
@@ -1048,6 +1203,7 @@ export class GameRoom extends EventEmitter {
       const mainDeltas = noneGuessedCorrect
         ? new Map<string, number>()
         : distributePool(winners, losers)
+      for (const w of winners) this.poolWins.set(w.id, Math.max(0, mainDeltas.get(w.id) ?? 0))
       mainDeltas.set(gladiator.id, correct ? GLADIATOR_BONUS : 0)
 
       const gladiatorAnswerIndex = this.currentQuestion?.options
@@ -1131,18 +1287,23 @@ export class GameRoom extends EventEmitter {
     }
   }
 
+  /** Керри — из «мешка»: каждый участник по разу в случайном порядке, потом новый круг. Ушедшие выпадают из мешка,
+   *  вошедшие посреди круга попадают в него (join). Зритель (вошёл в анонсе) керри не становится — остаётся в мешке
+   *  на следующие раунды. */
   private selectGladiator() {
-    // зритель (вошёл в анонсе) керри не становится — у него на экране «ждём следующий раунд»
-    const ids = Array.from(this.players.values()).filter(p => !p.spectator).map(p => p.id)
-    this.gladiatorId = ids[Math.floor(Math.random() * ids.length)]
-    // BKB из анонса керри ни к чему (керри не теряет) — возвращаем в запас
-    const g = this.players.get(this.gladiatorId)
-    if (g?.items.bkb) {
-      g.items.bkb = false
-      g.items.bkbCap = 0
-      g.items.used.delete('bkb')
-      g.inventory.bkb = (g.inventory.bkb ?? 0) + 1
+    const eligible = (id: string) => { const p = this.players.get(id); return !!p && !p.spectator }
+    let pool = this.kerriBag.filter(eligible)
+    if (!pool.length) {
+      // круг кончился: новый — все, кого в мешке нет (зрители, оставшиеся в мешке, там и остаются)
+      const inBag = new Set(this.kerriBag)
+      this.kerriBag.push(...[...this.players.keys()].filter(id => !inBag.has(id)))
+      pool = this.kerriBag.filter(eligible)
     }
+    this.gladiatorId = pool[Math.floor(Math.random() * pool.length)]
+    this.kerriBag = this.kerriBag.filter(id => id !== this.gladiatorId)
+    // BKB из анонса керри ни к чему (керри не теряет) — возвращаем в запас (с ценой покупки)
+    const g = this.gladiatorId !== undefined ? this.players.get(this.gladiatorId) : undefined
+    if (g?.items.bkb) this.refund(g, 'bkb')
   }
 
   /** Участники раунда — все, кроме вошедших посреди раунда. */
@@ -1170,10 +1331,13 @@ export class GameRoom extends EventEmitter {
     return Array.from(this.players.values()).every(p => p.spectator || p.hasAnswered || this.hexExpired(p))
   }
 
-  /** Победитель — самый богатый из дошедших до WIN_CHIPS; точная ничья — кто раньше вошёл (ждёт решения). */
+  /** Победитель — единственный самый богатый, дошедший до WIN_CHIPS. Точная ничья наверху — игра идёт дальше,
+   *  пока лидер не останется один. */
   private checkWinner(): PlayerWithBankBet | undefined {
     const leader = this.leader()
-    return leader && leader.chips >= WIN_CHIPS ? leader : undefined
+    if (!leader || leader.chips < WIN_CHIPS) return undefined
+    const tied = [...this.players.values()].filter(p => p.chips === leader.chips).length > 1
+    return tied ? undefined : leader
   }
 
   /** Самый богатый; при равенстве — кто раньше в списке (раньше вошёл). */
@@ -1206,12 +1370,14 @@ export class GameRoom extends EventEmitter {
   }
 
   private broadcastState() {
-    for (const [playerId] of this.players) {
-      this.emit('sendToPlayer', { playerId, event: 'game_state', data: this.getStateForPlayer(playerId) })
+    for (const p of this.players.values()) {
+      if (p.bot) continue   // у бота нет сокета
+      this.emit('sendToPlayer', { playerId: p.id, event: 'game_state', data: this.getStateForPlayer(p.id) })
     }
   }
 
   private sendToPlayer(playerId: string, event: string, data: unknown) {
+    if (this.players.get(playerId)?.bot) return
     this.emit('sendToPlayer', { playerId, event, data })
   }
 

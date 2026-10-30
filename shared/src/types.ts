@@ -46,6 +46,8 @@ export interface Player {
   /** вошёл посреди раунда: до следующего раунда только смотрит (не ставит, не отвечает, не цель предметов, не
    *  керри, его не ждут). Нет поля — участник. */
   spectator?: boolean
+  /** бот для соло-тестов (add_bot в лобби): играет сам, в оценках и «кто ты» не участвует */
+  bot?: true
 }
 
 export type PublicEffect = 'bkb' | 'hex' | 'smoke' | 'aegis'
@@ -122,6 +124,8 @@ export interface UseItemPayload { item: ItemId; targetId?: string }
 export interface ShopReadyPayload { ready: boolean }
 export interface GladiatorHoverPayload { optionIndex: number | null }
 export interface IdentifyPayload { friendId: number | null }
+/** add_bot — без данных (хост, лобби); remove_bot — убрать бота по id (хост, лобби) */
+export interface RemoveBotPayload { id: string }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
  *  null — снять отметку; поле не передано — не менять. questionId — настоящий id (round_results.questionId) или ключ
  *  раунда (currentQuestion.id): сервер оценивает только последний посчитанный вопрос комнаты. */

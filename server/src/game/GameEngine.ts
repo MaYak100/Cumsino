@@ -70,7 +70,8 @@ export class GameEngine {
     const room = this.rooms.get(gameCode)
     if (room) {
       room.removePlayer(socketId)
-      if (room.playerCount === 0) {
+      // людей не осталось (одни боты — тоже пустая): закрываем, destroy снимает и таймеры ботов
+      if (room.humanCount === 0) {
         room.destroy()
         this.rooms.delete(gameCode)
         console.log(`[room] destroyed ${gameCode} | rooms left: ${this.rooms.size}${this.rooms.size === 0 ? ' — сервер можно усыплять' : ''}`)

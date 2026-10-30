@@ -94,6 +94,9 @@ interface GameStore {
   markBetSent: () => void
   sendHover: (optionIndex: number | null) => void
   startGame: () => void
+  /** Боты для соло-тестов: только хост в лобби; сервер отвечает game_state (Player.bot) */
+  addBot: () => void
+  removeBot: (id: string) => void
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
   identify: (friendId: number | null) => void
   /** Оценка вопроса раунда: score −2…+2 (без 0), difficulty −1 легко / +1 сложно; null — снять */
@@ -329,6 +332,14 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     startGame() {
       socket.emit('start_game')
+    },
+
+    addBot() {
+      socket.emit('add_bot')
+    },
+
+    removeBot(id) {
+      socket.emit('remove_bot', { id })
     },
 
     identify(friendId) {

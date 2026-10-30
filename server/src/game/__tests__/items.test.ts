@@ -48,6 +48,7 @@ function makeRoom(n = 3, question: Question = mcQ) {
   return { room, r, p, give, ev, sent, results, res, toQuestion, setPhase, bets, broadcasts, except, toPlayer }
 }
 
+const ITEMS_BKB_BASE = itemPrice('bkb', 0)
 const labels = (rr: RoundResult) => (rr.sources ?? []).map(s => s.label)
 const src = (rr: RoundResult, label: string) => rr.sources?.find(s => s.label === label)?.delta
 
@@ -256,9 +257,9 @@ describe('предметы, бонусы, блайнды', () => {
 
   // ── молния ──
   describe('молния', () => {
-    it('верный ответ в первые LIGHTNING_MS — +25% ставки', () => {
+    it('верный ответ в первые LIGHTNING_MS — +25% выигрыша, вниз до $10', () => {
       const t = makeRoom(3)
-      t.bets({ p1: 100, p2: 100, p3: 100 })
+      t.bets({ p1: 200, p2: 100, p3: 300 })
       t.toQuestion()
       vi.advanceTimersByTime(1000)
       t.room.submitAnswer('p1', 'A')
@@ -266,12 +267,37 @@ describe('предметы, бонусы, блайнды', () => {
       t.room.submitAnswer('p2', 'A')   // верно, но медленно
       t.room.submitAnswer('p3', 'B')
       vi.advanceTimersByTime(LAST_ANSWER_GRACE_MS)
-      expect(src(t.res('p1'), 'Молния')).toBe(100 * LIGHTNING_SHARE + 5)   // round10(25) = 30
+      // пул $300 делится 2:1 — p1 выиграл $200, молния 25% = $50 (не от ставки — от выигрыша)
+      expect(src(t.res('p1'), 'Ответил верно')).toBe(200)
+      expect(src(t.res('p1'), 'Молния')).toBe(200 * LIGHTNING_SHARE)
       expect(src(t.res('p2'), 'Молния')).toBeUndefined()
-      expect(t.res('p1').delta).toBe(50 + 30)
+      expect(t.res('p1').delta).toBe(200 + 50)
     })
 
-    it('маленькая ставка — молния не меньше $10', () => {
+    it('выигрыш $50 — молния вниз до $10: $12.5 → $10', () => {
+      const t = makeRoom(3)
+      t.bets({ p1: 100, p2: 100, p3: 100 })
+      t.toQuestion()
+      t.room.submitAnswer('p1', 'A')
+      t.room.submitAnswer('p2', 'A')
+      t.room.submitAnswer('p3', 'B')
+      t.r.advanceFromQuestion()
+      expect(src(t.res('p1'), 'Ответил верно')).toBe(50)
+      expect(src(t.res('p1'), 'Молния')).toBe(10)
+    })
+
+    it('никто не проиграл — выигрыша нет, нет и молнии (0 × 1.25 = 0)', () => {
+      const t = makeRoom(2)
+      t.bets({ p1: 300, p2: 300 })
+      t.toQuestion()
+      t.room.submitAnswer('p1', 'A')
+      t.room.submitAnswer('p2', 'A')
+      t.r.advanceFromQuestion()
+      expect(labels(t.res('p1'))).toEqual(['Все угадали'])
+      expect(t.res('p1').delta).toBe(0)
+    })
+
+    it('маленький выигрыш — молния не меньше $10', () => {
       const t = makeRoom(2)
       t.bets({ p1: 10, p2: 10 })
       t.toQuestion()
@@ -329,9 +355,41 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p1').streak).toBe(2)
       expect(t.p('p2').streak).toBe(0)
       expect(t.p('p3').streak).toBe(0)
-      expect(src(t.res('p1'), 'Серия ×2')).toBe(20)
+      // выиграл $200 (ставки p2 и p3) — серия ×2: 20% от выигрыша
+      expect(src(t.res('p1'), 'Серия ×2')).toBe(40)
       expect(labels(t.res('p2')).some(l => l.startsWith('Серия'))).toBe(false)
       expect(t.room.getPublicState().players.find(x => x.id === 'p1')!.streak).toBe(2)
+    })
+
+    it('серия растёт, но без выигрыша бонуса нет (все угадали)', () => {
+      const t = makeRoom(2)
+      t.p('p1').streak = 3
+      t.p('p2').streak = 1
+      t.bets({ p1: 500, p2: 100 })
+      t.toQuestion()
+      vi.advanceTimersByTime(LIGHTNING_MS)
+      t.room.submitAnswer('p1', 'A')
+      t.room.submitAnswer('p2', 'A')
+      t.r.advanceFromQuestion()
+      expect(t.p('p1').streak).toBe(4)
+      expect(t.p('p2').streak).toBe(2)
+      expect(labels(t.res('p1')).some(l => l.startsWith('Серия'))).toBe(false)
+      expect(t.res('p1').delta).toBe(0)
+    })
+
+    it('бонус от выигрыша округляется вниз до $10', () => {
+      const t = makeRoom(3)
+      t.p('p1').streak = 2
+      t.bets({ p1: 100, p2: 100, p3: 90 })
+      t.toQuestion()
+      vi.advanceTimersByTime(LIGHTNING_MS)
+      t.room.submitAnswer('p1', 'A')
+      t.room.submitAnswer('p2', 'A')
+      t.room.submitAnswer('p3', 'B')
+      t.r.advanceFromQuestion()
+      // пул $90 пополам: $40 + остаток $10 крупнейшей ставке (p1 — первый из равных) = $50; 35% = $17.5 → $10
+      expect(src(t.res('p1'), 'Ответил верно')).toBe(50)
+      expect(src(t.res('p1'), 'Серия ×3')).toBe(10)
     })
 
     it('бонус растёт с серией: ×3 — 35%, ×5 — 60%', () => {
@@ -722,10 +780,14 @@ describe('предметы, бонусы, блайнды', () => {
   })
 
   describe('bkb', () => {
-    it('в ANNOUNCE/BETTING, раз за раунд; возврат не больше двух цен BKB на момент включения', () => {
+    it('в ANNOUNCE/BETTING, раз за раунд; возврат не больше двух цен, заплаченных за этот BKB', () => {
       const t = makeRoom(2)
       t.p('p2').chips = 1000
-      t.give('p2', 'bkb', 2)
+      t.setPhase('SHOP')
+      t.room.buyItem('p2', 'bkb')   // $250 при $1000
+      t.room.buyItem('p2', 'bkb')   // $230 при $750
+      expect(t.p('p2').inventory.bkb).toBe(2)
+      expect(t.p('p2').bkbPaid).toEqual([itemPrice('bkb', 1000), itemPrice('bkb', 750)])
       t.setPhase('QUESTION')
       t.room.useItem('p2', 'bkb')
       expect(t.p('p2').items.bkb).toBe(false)
@@ -735,10 +797,12 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2').inventory.bkb).toBe(1)
       expect(t.ev('item_used').at(-1)!.data).toEqual({ playerId: 'p2', item: 'bkb' })
       expect(t.room.getPublicState().players[1].effects).toEqual(['bkb'])
-      const cap = bkbCap(1000)
-      expect(cap).toBe(2 * itemPrice('bkb', 1000))
+      // первым включился купленный раньше — за $250
+      const cap = bkbCap(itemPrice('bkb', 1000))
+      expect(t.p('p2').items.bkbCap).toBe(cap)
       expect(cap).toBe(500)
-      t.p('p2').chips = 3000   // баланс после включения на кап не влияет
+      expect(t.p('p2').bkbPaid).toEqual([itemPrice('bkb', 750)])
+      t.p('p2').chips = 3000   // баланс на кап не влияет
       t.bets({ p1: 500, p2: 600 })
       t.toQuestion()
       t.room.submitAnswer('p1', 'A')
@@ -748,8 +812,25 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.res('p2').delta).toBe(-600 + cap)
     })
 
-    it('при базовой цене кап — $400', () => {
-      expect(bkbCap(500)).toBe(400)
+    it('при базовой цене кап — $400; выдан без покупки — тоже по базовой', () => {
+      expect(bkbCap(itemPrice('bkb', 500))).toBe(400)
+      const t = makeRoom(2)
+      t.p('p1').chips = 2500
+      t.give('p1', 'bkb')
+      t.setPhase('BETTING')
+      t.room.useItem('p1', 'bkb')
+      expect(t.p('p1').items.bkbCap).toBe(400)
+    })
+
+    it('куплен дёшево, включён богатым — сейв от цены покупки', () => {
+      const t = makeRoom(2)
+      t.setPhase('SHOP')
+      t.room.buyItem('p1', 'bkb')   // $200 при $500
+      t.p('p1').chips = 2500
+      t.setPhase('BETTING')
+      t.room.useItem('p1', 'bkb')
+      expect(t.p('p1').items.bkbCap).toBe(400)
+      expect(itemPrice('bkb', 2500)).toBe(400)   // сейчас стоил бы вдвое дороже
     })
 
     it('керри: только толпа; BKB избранного в анонсе возвращается в запас', () => {
@@ -763,13 +844,31 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.r.gladiatorId).toBe('p1')
       expect(t.p('p1').items.bkb).toBe(false)
       expect(t.p('p1').inventory.bkb).toBe(1)
+      expect(t.p('p1').bkbPaid).toEqual([ITEMS_BKB_BASE])   // цена вернулась вместе с BKB
       t.room.useItem('p1', 'bkb')
       expect(t.p('p1').items.bkb).toBe(false)
     })
   })
 
   describe('aegis', () => {
-    it('баланс после раунда ниже $50 — становится $300, аегис снимается', () => {
+    it('было $800, проиграл всё — $300, аегис снимается', () => {
+      const t = makeRoom(2)
+      t.p('p2').aegis = true
+      t.p('p2').chips = 800
+      t.bets({ p1: 800, p2: 800 })
+      t.toQuestion()
+      vi.advanceTimersByTime(LIGHTNING_MS)
+      t.room.submitAnswer('p1', 'A')
+      t.room.submitAnswer('p2', 'B')
+      t.r.advanceFromQuestion()
+      expect(t.p('p2').chips).toBe(AEGIS_RESTORE)
+      expect(t.res('p2').delta).toBe(AEGIS_RESTORE - 800)
+      expect(src(t.res('p2'), 'Аегис')).toBe(AEGIS_RESTORE)
+      expect(t.p('p2').aegis).toBe(false)
+      expect(t.room.getPublicState().players[1].effects).toBeUndefined()
+    })
+
+    it('не выше баланса перед раундом: было $100, проиграл всё — снова $100', () => {
       const t = makeRoom(2)
       t.p('p2').aegis = true
       t.p('p2').chips = 100
@@ -779,11 +878,38 @@ describe('предметы, бонусы, блайнды', () => {
       t.room.submitAnswer('p1', 'A')
       t.room.submitAnswer('p2', 'B')
       t.r.advanceFromQuestion()
-      expect(t.p('p2').chips).toBe(AEGIS_RESTORE)
-      expect(t.res('p2').delta).toBe(AEGIS_RESTORE - 100)
-      expect(src(t.res('p2'), 'Аегис')).toBe(AEGIS_RESTORE)
+      expect(t.p('p2').chips).toBe(100)
+      expect(t.res('p2').delta).toBe(0)
+      expect(src(t.res('p2'), 'Аегис')).toBe(100)
       expect(t.p('p2').aegis).toBe(false)
-      expect(t.room.getPublicState().players[1].effects).toBeUndefined()
+    })
+
+    it('обход закрыт: купил аегис при $150 → $50, проиграл блайнд — аегис возвращает до $50, а не $300', () => {
+      const t = makeRoom(2)
+      t.p('p1').chips = 150
+      t.setPhase('SHOP')
+      t.room.buyItem('p1', 'aegis')
+      expect(t.p('p1').chips).toBe(50)
+      t.bets({ p1: 10, p2: 30 })
+      t.toQuestion()
+      t.room.submitAnswer('p1', 'B')
+      t.room.submitAnswer('p2', 'A')
+      t.r.advanceFromQuestion()
+      expect(t.p('p1').chips).toBe(50)
+      expect(src(t.res('p1'), 'Аегис')).toBe(10)
+    })
+
+    it('поднимать некуда (до раунда было не больше, чем после) — не срабатывает и не тратится', () => {
+      const t = makeRoom(2)
+      t.p('p1').aegis = true
+      t.p('p1').chips = 30   // ниже порога ещё до раунда, ставки нет
+      t.bets({ p2: 30 })
+      t.toQuestion()
+      t.room.submitAnswer('p2', 'A')
+      t.r.advanceFromQuestion()
+      expect(t.p('p1').chips).toBe(30)
+      expect(labels(t.res('p1'))).not.toContain('Аегис')
+      expect(t.p('p1').aegis).toBe(true)
     })
 
     it('выше порога — не срабатывает; порядок источников молния → серия → BKB → аегис', () => {
@@ -1038,7 +1164,7 @@ describe('предметы, бонусы, блайнды', () => {
       t.toQuestion('kerri')
       t.room.submitAnswer('p1', 'A')   // керри верно: p3 теряет основную и банк
       t.r.advanceFromQuestion()
-      const cap = bkbCap(500)
+      const cap = bkbCap(ITEMS_BKB_BASE)   // выдан без лавки — по базовой цене
       expect(src(t.res('p3'), 'BKB')).toBe(cap)
       expect(t.res('p3').delta).toBe(-300 - 200 + cap)
       expect(t.p('p3').streak).toBe(0)   // и не было
@@ -1126,15 +1252,15 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p1').inventory).toEqual({ hex: 1, manta: 1, bkb: 1 })
     })
 
-    it('аегис срабатывает и здесь (баланс ниже порога после посчитанного раунда)', () => {
+    it('аегис: проиграть здесь нечего — ниже порога до раунда, ниже и после: не срабатывает, остаётся', () => {
       const t = makeRoom(2, cnQ)
       t.p('p2').aegis = true
       t.p('p2').chips = 30
       t.toQuestion('closest')
       t.room.submitAnswer('p1', 330)
       t.r.advanceFromQuestion()
-      expect(t.p('p2').chips).toBe(AEGIS_RESTORE)
-      expect(t.p('p2').aegis).toBe(false)
+      expect(t.p('p2').chips).toBe(30)
+      expect(t.p('p2').aegis).toBe(true)
     })
   })
 
@@ -1337,19 +1463,24 @@ describe('предметы, бонусы, блайнды', () => {
 
   // ── аегис: края ──
   describe('aegis: края', () => {
-    it('купить, если после покупки баланс ниже порога, — нельзя; с аегисом нельзя докупиться ниже порога', () => {
-      const t = makeRoom(1)
+    it('порога при покупке нет: можно купить аегис и докупаться ниже порога — выше баланса перед раундом он не поднимет', () => {
+      const t = makeRoom(2)
       t.r.phase = 'SHOP'
       t.p('p1').chips = 140
       t.room.buyItem('p1', 'aegis')
-      expect(t.p('p1').aegis).toBe(false)
-      t.p('p1').chips = 150
-      t.room.buyItem('p1', 'aegis')
       expect(t.p('p1').aegis).toBe(true)
-      expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD)
-      t.room.buyItem('p1', 'blink')
+      expect(t.p('p1').chips).toBe(40)
+      t.room.buyItem('p1', 'blink')   // без $50 на блинк — не купить
       expect(t.p('p1').inventory.blink).toBeUndefined()
-      expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD)
+      t.p('p1').chips = 90
+      t.room.buyItem('p1', 'blink')
+      expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD - 10)
+      // раунд без потерь: ниже порога, но поднимать некуда — аегис остаётся
+      t.toQuestion()
+      t.room.submitAnswer('p1', 'A')
+      t.r.advanceFromQuestion()
+      expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD - 10)
+      expect(t.p('p1').aegis).toBe(true)
     })
 
     it('купить второй раз (даже после срабатывания) — нельзя', () => {
@@ -1377,14 +1508,15 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2').aegis).toBe(true)
     })
 
-    it('баланс уже на нуле до раунда — срабатывает после него', () => {
+    it('баланс уже на нуле до раунда — поднимать не до чего: не срабатывает', () => {
       const t = makeRoom(2)
       t.p('p2').aegis = true
       t.p('p2').chips = 0
       t.toQuestion()
       t.room.submitAnswer('p1', 'A')
       t.r.advanceFromQuestion()
-      expect(t.p('p2').chips).toBe(AEGIS_RESTORE)
+      expect(t.p('p2').chips).toBe(0)
+      expect(t.p('p2').aegis).toBe(true)
     })
 
     it('отменённый раунд (керри сбежал) — аегис не срабатывает и не тратится', () => {
