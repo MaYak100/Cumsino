@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (423 теста)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (436)
+npm run test:server                     # vitest сервера (455 тестов)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (468)
 npx vitest run server/src/game/economy/__tests__/applyBankBets.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -69,14 +69,15 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
 - `types.ts` — `Player`, `GameState`, `Question`, `RoundResult`, payload'ы сокетов. `GamePhase = LOBBY | SHOP |
   ANNOUNCE | BETTING | QUESTION | REVEAL | GAME_OVER`, `GameMode = 'all' | 'kerri' | 'closest'`. `Question`:
   `displayTopic` (тема «субъект\nаспект»), `comment`, `optionNotes` (значение каждого варианта, ≤ ~6 символов),
-  `unit`, `category`/`subcategory`. В `GameState.currentQuestion` нет `answer`/`numericAnswer`/`comment`/`optionNotes`,
-  а `id` — ключ раунда (см. «Протокол»).
+  `unit`, `category`/`subcategory`. `Player.spectator` — зритель, `Player.bot` — бот (`add_bot`). В
+  `GameState.currentQuestion` нет `answer`/`numericAnswer`/`comment`/`optionNotes`, а `id` — ключ раунда (см.
+  «Протокол»).
 - `constants.ts` — `STARTING_CHIPS=500`, `WIN_CHIPS=3000`, `GLADIATOR_BONUS=300`, `CLOSEST_WINNER_BONUS=200`
   (+`CLOSEST_EXACT_BONUS=200` за точное), `MAX_PLAYERS=8`, `MIN_CHIP=10`, `PHASE_DURATIONS` (SHOP 25, ANNOUNCE 9,
   BETTING 30, QUESTION 45, REVEAL 14 с), `NEW_MODE_ANNOUNCE_EXTRA=3`, `FIRST_SHOP_EXTRA=20`, `ANSWER_REVEAL_MS=4000`
   / `ANSWER_REVEAL_NOTES_MS=6000`, `BRIBE_ENABLED=false`.
-- `items.ts` — предметы, цены (`itemPrice` растёт с балансом), блайнды (`blindFor`), молния, серия, BKB, аегис —
-  правила в [docs/items.md](docs/items.md).
+- `items.ts` — предметы, цены (`itemPrice` растёт с балансом), блайнды (`blindFor`), молния и серия (от выигрыша,
+  `floor10`), BKB (`bkbCap(цена покупки)`), аегис — правила в [docs/items.md](docs/items.md).
 - `chips.ts` — `decomposeToChips(amount)` (80% крупными 500/100, 20% мелкими 50/20/10, `normalizeMax7()` — стопка
   > 7 фишек укрупняется), `decomposeStartingChips()` = 4×100+1×50+1×20+3×10.
 - `units.ts` — `withUnit(value, unit)`: «175%», «1.5×» слитно, «12 сек.», «2250 золота» через пробел. В MC единица уже в
@@ -91,15 +92,16 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
   SIGTERM / SIGINT — дописать очередь в Neon (до 5 с) и выйти.
 - **`game/GameEngine.ts`** — `rooms: Map<code, GameRoom>`, `playerRoom: Map<socketId, code>`; `MAX_ROOMS=200`.
   `joinRoom` проверяет «комната полна» / «сервер полон» **до** выхода из старой комнаты (`join_error`), переход в
-  другую комнату не оставляет «призрака»; повторный join того же сокета не сбрасывает фишки. Последний вышел —
-  `room.destroy()` (закрывает показ вопроса — `settle`) и удаление. Библиотека вопросов грузится в конструкторе.
+  другую комнату не оставляет «призрака»; повторный join того же сокета не сбрасывает фишки. Вышел последний
+  человек (`humanCount === 0`; оставшиеся боты не держат комнату) — `room.destroy()` (закрывает показ вопроса —
+  `settle`, снимает таймеры ботов) и удаление. Библиотека вопросов грузится в конструкторе.
 - **`game/GameRoom.ts`** — машина фаз и экономика комнаты (EventEmitter: `broadcast`, `broadcastExcept`,
   `sendToPlayer`; `sendToCrowd` — толпе керри без керри и зрителей). Главное:
   - **Фазы** через `schedulePhase()` / `onPhaseEnd()`, таймеры через `safely()`. `nextRound()` выбирает режим
     (`RoundSelector`: `all → kerri → closest` по кругу) и вопрос (ошибка пикера — следующий режим, до 3 попыток),
     увеличивает `roundIndex`, сбрасывает раундовое состояние и ключ раунда, снимает `spectator`. Раунд `all` после
     первого сыгранного `closest` начинается с **SHOP** (см. docs/items.md), иначе ANNOUNCE (+3 с, если режим в игре
-    впервые). ANNOUNCE → (kerri: `selectGladiator()` — случайный не-зритель; затем `assignBlinds()`) → BETTING, а
+    впервые). ANNOUNCE → (kerri: `selectGladiator()` — из «мешка»; затем `assignBlinds()`) → BETTING, а
     `closest` или «ставить некому» (`bettingNeeded()` пуст) — сразу QUESTION. Конец BETTING — `forceBlinds()`.
   - **Конец вопроса:** все ответили → `startGrace()` (`LAST_ANSWER_GRACE_MS` 1 с, блинк перезапускает) →
     `advanceFromQuestion()`: `revealing = true` (идемпотентно: поздний ответ / дисконнект не считают раунд второй
@@ -107,13 +109,26 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
     `pending`, применяет `commitSettlement()` — тесты могут звать `calculateResults()` повторно), `applyDeltas`
     (флор 0), `reportRound()` (показ для оценок), `game_state` и `round_results`; фаза остаётся QUESTION ещё 4 с
     (6 с с `optionNotes`) — клиенты показывают ответ — потом REVEAL. Ошибка расчёта — нулевые итоги «Ошибка расчёта».
-  - **Победа** проверяется в конце REVEAL: самый богатый из ≥ `WIN_CHIPS` (точная ничья — первый вошедший);
-    `game_over.winner` — публичная проекция. Следующий вопрос не собрался — GAME_OVER с лидером.
-  - **Отмена раунда** (`cancelRound`: нулевые дельты, причина в `sources` и `comment`): керри ушёл в BETTING
-    («Керри сбежал»), не осталось участников (одни зрители) в ANNOUNCE/BETTING/QUESTION. Керри ушёл в QUESTION —
-    раунд считается сразу (керри не ответил).
-  - **Уход игрока:** хост переназначается; фазы перепроверяются (SHOP — все готовы, BETTING — все подтвердили,
-    QUESTION — все ответили).
+  - **Керри — «мешок»** (`kerriBag`): каждый участник по разу в случайном порядке, потом новый круг из всех. Ушедший
+    выпадает из мешка; вошедший посреди круга добавляется в текущий круг (к тем, кто ещё не был керри), вошедший
+    после конца круга — в следующий. Зритель керри не становится и остаётся в мешке. Боты — тоже керри.
+  - **Победа** проверяется в конце REVEAL: **единственный** самый богатый из ≥ `WIN_CHIPS`; точная ничья наверху —
+    игра идёт ещё раунд (и дальше, пока лидер не один). `game_over.winner` — публичная проекция. Следующий вопрос не
+    собрался — GAME_OVER с лидером.
+  - **Отмена раунда** (`cancelRound`: нулевые дельты, причина в `sources` и `comment`, ставки и банк-ставки не
+    списываются, **потраченные в раунде предметы возвращаются в запас** — `refundRoundItems`): керри ушёл в BETTING
+    или в QUESTION до расчёта («Керри сбежал»), не осталось участников (одни зрители) в ANNOUNCE/BETTING/QUESTION,
+    «Некому играть», ошибка расчёта.
+  - **Уход игрока:** хост переназначается (только на человека); фазы перепроверяются (SHOP — все готовы, BETTING —
+    все подтвердили, QUESTION — все ответили). Людей не осталось — ничего не перепроверяется (движок закрывает).
+  - **Боты** (соло-тесты): `addBot(hostId)` / `removeBot(hostId, botId)` — только хост и только в LOBBY, лимит
+    `MAX_PLAYERS`, имя «Бот N» (наименьший свободный номер), id `bot-N`, публично `Player.bot = true`. `runBots()` на
+    каждой `schedulePhase()`: через 0.5–3 с (`botLater`, таймеры по боту в `botTimers`, снимаются на смене фазы, при
+    уходе бота и в `destroy`) — SHOP: «Готов» (не покупает); BETTING: блайнд (толпа керри — случайная сторона, без
+    банк-ставки); QUESTION (в kerri — только керри-бот): MC — 40% верный, иначе случайный вариант; «кто ближе» — 40% в
+    ±10% от ответа, иначе ±50%. Предметы и оценки — никогда. Ботам не шлются события (`sendToPlayer` / `game_state`
+    пропускают); в `reportRound` (делитель оценки `roomPlayers`, `present`, статистика ответов) их нет, `rateQuestion`
+    бота игнорируется, «кто ты» бот не выбирает.
   - **Ставки** `placeBet(id, amount, target?, chips?, bankBet?)`: только BETTING, не зритель, не керри; не меньше
     блайнда (если на него хватает); в kerri ненулевая ставка требует `target`; банк-ставка толпы ×4 приходит в том
     же `place_bet` (`bankBet {optionIndex, amount}`) — только на неверный вариант, > 0, вместе с основной в пределах
@@ -141,7 +156,7 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
 - **`socket/handlers.ts`** — обёртка на каждое событие: token bucket на сокет (`EVENTS_BURST=40`, +20 в с, лишнее
   молча), пустой payload → `{}`, исключение → лог. Проверки: код комнаты `^[A-Z0-9]{2,8}$`, имя `cleanName` (без
   управляющих / невидимых символов и «залго», ≤ 24), ставки — целые кратные 10, фишки — номиналы (≤ 40 шт.), ответ ≤
-  300 символов, предмет из `ITEM_ORDER`, `targetId` ≤ 64. Оценка копится и уходит в комнату не чаще раза в секунду
+  300 символов, предмет из `ITEM_ORDER`, `targetId` ≤ 64, `remove_bot.id` — строка 1–64. Оценка копится и уходит в комнату не чаще раза в секунду
   (`RATE_FLUSH_MS`), недосланная — при disconnect.
 - **`game/questions/`** — система вопросов ([docs/questions/system.md](docs/questions/system.md)): `library.ts`
   (банк, статистика, друзья, `categories.ts`), `picker.ts` (`RoomQuestions`: режим → категория → подкатегория по
@@ -155,7 +170,8 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
 Клиент → сервер: `join_game {name, gameCode}`, `start_game` (только хост), `identify {friendId|null}` (лобби),
 `shop_ready {ready}`, `buy_item {item}`, `use_item {item, targetId?}`, `stage_chip {chips, target?}`,
 `place_bet {amount, target?, chips?, bankBet?}`, `gladiator_hover {optionIndex|null}`, `submit_answer {answer, blink?}`,
-`rate_question {questionId, score?, difficulty?}` (`null` — снять), `pay_bribe`.
+`rate_question {questionId, score?, difficulty?}` (`null` — снять), `pay_bribe`, `add_bot` (хост, лобби),
+`remove_bot {id}` (хост, лобби; в сторе `addBot()` / `removeBot(id)`).
 
 Сервер → клиент: `game_state` (личный, `getStateForPlayer`; без изменений `identify` / `shop_ready` / повторный join
 не рассылаются всем), `join_error {reason: room_full | server_full | bad_name | bad_code, message}`,
@@ -295,25 +311,28 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   русской локализации дословно ([talents-style.md](docs/questions/talents-style.md)).
 - **Статистика** — снимок `scripts/data/stats/<дата>/` (`fetch_stats.py` — OpenDota, `fetch_stratz.py` — STRATZ) →
   `python scripts/build_stats_bank.py` → `scripts/data/stats/bank.json` → `statQuestions.ts`. **Друзья** —
-  `scripts/data/friends/metrics.json` → `server/src/game/questions/friends.ts` (категория при ≥ 2 опознанных в лобби).
+  `scripts/data/friends/metrics.json` → `server/src/game/questions/friends.ts` (категория при ≥ 2 опознанных в лобби;
+  «мейн», «винрейт героя», «тиммейты» — про всех из компании, опознанные ×3 чаще; «игры вместе» — пары с хотя бы одним
+  опознанным; «свой винрейт» и «игры на герое» — только опознанные).
 - Категории, подкатегории, веса (MC и closest) и тема — `server/src/game/questions/categories.ts` (правится руками; id
   не переименовывать — по ним ключи в Neon).
 
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 436 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 423 — `npm run test:server`.
+не нужно). 468 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 455 — `npm run test:server`.
 
 | Файл | Что покрыто |
 |---|---|
 | `economy/__tests__/` (`distributePool`, `distributeClosest`, `applyBankBets`) | пул и пропорции, zero-sum; ближайший, точное, ничья; банк-ставка +3× / −1× |
 | `game/__tests__/RoundSelector.test.ts` | цикл all → kerri → closest |
-| `game/__tests__/GameRoom.test.ts` (96) | игроки, расчёт по режимам, флор 0, победитель, `gladiatorAnswer`, `optionNotes`/`comment` только в `round_results` и пауза перед REVEAL, окно показа ответа, ставки и ответы, уход игроков, блок «аудит» (хост, керри сбежал, банк на верный, проверка ответов, повторный join, ошибка пикера), аукцион взяток (методы напрямую) |
-| `game/__tests__/items.test.ts` (103) | блайнды (в т.ч. керри, принудительный на выделенную сторону / «ответит»), молния, серия, лавка (первая после «кто ближе», «Готов», таймер), покупка, все предметы, окно 1 с после ответа, керри (керри — только блинк, толпа — только BKB), «кто ближе», края, вошедший посреди раунда |
-| `game/__tests__/review.test.ts` (35) | утечки до расчёта по фазе × роли (id, notes, `gladiatorAnswer`, `bank_bet_updated`, чужие ответы, лавка), оценка по ключу / id, `present` и `settle`, зрители и отмена раунда, BETTING без ставящих, лимиты ставок, сброс раунда, сумма `sources` = delta, граница аегиса, победитель, хекс, ошибки не вешают комнату, без лишних `game_state` |
+| `game/__tests__/GameRoom.test.ts` (96) | игроки, расчёт по режимам, флор 0, победитель, `gladiatorAnswer`, `optionNotes`/`comment` только в `round_results` и пауза перед REVEAL, окно показа ответа, ставки и ответы, уход игроков (керри ушёл в QUESTION — отмена), блок «аудит» (хост, керри сбежал, банк на верный, проверка ответов, повторный join, ошибка пикера), аукцион взяток (методы напрямую) |
+| `game/__tests__/items.test.ts` (111) | блайнды (в т.ч. керри, принудительный на выделенную сторону / «ответит»), молния и серия от выигрыша (вниз до $10, без проигравших — нет), лавка (первая после «кто ближе», «Готов», таймер), покупка, все предметы (BKB — сейв от цены покупки, аегис — не выше баланса перед раундом, обход «купил на последние»), окно 1 с после ответа, керри (керри — только блинк, толпа — только BKB), «кто ближе», края, вошедший посреди раунда |
+| `game/__tests__/review.test.ts` (36) | утечки до расчёта по фазе × роли (id, notes, `gladiatorAnswer`, `bank_bet_updated`, чужие ответы, лавка), оценка по ключу / id, `present` и `settle`, зрители и отмена раунда, BETTING без ставящих, лимиты ставок, сброс раунда, сумма `sources` = delta, граница аегиса, победитель (точная ничья — играем дальше), хекс, ошибки не вешают комнату, без лишних `game_state` |
+| `game/__tests__/rules.test.ts` (13) | решения 2026-10-30: возврат предметов отменённого раунда (керри сбежал в BETTING / QUESTION, ошибка расчёта), «мешок» керри (круг, ушедший, вошедший, зритель), боты (хост / лобби / лимит / имена, без стейта, полный цикл режимов сами, не в оценках, комната из одних ботов закрывается, таймеры) |
 | `game/__tests__/GameEngine.test.ts` | вход, полная комната / `MAX_ROOMS` → `join_error`, переход между комнатами, удаление пустой |
-| `socket/__tests__/handlers.test.ts` (71) | проверки payload всех событий, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
-| `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, единицы, сглаженный выбор, колоды (круг, соседние игры), веса MC / closest, тема, оценки и пределы множителей, друзья, прогон настоящего банка |
+| `socket/__tests__/handlers.test.ts` (77) | проверки payload всех событий, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
+| `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, единицы, сглаженный выбор, колоды (круг, соседние игры, группы с весами), веса MC / closest, тема, оценки и пределы множителей, друзья (про всех / только опознанные, доля опознанных ≈ ×3), прогон настоящего банка |
 | `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты |
 | `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, предел отрыва, дерево талантов, `topLead`, настоящий `bank.json` |
 | `shared/src/__tests__/` | `chips`, `units`, `topic` |
@@ -324,12 +343,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Открытые вопросы (ждут решения пользователя)
 
 - **П1: переподключение = новый игрок** с $500 (сессий нет) — главный пункт [аудита](docs/audit-2026-10-28-game.md).
-- Экономика: потолок банк-ставки ×4 (сговор керри и толпы через банк-ставку); молния / серия в раундах без
-  проигравших; порог аегиса (можно уйти ниже ставкой и получить $300); сейв BKB от цены при включении; пул без
-  потолка; возврат предметов в отменённом раунде.
-- Победитель при точной ничье (сейчас первый вошедший); минимум игроков для старта (сейчас можно одному); выход
-  керри в QUESTION — отменять раунд? (сейчас считается как «не ответил»); ротация керри «мешком» (сейчас случайно).
-- Вес друзей при 2 опознанных; публичность `friendRoster` (в каждом `game_state`).
+- Минимум игроков для старта (сейчас можно одному; для соло-тестов есть боты).
 - Смок: скрывает ли хекс / BKB (сейчас нет); «Твой ответ просветили» у цели, которая в смоке (гем ничего не увидел).
 - Стол ставок на телефоне.
 - Позже: звук, баланс камбэка.
