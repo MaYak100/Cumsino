@@ -315,7 +315,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   `ANTHROPIC_API_KEY`. Финальные прогоны: `numeric_lab/out/full1`, `costs2`, `talents-v5`, `text_lab/out/full1`.
 - **Банк** — `scripts/data/bank/questions.json` (`python scripts/build_question_bank.py`): постоянные id, вопросы с
   флагами выкинуты, ручные правки — `scripts/data/bank/overrides.json` (`drop` / `why` + text / step / unit / ceil /
-  sub / options / comment / ok). Сборка падает на: ответ ≤ 5 шагов (и до потолка `ceil`), ответ круглее любого
+  sub / options / comment / ok / topic — субъект темы, если она выдаёт ответ). Сборка падает на: ответ ≤ 5 шагов (и до потолка `ceil`), ответ круглее любого
   фейка, единица не из словаря `UNITS`, латиница в русском слове, старые имена героев, врождёнка без «врождёнка X у
   героя», слова не по словарю сленга (`SLANG`, кроме талантов). Опечатки модели правит `TEXT_FIXES`; тему, которая
   выдаёт ответ («Чья способность…» среди чужих способностей), сборка сама меняет на «Герои».

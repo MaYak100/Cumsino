@@ -283,7 +283,7 @@ def avg_subs(bank: Bank, snap: Path) -> None:
         ("avg_heal_allies", "Средний хил союзникам за матч", [
             pool("healingAllies", "max", "Кто из этих героев в среднем лечит союзников больше всех за матч?", "all",
                  where=heal_ok)],
-         near("healingAllies", lambda h: f"Сколько здоровья в среднем восстанавливает союзникам {h} за матч на {p}?",
+         near("healingAllies", lambda h: f"Сколько здоровья в среднем восстанавливает {h} союзникам за матч на {p}?",
               "HP", where=heal_ok)),
         ("avg_heal_self", "Среднее самолечение за матч (Meepo не берём — суммирует клонов)", [
             pool("healingSelf", "max", "Кто из этих героев в среднем лечит себя больше всех за матч?", "top",
@@ -351,7 +351,7 @@ def talent_sub(bank: Bank, snap: Path, names: dict, hero_keys: dict) -> None:
         if len(entries) != 4 or len({e[0] for e in entries}) != 4:
             missing.append(names[hid])
             continue
-        pools.append(mc_pool(entries, *((ask, f"Какой из талантов {names[hid]} на 20 и 25 уровне берут {word} всего?")
+        pools.append(mc_pool(entries, *((ask, f"Какой из талантов {names[hid]} на 20 и 25 уровнях берут {word} всего?")
                                         for ask, word in (("max", "чаще"), ("min", "реже"))), subject=names[hid]))
     if missing:
         print(f"  таланты: нет текстов или данных STRATZ по всем 4 талантам у {len(missing)} героев")

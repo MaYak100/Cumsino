@@ -23,8 +23,10 @@ id вопроса постоянный — по нему игра помнит, 
   num:<fact_id>:<level>      tal:<talent_id>      mech:<герой>:<способность>
 
 Ручные правки — scripts/data/bank/overrides.json (переживают перегенерацию прогонов):
-  {"questions": {<id>: {"drop": "причина"} | {"why": "причина", text?, step?, unit?, ceil?, sub?, options?, comment?, ok?}}}
+  {"questions": {<id>: {"drop": "причина"} | {"why": "причина", text?, step?, unit?, ceil?, sub?, options?, comment?, ok?,
+                                                topic?}}}
   options — целиком, options[0] правильный; ok — «проверка шага не применяется, потому что …»;
+  topic — субъект темы руками, когда тема выдаёт ответ, а topic_gives_answer этого не ловит («Герои»);
   ceil — все варианты строго меньше (проценты, где 100% и больше невозможно: маг. резист, замедление, промах).
   Неизвестный id или поле — ошибка сборки.
 
@@ -77,7 +79,7 @@ MECH_SUB = {"how": "mech_how", "interaction": "mech_interaction", "false_fact": 
 MAX_HERO_LEVEL = 30
 LEVELUP_FIELD = {"cd": "AbilityCooldown"}   # имя факта в прогоне → ключ в AbilityValues
 
-OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok"}
+OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok", "topic"}
 
 # --- единицы -------------------------------------------------------------------------------------------------
 
@@ -397,7 +399,7 @@ def load_overrides() -> dict[str, dict]:
 
 
 def apply_override(q: dict, o: dict) -> None:
-    for key in ("text", "sub", "comment"):
+    for key in ("text", "sub", "comment", "topic"):   # topic — субъект темы руками, если тема выдаёт ответ
         if key in o:
             q[key] = o[key]
     if q["kind"] == "number":

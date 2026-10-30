@@ -12,10 +12,10 @@
    "id": "num:enhancement_greedy:bonus_gpm:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько бонусного GPM даёт чара на нейтралки 3-го тира Greedy?",
+   "text": "Сколько золота в минуту даёт чара на нейтралки 3-го тира Greedy?",
    "topic": "Greedy",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "золота в минуту",
    "comment": "Greedy: 65 / 90 золота в минуту по уровням",
    "aspect": "чара"
@@ -49,7 +49,7 @@
    "text": "Сколько магического урона к атаке даёт чара на нейтралки 5-го тира Audacious?",
    "topic": "Audacious",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "урона",
    "aspect": "чара"
   },
@@ -93,7 +93,7 @@
    "text": "Сколько здоровья даёт чара на нейтралки 4-го тира Brawny?",
    "topic": "Brawny",
    "answer": 230,
-   "step": 20,
+   "step": 30,
    "unit": "HP",
    "comment": "Brawny: 110 / 150 / 190 / 230 HP по уровням",
    "aspect": "чара"
@@ -105,7 +105,7 @@
    "text": "На сколько процентов увеличивает базовый урон атаки чара на нейтралки 4-го тира Titanic?",
    "topic": "Titanic",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "%",
    "comment": "Titanic: 8 / 12 / 16% по уровням",
    "aspect": "чара"
@@ -117,7 +117,7 @@
    "text": "Сколько длится хекс от Hex у Lion на максимальном уровне?",
    "topic": "Lion",
    "answer": 3.2,
-   "step": 0.4,
+   "step": 0.6,
    "unit": "сек.",
    "comment": "Lion · Hex: 2 / 2.4 / 2.8 / 3.2 сек. по уровням"
   },
@@ -139,7 +139,7 @@
    "text": "Сколько урона наносит Finger of Death у Lion на 3-м уровне без аганима и без стаков за убийства?",
    "topic": "Lion",
    "answer": 850,
-   "step": 50,
+   "step": 100,
    "unit": "урона",
    "comment": "Lion · Finger of Death: 600 / 725 / 850 урона по уровням"
   },
@@ -161,7 +161,7 @@
    "text": "Какой урон крита у Coup de Grace у Phantom Assassin на 3-м уровне?",
    "topic": "Phantom Assassin",
    "answer": 450,
-   "step": 25,
+   "step": 50,
    "unit": "%",
    "comment": "Phantom Assassin · Coup de Grace: 200 / 325 / 450% по уровням"
   },
@@ -172,7 +172,7 @@
    "text": "Сколько уклонения даёт Immaterial у Phantom Assassin на максимальном уровне?",
    "topic": "Phantom Assassin",
    "answer": 55,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Phantom Assassin · Immaterial: 25 / 35 / 45 / 55% по уровням"
   },
@@ -215,7 +215,7 @@
    "text": "Сколько длится Omnislash у Juggernaut на 3-м уровне?",
    "topic": "Juggernaut",
    "answer": 3.5,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Juggernaut · Omnislash: 3 / 3.25 / 3.5 сек. по уровням"
   },
@@ -236,7 +236,7 @@
    "text": "Какой максимальный урон может нанести Glimpse у Disruptor на максимальном уровне?",
    "topic": "Disruptor",
    "answer": 280,
-   "step": 20,
+   "step": 40,
    "unit": "урона",
    "comment": "Disruptor · Glimpse: 100 / 160 / 220 / 280 урона по уровням"
   },
@@ -247,7 +247,7 @@
    "text": "Сколько максимального урона в секунду наносит Static Storm у Disruptor на 3-м уровне?",
    "topic": "Disruptor",
    "answer": 350,
-   "step": 25,
+   "step": 50,
    "unit": "урона/сек.",
    "comment": "Disruptor · Static Storm: 200 / 275 / 350 урона/сек. по уровням"
   },
@@ -258,7 +258,7 @@
    "text": "Сколько секунд держится Kinetic Field у Disruptor на максимальном уровне?",
    "topic": "Disruptor",
    "answer": 4.4,
-   "step": 0.4,
+   "step": 0.6,
    "unit": "сек.",
    "comment": "Disruptor · Kinetic Field: 2.6 / 3.2 / 3.8 / 4.4 сек. по уровням"
   },
@@ -280,7 +280,7 @@
    "text": "Сколько урона наносит Thunder Clap у Brewmaster на максимальном уровне?",
    "topic": "Brewmaster",
    "answer": 320,
-   "step": 40,
+   "step": 60,
    "unit": "урона",
    "comment": "Brewmaster · Thunder Clap: 80 / 160 / 240 / 320 урона по уровням"
   },
@@ -291,7 +291,7 @@
    "text": "Какой урон крита (в %) даёт Fire-стойка Drunken Brawler у Brewmaster на максимальном уровне?",
    "topic": "Brewmaster",
    "answer": 180,
-   "step": 20,
+   "step": 30,
    "unit": "%",
    "comment": "Brewmaster · Drunken Brawler: 120 / 140 / 160 / 180% по уровням"
   },
@@ -302,7 +302,7 @@
    "text": "Сколько урона наносит каждый отскок Chain Frost у Lich на 3-м уровне (без учёта прибавки за отскоки)?",
    "topic": "Lich",
    "answer": 550,
-   "step": 50,
+   "step": 75,
    "unit": "урона",
    "comment": "Lich · Chain Frost: 250 / 400 / 550 урона по уровням"
   },
@@ -313,7 +313,7 @@
    "text": "На сколько процентов Frost Shield у Lich снижает урон от атак на максимальном уровне?",
    "topic": "Lich",
    "answer": 60,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Lich · Frost Shield: 45 / 50 / 55 / 60% по уровням"
   },
@@ -324,7 +324,7 @@
    "text": "Какой процент текущего здоровья союзного крипа превращает в ману врождёнка Sacrifice у Lich на 30-м уровне героя?",
    "topic": "Lich",
    "answer": 132,
-   "step": 10,
+   "step": 20,
    "unit": "%",
    "comment": "Sacrifice: 42% + 3% за каждый уровень героя → 132% на 30-м"
   },
@@ -377,7 +377,7 @@
    "text": "Сколько длится Phase Shift у Puck на максимальном уровне?",
    "topic": "Puck",
    "answer": 3.25,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Puck · Phase Shift: 1 / 1.75 / 2.5 / 3.25 сек. по уровням"
   },
@@ -388,7 +388,7 @@
    "text": "Сколько длится стан при разрыве Dream Coil у Puck на 3-м уровне?",
    "topic": "Puck",
    "answer": 2.5,
-   "step": 0.25,
+   "step": 0.4,
    "unit": "сек.",
    "comment": "Puck · Dream Coil: 1.5 / 2 / 2.5 сек. по уровням"
   },
@@ -399,7 +399,7 @@
    "text": "Сколько урона наносит Dream Coil у Puck в момент применения на 3-м уровне?",
    "topic": "Puck",
    "answer": 325,
-   "step": 25,
+   "step": 50,
    "unit": "урона",
    "comment": "Puck · Dream Coil: 175 / 250 / 325 урона по уровням"
   },
@@ -420,7 +420,7 @@
    "text": "Какой максимальный стан может дать Chaos Bolt у Chaos Knight на максимальном уровне?",
    "topic": "Chaos Knight",
    "answer": 3.25,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Chaos Knight · Chaos Bolt: 1.75 / 2.25 / 2.75 / 3.25 сек. по уровням"
   },
@@ -442,7 +442,7 @@
    "text": "Какой максимальный крит может выдать Chaos Strike у Chaos Knight на максимальном уровне?",
    "topic": "Chaos Knight",
    "answer": 270,
-   "step": 20,
+   "step": 40,
    "unit": "%",
    "comment": "Chaos Knight · Chaos Strike: 150 / 190 / 230 / 270% по уровням"
   },
@@ -463,7 +463,7 @@
    "text": "Сколько длится Shallow Grave у Dazzle на максимальном уровне?",
    "topic": "Dazzle",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Dazzle · Shallow Grave: 4 / 4.5 / 5 / 5.5 сек. по уровням"
   },
@@ -474,7 +474,7 @@
    "text": "Сколько длится один стак врождёнки Weave у Dazzle на 30-м уровне героя?",
    "topic": "Dazzle",
    "answer": 9.9,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Weave: 6.9 сек. + 0.1 сек. за каждый уровень героя → 9.9 сек. на 30-м"
   },
@@ -485,7 +485,7 @@
    "text": "На сколько секунд хексит Poison Touch у Dazzle во время Nothl Projection на 3-м уровне ульты?",
    "topic": "Dazzle",
    "answer": 1.8,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Dazzle · Nothl Projection: 1.4 / 1.6 / 1.8 сек. по уровням"
   },
@@ -506,7 +506,7 @@
    "text": "Сколько длится стан от Ravage у Tidehunter на 3-м уровне?",
    "topic": "Tidehunter",
    "answer": 2.4,
-   "step": 0.2,
+   "step": 0.4,
    "unit": "сек.",
    "comment": "Tidehunter · Ravage: 2 / 2.2 / 2.4 сек. по уровням"
   },
@@ -528,7 +528,7 @@
    "text": "Сколько урона должен получить Tidehunter, чтобы Kraken Shell сделал ему диспел, на максимальном уровне?",
    "topic": "Tidehunter",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "урона",
    "comment": "Tidehunter · Kraken Shell: 600 / 550 / 500 / 450 урона по уровням"
   },
@@ -549,7 +549,7 @@
    "text": "Через сколько секунд после каста падает Sun Strike у Invoker?",
    "topic": "Invoker",
    "answer": 1.7,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -559,7 +559,7 @@
    "text": "Какое кд у Cold Snap у Invoker?",
    "topic": "Invoker",
    "answer": 19,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -589,7 +589,7 @@
    "text": "Сколько духов выпускает Exorcism у Death Prophet на 3-м уровне?",
    "topic": "Death Prophet",
    "answer": 26,
-   "step": 2,
+   "step": 4,
    "unit": "духов",
    "comment": "Death Prophet · Exorcism: 10 / 18 / 26 духов по уровням"
   },
@@ -600,7 +600,7 @@
    "text": "Сколько урона наносит Crypt Swarm у Death Prophet на максимальном уровне?",
    "topic": "Death Prophet",
    "answer": 325,
-   "step": 25,
+   "step": 50,
    "unit": "урона",
    "comment": "Death Prophet · Crypt Swarm: 100 / 175 / 250 / 325 урона по уровням"
   },
@@ -621,7 +621,7 @@
    "text": "Сколько урона наносят осколки Splinter Blast у Winter Wyvern на максимальном уровне?",
    "topic": "Winter Wyvern",
    "answer": 320,
-   "step": 40,
+   "step": 60,
    "unit": "урона",
    "comment": "Winter Wyvern · Splinter Blast: 80 / 160 / 240 / 320 урона по уровням"
   },
@@ -653,7 +653,7 @@
    "text": "Какое кд у Arctic Burn у Winter Wyvern на 1-м уровне (без аганима)?",
    "topic": "Winter Wyvern",
    "answer": 29,
-   "step": 3,
+   "step": 5,
    "unit": "сек.",
    "comment": "Winter Wyvern · Arctic Burn: 29 / 26 / 23 / 20 сек. по уровням"
   },
@@ -664,7 +664,7 @@
    "text": "Сколько процентов от максимального HP наносит урона Earth Splitter у Elder Titan на 1-м уровне?",
    "topic": "Elder Titan",
    "answer": 34,
-   "step": 4,
+   "step": 6,
    "unit": "%",
    "comment": "Elder Titan · Earth Splitter: 34 / 42 / 50% по уровням"
   },
@@ -675,7 +675,7 @@
    "text": "Сколько секунд длится сон от Echo Stomp у Elder Titan на максимальном уровне?",
    "topic": "Elder Titan",
    "answer": 4.4,
-   "step": 0.4,
+   "step": 0.6,
    "unit": "сек.",
    "comment": "Elder Titan · Echo Stomp: 2 / 2.8 / 3.6 / 4.4 сек. по уровням"
   },
@@ -686,7 +686,7 @@
    "text": "Сколько бонусного урона получает Elder Titan за каждого героя, через которого прошёл Astral Spirit, на максимальном уровне?",
    "topic": "Elder Titan",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "урона",
    "comment": "Elder Titan · Astral Spirit: 17 / 38 / 59 / 80 урона по уровням"
   },
@@ -708,7 +708,7 @@
    "text": "Сколько скорости атаки даёт Bloodlust у Ogre Magi союзнику (не самому Ogre) на максимальном уровне?",
    "topic": "Ogre Magi",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "скорости атаки",
    "comment": "Ogre Magi · Bloodlust: 35 / 50 / 65 / 80 скорости атаки по уровням"
   },
@@ -730,7 +730,7 @@
    "text": "Через сколько секунд после каста срабатывает Torrent у Kunkka?",
    "topic": "Kunkka",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -760,7 +760,7 @@
    "text": "Сколько урона наносит Tidal Wave (Aghanim's Shard) у Kunkka?",
    "topic": "Kunkka",
    "answer": 180,
-   "step": 20,
+   "step": 30,
    "unit": "урона"
   },
   {
@@ -770,7 +770,7 @@
    "text": "Сколько максимум скорости атаки даёт Berserker's Blood у Huskar на максимальном уровне?",
    "topic": "Huskar",
    "answer": 320,
-   "step": 30,
+   "step": 50,
    "unit": "скорости атаки",
    "comment": "Huskar · Berserker's Blood: 170 / 220 / 270 / 320 скорости атаки по уровням"
   },
@@ -781,7 +781,7 @@
    "text": "Какой процент текущего здоровья цели сносит Life Break у Huskar на 3-м уровне?",
    "topic": "Huskar",
    "answer": 44,
-   "step": 4,
+   "step": 6,
    "unit": "%",
    "comment": "Huskar · Life Break: 32 / 38 / 44% по уровням"
   },
@@ -834,7 +834,7 @@
    "text": "Сколько урона наносит пикирование одного хоука из Summon Raptors у Beastmaster на максимальном уровне?",
    "topic": "Beastmaster",
    "answer": 165,
-   "step": 15,
+   "step": 25,
    "unit": "урона",
    "comment": "Beastmaster · Summon Raptors: 60 / 95 / 130 / 165 урона по уровням"
   },
@@ -856,17 +856,17 @@
    "text": "Какое кд у Chaotic Offering у Warlock?",
    "topic": "Warlock",
    "answer": 165,
-   "step": 15,
+   "step": 25,
    "unit": "сек."
   },
   {
    "id": "num:warlock_upheaval:abilitychanneltime:max",
    "sub": "hero_time",
    "kind": "number",
-   "text": "Сколько максимум можно чаннелить Upheaval у Warlock на максимальном уровне?",
+   "text": "Сколько секунд максимум длится каст Upheaval у Warlock на максимальном уровне?",
    "topic": "Warlock",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "сек.",
    "comment": "Warlock · Upheaval: 10 / 12 / 14 / 16 сек. по уровням"
   },
@@ -877,7 +877,7 @@
    "text": "Какой урон атаки у каждого голема Warlock с Aghanim's Scepter, когда Chaotic Offering на 3-м уровне?",
    "topic": "Warlock",
    "answer": 160,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Warlock · Chaotic Offering: 80 / 120 / 160 урона по уровням"
   },
@@ -910,7 +910,7 @@
    "text": "Какой процент интеллекта Silencer добавляется к урону атаки через Glaives of Wisdom на максимальном уровне?",
    "topic": "Silencer",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "%",
    "comment": "Silencer · Glaives of Wisdom: 35 / 50 / 65 / 80% по уровням"
   },
@@ -932,7 +932,7 @@
    "text": "Сколько скорости атаки даёт Strafe у Clinkz на максимальном уровне?",
    "topic": "Clinkz",
    "answer": 240,
-   "step": 20,
+   "step": 40,
    "unit": "скорости атаки",
    "comment": "Clinkz · Strafe: 120 / 160 / 200 / 240 скорости атаки по уровням"
   },
@@ -974,7 +974,7 @@
    "text": "Сколько урона наносит Culling Blade у Axe на 3-м уровне?",
    "topic": "Axe",
    "answer": 475,
-   "step": 50,
+   "step": 75,
    "unit": "урона",
    "comment": "Axe · Culling Blade: 275 / 375 / 475 урона по уровням"
   },
@@ -1028,7 +1028,7 @@
    "text": "Сколько здоровья за удар крадёт Ransack у Meepo с героев на максимальном уровне?",
    "topic": "Meepo",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "HP",
    "comment": "Meepo · Ransack: 7 / 10 / 13 / 16 HP по уровням"
   },
@@ -1070,7 +1070,7 @@
    "text": "Сколько бонусного урона даёт God's Strength у Sven на 3-м уровне?",
    "topic": "Sven",
    "answer": 190,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Sven · God's Strength: 110 / 150 / 190 урона по уровням"
   },
@@ -1091,7 +1091,7 @@
    "text": "Какой процент урона атаки наносит сплеш от Great Cleave у Sven на максимальном уровне?",
    "topic": "Sven",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "%",
    "comment": "Sven · Great Cleave: 60 / 70 / 80 / 90% по уровням"
   },
@@ -1102,7 +1102,7 @@
    "text": "Сколько процентов от макс. HP цели наносит Feast у Lifestealer за атаку на максимальном уровне?",
    "topic": "Lifestealer",
    "answer": 3.25,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "%",
    "comment": "Lifestealer · Feast: 1.45 / 2.05 / 2.65 / 3.25% по уровням"
   },
@@ -1145,7 +1145,7 @@
    "text": "Какой максимальный урон у полностью заряженного Sharpshooter у Hoodwink на 3-м уровне?",
    "topic": "Hoodwink",
    "answer": 1350,
-   "step": 100,
+   "step": 200,
    "unit": "урона",
    "comment": "Hoodwink · Sharpshooter: 600 / 975 / 1350 урона по уровням"
   },
@@ -1156,7 +1156,7 @@
    "text": "Сколько секунд длится стан от Bushwhack у Hoodwink на максимальном уровне?",
    "topic": "Hoodwink",
    "answer": 2.1,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Hoodwink · Bushwhack: 1.5 / 1.7 / 1.9 / 2.1 сек. по уровням"
   },
@@ -1188,7 +1188,7 @@
    "text": "Сколько длится стан от приземления Rebound у Marci на максимальном уровне?",
    "topic": "Marci",
    "answer": 1.7,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Marci · Rebound: 0.8 / 1.1 / 1.4 / 1.7 сек. по уровням"
   },
@@ -1199,7 +1199,7 @@
    "text": "Сколько бонусной скорости атаки получает Marci во время серии ударов Unleash на 3-м уровне?",
    "topic": "Marci",
    "answer": 1150,
-   "step": 100,
+   "step": 150,
    "unit": "скорости атаки",
    "comment": "Marci · Unleash: 700 / 925 / 1150 скорости атаки по уровням"
   },
@@ -1221,7 +1221,7 @@
    "text": "Сколько урона наносит Dispose у Marci на максимальном уровне?",
    "topic": "Marci",
    "answer": 330,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Marci · Dispose: 60 / 150 / 240 / 330 урона по уровням"
   },
@@ -1283,7 +1283,7 @@
    "text": "Сколько урона наносит Sonic Wave у Queen of Pain на 3-м уровне?",
    "topic": "Queen of Pain",
    "answer": 625,
-   "step": 50,
+   "step": 100,
    "unit": "урона",
    "comment": "Queen of Pain · Sonic Wave: 325 / 475 / 625 урона по уровням"
   },
@@ -1291,12 +1291,12 @@
    "id": "num:queenofpain_scream_of_pain:damage:max",
    "sub": "hero_damage",
    "kind": "number",
-   "text": "Сколько урона наносит Scream Of Pain у Queen of Pain на максимальном уровне?",
+   "text": "Сколько урона наносит Scream of Pain у Queen of Pain на максимальном уровне?",
    "topic": "Queen of Pain",
    "answer": 345,
-   "step": 25,
+   "step": 50,
    "unit": "урона",
-   "comment": "Queen of Pain · Scream Of Pain: 90 / 175 / 260 / 345 урона по уровням"
+   "comment": "Queen of Pain · Scream of Pain: 90 / 175 / 260 / 345 урона по уровням"
   },
   {
    "id": "num:bloodseeker_blood_bath:damage:max",
@@ -1305,7 +1305,7 @@
    "text": "Сколько урона наносит Blood Rite у Bloodseeker на максимальном уровне?",
    "topic": "Bloodseeker",
    "answer": 265,
-   "step": 25,
+   "step": 40,
    "unit": "урона",
    "comment": "Bloodseeker · Blood Rite: 100 / 155 / 210 / 265 урона по уровням"
   },
@@ -1316,7 +1316,7 @@
    "text": "Сколько скорости атаки даёт Bloodrage у Bloodseeker на максимальном уровне?",
    "topic": "Bloodseeker",
    "answer": 130,
-   "step": 15,
+   "step": 25,
    "unit": "скорости атаки",
    "comment": "Bloodseeker · Bloodrage: 55 / 80 / 105 / 130 скорости атаки по уровням"
   },
@@ -1327,7 +1327,7 @@
    "text": "Какой процент пройденного расстояния наносится уроном от Rupture у Bloodseeker на 3-м уровне?",
    "topic": "Bloodseeker",
    "answer": 55,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Bloodseeker · Rupture: 35 / 45 / 55% по уровням"
   },
@@ -1349,7 +1349,7 @@
    "text": "Сколько урона в секунду наносит Overgrowth у Treant Protector?",
    "topic": "Treant Protector",
    "answer": 95,
-   "step": 10,
+   "step": 15,
    "unit": "урона/сек."
   },
   {
@@ -1359,7 +1359,7 @@
    "text": "Сколько урона максимум блокирует Living Armor у Treant Protector на максимальном уровне?",
    "topic": "Treant Protector",
    "answer": 120,
-   "step": 10,
+   "step": 20,
    "unit": "урона",
    "comment": "Treant Protector · Living Armor: 60 / 80 / 100 / 120 урона по уровням"
   },
@@ -1381,7 +1381,7 @@
    "text": "Какая фиксированная скорость передвижения у увеличенного Treant Protector после Overgrowth с Aghanim's Scepter?",
    "topic": "Treant Protector",
    "answer": 345,
-   "step": 15,
+   "step": 25,
    "unit": "скорости"
   },
   {
@@ -1391,7 +1391,7 @@
    "text": "Какой урон крита в процентах даёт Shapeshift у Lycan на 3-м уровне?",
    "topic": "Lycan",
    "answer": 240,
-   "step": 20,
+   "step": 40,
    "unit": "%",
    "comment": "Lycan · Shapeshift: 160 / 200 / 240% по уровням"
   },
@@ -1413,7 +1413,7 @@
    "text": "На сколько процентов больше урона по нейтральным крипам наносят Lycan и его юниты благодаря врождёнке Apex Predator на 30-м уровне героя?",
    "topic": "Lycan",
    "answer": 78,
-   "step": 6,
+   "step": 10,
    "unit": "%",
    "comment": "Apex Predator: 18% + 2% за каждый уровень героя → 78% на 30-м"
   },
@@ -1424,7 +1424,7 @@
    "text": "Сколько бонусного здоровья даёт Shapeshift у Lycan на 3-м уровне?",
    "topic": "Lycan",
    "answer": 425,
-   "step": 50,
+   "step": 75,
    "unit": "HP",
    "comment": "Lycan · Shapeshift: 225 / 325 / 425 HP по уровням"
   },
@@ -1435,7 +1435,7 @@
    "text": "Сколько урона наносит Thundergod's Wrath у Zeus на 3-м уровне?",
    "topic": "Zeus",
    "answer": 575,
-   "step": 25,
+   "step": 50,
    "unit": "урона",
    "comment": "Zeus · Thundergod's Wrath: 275 / 425 / 575 урона по уровням"
   },
@@ -1478,7 +1478,7 @@
    "text": "Сколько урона наносит одна атака огонька из Bedlam у Dark Willow на 3-м уровне?",
    "topic": "Dark Willow",
    "answer": 170,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Dark Willow · Bedlam: 70 / 120 / 170 урона по уровням"
   },
@@ -1486,7 +1486,7 @@
    "id": "num:dark_willow_terrorize:destination_status_duration:max",
    "sub": "hero_time",
    "kind": "number",
-   "text": "Сколько секунд длится фир от Terrorize у Dark Willow на 3-м уровне?",
+   "text": "Сколько секунд длится страх от Terrorize у Dark Willow на 3-м уровне?",
    "topic": "Dark Willow",
    "answer": 3.2,
    "step": 0.2,
@@ -1521,7 +1521,7 @@
    "text": "Сколько урона в секунду наносит Ion Shell у Dark Seer на максимальном уровне?",
    "topic": "Dark Seer",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "урона/сек.",
    "comment": "Dark Seer · Ion Shell: 30 / 50 / 70 / 90 урона/сек. по уровням"
   },
@@ -1542,7 +1542,7 @@
    "text": "Какой процент урона оригинала наносят реплики от Wall of Replica у Dark Seer на 3-м уровне?",
    "topic": "Dark Seer",
    "answer": 90,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Dark Seer · Wall of Replica: 70 / 80 / 90% по уровням"
   },
@@ -1553,7 +1553,7 @@
    "text": "Врождёнка Quick Wit у Dark Seer восстанавливает часть макс. здоровья и маны при получении уровня. Какой это процент на 30-м уровне героя?",
    "topic": "Dark Seer",
    "answer": 53.5,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Quick Wit: 8.5% + 1.5% за каждый уровень героя → 53.5% на 30-м"
   },
@@ -1564,7 +1564,7 @@
    "text": "Ниже какого процента здоровья враг под Frostbite от Ice Blast у Ancient Apparition разлетается на осколки на 3-м уровне ульты?",
    "topic": "Ancient Apparition",
    "answer": 14,
-   "step": 1,
+   "step": 2,
    "unit": "%",
    "comment": "Ancient Apparition · Ice Blast: 12 / 13 / 14% по уровням"
   },
@@ -1607,7 +1607,7 @@
    "text": "Сколько секунд длится Flaming Lasso у Batrider на 3-м уровне?",
    "topic": "Batrider",
    "answer": 3.25,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Batrider · Flaming Lasso: 2.25 / 2.75 / 3.25 сек. по уровням"
   },
@@ -1651,7 +1651,7 @@
    "text": "Сколько урона наносит одно эхо от Echo Slam у Earthshaker на 3-м уровне?",
    "topic": "Earthshaker",
    "answer": 110,
-   "step": 10,
+   "step": 15,
    "unit": "урона",
    "comment": "Earthshaker · Echo Slam: 70 / 90 / 110 урона по уровням"
   },
@@ -1662,7 +1662,7 @@
    "text": "Сколько секунд длится стан от Fissure у Earthshaker на максимальном уровне?",
    "topic": "Earthshaker",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Earthshaker · Fissure: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
   },
@@ -1673,7 +1673,7 @@
    "text": "Сколько базового урона на 30-м уровне героя наносит тело врага, отброшенное врождёнкой Slugger у Earthshaker, если оно попадает в героя?",
    "topic": "Earthshaker",
    "answer": 585,
-   "step": 50,
+   "step": 75,
    "unit": "урона",
    "comment": "Slugger: 135 урона + 15 урона за каждый уровень героя → 585 урона на 30-м"
   },
@@ -1694,7 +1694,7 @@
    "text": "Сколько урона наносит Walrus Kick у Tusk (с Aghanim's Scepter)?",
    "topic": "Tusk",
    "answer": 550,
-   "step": 50,
+   "step": 75,
    "unit": "урона"
   },
   {
@@ -1725,7 +1725,7 @@
    "text": "На сколько включённая врождёнка Bitter Chill у Tusk режет скорость атаки вражеским героям рядом на 30-м уровне героя?",
    "topic": "Tusk",
    "answer": 102,
-   "step": 10,
+   "step": 15,
    "unit": "скорости атаки",
    "comment": "Bitter Chill: 12 скорости атаки + 3 скорости атаки за каждый уровень героя → 102 скорости атаки на 30-м"
   },
@@ -1747,7 +1747,7 @@
    "text": "Сколько бонусного урона по героям даёт Sleight of Fist у Ember Spirit на максимальном уровне?",
    "topic": "Ember Spirit",
    "answer": 160,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Ember Spirit · Sleight of Fist: 40 / 80 / 120 / 160 урона по уровням"
   },
@@ -1779,7 +1779,7 @@
    "text": "Сколько урона наносит Spark Wraith у Arc Warden на максимальном уровне?",
    "topic": "Arc Warden",
    "answer": 310,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Arc Warden · Spark Wraith: 100 / 170 / 240 / 310 урона по уровням"
   },
@@ -1811,7 +1811,7 @@
    "text": "Сколько золота получает враг за убийство Tempest Double у Arc Warden на 30-м уровне героя?",
    "topic": "Arc Warden",
    "answer": 370,
-   "step": 30,
+   "step": 50,
    "unit": "золота",
    "comment": "Tempest Double: 70 золота + 10 золота за каждый уровень героя → 370 золота на 30-м"
   },
@@ -1822,7 +1822,7 @@
    "text": "Сколько урона наносит Laguna Blade у Lina на 3-м уровне?",
    "topic": "Lina",
    "answer": 760,
-   "step": 40,
+   "step": 80,
    "unit": "урона",
    "comment": "Lina · Laguna Blade: 400 / 580 / 760 урона по уровням"
   },
@@ -1833,7 +1833,7 @@
    "text": "Сколько длится стан от Light Strike Array у Lina на максимальном уровне?",
    "topic": "Lina",
    "answer": 2.4,
-   "step": 0.2,
+   "step": 0.4,
    "unit": "сек.",
    "comment": "Lina · Light Strike Array: 1.2 / 1.6 / 2 / 2.4 сек. по уровням"
   },
@@ -1864,7 +1864,7 @@
    "text": "Сколько длится замедление от Void у Night Stalker ночью на максимальном уровне?",
    "topic": "Night Stalker",
    "answer": 3.4,
-   "step": 0.3,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Night Stalker · Void: 1.6 / 2.2 / 2.8 / 3.4 сек. по уровням"
   },
@@ -1875,7 +1875,7 @@
    "text": "Сколько процентов скорости передвижения даёт ночью врождёнка Hunter in the Night у Night Stalker на 30-м уровне героя (без Aghanim's Scepter)?",
    "topic": "Night Stalker",
    "answer": 44,
-   "step": 4,
+   "step": 6,
    "unit": "%",
    "comment": "Hunter in the Night: 24% + 2% каждые 3 уровня героя → 44% на 30-м"
   },
@@ -1919,7 +1919,7 @@
    "text": "Сколько длится стан от Burrowstrike у Sand King на максимальном уровне?",
    "topic": "Sand King",
    "answer": 1.8,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Sand King · Burrowstrike: 1.2 / 1.4 / 1.6 / 1.8 сек. по уровням"
   },
@@ -1941,7 +1941,7 @@
    "text": "Сколько урона в секунду наносит Sand Storm у Sand King на максимальном уровне?",
    "topic": "Sand King",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "урона/сек.",
    "comment": "Sand King · Sand Storm: 30 / 50 / 70 / 90 урона/сек. по уровням"
   },
@@ -1952,7 +1952,7 @@
    "text": "Какой максимальный стан у Adaptive Strike от Morphling на максимальном уровне, если сила сильно перевешивает ловкость?",
    "topic": "Morphling",
    "answer": 2.6,
-   "step": 0.2,
+   "step": 0.4,
    "unit": "сек.",
    "comment": "Morphling · Adaptive Strike: 1.4 / 1.8 / 2.2 / 2.6 сек. по уровням"
   },
@@ -1960,7 +1960,7 @@
    "id": "num:morphling_adaptive_strike_agi:damage_max:max",
    "sub": "hero_damage",
    "kind": "number",
-   "text": "Какой максимальный множитель урона от ловкости у Adaptive Strike от Morphling на максимальном уровне?",
+   "text": "Какой максимальный множитель урона от ловкости у Adaptive Strike у Morphling на максимальном уровне?",
    "topic": "Morphling",
    "answer": 2.5,
    "step": 0.25,
@@ -1985,7 +1985,7 @@
    "text": "Какое кд у Waveform от Morphling на максимальном уровне?",
    "topic": "Morphling",
    "answer": 12,
-   "step": 1,
+   "step": 2,
    "unit": "сек.",
    "comment": "Morphling · Waveform: 21 / 18 / 15 / 12 сек. по уровням"
   },
@@ -1993,7 +1993,7 @@
    "id": "num:viper_nethertoxin:max_damage:max",
    "sub": "hero_damage",
    "kind": "number",
-   "text": "Какой максимальный урон в секунду наносит Nethertoxin от Viper на максимальном уровне?",
+   "text": "Какой максимальный урон в секунду наносит Nethertoxin у Viper на максимальном уровне?",
    "topic": "Viper",
    "answer": 125,
    "step": 15,
@@ -2081,7 +2081,7 @@
    "text": "Сколько здоровья у трента от Nature's Call у Nature's Prophet?",
    "topic": "Nature's Prophet",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "HP"
   },
   {
@@ -2091,7 +2091,7 @@
    "text": "Какое кд у Teleportation у Nature's Prophet на 1-м уровне?",
    "topic": "Nature's Prophet",
    "answer": 65,
-   "step": 5,
+   "step": 10,
    "unit": "сек.",
    "comment": "Nature's Prophet · Teleportation: 65 / 50 / 35 / 20 сек. по уровням"
   },
@@ -2102,7 +2102,7 @@
    "text": "Какой базовый урон у Wrath of Nature у Nature's Prophet на 3-м уровне (по первой цели, без прибавки за отскоки)?",
    "topic": "Nature's Prophet",
    "answer": 180,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Nature's Prophet · Wrath of Nature: 100 / 140 / 180 урона по уровням"
   },
@@ -2165,7 +2165,7 @@
    "text": "Сколько длится стан от удачного Shackleshot у Windranger на максимальном уровне?",
    "topic": "Windranger",
    "answer": 3.25,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Windranger · Shackleshot: 1.75 / 2.25 / 2.75 / 3.25 сек. по уровням"
   },
@@ -2176,7 +2176,7 @@
    "text": "Какой урон у полностью заряженного Powershot у Windranger на максимальном уровне (по первой цели)?",
    "topic": "Windranger",
    "answer": 470,
-   "step": 50,
+   "step": 75,
    "unit": "урона",
    "comment": "Windranger · Powershot: 170 / 270 / 370 / 470 урона по уровням"
   },
@@ -2251,7 +2251,7 @@
    "text": "Сколько секунд живут иллюзии от Mirror Image у Naga Siren?",
    "topic": "Naga Siren",
    "answer": 26,
-   "step": 2,
+   "step": 4,
    "unit": "сек."
   },
   {
@@ -2292,7 +2292,7 @@
    "text": "Сколько секунд длится привязка от Pounce у Slark на максимальном уровне?",
    "topic": "Slark",
    "answer": 3.25,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Slark · Pounce: 2.5 / 2.75 / 3 / 3.25 сек. по уровням"
   },
@@ -2303,7 +2303,7 @@
    "text": "Сколько хп в секунду даёт пассивка Shadow Dance у Slark на 3-м уровне?",
    "topic": "Slark",
    "answer": 120,
-   "step": 10,
+   "step": 20,
    "unit": "HP/сек.",
    "comment": "Slark · Shadow Dance: 60 / 90 / 120 HP/сек. по уровням"
   },
@@ -2334,7 +2334,7 @@
    "text": "С Aghanim's Shard Purification у Omniknight срабатывает на цель повторно. С какой эффективностью проходит этот повторный каст?",
    "topic": "Omniknight",
    "answer": 65,
-   "step": 5,
+   "step": 10,
    "unit": "%"
   },
   {
@@ -2344,7 +2344,7 @@
    "text": "Сколько длится Guardian Angel у Omniknight на 3-м уровне?",
    "topic": "Omniknight",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Omniknight · Guardian Angel: 4 / 4.75 / 5.5 сек. по уровням"
   },
@@ -2366,7 +2366,7 @@
    "text": "Какое замедление скорости передвижения даёт врагам врождёнка Degen Aura у Omniknight на 30-м уровне героя?",
    "topic": "Omniknight",
    "answer": 41,
-   "step": 4,
+   "step": 6,
    "unit": "%",
    "comment": "Degen Aura: 11% + 1% за каждый уровень героя → 41% на 30-м"
   },
@@ -2399,7 +2399,7 @@
    "text": "Какое кд у Haunt у Spectre на 1-м уровне (без Aghanim's Scepter)?",
    "topic": "Spectre",
    "answer": 160,
-   "step": 10,
+   "step": 20,
    "unit": "сек.",
    "comment": "Spectre · Haunt: 160 / 150 / 140 сек. по уровням"
   },
@@ -2433,7 +2433,7 @@
    "text": "Сколько урона наносит Astral Imprisonment у Outworld Devourer на максимальном уровне?",
    "topic": "Outworld Devourer",
    "answer": 360,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Outworld Devourer · Astral Imprisonment: 90 / 180 / 270 / 360 урона по уровням"
   },
@@ -2485,7 +2485,7 @@
    "text": "До какого максимума может вырасти барьер от активного Reactive Armor с Aghanim's Scepter у Timbersaw?",
    "topic": "Timbersaw",
    "answer": 800,
-   "step": 100,
+   "step": 150,
    "unit": "HP"
   },
   {
@@ -2547,7 +2547,7 @@
    "text": "Сколько урона наносит одна ракета Rocket Barrage у Gyrocopter на максимальном уровне?",
    "topic": "Gyrocopter",
    "answer": 26,
-   "step": 3,
+   "step": 5,
    "unit": "урона",
    "comment": "Gyrocopter · Rocket Barrage: 8 / 14 / 20 / 26 урона по уровням"
   },
@@ -2558,7 +2558,7 @@
    "text": "Сколько секунд длится стан от Homing Missile у Gyrocopter на максимальном уровне?",
    "topic": "Gyrocopter",
    "answer": 2.5,
-   "step": 0.25,
+   "step": 0.4,
    "unit": "сек.",
    "comment": "Gyrocopter · Homing Missile: 1.3 / 1.7 / 2.1 / 2.5 сек. по уровням"
   },
@@ -2591,7 +2591,7 @@
    "text": "Сколько длится стан от Magic Missile у Vengeful Spirit на максимальном уровне?",
    "topic": "Vengeful Spirit",
    "answer": 1.8,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Vengeful Spirit · Magic Missile: 1.2 / 1.4 / 1.6 / 1.8 сек. по уровням"
   },
@@ -2613,7 +2613,7 @@
    "text": "Сколько урона наносит врагу Nether Swap у Vengeful Spirit на 3-м уровне?",
    "topic": "Vengeful Spirit",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "урона",
    "comment": "Vengeful Spirit · Nether Swap: 150 / 300 / 450 урона по уровням"
   },
@@ -2635,7 +2635,7 @@
    "text": "Сколько максимум стаков набирает Corrosive Weaponry у Alchemist на максимальном уровне?",
    "topic": "Alchemist",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "стаков",
    "comment": "Alchemist · Corrosive Weaponry: 7 / 10 / 13 / 16 стаков по уровням"
   },
@@ -2721,7 +2721,7 @@
    "text": "Сколько суммарного урона наносит Avalanche у Tiny на максимальном уровне?",
    "topic": "Tiny",
    "answer": 360,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Tiny · Avalanche: 90 / 180 / 270 / 360 урона по уровням"
   },
@@ -2760,7 +2760,7 @@
    "id": "num:doom_bringer_infernal_blade:burn_damage_pct:max",
    "sub": "hero_pct",
    "kind": "number",
-   "text": "Какой процент от макс. HP цели в секунду жжёт Infernal Blade у Doom на максимальном уровне?",
+   "text": "Какой процент от макс. HP цели в секунду наносит горение от Infernal Blade у Doom на максимальном уровне?",
    "topic": "Doom",
    "answer": 4.25,
    "step": 0.5,
@@ -2774,7 +2774,7 @@
    "text": "Сколько длится Doom на 3-м уровне?",
    "topic": "Doom",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "сек.",
    "comment": "Doom · Doom: 12 / 14 / 16 сек. по уровням"
   },
@@ -2785,7 +2785,7 @@
    "text": "Сколько бонусного золота даёт Devour у Doom на максимальном уровне?",
    "topic": "Doom",
    "answer": 140,
-   "step": 15,
+   "step": 25,
    "unit": "золота",
    "comment": "Doom · Devour: 35 / 70 / 105 / 140 золота по уровням"
   },
@@ -2793,7 +2793,7 @@
    "id": "num:doom_bringer_scorched_earth:bonus_health_regen:max",
    "sub": "hero_other",
    "kind": "number",
-   "text": "Сколько бонусного регена HP даёт Doom его Scorched Earth?",
+   "text": "Сколько бонусного регена HP даёт Scorched Earth у Doom?",
    "topic": "Doom",
    "answer": 6.66,
    "step": 1,
@@ -2806,7 +2806,7 @@
    "text": "Сколько урона наносит Ether Shock у Shadow Shaman на максимальном уровне?",
    "topic": "Shadow Shaman",
    "answer": 320,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Shadow Shaman · Ether Shock: 125 / 190 / 255 / 320 урона по уровням"
   },
@@ -2817,7 +2817,7 @@
    "text": "Сколько длится Hex у Shadow Shaman на максимальном уровне?",
    "topic": "Shadow Shaman",
    "answer": 2.9,
-   "step": 0.3,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Shadow Shaman · Hex: 2 / 2.3 / 2.6 / 2.9 сек. по уровням"
   },
@@ -2838,7 +2838,7 @@
    "text": "Сколько урона наносит при падении банка Urnaconda (способность с Aghanim's Shard) у Shadow Shaman?",
    "topic": "Shadow Shaman",
    "answer": 275,
-   "step": 25,
+   "step": 50,
    "unit": "урона"
   },
   {
@@ -2910,7 +2910,7 @@
    "id": "num:keeper_of_the_light_will_o_wisp:hit_count:max",
    "sub": "hero_other",
    "kind": "number",
-   "text": "Сколько ударов героев нужно, чтобы уничтожить Will-O-Wisp (способность с Aghanim's Scepter) у Keeper of the Light?",
+   "text": "Сколько атак героев нужно, чтобы уничтожить Will-O-Wisp (способность с Aghanim's Scepter) у Keeper of the Light?",
    "topic": "Keeper of the Light",
    "answer": 7,
    "step": 1,
@@ -2933,7 +2933,7 @@
    "text": "На сколько Untouchable у Enchantress режет скорость атаки врагу на 3-м уровне?",
    "topic": "Enchantress",
    "answer": 210,
-   "step": 20,
+   "step": 30,
    "unit": "скорости атаки",
    "comment": "Enchantress · Untouchable: 110 / 160 / 210 скорости атаки по уровням"
   },
@@ -2944,7 +2944,7 @@
    "text": "Сколько HP в секунду лечит Nature's Attendants у Enchantress на максимальном уровне?",
    "topic": "Enchantress",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "HP/сек.",
    "comment": "Enchantress · Nature's Attendants: 4 / 8 / 12 / 16 HP/сек. по уровням"
   },
@@ -2955,7 +2955,7 @@
    "text": "Какое замедление скорости передвижения накладывает Enchant у Enchantress на героя на максимальном уровне?",
    "topic": "Enchantress",
    "answer": 60,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Enchantress · Enchant: 30 / 40 / 50 / 60% по уровням"
   },
@@ -2987,7 +2987,7 @@
    "text": "Сколько секунд длится Refraction у Templar Assassin?",
    "topic": "Templar Assassin",
    "answer": 17,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -3028,7 +3028,7 @@
    "text": "Сколько длится стан от Hookshot у Clockwerk на 3-м уровне (без аганима)?",
    "topic": "Clockwerk",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Clockwerk · Hookshot: 1.2 / 1.4 / 1.6 сек. по уровням"
   },
@@ -3039,7 +3039,7 @@
    "text": "Сколько секунд длится Overclocking у Clockwerk (способность с Aghanim's Scepter)?",
    "topic": "Clockwerk",
    "answer": 18,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -3049,7 +3049,7 @@
    "text": "Сколько базового урона наносит удар Power Cogs у Clockwerk на максимальном уровне (без учёта сжигания маны)?",
    "topic": "Clockwerk",
    "answer": 220,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Clockwerk · Power Cogs: 55 / 110 / 165 / 220 урона по уровням"
   },
@@ -3102,7 +3102,7 @@
    "text": "Какой процент от урона атаки наносят доп. стрелы Split Shot у Medusa на максимальном уровне?",
    "topic": "Medusa",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "%",
    "comment": "Medusa · Split Shot: 50 / 60 / 70 / 80% по уровням"
   },
@@ -3156,7 +3156,7 @@
    "text": "Сколько урона должен получить союзник, чтобы во время Borrowed Time с Aghanim's Scepter у Abaddon в него автоматически полетел Mist Coil?",
    "topic": "Abaddon",
    "answer": 550,
-   "step": 50,
+   "step": 75,
    "unit": "урона"
   },
   {
@@ -3166,7 +3166,7 @@
    "text": "Сколько урона или лечения даёт Mist Coil у Abaddon на максимальном уровне?",
    "topic": "Abaddon",
    "answer": 320,
-   "step": 25,
+   "step": 50,
    "unit": "ед.",
    "comment": "Abaddon · Mist Coil: 95 / 170 / 245 / 320 ед. по уровням"
   },
@@ -3188,7 +3188,7 @@
    "text": "Сколько длится стан от Dragon Tail у Dragon Knight на максимальном уровне?",
    "topic": "Dragon Knight",
    "answer": 2.4,
-   "step": 0.2,
+   "step": 0.4,
    "unit": "сек.",
    "comment": "Dragon Knight · Dragon Tail: 1.8 / 2 / 2.2 / 2.4 сек. по уровням"
   },
@@ -3199,7 +3199,7 @@
    "text": "На сколько процентов Breathe Fire у Dragon Knight снижает урон от атак врагов на максимальном уровне?",
    "topic": "Dragon Knight",
    "answer": 32,
-   "step": 4,
+   "step": 6,
    "unit": "%",
    "comment": "Dragon Knight · Breathe Fire: 20 / 24 / 28 / 32% по уровням"
   },
@@ -3210,7 +3210,7 @@
    "text": "Сколько урона в секунду наносит Fireball, который Dragon Knight получает с Aghanim's Shard?",
    "topic": "Dragon Knight",
    "answer": 85,
-   "step": 10,
+   "step": 15,
    "unit": "урона/сек."
   },
   {
@@ -3220,7 +3220,7 @@
    "text": "Какой максимальный рут даёт Fortune's End у Oracle при полном касте?",
    "topic": "Oracle",
    "answer": 2.75,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек."
   },
   {
@@ -3230,7 +3230,7 @@
    "text": "Сколько урона наносит Purifying Flames у Oracle на максимальном уровне?",
    "topic": "Oracle",
    "answer": 360,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Oracle · Purifying Flames: 90 / 180 / 270 / 360 урона по уровням"
   },
@@ -3251,7 +3251,7 @@
    "text": "Сколько длится Battle Trance у Troll Warlord?",
    "topic": "Troll Warlord",
    "answer": 6.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек."
   },
   {
@@ -3272,7 +3272,7 @@
    "text": "Какой базовый шанс (без учёта стаков Fervor) выпустить дополнительную атаку даёт Aghanim's Shard у Troll Warlord?",
    "topic": "Troll Warlord",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "%"
   },
   {
@@ -3293,7 +3293,7 @@
    "text": "Сколько длится Chronosphere у Faceless Void на 3-м уровне?",
    "topic": "Faceless Void",
    "answer": 4.75,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Faceless Void · Chronosphere: 3.75 / 4.25 / 4.75 сек. по уровням"
   },
@@ -3337,7 +3337,7 @@
    "text": "Сколько урона в секунду получает враг под рутом от Entangle у Lone Druid?",
    "topic": "Lone Druid",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "урона/сек."
   },
   {
@@ -3358,7 +3358,7 @@
    "text": "Какое базовое время атаки у медведя из врождёнки Spirit Bear у Lone Druid?",
    "topic": "Lone Druid",
    "answer": 1.5,
-   "step": 0.1,
+   "step": 0.2,
    "unit": "сек."
   },
   {
@@ -3409,7 +3409,7 @@
    "text": "Сколько урона героям наносит взрыв одного Spirits у Io на максимальном уровне?",
    "topic": "Io",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "урона",
    "comment": "Io · Spirits: 30 / 50 / 70 / 90 урона по уровням"
   },
@@ -3420,7 +3420,7 @@
    "text": "Сколько секунд длится бан от Disruption у Shadow Demon?",
    "topic": "Shadow Demon",
    "answer": 2.75,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек."
   },
   {
@@ -3430,7 +3430,7 @@
    "text": "Сколько урона наносит Demonic Purge у Shadow Demon в конце действия на 3-м уровне?",
    "topic": "Shadow Demon",
    "answer": 600,
-   "step": 50,
+   "step": 100,
    "unit": "урона",
    "comment": "Shadow Demon · Demonic Purge: 300 / 450 / 600 урона по уровням"
   },
@@ -3441,7 +3441,7 @@
    "text": "Сколько HP восстанавливает союзнику Demonic Cleanse (способность с Aghanim's Shard у Shadow Demon) в конце действия?",
    "topic": "Shadow Demon",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "HP"
   },
   {
@@ -3483,7 +3483,7 @@
    "text": "Сколько HP у одного фамильяра Visage на 3-м уровне Summon Familiars?",
    "topic": "Visage",
    "answer": 750,
-   "step": 50,
+   "step": 100,
    "unit": "HP",
    "comment": "Visage · Summon Familiars: 450 / 600 / 750 HP по уровням"
   },
@@ -3494,7 +3494,7 @@
    "text": "Какое кд у активного Stone Form самого Visage, который даёт Aghanim's Shard?",
    "topic": "Visage",
    "answer": 65,
-   "step": 5,
+   "step": 10,
    "unit": "сек."
   },
   {
@@ -3547,7 +3547,7 @@
    "text": "Какой процент от макс. здоровья цели наносит каждый удар Raptor Dance у Kez?",
    "topic": "Kez",
    "answer": 2.5,
-   "step": 0.25,
+   "step": 0.4,
    "unit": "%"
   },
   {
@@ -3611,7 +3611,7 @@
    "text": "Сколько суммарного урона наносит Mystic Flare у Skywrath Mage на 3-м уровне?",
    "topic": "Skywrath Mage",
    "answer": 1600,
-   "step": 200,
+   "step": 300,
    "unit": "урона",
    "comment": "Skywrath Mage · Mystic Flare: 800 / 1200 / 1600 урона по уровням"
   },
@@ -3633,7 +3633,7 @@
    "text": "Сколько маг. барьера даёт один стак врождёнки Shield of the Scion у Skywrath Mage на 30-м уровне героя?",
    "topic": "Skywrath Mage",
    "answer": 58.5,
-   "step": 6,
+   "step": 10,
    "unit": "HP",
    "comment": "Shield of the Scion: 13.5 HP + 1.5 HP за каждый уровень героя → 58.5 HP на 30-м"
   },
@@ -3641,7 +3641,7 @@
    "id": "num:skywrath_mage_arcane_bolt:int_multiplier:max",
    "sub": "hero_other",
    "kind": "number",
-   "text": "На какой множитель интеллекта умножается урон Arcane Bolt у Skywrath Mage?",
+   "text": "Какой множитель интеллекта добавляется к урону Arcane Bolt у Skywrath Mage?",
    "topic": "Skywrath Mage",
    "answer": 1.5,
    "step": 0.25,
@@ -3654,7 +3654,7 @@
    "text": "Какой крит наносит Boundless Strike у Monkey King на максимальном уровне?",
    "topic": "Monkey King",
    "answer": 180,
-   "step": 20,
+   "step": 30,
    "unit": "%",
    "comment": "Monkey King · Boundless Strike: 120 / 140 / 160 / 180% по уровням"
   },
@@ -3665,7 +3665,7 @@
    "text": "Сколько бонусного урона дают заряженные атаки Jingu Mastery у Monkey King на максимальном уровне?",
    "topic": "Monkey King",
    "answer": 180,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Monkey King · Jingu Mastery: 30 / 80 / 130 / 180 урона по уровням"
   },
@@ -3707,7 +3707,7 @@
    "text": "Сколько урона наносит Horn Toss — способность Magnus от Aghanim's Scepter?",
    "topic": "Magnus",
    "answer": 325,
-   "step": 25,
+   "step": 50,
    "unit": "урона"
   },
   {
@@ -3727,7 +3727,7 @@
    "text": "Сколько сопротивления замедлению даёт врождёнка Solid Core у Magnus на 30-м уровне героя?",
    "topic": "Magnus",
    "answer": 54,
-   "step": 6,
+   "step": 10,
    "unit": "%",
    "comment": "Solid Core: 24% + 1% за каждый уровень героя → 54% на 30-м"
   },
@@ -3772,7 +3772,7 @@
    "text": "Сколько бонусного опыта получает Riki за убийство героя с Cloak and Dagger на 3-м уровне?",
    "topic": "Riki",
    "answer": 390,
-   "step": 40,
+   "step": 60,
    "unit": "опыта",
    "comment": "Riki · Cloak and Dagger: 130 / 260 / 390 опыта по уровням"
   },
@@ -3815,7 +3815,7 @@
    "text": "Сколько секунд Witch Doctor остаётся Death Ward'ом при касте Voodoo Switcheroo от Aghanim's Shard?",
    "topic": "Witch Doctor",
    "answer": 2.5,
-   "step": 0.25,
+   "step": 0.4,
    "unit": "сек."
   },
   {
@@ -3848,7 +3848,7 @@
    "text": "Сколько секунд стоит Arena of Blood у Mars без Aghanim's Scepter?",
    "topic": "Mars",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек."
   },
   {
@@ -3868,7 +3868,7 @@
    "text": "Сколько секунд длится стан от Hoof Stomp у Centaur Warrunner на максимальном уровне?",
    "topic": "Centaur Warrunner",
    "answer": 2.2,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Centaur Warrunner · Hoof Stomp: 1.6 / 1.8 / 2 / 2.2 сек. по уровням"
   },
@@ -3876,7 +3876,7 @@
    "id": "num:centaur_return:return_damage_str:max",
    "sub": "hero_pct",
    "kind": "number",
-   "text": "Какой процент силы Centaur Warrunner возвращает урона за каждую атаку через Retaliate на максимальном уровне?",
+   "text": "Какой процент своей силы Centaur Warrunner возвращает уроном за каждую атаку через Retaliate на максимальном уровне?",
    "topic": "Centaur Warrunner",
    "answer": 35,
    "step": 5,
@@ -3910,7 +3910,7 @@
    "text": "Сколько урона наносит Nether Blast у Pugna на максимальном уровне?",
    "topic": "Pugna",
    "answer": 320,
-   "step": 25,
+   "step": 50,
    "unit": "урона",
    "comment": "Pugna · Nether Blast: 95 / 170 / 245 / 320 урона по уровням"
   },
@@ -3932,7 +3932,7 @@
    "text": "Какое замедление накладывает Decrepify у Pugna на врага на максимальном уровне?",
    "topic": "Pugna",
    "answer": 60,
-   "step": 5,
+   "step": 10,
    "unit": "%",
    "comment": "Pugna · Decrepify: 45 / 50 / 55 / 60% по уровням"
   },
@@ -3964,7 +3964,7 @@
    "text": "Сколько урона наносит раскол камня от Enchant Remnant у Earth Spirit (способность от Aghanim's Scepter)?",
    "topic": "Earth Spirit",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "урона"
   },
   {
@@ -3974,7 +3974,7 @@
    "text": "Сколько урона в секунду наносит Magnetize у Earth Spirit на 3-м уровне?",
    "topic": "Earth Spirit",
    "answer": 135,
-   "step": 15,
+   "step": 25,
    "unit": "урона/сек.",
    "comment": "Earth Spirit · Magnetize: 45 / 90 / 135 урона/сек. по уровням"
   },
@@ -3996,7 +3996,7 @@
    "text": "Какое замедление даёт огненный след от Celestial Hammer у Dawnbreaker на максимальном уровне?",
    "topic": "Dawnbreaker",
    "answer": 36,
-   "step": 4,
+   "step": 6,
    "unit": "%",
    "comment": "Dawnbreaker · Celestial Hammer: 24 / 28 / 32 / 36% по уровням"
   },
@@ -4007,7 +4007,7 @@
    "text": "Сколько хп лечит союзникам каждый пульс Solar Guardian у Dawnbreaker на 3-м уровне?",
    "topic": "Dawnbreaker",
    "answer": 95,
-   "step": 10,
+   "step": 15,
    "unit": "HP",
    "comment": "Dawnbreaker · Solar Guardian: 45 / 70 / 95 HP по уровням"
   },
@@ -4028,7 +4028,7 @@
    "text": "Сколько максимального урона (на краю радиуса) наносит Plasma Field у Razor за одно касание на максимальном уровне?",
    "topic": "Razor",
    "answer": 185,
-   "step": 15,
+   "step": 25,
    "unit": "урона",
    "comment": "Razor · Plasma Field: 80 / 115 / 150 / 185 урона по уровням"
   },
@@ -4050,7 +4050,7 @@
    "text": "Какой внутренний кд у молнии Storm Surge у Razor (без шарда)?",
    "topic": "Razor",
    "answer": 2.5,
-   "step": 0.25,
+   "step": 0.4,
    "unit": "сек."
   },
   {
@@ -4071,7 +4071,7 @@
    "text": "Сколько урона наносит взрыв Sticky Bomb у Techies на максимальном уровне?",
    "topic": "Techies",
    "answer": 320,
-   "step": 25,
+   "step": 50,
    "unit": "урона",
    "comment": "Techies · Sticky Bomb: 95 / 170 / 245 / 320 урона по уровням"
   },
@@ -4101,7 +4101,7 @@
    "id": "num:techies_minefield_sign:scepter_move_damage:max",
    "sub": "hero_damage",
    "kind": "number",
-   "text": "Сколько урона наносит минное поле от Minefield Sign (Aghanim's Scepter у Techies) за каждый пройденный отрезок пути?",
+   "text": "Сколько урона получает враг в активном минном поле Minefield Sign у Techies (Aghanim's Scepter) за каждые 200 единиц пройденного пути?",
    "topic": "Techies",
    "answer": 300,
    "step": 50,
@@ -4158,7 +4158,7 @@
    "text": "Сколько урона наносит Shukuchi у Weaver на максимальном уровне?",
    "topic": "Weaver",
    "answer": 190,
-   "step": 20,
+   "step": 30,
    "unit": "урона",
    "comment": "Weaver · Shukuchi: 100 / 130 / 160 / 190 урона по уровням"
   },
@@ -4180,7 +4180,7 @@
    "text": "Какое кд у Time Lapse у Weaver на 1-м уровне (без аганима)?",
    "topic": "Weaver",
    "answer": 70,
-   "step": 5,
+   "step": 10,
    "unit": "сек.",
    "comment": "Weaver · Time Lapse: 70 / 55 / 40 сек. по уровням"
   },
@@ -4191,7 +4191,7 @@
    "text": "Сколько урона наносит Tame the Beasts у Ring Master при полном касте на максимальном уровне?",
    "topic": "Ring Master",
    "answer": 480,
-   "step": 40,
+   "step": 60,
    "unit": "урона",
    "comment": "Ring Master · Tame the Beasts: 180 / 280 / 380 / 480 урона по уровням"
   },
@@ -4202,7 +4202,7 @@
    "text": "Сколько длится Escape Act у Ring Master на максимальном уровне?",
    "topic": "Ring Master",
    "answer": 3.2,
-   "step": 0.4,
+   "step": 0.6,
    "unit": "сек.",
    "comment": "Ring Master · Escape Act: 2 / 2.4 / 2.8 / 3.2 сек. по уровням"
   },
@@ -4224,7 +4224,7 @@
    "text": "Сколько урона наносит взрыв Wheel of Wonder у Ring Master на 3-м уровне?",
    "topic": "Ring Master",
    "answer": 600,
-   "step": 50,
+   "step": 100,
    "unit": "урона",
    "comment": "Ring Master · Wheel of Wonder: 300 / 450 / 600 урона по уровням"
   },
@@ -4245,7 +4245,7 @@
    "text": "Сколько урона наносит Spirit Lance у Phantom Lancer на максимальном уровне?",
    "topic": "Phantom Lancer",
    "answer": 280,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Phantom Lancer · Spirit Lance: 100 / 160 / 220 / 280 урона по уровням"
   },
@@ -4267,7 +4267,7 @@
    "text": "Какое кд у активки Juxtapose (инвиз), которую даёт Aghanim's Shard у Phantom Lancer?",
    "topic": "Phantom Lancer",
    "answer": 18,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -4277,7 +4277,7 @@
    "text": "Сколько урона наносит взрыв Static Remnant у Storm Spirit на максимальном уровне?",
    "topic": "Storm Spirit",
    "answer": 280,
-   "step": 20,
+   "step": 40,
    "unit": "урона",
    "comment": "Storm Spirit · Static Remnant: 100 / 160 / 220 / 280 урона по уровням"
   },
@@ -4309,7 +4309,7 @@
    "text": "Сколько урона наносит один плевок Mortimer Kisses у Snapfire при попадании на 3-м уровне?",
    "topic": "Snapfire",
    "answer": 330,
-   "step": 20,
+   "step": 40,
    "unit": "урона",
    "comment": "Snapfire · Mortimer Kisses: 170 / 250 / 330 урона по уровням"
   },
@@ -4350,7 +4350,7 @@
    "text": "Сколько урона наносит Meat Hook у Pudge на максимальном уровне?",
    "topic": "Pudge",
    "answer": 360,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Pudge · Meat Hook: 150 / 220 / 290 / 360 урона по уровням"
   },
@@ -4361,7 +4361,7 @@
    "text": "Сколько секунд длится каст Dismember у Pudge?",
    "topic": "Pudge",
    "answer": 2.75,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек."
   },
   {
@@ -4371,14 +4371,14 @@
    "text": "На сколько Aghanim's Scepter увеличивает урон Rot у Pudge?",
    "topic": "Pudge",
    "answer": 90,
-   "step": 10,
+   "step": 15,
    "unit": "урона"
   },
   {
    "id": "num:pudge_flesh_heap:damage_block:max",
    "sub": "hero_damage",
    "kind": "number",
-   "text": "Сколько урона блокирует Meat Shield у Pudge с каждого инстанса на максимальном уровне?",
+   "text": "Сколько урона блокирует Meat Shield у Pudge от каждого удара на максимальном уровне?",
    "topic": "Pudge",
    "answer": 26,
    "step": 4,
@@ -4392,7 +4392,7 @@
    "text": "Сколько секунд длится Fiend's Grip у Bane на 3-м уровне, если каст не сбили?",
    "topic": "Bane",
    "answer": 5.75,
-   "step": 0.25,
+   "step": 0.5,
    "unit": "сек.",
    "comment": "Bane · Fiend's Grip: 4.75 / 5.25 / 5.75 сек. по уровням"
   },
@@ -4435,7 +4435,7 @@
    "text": "Сколько секунд Aether Remnant у Void Spirit тянет пойманного врага на максимальном уровне?",
    "topic": "Void Spirit",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Void Spirit · Aether Remnant: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
   },
@@ -4500,7 +4500,7 @@
    "text": "Сколько секунд длится стан от атаки из Shadow Walk у Bounty Hunter на максимальном уровне?",
    "topic": "Bounty Hunter",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Bounty Hunter · Shadow Walk: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
   },
@@ -4511,7 +4511,7 @@
    "text": "Сколько урона наносит Shuriken Toss у Bounty Hunter на максимальном уровне?",
    "topic": "Bounty Hunter",
    "answer": 310,
-   "step": 30,
+   "step": 50,
    "unit": "урона",
    "comment": "Bounty Hunter · Shuriken Toss: 100 / 170 / 240 / 310 урона по уровням"
   },
@@ -4553,7 +4553,7 @@
    "text": "Сколько бонусного урона даёт Metamorphosis у Terrorblade на максимальном уровне?",
    "topic": "Terrorblade",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "урона",
    "comment": "Terrorblade · Metamorphosis: 20 / 40 / 60 / 80 урона по уровням"
   },
@@ -4607,7 +4607,7 @@
    "text": "Сколько HP у паучка из Spawn Spiderlings у Broodmother?",
    "topic": "Broodmother",
    "answer": 325,
-   "step": 25,
+   "step": 50,
    "unit": "HP"
   },
   {
@@ -4650,7 +4650,7 @@
    "text": "Какой процент сожжённой маны Mana Break у Anti-Mage наносит как урон?",
    "topic": "Anti-Mage",
    "answer": 65,
-   "step": 5,
+   "step": 10,
    "unit": "%"
   },
   {
@@ -4670,7 +4670,7 @@
    "text": "Какое максимальное замедление скорости передвижения даёт врождёнка Persecutor у Anti-Mage по цели с нулевой маной на 30-м уровне героя?",
    "topic": "Anti-Mage",
    "answer": 54,
-   "step": 6,
+   "step": 10,
    "unit": "%",
    "comment": "Persecutor: 24% + 1% за каждый уровень героя → 54% на 30-м"
   },
@@ -4692,7 +4692,7 @@
    "text": "Сколько урона наносит Crystal Nova у Crystal Maiden на максимальном уровне?",
    "topic": "Crystal Maiden",
    "answer": 260,
-   "step": 20,
+   "step": 40,
    "unit": "урона",
    "comment": "Crystal Maiden · Crystal Nova: 110 / 160 / 210 / 260 урона по уровням"
   },
@@ -4736,7 +4736,7 @@
    "text": "Сколько HP у Plague Ward Venomancer на максимальном уровне способности?",
    "topic": "Venomancer",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "HP",
    "comment": "Venomancer · Plague Ward: 150 / 250 / 350 / 450 HP по уровням"
   },
@@ -4779,7 +4779,7 @@
    "text": "Какой процент урона отражает Spiked Carapace у Nyx Assassin обратно в атакующего?",
    "topic": "Nyx Assassin",
    "answer": 140,
-   "step": 10,
+   "step": 20,
    "unit": "%"
   },
   {
@@ -4875,7 +4875,7 @@
    "text": "Сколько секунд длится Moonlight Shadow у Mirana?",
    "topic": "Mirana",
    "answer": 18,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -4939,7 +4939,7 @@
    "text": "Сколько длится стан от Split Earth у Leshrac?",
    "topic": "Leshrac",
    "answer": 1.7,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -4949,7 +4949,7 @@
    "text": "Сколько урона наносит каждый импульс Pulse Nova у Leshrac на 3-м уровне?",
    "topic": "Leshrac",
    "answer": 180,
-   "step": 15,
+   "step": 25,
    "unit": "урона",
    "comment": "Leshrac · Pulse Nova: 80 / 135 / 180 урона по уровням"
   },
@@ -4960,7 +4960,7 @@
    "text": "Сколько длится Trample у Primal Beast?",
    "topic": "Primal Beast",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек."
   },
   {
@@ -4970,7 +4970,7 @@
    "text": "Сколько урона наносит Rock Throw у Primal Beast (способность от Aghanim's Shard)?",
    "topic": "Primal Beast",
    "answer": 325,
-   "step": 25,
+   "step": 50,
    "unit": "урона"
   },
   {
@@ -5043,7 +5043,7 @@
    "text": "Сколько скорости атаки получают союзники по цели под Penitence у Chen на максимальном уровне?",
    "topic": "Chen",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "скорости атаки",
    "comment": "Chen · Penitence: 20 / 40 / 60 / 80 скорости атаки по уровням"
   },
@@ -5087,7 +5087,7 @@
    "text": "Какой базовый урон у одного Shadowraze у Shadow Fiend на максимальном уровне (без душ и стаков)?",
    "topic": "Shadow Fiend",
    "answer": 280,
-   "step": 20,
+   "step": 40,
    "unit": "урона",
    "comment": "Shadow Fiend · Shadowraze: 85 / 150 / 215 / 280 урона по уровням"
   },
@@ -5106,7 +5106,7 @@
    "id": "num:nevermore_requiem:requiem_slow_duration_max:max",
    "sub": "hero_time",
    "kind": "number",
-   "text": "Какова максимальная длительность фира от Requiem of Souls у Shadow Fiend, если цель словила много линий?",
+   "text": "Какова максимальная длительность страха от Requiem of Souls у Shadow Fiend, если цель словила много линий?",
    "topic": "Shadow Fiend",
    "answer": 2.15,
    "step": 0.25,
@@ -5150,7 +5150,7 @@
    "text": "Какое кд у Black Hole у Enigma на 1-м уровне?",
    "topic": "Enigma",
    "answer": 180,
-   "step": 10,
+   "step": 20,
    "unit": "сек.",
    "comment": "Enigma · Black Hole: 180 / 170 / 160 сек. по уровням"
   },
@@ -5171,7 +5171,7 @@
    "text": "Какой крит в процентах даёт Mortal Strike у Wraith King на максимальном уровне?",
    "topic": "Wraith King",
    "answer": 280,
-   "step": 20,
+   "step": 40,
    "unit": "%",
    "comment": "Wraith King · Mortal Strike: 160 / 200 / 240 / 280% по уровням"
   },
@@ -5182,7 +5182,7 @@
    "text": "Сколько секунд длится стан от Wraithfire Blast у Wraith King на максимальном уровне?",
    "topic": "Wraith King",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек.",
    "comment": "Wraith King · Wraithfire Blast: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
   },
@@ -5193,7 +5193,7 @@
    "text": "Сколько секунд Wraith King на 30-м уровне героя проводит в форме призрака после смерти благодаря врождёнке Vampiric Spirit (без Aghanim's Scepter)?",
    "topic": "Wraith King",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Vampiric Spirit: 4.25 сек. + 0.25 сек. каждые 6 уровней героя → 5.5 сек. на 30-м"
   },
@@ -5366,7 +5366,7 @@
    "id": "num:invis_sword:windwalk_bonus_damage:max",
    "sub": "item_numbers",
    "kind": "number",
-   "text": "Сколько бонусного физ. урона даёт удар, которым выходишь из инвиза Shadow Blade?",
+   "text": "Сколько бонусного физического урона наносит атака из инвиза Shadow Walk у Shadow Blade?",
    "topic": "Shadow Blade",
    "answer": 175,
    "step": 25,
@@ -5379,7 +5379,7 @@
    "text": "Сколько секунд длится инвиз от Shadow Walk у Shadow Blade, если ничего не делать?",
    "topic": "Shadow Blade",
    "answer": 17,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -5429,7 +5429,7 @@
    "text": "С каким шансом Vanguard блокирует урон от атаки?",
    "topic": "Vanguard",
    "answer": 60,
-   "step": 5,
+   "step": 10,
    "unit": "%"
   },
   {
@@ -5439,7 +5439,7 @@
    "text": "Сколько процентов бонусного урона даёт союзникам аура Vladmir's Offering?",
    "topic": "Vladmir's Offering",
    "answer": 18,
-   "step": 2,
+   "step": 3,
    "unit": "%"
   },
   {
@@ -5469,7 +5469,7 @@
    "text": "Сколько регенерации маны даёт Tiara of Selemene?",
    "topic": "Tiara of Selemene",
    "answer": 6,
-   "step": 0.5,
+   "step": 1,
    "unit": "маны/сек."
   },
   {
@@ -5510,7 +5510,7 @@
    "text": "Сколько ловкости даёт Manta Style?",
    "topic": "Manta Style",
    "answer": 26,
-   "step": 2,
+   "step": 4,
    "unit": "ловкости"
   },
   {
@@ -5520,7 +5520,7 @@
    "text": "Какое кд у активки Manta Style?",
    "topic": "Manta Style",
    "answer": 34,
-   "step": 3,
+   "step": 5,
    "unit": "сек."
   },
   {
@@ -5570,7 +5570,7 @@
    "text": "Какое кд у Town Portal Scroll?",
    "topic": "Town Portal Scroll",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "сек."
   },
   {
@@ -5590,7 +5590,7 @@
    "text": "Сколько ко всем атрибутам даёт Linken's Sphere?",
    "topic": "Linken's Sphere",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "к атрибутам"
   },
   {
@@ -5600,7 +5600,7 @@
    "text": "Сколько здоровья мгновенно восстанавливает Faerie Fire?",
    "topic": "Faerie Fire",
    "answer": 85,
-   "step": 10,
+   "step": 15,
    "unit": "HP"
   },
   {
@@ -5630,7 +5630,7 @@
    "text": "Какое кд у Black King Bar?",
    "topic": "Black King Bar",
    "answer": 95,
-   "step": 5,
+   "step": 10,
    "unit": "сек."
   },
   {
@@ -5640,7 +5640,7 @@
    "text": "Сколько длится стан от активки Overwhelm у Abyssal Blade?",
    "topic": "Abyssal Blade",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -5660,7 +5660,7 @@
    "text": "Какое кд у активки Draw Forth на Harpoon?",
    "topic": "Harpoon",
    "answer": 19,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -5670,7 +5670,7 @@
    "text": "Сколько магического урона блокирует один заряд Infused Raindrops?",
    "topic": "Infused Raindrops",
    "answer": 120,
-   "step": 10,
+   "step": 20,
    "unit": "урона"
   },
   {
@@ -5710,7 +5710,7 @@
    "text": "Сколько маг. урона поглощает барьер от активки Pipe of Insight?",
    "topic": "Pipe of Insight",
    "answer": 425,
-   "step": 25,
+   "step": 50,
    "unit": "урона"
   },
   {
@@ -5750,7 +5750,7 @@
    "text": "Сколько урона даёт Sacred Relic?",
    "topic": "Sacred Relic",
    "answer": 55,
-   "step": 5,
+   "step": 10,
    "unit": "урона"
   },
   {
@@ -5760,7 +5760,7 @@
    "text": "Сколько здоровья даёт Octarine Core?",
    "topic": "Octarine Core",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "HP"
   },
   {
@@ -5800,7 +5800,7 @@
    "text": "Сколько временной маны даёт активка Soul Ring?",
    "topic": "Soul Ring",
    "answer": 170,
-   "step": 10,
+   "step": 20,
    "unit": "маны"
   },
   {
@@ -5810,7 +5810,7 @@
    "text": "Сколько регена здоровья даёт Perseverance?",
    "topic": "Perseverance",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "HP/сек."
   },
   {
@@ -5850,7 +5850,7 @@
    "text": "Сколько магического урона поглощает барьер от активки Glimmer Cape?",
    "topic": "Glimmer Cape",
    "answer": 375,
-   "step": 25,
+   "step": 50,
    "unit": "урона"
   },
   {
@@ -5890,7 +5890,7 @@
    "text": "Сколько секунд длится реген от одного Tango, если съесть обычное дерево?",
    "topic": "Tango",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -5920,7 +5920,7 @@
    "text": "Сколько магического урона наносит молния Maelstrom каждой цели?",
    "topic": "Maelstrom",
    "answer": 110,
-   "step": 10,
+   "step": 15,
    "unit": "урона"
   },
   {
@@ -5930,7 +5930,7 @@
    "text": "Какое кд у Magic Stick?",
    "topic": "Magic Stick",
    "answer": 17,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -5950,7 +5950,7 @@
    "text": "Сколько золота даёт одно использование Hand of Midas на крипа?",
    "topic": "Hand of Midas",
    "answer": 160,
-   "step": 10,
+   "step": 20,
    "unit": "золота"
   },
   {
@@ -5980,7 +5980,7 @@
    "text": "Сколько урона наносит Meteor Hammer юнитам (не зданиям) в момент падения метеора?",
    "topic": "Meteor Hammer",
    "answer": 130,
-   "step": 10,
+   "step": 20,
    "unit": "урона"
   },
   {
@@ -6050,7 +6050,7 @@
    "text": "Сколько секунд длится хекс от Scythe of Vyse?",
    "topic": "Scythe of Vyse",
    "answer": 2.8,
-   "step": 0.2,
+   "step": 0.4,
    "unit": "сек."
   },
   {
@@ -6060,7 +6060,7 @@
    "text": "Сколько регенерации маны даёт Scythe of Vyse?",
    "topic": "Scythe of Vyse",
    "answer": 8.5,
-   "step": 1,
+   "step": 1.5,
    "unit": "маны/сек."
   },
   {
@@ -6100,7 +6100,7 @@
    "text": "Сколько здоровья даёт Soul Booster?",
    "topic": "Soul Booster",
    "answer": 425,
-   "step": 25,
+   "step": 50,
    "unit": "HP"
   },
   {
@@ -6157,7 +6157,7 @@
    "id": "num:crellas_crozier:movespeed_steal_pct:max",
    "sub": "item_numbers",
    "kind": "number",
-   "text": "Сколько процентов скорости передвижения каждую секунду крадёт у вражеских героев актив Rite of Rumusque у Crella's Crozier?",
+   "text": "Сколько процентов скорости передвижения каждую секунду крадёт у вражеских героев активка Rite of Rumusque у Crella's Crozier?",
    "topic": "Crella's Crozier",
    "answer": 6,
    "step": 1,
@@ -6220,7 +6220,7 @@
    "text": "Сколько здоровья восстанавливает союзникам Mend у Guardian Greaves?",
    "topic": "Guardian Greaves",
    "answer": 325,
-   "step": 25,
+   "step": 50,
    "unit": "HP"
   },
   {
@@ -6240,7 +6240,7 @@
    "text": "Сколько здоровья восстанавливает один заряд Bottle?",
    "topic": "Bottle",
    "answer": 110,
-   "step": 10,
+   "step": 15,
    "unit": "HP"
   },
   {
@@ -6270,7 +6270,7 @@
    "text": "Какое кд у Cyclone на Eul's Scepter of Divinity?",
    "topic": "Eul's Scepter of Divinity",
    "answer": 23,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -6360,7 +6360,7 @@
    "text": "Какое кд у Rod of Atos?",
    "topic": "Rod of Atos",
    "answer": 18,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -6370,7 +6370,7 @@
    "text": "Сколько урона наносит Energy Burst у Dagon 5?",
    "topic": "Dagon",
    "answer": 800,
-   "step": 50,
+   "step": 100,
    "unit": "урона",
    "comment": "Dagon: 400 / 500 / 600 / 700 / 800 урона по уровням"
   },
@@ -6381,7 +6381,7 @@
    "text": "Какое кд у Ghost Form на Ghost Scepter?",
    "topic": "Ghost Scepter",
    "answer": 22,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -6391,7 +6391,7 @@
    "text": "Какой процент от урона атаки Revenant's Brooch наносит дополнительным магическим уроном при срабатывании Phantom Critical?",
    "topic": "Revenant's Brooch",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "%"
   },
   {
@@ -6421,7 +6421,7 @@
    "text": "Сколько урона даёт Desolator без стаков Soul Stealer?",
    "topic": "Desolator",
    "answer": 55,
-   "step": 5,
+   "step": 10,
    "unit": "урона"
   },
   {
@@ -6451,7 +6451,7 @@
    "text": "Какое кд у Cyclone на Wind Waker?",
    "topic": "Wind Waker",
    "answer": 19,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -6461,7 +6461,7 @@
    "text": "До какого минимального запаса здоровья Helm of the Overlord поднимает доминированного крипа?",
    "topic": "Helm of the Overlord",
    "answer": 1900,
-   "step": 100,
+   "step": 200,
    "unit": "HP"
   },
   {
@@ -6551,7 +6551,7 @@
    "text": "Сколько статус-резиста даёт Sange and Yasha?",
    "topic": "Sange and Yasha",
    "answer": 16,
-   "step": 2,
+   "step": 3,
    "unit": "%"
   },
   {
@@ -6561,7 +6561,7 @@
    "text": "Какое кд у Force Staff?",
    "topic": "Force Staff",
    "answer": 19,
-   "step": 2,
+   "step": 3,
    "unit": "сек."
   },
   {
@@ -6601,7 +6601,7 @@
    "text": "Сколько здоровья даёт Bloodstone?",
    "topic": "Bloodstone",
    "answer": 625,
-   "step": 50,
+   "step": 100,
    "unit": "HP"
   },
   {
@@ -6631,7 +6631,7 @@
    "text": "Сколько длится активка Blade Mail?",
    "topic": "Blade Mail",
    "answer": 5.5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек."
   },
   {
@@ -6661,7 +6661,7 @@
    "text": "Сколько урона блокирует активка Guard у Crimson Guard герою ближнего боя, не считая бонуса от макс. здоровья кастера?",
    "topic": "Crimson Guard",
    "answer": 70,
-   "step": 5,
+   "step": 10,
    "unit": "урона"
   },
   {
@@ -6671,7 +6671,7 @@
    "text": "Сколько ко всем атрибутам даёт Ethereal Blade?",
    "topic": "Ethereal Blade",
    "answer": 24,
-   "step": 2,
+   "step": 4,
    "unit": "к атрибутам"
   },
   {
@@ -6711,7 +6711,7 @@
    "text": "Сколько процентов спелл-лайфстила даёт Veil of Discord?",
    "topic": "Veil of Discord",
    "answer": 18,
-   "step": 2,
+   "step": 3,
    "unit": "%"
   },
   {
@@ -6741,7 +6741,7 @@
    "text": "Какой процент от обычного урона атаки наносит контратака от нейтралки 2-го тира Defiant Shell?",
    "topic": "Defiant Shell",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "%"
   },
   {
@@ -6788,7 +6788,7 @@
    "id": "num:polliwog_charm:duration:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько секунд длится бафф реги от нейтралки 1-го тира Pollywog Charm?",
+   "text": "Сколько секунд длится бафф регена от нейтралки 1-го тира Pollywog Charm?",
    "topic": "Pollywog Charm",
    "answer": 14,
    "step": 2,
@@ -6818,7 +6818,7 @@
    "id": "num:idol_of_screeauk:evasion:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько уклонения даёт актив False Flight у нейтралки 4-го тира Idol of Scree'auk?",
+   "text": "Сколько уклонения даёт активка False Flight у нейтралки 4-го тира Idol of Scree'auk?",
    "topic": "Idol of Scree'auk",
    "answer": 35,
    "step": 5,
@@ -6841,14 +6841,14 @@
    "text": "Сколько брони снимает атака с нейтралкой 5-го тира Stygian Desolator?",
    "topic": "Stygian Desolator",
    "answer": 13,
-   "step": 1,
+   "step": 2,
    "unit": "брони"
   },
   {
    "id": "num:riftshadow_prism:health_cost:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Какой процент текущего здоровья тратит актив нейтралки 5-го тира Riftshadow Prism на создание иллюзии?",
+   "text": "Какой процент текущего здоровья тратит активка нейтралки 5-го тира Riftshadow Prism на создание иллюзии?",
    "topic": "Riftshadow Prism",
    "answer": 8,
    "step": 1,
@@ -6861,7 +6861,7 @@
    "text": "Сколько урона нужно получить владельцу нейтралки 4-го тира Rattlecage, чтобы она выпустила снаряды?",
    "topic": "Rattlecage",
    "answer": 220,
-   "step": 20,
+   "step": 30,
    "unit": "урона"
   },
   {
@@ -6871,7 +6871,7 @@
    "text": "Сколько секунд живут демоны, призванные нейтралкой 5-го тира Book of the Dead?",
    "topic": "Book of the Dead",
    "answer": 65,
-   "step": 5,
+   "step": 10,
    "unit": "сек."
   },
   {
@@ -6881,7 +6881,7 @@
    "text": "На сколько секунд станит врагов приземление нейтралки 5-го тира Fallen Sky?",
    "topic": "Fallen Sky",
    "answer": 1.6,
-   "step": 0.2,
+   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -6908,7 +6908,7 @@
    "id": "num:occult_bracelet:stack_limit:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько максимум стаков реги маны можно накопить с нейтралкой 1-го тира Occult Bracelet?",
+   "text": "Сколько максимум стаков регена маны можно накопить с нейтралкой 1-го тира Occult Bracelet?",
    "topic": "Occult Bracelet",
    "answer": 5,
    "step": 1,
@@ -6931,7 +6931,7 @@
    "text": "Сколько физического урона поглощает барьер от активки нейтралки 1-го тира Ash Legion Shield?",
    "topic": "Ash Legion Shield",
    "answer": 160,
-   "step": 20,
+   "step": 30,
    "unit": "урона"
   },
   {
@@ -6941,14 +6941,14 @@
    "text": "Какое кд у активки Bloodthirst нейтралки 4-го тира Flayer's Bota?",
    "topic": "Flayer's Bota",
    "answer": 65,
-   "step": 5,
+   "step": 10,
    "unit": "сек."
   },
   {
    "id": "num:heavy_blade:damage:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Какой процент от максимальной маны цели наносит атака магическим уроном с нейтралкой 5-го тира Witchbane?",
+   "text": "Сколько процентов от максимальной маны цели наносит магическим уроном каждая атака с нейтралкой 5-го тира Witchbane?",
    "topic": "Witchbane",
    "answer": 4,
    "step": 0.5,
@@ -7109,7 +7109,7 @@
    "id": "num:medallion_of_courage:ally_armor:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько брони даёт союзнику актив нейтралки 2-го тира Medallion of Courage?",
+   "text": "Сколько брони даёт союзнику активка нейтралки 2-го тира Medallion of Courage?",
    "topic": "Medallion of Courage",
    "answer": 7,
    "step": 1,
@@ -7119,7 +7119,7 @@
    "id": "num:jidi_pollen_bag:hp_damage:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Какой процент от максимального здоровья суммарно снимает за всё время действия актив нейтралки 3-го тира Jidi Pollen Bag?",
+   "text": "Какой процент от максимального здоровья суммарно снимает активка нейтралки 3-го тира Jidi Pollen Bag за всё время действия?",
    "topic": "Jidi Pollen Bag",
    "answer": 9,
    "step": 1,
@@ -7129,10 +7129,10 @@
    "id": "num:conjurers_catalyst:damage:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько урона наносит своим же союзникам рядом вражеский герой, «перегретый» нейтралкой 4-го тира Conjurer's Catalyst?",
+   "text": "Сколько урона получают союзники рядом с вражеским героем, «перегретым» нейтралкой 4-го тира Conjurer's Catalyst?",
    "topic": "Conjurer's Catalyst",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "урона"
   },
   {
@@ -7142,14 +7142,14 @@
    "text": "Сколько суммарного магического урона наносит горение от нейтралки 2-го тира Searing Signet по герою?",
    "topic": "Searing Signet",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "урона"
   },
   {
    "id": "num:spider_legs:bonus_movement_speed_active:max",
    "sub": "neutrals",
    "kind": "number",
-   "text": "Сколько процентов скорости передвижения даёт актив нейтралки 5-го тира Spider Legs?",
+   "text": "Сколько процентов скорости передвижения даёт активка нейтралки 5-го тира Spider Legs?",
    "topic": "Spider Legs",
    "answer": 20,
    "step": 5,
@@ -7172,7 +7172,7 @@
    "text": "Сколько стоит Heart of Tarrasque?",
    "topic": "Heart of Tarrasque",
    "answer": 5300,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7182,7 +7182,7 @@
    "text": "Сколько стоит Hand of Midas?",
    "topic": "Hand of Midas",
    "answer": 2200,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7192,7 +7192,7 @@
    "text": "Сколько стоит Shadow Blade?",
    "topic": "Shadow Blade",
    "answer": 3250,
-   "step": 250,
+   "step": 500,
    "unit": "золота"
   },
   {
@@ -7202,7 +7202,7 @@
    "text": "Сколько стоит Skull Basher?",
    "topic": "Skull Basher",
    "answer": 2875,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7232,7 +7232,7 @@
    "text": "Сколько стоит Oblivion Staff?",
    "topic": "Oblivion Staff",
    "answer": 1625,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7242,7 +7242,7 @@
    "text": "Сколько стоит Refresher Orb?",
    "topic": "Refresher Orb",
    "answer": 5000,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7252,7 +7252,7 @@
    "text": "Сколько стоит Voodoo Mask?",
    "topic": "Voodoo Mask",
    "answer": 650,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7262,7 +7262,7 @@
    "text": "Сколько стоит Buckler целиком?",
    "topic": "Buckler",
    "answer": 425,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -7272,7 +7272,7 @@
    "text": "Сколько стоит Abyssal Blade?",
    "topic": "Abyssal Blade",
    "answer": 6250,
-   "step": 250,
+   "step": 500,
    "unit": "золота"
   },
   {
@@ -7302,7 +7302,7 @@
    "text": "Сколько стоит Blade Mail?",
    "topic": "Blade Mail",
    "answer": 2400,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7312,7 +7312,7 @@
    "text": "Сколько стоит Vitality Booster?",
    "topic": "Vitality Booster",
    "answer": 1000,
-   "step": 100,
+   "step": 150,
    "unit": "золота"
   },
   {
@@ -7322,7 +7322,7 @@
    "text": "Сколько стоит Force Staff?",
    "topic": "Force Staff",
    "answer": 2200,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7332,7 +7332,7 @@
    "text": "Сколько стоит Ogre Axe?",
    "topic": "Ogre Axe",
    "answer": 1000,
-   "step": 100,
+   "step": 150,
    "unit": "золота"
   },
   {
@@ -7342,7 +7342,7 @@
    "text": "Сколько стоит Crimson Guard?",
    "topic": "Crimson Guard",
    "answer": 3725,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7352,7 +7352,7 @@
    "text": "Сколько стоят Gloves of Haste?",
    "topic": "Gloves of Haste",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -7362,7 +7362,7 @@
    "text": "Сколько стоит Manta Style?",
    "topic": "Manta Style",
    "answer": 4650,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7372,7 +7372,7 @@
    "text": "Сколько стоит Armlet of Mordiggian?",
    "topic": "Armlet of Mordiggian",
    "answer": 2500,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7382,7 +7382,7 @@
    "text": "Сколько стоят Boots of Travel (первого уровня, целиком)?",
    "topic": "Boots of Travel",
    "answer": 2500,
-   "step": 250,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7392,7 +7392,7 @@
    "text": "Сколько стоит Bloodthorn?",
    "topic": "Bloodthorn",
    "answer": 6400,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7402,7 +7402,7 @@
    "text": "Сколько стоит Ring of Health?",
    "topic": "Ring of Health",
    "answer": 700,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7412,7 +7412,7 @@
    "text": "Сколько стоит Swift Blink целиком?",
    "topic": "Swift Blink",
    "answer": 6800,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7422,7 +7422,7 @@
    "text": "Сколько стоят Consecrated Wraps?",
    "topic": "Consecrated Wraps",
    "answer": 2600,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7432,7 +7432,7 @@
    "text": "Сколько стоит Parasma?",
    "topic": "Parasma",
    "answer": 5975,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7452,7 +7452,7 @@
    "text": "Сколько стоят Blitz Knuckles?",
    "topic": "Blitz Knuckles",
    "answer": 1000,
-   "step": 100,
+   "step": 150,
    "unit": "золота"
   },
   {
@@ -7472,7 +7472,7 @@
    "text": "Сколько стоит Satanic?",
    "topic": "Satanic",
    "answer": 5050,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7482,7 +7482,7 @@
    "text": "Сколько стоит Battle Fury?",
    "topic": "Battle Fury",
    "answer": 3900,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7502,7 +7502,7 @@
    "text": "Сколько стоит Helm of Iron Will?",
    "topic": "Helm of Iron Will",
    "answer": 975,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7522,7 +7522,7 @@
    "text": "Сколько стоит Dragon Lance?",
    "topic": "Dragon Lance",
    "answer": 2000,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7532,7 +7532,7 @@
    "text": "Сколько стоит Ghost Scepter?",
    "topic": "Ghost Scepter",
    "answer": 1500,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7542,7 +7542,7 @@
    "text": "Сколько стоит Shadow Amulet?",
    "topic": "Shadow Amulet",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7552,7 +7552,7 @@
    "text": "Сколько стоит Essence Distiller?",
    "topic": "Essence Distiller",
    "answer": 1775,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7562,7 +7562,7 @@
    "text": "Сколько в сумме стоит Dagon 5?",
    "topic": "Dagon",
    "answer": 7400,
-   "step": 200,
+   "step": 400,
    "unit": "золота",
    "comment": "Dagon: 3000 / 4100 / 5200 / 6300 / 7400 золота по уровням"
   },
@@ -7573,7 +7573,7 @@
    "text": "Сколько стоит Splintmail?",
    "topic": "Splintmail",
    "answer": 950,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7583,7 +7583,7 @@
    "text": "Сколько стоит Eaglesong?",
    "topic": "Eaglesong",
    "answer": 2800,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7593,7 +7593,7 @@
    "text": "Сколько стоит Soul Booster?",
    "topic": "Soul Booster",
    "answer": 3000,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7603,7 +7603,7 @@
    "text": "Сколько стоит Heaven's Halberd?",
    "topic": "Heaven's Halberd",
    "answer": 3300,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7613,7 +7613,7 @@
    "text": "Сколько стоит Radiance?",
    "topic": "Radiance",
    "answer": 4700,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7633,7 +7633,7 @@
    "text": "Сколько стоит Wind Waker целиком?",
    "topic": "Wind Waker",
    "answer": 6800,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7653,7 +7653,7 @@
    "text": "Сколько стоит Diadem?",
    "topic": "Diadem",
    "answer": 1000,
-   "step": 100,
+   "step": 150,
    "unit": "золота"
   },
   {
@@ -7663,7 +7663,7 @@
    "text": "Сколько стоит Blink Dagger?",
    "topic": "Blink Dagger",
    "answer": 2250,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7673,7 +7673,7 @@
    "text": "Сколько стоит Echo Sabre?",
    "topic": "Echo Sabre",
    "answer": 2700,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7683,7 +7683,7 @@
    "text": "Сколько стоит Ultimate Orb?",
    "topic": "Ultimate Orb",
    "answer": 2800,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7693,7 +7693,7 @@
    "text": "Сколько стоит Perseverance?",
    "topic": "Perseverance",
    "answer": 1400,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7703,7 +7703,7 @@
    "text": "Сколько стоит Orchid Malevolence?",
    "topic": "Orchid Malevolence",
    "answer": 3275,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7713,7 +7713,7 @@
    "text": "Сколько стоит Diffusal Blade?",
    "topic": "Diffusal Blade",
    "answer": 2500,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7723,7 +7723,7 @@
    "text": "Сколько стоит Eul's Scepter of Divinity?",
    "topic": "Eul's Scepter of Divinity",
    "answer": 2600,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7733,7 +7733,7 @@
    "text": "Сколько стоит Solar Crest?",
    "topic": "Solar Crest",
    "answer": 2575,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7743,7 +7743,7 @@
    "text": "Сколько стоят Arcane Boots?",
    "topic": "Arcane Boots",
    "answer": 1500,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7753,7 +7753,7 @@
    "text": "Сколько стоит Demon Edge?",
    "topic": "Demon Edge",
    "answer": 2200,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7763,7 +7763,7 @@
    "text": "Сколько стоит Mage Slayer?",
    "topic": "Mage Slayer",
    "answer": 3100,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7773,7 +7773,7 @@
    "text": "Сколько стоит Dust of Appearance?",
    "topic": "Dust of Appearance",
    "answer": 80,
-   "step": 10,
+   "step": 15,
    "unit": "золота"
   },
   {
@@ -7783,7 +7783,7 @@
    "text": "Сколько стоит Rod of Atos?",
    "topic": "Rod of Atos",
    "answer": 2250,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7793,7 +7793,7 @@
    "text": "Сколько стоит Soul Ring?",
    "topic": "Soul Ring",
    "answer": 805,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7813,7 +7813,7 @@
    "text": "Сколько стоит Bloodstone?",
    "topic": "Bloodstone",
    "answer": 4700,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7823,7 +7823,7 @@
    "text": "Сколько стоит Butterfly?",
    "topic": "Butterfly",
    "answer": 5450,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7833,7 +7833,7 @@
    "text": "Сколько стоит Energy Booster?",
    "topic": "Energy Booster",
    "answer": 800,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7843,7 +7843,7 @@
    "text": "Сколько стоит Cloak?",
    "topic": "Cloak",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7853,7 +7853,7 @@
    "text": "Сколько стоит Sacred Relic?",
    "topic": "Sacred Relic",
    "answer": 3400,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7863,7 +7863,7 @@
    "text": "Сколько стоит Moon Shard?",
    "topic": "Moon Shard",
    "answer": 4000,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7873,7 +7873,7 @@
    "text": "Сколько стоит Linken's Sphere?",
    "topic": "Linken's Sphere",
    "answer": 4800,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7883,7 +7883,7 @@
    "text": "Сколько стоит Aether Lens?",
    "topic": "Aether Lens",
    "answer": 2275,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7893,7 +7893,7 @@
    "text": "Сколько стоит Crella's Crozier?",
    "topic": "Crella's Crozier",
    "answer": 4800,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7903,7 +7903,7 @@
    "text": "Сколько стоит Hydra's Breath?",
    "topic": "Hydra's Breath",
    "answer": 5900,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7913,7 +7913,7 @@
    "text": "Сколько стоит Shawl?",
    "topic": "Shawl",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -7923,7 +7923,7 @@
    "text": "Сколько стоит Bottle?",
    "topic": "Bottle",
    "answer": 675,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7933,7 +7933,7 @@
    "text": "Сколько стоит Khanda?",
    "topic": "Khanda",
    "answer": 5600,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7943,7 +7943,7 @@
    "text": "Сколько стоит Void Stone?",
    "topic": "Void Stone",
    "answer": 700,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -7953,7 +7953,7 @@
    "text": "Сколько стоит Ring of Tarrasque?",
    "topic": "Ring of Tarrasque",
    "answer": 1700,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7963,7 +7963,7 @@
    "text": "Сколько стоит Hurricane Pike?",
    "topic": "Hurricane Pike",
    "answer": 4550,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7973,7 +7973,7 @@
    "text": "Сколько стоит Platemail?",
    "topic": "Platemail",
    "answer": 1400,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -7983,7 +7983,7 @@
    "text": "Сколько стоит Scythe of Vyse?",
    "topic": "Scythe of Vyse",
    "answer": 5200,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -7993,7 +7993,7 @@
    "text": "Сколько стоит Nullifier?",
    "topic": "Nullifier",
    "answer": 4350,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8003,7 +8003,7 @@
    "text": "Сколько стоят Boots of Bearing целиком?",
    "topic": "Boots of Bearing",
    "answer": 4225,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8013,7 +8013,7 @@
    "text": "Сколько стоит Drum of Endurance?",
    "topic": "Drum of Endurance",
    "answer": 1625,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8023,7 +8023,7 @@
    "text": "Сколько стоит Broadsword?",
    "topic": "Broadsword",
    "answer": 1000,
-   "step": 100,
+   "step": 150,
    "unit": "золота"
   },
   {
@@ -8033,7 +8033,7 @@
    "text": "Сколько стоит Eye of Skadi?",
    "topic": "Eye of Skadi",
    "answer": 5900,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8053,7 +8053,7 @@
    "text": "Сколько стоят Guardian Greaves целиком?",
    "topic": "Guardian Greaves",
    "answer": 4450,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8063,7 +8063,7 @@
    "text": "Сколько стоит Urn of Shadows?",
    "topic": "Urn of Shadows",
    "answer": 825,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8073,7 +8073,7 @@
    "text": "Сколько стоят Tranquil Boots?",
    "topic": "Tranquil Boots",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8083,7 +8083,7 @@
    "text": "Сколько стоит Aghanim's Shard?",
    "topic": "Aghanim's Shard",
    "answer": 1400,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8093,7 +8093,7 @@
    "text": "Сколько стоит Point Booster?",
    "topic": "Point Booster",
    "answer": 1200,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8103,7 +8103,7 @@
    "text": "Сколько стоит Revenant's Brooch?",
    "topic": "Revenant's Brooch",
    "answer": 3300,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8113,7 +8113,7 @@
    "text": "Сколько стоит Shiva's Guard?",
    "topic": "Shiva's Guard",
    "answer": 4500,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8123,7 +8123,7 @@
    "text": "Сколько стоит Belt of Strength?",
    "topic": "Belt of Strength",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -8133,7 +8133,7 @@
    "text": "Сколько стоит Black King Bar?",
    "topic": "Black King Bar",
    "answer": 4050,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8143,7 +8143,7 @@
    "text": "Сколько стоит Maelstrom?",
    "topic": "Maelstrom",
    "answer": 2950,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8153,7 +8153,7 @@
    "text": "Сколько стоит Daedalus?",
    "topic": "Daedalus",
    "answer": 5200,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8163,7 +8163,7 @@
    "text": "Сколько стоит Veil of Discord?",
    "topic": "Veil of Discord",
    "answer": 1700,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8183,7 +8183,7 @@
    "text": "Сколько стоит Crown?",
    "topic": "Crown",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -8203,7 +8203,7 @@
    "text": "Сколько стоит Vladmir's Offering?",
    "topic": "Vladmir's Offering",
    "answer": 2200,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8213,7 +8213,7 @@
    "text": "Сколько стоит Gleipnir?",
    "topic": "Gleipnir",
    "answer": 4650,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8223,7 +8223,7 @@
    "text": "Сколько стоит Magic Wand целиком?",
    "topic": "Magic Wand",
    "answer": 460,
-   "step": 25,
+   "step": 50,
    "unit": "золота"
   },
   {
@@ -8253,7 +8253,7 @@
    "text": "Сколько стоит Gem of True Sight?",
    "topic": "Gem of True Sight",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8263,7 +8263,7 @@
    "text": "Сколько стоит Silver Edge?",
    "topic": "Silver Edge",
    "answer": 5700,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8273,7 +8273,7 @@
    "text": "Сколько стоит Mask of Madness?",
    "topic": "Mask of Madness",
    "answer": 1900,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8283,7 +8283,7 @@
    "text": "Сколько стоит Kaya?",
    "topic": "Kaya",
    "answer": 2100,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8293,7 +8293,7 @@
    "text": "Сколько стоит Mithril Hammer?",
    "topic": "Mithril Hammer",
    "answer": 1600,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8303,7 +8303,7 @@
    "text": "Сколько стоит Spirit Vessel?",
    "topic": "Spirit Vessel",
    "answer": 2725,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8313,7 +8313,7 @@
    "text": "Сколько стоят Phase Boots?",
    "topic": "Phase Boots",
    "answer": 1450,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8323,7 +8323,7 @@
    "text": "Сколько стоит Orb of Corrosion?",
    "topic": "Orb of Corrosion",
    "answer": 1050,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8333,7 +8333,7 @@
    "text": "Сколько стоит Headdress?",
    "topic": "Headdress",
    "answer": 425,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -8343,7 +8343,7 @@
    "text": "Сколько стоит Phylactery?",
    "topic": "Phylactery",
    "answer": 2600,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8353,7 +8353,7 @@
    "text": "Сколько стоит Monkey King Bar?",
    "topic": "Monkey King Bar",
    "answer": 5000,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8363,7 +8363,7 @@
    "text": "Сколько стоит Mekansm?",
    "topic": "Mekansm",
    "answer": 1775,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8373,7 +8373,7 @@
    "text": "Сколько стоит Vanguard?",
    "topic": "Vanguard",
    "answer": 1700,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8383,7 +8383,7 @@
    "text": "Сколько стоит Aeon Disk?",
    "topic": "Aeon Disk",
    "answer": 3000,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8393,7 +8393,7 @@
    "text": "Сколько стоит Javelin?",
    "topic": "Javelin",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8403,7 +8403,7 @@
    "text": "Сколько стоит Holy Locket?",
    "topic": "Holy Locket",
    "answer": 2250,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8413,7 +8413,7 @@
    "text": "Сколько стоит Harpoon?",
    "topic": "Harpoon",
    "answer": 4700,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8423,7 +8423,7 @@
    "text": "Сколько стоит Divine Rapier?",
    "topic": "Divine Rapier",
    "answer": 5600,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8433,7 +8433,7 @@
    "text": "Сколько стоит Disperser?",
    "topic": "Disperser",
    "answer": 6100,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8443,7 +8443,7 @@
    "text": "Сколько стоит Sange and Yasha?",
    "topic": "Sange and Yasha",
    "answer": 4200,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8463,7 +8463,7 @@
    "text": "Сколько стоит Ring of Basilius?",
    "topic": "Ring of Basilius",
    "answer": 425,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -8473,7 +8473,7 @@
    "text": "Сколько стоит Witch Blade?",
    "topic": "Witch Blade",
    "answer": 2775,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8483,7 +8483,7 @@
    "text": "Сколько стоит Hyperstone?",
    "topic": "Hyperstone",
    "answer": 2000,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8493,7 +8493,7 @@
    "text": "Сколько стоят Power Treads?",
    "topic": "Power Treads",
    "answer": 1400,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8503,7 +8503,7 @@
    "text": "Сколько стоит Bracer?",
    "topic": "Bracer",
    "answer": 505,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8513,7 +8513,7 @@
    "text": "Сколько стоит Reaver?",
    "topic": "Reaver",
    "answer": 2800,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8523,7 +8523,7 @@
    "text": "Сколько стоит Glimmer Cape?",
    "topic": "Glimmer Cape",
    "answer": 2150,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8533,7 +8533,7 @@
    "text": "Сколько стоит Claymore?",
    "topic": "Claymore",
    "answer": 1350,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8543,7 +8543,7 @@
    "text": "Сколько стоит Mystic Staff?",
    "topic": "Mystic Staff",
    "answer": 2800,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8553,7 +8553,7 @@
    "text": "Сколько стоит Specialist's Array?",
    "topic": "Specialist's Array",
    "answer": 2550,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8563,7 +8563,7 @@
    "text": "Сколько стоит Crystalys?",
    "topic": "Crystalys",
    "answer": 2000,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8573,7 +8573,7 @@
    "text": "Сколько стоит Mjollnir?",
    "topic": "Mjollnir",
    "answer": 5500,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8583,7 +8583,7 @@
    "text": "Сколько стоит Lotus Orb?",
    "topic": "Lotus Orb",
    "answer": 3850,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8593,7 +8593,7 @@
    "text": "Сколько стоит Helm of the Overlord целиком?",
    "topic": "Helm of the Overlord",
    "answer": 5650,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8603,7 +8603,7 @@
    "text": "Сколько стоит Falcon Blade?",
    "topic": "Falcon Blade",
    "answer": 1125,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8613,7 +8613,7 @@
    "text": "Сколько стоит Desolator?",
    "topic": "Desolator",
    "answer": 3500,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8623,7 +8623,7 @@
    "text": "Сколько стоит Aghanim's Scepter?",
    "topic": "Aghanim's Scepter",
    "answer": 4200,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8633,7 +8633,7 @@
    "text": "Сколько стоит Assault Cuirass?",
    "topic": "Assault Cuirass",
    "answer": 5125,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8643,7 +8643,7 @@
    "text": "Сколько стоит Octarine Core?",
    "topic": "Octarine Core",
    "answer": 5100,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8653,7 +8653,7 @@
    "text": "Сколько стоит Helm of the Dominator?",
    "topic": "Helm of the Dominator",
    "answer": 2550,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8663,7 +8663,7 @@
    "text": "Сколько стоит Morbid Mask?",
    "topic": "Morbid Mask",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8673,7 +8673,7 @@
    "text": "Сколько в сумме стоят Boots of Travel 2?",
    "topic": "Boots of Travel 2",
    "answer": 4500,
-   "step": 250,
+   "step": 500,
    "unit": "золота"
   },
   {
@@ -8683,7 +8683,7 @@
    "text": "Сколько стоит Meteor Hammer?",
    "topic": "Meteor Hammer",
    "answer": 2850,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8693,7 +8693,7 @@
    "text": "Сколько стоит Ethereal Blade?",
    "topic": "Ethereal Blade",
    "answer": 5200,
-   "step": 200,
+   "step": 400,
    "unit": "золота"
   },
   {
@@ -8703,7 +8703,7 @@
    "text": "Сколько стоят Blades of Attack?",
    "topic": "Blades of Attack",
    "answer": 450,
-   "step": 50,
+   "step": 75,
    "unit": "золота"
   },
   {
@@ -8713,7 +8713,7 @@
    "text": "Сколько стоит Tiara of Selemene?",
    "topic": "Tiara of Selemene",
    "answer": 1700,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8723,7 +8723,7 @@
    "text": "Сколько стоит Pipe of Insight?",
    "topic": "Pipe of Insight",
    "answer": 3725,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8733,7 +8733,7 @@
    "text": "Сколько стоит Chasm Stone?",
    "topic": "Chasm Stone",
    "answer": 900,
-   "step": 50,
+   "step": 100,
    "unit": "золота"
   },
   {
@@ -8743,7 +8743,7 @@
    "text": "Сколько стоит Talisman of Evasion?",
    "topic": "Talisman of Evasion",
    "answer": 1300,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8753,7 +8753,7 @@
    "text": "Сколько стоит Pavise?",
    "topic": "Pavise",
    "answer": 1350,
-   "step": 100,
+   "step": 200,
    "unit": "золота"
   },
   {
@@ -8764,7 +8764,7 @@
    "topic": "Spirit Breaker",
    "options": [
     "Bulldoze даёт барьер от всех типов урона с 375 здоровья",
-    "Greater Bash накладывает истощение на 1.5 сек.",
+    "Greater Bash накладывает на жертву истощение на 1.5 сек.",
     "Charge of Darkness даёт 20% сопротивления эффектам",
     "Nether Strike применяется по области радиусом 350"
    ],
@@ -8778,8 +8778,8 @@
    "topic": "Shadow Demon",
    "options": [
     "Demonic Purge накладывает эффекты Shadow Poison",
-    "Disruption активирует Demonic Cleanse на союзнике",
-    "Disseminate действует сквозь невосприимчивость к магии",
+    "Disruption накладывает на цель безмолвие",
+    "Disseminate сквозь невосприимчивость к магии",
     "Shadow Poison раскрывает невидимость врагов"
    ],
    "comment": "Настоящий талант: Demonic Purge накладывает эффекты Shadow Poison (Demonic Purge Applies Shadow Poison)."
@@ -8822,7 +8822,7 @@
     "След от Celestial Hammer ускоряет передвижение союзников",
     "Пульсации от Solar Guardian раскрывают невидимость",
     "Применение Starbreaker даёт невосприимчивость к эффектам",
-    "Лечение от Luminosity действует на союзных существ"
+    "Усиленная атака от Luminosity накладывает истощение"
    ],
    "comment": "Настоящий талант: След от Celestial Hammer ускоряет передвижение союзников (Celestial Hammer Trail Grants Movement Speed to Allies). «Применение Starbreaker даёт невосприимчивость к эффектам» — это Aghanim's Shard."
   },
@@ -8864,7 +8864,7 @@
     "Arena of Blood даёт +180 к восстановлению здоровья союзников",
     "God's Rebuke замедляет передвижение врагов на 50% на 2 сек.",
     "Bulwark даёт союзникам за спиной героя +6 к броне",
-    "Arena Of Blood снижает сопротивление магии врагов на 15%"
+    "Arena of Blood снижает сопротивление магии врагов на 15%"
    ],
    "comment": "Настоящий талант: Arena of Blood даёт +180 к восстановлению здоровья союзников (Arena Of Blood Grants Team +180 HP Regen)."
   },
@@ -8906,7 +8906,7 @@
     "Surge применяется по области радиусом 350",
     "Wall of Replica накладывает безмолвие на 2 сек.",
     "Vacuum снижает сопротивление магии на 15%",
-    "Ion Shell излечивает союзника на 40 здоровья/сек."
+    "Ion Shell даёт союзнику +40 здоровья в секунду"
    ],
    "comment": "Настоящий талант: Surge применяется по области радиусом 350 (350 AoE Surge)."
   },
@@ -9002,7 +9002,7 @@
    "topic": "Ogre Magi",
    "options": [
     "Шанс в 17% применить Fireblast при атаке",
-    "Шанс в 20% вернуть ману за Unrefined Fireblast",
+    "Шанс в 20% вернуть ману за Fireblast",
     "Шанс в 15% уклониться от атаки под Fire Shield",
     "Шанс в 25% продлить Ignite при атаке по цели"
    ],
@@ -9059,8 +9059,8 @@
    "options": [
     "Эффект от Corrosive Haze нельзя развеять",
     "Пруд от Slithereen Crush раскрывает невидимость",
-    "Атака с Bash of the Deep накладывает Corrosive Haze",
-    "Guardian Sprint даёт невосприимчивость к магии"
+    "Bash of the Deep накладывает Corrosive Haze",
+    "Guardian Sprint применяет развеивание"
    ],
    "comment": "Настоящий талант: Эффект от Corrosive Haze нельзя развеять (Corrosive Haze Undispellable)."
   },
@@ -9072,7 +9072,7 @@
    "topic": "Death Prophet",
    "options": [
     "Смерти во время Exorcism продлевают действие на 8 сек.",
-    "Урон от Crypt Swarm по героям умножается на 1.5",
+    "Урон от Crypt Swarm по вражеским героям умножается на 1.5",
     "Связь от Spirit Siphon накладывает страх на 2 сек.",
     "Silence снижает сопротивление магии врагов на 15%"
    ],
@@ -9100,9 +9100,9 @@
    "topic": "Phantom Assassin",
    "options": [
     "Stifling Dagger по трём целям",
-    "Phantom Strike раскрывает невидимость",
+    "Phantom Strike даёт невидимость",
     "Coup de Grace игнорирует уклонение",
-    "Stifling Dagger накладывает истощение"
+    "Blur действует на союзников"
    ],
    "comment": "Настоящий талант: Stifling Dagger по трём целям (Triple Strike Stifling Dagger)."
   },
@@ -9130,7 +9130,7 @@
     "+1 выпад у Echo Slash",
     "+1 заряд у Grappling Claw",
     "+1 повтор у Falcon Rush",
-    "+150 радиуса у Raven's Veil"
+    "+150 к радиусу Raven's Veil"
    ],
    "comment": "Настоящий талант: +1 выпад у Echo Slash (+1 Echo Slash Attack)."
   },
@@ -9226,7 +9226,7 @@
    "topic": "Kunkka",
    "options": [
     "Tidebringer игнорирует 25% брони",
-    "Admiral's Rum снижает урон на 10%",
+    "Admiral's Rum даёт 10% уклонения",
     "Ghostship накладывает страх на 1.5 сек.",
     "Tidal Wave ускоряет союзников на 30%"
    ],
@@ -9270,7 +9270,7 @@
     "Pit of Malice замедляет на 20%",
     "Firestorm снижает броню на 4",
     "Atrophy Aura ослепляет на 20%",
-    "Fiend's Gate лечит союзников на 20%"
+    "Fiend's Gate излечивает 20% здоровья"
    ],
    "comment": "Настоящий талант: Pit of Malice замедляет на 20% (Pit of Malice Slows by 20%)."
   },
@@ -9282,9 +9282,9 @@
    "topic": "Windranger",
    "options": [
     "Powershot добивает героев со здоровьем ниже 16% от максимального",
-    "Gale Force замедляет передвижение врагов на 40% на 2 сек.",
+    "Gale Force замедляет передвижение задетых врагов на 40% на 2 сек.",
     "Windrun действует на союзников в радиусе 400 вокруг героя",
-    "Focus Fire уменьшает сопротивление магии жертвы на 15%"
+    "Атаки Focus Fire уменьшают сопротивление магии жертвы на 15%"
    ],
    "comment": "Настоящий талант: Powershot добивает героев со здоровьем ниже 16% от максимального (Powershot Executes Enemy Heroes Under 16% Max HP)."
   },
@@ -9297,7 +9297,7 @@
    "options": [
     "Wild Axes без перезарядки",
     "Wild Axes накладывает истощение",
-    "Inner Beast ускоряет союзников",
+    "Drums of Slom бьёт по постройкам",
     "Primal Roar нельзя развеять"
    ],
    "comment": "Настоящий талант: Wild Axes без перезарядки (No Wild Axes Cooldown)."
@@ -9310,7 +9310,7 @@
    "topic": "Troll Warlord",
    "options": [
     "Whirling Axes сквозь невосприимчивость к магии",
-    "Berserker's Rage действует в обеих формах",
+    "Эффекты Fervor не сбрасываются при смене цели",
     "Battle Trance раскрывает невидимость врагов",
     "Whirling Axes применяет эффекты Berserker's Rage"
    ],
@@ -9367,7 +9367,7 @@
    "options": [
     "+1000 к дальности полёта у Icarus Dive",
     "+300 к радиусу взрыва у Supernova",
-    "+2 к числу духов от Fire Spirits",
+    "+2 к числу огненных духов от Fire Spirits",
     "+30% к скорости поворота у Sun Ray"
    ],
    "comment": "Настоящий талант: +1000 к дальности полёта у Icarus Dive (+1000 Icarus Dive Cast Range)."
@@ -9394,8 +9394,8 @@
    "topic": "Enigma",
    "options": [
     "+4 к числу эйдолонов от Demonic Summoning",
-    "+150 к радиусу действия Black Hole",
-    "+20% к замедлению от Event Horizon",
+    "+150 к радиусу притягивания у Black Hole",
+    "+20% к замедлению врагов от Event Horizon",
     "+1 к числу зарядов у Midnight Pulse"
    ],
    "comment": "Настоящий талант: +4 к числу эйдолонов от Demonic Summoning (+4 Demonic Summoning Eidolons)."
@@ -9494,7 +9494,7 @@
     "Reality Rift проходит сквозь невосприимчивость к магии",
     "Chaos Bolt дополнительно накладывает истощение",
     "Phantasm создаёт иллюзию каждого союзного героя",
-    "Reality Rift всегда активирует Chaos Strike"
+    "Атака после Reality Rift всегда активирует Chaos Strike"
    ],
    "comment": "Настоящий талант: Reality Rift проходит сквозь невосприимчивость к магии (Reality Rift Pierces Spell Immunity). «Phantasm создаёт иллюзию каждого союзного героя» — это Aghanim's Scepter."
   },
@@ -9524,7 +9524,7 @@
     "Hex снижает сопротивление магии на 15%",
     "Earth Spike замедляет на 35% на 2 сек."
    ],
-   "comment": "Настоящий талант: Earth Spike в 30-градусном конусе (Earth Spike affects a 30 degree cone). «Mana Drain по области радиусом 350» — это Aghanim's Shard."
+   "comment": "Настоящий талант: Earth Spike в 30-градусном конусе (Earth Spike affects a 30 degree cone). «Mana Drain по области радиусом 350» — похоже на Aghanim's Shard: он даёт Mana Drain дополнительные цели."
   },
   {
    "id": "tal:special_bonus_unique_largo_8",
@@ -9563,7 +9563,7 @@
    "options": [
     "Осколки от Ice Shards замедляют на 50% и наносят 110 урона/сек.",
     "Атаки под Tag Team снижают броню на 4 и дают 20% вампиризма",
-    "Выход из Snowball ускоряет союзников на 25% на 3 сек.",
+    "Выход из Snowball ускоряет передвижение союзников на 25% на 3 сек.",
     "Приземление от Walrus PUNCH! наносит урон в радиусе 350"
    ],
    "comment": "Настоящий талант: Осколки от Ice Shards замедляют на 50% и наносят 110 урона/сек. (Ice Shards slow by 50% and deal 110 DPS)."
@@ -9577,7 +9577,7 @@
    "options": [
     "Soul Assumption по 3 целям",
     "Stone Form замедляет на 50%",
-    "Gravekeeper's Cloak даёт 4 брони",
+    "+1 слой у Gravekeeper's Cloak",
     "Grave Chill в радиусе 300"
    ],
    "comment": "Настоящий талант: Soul Assumption по 3 целям (Soul Assumption Hits 3 Targets)."
@@ -9592,7 +9592,7 @@
     "Hex накладывает истощение",
     "Shackles активирует Ether Shock",
     "Ether Shock накладывает страх",
-    "Fowl Play действует на союзников"
+    "Shackles нельзя прервать"
    ],
    "comment": "Настоящий талант: Hex накладывает истощение (Hex Breaks). «Shackles активирует Ether Shock» — это Aghanim's Scepter."
   },
@@ -9634,7 +9634,7 @@
     "Атака вместе с целью Tether (50% урона)",
     "Бонусы Overcharge союзникам рядом (40% эффекта)",
     "Взрыв Spirits от касания крипов (25% урона)",
-    "Лечение при возврате Relocate (30% здоровья)"
+    "Лечение после Relocate (30% здоровья)"
    ],
    "comment": "Настоящий талант: Атака вместе с целью Tether (50% урона) (Attack Tethered Ally's Target (50% damage))."
   },
@@ -9690,9 +9690,9 @@
     "Retaliate становится аурой",
     "Hoof Stomp накладывает бессилие",
     "Stampede снижает получаемый урон",
-    "Double Edge активирует Retaliate"
+    "Double Edge не ранит героя"
    ],
-   "comment": "Настоящий талант: Retaliate становится аурой (Gains Retaliate Aura)."
+   "comment": "Настоящий талант: Retaliate становится аурой (Gains Retaliate Aura). «Stampede снижает получаемый урон» — так было у старого Aghanim's Scepter, сейчас этого нет."
   },
   {
    "id": "tal:special_bonus_unique_clockwerk_4",
@@ -9802,7 +9802,7 @@
     "Mind Flare по области радиусом 600",
     "Impale с дальностью применения 1100",
     "Vendetta замедляет жертву на 35%",
-    "Spiked Carapace даёт 20% сопротивления магии"
+    "Spiked Carapace даёт +20% к уклонению"
    ],
    "comment": "Настоящий талант: Mind Flare по области радиусом 600 (600 Mind Flare Radius)."
   },
@@ -9814,11 +9814,11 @@
    "topic": "Oracle",
    "options": [
     "Fortune's End применяет развеивание постоянно",
-    "Fate's Edict также накладывает безмолвие",
+    "Fate's Edict также накладывает на цель безмолвие",
     "False Promise делает союзника невидимым",
     "Эффект Purifying Flames нельзя развеять"
    ],
-   "comment": "Настоящий талант: Fortune's End применяет развеивание постоянно (Fortune's End constantly Dispels)."
+   "comment": "Настоящий талант: Fortune's End применяет развеивание постоянно (Fortune's End constantly Dispels). «False Promise делает союзника невидимым» — так было у старого Aghanim's Scepter, сейчас этого нет."
   },
   {
    "id": "tal:special_bonus_unique_silencer_4",
@@ -9830,7 +9830,7 @@
     "Last Word по области радиусом 250",
     "Arcane Curse с дальностью применения 900",
     "Global Silence замедляет на 20%",
-    "Glaives of Wisdom с вампиризмом в 20%"
+    "Glaives of Wisdom дают 20% вампиризма"
    ],
    "comment": "Настоящий талант: Last Word по области радиусом 250 (250 AoE Last Word)."
   },
@@ -9858,7 +9858,7 @@
     "2 заряда Firesnap Cookie",
     "1 сек. страха от Scatterblast",
     "20% вампиризма от Lil' Shredder",
-    "2 существа в животике Gobble Up"
+    "Gobble Up глотает 2 цели"
    ],
    "comment": "Настоящий талант: 2 заряда Firesnap Cookie (2 Firesnap Cookie Charges)."
   },
@@ -9954,9 +9954,9 @@
    "topic": "Weaver",
    "options": [
     "+1 к числу атак от Geminate Attack",
-    "+4 к числу жуков от The Swarm",
-    "+2 к числу зарядов Shukuchi",
-    "+2 сек. перемотки у Time Lapse"
+    "+4 к числу выпускаемых жуков от The Swarm",
+    "+2 к максимуму зарядов у Shukuchi",
+    "+2 сек. к перемотке у Time Lapse"
    ],
    "comment": "Настоящий талант: +1 к числу атак от Geminate Attack (+1 Geminate Attack)."
   },
@@ -10026,7 +10026,7 @@
     "Lightning Bolt по области радиусом 325",
     "Heavenly Jump с оглушением на 1 сек.",
     "Урон от Static Field умножается на 1.5",
-    "Thundergod's Wrath с обзором в радиусе 500"
+    "Thundergod's Wrath замедляет на 30%"
    ],
    "comment": "Настоящий талант: Lightning Bolt по области радиусом 325 (325 AoE Lightning Bolt)."
   },
@@ -10065,10 +10065,10 @@
    "text": "Назовите ложный факт про Track.",
    "topic": "Bounty Hunter",
    "options": [
-    "Бонусное золото за Track — ненадёжное",
-    "Золото за Track дадут, даже если цель добила башня",
+    "Бонусное золото за Track приходит ненадёжным",
+    "Золото дадут, даже если цель добила башня",
     "Каст Track не выводит Bounty Hunter из инвиза",
-    "Track снимается обычным диспелом"
+    "Дебафф Track снимается обычным диспелом"
    ],
    "comment": "Бонус за Track — надёжное золото, и его дают при любой смерти цели под Track, даже если добила башня или крип."
   },
@@ -10094,9 +10094,9 @@
    "topic": "Lion",
    "options": [
     "Спайк застанит его, а Linken's Sphere не сработает",
-    "Linken's Sphere заблокирует, но спайк полетит дальше по линии",
+    "Linken's Sphere заблокирует, а спайк пойдёт дальше",
     "Linken's Sphere заблокирует, и спайк пропадёт",
-    "Спайк застанит его, но Linken's Sphere всё равно уйдёт в кд"
+    "Застанит, но Linken's Sphere всё равно уйдёт в кд"
    ],
    "comment": "Earth Spike не вызывает ни блок, ни отражение спеллов: Linken's Sphere просто игнорируется и остаётся целой."
   },
@@ -10122,7 +10122,7 @@
    "topic": "Earthshaker",
    "options": [
     "От базового урона и урона от основного атрибута",
-    "От всего урона, включая предметы",
+    "От всего урона, включая бонусы предметов",
     "Только от базового урона, без атрибутов",
     "От базового урона и бонусов урона с предметов"
    ],
@@ -10136,8 +10136,8 @@
    "topic": "Ancient Apparition",
    "options": [
     "Time Lapse не вернёт хп, пока висит Ice Blast",
-    "Release можно нажать под безмолвием",
-    "Фонтан не лечит цель под Ice Blast",
+    "Release можно нажать даже под безмолвием",
+    "Даже фонтан не лечит цель под Ice Blast",
     "Килл за раскол получает тот, чей урон его вызвал"
    ],
    "comment": "Ice Blast блокирует почти всё лечение, даже фонтан, но Sunder, Time Lapse и Supernova всё равно работают."
@@ -10149,10 +10149,10 @@
    "text": "Что из кита Shadow Demon не действует, пока цель спрятана в Disruption?",
    "topic": "Shadow Demon",
    "options": [
-    "Disseminate раздаёт урон соседям",
-    "Shadow Poison вешает стаки",
-    "Demonic Purge накладывается на врага",
-    "Demonic Cleanse накладывается на союзника"
+    "Disseminate раздаёт урон всем вокруг цели",
+    "Shadow Poison продолжает вешать стаки",
+    "Demonic Purge действует на врага",
+    "Demonic Cleanse действует на союзника"
    ],
    "comment": "Пока цель в Disruption, эффект Disseminate на паузе, а Shadow Poison, Purge и Cleanse по ней проходят."
   },
@@ -10191,7 +10191,7 @@
    "text": "Назовите ложный факт про Gyrocopter.",
    "topic": "Gyrocopter",
    "options": [
-    "Ракеты от шардовой Homing Missile включают Afterburner",
+    "Ракеты шардовой Homing Missile включают Afterburner",
     "Homing Missile догонит и ударит врага в инвизе",
     "Side Gunner стреляет, даже когда Gyro в стане",
     "Прицел Homing Missile видят только союзники Gyro"
@@ -10219,8 +10219,8 @@
    "text": "У Axe есть Aghanim's Scepter. Как растёт счётчик Counter Helix у его иллюзий?",
    "topic": "Axe",
    "options": [
-    "Только от атак по самой иллюзии",
-    "И от атак по ней, и от её собственных атак, как у Axe",
+    "Только от ударов по самой иллюзии",
+    "И от атак по ней, и от своих атак",
     "У иллюзий общий счётчик с Axe",
     "Иллюзии вообще не делают Counter Helix"
    ],
@@ -10233,10 +10233,10 @@
    "text": "Назовите ложный факт про способности Invoker.",
    "topic": "Invoker",
    "options": [
-    "E.M.P. сжигает ману и врагам, висящим в Tornado",
-    "Перестановка уже собранных спеллов через Invoke не тратит ману и не уходит в кд",
-    "Опыт за убийство Sun Strike приходит, даже если Invoker на другом конце карты",
-    "Сферы можно прожимать во время каста, и инвиз они не сбивают"
+    "E.M.P. сжигает ману даже врагам, которые висят в Tornado",
+    "Invoke, лишь меняющий спеллы местами, не уходит в кд",
+    "Опыт за килл Sun Strike идёт, даже если Invoker далеко",
+    "Сферы можно прожимать во время каста, инвиз не спадёт"
    ],
    "comment": "E.M.P. не действует на юнитов в циклоне, будь то Tornado или Eul's, поэтому комбо «торнадо + EMP» требует точного тайминга."
   },
@@ -10247,7 +10247,7 @@
    "text": "Враг под Last Word начинает долгий каст способности. Что будет?",
    "topic": "Silencer",
    "options": [
-    "Last Word сработает, когда каст закончится",
+    "Last Word сработает, только когда каст закончится",
     "Last Word сработает сразу и собьёт каст",
     "Last Word сработает сразу, но каст продолжится",
     "Спеллы с долгим кастом Last Word не триггерят"
@@ -10261,7 +10261,7 @@
    "text": "Враг под Global Silence прожимает BKB. Что будет с безмолвием?",
    "topic": "Silencer",
    "options": [
-    "Безмолвие сразу спадёт: BKB снимает его диспелом",
+    "Безмолвие спадёт: BKB снимает его диспелом",
     "Ничего: ульта пробивает невосприимчивость к магии",
     "Спадёт, только если BKB выпит до каста ульты",
     "Безмолвие останется, но его таймер встанет на паузу"
@@ -10275,10 +10275,10 @@
    "text": "Morphling превратился Morph'ом в мили-героя. Какие бонусы Ebb and Flow у него остаются?",
    "topic": "Morphling",
    "options": [
-    "Все, кроме бонуса к дальности атаки",
-    "Все, включая бонус к дальности атаки",
+    "Все бонусы, кроме прибавки к дальности атаки",
+    "Все бонусы, включая прибавку к дальности атаки",
     "Никаких: они работают только в своей форме",
-    "Только каст-рейндж и резист к замедлению"
+    "Только каст-ренж и сопротивление замедлению"
    ],
    "comment": "Бонусы Ebb and Flow сохраняются в морфе, но дальность атаки добавляется, только если Morphling превратился в ренж-героя."
   },
@@ -10289,7 +10289,7 @@
    "text": "Назовите ложный факт про Thirst.",
    "topic": "Bloodseeker",
    "options": [
-    "Бонусы от нескольких раненых героев не складываются",
+    "Бонусы от нескольких раненых не складываются",
     "Раненые иллюзии врагов никаких бонусов не дают",
     "Если раненый герой умер, бонусы держатся ещё немного",
     "Она снимает лимит максимальной скорости передвижения"
@@ -10303,10 +10303,10 @@
    "text": "Кто из врагов Disruptor сможет выйти из Kinetic Field?",
    "topic": "Disruptor",
    "options": [
-    "Союзник Omniknight под Repel",
+    "Союзник Omniknight под его Repel",
     "Союзник Omniknight под Guardian Angel",
     "Winter Wyvern под Arctic Burn",
-    "Bloodseeker под Bloodrage"
+    "Bloodseeker под своим Bloodrage"
    ],
    "comment": "Сквозь Kinetic Field проходят только юниты с невосприимчивостью к дебаффам, а Repel её как раз даёт; свободное передвижение и иммунитет к физ. урону не помогают."
   },
@@ -10317,7 +10317,7 @@
    "text": "Как работает Retribution после того, как Vengeful Spirit убили?",
    "topic": "Vengeful Spirit",
    "options": [
-    "Vengeful бьёт своего убийцу сильнее, пока тот не умрёт",
+    "Vengeful бьёт убийцу сильнее, пока тот не умрёт",
     "Vengeful бьёт своего убийцу сильнее, пока сама его не убьёт",
     "Вся команда Vengeful бьёт её убийцу сильнее, пока тот не умрёт",
     "Каждая новая смерть от того же героя усиливает бонус"
@@ -10331,8 +10331,8 @@
    "text": "Что даёт Aghanim's Scepter для Guardian Angel?",
    "topic": "Omniknight",
    "options": [
-    "Глобальный радиус, действие на здания и усиленное лечение",
-    "Глобальный радиус и действие на здания",
+    "Глобальный радиус, действие на здания и усиленный хил",
+    "Только глобальный радиус и действие на здания",
     "Глобальный радиус, действие на здания и диспел дебаффов",
     "Глобальный радиус и защиту ещё и от магического урона"
    ],
@@ -10345,10 +10345,10 @@
    "text": "Winter Wyvern кастует Winter's Curse, а рядом с целью стоит враг под BKB. Что с ним будет?",
    "topic": "Winter Wyvern",
    "options": [
-    "Его не проклянёт",
-    "Его проклянёт, как и всех вокруг",
-    "Его проклянёт, но без бонусной скорости атаки",
-    "Его проклянёт, но урон от врагов по нему будет проходить"
+    "Не проклянёт: BKB спасёт его от проклятия",
+    "Проклянёт, как и всех остальных вокруг",
+    "Проклянёт, но без бонуса к скорости атаки",
+    "Проклянёт, но урон по нему будет проходить"
    ],
    "comment": "Winter's Curse пробивает невосприимчивость к магии только у замороженной цели, а враги вокруг под BKB проклятия не получают."
   },
@@ -10374,8 +10374,8 @@
    "topic": "Arc Warden",
    "options": [
     "Ничего, это не считается активацией руны",
-    "Атрибуты за каждую из трёх рун",
-    "Атрибуты один раз за каждый каст",
+    "Атрибуты за каждую из трёх рун сразу",
+    "Атрибуты один раз за каждый каст копии",
     "Атрибуты только копии, а не самому Arc Warden"
    ],
    "comment": "В описании шарда прямо сказано: бонусы рун при создании копии Runic Infusion не триггерят."
@@ -10387,7 +10387,7 @@
    "text": "Upheaval кастуется уже долго, и тут в зону забегает враг. Насколько сильно его замедлит?",
    "topic": "Warlock",
    "options": [
-    "Сразу на всё, что накопилось за время каста",
+    "Сразу на всё, что успело накопиться за время каста",
     "Сначала слабо, замедление растёт, пока он в зоне",
     "Сначала слабо, но догонит накопленное вдвое быстрее",
     "На половину накопленного, остальное — пока стоит в зоне"
@@ -10402,7 +10402,7 @@
    "topic": "Centaur Warrunner",
    "options": [
     "Ходить, но не бить",
-    "Ничего, он стоит в анимации",
+    "Ничего, он в анимации",
     "Бить, но не ходить",
     "И ходить, и бить"
    ],
@@ -10430,7 +10430,7 @@
    "topic": "Tidehunter",
    "options": [
     "Он режет урон атаки Roshan, как и любому крипу",
-    "Он режет урон атаки и древним крипам",
+    "Он режет урон атаки даже древним крипам",
     "Его радиус зависит от дальности атаки Tidehunter",
     "Снижение урона от него снимается обычным диспелом"
    ],
@@ -10443,10 +10443,10 @@
    "text": "Когда импейл Kazurai Katana с Aghanim's Shard станит цель?",
    "topic": "Kez",
    "options": [
-    "Если удар приходится со спины",
-    "Если на цели висит Mark",
+    "Если удар приходится цели прямо в спину",
+    "Если на цели висит метка Shodo Sai",
     "Если на цели максимум стаков катаны",
-    "Если это первый удар после смены оружия"
+    "Если удар первый после смены оружия"
    ],
    "comment": "С шардом импейл станит только при ударе со спины; стан по Mark — это механика Sai, а первый удар после смены даёт лишь бонусный урон."
   },
@@ -10471,10 +10471,10 @@
    "text": "Earth уже погиб, Storm и Fire дожили до конца Primal Split. Где появится Brewmaster?",
    "topic": "Brewmaster",
    "options": [
-    "На месте Storm",
-    "На месте Fire",
-    "На месте панды с наибольшим хп",
-    "Там, где кастовал ультимейт"
+    "Там, где стоит Storm",
+    "Там, где стоит Fire",
+    "У панды с большим хп",
+    "Там, где кастовал ульту"
    ],
    "comment": "Brewmaster встаёт на место живой панды строго по порядку: Earth, затем Storm, затем Fire."
   },
@@ -10499,10 +10499,10 @@
    "text": "Как Stone Remnant влияет на урон Earth Spirit?",
    "topic": "Earth Spirit",
    "options": [
-    "Урон за каждый неиспользованный заряд и бонус, когда способность применена на камень",
-    "Урон за каждый камень на карте и бонус, когда способность применена на камень",
-    "Урон за каждый неиспользованный заряд и бонус, пока рядом стоит камень",
-    "Урон за каждый камень на карте и бонус, пока рядом стоит камень"
+    "Урон за каждый заряд в запасе и бонус после способности по камню",
+    "Урон за каждый камень на карте и бонус после способности по камню",
+    "Урон за каждый заряд в запасе и бонус, пока рядом есть камень",
+    "Урон за каждый камень на карте и бонус, пока рядом есть камень"
    ],
    "comment": "Пассивный бонус идёт за каждый неистраченный заряд, а ещё 7.5% на 10 секунд дают, когда любой способностью цепляешь камень."
   },
@@ -10513,10 +10513,10 @@
    "text": "Назовите ложный факт про иллюзии Terrorblade.",
    "topic": "Terrorblade",
    "options": [
-    "Demon Zeal ускоряет и иллюзии от Reflection",
-    "Dark Unity усиливает и иллюзии от Reflection",
-    "Враги видят иллюзии Conjure Image не так, как союзники",
-    "Отражение пропадает, если снять с цели замедление диспелом"
+    "Demon Zeal ускоряет даже иллюзии от Reflection",
+    "Dark Unity усиливает даже иллюзии от Reflection",
+    "Иллюзии Conjure Image враги видят иначе",
+    "Отражение пропадает, если с цели сняли замедление"
    ],
    "comment": "Demon Zeal прямо исключает отражения, а вот Dark Unity добавляет им урон; отражение живёт, пока висит замедление от Reflection."
   },
@@ -10527,7 +10527,7 @@
    "text": "Что на самом деле происходит с маной при краже от Astral Imprisonment?",
    "topic": "Outworld Devourer",
    "options": [
-    "Меняется только максимум, текущая мана ни у кого не трогается",
+    "Меняется только максимум, текущая мана не трогается",
     "OD получает текущую ману, у цели падает только максимум",
     "У цели сгорает текущая мана, но OD её не получает",
     "OD получает текущую ману, а у цели она сгорает"
@@ -10541,10 +10541,10 @@
    "text": "Что из этого прервёт Sun Ray?",
    "topic": "Phoenix",
    "options": [
-    "Безмолвие",
-    "Рут",
-    "Каст Icarus Dive",
-    "Использование предмета"
+    "Безмолвие от Bloodthorn",
+    "Рут от Rod of Atos",
+    "Свой каст Icarus Dive",
+    "Свой каст Blink Dagger"
    ],
    "comment": "Sun Ray сбивают стан, безмолвие, циклон, хекс и сон, а свои способности и предметы Phoenix использует, не прерывая луча."
   },
@@ -10555,9 +10555,9 @@
    "text": "Что будет с бурстом Maledict, если цель отхилилась выше того хп, что было при наложении?",
    "topic": "Witch Doctor",
    "options": [
-    "Бурст нанесёт ноль урона",
-    "Бурст посчитается от самой низкой точки хп за проклятие",
-    "Бурст учтёт весь полученный урон, хил не вычтется",
+    "Бурст не нанесёт цели ни капли урона",
+    "Бурст посчитается от самого низкого хп",
+    "Бурст учтёт весь урон, хил не вычтется",
     "Проклятие досрочно спадёт с цели"
    ],
    "comment": "Бурст считается от разницы с хп в момент каста: если цель отхилилась выше, бурст равен нулю, но само проклятие остаётся."
@@ -10569,7 +10569,7 @@
    "text": "Mars стоит на возвышенности, и Spear of Mars тащит героя к краю обрыва, за которым низина. Что произойдёт?",
    "topic": "Mars",
    "options": [
-    "Сбросит его вниз без стана",
+    "Сбросит его вниз, и стана не будет",
     "Пригвоздит к краю обрыва со станом",
     "Остановит у края без стана",
     "Сбросит вниз и застанит у подножия"
@@ -10583,8 +10583,8 @@
    "text": "Назовите ложный факт про кит Lich.",
    "topic": "Lich",
    "options": [
-    "Крип, съеденный Sacrifice, не даёт опыта врагам",
-    "Chain Frost нельзя задоджить",
+    "За Sacrifice враги не получают опыта",
+    "Снаряд Chain Frost нельзя сбить с цели",
     "Frost Shield можно повесить на башню",
     "Chain Frost не прыгает на зомби Undying"
    ],
@@ -10597,7 +10597,7 @@
    "text": "Союзный Meepo с клонами залез в Snowball. Что будет?",
    "topic": "Tusk",
    "options": [
-    "Поедут все клоны, и каждый добавит урон",
+    "Поедут все клоны, и каждый добавит свой урон",
     "Поедут все клоны, но урон добавит только оригинал",
     "Поедет только оригинал, клоны останутся",
     "Поедут все, но клоны не добавят ни урона, ни стана"
@@ -10611,8 +10611,8 @@
    "text": "Как Starstorm работает против врагов в инвизе в радиусе?",
    "topic": "Mirana",
    "options": [
-    "Вообще их не задевает",
-    "Бьёт волной, но второй метеор их не выбирает",
+    "Вообще не задевает, даже второй метеор",
+    "Бьёт волной, но второй метеор их не ищет",
     "Бьёт и раскрывает их на мгновение",
     "Бьёт, но без раскрытия, как Sacred Arrow"
    ],
@@ -10625,7 +10625,7 @@
    "text": "Shadow Shaman с готовым Fowl Play получает смертельный Culling Blade. Что будет?",
    "topic": "Shadow Shaman",
    "options": [
-    "Умрёт, Fowl Play не сработает",
+    "Умрёт, Fowl Play просто не сработает",
     "Станет курицей с 1 хп, как обычно",
     "Станет курицей, но без защиты от урона",
     "Станет курицей, но без сильного диспела"
@@ -10639,10 +10639,10 @@
    "text": "Как работает диспел от Aghanim's Scepter на Whirling Axes?",
    "topic": "Troll Warlord",
    "options": [
-    "Дальние топоры диспелят врагов, ближние — самого Troll",
-    "Дальние и ближние топоры диспелят врагов",
-    "Дальние топоры диспелят Troll, ближние — врагов",
-    "Дальние и ближние топоры диспелят самого Troll"
+    "Дальние диспелят врагов, ближние — Troll",
+    "И дальние, и ближние диспелят врагов",
+    "Дальние диспелят Troll, ближние — врагов",
+    "И дальние, и ближние диспелят Troll"
    ],
    "comment": "С Аганимом дальние топоры снимают баффы с врагов, а ближние делают базовый диспел самому Troll."
   },
@@ -10653,10 +10653,10 @@
    "text": "Что, кроме дальности и полёта вместе с молотом, добавляет Storm Hammer Aghanim's Scepter?",
    "topic": "Sven",
    "options": [
-    "Диспелит цель и задевает даже неуязвимых",
-    "Только диспелит цель",
-    "Диспелит цель и пробивает невосприимчивость к магии",
-    "Задевает неуязвимых и пробивает невосприимчивость к магии"
+    "Диспел цели и удар по неуязвимым",
+    "Диспел цели, и больше ничего",
+    "Диспел цели и пробитие BKB",
+    "Удар по неуязвимым и пробитие BKB"
    ],
    "comment": "Аганимный молот делает базовый диспел цели и бьёт неуязвимых, но сквозь невосприимчивость к магии так и не проходит."
   },
@@ -10668,9 +10668,9 @@
    "topic": "Undying",
    "options": [
     "Тянет хп из врагов в инвизе поблизости",
-    "Тянет хп из собственных зомби",
+    "Тянет хп даже из собственных зомби",
     "Не тянет хп из юнитов в тумане войны",
-    "Не может лечить союзные здания, кроме Tombstone"
+    "Не лечит союзные здания, кроме Tombstone"
    ],
    "comment": "Врагов в инвизе задевает Decay, а Soul Rip их игнорирует — зато охотно высасывает хп из своих зомби."
   },
@@ -10737,9 +10737,9 @@
    "text": "Назовите ложный факт про Life Break.",
    "topic": "Huskar",
    "options": [
-    "Даже пробивающий стан не прервёт прыжок Huskar",
+    "Даже пробивающий стан не прервёт прыжок",
     "Замедление Life Break действует на цель под BKB",
-    "Прыжок Life Break нельзя задоджить",
+    "Прыжок Life Break нельзя ничем задоджить",
     "Прыжок оборвётся, если цель резко телепортируется"
    ],
    "comment": "Во время прыжка Huskar невосприимчив к дебаффам, но если его всё же задизейблят, рывок прерывается."
@@ -10752,8 +10752,8 @@
    "topic": "Lone Druid",
    "options": [
     "Сам рут, а счётчик стаков останется",
-    "Ничего: ни рут, ни стаки диспел не снимает",
-    "И рут, и счётчик стаков",
+    "Ничего: ни рут, ни стаки не снимаются",
+    "Снимет и рут, и счётчик стаков",
     "Счётчик стаков, а рут останется"
    ],
    "comment": "Дебафф Entangled снимается диспелом, а счётчик стаков на враге и бафф усиления на Lone Druid — нет."
@@ -10782,7 +10782,7 @@
     "Когда Slark умирает, враги сразу получают украденные статы обратно",
     "Чтобы навсегда украсть ловкость, Slark не обязательно добивать героя",
     "Под брейком Slark всё равно навсегда крадёт ловкость за убийства",
-    "Брейк не отнимает бонус от уже набранных стаков"
+    "Брейк не отнимает у Slark бонус уже набранных стаков"
    ],
    "comment": "Возврат статов у Slark и у врага независимый: смерть Slark обнуляет только его бонус, а враг ходит без статов, пока не спадёт его собственный дебафф."
   },
@@ -10795,8 +10795,8 @@
    "options": [
     "Всё равно вылетит и попадёт в цель",
     "Не вылетит, но кд Geminate уйдёт",
-    "Не вылетит, и кд не уйдёт",
-    "Weaver пойдёт за целью и ударит, когда догонит"
+    "Не вылетит, и кд Geminate не уйдёт",
+    "Weaver догонит цель и ударит"
    ],
    "comment": "Дополнительные атаки Geminate вылетают через 0.25 секунды и не имеют ограничения по дальности."
   },
@@ -10807,10 +10807,10 @@
    "text": "В какой момент Impetus измеряет дистанцию до цели?",
    "topic": "Enchantress",
    "options": [
-    "Когда снаряд попадает в цель",
+    "Когда снаряд уже долетел до цели",
+    "Когда снаряд только вылетает",
     "Когда Enchantress начинает замах",
-    "Когда снаряд вылетает",
-    "Берётся большая из дистанций при вылете и при попадании"
+    "Берётся большая из двух дистанций"
    ],
    "comment": "Дистанция считается при попадании снаряда, так что убегающая от копья цель сама увеличивает себе урон."
   },
@@ -10821,8 +10821,8 @@
    "text": "Получает ли урон сам юнит, на которого повесили Ion Shell?",
    "topic": "Dark Seer",
    "options": [
-    "Нет, никогда",
-    "Да, всегда",
+    "Нет, даже если щит висит на враге",
+    "Да, как и все враги вокруг",
     "Только если это вражеский юнит",
     "Только если рядом нет других целей"
    ],
@@ -10835,7 +10835,7 @@
    "text": "Может ли урон, отложенный Admiral's Rum, убить героя, когда ром выветрится?",
    "topic": "Kunkka",
    "options": [
-    "Нет, этот урон не смертелен",
+    "Нет, этот урон никогда не смертелен",
     "Да, килл засчитают тому, кто нанёс урон",
     "Да, но килл никому не засчитается",
     "Только если отложенный урон был чистым"
@@ -10850,9 +10850,9 @@
    "topic": "Templar Assassin",
    "options": [
     "Meld слетает, если Templar Assassin получает урон",
-    "Минус броня от Meld не работает на тавер",
-    "Урон и минус броня от Meld достаются всем, кого задел сплит Psi Blades",
-    "Каст Psionic Projection не сбивает Meld"
+    "Минус броня от Meld не действует на башни",
+    "Бонус Meld достаётся всем, кого задел сплит Psi Blades",
+    "Даже каст Psionic Projection не сбивает Meld"
    ],
    "comment": "Meld сбивается только действиями TA: она двигается, атакует или кастует. Входящий урон его не снимает, а вот медитацию Inner Peace прерывает."
   },
@@ -10877,7 +10877,7 @@
    "text": "Что может досрочно прервать Duel?",
    "topic": "Legion Commander",
    "options": [
-    "Если героев растащить слишком далеко друг от друга",
+    "Если героев растащить слишком далеко",
     "Если на цель кинуть сильный диспел",
     "Если цель станет невосприимчива к магии",
     "Если Legion Commander застанят или захексят"
@@ -10893,8 +10893,8 @@
    "options": [
     "Урон от Poison Sting сбивает лечение от Salve и Tango",
     "Замедление от Venomous Gale слабеет со временем",
-    "Дебаффы, разошедшиеся от Noxious Plague, не режутся статус-резистом",
-    "Тики Venomous Gale могут добить героя"
+    "Разнесённые Noxious Plague дебаффы не режет статус-резист",
+    "Тики урона Venomous Gale могут добить героя"
    ],
    "comment": "Poison Sting не сбивает лечение от предметов и даже не уводит Blink Dagger в кд."
   },
@@ -10905,10 +10905,10 @@
    "text": "Что получит союзник дальнего боя от Empower?",
    "topic": "Magnus",
    "options": [
-    "Только бонус к урону",
+    "Бонус к урону, а сплеша не будет",
     "Бонус к урону и полный сплеш",
     "Бонус к урону и ослабленный сплеш",
-    "Ничего: на ренж-героя Empower не кастуется"
+    "Ничего: на ренж-героя не кастуется"
    ],
    "comment": "Empower кастуется на любого союзника, но ренж-юниты не умеют бить сплешем: им достаётся только урон."
   },
@@ -10922,7 +10922,7 @@
     "Когда Doom максимального уровня",
     "Когда уровень Doom кратен шести",
     "Пока активен Scorched Earth",
-    "С Aghanim's Scepter"
+    "Когда у Doom есть Aghanim's Scepter"
    ],
    "comment": "На максимальном уровне Doom проклинает любой атакой; кратность шести влияет только на силу взрыва — и считается по уровню цели."
   },
@@ -10933,10 +10933,10 @@
    "text": "Кого бьёт молнией Nimbus?",
    "topic": "Zeus",
    "options": [
-    "Ближайшего врага, даже крипа",
+    "Ближайшего врага, даже если это крип",
     "Только ближайшего вражеского героя",
-    "Ближайшего видимого врага, герои в приоритете",
-    "Случайного врага в радиусе"
+    "Ближайшего героя, а если нет — крипа",
+    "Случайного врага в радиусе тучи"
    ],
    "comment": "Nimbus бьёт ближайшего вражеского юнита, а не героя: в отличие от Bolt в землю, его можно «отвлечь» крипами."
   },
@@ -10961,7 +10961,7 @@
    "text": "Враг стоит рядом с несколькими союзниками, которых задела Shadow Wave. Сколько урона он получит?",
    "topic": "Dazzle",
    "options": [
-    "Урон от каждого союзника рядом",
+    "Урон отдельно от каждого задетого союзника рядом",
     "Урон один раз, сколько бы союзников ни было",
     "Урон один раз, но больше за каждого союзника",
     "Урон только от союзных героев, крипы не в счёт"
@@ -10975,7 +10975,7 @@
    "text": "Может ли один Rolling Thunder застанить одного и того же врага несколько раз?",
    "topic": "Pangolier",
    "options": [
-    "Да, но только после окончания предыдущего стана",
+    "Да, но только когда спадёт прошлый стан",
     "Нет, только один раз за использование",
     "Да, и каждое попадание обновляет стан",
     "Да, но каждый следующий стан короче"
@@ -10989,7 +10989,7 @@
    "text": "Назовите ложный факт про Jakiro.",
    "topic": "Jakiro",
    "options": [
-    "Liquid Fire не работает на зданиях",
+    "Liquid Fire не жжёт здания, только юнитов",
     "Dual Breath не триггерит Linken's Sphere",
     "Стан от Ice Path снимает только сильный диспел",
     "Атака второй головы игнорирует блок урона"
@@ -11003,7 +11003,7 @@
    "text": "Что происходит, когда иллюзия Riki бьёт врага в спину?",
    "topic": "Riki",
    "options": [
-    "Анимация удара в спину есть, бонусного урона нет",
+    "Анимация Backstab есть, бонуса к урону нет",
     "Бьёт с бонусом Backstab, как и сам Riki",
     "Нет ни анимации, ни бонусного урона",
     "Бонус есть, но урезан, как весь урон иллюзии"
@@ -11017,9 +11017,9 @@
    "text": "Что Earthbind делает с врагом в инвизе, попавшим в сеть?",
    "topic": "Meepo",
    "options": [
-    "Накладывает рут и показывает его",
+    "Накладывает рут, и враг становится видимым",
     "Накладывает рут, но враг остаётся в инвизе",
-    "Показывает, но не накладывает рут",
+    "Раскрывает его, но рут не накладывает",
     "Ничего, сеть не задевает тех, кто в инвизе"
    ],
    "comment": "Earthbind цепляет врагов в инвизе и раскрывает их, так что сеть вслепую по подозрительному месту работает."
@@ -11031,10 +11031,10 @@
    "text": "Что Mystic Flare сделает с иллюзией героя, попавшей в зону?",
    "topic": "Skywrath Mage",
    "options": [
-    "Сразу её уничтожит",
-    "Заберёт часть урона у настоящего героя",
+    "Мгновенно уничтожит иллюзию",
+    "Заберёт часть урона у героя",
     "Проигнорирует её, как крипов",
-    "Нанесёт ей повышенный урон"
+    "Нанесёт ей двойной урон"
    ],
    "comment": "Mystic Flare сразу уничтожает иллюзии, попавшие в зону, — урон делится только между настоящими героями."
   },
@@ -11047,7 +11047,7 @@
    "options": [
     "Союзник под Decrepify получает больше маг. урона",
     "Decrepify можно кинуть на собственный Nether Ward",
-    "Decrepify не замедляет союзников",
+    "Decrepify не замедляет союзников, только врагов",
     "Если Nether Ward убьёт кастера, его спелл не сработает"
    ],
    "comment": "Лишний маг. урон получают только враги под Decrepify, а союзникам он усиливает лечение и даже не замедляет их."
@@ -11073,9 +11073,9 @@
    "text": "Как Primal Roar влияет на Drums of Slom?",
    "topic": "Beastmaster",
    "options": [
-    "Засчитывается как 10 атак",
-    "Сразу выставляет минимальный интервал барабана",
-    "Мгновенно бьёт в барабан один раз",
+    "Засчитывается барабану сразу как 10 атак",
+    "Засчитывается барабану сразу как 20 атак",
+    "Засчитывается барабану как одна атака",
     "Никак, интервал ускоряют только атаки"
    ],
    "comment": "Primal Roar засчитывается барабану как 10 атак, то есть это половина пути до минимального интервала, который даёт 20 атак."
@@ -11087,10 +11087,10 @@
    "text": "От чего фантом Phantom's Embrace отвалится от цели?",
    "topic": "Grimstroke",
    "options": [
-    "Цель ушла в инвиз",
+    "Цель ушла в инвиз от Shadow Blade",
     "Цель получила сильный диспел",
     "Цель отошла далеко от Grimstroke",
-    "Grimstroke получил стан"
+    "Grimstroke сам попал под стан"
    ],
    "comment": "Фантом отпадает, только если цель ушла в инвиз или получила невосприимчивость к магии, а диспелом его не снять."
   },
@@ -11101,10 +11101,10 @@
    "text": "Назовите ложный факт про Holy Persuasion.",
    "topic": "Chen",
    "options": [
-    "Если захватить крипа сверх лимита, самый старый крип просто уходит от Chen",
+    "Если захватить крипа сверх лимита, самый старый просто уйдёт",
     "Прокачка Holy Persuasion не поднимает хп уже захваченным крипам",
-    "Захваченный крип сразу получает полную ману",
-    "Своего крипа можно убрать глобально, только если его недавно не били"
+    "Захваченный крип сразу получает полный запас маны",
+    "Крипа можно отозвать глобально, если его недавно не били"
    ],
    "comment": "Самый старый крип при превышении лимита не освобождается, а умирает. Остальное правда: мана восполняется, хп старых крипов при прокачке не растёт, а отозвать можно только крипа, который недавно не получал урон."
   },
@@ -11117,8 +11117,8 @@
    "options": [
     "Чем дольше стан, тем меньше урон",
     "Чем дольше стан, тем больше урон",
-    "Никак, оба значения роллятся независимо",
-    "Чем дальше цель, тем дольше стан и меньше урон"
+    "Никак, они роллятся независимо",
+    "Чем дальше цель, тем дольше стан"
    ],
    "comment": "Стан и урон Chaos Bolt обратно связаны: длинный стан идёт с малым уроном, короткий — с большим."
   },
@@ -11129,10 +11129,10 @@
    "text": "Как меняется количество стаков Time Dilation на враге, пока она висит?",
    "topic": "Faceless Void",
    "options": [
-    "Растёт от каста способностей и падает, когда их кд заканчивается",
+    "Растёт от каста способностей, падает с концом их кд",
     "Фиксируется в момент каста и дальше не меняется",
     "Растёт от каста способностей, но никогда не падает",
-    "Растёт от каста способностей и предметов, падает с концом кд"
+    "Растёт от каста спеллов и предметов, падает с концом кд"
    ],
    "comment": "Стаки живые: каждая способность, ушедшая в кд, добавляет стак, а закончившийся кд его снимает. Предметы Time Dilation не трогает."
   },
@@ -11159,7 +11159,7 @@
    "options": [
     "Атака пройдёт, но урона не нанесёт",
     "Атаковать во время Blade Fury нельзя",
-    "Ударит как обычно, с уроном",
+    "Ударит как обычно, с полным уроном",
     "Ударит, но без крита от Blade Dance"
    ],
    "comment": "Во время Blade Fury атаки по тем, кого задевает вихрь, урона не наносят — бить имеет смысл только варды и здания."
@@ -11171,10 +11171,10 @@
    "text": "На Spirit Breaker висит брейк. Какой баш от Greater Bash у него остаётся?",
    "topic": "Spirit Breaker",
    "options": [
-    "Баш с Charge of Darkness и с Nether Strike",
-    "Только баш с Nether Strike",
-    "Только баш с Charge of Darkness",
-    "Никакого, баш выключается целиком"
+    "С Charge of Darkness и Nether Strike",
+    "Только с Nether Strike, а с Charge нет",
+    "Только с Charge of Darkness, а с ульты нет",
+    "Никакого: брейк выключает баш целиком"
    ],
    "comment": "Брейк отключает только пассивный шанс баша, а баш с Charge of Darkness и Nether Strike срабатывает как обычно."
   },
@@ -11183,12 +11183,12 @@
    "sub": "mech_how",
    "kind": "choice",
    "text": "У какой способности длительность бафа ставится на паузу, пока действует другая способность того же героя?",
-   "topic": "Spirit Breaker",
+   "topic": "Герои",
    "options": [
     "Empowering Haste",
     "Bulldoze",
-    "Fiery Soul",
-    "Bladeform"
+    "Guardian Sprint",
+    "Chemical Rage"
    ],
    "comment": "Пока Spirit Breaker в Charge of Darkness, длительность скорости от Empowering Haste стоит на месте."
   },
@@ -11200,8 +11200,8 @@
    "topic": "Lina",
    "options": [
     "Каждый стак Fiery Soul тикает со своей длительностью",
-    "Dragon Slave, кинутый прямо в героя, не сбивает Linken's Sphere",
-    "Предметы не дают стаков Fiery Soul",
+    "Dragon Slave прямо в героя не сбивает Linken's Sphere",
+    "Использование предметов не даёт стаков Fiery Soul",
     "От Laguna Blade можно успеть увернуться уже после каста"
    ],
    "comment": "Стаки Fiery Soul не живут отдельно: каждое новое попадание спеллом обновляет длительность всех стаков сразу."
@@ -11228,9 +11228,9 @@
    "topic": "Muerta",
    "options": [
     "Пуля отрикошетит от него дальше",
-    "Пуля пропадёт без рикошета",
+    "Пуля пропадёт, не отрикошетив",
     "Отрикошетит и напугает его тоже",
-    "Никак: в такого героя её не скастовать"
+    "В такого героя её не скастовать"
    ],
    "comment": "Dead Shot можно отрикошетить от цели с невосприимчивостью к магии, но саму её он не пробивает."
   },
@@ -11255,7 +11255,7 @@
    "text": "Назовите ложный факт про способности Void Spirit.",
    "topic": "Void Spirit",
    "options": [
-    "Притяжение Aether Remnant не снимается диспелом",
+    "Притяжение Aether Remnant не снять диспелом",
     "Атаки Astral Step не бьют сплешем по соседям",
     "Щит Resonant Pulse поглощает только физический урон",
     "Метка Astral Step вешается даже на врагов под BKB"
@@ -11269,26 +11269,12 @@
    "text": "Что запускает таймер взрыва Wheel of Wonder?",
    "topic": "Ring Master",
    "options": [
-    "Первый загипнотизированный враг",
+    "Первый враг, попавший под гипноз колеса",
     "Первый враг, которого колесо задело по пути",
     "Остановка колеса в целевой точке",
     "Первый урон по врагу в радиусе колеса"
    ],
    "comment": "Таймер взрыва стартует, когда кто-то первым попался под гипноз; если никто не посмотрел на колесо, оно взорвётся само по истечении времени."
-  },
-  {
-   "id": "mech:Underlord:Atrophy Aura",
-   "sub": "mech_interaction",
-   "kind": "choice",
-   "text": "Что делает брейк с Atrophy Aura?",
-   "topic": "Underlord",
-   "options": [
-    "Выключает ауру и не даёт копить новый бонус урона",
-    "Выключает ауру, но бонус урона продолжает копиться",
-    "Выключает ауру и сбрасывает накопленный бонус урона",
-    "Аура работает, но новый бонус урона не копится"
-   ],
-   "comment": "Брейк отключает и снижение урона врагам, и набор новых стаков, но уже накопленный бонус Underlord не теряет."
   },
   {
    "id": "mech:Clinkz:Death Pact",
@@ -11297,10 +11283,10 @@
    "text": "Что происходит с хп Clinkz, когда заканчивается Death Pact?",
    "topic": "Clinkz",
    "options": [
-    "Макс. хп падает, текущее остаётся прежним",
-    "Макс. и текущее хп падают на величину бонуса",
+    "Макс. хп падает, а текущее остаётся прежним",
+    "И макс., и текущее хп падают на бонус",
     "Макс. хп падает, текущее сохраняет тот же процент",
-    "Макс. хп падает постепенно, текущее тянется за ним"
+    "Макс. хп падает плавно, текущее тянется следом"
    ],
    "comment": "По окончании Death Pact уходит только бонус к максимуму — текущее хп не отнимается, так что съеденный крип остаётся честным хилом."
   },
@@ -11325,7 +11311,7 @@
    "text": "Цель сделала Manta Style, пока в неё летела Unstable Concoction. Что будет?",
    "topic": "Alchemist",
    "options": [
-    "Банка всё равно долетит и взорвётся на цели",
+    "Банка всё равно долетит и взорвётся прямо на цели",
     "Банка пропадёт, как любой задодженный снаряд",
     "Банка взорвётся там, где цель была в момент Manta",
     "Банка пропадёт, а Alchemist получит стан от неё"
@@ -11339,7 +11325,7 @@
    "text": "Как Toss работает с врагами под невосприимчивостью к дебаффам?",
    "topic": "Tiny",
    "options": [
-    "Целиться в них можно, а подкинуть нельзя",
+    "Целиться можно, а подкинуть нельзя",
     "Нельзя ни целиться в них, ни подкинуть",
     "Подкинуть можно, а целиться в них нельзя",
     "Можно и то и другое, но урона они не получат"
@@ -11354,8 +11340,8 @@
    "topic": "Crystal Maiden",
    "options": [
     "Сама Crystal Maiden своими спеллами",
-    "Сама Crystal Maiden атакой, как денай",
-    "Союзники атакой, как денай",
+    "Сама Crystal Maiden повторным нажатием",
+    "Союзники своими спеллами по клону",
     "Никто, только урон врагов или таймер"
    ],
    "comment": "Клона можно разбить своим же спеллом, например кинуть в него Crystal Nova: так CM сразу взрывает его и накладывает Frostbite по области."
@@ -11395,10 +11381,10 @@
    "text": "Враг в инвизе стоит рядом с Ember Spirit, когда тот кастует Searing Chains. Что будет?",
    "topic": "Ember Spirit",
    "options": [
-    "Цепи его проигнорируют",
-    "Цепи зацепят его, но инвиз не спадёт",
-    "Цепи зацепят его, только если рядом нет видимых целей",
-    "Цепи зацепят его и выбьют из инвиза"
+    "Цепи пропустят его, будто его нет",
+    "Цепи зацепят, но инвиз не спадёт",
+    "Зацепят, только если нет видимых целей",
+    "Цепи зацепят и выбьют его из инвиза"
    ],
    "comment": "Searing Chains выбирают цели случайно, но юнитов в инвизе и невосприимчивых к дебаффам пропускают полностью."
   },
@@ -11409,10 +11395,10 @@
    "text": "Назовите ложный факт про способности Necrophos.",
    "topic": "Necrophos",
    "options": [
-    "Reaper's Scythe наносит урон сразу, а потом держит стан",
-    "Урон от Heartstopper Aura не сбивает Blink Dagger",
+    "Reaper's Scythe сначала бьёт, а потом станит",
+    "Урон Heartstopper Aura не сбивает Blink Dagger",
     "Снаряд Death Pulse нельзя сбить с цели",
-    "Death Seeker не отражается Lotus Orb"
+    "Death Seeker не отражается от Lotus Orb"
    ],
    "comment": "Урон Reaper's Scythe наносится в конце стана, поэтому за время стана врага ещё можно добить или подлечить."
   },
@@ -11426,7 +11412,7 @@
     "Спринт включится, TP продолжится",
     "Спринт включится, TP прервётся",
     "Спринт не нажмётся, пока идёт TP",
-    "Спринт встанет в очередь и включится после TP"
+    "Спринт включится уже после TP"
    ],
    "comment": "Guardian Sprint не прерывает каст, поэтому его можно прожать прямо во время TP и прилететь уже ускоренным."
   },
@@ -11437,10 +11423,10 @@
    "text": "Что будет, если срубить дерево, к которому Bushwhack притянул врага?",
    "topic": "Hoodwink",
    "options": [
-    "Стан сразу закончится",
-    "Его притянет к другому ближайшему дереву в зоне",
-    "Ничего, стан продержится до конца и без дерева",
-    "Стан сменится рутом до конца длительности"
+    "Цель тут же освободится от стана",
+    "Притянет к другому дереву в зоне",
+    "Стан продержится и без дерева",
+    "Стан сменится рутом до конца"
    ],
    "comment": "Bushwhack держится на дереве: срубишь его, и цель сразу выйдет из стана."
   },
@@ -11448,13 +11434,13 @@
    "id": "mech:Shadow Fiend:Requiem of Souls",
    "sub": "mech_how",
    "kind": "choice",
-   "text": "Чего не накладывает Requiem of Souls, который выпустился при смерти Shadow Fiend?",
+   "text": "Что теряет Requiem of Souls, выпущенный при смерти Shadow Fiend?",
    "topic": "Shadow Fiend",
    "options": [
-    "Страха и замедления",
-    "Только страха",
-    "Страха, замедления и снижения маг. резиста",
-    "Накладывает всё, как при обычном касте"
+    "Страх и замедление, урон остаётся",
+    "Только страх, замедление остаётся",
+    "Страх, замедление и минус маг. резист",
+    "Ничего, всё как при обычном касте"
    ],
    "comment": "Посмертный Requiem наносит урон, но без страха и замедления."
   },
@@ -11479,9 +11465,9 @@
    "text": "Что будет с Diabolic Edict, если Leshrac умрёт посреди действия?",
    "topic": "Leshrac",
    "options": [
-    "Взрывы продолжатся до конца",
-    "Взрывы сразу прекратятся",
-    "Взрывы продолжатся, но без урона по зданиям",
+    "Взрывы продолжатся до самого конца",
+    "Все взрывы сразу прекратятся",
+    "Взрывы идут, но без урона по зданиям",
     "Оставшиеся взрывы сработают разом"
    ],
    "comment": "Взрывы Diabolic Edict доигрывают до конца даже после смерти Leshrac."
@@ -11493,9 +11479,9 @@
    "text": "Назовите ложный факт про Phantom Assassin.",
    "topic": "Phantom Assassin",
    "options": [
-    "Шансовые эффекты предметов от Stifling Dagger срабатывают всегда",
-    "Обычная атака по Рошану снимает Blur",
-    "Врага под невосприимчивостью к магии Stifling Dagger не замедлит",
+    "От Stifling Dagger шансовые эффекты срабатывают всегда",
+    "Blur слетает, если обычной атакой ударить Рошана",
+    "Stifling Dagger не замедляет врага под BKB",
     "Stifling Dagger с повышенным шансом даёт Deadly Focus"
    ],
    "comment": "Шансовые эффекты срабатывают от Stifling Dagger с тем же шансом, что и от атаки, — гарантии нет."
@@ -11509,7 +11495,7 @@
    "options": [
     "Молот мгновенно вернётся к Dawnbreaker",
     "Молот долетит и вернётся сам, как обычно",
-    "Dawnbreaker притянется к молоту, как при Converge",
+    "Притянется к молоту, как при Converge",
     "Молот зависнет в точке до конца ульты"
    ],
    "comment": "Каст Solar Guardian мгновенно возвращает молот в руки Dawnbreaker."
@@ -11521,8 +11507,8 @@
    "text": "Что будет с усыплённым врагом, если Naga Siren отойдёт от него далеко во время Song of the Siren?",
    "topic": "Naga Siren",
    "options": [
-    "Он проснётся",
-    "Будет спать до конца песни",
+    "Он проснётся, хотя песня ещё идёт",
+    "Будет спать, пока песня не кончится",
     "Песня досрочно закончится у всех",
     "Будет спать, но станет уязвимым"
    ],
@@ -11535,10 +11521,10 @@
    "text": "Что будет, если Io застанят во время задержки перед Relocate?",
    "topic": "Io",
    "options": [
-    "Relocate отменится",
-    "Телепорт всё равно сработает",
+    "Телепорт отменится, Io не улетит",
+    "Телепорт сработает, стан не помешает",
     "Телепорт сработает, когда стан кончится",
-    "Улетит только союзник по Tether"
+    "Улетит только союзник, привязанный Tether"
    ],
    "comment": "Любой дизейбл на Io во время задержки отменяет Relocate."
   },
@@ -11549,8 +11535,8 @@
    "text": "Назовите ложный факт про Meat Hook.",
    "topic": "Pudge",
    "options": [
-    "Хук, притащивший руну, сбрасывает себе кд",
-    "Хук пролетает сквозь здания",
+    "Хук, притащивший руну, сбрасывает кд",
+    "Хук пролетает сквозь здания и деревья",
     "Хук пролетает сквозь древних крипов и Рошана",
     "Хук цепляет врагов в инвизе даже без просвета"
    ],
@@ -11565,7 +11551,7 @@
    "options": [
     "Только союзники Sniper",
     "Все, включая саму цель",
-    "Союзники Sniper и сама цель",
+    "Союзники и сама цель",
     "Только сам Sniper"
    ],
    "comment": "Прицел Assassinate видят только союзники Sniper: цель о выстреле не предупреждают."
@@ -11591,8 +11577,8 @@
    "text": "Viper под брейком. Что будет с Corrosive Skin?",
    "topic": "Viper",
    "options": [
-    "От ударов по Viper не вешается, от Nosedive — вешается",
-    "Не вешается ни от ударов, ни от Nosedive",
+    "От ударов по Viper нет, от Nosedive — вешается",
+    "Не вешается ни от ударов по Viper, ни от Nosedive",
     "От ударов вешается, а Nosedive её больше не накладывает",
     "Вешается как обычно, пропадает только бонусный маг. резист"
    ],
@@ -11619,7 +11605,7 @@
    "text": "Враг впервые попал под Stone Gaze за мгновение до конца ульты Medusa. Сколько на нём провисит дебафф?",
    "topic": "Medusa",
    "options": [
-    "Полную длительность, как и на остальных",
+    "Полную длительность, как обычно",
     "Только до конца ульты Medusa",
     "Пока не отвернётся от Medusa",
     "Остаток ульты, но не меньше секунды"
@@ -11633,10 +11619,10 @@
    "text": "Как броня Medusa влияет на то, сколько маны съедает Mana Shield от физического урона?",
    "topic": "Medusa",
    "options": [
-    "Никак: щит поглощает урон до брони",
+    "Никак: щит поглощает урон ещё до брони",
     "Чем больше брони, тем меньше уходит маны",
-    "Броня учитывается, но только против атак героев",
-    "Броня учитывается, а маг. резист против магии — нет"
+    "Учитывается только против атак героев",
+    "Учитывается так же, как маг. резист"
    ],
    "comment": "Mana Shield съедает урон раньше любых снижений, поэтому броня не уменьшает расход маны — фарм брони на Medusa не экономит щит."
   }
