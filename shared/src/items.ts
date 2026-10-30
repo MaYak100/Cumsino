@@ -36,7 +36,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   gem: {
     id: 'gem', name: 'Gem of True Sight', basePrice: 150, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
-    targeted: true, key: 'X', desc: 'Подсмотри, что сейчас выбрано у игрока. Все видят, что ты смотрел, но не на кого',
+    targeted: true, key: 'X', desc: 'Подсмотри, что сейчас выбрано у игрока. Все видят, что ты смотрел; на кого — знает только цель',
   },
   manta: {
     id: 'manta', name: 'Manta Style', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all'],
@@ -95,7 +95,7 @@ export function streakShare(streak: number): number {
 /** у керри ставки нет — серия считается от бонуса керри */
 export const STREAK_GLADIATOR_BASE = 300
 
-// ── блайнды (только «для всех») ──
+// ── блайнды («для всех» и толпа керри; керри и зрителям — нет) ──
 export const SMALL_BLIND = 0.05
 export const BIG_BLIND = 0.1
 
