@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { describe, it, expect } from 'vitest'
 import {
-  StatQuestionBuilder, gameOnlyDeck, gapOk, capOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE, statKinds,
+  StatQuestionBuilder, gameOnlyDeck, gapOk, capOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE, statKinds, statCards,
   type StatsBank, type StatEntry, type DeckAccess, type StatMcPool,
 } from '../statQuestions'
 import type { GameMode } from '@cumsino/shared'
@@ -40,6 +40,37 @@ function bank(sub: Partial<StatsBank['subcategories'][number]> & Pick<StatsBank[
     subcategories: [{ id: 's', comment: 'C', gap: { rel: 0.1 }, ...sub }],
   }
 }
+
+describe('statCards — карточки колоды', () => {
+  it('у пулов без героя вопроса — только возможные лидеры с отрывом (не все варианты); у пулов с героем — герои', () => {
+    const sub = bank({ pools: [{ entries: entries([100, 95, 50, 40, 30]), asks: [{ ask: 'max', text: 'Кто больше?' }] }] })
+      .subcategories[0]
+    // 50 обгоняет с отрывом только двоих (40, 30) — лидером четвёрки не бывает
+    expect([...statCards(sub).mc].sort()).toEqual(['H0', 'H1'])
+    const withMin = { ...sub, pools: [{ ...sub.pools[0], asks: [...sub.pools[0].asks, { ask: 'min' as const, text: 'Кто меньше?' }] }] }
+    expect([...statCards(withMin).mc].sort()).toEqual(['H0', 'H1', 'H3', 'H4'])
+    const subj = bank({ pools: [{ subject: 'Lion', entries: entries([1, 2, 3, 4]), asks: [{ ask: 'max', text: '?' }] }] })
+    expect([...statCards(subj.subcategories[0]).mc]).toEqual(['Lion'])
+  })
+
+  it.skipIf(!fs.existsSync(path.join(__dirname, '..', '..', '..', '..', '..', 'scripts', 'data', 'stats', 'bank.json')))(
+    'настоящий банк: у винрейта лидеров меньше, чем героев в пуле, и каждый собирается лидером', () => {
+      const real: StatsBank = JSON.parse(fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', '..', '..', 'scripts', 'data', 'stats', 'bank.json'), 'utf-8'))
+      const wr = real.subcategories.find(s => s.id === 'hero_wr')!
+      const names = new Set(wr.pools.flatMap(p => p.entries.map(e => e[0])))
+      const leaders = statCards(wr).mc
+      expect(leaders.size).toBeGreaterThan(4)
+      expect(leaders.size).toBeLessThan(names.size)
+      // за много игр ответами бывают только «лидеры»
+      const seen = new Set<string>()
+      for (let seed = 1; seed <= 200; seed++) {
+        const q = new StatQuestionBuilder(real, seeded(seed)).build(wr, 'all', gameOnlyDeck())
+        if (q) seen.add(q.answer!)
+      }
+      for (const a of seen) expect(leaders.has(a)).toBe(true)
+    })
+})
 
 describe('gapOk', () => {
   it('rel / abs, max / min', () => {
@@ -403,15 +434,18 @@ describe('настоящий bank.json', () => {
   })
 
   it.skipIf(!real)('«кто ближе» средних: убийства с точностью 0.1, остальное целое; единицы; без самолечения', () => {
-    const want: Record<string, { unit?: string; n: number }> = {
-      avg_kills: { n: 127 }, avg_cs: { n: 127 }, avg_hero_damage: { unit: 'урона', n: 127 },
-      avg_tower: { unit: 'урона', n: 127 }, avg_heal_allies: { unit: 'HP', n: 20 },
+    // размеры пулов зависят от снимка (сколько героев в игре, сколько лечат) — только по одному пулу на героя и
+    // разумный минимум: у средних почти все герои, у хила союзникам — хилеры
+    const want: Record<string, { unit?: string; min: number }> = {
+      avg_kills: { min: 100 }, avg_cs: { min: 100 }, avg_hero_damage: { unit: 'урона', min: 100 },
+      avg_tower: { unit: 'урона', min: 100 }, avg_heal_allies: { unit: 'HP', min: 10 },
     }
     for (const [id, w] of Object.entries(want)) {
       const sub = real!.subcategories.find(s => s.id === id)!
       expect(statKinds(sub)).toEqual(['mc', 'closest'])
       expect(sub.closest!.unit).toBe(w.unit)
-      expect(sub.closest!.pools).toHaveLength(w.n)
+      expect(sub.closest!.pools.length).toBeGreaterThanOrEqual(w.min)
+      expect(new Set(sub.closest!.pools.map(p => p.subject)).size).toBe(sub.closest!.pools.length)
       for (const p of sub.closest!.pools) {
         const digits = id === 'avg_kills' ? 1 : 0
         expect(Math.round(p.answer * 10 ** digits) / 10 ** digits).toBe(p.answer)

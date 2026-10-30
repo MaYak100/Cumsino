@@ -5,13 +5,14 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { CATEGORIES, type CategoryDef } from './categories'
-import { statKinds, type StatsBank, type StatSubcategory } from '../stats/statQuestions'
+import { statKinds, statCards, type StatsBank, type StatSubcategory } from '../stats/statQuestions'
 import { FRIEND_KINDS, type FriendsMetrics, type FriendKind } from './friends'
 
-/** topic — субъект темы (герой, предмет); aspect — вторая строка темы, если не как у подкатегории (чара у нейтралок) */
+/** topic — субъект темы (герой, предмет); aspect — вторая строка темы, если не как у подкатегории (чара у нейтралок);
+ *  ceil — все варианты MC строго меньше (проценты, где 100% и больше невозможно: маг. резист, замедление, промах) */
 export interface NumberQuestion {
   id: string; sub: string; kind: 'number'; text: string; topic: string; aspect?: string
-  answer: number; step: number; unit: string; comment?: string
+  answer: number; step: number; unit: string; ceil?: number; comment?: string
 }
 export interface ChoiceQuestion {
   id: string; sub: string; kind: 'choice'; text: string; topic: string; aspect?: string
@@ -131,20 +132,15 @@ export function buildLibrary(input: {
   return { categories, stats: input.stats, friends: input.friends, heroNames: input.heroNames ?? {}, warnings }
 }
 
-/** Шаблоны (тексты) и карточки колоды — MC и «кто ближе» вместе: карточки у них общие (герой / ответ). */
+/** Шаблоны (тексты) и карточки колоды — MC и «кто ближе» вместе: карточки у них общие (герой / ответ). У пулов
+ *  без героя вопроса карточка — лидер, поэтому считаются только те, кто может быть лидером (statCards). */
 function statSize(sub: StatSubcategory): { templates: number; cards: number } {
-  const pools = sub.pools
   const near = sub.closest?.pools ?? []
-  const cards = new Set(near.map(p => p.subject))
-  let templates = near.length
-  if (pools.some(p => p.subject)) {
-    templates += pools.reduce((s, p) => s + p.asks.length, 0)
-    for (const p of pools) cards.add(p.subject!)
-  } else {
-    templates += new Set(pools.flatMap(p => p.asks.map(a => a.text))).size
-    for (const p of pools) for (const e of p.entries) cards.add(e[0])
-  }
-  return { templates, cards: cards.size }
+  const templates = near.length + (sub.pools.some(p => p.subject)
+    ? sub.pools.reduce((s, p) => s + p.asks.length, 0)
+    : new Set(sub.pools.flatMap(p => p.asks.map(a => a.text))).size)
+  const { mc, closest } = statCards(sub)
+  return { templates, cards: new Set([...mc, ...closest]).size }
 }
 
 let cached: Library | null = null

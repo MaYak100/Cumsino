@@ -5,13 +5,14 @@
 //   q_meta     — счётчик игр
 //   q_deck     — номер круга колоды подкатегории
 //   q_seen     — последний показ карточки в колоде (круг, номер игры)
-//   q_archive  — «удалить» большинством комнаты: вопрос больше не выпадает (кто, сколько голосов, текст)
+//   q_archive  — «удалить» большинством бывших при показе (≥ 2 голосов, решается при закрытии показа): вопрос больше
+//                не выпадает (кто, сколько голосов, текст)
 //   q_credit   — кредиты сглаженного выбора
 //   q_rating   — оценки и сложность (одна строка на игрока, вопрос и игру; переоценка и снятие заменяют строку).
 //                player — id игрока (сокет; до 2026-10-30 — ник), name — ник
 //   q_showing  — показы: сколько игроков, ответили, верно, ошибки в «ближе всех» — статистика по категориям
 import { Pool } from 'pg'
-import type { HistoryBackend, HistorySnapshot, RatingRow, ShowingRow } from './history'
+import { REAL_GAME_SHOWINGS, type HistoryBackend, type HistorySnapshot, type RatingRow, type ShowingRow } from './history'
 
 const SCHEMA = `
 create table if not exists q_meta (key text primary key, value bigint not null);
@@ -40,13 +41,23 @@ alter table q_rating add column if not exists name text;
 
 /** Голоса показов последних RECENT_GAMES игр грузятся при старте: переоценка после перезапуска заменяет голос. */
 const RECENT_GAMES = 2
+/** Сколько последних настоящих игр (≥ REAL_GAME_SHOWINGS показов) грузить — блок «прошлой игры» в колодах. */
+const PLAYED_GAMES = 10
+
+// Таймауты: без них зависшее соединение (Neon спит, сеть) держит очередь записи и старт сервера бесконечно.
+// Подключение — 10 с (Neon просыпается за секунды), запрос — 15 с (загрузка истории при старте — самый тяжёлый).
+const CONNECT_TIMEOUT_MS = 10_000
+const QUERY_TIMEOUT_MS = 15_000
 
 export class PgBackend implements HistoryBackend {
   private pool: Pool
   private queue: Promise<unknown> = Promise.resolve()
 
   constructor(url: string) {
-    this.pool = new Pool({ connectionString: url, max: 3, idleTimeoutMillis: 30_000 })
+    this.pool = new Pool({
+      connectionString: url, max: 3, idleTimeoutMillis: 30_000,
+      connectionTimeoutMillis: CONNECT_TIMEOUT_MS, query_timeout: QUERY_TIMEOUT_MS,
+    })
     this.pool.on('error', err => console.error('[history] pg:', err.message))
   }
 
@@ -72,6 +83,9 @@ export class PgBackend implements HistoryBackend {
         select 'sub:' || sub, count(*)::int, sum(team) from s group by sub`),
     ])
     const gameNo = Number(meta.rows[0]?.value ?? 0)
+    const played = await this.pool.query(`
+      select game_no from q_showing group by game_no having count(*) >= $1 order by game_no desc limit $2`,
+    [REAL_GAME_SHOWINGS, PLAYED_GAMES])
     const recent = await this.pool.query(`
       select sh.question_id, sh.game_no, sh.category, sh.sub,
         greatest(coalesce(sh.room_players, sh.players), 1) as room_players,
@@ -98,6 +112,7 @@ export class PgBackend implements HistoryBackend {
       archived: archived.rows.map(r => r.question_id),
       credits: credits.rows.map(r => ({ scope: r.scope, item: r.item, credit: r.credit })),
       ratings: ratings.rows.map(r => ({ key: r.key, n: r.n, sum: Number(r.sum ?? 0) })),
+      played: played.rows.map(r => Number(r.game_no)),
       shows: [...shows.values()],
     }
   }

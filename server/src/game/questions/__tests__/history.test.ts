@@ -4,7 +4,7 @@ import * as os from 'os'
 import * as path from 'path'
 import { RoomQuestions } from '../picker'
 import { buildLibrary, type BankQuestion } from '../library'
-import { QuestionHistory, type HistoryBackend, type RatingRow, type HistorySnapshot } from '../history'
+import { QuestionHistory, REAL_GAME_SHOWINGS, type HistoryBackend, type RatingRow, type HistorySnapshot } from '../history'
 import { findDotEnv, loadDotEnv, createHistory } from '../setup'
 import { StatQuestionBuilder, type StatsBank } from '../../stats/statQuestions'
 import type { CategoryDef } from '../categories'
@@ -57,6 +57,23 @@ describe('.env', () => {
     expect(found === null || !found.startsWith(root)).toBe(true)
   })
 
+  it('не выше корня основного checkout (там .git — папка) и не дальше заданного числа уровней', () => {
+    const root = tmp()
+    fs.writeFileSync(path.join(root, '.env'), 'X=outside\n')        // чужой .env над репозиторием
+    const repo = path.join(root, 'repo')
+    const wt = path.join(repo, '.claude', 'worktrees', 'w')
+    fs.mkdirSync(path.join(repo, '.git'), { recursive: true })
+    fs.mkdirSync(wt, { recursive: true })
+    fs.writeFileSync(path.join(wt, '.git'), 'gitdir: ../../../.git/worktrees/w\n')   // у worktree .git — файл
+    expect(findDotEnv(wt)).toBeNull()                                 // дошёл до repo/.git и остановился
+    fs.writeFileSync(path.join(repo, '.env'), 'X=main\n')
+    expect(findDotEnv(wt)).toBe(path.join(repo, '.env'))
+    const deep = path.join(root, 'a', 'b', 'c', 'd', 'e', 'f')
+    fs.mkdirSync(deep, { recursive: true })
+    expect(findDotEnv(deep, 2)).toBeNull()                            // root/.env — шесть уровней вверх
+    expect(findDotEnv(deep, 6)).toBe(path.join(root, '.env'))
+  })
+
   it('явно заданная переменная побеждает, даже пустая; остальные загружаются', () => {
     const file = path.join(tmp(), '.env')
     fs.writeFileSync(file, 'DATABASE_URL=postgres://file\nSTRATZ_API_KEY=abc\nOTHER=1\n')
@@ -72,21 +89,62 @@ describe('.env', () => {
 describe('загрузка базы', () => {
   afterEach(() => { vi.unstubAllEnvs() })
 
-  it('несколько попыток, потом громкий лог и работа в памяти', async () => {
-    vi.stubEnv('NODE_ENV', 'production')   // .env не читать
-    vi.stubEnv('DATABASE_URL', 'postgres://nobody:x@127.0.0.1:1/none')
+  /** Хранилище без сети: load ведёт себя, как скажут (ошибка / зависание / снимок). */
+  function fakeBackends(load: (n: number) => Promise<HistorySnapshot | null>) {
+    let made = 0
+    let closed = 0
+    const make = () => {
+      const n = ++made
+      return { ...recorder().backend, load: () => load(n), close: async () => { closed++ } }
+    }
+    return { make, made: () => made, closed: () => closed }
+  }
+
+  async function quietly<T>(run: () => Promise<T>) {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const error = vi.spyOn(console, 'error').mockImplementation(() => {})
-    const history = await createHistory({ attempts: 3, timeoutMs: 2_000, pauseMs: 10 })
-    const tries = warn.mock.calls.filter(c => String(c[0]).includes('попытка'))
-    const banner = error.mock.calls.map(c => String(c[0])).join('\n')
-    warn.mockRestore()
-    error.mockRestore()
-    expect(history.gameNo).toBe(0)
-    // без модуля pg — одна громкая строка вместо попыток; с модулем — 3 попытки и баннер
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {})
+    try {
+      const result = await run()
+      return {
+        result,
+        tries: warn.mock.calls.filter(c => String(c[0]).includes('попытка')).length,
+        banner: error.mock.calls.map(c => String(c[0])).join('\n'),
+      }
+    } finally {
+      warn.mockRestore()
+      error.mockRestore()
+      log.mockRestore()
+    }
+  }
+
+  it('несколько попыток (ошибка и зависание), потом громкий лог и работа в памяти — без сети', async () => {
+    vi.stubEnv('NODE_ENV', 'production')   // .env не читать
+    vi.stubEnv('DATABASE_URL', 'postgres://fake')
+    // 1-я попытка — ошибка подключения, 2-я и 3-я — висят дольше таймаута
+    const fake = fakeBackends(n => (n === 1 ? Promise.reject(new Error('ECONNREFUSED')) : new Promise(() => {})))
+    const { result, tries, banner } = await quietly(() =>
+      createHistory({ attempts: 3, timeoutMs: 30, pauseMs: 1, makeBackend: fake.make }))
+    expect(result.gameNo).toBe(0)
+    expect(tries).toBe(3)
+    expect(fake.made()).toBe(3)
+    expect(fake.closed()).toBe(3)   // брошенные попытки закрывают свой пул
     expect(banner).toMatch(/БЕЗ NEON/)
-    if (!banner.includes('Модуль pg')) expect(tries).toHaveLength(3)
-  }, 20_000)
+    expect(banner).toMatch(/таймаут/)
+  })
+
+  it('со второй попытки — история из базы', async () => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('DATABASE_URL', 'postgres://fake')
+    const snap: HistorySnapshot = { gameNo: 41, cycles: {}, seen: [], archived: ['x'], credits: [], ratings: [] }
+    const fake = fakeBackends(n => (n === 1 ? Promise.reject(new Error('спит')) : Promise.resolve(snap)))
+    const { result, tries, banner } = await quietly(() =>
+      createHistory({ attempts: 3, timeoutMs: 100, pauseMs: 1, makeBackend: fake.make }))
+    expect(result.gameNo).toBe(41)
+    expect(result.archived.has('x')).toBe(true)
+    expect(tries).toBe(1)
+    expect(banner).toBe('')
+  })
 })
 
 describe('колоды: соседние игры и комнаты', () => {
@@ -274,8 +332,122 @@ describe('оценка: сразу, по id игрока, без показа в
     const q = room.pick('closest')
     room.report(q, { roomPlayers: 3, players: 3, answered: 3, correct: 0 })
     room.rate(q, { id: '1', name: 'Петя', roomPlayers: 3 }, { score: -2 })
-    expect(history.archived.has(q.id)).toBe(false)
     room.rate(q, { id: '2', name: 'Петя', roomPlayers: 3 }, { score: -2 })
+    expect(archived).toEqual([])        // архив — при закрытии показа, не в момент голоса
+    room.settle()
     expect(archived).toEqual([q.id])   // 2 из 3
+  })
+})
+
+describe('«удалить»: решается при закрытии показа по итоговым голосам', () => {
+  const cats: CategoryDef[] = [{ id: 'c', title: 'C', weight: 1, subs: [{ id: 's', title: 'S' }] }]
+  const lib = buildLibrary({ bank: Array.from({ length: 8 }, (_, i) => num(`q${i}`, 's')), stats: null, friends: null, categories: cats })
+  const voter = (id: string, roomPlayers: number) => ({ id, name: id, roomPlayers })
+  const setup = (seed: number) => {
+    const rec = recorder()
+    const history = new QuestionHistory(rec.backend)
+    const room = new RoomQuestions(lib, history, seeded(seed))
+    return { ...rec, history, room }
+  }
+
+  it('снятый голос «удалить» не архивирует: важны итоговые голоса', () => {
+    const { history, room } = setup(1)
+    const q = room.pick('closest')
+    room.report(q, { roomPlayers: 2, present: ['a', 'b'], players: 2, answered: 2, correct: 0 })
+    room.rate(q, voter('a', 2), { score: -2 })
+    room.rate(q, voter('b', 2), { score: -2 })
+    room.rate(q, voter('b', 2), { score: null })   // передумал
+    room.settle()
+    expect(history.archived.has(q.id)).toBe(false)
+  })
+
+  it('соло (один игрок) вопрос навсегда не удаляет: нужно не меньше двух голосов', () => {
+    const { history, room } = setup(2)
+    const q = room.pick('closest')
+    room.report(q, { roomPlayers: 1, present: ['solo'], players: 1, answered: 1, correct: 0 })
+    room.rate(q, voter('solo', 1), { score: -2 })
+    room.settle()
+    expect(history.archived.has(q.id)).toBe(false)
+    expect(history.ratingOf('sub:s').sum).toBeCloseTo(-2)   // в весах голос есть
+  })
+
+  it('голосуют только бывшие в комнате при показе; делитель — их число', () => {
+    const { history, room, ratings } = setup(3)
+    const q = room.pick('closest')
+    room.report(q, { roomPlayers: 3, present: ['a', 'b', 'c'], players: 3, answered: 3, correct: 0 })
+    room.rate(q, voter('late', 4), { score: -2 })   // вошёл после показа
+    room.rate(q, voter('late2', 4), { score: -2 })
+    room.rate(q, voter('a', 3), { score: -2 })
+    expect(ratings.map(r => r.player)).toEqual(['a'])
+    expect(history.ratingOf('sub:s').sum).toBeCloseTo(-2 / 3)
+    room.settle()
+    expect(history.archived.has(q.id)).toBe(false)   // 1 из 3, поздние не считаются
+  })
+
+  it('следующий показ комнаты закрывает прошлый; settle повторно ничего не делает', () => {
+    const { history, room, archived } = setup(4)
+    const q1 = room.pick('closest')
+    room.report(q1, { roomPlayers: 3, present: ['a', 'b', 'c'], players: 3, answered: 3, correct: 0 })
+    room.rate(q1, voter('a', 3), { score: -2 })
+    room.rate(q1, voter('b', 3), { score: -2 })
+    expect(history.archived.has(q1.id)).toBe(false)
+    const q2 = room.pick('closest')
+    room.report(q2, { roomPlayers: 3, present: ['a', 'b', 'c'], players: 3, answered: 3, correct: 0 })
+    expect(archived).toEqual([q1.id])                 // закрылся с показом q2
+    room.rate(q2, voter('a', 3), { score: -2 })
+    room.settle()                                     // комната закрылась: q2 — 1 из 3
+    room.settle()
+    room.settle(q1)
+    expect(archived).toEqual([q1.id])
+  })
+})
+
+describe('блок «прошлой игры»: по последней настоящей игре, а не по номеру', () => {
+  const report = (h: QuestionHistory, gameNo: number, n: number) => {
+    for (let i = 0; i < n; i++) {
+      h.showing({ questionId: `g${gameNo}-${i}`, category: 'c', sub: 's', mode: 'all', gameNo, roomPlayers: 2, players: 2, answered: 2, correct: 1 })
+    }
+  }
+
+  it('брошенная комната между двумя играми не снимает блок с карточек прошлой игры', () => {
+    const h = new QuestionHistory()
+    const g1 = h.startGame()
+    h.take('d', 'card', g1)
+    report(h, g1, REAL_GAME_SHOWINGS)            // настоящая игра
+    const g2 = h.startGame()                     // брошенная: пара раундов
+    report(h, g2, 2)
+    const g3 = h.startGame()
+    expect(h.blockedFor('d', 'card', g3)).toBe(true)      // по номеру g3 − 1 = g2 карточка g1 была бы свободна
+    report(h, g3, REAL_GAME_SHOWINGS)
+    const g4 = h.startGame()
+    expect(h.blockedFor('d', 'card', g4)).toBe(false)     // прошлая настоящая — g3
+  })
+
+  it('настоящие игры из базы: после перезапуска то же', async () => {
+    const snap: HistorySnapshot = {
+      gameNo: 12, cycles: {}, seen: [{ deck: 'd', card: 'card', cycle: 0, gameNo: 10 }], archived: [], credits: [],
+      ratings: [], played: [10, 9],
+    }
+    const h = new QuestionHistory(recorder(snap).backend)
+    await h.init()
+    const g = h.startGame()                       // 13; 11 и 12 — брошенные
+    expect(h.blockedFor('d', 'card', g)).toBe(true)
+    expect(h.isFresh('d', 'card', g)).toBe(false)
+  })
+})
+
+describe('колода комнаты: свои карточки', () => {
+  it('fresh не берёт свою карточку, даже если history считает её свежей (запись перезаписана)', () => {
+    const one: CategoryDef[] = [{ id: 'c', title: 'C', weight: 1, subs: [{ id: 's', title: 'S' }] }]
+    const deck = Array.from({ length: 4 }, (_, i) => num(`q${i}`, 's'))
+    const lib = buildLibrary({ bank: deck, stats: null, friends: null, categories: one })
+    const history = new QuestionHistory()
+    const room = new RoomQuestions(lib, history, seeded(9))
+    const mine = Array.from({ length: 4 }, () => room.pick('closest').id)
+    // соседняя комната перезаписала записи старой игрой и начала новый круг: по history все четыре свежие
+    for (const id of mine) history.take('s', id, -5)
+    history.newCycle('s')
+    expect(mine.every(id => history.isFresh('s', id, 1))).toBe(true)
+    expect(() => room.pick('closest')).toThrow(/нет ни одного вопроса/)
   })
 })

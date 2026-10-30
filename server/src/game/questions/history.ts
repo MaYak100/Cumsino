@@ -1,6 +1,6 @@
 // server/src/game/questions/history.ts
 // Память игры о вопросах между играми: колоды (что уже выпадало в текущем круге), архив («удалить»), кредиты
-// сглаженного выбора, суммы оценок. Состояние живёт в памяти процесса (сервер один), каждое изменение
+// сглаженного выбора, суммы оценок, сыгранные игры (блок «прошлой игры» в колодах). Состояние живёт в памяти процесса (сервер один), каждое изменение
 // дописывается в хранилище (Neon, pgBackend.ts); без DATABASE_URL — только память, до перезапуска.
 
 export interface SeenRecord { cycle: number; gameNo: number }
@@ -13,6 +13,8 @@ export interface HistorySnapshot {
   credits: Array<{ scope: string; item: string; credit: number }>
   /** key `cat:<id>` / `sub:<id>`: n — показов, sum — сумма средних оценок команды по этим показам */
   ratings: Array<{ key: string; n: number; sum: number }>
+  /** номера последних настоящих игр (≥ REAL_GAME_SHOWINGS показов) — от них считается блок «прошлой игры» */
+  played?: number[]
   /** показы последних игр с голосами — переоценка после перезапуска заменяет голос, а не добавляет второй */
   shows?: Array<{ questionId: string; gameNo: number; category: string; sub: string; roomPlayers: number;
     votes: Array<{ player: string; name?: string; score: number | null; difficulty: number | null }> }>
@@ -35,6 +37,27 @@ export interface RatingRow {
 
 /** Голос игрока целиком (так он и пишется в базу: переоценка заменяет строку). */
 interface Vote { name?: string; score: number | null; difficulty: number | null }
+
+/** Показ вопроса: делитель оценки, голоса; present — кто был в комнате при показе (только они голосуют). */
+interface Show {
+  roomPlayers: number
+  category: string
+  sub: string
+  votes: Map<string, Vote>
+  present?: Set<string>
+  /** решение об архиве принято (closeShowing) — второй раз не принимается */
+  closed?: boolean
+}
+
+/**
+ * Настоящая игра — от стольких показов (два круга режимов). Брошенная комната (зашли, сыграли раунд-другой) — не
+ * «прошлая игра»: иначе её номер снимает блок с карточек настоящей прошлой игры.
+ */
+export const REAL_GAME_SHOWINGS = 6
+
+/** «Удалить» уходит в архив, только если так проголосовали больше половины бывших при показе и не меньше стольких:
+ *  один игрок (соло) вопрос навсегда не удаляет. */
+export const ARCHIVE_MIN_VOTES = 2
 
 export interface ShowingRow {
   questionId: string
@@ -85,7 +108,12 @@ export class QuestionHistory {
   /** key `cat:<id>` / `sub:<id>` → показов и сумма оценок команды (одна точка на показ, см. rate) */
   private ratingSums = new Map<string, { n: number; sum: number }>()
   /** показы (этого процесса и последних игр из базы): голоса игроков, переоценка заменяет */
-  private shows = new Map<string, { roomPlayers: number; category: string; sub: string; votes: Map<string, Vote> }>()
+  private shows = new Map<string, Show>()
+  /** показов по номеру игры (этого процесса) и настоящие игры (≥ REAL_GAME_SHOWINGS показов; и из базы) */
+  private showCount = new Map<number, number>()
+  private played = new Set<number>()
+  /** с какого номера игры карточки заблокированы для игры N (ставится в startGame) */
+  private blockFromOf = new Map<number, number>()
 
   constructor(readonly backend: HistoryBackend = memoryBackend) {}
 
@@ -98,6 +126,7 @@ export class QuestionHistory {
     for (const id of snap.archived) this.archived.add(id)
     for (const c of snap.credits) this.creditsOf(c.scope).set(c.item, c.credit)
     for (const r of snap.ratings) this.ratingSums.set(r.key, { n: r.n, sum: r.sum })
+    for (const g of snap.played ?? []) this.played.add(g)
     for (const sh of snap.shows ?? []) {
       this.shows.set(`${sh.gameNo}|${sh.questionId}`, {
         roomPlayers: Math.max(1, sh.roomPlayers), category: sh.category, sub: sh.sub,
@@ -111,10 +140,27 @@ export class QuestionHistory {
     return this.backend.flush?.() ?? Promise.resolve()
   }
 
+  /**
+   * Новая игра. Блок «прошлой игры» — с номера последней НАСТОЯЩЕЙ игры (≥ REAL_GAME_SHOWINGS показов), а не просто
+   * gameNo − 1: брошенная комната между двумя играми компании иначе снимала блок с карточек прошлой игры. gameNo − 1
+   * блокируется всегда (соседняя комната, которая ещё идёт).
+   */
   startGame(): number {
     this.gameNo += 1
+    this.blockFromOf.set(this.gameNo, Math.min(this.gameNo - 1, this.lastPlayedBefore(this.gameNo) ?? this.gameNo - 1))
     this.backend.gameStarted(this.gameNo)
     return this.gameNo
+  }
+
+  private lastPlayedBefore(gameNo: number): number | undefined {
+    let best: number | undefined
+    for (const g of this.played) if (g < gameNo && (best === undefined || g > best)) best = g
+    return best
+  }
+
+  /** С какого номера игры карточки заблокированы для игры gameNo (не начатой здесь — с прошлого номера). */
+  blockFrom(gameNo: number): number {
+    return this.blockFromOf.get(gameNo) ?? gameNo - 1
   }
 
   // ---------- колоды ----------
@@ -134,7 +180,7 @@ export class QuestionHistory {
     if (this.archived.has(card)) return false
     const rec = this.deckSeen(deck).get(card)
     if (!rec) return true
-    return rec.cycle < this.cycleOf(deck) && rec.gameNo < gameNo - 1
+    return rec.cycle < this.cycleOf(deck) && rec.gameNo < this.blockFrom(gameNo)
   }
 
   /** Последний показ карточки (круг, номер игры). */
@@ -144,11 +190,12 @@ export class QuestionHistory {
 
   /**
    * Нельзя брать ни при каком круге: была в этой или прошлой игре (маленькие колоды не повторяются в соседних
-   * играх) — или в игре с бо́льшим номером: её взяла соседняя комната, начавшая игру позже.
+   * играх; прошлая — последняя настоящая, см. startGame) — или в игре с бо́льшим номером: её взяла соседняя
+   * комната, начавшая игру позже.
    */
   blockedFor(deck: string, card: string, gameNo: number): boolean {
     const rec = this.deckSeen(deck).get(card)
-    return rec !== undefined && rec.gameNo >= gameNo - 1
+    return rec !== undefined && rec.gameNo >= this.blockFrom(gameNo)
   }
 
   take(deck: string, card: string, gameNo: number): void {
@@ -177,8 +224,9 @@ export class QuestionHistory {
 
   // ---------- оценки ----------
   // Единица — показанный вопрос: средняя оценка команды = сумма оценок / игроков в комнате (кто не нажал — «нормально»,
-  // 0). Так размер лобби и то, сколько людей вообще жмут кнопки, на вес не влияют. «Удалить» = −2 в оценке; вопрос
-  // уходит в архив, только когда «удалить» нажали больше половины игроков комнаты.
+  // 0). Так размер лобби и то, сколько людей вообще жмут кнопки, на вес не влияют. «Удалить» = −2 в оценке (сразу, как
+  // любая оценка); в архив вопрос уходит не в момент голоса, а при закрытии показа (closeShowing) — по итоговым
+  // голосам: больше половины бывших при показе и не меньше ARCHIVE_MIN_VOTES. Снятый голос «удалить» не считается.
 
   ratingOf(key: string): { n: number; sum: number } {
     return this.ratingSums.get(key) ?? { n: 0, sum: 0 }
@@ -191,25 +239,33 @@ export class QuestionHistory {
     }
   }
 
-  showing(row: ShowingRow): void {
-    this.shows.set(`${row.gameNo}|${row.questionId}`,
-      { roomPlayers: Math.max(1, row.roomPlayers), category: row.category, sub: row.sub, votes: new Map() })
+  /** Показ. present — id игроков в комнате при показе: голосовать смогут только они (не передан — кто угодно). */
+  showing(row: ShowingRow, present?: Iterable<string>): void {
+    this.shows.set(`${row.gameNo}|${row.questionId}`, {
+      roomPlayers: Math.max(1, row.roomPlayers), category: row.category, sub: row.sub, votes: new Map(),
+      present: present ? new Set(present) : undefined,
+    })
     this.addToKeys(row.category, row.sub, 1, 0)
+    const n = (this.showCount.get(row.gameNo) ?? 0) + 1
+    this.showCount.set(row.gameNo, n)
+    if (n >= REAL_GAME_SHOWINGS) this.played.add(row.gameNo)
     this.backend.showing(row)
   }
 
   /**
    * Голос игрока. Сразу меняет суммы в памяти (следующий выбор вопроса уже его видит) и сразу пишется в базу —
    * исход игры не важен. Показ в памяти не нашёлся (сервер перезапускали, лаборатория) — делитель берётся из
-   * события (roomPlayers), число показов не растёт: показ уже учтён при загрузке из q_showing.
+   * события (roomPlayers), число показов не растёт: показ уже учтён при загрузке из q_showing. Игрока, которого не
+   * было в комнате при показе (present), голос не принимается — false. Архив решается не здесь, а в closeShowing.
    */
-  rate(row: RatingRow, info: { text: string; roomPlayers: number }): void {
+  rate(row: RatingRow, info: { text: string; roomPlayers: number }): boolean {
     const key = `${row.gameNo}|${row.questionId}`
     let show = this.shows.get(key)
     if (!show) {
       show = { roomPlayers: Math.max(1, info.roomPlayers), category: row.category, sub: row.sub, votes: new Map() }
       this.shows.set(key, show)
     }
+    if (show.present && !show.present.has(row.player)) return false
     const prev: Vote = show.votes.get(row.player) ?? { score: null, difficulty: null }
     const next: Vote = {
       name: row.name ?? prev.name,
@@ -219,14 +275,27 @@ export class QuestionHistory {
     show.votes.set(row.player, next)
     const delta = (next.score ?? 0) - (prev.score ?? 0)
     if (delta) this.addToKeys(show.category, show.sub, 0, delta / show.roomPlayers)
-    const deletes = [...show.votes.values()].filter(v => v.score !== null && v.score <= -2)
-    if (deletes.length * 2 > show.roomPlayers && !this.archived.has(row.questionId)) {
-      this.archived.add(row.questionId)
-      this.backend.archive(row.questionId, {
-        by: deletes.map(v => v.name ?? '?').join(', '), category: row.category, sub: row.sub, text: info.text,
-        votes: deletes.length, players: show.roomPlayers,
-      })
-    }
     this.backend.rating({ ...row, name: next.name, score: next.score, difficulty: next.difficulty })
+    return true
+  }
+
+  /**
+   * Показ закрыт (следующий показ комнаты или комната закрылась): по итоговым голосам решается архив. «Удалить»
+   * у больше половины бывших при показе (roomPlayers) и не меньше ARCHIVE_MIN_VOTES — вопрос в архиве навсегда.
+   * Повторный вызов ничего не делает. → true, если вопрос ушёл в архив.
+   */
+  closeShowing(gameNo: number, questionId: string, text: string): boolean {
+    const show = this.shows.get(`${gameNo}|${questionId}`)
+    if (!show || show.closed) return false
+    show.closed = true
+    const deletes = [...show.votes.values()].filter(v => v.score !== null && v.score <= -2)
+    if (deletes.length < ARCHIVE_MIN_VOTES || deletes.length * 2 <= show.roomPlayers) return false
+    if (this.archived.has(questionId)) return false
+    this.archived.add(questionId)
+    this.backend.archive(questionId, {
+      by: deletes.map(v => v.name ?? '?').join(', '), category: show.category, sub: show.sub, text,
+      votes: deletes.length, players: show.roomPlayers,
+    })
+    return true
   }
 }

@@ -86,10 +86,10 @@ export const CATEGORIES: CategoryDef[] = [
   {
     id: 'meta', title: 'Мета героев', weight: 1, closest: 0.6, subs: [
       { id: 'hero_wr', title: 'Винрейт', weight: 2, subject: HEROES, aspect: 'винрейт' },
-      // пики в MC делят одну часть: на патче — половина, за год и с 2014 года — по четверти
+      // пики в MC делят одну часть: на патче — половина, за год и за 2014–2026 — по четверти
       { id: 'hero_pick', title: 'Пики на патче', weight: 1, subject: HEROES, aspect: 'пики' },
       { id: 'hero_pick_year', title: 'Пики за год', weight: 0.5, subject: HEROES, aspect: 'пики' },
-      { id: 'hero_pick_all', title: 'Пики с 2014 года', weight: 0.5, subject: HEROES, aspect: 'пики' },
+      { id: 'hero_pick_all', title: 'Пики за 2014–2026', weight: 0.5, subject: HEROES, aspect: 'пики' },
       // герой вопроса в теме не раскрывается — иначе тема повторяет вопрос
       { id: 'hero_pick_closest', title: 'Пики на патче, % матчей', subject: HEROES, aspect: 'пики' },
       { id: 'bans', title: 'Баны', subject: HEROES, aspect: 'баны' },

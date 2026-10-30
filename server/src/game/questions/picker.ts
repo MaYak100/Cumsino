@@ -25,6 +25,8 @@ export interface PickContext {
 export interface RoundReport {
   /** игроков в комнате — делитель оценки команды и порог «удалить» */
   roomPlayers: number
+  /** id игроков в комнате при показе: голосовать за этот вопрос смогут только они (нет — кто угодно) */
+  present?: string[]
   players: number
   answered: number
   correct: number
@@ -45,10 +47,17 @@ export interface Voter {
   roomPlayers: number
 }
 
+/**
+ * Источник вопросов комнаты. Жизненный цикл показа: pick → report (раунд посчитан, показ открыт, можно голосовать)
+ * → rate (сколько угодно раз, голос сразу в весах) → settle (показ закрыт: по итоговым голосам решается «удалить»).
+ * report следующего вопроса сам закрывает прошлый показ; settle() без аргумента закрывает открытый — его зовут, когда
+ * комната закрывается (GameRoom.destroy).
+ */
 export interface QuestionSource {
   pick(mode: GameMode, ctx?: PickContext): Question
   report?(q: Question, r: RoundReport): void
   rate?(q: Question, voter: Voter, vote: RatingVote): void
+  settle?(q?: Question): void
 }
 
 // Оценки → веса. Точка — показанный вопрос, её значение — средняя оценка команды (history.ts). Оценка
@@ -59,8 +68,12 @@ export interface QuestionSource {
 // веса базовые.
 // Предел — ПРОИЗВЕДЕНИЕ множителей категории и подкатегории в [1/2, 2], т. е. доля подкатегории от базовой — не
 // больше чем вдвое в любую сторону (раньше каждый множитель ограничивался отдельно и вместе доходили до ×4).
-// Выбор двухступенчатый, поэтому у подкатегории свои пределы — [1/2 / c, 2 / c], где c — множитель её категории;
-// раз сумма весов в каждой ступени сохраняется, доля подкатегории от базовой ровно c · m.
+// Раз сумма весов в каждой ступени сохраняется, доля подкатегории от базовой ровно c · m (c — категории, m —
+// подкатегории). Лимит делится так (2026-10-30): сначала подкатегории внутри категории — m в [1/2, 2] сами по себе,
+// потом категория — в пределах, которые оставляют её подкатегории: c ∈ [1/2 / min m, 2 / max m]. Раньше было
+// наоборот (c сначала, у подкатегорий [1/2 / c, 2 / c]), и на пределе категории (c = 2) у подкатегорий не
+// оставалось места: сумма весов сохраняется, все m ≤ 1 — значит все ровно 1, порядок подкатегорий терялся.
+// Теперь любимая подкатегория забирает свою долю внутри категории, а категория растёт, сколько осталось.
 // Скорость (решение 2026-10-30, PRIOR 10 → 5, BETA 0.45 → 0.7): в компании из 6, где жмут все, 50 голосов
 // «ахуенный» — это ~8 вопросов по +2: оценка 16.7 / (8.3 + 5) ≈ 1.25, e^(0.7 · 1.25) ≈ 2.4 против нейтральных
 // соседей (было ×1.5); ×1.5 — уже с ~12 голосов (2 вопроса: 4 / (2 + 5) ≈ 0.58, e^0.4). Если жмёт половина, 50
@@ -75,23 +88,28 @@ export function ratingScore(r: { n: number; sum: number }): number {
 
 /**
  * Относительные множители оценок среди соседей: m_i = clamp(k · e^(β·оценка_i), lo, hi), k подобран так, что
- * Σ w_i·m_i = Σ w_i (доля соседа от базовой — ровно m_i). outer — множитель уровня выше (категории — для её
- * подкатегорий): пределы [1/RATING_MAX / outer, RATING_MAX / outer], чтобы outer · m было в [1/2, 2].
+ * Σ w_i·m_i = Σ w_i (доля соседа от базовой — ровно m_i). bounds — пределы: число outer (множитель уровня выше) —
+ * общие [1/RATING_MAX / outer, RATING_MAX / outer]; функция — свои у каждого ключа (категории — по разбросу её
+ * подкатегорий, см. RoomQuestions.pick). Пределы должны охватывать 1 (lo ≤ 1 ≤ hi), иначе сумма не сохранится.
  */
-export function relativeMultipliers(items: Weighted[], score: (key: string) => number, outer = 1):
-  Map<string, number> {
+export function relativeMultipliers(items: Weighted[], score: (key: string) => number,
+  bounds: number | ((key: string) => [number, number]) = 1): Map<string, number> {
   const live = items.filter(i => i.weight > 0)
   const raw = new Map(live.map(i => [i.key, Math.exp(RATING_BETA * score(i.key))]))
-  const lo = 1 / RATING_MAX / outer
-  const hi = RATING_MAX / outer
+  const range = typeof bounds === 'function' ? bounds
+    : (): [number, number] => [1 / RATING_MAX / bounds, RATING_MAX / bounds]
+  const lim = new Map(live.map(i => [i.key, range(i.key)]))
   const total = live.reduce((s, i) => s + i.weight, 0)
-  const at = (k: number, key: string) => Math.max(lo, Math.min(hi, k * raw.get(key)!))
+  const at = (k: number, key: string) => {
+    const [lo, hi] = lim.get(key)!
+    return Math.max(lo, Math.min(hi, k * raw.get(key)!))
+  }
   // Σ w·clamp(k·r) не убывает по k: от Σw·lo (≤ Σw) до Σw·hi (≥ Σw) — корень бисекцией по log k
   let k = 1
   if (total > 0) {
     const sum = (k: number) => live.reduce((s, i) => s + i.weight * at(k, i.key), 0)
-    let a = Math.log(lo) - Math.log(Math.max(...raw.values()))
-    let b = Math.log(hi) - Math.log(Math.min(...raw.values()))
+    let a = Math.min(...live.map(i => Math.log(lim.get(i.key)![0]) - Math.log(raw.get(i.key)!)))
+    let b = Math.max(...live.map(i => Math.log(lim.get(i.key)![1]) - Math.log(raw.get(i.key)!)))
     for (let n = 0; n < 60; n++) {
       const mid = (a + b) / 2
       if (sum(Math.exp(mid)) < total) a = mid
@@ -168,6 +186,9 @@ export function interleaveGroups<T>(shuffled: T[], group: (t: T) => string, rng:
   return out
 }
 
+/** Попыток собрать вопрос статистики / друзей, прежде чем подкатегория выбудет до конца игры. */
+export const BUILD_TRIES = 3
+
 /** Вопрос от источника до decorate: displayTopic — только субъект, aspect — своя вторая строка темы (банк). */
 type Drafted = Question & { aspect?: string }
 
@@ -182,6 +203,8 @@ export class RoomQuestions implements QuestionSource {
    * Расход в игре только растёт (колода, исключения статистики), поэтому раз не собралась — не соберётся.
    */
   private exhausted = new Set<string>()
+  /** показ, открытый для оценок (последний report): закрывается следующим report или settle() */
+  private open: Question | null = null
   private stats: StatQuestionBuilder | null
   private friends: FriendsGen | null
 
@@ -197,8 +220,18 @@ export class RoomQuestions implements QuestionSource {
     const live = (level: 'cat' | 'sub', id: string) => !this.exhausted.has(`${kind}|${level}|${id}`)
     const cats = this.lib.categories.filter(c =>
       (c.requires !== 'friends' || present.length >= MIN_IDENTIFIED_FRIENDS) && live('cat', c.id) &&
-      c.subs.some(s => s.kinds.has(kind)))
-    const catMult = this.multipliers(cats.map(c => ({ key: c.id, weight: c.weights[kind] })), 'cat')
+      c.subs.some(s => s.kinds.has(kind) && live('sub', s.id)))
+    // лимит произведения [1/2, 2]: сначала подкатегории внутри категории, категории — сколько они оставили
+    const subsOf = new Map(cats.map(c => {
+      const subs = c.subs.filter(s => s.kinds.has(kind) && live('sub', s.id))
+      const base = subs.map(s => ({ key: s.id, weight: s.weights[kind] }))
+      return [c.id, { subs, base, mult: this.multipliers(base, 'sub') }]
+    }))
+    const catBounds = (id: string): [number, number] => {
+      const m = [...subsOf.get(id)!.mult.values()]
+      return [1 / RATING_MAX / Math.min(...m), RATING_MAX / Math.max(...m)]
+    }
+    const catMult = this.multipliers(cats.map(c => ({ key: c.id, weight: c.weights[kind] })), 'cat', catBounds)
     const catItems = cats.map(c => ({ key: c.id, weight: c.weights[kind] * catMult.get(c.id)! }))
     const catScope = `cat:${kind}`
     const catCredits = this.history.creditsOf(catScope)
@@ -206,16 +239,14 @@ export class RoomQuestions implements QuestionSource {
     const failedCats = new Set<string>()
     for (const catId of smoothOrder(catItems, catCredits, this.rng)) {
       const cat = cats.find(c => c.id === catId)!
-      const subs = cat.subs.filter(s => s.kinds.has(kind) && live('sub', s.id))
-      const subBase = subs.map(s => ({ key: s.id, weight: s.weights[kind] }))
-      const subMult = this.multipliers(subBase, 'sub', catMult.get(cat.id)!)
+      const { subs, base: subBase, mult: subMult } = subsOf.get(catId)!
       const subItems = subBase.map(s => ({ key: s.key, weight: s.weight * subMult.get(s.key)! }))
       const subScope = `sub:${kind}:${cat.id}`
       const subCredits = this.history.creditsOf(subScope)
       const failedSubs = new Set<string>()
       for (const subId of smoothOrder(subItems, subCredits, this.rng)) {
         const sub = subs.find(s => s.id === subId)!
-        const q = this.build(sub, mode, kind, present)
+        const q = this.buildTries(sub, mode, kind, present)
         if (!q) {
           failedSubs.add(subId)
           this.exhausted.add(`${kind}|sub|${subId}`)
@@ -233,13 +264,18 @@ export class RoomQuestions implements QuestionSource {
     throw new Error(`нет ни одного вопроса для режима ${mode}`)
   }
 
+  /** Раунд посчитан: показ открыт для оценок. Прошлый открытый показ комнаты закрывается (settle). */
   report(q: Question, r: RoundReport): void {
     if (!q.category || !q.subcategory) return
+    if (this.open && this.open.id !== q.id) this.settle(this.open)
+    const { present, ...row } = r
     this.history.showing({
-      questionId: q.id, category: q.category, sub: q.subcategory, mode: q.mode, gameNo: this.gameNo, ...r,
-    })
+      questionId: q.id, category: q.category, sub: q.subcategory, mode: q.mode, gameNo: this.gameNo, ...row,
+    }, present)
+    this.open = q
   }
 
+  /** Голос: сразу в весах. Не бывшего в комнате при показе (RoundReport.present) history не примет. */
   rate(q: Question, voter: Voter, vote: RatingVote): void {
     if (!q.category || !q.subcategory) return
     this.history.rate({
@@ -248,9 +284,32 @@ export class RoomQuestions implements QuestionSource {
     }, { text: q.text, roomPlayers: voter.roomPlayers })
   }
 
-  /** Относительный множитель оценок среди этих соседей (outer — множитель категории для её подкатегорий). */
-  private multipliers(items: Weighted[], prefix: 'cat' | 'sub', outer = 1): Map<string, number> {
-    return relativeMultipliers(items, key => ratingScore(this.history.ratingOf(`${prefix}:${key}`)), outer)
+  /** Показ закрыт — по итоговым голосам решается «удалить» (history.closeShowing). Без аргумента — открытый показ
+   *  комнаты (комната закрывается). Повторный вызов ничего не делает. */
+  settle(q: Question | null = this.open): void {
+    if (!q) return
+    if (q === this.open || q.id === this.open?.id) this.open = null
+    if (this.gameNo) this.history.closeShowing(this.gameNo, q.id, q.text)
+  }
+
+  /** Относительный множитель оценок среди этих соседей (bounds — пределы, см. relativeMultipliers). */
+  private multipliers(items: Weighted[], prefix: 'cat' | 'sub',
+    bounds: number | ((key: string) => [number, number]) = 1): Map<string, number> {
+    return relativeMultipliers(items, key => ratingScore(this.history.ratingOf(`${prefix}:${key}`)), bounds)
+  }
+
+  /**
+   * Сборка с несколькими попытками: у статистики и друзей сборка случайная (четвёрка с отрывом, совместимые пары) и
+   * может не выйти, когда вопрос есть. Подкатегория выбывает до конца игры (exhausted), только если не вышло
+   * BUILD_TRIES раз подряд. Банк детерминирован — одна попытка.
+   */
+  private buildTries(sub: Subcategory, mode: GameMode, kind: QuestionKind, present: number[]): Drafted | null {
+    const tries = sub.source.type === 'bank' ? 1 : BUILD_TRIES
+    for (let n = 0; n < tries; n++) {
+      const q = this.build(sub, mode, kind, present)
+      if (q) return q
+    }
+    return null
   }
 
   private deck(sub: Subcategory): DeckAccess {
@@ -283,7 +342,7 @@ export class RoomQuestions implements QuestionSource {
     const base = { id: q.id, topic: '', displayTopic: q.topic, aspect: q.aspect, comment: q.comment, text: q.text }
     if (q.kind === 'number') {
       if (kind === 'closest') return { ...base, mode: 'closest', numericAnswer: q.answer, unit: q.unit }
-      const { values, correct } = makeStepOptions(q.answer, q.step, this.rng)
+      const { values, correct } = makeStepOptions(q.answer, q.step, this.rng, 4, 0, q.ceil ?? Infinity)
       // единица прямо в варианте («175%», «12 сек.»): ответ сравнивается по тексту варианта
       const labels = values.map(v => withUnit(formatNumber(v), q.unit))
       return { ...base, mode: 'all', options: shuffleArray(labels, this.rng), answer: labels[correct], unit: q.unit }

@@ -120,6 +120,40 @@ export function formatNotes(values: number[], fmt: StatNoteFormat, lead?: number
   return notes
 }
 
+/**
+ * Карточки колоды подкатегории (имена, без префикса `stat:<sub>:`): mc — герой вопроса у пулов с subject, иначе те,
+ * кто может быть ЛИДЕРОМ четвёрки с отрывом (≥ 3 совместимых соперника по gap, с maxRel — один из них в пределе;
+ * topLead — только лучший пула); closest — субъекты. Для таблицы соотношений и /dev: у «Винрейта» в пуле 126 героев,
+ * а лидерами с отрывом бывают 34 — круг колоды идёт по ним. Без гейта (запасной путь сборки) лидером может стать и
+ * другой — это редкость, её здесь не считаем.
+ */
+export function statCards(sub: StatSubcategory): { mc: Set<string>; closest: Set<string> } {
+  const mc = new Set<string>()
+  const gap = sub.gap ?? {}
+  const clash = new Map<string, Set<string>>()
+  for (const [a, b] of sub.exclusive ?? []) {
+    if (!clash.has(a)) clash.set(a, new Set())
+    if (!clash.has(b)) clash.set(b, new Set())
+    clash.get(a)!.add(b)
+    clash.get(b)!.add(a)
+  }
+  for (const pool of sub.pools) {
+    if (pool.subject) {
+      mc.add(pool.subject)
+      continue
+    }
+    for (const { ask } of pool.asks) {
+      const leads = sub.topLead ? [best(pool.entries, ask)] : pool.entries
+      for (const lead of leads) {
+        const rivals = pool.entries.filter(o => o !== lead && !clash.get(lead[0])?.has(o[0]) &&
+          gapOk(lead[1], o[1], gap, ask))
+        if (rivals.length >= OPTIONS - 1 && rivals.some(o => capOk(lead[1], o[1], gap, ask))) mc.add(lead[0])
+      }
+    }
+  }
+  return { mc, closest: new Set((sub.closest?.pools ?? []).map(p => p.subject)) }
+}
+
 /** Лучшая запись пула по ask (для topLead — ответ). */
 function best(entries: StatEntry[], ask: 'max' | 'min'): StatEntry {
   return entries.reduce((a, e) => ((ask === 'max' ? e[1] > a[1] : e[1] < a[1]) ? e : a))

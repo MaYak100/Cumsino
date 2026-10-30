@@ -5,7 +5,7 @@ import { QuestionHistory } from '../history'
 import { smoothOrder, commitChoice } from '../smooth'
 import { makeStepOptions, formatNumber } from '../stepOptions'
 import { gameOnlyDeck, type StatsBank } from '../../stats/statQuestions'
-import type { CategoryDef } from '../categories'
+import { CATEGORIES, type CategoryDef } from '../categories'
 import { FriendsGen, FRIEND_KINDS, selfWrStep, wrOptions } from '../friends'
 
 function seeded(seed: number): () => number {
@@ -155,6 +155,39 @@ describe('колода', () => {
     expect(q.subcategory).toBe('s')
   })
 
+  it('ceil из банка: проценты, где 100% невозможно, — все варианты меньше потолка, ответ всё равно бывает наибольшим', () => {
+    const slow = { ...num('slow', 's', 70), step: 5, unit: '%', ceil: 100 } as BankQuestion
+    const lib = buildLibrary({ bank: [slow], stats: null, friends: null, categories: cats })
+    let top = 0
+    for (let seed = 1; seed <= 300; seed++) {
+      const q = new RoomQuestions(lib, new QuestionHistory(), seeded(seed)).pick('all')
+      const vals = q.options!.map(o => parseFloat(o))
+      expect(Math.max(...vals)).toBeLessThan(100)
+      if (Math.max(...vals) === 70) top++
+    }
+    expect(top).toBeGreaterThan(30)   // ≈ 26%
+  })
+
+  it('сборка статистики не вышла случайно — ещё попытки, подкатегория не выбывает до конца игры', () => {
+    const stats: StatsBank = {
+      snapshot: 't', patch: 't', subcategories: [{
+        id: 'st', comment: '', pools: [],
+        closest: { pools: ['A', 'B', 'C'].map((s, i) => ({ subject: s, text: `${s}?`, answer: i + 1 })) },
+      }],
+    }
+    const statCats: CategoryDef[] = [
+      { id: 'stat', title: 'St', weight: 100, subs: [{ id: 'st', title: 'St' }] },
+      { id: 'other', title: 'O', weight: 1, subs: [{ id: 's', title: 'S' }] },
+    ]
+    const lib = buildLibrary({ bank: five, stats, friends: null, categories: statCats })
+    const room = new RoomQuestions(lib, new QuestionHistory(), seeded(2))
+    const inner = (room as any).build.bind(room)
+    let calls = 0
+    ;(room as any).build = (...args: unknown[]) => (++calls === 1 ? null : inner(...args))   // первая — неудача
+    expect(room.pick('closest').category).toBe('stat')
+    expect(room.pick('closest').category).toBe('stat')   // не выбыла
+  })
+
   it('числовой вопрос в «ближе всех»: число без единицы, единица отдельным полем', () => {
     const lib = buildLibrary({ bank: [num('n', 's', 850)], stats: null, friends: null, categories: cats })
     const q = new RoomQuestions(lib, new QuestionHistory(), seeded(5)).pick('closest')
@@ -162,7 +195,7 @@ describe('колода', () => {
     expect(q.unit).toBe('ед.')
   })
 
-  it('«удалить» — только когда нажали больше половины комнаты; потом вопрос не выпадает никогда', () => {
+  it('«удалить» — при закрытии показа, когда нажали больше половины комнаты; потом вопрос не выпадает никогда', () => {
     const lib = buildLibrary({ bank: five, stats: null, friends: null, categories: cats })
     const history = new QuestionHistory()
     const room = new RoomQuestions(lib, history, seeded(1))
@@ -171,8 +204,9 @@ describe('колода', () => {
     const voter = (id: string) => ({ id, name: id, roomPlayers: 4 })
     room.rate(q, voter('A'), { score: -2 })
     room.rate(q, voter('B'), { score: -2 })
-    expect(history.archived.has(q.id)).toBe(false)   // 2 из 4 — не больше половины
     room.rate(q, voter('C'), { score: -2 })
+    expect(history.archived.has(q.id)).toBe(false)   // 3 из 4, но показ ещё открыт — архив не в момент голоса
+    room.settle()
     expect(history.archived.has(q.id)).toBe(true)
     for (let game = 0; game < 10; game++) {
       const r = new RoomQuestions(lib, history, seeded(game + 10))
@@ -238,28 +272,27 @@ describe('веса по типу раунда', () => {
     expect(mc('b1')).toBeCloseTo(0.5, 1)
   })
 
-  it('categories.ts: механики 1.5, «Таланты героя» 1.5; пики MC 1 / 0.5 / 0.5; цены в closest 2; предметы в матчах 0.7; средние MC 1.2; мета closest 0.6', () => {
+  it('categories.ts → библиотека: веса как записаны (closest — свой или базовый), все подкатегории собраны', () => {
+    // конкретные веса — решение автора игры (categories.ts), тест их не дублирует: проверяется только перенос
     const lib = loadLibrary()
-    const cat = (id: string) => lib.categories.find(c => c.id === id)!
-    const sub = (id: string) => lib.categories.flatMap(c => c.subs).find(s => s.id === id)!
-    expect(cat('mechanics').weights.mc).toBe(1.5)
-    expect(sub('talents_has').weights.mc).toBe(1.5)
-    expect(sub('mech_how').weights.mc).toBe(1)
-    expect([sub('hero_pick'), sub('hero_pick_year'), sub('hero_pick_all')].map(s => s.weights.mc)).toEqual([1, 0.5, 0.5])
-    expect([sub('costs'), sub('item_numbers'), sub('neutrals')].map(s => s.weights)).toEqual([
-      { mc: 1, closest: 2 }, { mc: 1, closest: 1 }, { mc: 1, closest: 1 }])
-    // новые closest — в тех же подкатегориях, что и MC
-    for (const id of ['avg_kills', 'avg_cs', 'avg_hero_damage', 'avg_tower', 'avg_heal_allies', 'items', 'items_hero']) {
-      expect([...sub(id).kinds].sort()).toEqual(['closest', 'mc'])
+    expect(lib.warnings).toEqual([])
+    for (const def of CATEGORIES) {
+      const cat = lib.categories.find(c => c.id === def.id)
+      if (def.requires === 'friends' && !cat) continue   // без metrics.json друзей нет
+      expect(cat, def.id).toBeDefined()
+      expect(cat!.weights).toEqual({ mc: def.weight, closest: def.closest ?? def.weight })
+      for (const sd of def.subs) {
+        const sub = cat!.subs.find(s => s.id === sd.id)
+        expect(sub, sd.id).toBeDefined()
+        expect(sub!.weights).toEqual({ mc: sd.weight ?? 1, closest: sd.closest ?? sd.weight ?? 1 })
+        expect(sub!.kinds.size).toBeGreaterThan(0)
+        if (sub!.source.type !== 'friends') expect(sub!.size.templates, sd.id).toBeGreaterThan(0)
+      }
     }
-    // «Предметы в матчах» (2026-10-30): категория 0.7 в обоих типах, items 1, items_hero 1 (и в closest), ботинки 0.6
-    expect(cat('match_items').weights).toEqual({ mc: 0.7, closest: 0.7 })
-    expect([sub('items'), sub('items_hero'), sub('boots_hero')].map(s => s.weights)).toEqual([
-      { mc: 1, closest: 1 }, { mc: 1, closest: 1 }, { mc: 0.6, closest: 0.6 }])
-    expect(cat('match_avg').weights).toEqual({ mc: 1.2, closest: 1 })   // средние за матч: MC 1.2
-    expect(cat('meta').weights).toEqual({ mc: 1, closest: 0.6 })        // мета героев: в «кто ближе» 0.6
-    expect([...sub('avg_heal_self').kinds]).toEqual(['mc'])
-    expect([...sub('boots_hero').kinds]).toEqual(['mc'])
+    // у каждого типа раунда есть хотя бы одна категория без друзей
+    for (const kind of ['mc', 'closest'] as const) {
+      expect(lib.categories.some(c => !c.requires && c.subs.some(s => s.kinds.has(kind)))).toBe(true)
+    }
   })
 })
 
@@ -398,7 +431,50 @@ describe('оценки', () => {
     const share = shown.get('h1')! / N
     expect(share).toBeGreaterThan(0.47)
     expect(share).toBeLessThan(0.53)   // база 0.25 → ровно ×2
-    expect(shown.get('h2')! / N).toBeCloseTo(0.25, 1)
+    // лимит сначала у подкатегорий: h1 ×1.5 внутри категории (h2 ×0.5), категории осталось ×4/3 → h2 = 2/3 · 1/4
+    expect(shown.get('h2')! / N).toBeCloseTo(1 / 6, 1)
+    expect(shown.get('h2')!).toBeLessThan(shown.get('c1')!)
+  })
+
+  it('категория на пределе: подкатегории внутри не замерзают на ×1 — порядок по оценкам сохраняется', () => {
+    // категорию любят все (×2 по своей оценке), а внутри неё оценки разные: a > b > c. Раньше категория брала весь
+    // лимит (×2), у подкатегорий оставалось [¼, 1] при сохранении суммы весов — все ровно ×1, порядок терялся.
+    const cats: CategoryDef[] = [
+      { id: 'hot', title: 'H', weight: 1, subs: [{ id: 'a', title: 'a' }, { id: 'b', title: 'b' }, { id: 'c', title: 'c' }] },
+      { id: 'n1', title: 'N1', weight: 1, subs: [{ id: 'x', title: 'x' }] },
+      { id: 'n2', title: 'N2', weight: 1, subs: [{ id: 'y', title: 'y' }] },
+    ]
+    const bank = ['a', 'b', 'c', 'x', 'y'].flatMap(s => Array.from({ length: 30 }, (_, i) => num(`${s}-${i}`, s)))
+    const lib = buildLibrary({ bank, stats: null, friends: null, categories: cats })
+    const history = new QuestionHistory()
+    let g = 0
+    const vote = (sub: string, score: number, times: number) => {
+      for (let i = 0; i < times; i++) {
+        g++
+        history.showing({ questionId: `v${g}`, category: 'hot', sub, mode: 'all', gameNo: g, roomPlayers: 1, players: 1, answered: 1, correct: 1 })
+        history.rate({ questionId: `v${g}`, category: 'hot', sub, gameNo: g, player: 'A', score }, { text: '', roomPlayers: 1 })
+      }
+    }
+    vote('a', 2, 40)
+    vote('b', 1, 40)
+    vote('c', 1, 10)
+    // старое распределение лимита: категория ×2 → у подкатегорий пределы [¼, 1] и все трое ровно ×1
+    const old = relativeMultipliers([{ key: 'a', weight: 1 }, { key: 'b', weight: 1 }, { key: 'c', weight: 1 }],
+      k => ratingScore(history.ratingOf(`sub:${k}`)), 2)
+    expect([...old.values()].every(m => Math.abs(m - 1) < 1e-6)).toBe(true)
+    const shown = new Map<string, number>()
+    const N = 3000
+    let room = new RoomQuestions(lib, history, seeded(3))
+    for (let i = 0; i < N; i++) {
+      if (i % 20 === 0) room = new RoomQuestions(lib, history, seeded(500 + i))
+      const q = room.pick('all')
+      shown.set(q.subcategory!, (shown.get(q.subcategory!) ?? 0) + 1)
+    }
+    const share = (s: string) => (shown.get(s) ?? 0) / N
+    expect(share('a')).toBeGreaterThan(share('b'))
+    expect(share('b')).toBeGreaterThan(share('c'))
+    expect(share('a')).toBeLessThan(2 / 9 + 0.03)                 // база 1/9, не больше ×2
+    expect(share('a') + share('b') + share('c')).toBeGreaterThan(1 / 3 + 0.05)   // категория всё равно выше базы
   })
 
   it('50 голосов «ахуенный» в компании из 6 → ≈ ×2.4 против нейтральных соседей; ×1.5 — с 12 голосов', () => {

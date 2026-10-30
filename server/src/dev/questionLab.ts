@@ -12,6 +12,7 @@ import { loadLibrary, type Library, type Category, type Subcategory, type Questi
 import { RoomQuestions } from '../game/questions/picker'
 import { QuestionHistory } from '../game/questions/history'
 import { FriendsGen, MIN_IDENTIFIED_FRIENDS } from '../game/questions/friends'
+import { statCards } from '../game/stats/statQuestions'
 
 const MODES: GameMode[] = ['all', 'kerri', 'closest']
 const MAX_SESSIONS = 50
@@ -86,6 +87,8 @@ export interface QuestionMeta {
   bankKind?: 'number' | 'choice'
   step?: number
   unit?: string
+  /** все варианты MC строго меньше (проценты, где 100% и больше невозможно) */
+  ceil?: number
   /** числовой ответ факта (в MC он же среди вариантов) */
   numberAnswer?: number
   /** тема банка (поле topic в questions.json) */
@@ -110,6 +113,7 @@ function metaOf(lib: Library, q: Question): QuestionMeta {
         meta.step = b.step
         meta.unit = b.unit
         meta.numberAnswer = b.answer
+        if (b.ceil !== undefined) meta.ceil = b.ceil
       }
     }
   }
@@ -134,13 +138,9 @@ function catalog(lib: Library) {
           const number = src.questions.filter(q => q.kind === 'number').length
           counts = { mc: src.questions.length, closest: number, number, choice: src.questions.length - number }
         } else if (src.type === 'stats') {
-          const pools = src.sub.pools
-          counts = {
-            // MC: по герою вопроса или по ответу (как колода); closest — по субъекту
-            mc: !pools.length ? 0 : pools.some(p => p.subject) ? pools.length
-              : new Set(pools.flatMap(p => p.entries.map(e => e[0]))).size,
-            closest: new Set((src.sub.closest?.pools ?? []).map(p => p.subject)).size,
-          }
+          // MC: по герою вопроса или по ответу — только кто может быть лидером с отрывом (как колода); closest — субъекты
+          const cards = statCards(src.sub)
+          counts = { mc: cards.mc.size, closest: cards.closest.size }
         } else {
           // карточек столько, сколько сочетаний при всех опознанных
           const cards = friendsGen ? src.kind.candidates(friendsGen, everyone).length : 0
