@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGameStore, selectIsGladiator } from './store/gameStore'
 import { JoinScreen } from './components/screens/JoinScreen'
 import { screenFor } from './components/screens/screenFor'
@@ -15,6 +15,21 @@ export default function App() {
   const isLateJoiner = useGameStore(s => s.isLateJoiner)
   // на телефоне ставки — колонкой (CompactBetting), стол за ней не нужен: фон остаётся размытым
   const compact = useCompactBetting()
+  const phase = gameState?.phase
+  // Старый экран уходит анимацией Framer Motion; в фоновой вкладке (альт-таб) она может не доиграть, и он остаётся на
+  // сцене вместе с новым (анонс с темой «залипает» поверх вопроса). Сторож: через секунду после смены фазы и при
+  // возврате на вкладку — на сцене больше одного экрана → пересоздать AnimatePresence, он держит только текущий.
+  const stageRef = useRef<HTMLDivElement>(null)
+  const [stageGen, setStageGen] = useState(0)
+  useEffect(() => {
+    const check = () => {
+      if ((stageRef.current?.querySelectorAll(':scope > [data-screen]').length ?? 0) > 1) setStageGen(g => g + 1)
+    }
+    const t = setTimeout(check, 1200)
+    const onVisible = () => { if (document.visibilityState === 'visible') setTimeout(check, 400) }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => { clearTimeout(t); document.removeEventListener('visibilitychange', onVisible) }
+  }, [phase])
 
   useEffect(() => {
     if (!gameState) return
@@ -36,15 +51,15 @@ export default function App() {
     </div>
   )
 
-  const phase = gameState.phase
-  const Screen = screenFor(phase, gameState.mode, isGladiator)
+  const Screen = screenFor(gameState.phase, gameState.mode, isGladiator)
 
   return (
-    <div className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
-      <TableFelt blurred={phase !== 'BETTING' || compact} />
-      <AnimatePresence>
+    <div ref={stageRef} className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
+      <TableFelt blurred={gameState.phase !== 'BETTING' || compact} />
+      <AnimatePresence key={stageGen}>
         <motion.div
-          key={phase}
+          key={gameState.phase}
+          data-screen
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, y: -12, pointerEvents: 'none', transition: { duration: 0.15 } }}
