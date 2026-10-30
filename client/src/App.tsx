@@ -7,11 +7,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { TableFelt } from './components/ui/TableFelt'
 import { ItemBar } from './components/ui/ItemBar'
 import { Notice } from './components/ui/Notice'
+import { useCompactBetting } from './lib/tableGeometry'
 
 export default function App() {
   const gameState = useGameStore(s => s.gameState)
   const isGladiator = useGameStore(selectIsGladiator)
   const isLateJoiner = useGameStore(s => s.isLateJoiner)
+  // на телефоне ставки — колонкой (CompactBetting), стол за ней не нужен: фон остаётся размытым
+  const compact = useCompactBetting()
 
   useEffect(() => {
     if (!gameState) return
@@ -38,7 +41,7 @@ export default function App() {
 
   return (
     <div className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
-      <TableFelt blurred={phase !== 'BETTING'} />
+      <TableFelt blurred={phase !== 'BETTING' || compact} />
       <AnimatePresence>
         <motion.div
           key={phase}

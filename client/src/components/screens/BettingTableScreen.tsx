@@ -1,14 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
-import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
-import { buildPhysicalChips, buildChipsForPlayer, pileOffset } from '../../types/chips'
-import { useStableSlots } from '../../lib/pileSlots'
+import { useGameStore } from '../../store/gameStore'
+import { buildChipsForPlayer, pileOffset } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
-import type { ChipValue } from '../ui/Chip'
+import { useBetting, type Betting } from '../../lib/useBetting'
+import { CompactBetting } from './CompactBetting'
+import { QuickButton, ConfirmButton } from '../ui/BetButtons'
 import { PlayerSlot, UNIT_W, UNIT_H } from '../ui/PlayerSlot'
 import { BetZone } from '../ui/BetZone'
 import { Timer } from '../ui/Timer'
-import { socket } from '../../socket'
 import { FeltOval } from '../ui/TableFelt'
 import { Sticker } from '../ui/Sticker'
 import { TopicStack } from '../ui/Topic'
@@ -22,6 +21,7 @@ import {
   FELT_CX, FELT_CY,
   SCENE_W, SCENE_H,
   useSceneScale,
+  useCompactBetting,
   useFlightTransform,
   SceneScaleContext,
 } from '../../lib/tableGeometry'
@@ -63,252 +63,33 @@ const BANK_PAD = 44   // место справа в квитке под кучк
 const ABOVE_MY_PILE = 125
 
 export function BettingTableScreen() {
-  const gameState = useGameStore(s => s.gameState)!
-  const myId      = useGameStore(s => s.myId)
-  const me        = useGameStore(selectMe)
-  const isGladiator = useGameStore(selectIsGladiator)
+  const bet = useBetting()
+  const compact = useCompactBetting()
+  // одна логика ставок на обе раскладки: телефон повернули — черновик на месте
+  return compact ? <CompactBetting bet={bet} /> : <RoundTable bet={bet} />
+}
+
+/** Круглый стол (сцена 1300×820, масштаб под экран) — десктоп и планшет. */
+function RoundTable({ bet }: { bet: Betting }) {
+  const {
+    gameState, myId, me, isGladiator, isKerriMode, isKerriCrowd,
+    myStack, betConfirmed,
+    stdPlacedIds, stdPlacedChips, stdSlots, stdBetAmt,
+    mainTarget, bankTarget, activeZone, allPlacedIds,
+    mainPlacedChips, bankPlacedChips, mainSlots, bankSlots, mainBetAmt, bankBetAmt,
+    myBlind, balance, quickAmounts,
+    stdPlace, stdRecall, kerriPlace, kerriRecall, selectMainZone, selectBankZone,
+    quickBet, handleConfirm, sideTotal, canConfirm, showBlind,
+  } = bet
   const stagedBets  = useGameStore(s => s.stagedBets)
   const targeting   = useGameStore(s => s.targeting)
   const useItem     = useGameStore(s => s.useItem)
   const freshFeed   = useFreshFeed()
-  const markBetSent = useGameStore(s => s.markBetSent)
+  const sceneScale  = useSceneScale()
 
-  const sceneScale = useSceneScale()
-  const [myStack, setMyStack]         = useState<PhysicalChip[]>([])
-  const [betConfirmed, setBetConfirmed] = useState(false)
-
-  // Standard-mode (all) placed chips
-  const [stdPlacedIds, setStdPlacedIds] = useState<Set<string>>(new Set())
-
-  // Kerri-crowd placed chips, separated by zone
-  const [mainTarget,  setMainTarget]  = useState<'win' | 'lose' | null>(null)
-  const [bankTarget,  setBankTarget]  = useState<number | null>(null)
-  const [activeZone,  setActiveZone]  = useState<'main' | 'bank' | null>(null)
-  const [mainPlacedIds, setMainPlacedIds] = useState<Set<string>>(new Set())
-  const [bankPlacedIds, setBankPlacedIds] = useState<Set<string>>(new Set())
-
-  const phaseRef = useRef('')
-  const handleConfirmRef = useRef<() => void>(() => {})
-  const autoConfirmTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  // Быстрая ставка раскладывает фишки каскадом (таймеры). Пока раскладывает — «Ставлю» спрятана, ручная выкладка
-  // ждёт, а подтверждение (и авто в конце ставок) сначала докладывает всё разом
-  const quick = useRef<{ timers: number[]; pick: PhysicalChip[]; kerri: boolean } | null>(null)
-  const [dealing, setDealing] = useState(false)
-  const stopQuick = (flush: boolean): PhysicalChip[] | null => {
-    const q = quick.current
-    if (!q) return null
-    q.timers.forEach(clearTimeout)
-    quick.current = null
-    setDealing(false)
-    if (flush) (q.kerri ? setMainPlacedIds : setStdPlacedIds)(new Set(q.pick.map(c => c.id)))
-    return q.pick
-  }
-  useEffect(() => () => quick.current?.timers.forEach(clearTimeout), [])
-
-  useEffect(() => {
-    if (gameState.phase === 'BETTING' && me && phaseRef.current !== 'BETTING') {
-      stopQuick(false)
-      setMyStack(buildPhysicalChips(me.chips))
-      setStdPlacedIds(new Set())
-      setBetConfirmed(false)
-      setMainTarget(null)
-      setBankTarget(null)
-      setActiveZone(null)
-      setMainPlacedIds(new Set())
-      setBankPlacedIds(new Set())
-    }
-    phaseRef.current = gameState.phase
-  }, [gameState.phase])
-
-  useEffect(() => {
-    if (gameState.phase !== 'BETTING' || isGladiator) return
-    const delay = Math.max(500, (gameState.phaseTimeLeft - 2) * 1000)
-    if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current)
-    autoConfirmTimerRef.current = setTimeout(() => handleConfirmRef.current(), delay)
-    return () => { if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current) }
-  }, [gameState.phase, isGladiator])
-
-  const isKerriMode  = gameState.mode === 'kerri'
-  const isKerriCrowd = isKerriMode && !isGladiator
-
-  // ── Derived ──────────────────────────────────────────────────────────────
-  const allPlacedIds     = new Set([...mainPlacedIds, ...bankPlacedIds])
-  // в порядке выкладки: от него зависит место фишки в кучке (Set хранит порядок вставки)
-  const chipById         = new Map(myStack.map(c => [c.id, c]))
-  const inOrder          = (ids: Set<string>) => [...ids].flatMap(id => chipById.get(id) ?? [])
-  const mainPlacedChips  = inOrder(mainPlacedIds)
-  const bankPlacedChips  = inOrder(bankPlacedIds)
-  const stdPlacedChips   = inOrder(stdPlacedIds)
-  // места в кучке не зависят от того, что убрали: фишки не переезжают по спирали
-  const stdSlots         = useStableSlots(stdPlacedChips)
-  const mainSlots        = useStableSlots(mainPlacedChips)
-  const bankSlots        = useStableSlots(bankPlacedChips)
-  const mainBetAmt  = mainPlacedChips.reduce((a, c) => a + c.denom, 0)
-  const bankBetAmt  = bankPlacedChips.reduce((a, c) => a + c.denom, 0)
-  const stdBetAmt   = stdPlacedChips.reduce((a, c) => a + c.denom, 0)
-  // Черновик ставки соперникам; в керри — с выделенным исходом: не подтвердишь — сервер поставит блайнд туда
-  const stage = (payload: { chips: number[] }, target = mainTarget) =>
-    socket.emit('stage_chip', isKerriCrowd && target ? { ...payload, target } : payload)
-
-  // ── Standard mode handlers ───────────────────────────────────────────────
-  const stdPlace = (denom: ChipValue) => {
-    if (betConfirmed || quick.current) return
-    const unplaced = myStack.filter(c => c.denom === denom && !stdPlacedIds.has(c.id))
-    const chip = unplaced[unplaced.length - 1]
-    if (!chip) return
-    setStdPlacedIds(prev => new Set([...prev, chip.id]))
-    stage({ chips: [...stdPlacedChips, chip].map(c => c.denom) })
-  }
-
-  const stdRecall = (id: string) => {
-    if (betConfirmed || quick.current) return
-    setStdPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-    stage({ chips: stdPlacedChips.filter(c => c.id !== id).map(c => c.denom) })
-  }
-
-  // ── Kerri crowd handlers ─────────────────────────────────────────────────
-  const kerriPlace = (denom: ChipValue) => {
-    if (betConfirmed || quick.current || activeZone === null) return
-    if (activeZone === 'main' && !mainTarget) return
-    if (activeZone === 'bank' && bankTarget === null) return
-    const unplacedK = myStack.filter(c => c.denom === denom && !allPlacedIds.has(c.id))
-    const chip = unplacedK[unplacedK.length - 1]
-    if (!chip) return
-    const newMain = activeZone === 'main' ? [...mainPlacedChips, chip] : mainPlacedChips
-    const newBank = activeZone === 'bank' ? [...bankPlacedChips, chip] : bankPlacedChips
-    if (activeZone === 'main') {
-      setMainPlacedIds(prev => new Set([...prev, chip.id]))
-    } else {
-      setBankPlacedIds(prev => new Set([...prev, chip.id]))
-    }
-    stage({ chips: [...newMain, ...newBank].map(c => c.denom) })
-  }
-
-  const kerriRecall = (id: string) => {
-    if (betConfirmed || quick.current) return
-    if (mainPlacedIds.has(id)) {
-      setMainPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-      stage({ chips: [...mainPlacedChips.filter(c => c.id !== id), ...bankPlacedChips].map(c => c.denom) })
-    } else if (bankPlacedIds.has(id)) {
-      setBankPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-      stage({ chips: [...mainPlacedChips, ...bankPlacedChips.filter(c => c.id !== id)].map(c => c.denom) })
-    }
-  }
-
-  const selectMainZone = (target: 'win' | 'lose') => {
-    if (betConfirmed) return
-    if (mainTarget !== target) {
-      stopQuick(false)
-      setMainPlacedIds(new Set())
-      stage({ chips: bankPlacedChips.map(c => c.denom) }, target)
-    } else {
-      stage({ chips: [...mainPlacedChips, ...bankPlacedChips].map(c => c.denom) }, target)
-    }
-    setMainTarget(target)
-    setActiveZone('main')
-  }
-
-  const selectBankZone = (idx: number) => {
-    if (betConfirmed) return
-    if (bankTarget !== null && bankTarget !== idx) {
-      setBankPlacedIds(new Set())
-      stage({ chips: mainPlacedChips.map(c => c.denom) })
-    }
-    if (bankTarget === idx) {
-      if (bankPlacedIds.size === 0) {
-        setBankTarget(null)
-        if (activeZone === 'bank') setActiveZone(mainTarget ? 'main' : null)
-      } else {
-        setActiveZone('bank')
-      }
-    } else {
-      setBankTarget(idx)
-      setActiveZone('bank')
-    }
-  }
-
-  // ── Confirm ──────────────────────────────────────────────────────────────
-  // блайнд («для всех» и толпа керри): меньше него ставку не подтвердить; не подтвердил — сервер поставит блайнд сам
-  // (в керри — на выделенный исход, а не выбран — на «ответит»)
-  const myBlind = !isGladiator && me?.blind && me.chips >= me.blind ? me.blind : 0
-
-  // ── Быстрая ставка: min / 25% / 50% / all-in ─────────────────────────────
-  // Заменяет выложенное (в керри — основную ставку) на нужную сумму: фишки берутся жадно, от крупных, и летят
-  // каскадом. Ставка уходит только по «Ставлю».
-  const balance = me?.chips ?? 0
-  const quickAmounts = (() => {
-    const free = balance - (isKerriCrowd ? bankBetAmt : 0)
-    const ceil10 = (x: number) => Math.ceil(x / 10) * 10
-    const min = Math.max(10, myBlind)
-    const clamp = (x: number) => Math.min(free, Math.max(min, ceil10(x)))
-    return [
-      { label: 'min', amount: Math.min(free, min) },
-      { label: '25%', amount: clamp(balance * 0.25) },
-      { label: '50%', amount: clamp(balance * 0.5) },
-      { label: 'all-in', amount: free },
-    ]
-  })()
-  const quickBet = (target: number) => {
-    if (betConfirmed || target <= 0) return
-    if (isKerriCrowd && !mainTarget) return
-    stopQuick(false)
-    const busy = isKerriCrowd ? bankPlacedIds : new Set<string>()
-    const pool = myStack.filter(c => !busy.has(c.id)).sort((a, b) => b.denom - a.denom)
-    let rest = target
-    const pick: PhysicalChip[] = []
-    for (const c of pool) if (c.denom <= rest) { pick.push(c); rest -= c.denom }
-    if (rest > 0) {   // ровно не сложилось — добираем одной фишкой сверху
-      const extra = pool.filter(c => !pick.includes(c)).reverse().find(c => c.denom >= rest)
-      if (extra) pick.push(extra)
-    }
-    const setIds = isKerriCrowd ? setMainPlacedIds : setStdPlacedIds
-    setIds(new Set())
-    if (isKerriCrowd) setActiveZone('main')
-    if (pick.length) {
-      const q = { timers: [] as number[], pick, kerri: isKerriCrowd }
-      quick.current = q
-      setDealing(true)
-      pick.forEach((c, i) => q.timers.push(window.setTimeout(() => {
-        setIds(prev => new Set([...prev, c.id]))
-        if (i === pick.length - 1 && quick.current === q) { quick.current = null; setDealing(false) }
-      }, 60 + i * 55)))
-    }
-    stage({ chips: [...pick.map(c => c.denom), ...(isKerriCrowd ? bankPlacedChips.map(c => c.denom) : [])] })
-  }
   const myAngle = playerAngle(0, Math.max(1, gameState.players.length))
   const myUnit = unitPosition(myAngle, UNIT_W, UNIT_H, 0)
   const stdControlsTop = landingZone(myAngle).cy - ABOVE_MY_PILE
-
-  const handleConfirm = () => {
-    if (betConfirmed) return
-    // быстрая ставка ещё раскладывается — подтверждаем всю выбранную сумму, а не то, что успело долететь
-    const pick = stopQuick(true)
-    const main = pick && isKerriCrowd ? pick : mainPlacedChips
-    const std = pick && !isKerriCrowd ? pick : stdPlacedChips
-    const sum = (cs: PhysicalChip[]) => cs.reduce((a, c) => a + c.denom, 0)
-    const mainAmt = sum(main)
-    const stdAmt = sum(std)
-    const ok = isKerriCrowd ? mainTarget !== null && mainAmt > 0 && mainAmt >= myBlind : stdAmt > 0 && stdAmt >= myBlind
-    if (!ok) return
-    markBetSent()
-    if (isKerriCrowd) {
-      const withBank = bankTarget !== null && bankBetAmt > 0
-      socket.emit('place_bet', {
-        amount: mainAmt,
-        target: mainTarget,
-        // те же фишки и в том же порядке, что в черновике (stage_chip): основная, затем банк — у соперников ничего не пропадает
-        chips: [...main, ...(withBank ? bankPlacedChips : [])].map(c => c.denom),
-        ...(withBank ? { bankBet: { optionIndex: bankTarget, amount: bankBetAmt } } : {}),
-      })
-    } else {
-      socket.emit('place_bet', { amount: stdAmt, chips: std.map(c => c.denom) })
-    }
-    setBetConfirmed(true)
-  }
-
-  // Keep ref fresh every render so auto-confirm timeout always calls latest version
-  handleConfirmRef.current = handleConfirm
 
   const players       = gameState.players
   const others        = players.filter(p => p.id !== myId)
@@ -341,11 +122,6 @@ export function BettingTableScreen() {
         </motion.div>
       )
     })
-
-  // сколько всего на кону у исхода: подтверждённые ставки соперников + своя
-  const sideTotal = (target: 'win' | 'lose') =>
-    players.reduce((a, p) => a + (p.id !== myId && p.betTarget === target ? p.currentBet : 0), 0)
-    + (mainTarget === target ? mainBetAmt : 0)
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -620,7 +396,7 @@ export function BettingTableScreen() {
 
         {/* ── Confirm button (kerri crowd) ── */}
         <AnimatePresence>
-          {isKerriCrowd && !betConfirmed && !dealing && mainTarget !== null && mainBetAmt > 0 && mainBetAmt >= myBlind && (
+          {isKerriCrowd && canConfirm && (
             <motion.div
               initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -635,7 +411,7 @@ export function BettingTableScreen() {
 
         {/* ── Confirm button (all mode) ── */}
         <AnimatePresence>
-          {!isGladiator && !isKerriCrowd && !betConfirmed && !dealing && stdPlacedIds.size > 0 && stdBetAmt >= myBlind && (
+          {!isKerriCrowd && canConfirm && (
             <motion.div
               initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -650,7 +426,7 @@ export function BettingTableScreen() {
 
         {/* ── Блайнд: сколько минимум (пока ставка не дотягивает) ── */}
         <AnimatePresence>
-          {!betConfirmed && !dealing && myBlind > 0 && (isKerriCrowd ? !(mainTarget !== null && mainBetAmt >= myBlind) : stdBetAmt < myBlind) && (
+          {showBlind && (
             <motion.div
               initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               style={{
@@ -687,46 +463,5 @@ export function BettingTableScreen() {
         </SceneScaleContext.Provider>
       </div>
     </div>
-  )
-}
-
-/** Быстрая ставка: подпись и сумма; выкладывает фишки, подтверждать — «Ставлю». */
-function QuickButton({ label, amount, disabled, onClick }: { label: string; amount: number; disabled: boolean; onClick: () => void }) {
-  return (
-    <motion.button
-      onClick={disabled ? undefined : onClick}
-      whileHover={disabled ? undefined : { y: -2 }}
-      whileTap={disabled ? undefined : { scale: 0.92 }}
-      title={disabled ? 'Сначала выбери исход' : undefined}
-      style={{
-        width: 80, height: 40, borderRadius: 10, cursor: disabled ? 'default' : 'pointer',
-        background: C.panel, border: `1.5px solid ${label === 'all-in' ? C.hot : C.line}`,
-        color: C.fg, opacity: disabled ? 0.4 : 1,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', lineHeight: 1.05,
-        boxShadow: '0 6px 14px rgba(0,0,0,.45)',
-      }}
-    >
-      <span style={{ fontFamily: DISPLAY, fontSize: 13, color: label === 'all-in' ? C.hot : C.brass }}>{label}</span>
-      <span style={{ fontSize: 11, fontWeight: 700, color: C.muted }}><Money v={amount} /></span>
-    </motion.button>
-  )
-}
-
-/** Подтвердить ставку: латунная плашка с суммой. */
-function ConfirmButton({ amount, onClick }: { amount: number; onClick: () => void }) {
-  return (
-    <motion.button
-      onClick={onClick}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.92 }}
-      style={{
-        height: 46, padding: '0 22px', borderRadius: 999, border: 'none', cursor: 'pointer',
-        background: C.brass, color: C.ink, whiteSpace: 'nowrap',
-        fontSize: 16, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 8,
-        boxShadow: '0 4px 0 #a87a17, 0 10px 24px rgba(0,0,0,.5)',
-      }}
-    >
-      Ставлю <span style={{ fontFamily: DISPLAY, fontVariantNumeric: 'tabular-nums' }}><Money v={amount} /></span>
-    </motion.button>
   )
 }

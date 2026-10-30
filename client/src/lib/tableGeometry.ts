@@ -12,16 +12,31 @@ export const CARD_GAP_Y = 45
 export const SCENE_W = 1300
 export const SCENE_H = 820
 
-export function useSceneScale(): number {
-  // растёт и на больших экранах (до 1.4): на 1920×1080 стол не должен оставаться «ноутбучным»
-  const compute = () => Math.min(1.4, window.innerWidth / SCENE_W, window.innerHeight / (SCENE_H + 90))   // +90: плашки игроков сверху и снизу выходят за сцену
-  const [scale, setScale] = useState(compute)
+// растёт и на больших экранах (до 1.4): на 1920×1080 стол не должен оставаться «ноутбучным»
+const sceneScale = () => Math.min(1.4, window.innerWidth / SCENE_W, window.innerHeight / (SCENE_H + 90))   // +90: плашки игроков сверху и снизу выходят за сцену
+
+/** Ниже этого масштаба сцены круглый стол не играбелен (фишки мельче ~17 px) — ставки в компактной раскладке. */
+export const COMPACT_SCALE = 0.55
+const COMPACT_WIDTH = 640
+const isCompact = () => window.innerWidth < COMPACT_WIDTH || sceneScale() < COMPACT_SCALE
+
+function useViewport<T>(compute: () => T): T {
+  const [v, setV] = useState(compute)
   useEffect(() => {
-    const handler = () => setScale(compute())
+    const handler = () => setV(compute())
     window.addEventListener('resize', handler)
     return () => window.removeEventListener('resize', handler)
   }, [])
-  return scale
+  return v
+}
+
+export function useSceneScale(): number {
+  return useViewport(sceneScale)
+}
+
+/** Телефон (уже 640 px) или экран, где стол ужимается меньше ×0.55: ставки — списком (CompactBetting), фон без стола. */
+export function useCompactBetting(): boolean {
+  return useViewport(isCompact)
 }
 
 /** Масштаб сцены стола (CSS scale у обёртки) — для поправки перелёта фишек, см. useFlightTransform. */

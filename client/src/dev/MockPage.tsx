@@ -6,6 +6,7 @@ import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
 import { ItemBar } from '../components/ui/ItemBar'
 import { Notice } from '../components/ui/Notice'
+import { useCompactBetting } from '../lib/tableGeometry'
 import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
 
 function refreshDynamic(state: ScenarioState): ScenarioState {
@@ -34,6 +35,7 @@ export function MockPage() {
   const [collapsed, setCollapsed] = useState(true)
   const [activeId, setActiveId] = useState<string | null>(null)
   const [playerCount, setPlayerCount] = useState(4)
+  const compact = useCompactBetting()
 
   // ?s=<id сценария>&n=<игроки> — открыть сценарий сразу (скриншоты, ссылки)
   useEffect(() => {
@@ -113,7 +115,7 @@ export function MockPage() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <button
-                onClick={() => changeCount(Math.max(2, playerCount - 1))}
+                onClick={() => changeCount(Math.max(1, playerCount - 1))}
                 style={{
                   width: 22, height: 22, borderRadius: 4,
                   background: '#111', border: '1px solid #2a2a2a',
@@ -139,7 +141,7 @@ export function MockPage() {
               >+</button>
             </div>
             <input
-              type="range" min={2} max={MAX_PLAYERS} value={playerCount}
+              type="range" min={1} max={MAX_PLAYERS} value={playerCount}
               onChange={e => changeCount(Number(e.target.value))}
               style={{ width: '100%', marginTop: 6, accentColor: '#fbbf24' }}
             />
@@ -195,7 +197,8 @@ export function MockPage() {
       }} className="stage">
         {active ? (
           <>
-            {!active.withFelt && <TableFelt blurred={true} />}
+            {/* как в App: на ставках фон — только сукно (плашки и кучки рисует стол), на телефоне — размыт */}
+            <TableFelt blurred={!active.withFelt || compact} />
             {(() => { const Screen = active.Screen; return <Screen /> })()}
             <ItemBar />
             <Notice />

@@ -7,6 +7,7 @@ import { roughClip } from './Sticker'
 import { ItemIcon } from './ItemIcon'
 import { ignoreHotkey } from '../../lib/pressable'
 import { isSpectator } from '../../lib/players'
+import { useCompactBetting } from '../../lib/tableGeometry'
 
 type SlotState = 'use' | 'ready' | 'idle' | 'targeting'
 
@@ -37,8 +38,9 @@ function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, 
 /** Свой запас в углу: только то, что есть, и только в фазах применения (анонс, ставки, вопрос). Покупка — в лавке.
  *  Клавиши — ITEMS[id].key (Z манта, X гем, C смок, V хекс, B BKB; у блинка клавиши нет); гем и хекс просят выбрать
  *  игрока (Esc — отмена). Подсказка на бумажке — по наведению мыши, на тач-экране — по первому тапу (второй применяет).
- *  Пока панель на экране, она выставляет --itembar-pad: экраны вопроса оставляют под ней место (.below-itembar). */
-export function ItemBar() {
+ *  Пока панель на экране, она выставляет --itembar-pad: экраны вопроса оставляют под ней место (.below-itembar).
+ *  На ставках на телефоне (CompactBetting) угловой панели нет — там своя, inline, в потоке колонки над доком. */
+export function ItemBar({ inline }: { inline?: boolean } = {}) {
   const gs = useGameStore(s => s.gameState)
   const me = useGameStore(selectMe)
   const isGladiator = useGameStore(selectIsGladiator)
@@ -49,13 +51,16 @@ export function ItemBar() {
   const useItem = useGameStore(s => s.useItem)
   const itemFeed = useGameStore(s => s.itemFeed)
   const roundResults = useGameStore(s => s.roundResults)
+  const compact = useCompactBetting()
 
   const phase = gs?.phase ?? 'LOBBY'
   const inv = gs?.inventory ?? {}
   const answered = !!myId && answeredIds.has(myId)
   const aegisOn = me?.effects?.includes('aegis') ?? false
   const owned = ITEM_ORDER.filter(id => id === 'aegis' ? aegisOn : (inv[id] ?? 0) > 0)
-  const visible = !!gs && !!me && USE_PHASES.includes(phase) && owned.length > 0
+  // угловая панель уступает место inline-панели компактных ставок (inline рисует только CompactBetting)
+  const yieldsToInline = !inline && compact && phase === 'BETTING'
+  const visible = !!gs && !!me && USE_PHASES.includes(phase) && owned.length > 0 && !yieldsToInline
 
   // «раз за раунд»: манта (убранный вариант), смок и BKB (свой эффект), хекс (свой бросок в ленте применений)
   const fx = me?.effects ?? []
@@ -85,7 +90,7 @@ export function ItemBar() {
   }
 
   useEffect(() => {
-    if (!visible) return
+    if (!visible || inline) return
     const root = document.documentElement
     root.style.setProperty('--itembar-pad', '5.75rem')
     return () => { root.style.removeProperty('--itembar-pad') }
@@ -108,7 +113,9 @@ export function ItemBar() {
 
   return (
     // сам контейнер клики пропускает (промежутки между слотами лежат поверх стола / ников) — ловят только слоты
-    <div className="fixed z-50 flex flex-col items-start gap-2" style={{ left: '1.25rem', bottom: '1.1rem', pointerEvents: 'none' }}>
+    <div className={`${inline ? 'relative' : 'fixed z-50'} flex flex-col items-start gap-2`}
+      style={inline ? { pointerEvents: 'none' } : { left: '1.25rem', bottom: '1.1rem', pointerEvents: 'none' }}>
+      {inline && <span className="text-[0.75rem]" style={{ color: C.muted }}>Предметы</span>}
       <AnimatePresence>
         {targeting && (
           <motion.div
@@ -122,7 +129,7 @@ export function ItemBar() {
       </AnimatePresence>
       {/* прицел: панель отходит в сторону — при 7–10 игроках и полном запасе она лежит на плашке соседа снизу слева,
           а он тоже цель. Отмена — Esc или та же клавиша */}
-      <div className="flex items-end gap-2.5" style={targeting ? { opacity: 0.4 } : undefined}>
+      <div className={`flex items-end gap-2.5${inline ? ' flex-wrap pt-1.5' : ''}`} style={targeting ? { opacity: 0.4 } : undefined}>
         {owned.map(id => (
           <ItemSlot key={id} id={id} count={id === 'aegis' ? 1 : inv[id] ?? 0}
             state={stateOf(id)} reason={why(id)} onClick={() => act(id)} passThrough={!!targeting} />
@@ -152,10 +159,15 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
   const live = state === 'use' || state === 'targeting'
   const glow = state === 'targeting' ? C.hot : state === 'ready' ? C.sky : state === 'use' ? C.brass : null
 
+  // подсказка шириной 17rem: у слота в правой половине экрана (inline-панель на телефоне) — влево от него
+  const box = useRef<HTMLDivElement>(null)
+  const rect = (hover || tapTip) ? box.current?.getBoundingClientRect() : undefined
+  const tipRight = !!rect && rect.left > window.innerWidth / 2
+
   return (
-    <div className="relative" style={{ pointerEvents: passThrough ? 'none' : 'auto' }}>
+    <div ref={box} className="relative" style={{ pointerEvents: passThrough ? 'none' : 'auto' }}>
       <AnimatePresence>
-        {(hover || tapTip) && <Tip id={id} reason={reason} tapAgain={tapTip && state === 'use'} />}
+        {(hover || tapTip) && <Tip id={id} reason={reason} tapAgain={tapTip && state === 'use'} right={tipRight} />}
       </AnimatePresence>
       <motion.button
         type="button"
@@ -206,7 +218,7 @@ function ItemSlot({ id, count, state, reason, onClick, passThrough }: {
 }
 
 /** Подсказка — бумажка над слотом: название, что делает, клавиша, почему сейчас нельзя. */
-function Tip({ id, reason, tapAgain }: { id: ItemId; reason: string | null; tapAgain?: boolean }) {
+function Tip({ id, reason, tapAgain, right }: { id: ItemId; reason: string | null; tapAgain?: boolean; right?: boolean }) {
   const def = ITEMS[id]
   return (
     <motion.div
@@ -216,7 +228,8 @@ function Tip({ id, reason, tapAgain }: { id: ItemId; reason: string | null; tapA
       transition={{ type: 'spring', stiffness: 500, damping: 26 }}
       className="absolute pointer-events-none"
       style={{
-        left: -6, bottom: 'calc(100% + 14px)', width: '17rem', zIndex: 70,
+        ...(right ? { right: -6 } : { left: -6 }), bottom: 'calc(100% + 14px)', width: '17rem', zIndex: 70,
+        maxWidth: 'calc(100vw - 1.5rem)',
         filter: 'drop-shadow(0 3px 0 rgba(0,0,0,.35)) drop-shadow(0 12px 18px rgba(0,0,0,.5))',
       }}
     >
