@@ -65,7 +65,9 @@ export function TableFelt({ blurred }: Props) {
         opacity: blurred ? 0.13 : 1,
         filter: blurred ? 'blur(14px)' : 'blur(0px)',
       }}
-      transition={blurred ? { duration: 0.4 } : { duration: 0.9, delay: 0.35 }}
+      // в свёрнутой вкладке кадры не идут: анимация стартовала бы только при возврате, и мелькнул бы стол ставок
+      transition={typeof document !== 'undefined' && document.hidden ? { duration: 0 }
+        : blurred ? { duration: 0.4 } : { duration: 0.9, delay: 0.35 }}
       style={{
         position: 'absolute',
         inset: 0,

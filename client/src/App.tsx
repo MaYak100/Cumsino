@@ -17,18 +17,22 @@ export default function App() {
   const compact = useCompactBetting()
   const phase = gameState?.phase
   // Старый экран уходит анимацией Framer Motion; в фоновой вкладке (альт-таб) она может не доиграть, и он остаётся на
-  // сцене вместе с новым (анонс с темой «залипает» поверх вопроса). Сторож: через секунду после смены фазы и при
-  // возврате на вкладку — на сцене больше одного экрана → пересоздать AnimatePresence, он держит только текущий.
+  // сцене вместе с новым (анонс с темой «залипает» поверх вопроса). Сторож: через 1.2 с после смены фазы и при
+  // возврате на вкладку старые экраны (data-phase не текущей фазы) прячутся. Пересоздавать AnimatePresence сразу нельзя:
+  // на медленной машине уход длится дольше 1.2 с, и пересоздание проигрывало текущий экран заново (лавка, «кто ближе»
+  // появлялись дважды) и сбрасывало его состояние. Пересоздание — только если старый экран завис на 10 с.
   const stageRef = useRef<HTMLDivElement>(null)
   const [stageGen, setStageGen] = useState(0)
   useEffect(() => {
-    const check = () => {
-      if ((stageRef.current?.querySelectorAll(':scope > [data-screen]').length ?? 0) > 1) setStageGen(g => g + 1)
-    }
-    const t = setTimeout(check, 1200)
-    const onVisible = () => { if (document.visibilityState === 'visible') setTimeout(check, 400) }
+    const stale = () => [...(stageRef.current?.querySelectorAll<HTMLElement>(':scope > [data-screen]') ?? [])]
+      .filter(el => el.dataset.phase !== phase)
+    const hide = () => stale().forEach(el => { el.style.visibility = 'hidden' })
+    const t = setTimeout(hide, 1200)
+    const stuck = setTimeout(() => { if (stale().length) setStageGen(g => g + 1) }, 10_000)
+    // возврат на вкладку — прятать сразу, до первого кадра (иначе мелькает старый экран, например стол ставок)
+    const onVisible = () => { if (document.visibilityState === 'visible') hide() }
     document.addEventListener('visibilitychange', onVisible)
-    return () => { clearTimeout(t); document.removeEventListener('visibilitychange', onVisible) }
+    return () => { clearTimeout(t); clearTimeout(stuck); document.removeEventListener('visibilitychange', onVisible) }
   }, [phase])
 
   useEffect(() => {
@@ -52,17 +56,23 @@ export default function App() {
   )
 
   const Screen = screenFor(gameState.phase, gameState.mode, isGladiator)
+  // фаза сменилась в свёрнутой вкладке: кадры анимаций там не идут — без анимаций, старый экран прячется правилом сразу
+  const hidden = typeof document !== 'undefined' && document.hidden
 
   return (
     <div ref={stageRef} className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
       <TableFelt blurred={gameState.phase !== 'BETTING' || compact} />
-      <AnimatePresence key={stageGen}>
+      {hidden && <style>{`.stage > [data-screen]:not([data-phase="${gameState.phase}"]) { visibility: hidden }`}</style>}
+      <AnimatePresence key={stageGen} custom={hidden}>
         <motion.div
           key={gameState.phase}
           data-screen
-          initial={{ opacity: 0 }}
+          data-phase={gameState.phase}
+          initial={hidden ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -12, pointerEvents: 'none', transition: { duration: 0.15 } }}
+          // custom приходит от AnimatePresence в момент ухода (а не из последнего рендера экрана)
+          variants={{ exit: (instant: boolean) => ({ opacity: 0, y: -12, pointerEvents: 'none', transition: { duration: instant ? 0 : 0.15 } }) }}
+          exit="exit"
           transition={{ duration: 0.4 }}
           style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}
         >
