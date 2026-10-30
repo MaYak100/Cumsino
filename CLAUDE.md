@@ -2,259 +2,346 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Cumsino — браузерная казино-викторина по Dota 2 для компании (до 8 игроков): ставки фишками на свой ответ, на
+керри, «кто ближе»; гонка до $3000. npm workspaces: `shared/`, `server/` (Express + Socket.IO, состояние игры в
+памяти), `client/` (React + Vite + Zustand + Framer Motion + Tailwind).
+
 ## Commands
 
-### Development (run from repo root)
-
 ```bash
-# Start server (hot-reload via tsx watch)
-npm run dev:server
-# or
-npm run dev --workspace=server
-
-# Start client (Vite dev server, port 5173 или следующий свободный)
-npm run dev --workspace=client
-
-# Run server tests (vitest)
-npm run test:server
-# or
-npm run test --workspace=server
-
-# Run a single test file
+npm run dev:server                      # сервер (tsx watch), порт 3001
+npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
+npm run test:server                     # vitest сервера (423 теста)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (436)
 npx vitest run server/src/game/economy/__tests__/applyBankBets.test.ts --config server/vitest.config.ts
-
-# Run shared chips tests (uses server vitest config for @cumsino/shared alias)
-npx vitest run shared/src/__tests__/chips.test.ts --config server/vitest.config.ts
-
-# Watch mode for tests
 npm run test:watch --workspace=server
+npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
+cd server && npx tsc --noEmit           # проверка типов; так же в client
 ```
 
-### Лаборатория вопросов (`/dev`)
+Production build: `npm run build --workspace=shared && npm run build --workspace=server`; клиент —
+`npm run build --workspace=client` (Vite берёт shared из исходников).
 
-```bash
-npm run dev:server                 # нужен: вопросы берутся с сервера
-npm run dev --workspace=client     # → http://localhost:5173/Cumsino/dev
-```
+**`@cumsino/shared` в dev-сервере:** vitest и Vite алиасят его на `../shared/index.ts` (исходники), а `tsx`
+сервера резолвит пакет через `node_modules` → `shared/dist` (`main` в `shared/package.json`). После правки
+`shared/src` для `npm run dev:server` нужен `npm run build --workspace=shared`, иначе сервер работает со старыми
+константами. В `server/tsconfig.json` **нет `paths`** — с ним TS6059 (файл вне rootDir).
 
-Настоящие вопросы на настоящих экранах игры, без сокета и без прохождения цикла. Слева панель (скрыть — `H`):
-**режим** (для всех / керри: толпа / керри: я керри / кто ближе) → **категория** и **подкатегория** (или «по весам, как в
-игре») → вопрос. **Стадия раунда**: анонс → ставки (толпа kerri видит там вопрос; в «кто ближе» ставок нет) → вопрос →
-ответ (correctAnswer + comment + optionNotes, как в `round_results`) → итоги. Клавиши: `→`/`←` следующий / назад,
-`R` показать ответ, `1`–`5` стадия, `C` скопировать id. Смена только режима показывает тот же вопрос в новом режиме
-(числовой факт — и MC по шагу, и «кто ближе»). Поле id открывает конкретный вопрос (`num:…`, `mech:…`, `stat:…`,
-`fr:…`). «Друзья» — отметить, кто опознан (нужно ≥ 2). Слайдер игроков 2–10. Внизу — экраны вне раунда (лобби, конец
-игры, вход посреди игры). Можно кликнуть вариант / ввести число — ответ «принят» локально; оценки никуда не уходят.
+### Лаборатория вопросов (`/dev`) и моки (`/mocks`)
 
-Сервер: `server/src/dev/questionLab.ts` — `GET /dev/catalog`, `GET /dev/question?session&mode&cat&sub&id&friends`,
-`POST /dev/reset`; подключается в `index.ts` только при `NODE_ENV !== 'production'` (на Render их нет). Вопросы собирает
-тот же `RoomQuestions`, но на своём `QuestionHistory` без хранилища: в Neon лаборатория не пишет; в сессии вопросы
-среза не повторяются, срез кончился — новый круг. Клиент: `client/src/dev/` — `DevPage.tsx` (панель), `labApi.ts`
-(запросы, `VITE_SERVER_URL` или localhost:3001), `labState.ts` (вопрос + режим + стадия → состояние `gameStore`),
-`scenarios.ts` (экраны вне раунда). Экран по фазе выбирает `components/screens/screenFor.ts` — общий с `App.tsx`.
+Обе страницы — только в dev-сборке (`main.tsx`, lazy-импорт под `import.meta.env.DEV`).
+
+- `/dev` (`http://localhost:5173/Cumsino/dev`, нужен `dev:server`) — настоящие вопросы на настоящих экранах, без
+  сокета. Панель слева (скрыть — `H`): режим (для всех / керри: толпа / керри: я керри / кто ближе) → категория и
+  подкатегория (или «по весам, как в игре») → вопрос; стадия: анонс → ставки → вопрос → ответ → итоги. Клавиши: `→`/`←`,
+  `R` ответ, `1`–`5` стадия, `C` скопировать id. Поле id (`num:…`, `mech:…`, `stat:…`, `fr:…`), «Друзья» (≥ 2),
+  слайдер игроков 2–10 (в игре максимум 8), внизу — экраны вне раунда. Оценки никуда не уходят (`setRating`
+  подменён). Сервер: `server/src/dev/questionLab.ts` — `GET /dev/catalog`, `GET /dev/question?session&mode&cat&sub&id&friends`,
+  `POST /dev/reset`, только при `NODE_ENV !== 'production'`; свой `QuestionHistory` без хранилища (в Neon не пишет,
+  в сессии срез не повторяется, кончился — новый круг). Клиент: `client/src/dev/` — `DevPage.tsx`, `labApi.ts`,
+  `labState.ts` (вопрос + режим + стадия → состояние `gameStore`), `scenarios.ts`.
+- `/mocks?s=<id сценария>&n=<игроки>` — без сервера: `dev/MockPage.tsx` + `dev/mockStates.ts` (лавка, предметы,
+  блайнды, серии, керри-стол; `betting-bigblind-me`, `betting-all-full`, `betting-kerri-crowd-full` и др.).
 
 ### Windows
 
-- Python: `python -X utf8 script.py` — без этого печать кириллицы в консоль cp1251 падает (`fetch_friends.py`, сборщики банков). Многострочный `python -c` в Git Bash ломается — писать скрипт в файл.
-- `.env` в корне: `DATABASE_URL` (Neon, проект Cumsino `misty-king-07552108`; строку можно взять через Neon MCP `get_connection_string`) и `STRATZ_API_KEY`. Сервер ищет `.env` вверх по папкам от корня репозитория (worktree → основной checkout), явная переменная главнее, даже пустая; в логе `[env] <путь>: …`.
-- В `C:\Dev\Cumsino\node_modules` на 2026-10-30 нет `pg` — нужен `npm install` в основном checkout, иначе в логе баннер «Модуль pg не загрузился — БЕЗ NEON» (для проверки из worktree: `pg` во временной папке + `NODE_PATH`).
-- Пересъём друзей: `python -X utf8 scripts/fetch_friends.py --me 1101588971 && python -X utf8 scripts/friends_questions.py --build` (`matches.jsonl` / `state.json` в .gitignore — на новой машине качается всё заново, ~200 запросов, один IP).
+- Python: `python -X utf8 script.py` — без этого печать кириллицы в cp1251 падает. Многострочный `python -c` в Git
+  Bash ломается — писать скрипт в файл.
+- `.env` в корне основного checkout: `DATABASE_URL` (Neon, проект Cumsino `misty-king-07552108`; строку можно взять
+  через Neon MCP `get_connection_string`) и `STRATZ_API_KEY`.
+- Пересъём друзей: `python -X utf8 scripts/fetch_friends.py --me 1101588971 && python -X utf8 scripts/friends_questions.py --build`
+  (`matches.jsonl` / `state.json` в .gitignore — на новой машине качается всё заново, ~200 запросов, один IP).
 
 ### Worktree (`.claude/worktrees/<имя>`)
 
-- Своих `node_modules` нет — резолвятся из корня `C:\Dev\Cumsino\node_modules`, а `@cumsino/shared` там ссылается на
-  копию из основного checkout. Поэтому vitest/vite (алиас на `../shared/index.ts`) видят shared ворктри, а голый `tsc`
-  и `tsx` сервера — нет: для них нужен tsconfig с `paths` на shared ворктри (во временной папке, не в репо — см. TS6059).
-- Порт 3001 обычно занят сервером основного checkout; сервер ворктри поднимать на другом (`PORT=3002`) и клиент с
-  `VITE_SERVER_URL=http://localhost:3002`. `DATABASE_URL=` (пусто) — история вопросов только в памяти, Neon не трогаем.
+- Своих `node_modules` нет — резолвятся из `C:\Dev\Cumsino\node_modules`, а `@cumsino/shared` там ссылается на копию
+  основного checkout. vitest/Vite (алиас на `../shared/index.ts`) видят shared ворктри, а голый `tsc` и `tsx`
+  сервера — нет: для них нужен tsconfig с `paths` на shared ворктри (во временной папке, не в репо — TS6059).
+- `.env` сервер ищет вверх по папкам — из worktree находит `.env` основного checkout (`setup.ts`, `findDotEnv`).
+  Порт 3001 обычно занят сервером основного checkout: сервер ворктри — `PORT=3002`, клиент —
+  `VITE_SERVER_URL=http://localhost:3002`; `DATABASE_URL=` (пусто, явная переменная главнее) — без Neon.
 - `git stash` общий для всех ворктри — не использовать голый stash.
-
-### TypeScript checks
-
-```bash
-cd server && npx tsc --noEmit
-cd client && npx tsc --noEmit
-```
-
-### Production build
-
-```bash
-# Must build shared first, then server
-npm run build --workspace=shared
-npm run build --workspace=server
-
-# Client build (Vite resolves shared via alias, no pre-build needed)
-npm run build --workspace=client
-```
 
 ## Architecture
 
-npm workspaces monorepo: `shared/`, `server/`, `client/`.
+### `@cumsino/shared` (`shared/src/`)
 
-### `@cumsino/shared`
-
-Single source of truth for types, constants, and chip decomposition. Consumed by both server and client.
-
-- `src/types.ts` — all interfaces: `Player`, `GameState`, `Question`, `RoundResult`, socket payloads. `GameMode = 'all' | 'kerri' | 'closest' | 'top5'`. `GameState` includes `hostId: string` (first player to join). `Question` has optional `displayTopic?: string` (topic for UI: «subject\naspect» — `src/topic.ts` `joinTopic`/`splitTopic`; e.g. «Lion\nспособности», «Герои\nубийства», «Heart of Tarrasque» without aspect; `topic` = subcategory title) and `comment?: string` (explanatory note shown after correct answer is revealed) and `optionNotes?: string[]` (true value of each option by index — «610», «64%», up to ~6 chars). `comment` and `optionNotes` are excluded from `GameState.currentQuestion` and delivered only in `round_results` (otherwise values leak the answer). `constants.ts`: `ANSWER_REVEAL_MS=4000`, `ANSWER_REVEAL_NOTES_MS=6000`.
-- `src/constants.ts` — `STARTING_CHIPS=500`, `WIN_CHIPS=3000`, `GLADIATOR_BONUS=300`, `PHASE_DURATIONS`, etc.
-- `src/units.ts` — `withUnit(value, unit)`: «175%», «1.5×» glued, «12 сек.», «2250 золота» spaced. `Question.unit` — unit of a number question: in MC it is already inside each option label, in closest it is shown next to the input and in «Правильный ответ» (`ClosestScreen`).
-- `src/chips.ts` — `decomposeToChips(amount)`: splits into denominations (80% large: 500/100, 20% small: 50/20/10), then `normalizeMax7()` upgrades excess stacks (>7 chips) to the next larger denom. `decomposeStartingChips()`: fixed breakdown `4×100+1×50+1×20+3×10=500`.
-
-**Import resolution:** Both Vite (client) and vitest (server) alias `@cumsino/shared` → `../shared/index.ts` (raw TS source). The compiled `shared/dist/` is only used in production Render.com builds. The server `tsconfig.json` has **no `paths` block** — npm workspaces symlink handles resolution; adding `paths` here causes TS6059 (file outside rootDir).
+- `types.ts` — `Player`, `GameState`, `Question`, `RoundResult`, payload'ы сокетов. `GamePhase = LOBBY | SHOP |
+  ANNOUNCE | BETTING | QUESTION | REVEAL | GAME_OVER`, `GameMode = 'all' | 'kerri' | 'closest'`. `Question`:
+  `displayTopic` (тема «субъект\nаспект»), `comment`, `optionNotes` (значение каждого варианта, ≤ ~6 символов),
+  `unit`, `category`/`subcategory`. В `GameState.currentQuestion` нет `answer`/`numericAnswer`/`comment`/`optionNotes`,
+  а `id` — ключ раунда (см. «Протокол»).
+- `constants.ts` — `STARTING_CHIPS=500`, `WIN_CHIPS=3000`, `GLADIATOR_BONUS=300`, `CLOSEST_WINNER_BONUS=200`
+  (+`CLOSEST_EXACT_BONUS=200` за точное), `MAX_PLAYERS=8`, `MIN_CHIP=10`, `PHASE_DURATIONS` (SHOP 25, ANNOUNCE 9,
+  BETTING 30, QUESTION 45, REVEAL 14 с), `NEW_MODE_ANNOUNCE_EXTRA=3`, `FIRST_SHOP_EXTRA=20`, `ANSWER_REVEAL_MS=4000`
+  / `ANSWER_REVEAL_NOTES_MS=6000`, `BRIBE_ENABLED=false`.
+- `items.ts` — предметы, цены (`itemPrice` растёт с балансом), блайнды (`blindFor`), молния, серия, BKB, аегис —
+  правила в [docs/items.md](docs/items.md).
+- `chips.ts` — `decomposeToChips(amount)` (80% крупными 500/100, 20% мелкими 50/20/10, `normalizeMax7()` — стопка
+  > 7 фишек укрупняется), `decomposeStartingChips()` = 4×100+1×50+1×20+3×10.
+- `units.ts` — `withUnit(value, unit)`: «175%», «1.5×» слитно, «12 сек.», «2250 золота» через пробел. В MC единица уже в
+  тексте варианта, в closest — у поля ввода и в «Правильный ответ».
+- `topic.ts` — `joinTopic` / `splitTopic` (тема «субъект\nаспект»).
 
 ### Server (`server/src/`)
 
-Game state lives in memory. Question history (decks, credits, ratings, archive, showings) is persisted to Neon via `DATABASE_URL` (set on Render; locally — `.env` in repo root, gitignored); without it — process memory only.
+- **`index.ts`** — Express + Socket.IO. `cors` + `allowRequest` проверяет Origin и у WebSocket (`socket/origin.ts`;
+  `CLIENT_ORIGIN`, по умолчанию любой `http://localhost:*`), `maxHttpBufferSize: 32_000`, `/health`, `/dev/*` вне
+  production. До `listen` ждёт `createHistory()` (Neon). `uncaughtException` / `unhandledRejection` — в лог, не падение.
+  SIGTERM / SIGINT — дописать очередь в Neon (до 5 с) и выйти.
+- **`game/GameEngine.ts`** — `rooms: Map<code, GameRoom>`, `playerRoom: Map<socketId, code>`; `MAX_ROOMS=200`.
+  `joinRoom` проверяет «комната полна» / «сервер полон» **до** выхода из старой комнаты (`join_error`), переход в
+  другую комнату не оставляет «призрака»; повторный join того же сокета не сбрасывает фишки. Последний вышел —
+  `room.destroy()` (закрывает показ вопроса — `settle`) и удаление. Библиотека вопросов грузится в конструкторе.
+- **`game/GameRoom.ts`** — машина фаз и экономика комнаты (EventEmitter: `broadcast`, `broadcastExcept`,
+  `sendToPlayer`; `sendToCrowd` — толпе керри без керри и зрителей). Главное:
+  - **Фазы** через `schedulePhase()` / `onPhaseEnd()`, таймеры через `safely()`. `nextRound()` выбирает режим
+    (`RoundSelector`: `all → kerri → closest` по кругу) и вопрос (ошибка пикера — следующий режим, до 3 попыток),
+    увеличивает `roundIndex`, сбрасывает раундовое состояние и ключ раунда, снимает `spectator`. Раунд `all` после
+    первого сыгранного `closest` начинается с **SHOP** (см. docs/items.md), иначе ANNOUNCE (+3 с, если режим в игре
+    впервые). ANNOUNCE → (kerri: `selectGladiator()` — случайный не-зритель; затем `assignBlinds()`) → BETTING, а
+    `closest` или «ставить некому» (`bettingNeeded()` пуст) — сразу QUESTION. Конец BETTING — `forceBlinds()`.
+  - **Конец вопроса:** все ответили → `startGrace()` (`LAST_ANSWER_GRACE_MS` 1 с, блинк перезапускает) →
+    `advanceFromQuestion()`: `revealing = true` (идемпотентно: поздний ответ / дисконнект не считают раунд второй
+    раз), `calculateResults()` = `baseResults()` + `applyBonuses()` (молния → серия → BKB → аегис; серии и аегисы в
+    `pending`, применяет `commitSettlement()` — тесты могут звать `calculateResults()` повторно), `applyDeltas`
+    (флор 0), `reportRound()` (показ для оценок), `game_state` и `round_results`; фаза остаётся QUESTION ещё 4 с
+    (6 с с `optionNotes`) — клиенты показывают ответ — потом REVEAL. Ошибка расчёта — нулевые итоги «Ошибка расчёта».
+  - **Победа** проверяется в конце REVEAL: самый богатый из ≥ `WIN_CHIPS` (точная ничья — первый вошедший);
+    `game_over.winner` — публичная проекция. Следующий вопрос не собрался — GAME_OVER с лидером.
+  - **Отмена раунда** (`cancelRound`: нулевые дельты, причина в `sources` и `comment`): керри ушёл в BETTING
+    («Керри сбежал»), не осталось участников (одни зрители) в ANNOUNCE/BETTING/QUESTION. Керри ушёл в QUESTION —
+    раунд считается сразу (керри не ответил).
+  - **Уход игрока:** хост переназначается; фазы перепроверяются (SHOP — все готовы, BETTING — все подтвердили,
+    QUESTION — все ответили).
+  - **Ставки** `placeBet(id, amount, target?, chips?, bankBet?)`: только BETTING, не зритель, не керри; не меньше
+    блайнда (если на него хватает); в kerri ненулевая ставка требует `target`; банк-ставка толпы ×4 приходит в том
+    же `place_bet` (`bankBet {optionIndex, amount}`) — только на неверный вариант, > 0, вместе с основной в пределах
+    баланса, иначе отклоняется только банк. `betChips` — префикс присланных фишек на сумму «основная + принятая
+    банк» (`chipsPrefix`). Все, кого ждём, подтвердили → QUESTION сразу. `stageChip(id, chips, target?)` — превью
+    `chip_staged` соперникам; в kerri запоминает сторону для `forceBlinds()` (нет стороны — `'win'`).
+  - **Ответы** `submitAnswer(id, answer, blink)`: только QUESTION до расчёта, не зритель, в kerri — только керри;
+    `answerOk` (вариант из списка / конечное число), не вариант, убранный мантой, не после хекса; повторный — только
+    блинком и на другой ответ.
+  - **Зрители:** вошедший вне LOBBY/SHOP — `spectator` до `nextRound()` (публичный флаг): не ставит, не отвечает, без
+    предметов и блайнда, не керри, не цель гема/хекса, не получает `gladiatorAnswer`/`bank_bet_updated`, его не ждут.
+  - **Видимость:** `getPublicState()` — без запаса, банк-ставок и раундовых предметов; чужой `answer` — только после
+    расчёта; в SHOP `currentQuestion = null`; смок до ответа прячет чужой `hasAnswered`. `getStateForPlayer()` добавляет
+    своё: `inventory`, `prices`, `aegisBought`, `hexTimeLeft`, `removedOptions`; толпе керри (не керри, не зрителю) в
+    BETTING/QUESTION — `gladiatorAnswer` (= верный ответ).
+  - **Оценка** `rateQuestion(id, questionId, vote)` — только последний посчитанный вопрос (`ratable`), по настоящему id
+    или ключу раунда.
+  - **Предметы / блайнды / бонусы / лавка** (`buyItem`, `useItem`, `setShopReady`, `canUse`, хекс с `hexDeadline` /
+    `hexDone`) — [docs/items.md](docs/items.md). Аукцион взяток выключен флагом (`BRIBE_ENABLED`), код и тесты
+    сохранены.
+- **`game/economy/`** — чистые функции, `Map<playerId, delta>`: `distributePool` (пул проигравших делится между
+  победителями пропорционально ставкам, кратно 10, остаток — крупнейшему), `distributeClosest` (ближайший +200,
+  точно +200 сверху, ничья — поровну), `applyBankBets` (попадание +3× ставки, промах −ставка). «Все ошиблись» /
+  «все угадали» `GameRoom` решает сам — дельт нет.
+- **`socket/handlers.ts`** — обёртка на каждое событие: token bucket на сокет (`EVENTS_BURST=40`, +20 в с, лишнее
+  молча), пустой payload → `{}`, исключение → лог. Проверки: код комнаты `^[A-Z0-9]{2,8}$`, имя `cleanName` (без
+  управляющих / невидимых символов и «залго», ≤ 24), ставки — целые кратные 10, фишки — номиналы (≤ 40 шт.), ответ ≤
+  300 символов, предмет из `ITEM_ORDER`, `targetId` ≤ 64. Оценка копится и уходит в комнату не чаще раза в секунду
+  (`RATE_FLUSH_MS`), недосланная — при disconnect.
+- **`game/questions/`** — система вопросов ([docs/questions/system.md](docs/questions/system.md)): `library.ts`
+  (банк, статистика, друзья, `categories.ts`), `picker.ts` (`RoomQuestions`: режим → категория → подкатегория по
+  сглаженным весам `smooth.ts` и множителям оценок → колода), `stepOptions.ts` (варианты числа по шагу),
+  `history.ts` (колоды, кредиты, оценки, архив), `pgBackend.ts` (Neon), `setup.ts` (`.env`, 4 попытки загрузки
+  базы), `friends.ts`. **`game/stats/statQuestions.ts`** — вопросы на статистике STRATZ / OpenDota
+  ([docs/questions/stratz-research.md](docs/questions/stratz-research.md), раздел 5).
 
-- **`index.ts`** — Express + Socket.IO setup. `CLIENT_ORIGIN` defaults to `/^http:\/\/localhost(:\d+)?$/` for local dev; set `CLIENT_ORIGIN` env var in production.
-- **`game/GameRoom.ts`** — Core state machine. Extends EventEmitter. `hostId` = socket id of first `addPlayer` call; `start(requesterId)` rejects if requester is not host. Phase transitions via `schedulePhase()` / `onPhaseEnd()` — **`all` and `kerri` go through BETTING; `closest` skips BETTING** (ANNOUNCE→QUESTION_TEXT directly). **Shop:** every `all` round starts with `SHOP` **only after the first `closest` round has been played** (`closestSeen`; round 1 goes LOBBY→ANNOUNCE directly, first shop is after the first `closest` REVEAL): `nextRound()` picks mode + question, bumps `roundIndex` and resets per-round state *before* the shop, then `startShop()` (all `shopReady=false`, `PHASE_DURATIONS.SHOP` 25 s; the first shop of a game + `FIRST_SHOP_EXTRA` 20 s = 45 s); `setShopReady(id, ready)` — everyone ready (or the last not-ready player leaves) → `endShop()` → ANNOUNCE (`announceSeconds`, +3 s the first time a mode is seen). During SHOP `mode='all'`, `currentQuestion` is hidden (`null`) and `players[].shopReady` is public. In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. `placeBankBet(playerId, optionIndex, amount)` stores crowd's side-bet. `stageChip(playerId, chips, target?)` relays `chip_staged` broadcast to others (visual preview); in kerri the chosen side is remembered in `items.stagedTarget` — `forceBlinds()` puts an unconfirmed crowd blind on it (no side chosen → `'win'`). `calculateResults()` calls `applyBankBets()` after main pool distribution. `advanceFromQuestion()` broadcasts `round_results` with `correctAnswer`, `correctNumericAnswer`, `comment`, `optionNotes`, `mode`, `gladiatorId`, then waits **`ANSWER_REVEAL_MS` (4000ms)**, or `ANSWER_REVEAL_NOTES_MS` (6000ms) when the question has `optionNotes`, before calling `schedulePhase('REVEAL')` — clients remain in QUESTION phase showing the correct answer highlight. `submitAnswer()` blocks non-gladiator answers in kerri mode. `revealing` flag (set in `advanceFromQuestion`, cleared in `nextRound`): during the reveal window the round is already settled — late answers and a gladiator disconnect are ignored, `advanceFromQuestion` is idempotent (no double payout). Emits three events wired by GameEngine: `broadcast`, `broadcastExcept`, `sendToPlayer`. `getStateForPlayer(playerId)` returns personalized state — crowd players receive `gladiatorAnswer` (= correct answer string), kerri player does not. `getPublicState()` strips `bankBet` from player objects. **Items / bonuses / blinds ([docs/items.md](docs/items.md), constants in `shared/src/items.ts`):** blinds in `all` and for the kerri crowd — `assignBlinds()` at ANNOUNCE→BETTING, after `selectGladiator()` (`blindFor`: 5%, big blind 10% to the unique top-balance player among those who bet — the gladiator has no blind and isn't counted; tie at the top → everyone small), `placeBet` below blind rejected (kerri: a non-zero bet also needs `target`), `forceBlinds()` at BETTING end sets unconfirmed bets to the blind (`bet_updated` without chips; kerri — the staged side or `'win'`, `bet_updated {playerId, amount, target}`, capped by balance minus an unconfirmed bank bet). Streaks: `all` right +1 / wrong or skip 0; kerri gladiator right +1 else 0, crowd guessed outcome +1 / wrong 0 / no bet (broke, blind 0) unchanged; `closest` never resets (closest +1, others unchanged). `calculateResults()` = `baseResults()` + `applyBonuses()` (sources «Молния» → «Серия ×N» → «BKB» → «Аегис», casino-paid); new streaks / consumed aegis are stashed in `pending` and applied by `commitSettlement()` in `advanceFromQuestion` (so tests may call `calculateResults()` repeatedly). Persistent per player: `inventory`, `aegis`/`aegisBought`, `streak`; per round (`items: RoundItems`, reset in `nextRound`): used-once set, hex thrown/hexed/deadline, smoked/`smokeHidesAnswer`, bkb/`bkbCap` (2 × BKB price at activation), `removedOptions`, `answerAt` (ms since QUESTION start, `questionStartAt` set in `schedulePhase('QUESTION')` → `onQuestionStart`). `buyItem(id, item)` (SHOP only; aegis can't leave/keep balance below `AEGIS_THRESHOLD`), `useItem(id, item, targetId?)` (gem/manta/smoke/hex/bkb; blink goes through `submitAnswer(id, answer, blink)`); `canUse()` — in kerri the gladiator may use only blink, the crowd only bkb; targeted items need another non-spectator target. **Spectators:** a player who joins outside LOBBY/SHOP gets `spectator=true` until `nextRound()` — can't bet/answer/use items, no blind, never gladiator, never a gem/hex target, not waited for by `allBettingConfirmed()`/`allAnswered()`. Smoked (before answering): others get `hasAnswered=false` until settled, `player_answered`/own `item_used` only to self. Hexed: answers/blinks after `HEX_SECONDS` (15 s) rejected, counts as answered for `allAnswered()` (timer at the deadline re-checks). `getStateForPlayer` adds own `inventory`/`prices`/`aegisBought`/`hexTimeLeft`/`removedOptions`; public `streak`/`blind`/`bigBlind`/`effects`. **Grace:** all answered → `startGrace()` settles after `LAST_ANSWER_GRACE_MS` (1 s), a blink restarts it; QUESTION timeout still settles (idempotent via `revealing`). BKB used in kerri ANNOUNCE by the future gladiator is refunded in `selectGladiator()`.
-- **`game/GameEngine.ts`** — Manages `rooms: Map<gameCode, GameRoom>` and `playerRoom: Map<socketId, gameCode>`. When last player leaves, calls `room.destroy()` and removes from map.
-- **`game/questions/`** — question system ([docs/questions/system.md](docs/questions/system.md)). `library.ts` reads once per process (`loadLibrary()`, at `GameEngine` construction): `scripts/data/bank/questions.json` (ready questions with stable ids, `scripts/build_question_bank.py`), `scripts/data/stats/bank.json`, `scripts/data/friends/metrics.json` and `categories.ts` (categories → subcategories; edited by hand: `weight` = MC/base weight, optional `closest` weight; `subject` / `aspect` of the topic). **Weights (2026-10-30):** categories — hero_numbers 1, items 1, mechanics 1.5 (MC only), match_avg MC 1.2 / closest 1, meta MC 1 / closest 0.6, match_items 0.7, friends 1. Inside: `talents_has` 1.5, other mechanics 1; items closest — costs 2, item_numbers 1, neutrals 1 (MC all 1); MC picks hero_pick 1 / hero_pick_year 0.5 / hero_pick_all 0.5; hero_wr, counter, talents 2; match_items: items 1, items_hero 1 (closest too), boots_hero 0.6; the rest 1. **Topic:** `decorate()` in `picker.ts` is the only place that builds it: subject = sub's fixed `subject` (e.g. «Герои» — hides the hero in hero_pick_closest / bans_closest) else the source's (bank `topic`, stat pool `subject`, friend nick in nominative); aspect = bank question's `aspect` (enhancements → «чара») else sub's `aspect`; costs / item_numbers have no aspect (the topic must not reveal a price question). `picker.ts` — `RoomQuestions` (one per room, implements `QuestionSource {pick, report, rate}`): mode is the first filter (`mc` for all/kerri, `closest`), then category by weight of that kind, subcategory by weight of that kind, both via smoothed choice (`smooth.ts`: credits, exact long-run shares; no fatigue), then a question from the subcategory deck (`drawFromDeck`). Number questions in MC get options by step (`stepOptions.ts`): each gap between neighbouring options is 1 or 2 steps (50/50, decided 2026-10-29 — uniform step was too hard), correct answer at a random valid position, all options > 0 (optional upper bound `ceil`, used by friends' win rate < 100%). Option labels carry the unit (`withUnit`). Friends deck draws a person first, then a card (`drawFromDeck(..., group)`), so people with more cards don't show up more often; nicknames in friends questions are in the genitive (`GENITIVE` table in `friends.ts`). `history.ts` — `QuestionHistory`: decks across games (fresh = not seen in current cycle and not in this/previous game; `blockedFor` = seen in this, previous or a later game — never taken, even after a new cycle: no fresh and nothing free → the subcategory is skipped, picker tries the next; stats use the same `DeckAccess.free`; the `/dev` lab overrides it to «this game only»), archive, credits, rating sums; persisted by `pgBackend.ts` (Neon, `DATABASE_URL`) or memory only. `RoomQuestions` also keeps its own `taken` cards (two rooms overwrite one `q_seen` record) and `exhausted` cats/subs (failed to build a question → not a candidate nor credited for the rest of the game, per kind). `setup.ts` creates it at startup (`index.ts` awaits it): `.env` searched upwards from the repo root (worktree → main checkout), explicit env wins; `pg` imported dynamically (missing → banner, memory only); 4 load attempts × 15 s (pause 3 s), then a loud «БЕЗ NEON» banner. `index.ts` on SIGTERM/SIGINT awaits `history.flush()` (≤ 5 s) before exit. Ratings (`rate_question`): −2 delete vote (archived forever only when > half of the room voted), −1/+1/+2, difficulty ±1. One data point per shown question = team average (sum of scores / room players, no click = 0); score = Σ/(showings+5) (`RATING_PRIOR` 5, `RATING_BETA` 0.7, 2026-10-30); one rating per id moves both MC and closest weights; multiplier is relative among siblings (`relativeMultipliers`: clamp(k·e^(0.7·score)), k keeps the siblings' weight sum exactly; ~12 «ахуенный» votes in a lobby of 6 → ×1.5, ~50 → ≈×2.4 vs neutral siblings) — equal enthusiasm keeps base weights. **Product cap:** category multiplier c ∈ [0.5, 2], subcategory multiplier ∈ [0.5/c, 2/c] (`outer` arg), so a subcategory's share moves at most ×2 / ×0.5 from base. Vote key — player id (socket), nick in `q_rating.name` (`QuestionSource.rate(q, {id, name, roomPlayers}, vote)`; `GameRoom` passes room players at the showing). `history.rate` merges the partial vote (undefined = keep, null = clear), changes sums in memory at once and writes the whole vote (no `coalesce`); no showing in memory → divisor from the event, showings' count unchanged; votes of the last 2 games' showings are loaded at startup (`snapshot.shows`), so a re-vote after restart replaces. Client (`RateQuestion.tsx`, store `setRating`) sends every change 0.8 s after the last tap (clearing too); a pending vote is flushed on round change, `pagehide`, `reset`. Each settled round is reported to `q_showing` before `round_results` (i.e. before the rating UI appears). `friends.ts` — friends questions (category active when ≥2 identified via `identify` in lobby). Ratio table: `npm run ratios --workspace=server` → `docs/questions/ratios.md`, `ratios-friends4.md` (in a worktree — via tsx with a tsconfig `paths` to the worktree's shared).
-- **`game/stats/statQuestions.ts`** — `StatQuestionBuilder.build(sub, mode, deck)`: questions on STRATZ/OpenDota statistics from `stats/bank.json` at every pick (the subcategory is chosen by `questions/picker.ts`). Pool with ≥4 unused entries → 4 options whose leader (max/min, random among possible leaders) beats each other option by the subcategory `gap` (`rel`/`abs`); deck card = the question's hero (`subject` pools) or the leader; gated+fresh card → (deck exhausted) new cycle → gated stale → ungated. A template without a subject (same text) at most once per game. Options and the question's hero are excluded from the subcategory until the game ends. `exclusive` pairs (Arcane Boots / Guardian Greaves) never share a set of 4; without the gate the leader must also differ from the runner-up by its note. Upper bound on the leader's lead `gap.maxRel` (items ×3, boots ×2.5) so the answer is not obvious. Option notes are formatted on the server from the 4 shown values (`formatNotes`, sub `note`: count / pct / pct0 / pp — shared suffix and precision). Sub flags: `topLead` (boots_hero: the answer is always the hero's real top boots, 25 heroes with a real choice), `layout: "talent_tree"` (talents 20/25: no shuffle, grid like in-game — top row 25 left/right, bottom row 20; first slot of a pair = right, verified in-game on Anti-Mage). Fills `optionNotes` and `comment`. Stat question `displayTopic` = pool subject only (the picker builds the topic). **A stat subcategory can give both MC and closest** (`statKinds`): MC `pools` + optional `closest: {unit?, comment?, pools: [{subject, text, answer}]}` — same id and deck (card `stat:<sub>:<subject>`), subject first then its pool (a hero with 8 item pools is not drawn more often); closest subjects and MC options share the in-game «used» set. Closest (2026-10-30): avg_kills (0.1, no unit), avg_cs (no unit), avg_hero_damage / avg_tower («урона»), avg_heal_allies («HP», heroes ≥ 500; no avg_heal_self closest), items («% игроков», 13 items 5…95%), items_hero (% of the hero's matches, same 8 finished items as MC, 5…95% — an estimate: 5 weeks of STRATZ purchases / 3 weeks of ranked matches, no true denominator; see stratz-research.md §6.1); hero_pick_closest / bans_closest keep their ids (closest-only, `%`).
-- **`game/RoundSelector.ts`** — Simple 3-mode cycle: `['all', 'kerri', 'closest']` repeating. `next()` returns `modes[index % 3]`.
-- **`game/economy/`** — Pure functions (tested): `distributePool`, `distributeClosest`, `distributeTop5`, `applyBankBets`. All return `Map<playerId, delta>`. `applyBankBets(deltas, players, gladiatorAnswerIndex)`: hit = net +3×amount, miss = -amount (x4 total payout). `buildResults()` in GameRoom converts deltas to `RoundResult[]` covering all players.
-- **`socket/handlers.ts`** — handlers: `join_game` (code `^[A-Z0-9]{2,8}$`; joining another room leaves the old one), `start_game` (passes `socket.id` as requester), `place_bet`, `place_bank_bet`, `stage_chip` (`{chips, target?}` — staged denominations + kerri side), `submit_answer` (`blink?: boolean`), `buy_item` / `use_item` (item ∈ `ITEM_ORDER`, `targetId` string ≤ 64), `shop_ready` (`ready` boolean), `gladiator_hover`, `identify` (lobby «кто ты»), `rate_question`, `pay_bribe`, `disconnect`. Every handler goes through a wrapper: missing payload → `{}`, exceptions are logged (one bad event used to crash the whole process). Stakes must be integers, multiples of 10; chips — valid denominations. `index.ts` also logs `uncaughtException`/`unhandledRejection` instead of dying.
-- **Room safety (audit 2026-10-28, [docs/audit-2026-10-28-game.md](docs/audit-2026-10-28-game.md))** — phase timers run through `safely()`; a failing question pick tries the next mode; host is reassigned when the host leaves; after a player leaves, BETTING/QUESTION advance if everyone remaining is done; kerri gladiator leaving during BETTING cancels the round (zero deltas, «Керри сбежал»); gladiator can't bet or bank-bet; bank bet only on a wrong option; answers validated (`answerOk`: option from the list / finite number); other players' `answer` is hidden from `game_state` until the round is settled; re-join from the same socket doesn't reset chips. **Bribe auction is off** (`BRIBE_ENABLED=false` in `shared/constants.ts`) — it worked badly; code and tests kept.
+### Протокол сокетов
 
-### Client (`client/src/`)
+Клиент → сервер: `join_game {name, gameCode}`, `start_game` (только хост), `identify {friendId|null}` (лобби),
+`shop_ready {ready}`, `buy_item {item}`, `use_item {item, targetId?}`, `stage_chip {chips, target?}`,
+`place_bet {amount, target?, chips?, bankBet?}`, `gladiator_hover {optionIndex|null}`, `submit_answer {answer, blink?}`,
+`rate_question {questionId, score?, difficulty?}` (`null` — снять), `pay_bribe`.
 
-- **`socket.ts`** — Socket.IO singleton, `autoConnect: false`. URL from `VITE_SERVER_URL` env var, falls back to `http://localhost:3001`.
-- **`store/gameStore.ts`** — Zustand store. All socket listeners live here. `roundResults` cleared on ANNOUNCE. `bankBets: Record<playerId, {optionIndex, amount}>` updated via `bank_bet_updated` events, cleared on ANNOUNCE. `stagedBets: Record<playerId, number[]>` — live visual chip **denominations** from opponents before confirm (array of denom values, not a total), updated by `chip_staged` events, cleared on ANNOUNCE and when `bet_updated` fires for that player. `isLateJoiner: boolean` — true when player's first `game_state` has phase != LOBBY; reset to false on ANNOUNCE. `roundCorrectAnswer`, `roundComment`, `roundOptionNotes`, `roundMode`, `roundGladiatorId` — set from `round_results` event; also used during QUESTION phase (2.5s window) to show correct answer highlight before transitioning to REVEAL. Selectors: `selectMe`, `selectIsGladiator`. Betting chip state is component-local in `BettingTableScreen`.
-- **`App.tsx`** — Routes `GamePhase → Screen` (выбор экрана — `components/screens/screenFor.ts`, общий с лабораторией `/dev`). `TableFelt` always rendered behind screens (blurred when `phase !== 'BETTING'`). AnimatePresence motion.div has explicit `pointerEvents: 'auto'` — required because Framer Motion 11 sets `pointer-events: none` on elements with `initial={{ opacity: 0 }}`, which propagates to all children (inputs, buttons become unclickable). If `isLateJoiner=true` (joined mid-game), always shows `LateJoinScreen` regardless of phase, until next ANNOUNCE. Full routing: `LOBBY→LobbyScreen`, `SHOP→ShopScreen`, `ANNOUNCE→AnnounceScreen`, `BETTING→BettingTableScreen`, `QUESTION_TEXT` falls through to same branch as `QUESTION` (shared animation key `'QUESTION'` — no remount between phases), `QUESTION` branches by mode (`closest→ClosestScreen`, `top5→Top5Screen`, `kerri&&isGladiator→GladiatorSelfScreen`, else `QuestionScreen`), `REVEAL` and `LEADERBOARD` → `RoundResultsScreen`, `GAME_OVER→GameOverScreen`. `QuestionTextScreen` component exists but is not used (ни в App, ни в лаборатории).
-- **`components/screens/`** — Screen components. `LobbyScreen` shows START button only to host; non-host sees "Ожидаем хоста и ждем игроков. Пока не рыпайтесь."; player grid 3 columns with `hideChips` (no chip stacks shown in lobby). `AnnounceScreen` — два последовательных экрана без таймера: **режим** (t=0: лейбл, t=1.2s: название пружиной, t=1.55s: описание) → **тема** (через 4s: лейбл + название пружиной). Тема берётся из `displayTopic ?? topic` — «субъект\nаспект» (`ui/Topic.tsx`, `TopicStack`). Переход — старый экран уходит вверх, новый влетает снизу. Нет footer-текста, нет "Готовься к ставкам". `BettingTableScreen` handles all modes; in kerri mode crowd sees the question text + options (correct highlighted green) above the table, plus WIN/LOSE selector + bank bet x4 UI; gladiator sees informационный текст (без вопроса). В режиме `all` — в центре felt: таймер + "Тема" + название темы + "Ставьте ставку на то, что ответите верно". `QuestionScreen` in kerri crowd mode shows read-only options (disabled) with header "Наблюдай за Керри"; when `roundCorrectAnswer` is set (2.5s reveal window), correct option gets green border + glow, others fade to 40% opacity, input disabled. If `roundComment` exists, it appears below "Правильный ответ: X" with 0.25s delay. If `roundOptionNotes` exist, each option shows its value via `ui/OptionNote.tsx` (from `sm` — right inside the box, narrower — badge on the top edge; box is `relative`); wrong options with a note dim only their label/text (border gray) so the value stays readable. `GladiatorSelfScreen` — same reveal behavior as QuestionScreen when `roundCorrectAnswer` arrives, including `roundComment` and option notes. `ClosestScreen` also shows `roundComment` under the correct answer. `ClosestScreen` uses `type="text"` + `inputMode="decimal"` input (not `type="number"` — avoids browser quirks with spin buttons); shows "Правильный ответ: X" when `roundCorrectAnswer` is set. `RoundResultsScreen` — covers both REVEAL and LEADERBOARD phases; shows all players sorted by prevBalance initially, then re-sorted by newBalance at 3.5s; 3-phase internal animation: phase 1 (render), phase 2 at 1.5s (animate ProgressBars), phase 3 at 3.5s (resort); each player row shows name, total delta (green/red), `sources` breakdown (✓/✗ per outcome), animated ProgressBar (gold fill, range 0–WIN_CHIPS=3000) extending green or shrinking to red; two-column layout for >5 players; rank colors gold/silver/bronze for top 3. `roundCorrectAnswer` / `roundMode` / `roundGladiatorId` come from `round_results` socket event. `LateJoinScreen` — shown to players who join mid-game, displays current player list with chip counts.
-- **`components/ui/`** — `Chip.tsx` (5 denominations), `Timer.tsx` (круговой прогресс, без scale-анимации — только цвет меняется на красный при ≤5s), `PlayerCard.tsx` (проп `hideChips` — скрывает фишки и баланс, используется в LobbyScreen), `PhysicalChipStack.tsx`, `BetZone.tsx` (показывает `$total` под фишками в зоне ставки), `PlayerSlot.tsx` (показывает `$player.chips` баланс между стопкой фишек и карточкой ника), `TableFelt.tsx` (игроки упорядочены так же как в BettingTableScreen: я первый, затем остальные; позиция карточек через `unitPosition` как в PlayerSlot).
+Сервер → клиент: `game_state` (личный, `getStateForPlayer`; без изменений `identify` / `shop_ready` / повторный join
+не рассылаются всем), `join_error {reason: room_full | server_full | bad_name | bad_code, message}`,
+`bet_updated {playerId, amount, target?, chips?}` (и принудительный блайнд — без `chips`), `bank_bet_updated` (только
+толпе керри), `chip_staged`, `player_answered` (игроку в смоке — только себе), `gladiator_hovering`,
+`round_results {results, questionId, questionKey, correctAnswer, correctNumericAnswer, comment, optionNotes, mode,
+gladiatorId}`, `game_over {winner}`, `item_used`, `gem_result`, `manta_result`, `bribe_*`.
 
-### Physical Chips UI (`client/src/`)
-
-The betting phase uses a physical chip system on a round poker table (desktop only). The geometry constants in `tableGeometry.ts` define a **1300×820** logical scene.
-
-- **`types/chips.ts`** — `PhysicalChip { id, denom }`, `buildPhysicalChips(total)` (random UUIDs), `buildChipsForPlayer(playerId, amount)` (stable IDs for opponents — no scatter jitter), `chipScatter(id, range)` (deterministic hash).
-- **`lib/tableGeometry.ts`** — Ellipse constants: `SCENE_W=1300, SCENE_H=820, FELT_CX=650, FELT_CY=415, FELT_RX=380, FELT_RY=248, OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=28, CARD_GAP_Y=28`. `CARD_GAP_X/Y` — расстояние блока игрока от края стола отдельно по горизонтали и вертикали. `LAND_INSET` — насколько зона ставок утоплена от края felt внутрь. Functions: `playerAngle(i,N)`, `landingZone(angle)`, `cardAnchor(angle)`, `unitPosition(angle, unitW, chipRowH, cardH)`.
-- **`components/ui/PhysicalChipStack.tsx`** — Chips grouped by denom. Clicking the **denomination group container** calls `onDenomClick(denom)` — the parent finds the topmost unplaced chip of that denom. Non-placed chips use `layoutId={chip.id}` for Framer Motion flight animation. Placed chips are static dim placeholders (no layoutId).
-- **`components/ui/BetZone.tsx`** — Absolutely positioned at `landingZone(angle)`. Mine: `layoutId` + recall click. Opponents: `AnimatePresence` + staggered `initial={{opacity:0, y:-8}}` entry animation (delay: `i * 0.04s`).
-- **`components/ui/PlayerSlot.tsx`** — `PhysicalChipStack` + name card at `unitPosition()`. Prop: `onDenomClick?: (denom: ChipValue) => void`.
-- **`components/ui/TableFelt.tsx`** — Always-mounted, reads `gameStore`. Renders green felt ellipse + player name cards. `blurred=true` → `filter:blur(8px), opacity:0.35` (animated). `pointerEvents:none`, `zIndex:0`.
-- **`components/screens/BettingTableScreen.tsx`** — `LayoutGroup` wraps all chip elements. Scene wrapped in 1.25× CSS scale wrapper. Local state: `myStack`, `placedIds`, `pendingTarget`, `bankBetTarget`, `bankBetAmount`. `placeChip(denom)` finds **last** unplaced chip of that denom (top of visual stack). After each place/recall, emits `stage_chip` with array of denominations for real-time opponent preview. Opponent `betChips`: if `stagedBets[player.id]` is defined → maps denoms to `PhysicalChip` with IDs `${i}-${denom}-${player.id}` (variable part first → good chipScatter hash diversity); else `buildChipsForPlayer(player.id, player.currentBet)`. Bank bet UI (kerri crowd): shows 4 MC options; correct one (matching `gladiatorAnswer`) has green border + non-clickable; wrong options clickable → select `bankBetTarget` (index); chips fly into the selected option zone. Confirm emits `place_bet` and optionally `place_bank_bet`. Kerri crowd sees question text + options above the table during BETTING phase.
-
-**Key design decisions:**
-- `myStack` is component-local (not Zustand) — rebuilt from `me.chips` each time BETTING phase starts.
-- `layoutId=chip.id` shared between `PhysicalChipStack` (unplaced) and `BetZone` (placed) → Framer Motion animates chip flight.
-- During kerri BETTING: `gameState.gladiatorAnswer` = correct answer (sent to crowd by server, withheld from kerri).
-- Real-time staging: `stage_chip` socket event relays array of denominations to opponents before confirm; `stagedBets: Record<playerId, number[]>` in store, cleared on ANNOUNCE and on `bet_updated`. Staged chip IDs: `${i}-${denom}-${player.id}` (index and denom first for chipScatter diversity).
-- Chip selection: LIFO — last unplaced chip (top of visual stack) is picked on denom click.
+**id вопроса:** до расчёта `currentQuestion.id` — непрозрачный ключ раунда `r<roundIndex>-<случайное>` (у статистики
+настоящий id содержит ответ); настоящий — в `round_results.questionId`, `questionKey` = ключ раунда.
 
 ### Phase flow
 
 ```
-LOBBY → [SHOP (25s; 45s the first time; only before `all`, and only after the first `closest`) →] ANNOUNCE (9s) → [BETTING (30s) →] QUESTION (45s) → [4s reveal] → REVEAL (14s) → [next round or GAME_OVER]
+LOBBY → [SHOP 25 с (45 с первая) →] ANNOUNCE 9 с (+3 новый режим) → [BETTING 30 с →] QUESTION 45 с → [показ ответа 4/6 с] → REVEAL 14 с → следующий раунд | GAME_OVER
 ```
 
-`all` and `kerri` modes go through BETTING; `closest` skips BETTING (ANNOUNCE→QUESTION directly). In kerri mode, `selectGladiator()` runs at ANNOUNCE→BETTING transition. After all answer (or timer expires), `round_results` is broadcast immediately while phase stays QUESTION for 2.5s — clients show correct answer highlight — then transitions to REVEAL.
+SHOP — только перед `all` и только после первого `closest`. BETTING — у `all` и `kerri`, если есть кому ставить.
+Режимы: `all → kerri → closest → …`. Новой игры после GAME_OVER нет (комната терминальна, клиент выходит в JoinScreen).
 
-Mode rotation: `all → kerri → closest → all → kerri → ...`
+### Client (`client/src/`)
 
-### Дизайн (редизайн 2026-10-29: «подпольное казино в стикерах»)
+- **`socket.ts`** — синглтон, `autoConnect: false`, URL `VITE_SERVER_URL` или `http://localhost:3001`.
+- **`store/gameStore.ts`** — Zustand, все слушатели сокета здесь. После обрыва (`socket.io` `reconnect`) сам повторяет
+  `join_game` с тем же именем и кодом — но это новый сокет = новый игрок (зритель до следующего раунда).
+  `isLateJoiner` = `me.spectator` с сервера. Раунд (`roundResults`, `roundCorrectAnswer`, `roundComment`,
+  `roundOptionNotes`, `roundQuestionId`, `bankBets`, `stagedBets`, `betSent`, лента предметов) сбрасывается на ANNOUNCE
+  и смене `roundIndex`. `answeredIds` — из `players[].hasAnswered` + `player_answered`. `stagedBets: Record<id,
+  number[]>` — номиналы черновиков соперников, стираются на `bet_updated` этого игрока. `betSent` — отличить свою ставку
+  от принудительного блайнда (`Notice`). `joinError`. Оценка: `rating` / `setRating` — уходит через 0.8 с после
+  изменения (снятие тоже), отложенная досылается на ANNOUNCE / GAME_OVER / LOBBY / смене раунда и `pagehide`; ключ
+  раунда заменяется настоящим id из `round_results`. Селекторы `selectMe`, `selectIsGladiator`.
+- **`App.tsx`** — без `gameState` → `JoinScreen` (будит сервер на Render, показывает `join_error` и ошибку
+  соединения); зритель → `LateJoinScreen`; иначе `screenFor(phase, mode, isGladiator)` (`components/screens/screenFor.ts`,
+  общий с `/dev`): LOBBY → `LobbyScreen`, SHOP → `ShopScreen`, ANNOUNCE → `AnnounceScreen`, BETTING →
+  `BettingTableScreen`, QUESTION → `ClosestScreen` / `QuestionScreen` (`GladiatorSelfScreen` — реэкспорт), REVEAL →
+  `RoundResultsScreen`, GAME_OVER → `GameOverScreen`. Под экранами всегда `TableFelt` (вне BETTING — `blur(14px)`,
+  opacity 0.13), поверх — `ItemBar` и `Notice`. Экран — в `motion.div` с `pointerEvents: 'auto'`: Framer Motion 11
+  ставит `pointer-events: none` элементу с `initial={{opacity: 0}}`, и это наследуют поля и кнопки. Раз в 10 мин —
+  `/health` (Render не засыпает посреди игры).
+- **Экраны:** `LobbyScreen` (игроки-стикеры, «кто ты» — `WhoAreYou`, старт только у хоста), `AnnounceScreen` (режим во
+  весь экран, затем стикер темы; модульный `seenModes` — дольше в первый раз, сбрасывается с новой игрой),
+  `ShopScreen`, `BettingTableScreen`, `QuestionScreen` (все / керри / толпа керри), `ClosestScreen`,
+  `RoundResultsScreen` (общая ось 0 → 3000, пересортировка по новому балансу), `GameOverScreen`, `LateJoinScreen`.
+- **lib:** `tableGeometry.ts` (геометрия стола, `useSceneScale`, `SceneScaleContext` / `useFlightTransform`),
+  `pileSlots.ts` (`useStableSlots` — фишка держит место в кучке), `chipStyle.ts`, `pressable.ts` (`pressable()` —
+  div как кнопка с клавиатуры; `ignoreHotkey()` — хоткеи не срабатывают с Ctrl/Alt/Meta, на автоповторе и в поле
+  ввода), `useAnswerAck.ts` (ответ, не засчитанный сервером, снимается через 2.5 с — «Ответ не засчитан»),
+  `parseNumber.ts` (строгий разбор числа «кто ближе»), `players.ts` (`isSpectator`), `useCountdown.ts`.
 
-Палитра — `client/src/theme.ts` (`C`, зеркало `:root` в `index.css` и цвета Tailwind): сукно `#0c1513` / панели `#13201c`
-/ линии `#24352f`, текст `#ede8de`, вспомогательный `#93a39c`, бумага стикеров `#f3ede2`, чернила `#121a17`; акценты —
-латунь `#f2b630`, малиновый `#ff3d6e` (керри, ошибка, потеря), голубой `#49c6e5`, мята `#3ee08f` (верно, прирост).
-**У режима свой цвет** (`MODE` в `theme.ts`: all — латунь, kerri — малиновый, closest — голубой) — анонс, таймер, акценты
-раунда. Шрифты: `Dela Gothic One` (`DISPLAY` / `.font-display` — режимы, темы, суммы, код комнаты) + `Rubik` (всё
-остальное). Без эмодзи, без капса-лейблов.
+### Стол ставок (BETTING)
 
-- **`ui/Sticker.tsx`** — наклейка с рваной вырезкой (`roughClip(seed)` — детерминированный clip-path) и «шлепком» (`slam`).
-  Стикеры: тема в анонсе и на столе, бирки значений вариантов, код комнаты, игроки в лобби, «Ты керри», победитель.
-- **Тема** — `ui/Topic.tsx`: `TopicStack` на стикерах анонса и стола (субъект крупно `DISPLAY`, аспект мельче Rubik под
-  ним), `TopicInline` над вопросом в «для всех» / «кто ближе» («Lion · способности», одна строка — раскладка не прыгает).
-- **Гонка до 3000** — сквозной мотив: `ui/GameHud.tsx` (`MiniRace` в шапке вопроса/анонса), общая ось 0→3000 на итогах,
-  линия в лобби и в конце игры. `ui/TimeBar.tsx` — таймер-фитиль под шапкой; `ui/Timer.tsx` — кольцо на столе.
-- **Экран вопроса без сдвигов** — раскладка прибита к верху; `ui/AnswerOptions.tsx` (общий для всех / керри / толпы):
-  строки одной высоты (`gridAutoRows: 1fr`), значения вариантов — бирки-стикеры поверх кромки (absolute), выбор 1–4 с
-  клавиатуры, толпа видит верный вариант пунктиром и куда смотрит керри. Ниже — лоток: кто ответил → пояснение
-  (`RevealNote`) и оценка. `GladiatorSelfScreen` = реэкспорт `QuestionScreen`.
-- **Оценка** (`ui/RateQuestion.tsx`) — по краям «Легко» / «Сложно», по центру шкала из четырёх мер (выделение переезжает
-  `layoutId`). Показывается сразу при раскрытии ответа и на итогах; выбор в сторе (`rating`, `setRating`), каждое
-  изменение (и снятие) уходит на сервер через 0.8 с (`scheduleRating`); отложенное досылается на смене раунда,
-  `pagehide` и `reset` (`sendRatingNow`). Сервер сразу пишет в базу и меняет веса.
-- **«Кто ближе»** — большое поле под число (Enter); раскрытие: правильное число, «ты сказал / мимо на N», `ui/GuessLine.tsx`
-  (все догадки на одной оси).
-- **Фишки** — одна отрисовка `lib/chipStyle.ts` (насечки на ребре, кольцо); сукно — `FeltOval` в `TableFelt.tsx`
-  (цвета `FELT` в теме), плашки игроков «имя | $баланс» — `NamePlate` в `PlayerSlot.tsx`; ставка ложится кучкой (и на фоне — `TableFelt`)
-  (`pileOffset` — спираль по порядку выкладки); подтверждение — «Ставлю $N». Керри-толпа: сверху кто отвечает + вопрос,
-  две крупные зоны «Завалит / Ответит» с суммой на кону, ниже квитки «где ошибётся ×4» (верный помечен).
-  У толпы керри `place_bet.chips` = основная + банк в порядке черновика; сервер хранит в `betChips` префикс на сумму
-  «основная + принятая банк-ставка» (`chipsPrefix`), так что у соперников после подтверждения ничего не пропадает.
-- **Масштаб:** `html { font-size: clamp(16px, 5px + 0.5vw + 0.55vh, 22px) }` — экраны вне стола размечены в rem и растут
-  с экраном; вопрос / «кто ближе» / итоги центрированы по вертикали, лоток под вариантами фиксированной высоты. Стол —
-  `useSceneScale` (до ×1.4, по высоте с запасом под плашки). Деньги всегда с `$`.
-- **Предметы в интерфейсе.** `ShopScreen` — карточки по центру (flex-wrap), цена от баланса, «Готов» (после «Готов»
-  клиент покупать не даёт). `ui/ItemIcon.tsx` — иконки скетчем маркера по силуэтам игровых. `ui/ItemBar.tsx` — внизу
-  экрана в ANNOUNCE / BETTING / QUESTION, только купленные предметы; недоступное сейчас — тусклое с бумажной подсказкой
-  почему; клавиши из `ITEMS[id].key`: Z манта, X гем, C смок, V хекс, B BKB (у блинка нет — он через «изменить ответ»);
-  цель гема/хекса — выбор игрока, Esc — отмена. Порядок предметов (лавка и бар): манта, гем, BKB, блинк, хекс, смок,
-  аегис. `ui/SelfEffects.tsx` — наклейки над вопросом про эффекты на тебе («Ты в хексе» / «Время вышло», «Твой ответ
-  просветили», «Ты в смоке», «BKB включён»). Эффекты на других — значки у ника (`Player.effects`).
-- **Таймлайн** (`ui/TimeBar.tsx`) — полосы фиксированной длины (45 с вопроса, `HEX_SECONDS` хекса), у каждой свой
-  `key`, ход линейный; метка-молния на отметке `LIGHTNING_MS`; под хексом после окна молнии сразу красный.
-- **Серия** — `ui/StreakFlame.tsx`: бумажная рамка-пламя вокруг плашки (серия 2 — тлеет, 3+ — горит выше, 5+ — синее),
-  основа — суперэллипс, языки выше в центре, «перерезается» раз в секунду. Только на плашках стола и в итогах.
-- **Принудительная ставка** — если сервер выставил блайнд за тебя (`bet_updated` без твоего подтверждения, стор
-  `betSent`), `ui/Notice.tsx` на 3 с показывает наклейку «Поставили $30» / «Поставили на ответит». Рядом со стопкой —
-  быстрые ставки min / 25% / 50% / all-in.
-- Текст не выделяется (`user-select: none` в `index.css`, кроме полей ввода).
-- Моки интерфейса: `/mocks?s=<id сценария>&n=<игроки>` (`dev/MockPage.tsx` + `dev/mockStates.ts`: лавка, предметы, блайнды, серии, керри-стол) — без сервера. Настоящие вопросы — лаборатория `/dev`.
+Логическая сцена **1300×820** (`lib/tableGeometry.ts`: `FELT_CX=650, FELT_CY=415, FELT_RX=380, FELT_RY=248,
+OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масштаб `useSceneScale()` — до ×1.4, по
+ширине и высоте (+90 под плашки). Функции: `playerAngle(i, N)` (я — первый, снизу), `landingZone(angle)` (зона
+ставки, утоплена на `LAND_INSET`), `cardAnchor`, `unitPosition` (стопка + плашка; так же в `TableFelt`).
 
-### Открытые вопросы (ждут решения пользователя, 2026-10-30)
+- Своя стопка `myStack` — локальное состояние `BettingTableScreen`, собирается из `me.chips` на каждый BETTING
+  (id фишек — счётчик + метка сессии, без `crypto.randomUUID`: его нет на http по LAN). Клик по номиналу кладёт
+  верхнюю невыложенную фишку (LIFO). Фишка перелетает стопка ↔ кучка по общему `layoutId={chip.id}`
+  (`PhysicalChipStack` ↔ `BetZone`/кучка); внутри `scale()` сдвиг перелёта делится на масштаб (`useFlightTransform`
+  через `transformTemplate`), иначе рывок.
+- Кучка — спираль `pileOffset` по порядку выкладки, место держится (`useStableSlots`). Соперники: черновик
+  (`stagedBets`, id `${i}-${denom}-${playerId}`) → после подтверждения `player.betChips` → иначе
+  `buildChipsForPlayer(id, currentBet)` (стабильные id). Каждая выкладка шлёт `stage_chip`.
+- Быстрые ставки min / 25% / 50% / all-in раскладывают фишки каскадом (пока раскладываются, «Ставлю» спрятана);
+  ставка уходит только по «Ставлю $N» (над своей кучкой, z 60, вместе с подписью блайнда). Автоподтверждение
+  черновика перед концом фазы — на клиенте; не успел — сервер ставит блайнд.
+- Плашка игрока «имя | $баланс» (`NamePlate` в `PlayerSlot.tsx`), бирка «ББ» на углу у большого блайнда, `StreakFlame`
+  вокруг плашки при серии ≥ 2.
+- Керри-толпа: шапка (кто отвечает + вопрос, верный отмечен), две зоны «Завалит / Ответит» с суммой на кону, ниже
+  2×2 квитка 210×64 «где ошибётся ×4» (верный не кликается, банк-фишки лежат внутри квитка); кучки соперников
+  компактные (`BetZone size="sm"`). `place_bet.chips` = основная + банк в порядке черновика. Керри видит только
+  информационный текст.
 
-Закрыто 2026-10-30: кнопки «пропускаю» у толпы керри в клиенте нет (Кл2 не делали; с обязательным блайндом не нужна); сервер не даёт манту после ответа и покупку после «Готов» (`buyItem` / `useItem`).
+### Дизайн («подпольное казино в стикерах», редизайн 2026-10-29)
 
-- «% матчей с предметом» в «кто ближе» — оценка (знаменателя у STRATZ нет), смотреть по ошибкам closest в `q_showing`.
-- Переподключение = новый сокет = новый игрок с $500.
-- 10 игроков: подпись блайнда / кнопка подтверждения наезжают на зону ставки соседа.
-- Новые предметы (предлагались Linken's, Lotus, Midas, Rapier, Dust), баланс камбэка и награды «кто ближе», звук.
+Палитра — `client/src/theme.ts` (`C`, зеркало `:root` в `index.css` и цвета Tailwind): сукно `#0c1513` / панели
+`#13201c` / линии `#24352f`, текст `#ede8de`, вспомогательный `#93a39c`, бумага стикеров `#f3ede2`, чернила `#121a17`;
+акценты — латунь `#f2b630`, малиновый `#ff3d6e` (керри, ошибка, потеря), голубой `#49c6e5`, мята `#3ee08f` (верно,
+прирост). **У режима свой цвет** (`MODE`: all — латунь, kerri — малиновый, closest — голубой). Шрифты:
+`Dela Gothic One` (`DISPLAY` / `.font-display` — режимы, темы, суммы, код комнаты) + `Rubik`. Без эмодзи, без
+капса-лейблов. Деньги всегда с `$` (`ui/Money.tsx`).
 
-### Tests
-
-Located in `server/src/game/economy/__tests__/` and `server/src/game/__tests__/` and `shared/src/__tests__/`. vitest resolves `@cumsino/shared` via alias in `server/vitest.config.ts` — no need to build shared before running tests.
-
-**Покрытие (305 тестов сервера + `shared/__tests__/` chips, units и topic — всего 318):**
-
-| Файл | Что покрыто |
-|---|---|
-| `economy/__tests__/distributePool.test.ts` | пул победителей, пропорции, zero-sum, крайние случаи |
-| `economy/__tests__/distributeClosest.test.ts` | точное попадание, ближайший, ничья |
-| `economy/__tests__/distributeTop5.test.ts` | слоты, несколько игроков |
-| `economy/__tests__/applyBankBets.test.ts` | x3 попадание, -1x промах, суммирование дельт |
-| `game/questions/__tests__/picker.test.ts` | `shuffleOptions`, `makeStepOptions` (промежутки 1 или 2 шага ~50/50, > 0, верхняя граница, позиция), единица в вариантах и в closest, **веса по типу раунда** (closest у категории и подкатегории, веса `categories.ts`), **темы** (субъект + аспект, аспект вопроса банка, постоянный субъект статистики, настоящий банк — 1–2 строки без патча), **предел произведения** множителей (пределы подкатегории [0.5/c, 2/c], доля в игре ровно ×2), `drawFromDeck` с группами (человек выпадает поровну), сглаженный выбор (доли по весам, серии короче рандома), колоды между играми (круг, блок двух последних игр, без повторов в игре), режим как фильтр, «удалить» → архив, множитель оценок (сумма весов сохраняется, ×1.5 с 12 голосов, ≈×2.4 с 48, фора 5), переоценка заменяет, друзья (≥ 2 опознанных, только про них; ник в родительном падеже, ловушка мейна, лидер винрейта от 50 игр, шаг и границы вариантов винрейта, топ-6 героев в колоде, единица «игр»), прогон настоящего банка (10 игр × 24 раунда) |
-| `game/questions/__tests__/history.test.ts` | `.env` вверх по папкам (worktree → основной), явная переменная (и пустая) главнее; попытки загрузки базы и баннер; колоды: прошлая игра заблокирована (маленькая колода пропускает игру, через игру снова есть), `blockedFor`, две комнаты (не делят карточки, своя карточка не берётся повторно после перезаписи), статистика closest; кредиты (не собравшая вопрос категория до конца игры заморожена, в следующей свободной игре снова кандидат); оценка по id (одинаковые ники), каждое изменение сразу в суммах и в базе (голос целиком, снятие), без показа в памяти — делитель из события, голоса из снимка после перезапуска, «удалить» по id |
-| `game/stats/__tests__/statQuestions.test.ts` | `gapOk`; гейт и лидер (max/min), подписи по порядку вариантов, исключение вариантов и героя вопроса, снятие гейта, подкатегория без 4 свободных не собирается, несовместимые пары (компонент + улучшение), ничья по подписи без гейта, closest (единица и комментарий подкатегории, MC + closest в одной подкатегории, сначала герой — потом пул), верхний предел отрыва, формат подписей по четвёрке, раскладка дерева талантов, `topLead` у ботинок; прогон настоящего `bank.json` (closest средних: точность и единицы; closest предметов: 5…95%, те же предметы, что в MC, без ботинок) |
-| `game/__tests__/RoundSelector.test.ts` | цикл all→kerri→closest, lastMainMode |
-| `game/__tests__/GameRoom.test.ts` | управление игроками, `calculateResults` (all/kerri/closest), `applyDeltas` (флор 0), `checkWinner`, `getStateForPlayer` (gladiatorAnswer), `optionNotes`/`comment` только в `round_results` и пауза перед REVEAL, окно показа ответа (показ в `report` до `round_results`, оценка по id игрока с делителем на момент показа; поздний ответ / дисконнект гладиатора не считают раунд второй раз), `allBettingConfirmed`, `submitAnswer`, `removePlayer` (дисконнект гладиатора), **аудит** (смена хоста, досрочный конец фаз после ухода, керри сбежал в BETTING, ставки керри и банк на верный вариант, проверка ответов, скрытые чужие ответы, повторный join, ошибка пикера), **bribe-аукцион** (выключен флагом, тесты вызывают методы напрямую: (условия запуска, payBribe обеих сторон, эскалация цены, таймаут→betrayed/helped)) |
-| `game/__tests__/items.test.ts` | блайнды (суммы, большой у лидера / ничья, отказ ниже блайнда, принудительный в конце BETTING, не в «ближе»), **блайнды керри** (только толпа, керри выбран до блайндов, большой — лидер толпы, отказ ниже блайнда / без стороны, принудительный на случайную сторону, банк-ставка необязательна, безденежный не ждётся и серия нейтральна), молния (быстрый/медленный, блинк сбрасывает время, керри), серия (+1/сброс, бонусы ×2/×3/×5, керри и толпа, «ближе всех» не сбрасывает, BKB держит серию), покупка (фазы, цена от баланса, max, аегис раз за игру, запас только себе), предметы (blink, gem + смок цели и onYou, manta + отказ ответа убранным, манта после ответа — нельзя, smoke маскирует ответ и рассылки, hex 15 с и досрочный конец, bkb сейв 2 × цена на момент включения и возврат избранному керри, aegis порог и порядок источников), окно 1 с после последнего ответа (блинк перезапускает, таймер фазы не считает дважды); **лавка** (нет перед раундом 1, первая после первого «кто ближе» = SHOP+20 с, следующая 25 с, не перед керри/«ближе»; режим/раунд/скрытый вопрос, «Готов» туда-обратно, все готовы / ушёл последний неготовый / таймер, вошедший в лавке участвует, покупки не стираются, GAME_OVER до лавки, покупка ровно в $0 и не от $3000, после «Готов» — нельзя); **керри** (керри — только блинк, толпа — только bkb, BKB от основной + банк с капом, серии толпы и неответившего керри); **«кто ближе»** (блинк числа, гем числа, смок, хекс/манта/bkb нельзя, аегис); **края** блайндов (< $10, олл-ин, ротация при уходах и пропусках), хекса (зритель/ушедший — не цель, цель ушла, хекс + смок, блинк после 15 с), гема (ушедший, зритель, смотрящий в смоке, окно показа), смока (все ответили, смок после ответа), аегиса (порог при покупке, второй раз, + BKB, с нуля, отменённый раунд); **вошёл посреди раунда** (зритель: пустой запас, не отвечает/не ставит/не керри/без блайнда, никого не задерживает) |
-| `shared/__tests__/chips.test.ts` | decomposeToChips, decomposeStartingChips |
-| `shared/__tests__/units.test.ts` | `withUnit`: слитно % и ×, 'x' → ×, через пробел, без единицы |
-| `shared/__tests__/topic.test.ts` | `joinTopic` / `splitTopic`: субъект и аспект через перенос, без аспекта |
-
-**Паттерн для GameRoom тестов:** `(room as any)` для доступа к private-полям (phase, currentMode, gladiatorId, currentQuestion, bribeAuction и т.д.) и private-методам (calculateResults, checkAndStartBribeEvent, advanceFromQuestion). `vi.useFakeTimers()` в beforeEach для контроля таймеров bribe-аукциона.
+- **`ui/Sticker.tsx`** — наклейка с рваной вырезкой (`roughClip(seed)`) и «шлепком»: тема в анонсе и на столе
+  (`ui/Topic.tsx`: субъект крупно, аспект мельче; над вопросом — в строку «Lion · способности»), бирки значений
+  вариантов, код комнаты, игроки в лобби, «Ты керри», победитель.
+- **Гонка до 3000** — `ui/GameHud.tsx` (`MiniRace` в шапке), общая ось на итогах, линия в лобби и в конце игры.
+  `ui/TimeBar.tsx` — фитиль под шапкой (полосы фиксированной длины: 45 с вопроса, `HEX_SECONDS` хекса; метка-молния
+  на `LIGHTNING_MS`); `ui/Timer.tsx` — кольцо на столе.
+- **Экран вопроса без сдвигов**: раскладка прибита к верху; `ui/AnswerOptions.tsx` — общий для всех / керри / толпы:
+  строки одной высоты, значения вариантов — бирки поверх кромки, выбор 1–4 с клавиатуры, толпа видит верный пунктиром
+  и куда смотрит керри. Ниже лоток: кто ответил (`AnswerProgress`) → пояснение (`RevealNote`) и оценка.
+- **Оценка** (`ui/RateQuestion.tsx`): по краям «Легко» / «Сложно», по центру шкала Удалить / Слабый / Хороший /
+  Ахуенный; видна с раскрытия ответа и на итогах.
+- **«Кто ближе»** — большое поле (`type="text"` + `inputMode="decimal"`, Enter); раскрытие: число, «ты сказал / мимо
+  на N», `ui/GuessLine.tsx` (все догадки на одной оси).
+- **Предметы:** `ShopScreen` — карточки, цена от баланса, «Готов» (после — купить нельзя). `ui/ItemIcon.tsx` — иконки
+  скетчем. `ui/ItemBar.tsx` — внизу в ANNOUNCE / BETTING / QUESTION, только купленное; недоступное — тусклое с
+  подсказкой почему (на таче — первый тап подсказка, второй применяет); клавиши `ITEMS[id].key`: Z манта, X гем,
+  C смок, V хекс, B BKB (блинк — через смену ответа); цель гема/хекса — выбор игрока (зрители не цели), Esc — отмена.
+  Под панелью место — `.below-itembar` / `--itembar-pad`. `ui/SelfEffects.tsx` — наклейки про эффекты на тебе;
+  эффекты на других — значки у ника (`Player.effects`). Порядок (лавка и бар): манта, гем, BKB, блинк, хекс, смок,
+  аегис.
+- **Серия** — `ui/StreakFlame.tsx`: бумажное пламя вокруг плашки (2 — тлеет, 3+ — выше, 5+ — синее); только на
+  столе и в итогах.
+- **Принудительная ставка** — `ui/Notice.tsx` на 3 с: «Поставили $30» / «Поставили на ответит».
+- **Масштаб:** `html { font-size: clamp(16px, 5px + 0.5vw + 0.55vh, 22px) }` — экраны вне стола в rem; вопрос /
+  «кто ближе» / итоги центрированы по вертикали; `100dvh` / `min-h-dvh`. Текст не выделяется (`user-select: none`,
+  кроме полей).
 
 ## Questions System
 
-**Стандарты, выводы и бэклог — [docs/questions/README.md](docs/questions/README.md) и [docs/questions/BACKLOG.md](docs/questions/BACKLOG.md).** Читать их перед любой работой с вопросами.
+**Перед любой работой с вопросами — [docs/questions/README.md](docs/questions/README.md) (стандарты, язык, шаг,
+проверки сборки) и [docs/questions/BACKLOG.md](docs/questions/BACKLOG.md).** Как игра выбирает вопросы, колоды,
+оценки, «Удалить», Neon — [docs/questions/system.md](docs/questions/system.md). Статистика STRATZ / OpenDota —
+[docs/questions/stratz-research.md](docs/questions/stratz-research.md).
 
-Кратко:
-- **Источник истины** — снимок `scripts/data/dota/` на зафиксированных коммитах (`manifest.json`), обновление `python scripts/fetch_dota_data.py`. Что сейчас в игре — `scripts/data/dota/current.json` (`scripts/build_game_index.py`), ручные решения — `scripts/data/dota_overrides.json`. dotaconstants не удаляет вырезанное и не выгружает бонусы аганима/шарда — они берутся из сырых файлов игры (`scripts/data/dota/game/`, парсер `scripts/valve_kv.py`).
-- **Генерация** — `scripts/generate/numeric_lab/`: модель выбирает `fact_id` и пишет вопрос и `step`, число подставляется из данных (`resolve.py`). Категории — `heroes`, `items`, `neutrals`, `enhancements`, `costs`, `talents`; размер запроса и квота — `CATEGORY_SETUP` в `run_api.py`. Модель `claude-opus-5-5`, effort high, обычные параллельные вызовы (`--sync`), без Batch API и без `cache_control`. Ключ — `NUMLAB_API_KEY` или `ANTHROPIC_API_KEY` (на Windows-машине пользователя — переменная окружения пользователя).
-- **Текстовые вопросы про механики** — `scripts/generate/text_lab/` (`mechanics_lab.py`, промпт `prompt_mechanics_v4.md`, второй проход проверки, ручное курирование `curate.py` → `bank.json`). Готовый прогон — `text_lab/out/full1` (116 вопросов).
-- **Варианты ответа** строит игра по шагу при каждом показе (эталон `options.py`): случайная позиция ответа по величине, соседи через один или два шага (50/50), отдельное перемешивание показа. Если не понравится — обсуждали «всегда двойной шаг» или ограничение невозможных значений (например, % > 100 там, где это невозможно).
-- **Язык вопросов** — словарь в [docs/questions/README.md](docs/questions/README.md), «Язык и сленг» (решения пользователя 2026-10-29): разговорный сленг (стан, кд, стак, каст, бафф, ульта…) — да; «замедление», «безмолвие», «увеличение урона заклинаний», «базовое время атаки» — без сленга; чего нет в словаре — как в локализации. Врождённые способности — «врождёнка X у героя» (сборка банка падает без этого), нейтралки — «нейтралка N-го тира X». Таланты — исключение: правда = строка русской локализации дословно ([talents-style.md](docs/questions/talents-style.md)).
-- **Сборка банка падает** на: ответ ≤ 3 × шаг, ответ круглее любого фейка во всех раскладках, единица не из словаря, латиница внутри русского слова, старые имена героев, врождёнка без слова «врождёнка». Чинить через `scripts/data/bank/overrides.json` (`drop` / `why` + text / step / unit / sub / options / comment / ok) — правки переживают перегенерацию.
-- **Готовые прогоны:** `out/full1` (герои, предметы, нейтралки, чары), `out/costs2` (цены), `out/talents-v5` (таланты, 2026-10-29: правда — строка игры дословно, подделки в стиле локализации трёх разных типов эффекта; промпты `prompt_talents_v5.md` + `prompt_talents_verify_v5.md`, справочник `docs/questions/talents-style.md`).
-- **Вопросы на статистике** (средние за матч, контрпики, таланты 20/25, баны, винрейт и пики героев, предметы и ботинки; «кто ближе» — средние за матч, % матчей героя с предметом, % игроков с предметом, пики, баны — в тех же подкатегориях, что MC) — снимок `scripts/data/stats/<дата>/` (`scripts/fetch_stats.py` — OpenDota, `scripts/fetch_stratz.py` — STRATZ) → `python scripts/build_stats_bank.py` → `scripts/data/stats/bank.json` → `server/src/game/stats/statQuestions.ts`. Правила пулов и порогов — [docs/questions/stratz-research.md](docs/questions/stratz-research.md). Русские тексты талантов — `scripts/talent_text.py`. Вопросы про друзей — `server/src/game/questions/friends.ts` (прототип и метрики — `scripts/friends_questions.py`).
-- **Игра читает** единый банк `scripts/data/bank/questions.json` (`python scripts/build_question_bank.py` из финальных прогонов: `numeric_lab/out/full1`, `costs2`, `talents-v5`, `text_lab/out/full1/bank.json`; вопросы с флагами выкидываются; ручные правки по id — `scripts/data/bank/overrides.json`) + статистику + друзей. Категории, веса, колоды, оценки, Neon — [docs/questions/system.md](docs/questions/system.md). Старая база (`scripts/data/generated/`) удалена 2026-10-28.
+- **Источник истины** — снимок `scripts/data/dota/` на зафиксированных коммитах (`manifest.json`, обновление
+  `python scripts/fetch_dota_data.py`); что сейчас в игре — `current.json` (`scripts/build_game_index.py`); ручные
+  решения — `scripts/data/dota_overrides.json`. Бонусы аганима/шарда и вырезанное — из сырых файлов игры
+  (`scripts/data/dota/game/`, парсер `scripts/valve_kv.py`).
+- **Генерация** — `scripts/generate/numeric_lab/` (модель выбирает `fact_id`, пишет текст и `step`, число
+  подставляет `resolve.py`; категории и квоты — `CATEGORY_SETUP` в `run_api.py`) и `scripts/generate/text_lab/`
+  (механики: `mechanics_lab.py`, `prompt_mechanics_v4.md`, проверка, `curate.py`). Модель `claude-opus-5-5`, effort
+  high, параллельные вызовы (`--sync`), без Batch API и `cache_control`. Ключ — `NUMLAB_API_KEY` или
+  `ANTHROPIC_API_KEY`. Финальные прогоны: `numeric_lab/out/full1`, `costs2`, `talents-v5`, `text_lab/out/full1`.
+- **Банк** — `scripts/data/bank/questions.json` (`python scripts/build_question_bank.py`): постоянные id, вопросы с
+  флагами выкинуты, ручные правки — `scripts/data/bank/overrides.json` (`drop` / `why` + text / step / unit / ceil /
+  sub / options / comment / ok). Сборка падает на: ответ ≤ 5 шагов (и до потолка `ceil`), ответ круглее любого
+  фейка, единица не из словаря `UNITS`, латиница в русском слове, старые имена героев, врождёнка без «врождёнка X у
+  героя». Опечатки модели правит `TEXT_FIXES`.
+- **Варианты** числа строит сервер при каждом показе (`stepOptions.ts`, эталон `options.py`): случайная позиция ответа,
+  соседи через 1 или 2 шага (50/50), все > 0 и < `ceil`, отдельное перемешивание показа.
+- **Язык** — словарь в docs/questions/README.md, «Язык и сленг»: сленг (стан, кд — среднего рода, стак, каст…) — да;
+  «замедление», «безмолвие», «увеличение урона заклинаний», «базовое время атаки» — без сленга; таланты — строка
+  русской локализации дословно ([talents-style.md](docs/questions/talents-style.md)).
+- **Статистика** — снимок `scripts/data/stats/<дата>/` (`fetch_stats.py` — OpenDota, `fetch_stratz.py` — STRATZ) →
+  `python scripts/build_stats_bank.py` → `scripts/data/stats/bank.json` → `statQuestions.ts`. **Друзья** —
+  `scripts/data/friends/metrics.json` → `server/src/game/questions/friends.ts` (категория при ≥ 2 опознанных в лобби).
+- Категории, подкатегории, веса (MC и closest) и тема — `server/src/game/questions/categories.ts` (правится руками; id
+  не переименовывать — по ним ключи в Neon).
+
+## Tests
+
+`server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
+не нужно). 436 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 423 — `npm run test:server`.
+
+| Файл | Что покрыто |
+|---|---|
+| `economy/__tests__/` (`distributePool`, `distributeClosest`, `applyBankBets`) | пул и пропорции, zero-sum; ближайший, точное, ничья; банк-ставка +3× / −1× |
+| `game/__tests__/RoundSelector.test.ts` | цикл all → kerri → closest |
+| `game/__tests__/GameRoom.test.ts` (96) | игроки, расчёт по режимам, флор 0, победитель, `gladiatorAnswer`, `optionNotes`/`comment` только в `round_results` и пауза перед REVEAL, окно показа ответа, ставки и ответы, уход игроков, блок «аудит» (хост, керри сбежал, банк на верный, проверка ответов, повторный join, ошибка пикера), аукцион взяток (методы напрямую) |
+| `game/__tests__/items.test.ts` (103) | блайнды (в т.ч. керри, принудительный на выделенную сторону / «ответит»), молния, серия, лавка (первая после «кто ближе», «Готов», таймер), покупка, все предметы, окно 1 с после ответа, керри (керри — только блинк, толпа — только BKB), «кто ближе», края, вошедший посреди раунда |
+| `game/__tests__/review.test.ts` (35) | утечки до расчёта по фазе × роли (id, notes, `gladiatorAnswer`, `bank_bet_updated`, чужие ответы, лавка), оценка по ключу / id, `present` и `settle`, зрители и отмена раунда, BETTING без ставящих, лимиты ставок, сброс раунда, сумма `sources` = delta, граница аегиса, победитель, хекс, ошибки не вешают комнату, без лишних `game_state` |
+| `game/__tests__/GameEngine.test.ts` | вход, полная комната / `MAX_ROOMS` → `join_error`, переход между комнатами, удаление пустой |
+| `socket/__tests__/handlers.test.ts` (71) | проверки payload всех событий, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
+| `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, единицы, сглаженный выбор, колоды (круг, соседние игры), веса MC / closest, тема, оценки и пределы множителей, друзья, прогон настоящего банка |
+| `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты |
+| `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, предел отрыва, дерево талантов, `topLead`, настоящий `bank.json` |
+| `shared/src/__tests__/` | `chips`, `units`, `topic` |
+
+Паттерн GameRoom-тестов: `(room as any)` для private-полей и методов (`phase`, `currentMode`, `gladiatorId`,
+`calculateResults`, `advanceFromQuestion`…), `vi.useFakeTimers()`.
+
+## Открытые вопросы (ждут решения пользователя)
+
+- **П1: переподключение = новый игрок** с $500 (сессий нет) — главный пункт [аудита](docs/audit-2026-10-28-game.md).
+- Экономика: потолок банк-ставки ×4 (сговор керри и толпы через банк-ставку); молния / серия в раундах без
+  проигравших; порог аегиса (можно уйти ниже ставкой и получить $300); сейв BKB от цены при включении; пул без
+  потолка; возврат предметов в отменённом раунде.
+- Победитель при точной ничье (сейчас первый вошедший); минимум игроков для старта (сейчас можно одному); выход
+  керри в QUESTION — отменять раунд? (сейчас считается как «не ответил»); ротация керри «мешком» (сейчас случайно).
+- Вес друзей при 2 опознанных; публичность `friendRoster` (в каждом `game_state`).
+- Смок: скрывает ли хекс / BKB (сейчас нет); «Твой ответ просветили» у цели, которая в смоке (гем ничего не увидел).
+- Стол ставок на телефоне.
+- Позже: звук, баланс камбэка.
 
 ## Deployment
 
-- **Server:** Render.com free tier, Frankfurt region. Service name: `Cumsino`, URL: `https://cumsino.onrender.com`. Build: `npm install && npm run build --workspace=shared && npm run build --workspace=server`. Start: `npm run start --workspace=server`. Env vars: `NODE_ENV=production`, `PORT=10000`, `CLIENT_ORIGIN=https://mayak100.github.io`. render.yaml exists at `server/render.yaml` but was configured manually on first deploy.
-- **Client:** GitHub Actions → GitHub Pages. `.github/workflows/deploy.yml` triggers on push to `main` when `client/**` or `shared/**` change (also supports `workflow_dispatch` for manual trigger). Repo secret: `VITE_SERVER_URL=https://cumsino.onrender.com`. Published to: `https://mayak100.github.io/Cumsino/`. Vite base: `/Cumsino/` (case-sensitive — must match repo name exactly).
-- **Git:** remote branch is `main`; push with `git push origin HEAD:main` (works from any local branch name — older clones had local `master`, a fresh clone is on `main`).
-- Render.com free tier sleeps after 15 min idle — just open the site ~30s before playing (socket connection on page load wakes it up).
+- **Server:** Render.com free tier, Frankfurt, сервис `Cumsino`, `https://cumsino.onrender.com`. Build:
+  `npm install && npm run build --workspace=shared && npm run build --workspace=server`. Start:
+  `npm run start --workspace=server`. Env: `NODE_ENV=production`, `PORT=10000`,
+  `CLIENT_ORIGIN=https://mayak100.github.io`, `DATABASE_URL`. `server/render.yaml` есть, но сервис настроен руками.
+  Засыпает после 15 мин простоя — открыть сайт за ~30 с до игры (`JoinScreen` будит).
+- **Client:** GitHub Actions → GitHub Pages (`.github/workflows/deploy.yml`, push в `main` с изменениями `client/**`
+  или `shared/**`, либо `workflow_dispatch`). Секрет `VITE_SERVER_URL=https://cumsino.onrender.com`. Адрес
+  `https://mayak100.github.io/Cumsino/`, Vite base `/Cumsino/` (регистр важен).
+- **Git:** удалённая ветка `main`; пуш — `git push origin HEAD:main` (с любой локальной ветки).
