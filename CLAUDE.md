@@ -16,16 +16,16 @@ npx vitest run --config server/vitest.config.ts          # из корня: се
 npx vitest run server/src/game/economy/__tests__/applyBankBets.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
-cd server && npx tsc --noEmit           # проверка типов; так же в client
+cd server && npx tsc --noEmit -p tsconfig.dev.json   # проверка типов (shared из исходников); клиент — cd client && npx tsc --noEmit
 ```
 
 Production build: `npm run build --workspace=shared && npm run build --workspace=server`; клиент —
 `npm run build --workspace=client` (Vite берёт shared из исходников).
 
-**`@cumsino/shared` в dev-сервере:** vitest и Vite алиасят его на `../shared/index.ts` (исходники), а `tsx`
-сервера резолвит пакет через `node_modules` → `shared/dist` (`main` в `shared/package.json`). После правки
-`shared/src` для `npm run dev:server` нужен `npm run build --workspace=shared`, иначе сервер работает со старыми
-константами. В `server/tsconfig.json` **нет `paths`** — с ним TS6059 (файл вне rootDir).
+**`@cumsino/shared` в dev:** vitest и Vite алиасят его на `../shared/index.ts` (исходники); `tsx` сервера
+(`dev`, `ratios`) запускается с `server/tsconfig.dev.json` — там `paths` на исходники shared этого checkout (иначе
+симлинк workspaces ведёт в `shared/dist` основного checkout со старыми константами). В `server/tsconfig.json`
+**нет `paths`** — прод-`tsc` с ними падает с TS6059 (файл вне rootDir); прод берёт собранный `shared/dist`.
 
 ### Лаборатория вопросов (`/dev`) и моки (`/mocks`)
 
@@ -35,7 +35,7 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
   сокета. Панель слева (скрыть — `H`): режим (для всех / керри: толпа / керри: я керри / кто ближе) → категория и
   подкатегория (или «по весам, как в игре») → вопрос; стадия: анонс → ставки → вопрос → ответ → итоги. Клавиши: `→`/`←`,
   `R` ответ, `1`–`5` стадия, `C` скопировать id. Поле id (`num:…`, `mech:…`, `stat:…`, `fr:…`), «Друзья» (≥ 2),
-  слайдер игроков 2–10 (в игре максимум 8), внизу — экраны вне раунда. Оценки никуда не уходят (`setRating`
+  слайдер игроков 2–8, внизу — экраны вне раунда. Оценки никуда не уходят (`setRating`
   подменён). Сервер: `server/src/dev/questionLab.ts` — `GET /dev/catalog`, `GET /dev/question?session&mode&cat&sub&id&friends`,
   `POST /dev/reset`, только при `NODE_ENV !== 'production'`; свой `QuestionHistory` без хранилища (в Neon не пишет,
   в сессии срез не повторяется, кончился — новый круг). Клиент: `client/src/dev/` — `DevPage.tsx`, `labApi.ts`,
@@ -55,8 +55,8 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
 ### Worktree (`.claude/worktrees/<имя>`)
 
 - Своих `node_modules` нет — резолвятся из `C:\Dev\Cumsino\node_modules`, а `@cumsino/shared` там ссылается на копию
-  основного checkout. vitest/Vite (алиас на `../shared/index.ts`) видят shared ворктри, а голый `tsc` и `tsx`
-  сервера — нет: для них нужен tsconfig с `paths` на shared ворктри (во временной папке, не в репо — TS6059).
+  основного checkout. vitest/Vite (алиас) и `npm run dev`/`ratios` сервера (`tsconfig.dev.json`) видят shared
+  ворктри; голый `tsc --noEmit` сервера — нет: проверять с `-p server/tsconfig.dev.json` (TS6059 там нет, rootDir — корень).
 - `.env` сервер ищет вверх по папкам — из worktree находит `.env` основного checkout (`setup.ts`, `findDotEnv`).
   Порт 3001 обычно занят сервером основного checkout: сервер ворктри — `PORT=3002`, клиент —
   `VITE_SERVER_URL=http://localhost:3002`; `DATABASE_URL=` (пусто, явная переменная главнее) — без Neon.

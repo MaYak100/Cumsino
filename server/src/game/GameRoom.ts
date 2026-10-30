@@ -54,8 +54,6 @@ interface PlayerWithBankBet extends Player {
   aegis: boolean
   aegisBought: boolean
   items: RoundItems
-  /** порядковый номер входа — по нему ходит большой блайнд (уход игроков не сбивает очередь) */
-  seat: number
   /** вошёл посреди раунда (не в лобби и не в лавке): до следующего раунда только смотрит — не ставит, не отвечает,
    *  не применяет предметы, не керри, без блайнда, никого не задерживает. Сбрасывается в nextRound. */
   spectator: boolean
@@ -123,7 +121,6 @@ export class GameRoom extends EventEmitter {
   /** конец отсчёта хекснутых — пересчитать «все ответили» */
   private hexTimers: ReturnType<typeof setTimeout>[] = []
   private questionStartAt = 0
-  private seatCounter = 0
   /** длительность анонса раунда (первый раз в режиме — дольше); лавка уходит в анонс с ней */
   private announceSeconds = PHASE_DURATIONS['ANNOUNCE']!
   private pending: PendingSettlement | null = null
@@ -158,7 +155,6 @@ export class GameRoom extends EventEmitter {
       aegis: false,
       aegisBought: false,
       items: freshRound(),
-      seat: this.seatCounter++,
       // в лобби и в лавке раунд ещё не начался — участвует; иначе смотрит до следующего раунда
       spectator: !['LOBBY', 'SHOP'].includes(this.phase),
     })

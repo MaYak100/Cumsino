@@ -42,8 +42,6 @@ export const PLAYER_POOL: Player[] = [
   { id: 'dev-6',  name: 'Костя',   chips: 500, currentBet: 0, hasAnswered: false },
   { id: 'dev-7',  name: 'Лена',    chips: 500, currentBet: 0, hasAnswered: false },
   { id: 'dev-8',  name: 'Паша',    chips: 500, currentBet: 0, hasAnswered: false },
-  { id: 'dev-9',  name: 'Маша',    chips: 500, currentBet: 0, hasAnswered: false },
-  { id: 'dev-10', name: 'Женя',    chips: 500, currentBet: 0, hasAnswered: false },
 ]
 
 const BASE_PLAYERS: Player[] = [
@@ -721,9 +719,9 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
-    id: 'reveal-10p',
+    id: 'reveal-8p',
     group: 'REVEAL',
-    label: '10 игроков',
+    label: '8 игроков',
     Screen: RoundResultsScreen,
     state: {
       myId: MY_ID,
@@ -738,8 +736,6 @@ export const SCENARIOS: Scenario[] = [
           { id: 'dev-6',  name: 'Костя',  chips: 480, currentBet: 100, hasAnswered: true },
           { id: 'dev-7',  name: 'Лена',   chips: 310, currentBet: 60,  hasAnswered: true },
           { id: 'dev-8',  name: 'Паша',   chips: 550, currentBet: 90,  hasAnswered: true },
-          { id: 'dev-9',  name: 'Маша',   chips: 430, currentBet: 70,  hasAnswered: true },
-          { id: 'dev-10', name: 'Женя',   chips: 700, currentBet: 120, hasAnswered: true },
         ],
       }),
       roundResults: [
@@ -751,8 +747,6 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-6',  delta: -100, chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -100 }] },
         { playerId: 'dev-7',  delta: -60,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -60  }] },
         { playerId: 'dev-8',  delta: 90,   chipBreakdown: { 500:0,100:0,50:1,20:2,10:0 }, sources: [{ label: 'Ответил верно',   delta: 90   }] },
-        { playerId: 'dev-9',  delta: -70,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -70  }] },
-        { playerId: 'dev-10', delta: 180,  chipBreakdown: { 500:0,100:1,50:1,20:1,10:1 }, sources: [{ label: 'Ответил верно',   delta: 180  }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
     },

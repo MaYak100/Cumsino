@@ -1,6 +1,7 @@
 // client/src/dev/MockPage.tsx — /mocks: интерфейсные сценарии на моках (лавка, предметы, блайнды, серии…)
 // без сервера. Настоящие вопросы — лаборатория /dev (DevPage.tsx).
 import { useState, useEffect } from 'react'
+import { MAX_PLAYERS } from '@cumsino/shared'
 import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
 import { ItemBar } from '../components/ui/ItemBar'
@@ -128,7 +129,7 @@ export function MockPage() {
                 {playerCount}
               </div>
               <button
-                onClick={() => changeCount(Math.min(10, playerCount + 1))}
+                onClick={() => changeCount(Math.min(MAX_PLAYERS, playerCount + 1))}
                 style={{
                   width: 22, height: 22, borderRadius: 4,
                   background: '#111', border: '1px solid #2a2a2a',
@@ -138,7 +139,7 @@ export function MockPage() {
               >+</button>
             </div>
             <input
-              type="range" min={2} max={10} value={playerCount}
+              type="range" min={2} max={MAX_PLAYERS} value={playerCount}
               onChange={e => changeCount(Number(e.target.value))}
               style={{ width: '100%', marginTop: 6, accentColor: '#fbbf24' }}
             />

@@ -2,12 +2,12 @@
   "name": "@cumsino/server",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch --tsconfig tsconfig.dev.json src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "ratios": "tsx src/scripts/ratios.ts"
+    "ratios": "tsx --tsconfig tsconfig.dev.json src/scripts/ratios.ts"
   },
   "dependencies": {
     "@cumsino/shared": "*",

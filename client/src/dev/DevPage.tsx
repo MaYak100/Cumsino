@@ -5,6 +5,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { MAX_PLAYERS } from '@cumsino/shared'
 import type { FriendProfile } from '@cumsino/shared'
 import { useGameStore, selectIsGladiator } from '../store/gameStore'
 import { screenFor } from '../components/screens/screenFor'
@@ -489,7 +490,7 @@ export function DevPage() {
           )}
 
           <Section title="Игроки" right={<span style={{ fontSize: 13, fontWeight: 700, color: GOLD }}>{count}</span>}>
-            <input type="range" min={2} max={10} value={count} onChange={e => patch({ count: Number(e.target.value) })}
+            <input type="range" min={2} max={MAX_PLAYERS} value={count} onChange={e => patch({ count: Number(e.target.value) })}
               style={{ width: '100%', accentColor: GOLD }} />
           </Section>
 

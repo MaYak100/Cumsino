@@ -1,0 +1,11 @@
+{
+  // Только для tsx (dev, ratios): @cumsino/shared — исходники shared этого checkout, а не собранный shared/dist
+  // (через симлинк workspaces он ведёт в dist основного checkout — после правок shared пришлось бы пересобирать).
+  // Прод-сборка (`tsc`, tsconfig.json) paths не знает: иначе TS6059 (shared вне rootDir).
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "rootDir": "..",
+    "paths": { "@cumsino/shared": ["shared/index.ts"] }
+  }
+}
