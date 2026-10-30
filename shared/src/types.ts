@@ -10,8 +10,7 @@ export type GamePhase =
   | 'REVEAL'
   | 'GAME_OVER'
 
-/** top5 — старый режим: сервер его не выбирает и не считает; в типе, пока у клиента есть Top5Screen */
-export type GameMode = 'all' | 'kerri' | 'closest' | 'top5'
+export type GameMode = 'all' | 'kerri' | 'closest'
 export type MainMode = 'all' | 'kerri'
 
 export interface ChipBreakdown {
@@ -71,8 +70,6 @@ export interface Question {
   /** Единица числового вопроса («%», «сек.», «золота»). В MC уже вписана в варианты, в «ближе всех» —
    *  подпись у поля ввода и у правильного ответа (withUnit). */
   unit?: string
-  items?: string[]
-  orderedItems?: string[]
   /** id категории и подкатегории (server/src/game/questions/categories.ts) — для оценок и статистики */
   category?: string
   subcategory?: string
@@ -82,12 +79,10 @@ export interface GameState {
   id: string
   phase: GamePhase
   roundIndex: number
-  /** @deprecated сервер больше не присылает; поле осталось, пока его заполняют моки клиента */
-  lastMainMode?: MainMode
   mode: GameMode
   /** Вопрос раунда без ответа. id здесь — непрозрачный ключ раунда («r3-k8f2…»), а не id вопроса из банка: настоящий
    *  id (у статистики в нём ответ) приходит только в round_results (questionId). */
-  currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'orderedItems' | 'comment' | 'optionNotes'> | null
+  currentQuestion: Omit<Question, 'answer' | 'numericAnswer' | 'comment' | 'optionNotes'> | null
   gladiatorId?: string
   gladiatorAnswer?: string
   hostId: string

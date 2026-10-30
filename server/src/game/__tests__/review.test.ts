@@ -48,7 +48,7 @@ function makeRoom(n = 3, q: (mode: GameMode) => Question = m => (m === 'closest'
   const results = (): RoundResult[] => mail('p1').filter(e => e.event === 'round_results').at(-1)?.data.results
   /** начать с режима mode: цикл all → kerri → closest */
   const startIn = (mode: GameMode) => {
-    r.selector.index = { all: 0, kerri: 1, closest: 2, top5: 0 }[mode]
+    r.selector.index = { all: 0, kerri: 1, closest: 2 }[mode]
     room.start('p1')
   }
   return { room, r, p, inbox, mail, states, results, startIn }

@@ -46,12 +46,6 @@ export const MODE: Record<GameMode, { name: string; short: string; desc: string;
     desc: 'Без ставок. Чьё число ближе к правде — тот забирает банк.',
     color: C.sky,
   },
-  top5: {
-    name: 'Топ 5',
-    short: 'Топ 5',
-    desc: 'Назови пятёрку.',
-    color: C.mint,
-  },
 }
 
 export const modeColor = (mode?: GameMode | null) => (mode ? MODE[mode]?.color : undefined) ?? C.brass

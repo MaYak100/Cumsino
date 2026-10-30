@@ -16,7 +16,7 @@ import { useGameStore } from '../store/gameStore'
 
 type GameStoreState = ReturnType<typeof useGameStore.getState>
 export type ScenarioState = Partial<Omit<GameStoreState,
-  'connect' | 'setPendingTarget' | 'submitAnswer' | 'sendHover' | 'startGame' | 'reset'
+  'connect' | 'submitAnswer' | 'sendHover' | 'startGame' | 'reset'
   | 'payBribe'
 >>
 
@@ -140,7 +140,6 @@ function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = 
     id: 'KX7Q',
     phase,
     roundIndex: 2,
-    lastMainMode: 'all',
     mode,
     currentQuestion: null,
     hostId: 'dev-1',
@@ -668,8 +667,6 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-4', delta: -50,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ответил неверно', delta: -50  }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
-      roundMode: 'all',
-      roundGladiatorId: null,
     },
   },
   {
@@ -696,8 +693,6 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-4', delta: -30,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Угадал исход',    delta: 20  }, { label: 'Был слишком уверен', delta: -50  }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
-      roundMode: 'kerri',
-      roundGladiatorId: 'dev-2',
     },
   },
   {
@@ -723,8 +718,6 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-4', delta: 0,   chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [] },
       ] as RoundResult[],
       roundCorrectAnswer: 2250,
-      roundMode: 'closest',
-      roundGladiatorId: null,
     },
   },
   {
@@ -762,8 +755,6 @@ export const SCENARIOS: Scenario[] = [
         { playerId: 'dev-10', delta: 180,  chipBreakdown: { 500:0,100:1,50:1,20:1,10:1 }, sources: [{ label: 'Ответил верно',   delta: 180  }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
-      roundMode: 'all',
-      roundGladiatorId: null,
     },
   },
 

@@ -177,7 +177,7 @@ export function DevPage() {
       identify: friendId => useGameStore.setState(s => s.gameState ? {
         gameState: { ...s.gameState, players: s.gameState.players.map(p => p.id === MY_ID ? { ...p, friendId: friendId ?? undefined } : p) },
       } : {}),
-      // оценку экран ставит через setRating (rateQuestion в игре не вызывается): подменяем его — выбор виден на
+      // оценку экран ставит через setRating: подменяем его — выбор виден на
       // шкале, но на сервер не уходит (настоящий setRating отправил бы rate_question через сокет)
       setRating: (questionId, patch) => {
         useGameStore.setState(s => {
@@ -189,7 +189,6 @@ export function DevPage() {
         })
         console.info('[лаборатория] оценка не отправляется:', questionId, patch)
       },
-      rateQuestion: (questionId, vote) => console.info('[лаборатория] оценка не отправляется:', questionId, vote),
       reset: () => setScenario(null),
     })
   }, [])

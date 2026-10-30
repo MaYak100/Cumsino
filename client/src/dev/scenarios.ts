@@ -13,7 +13,7 @@ export interface Scenario {
 
 function state(phase: GameState['phase'], players: Player[], roster: FriendProfile[], extra: Partial<GameState> = {}): GameState {
   return {
-    id: 'dev-room', phase, roundIndex: 0, lastMainMode: 'all', mode: 'all', currentQuestion: null,
+    id: 'dev-room', phase, roundIndex: 0, mode: 'all', currentQuestion: null,
     hostId: MY_ID, players, phaseTimeLeft: 0, friendRoster: roster, ...extra,
   }
 }
@@ -23,7 +23,7 @@ const base = (count: number, chips?: (i: number) => number): Player[] =>
 
 const common: StoreState = {
   myId: MY_ID, isLateJoiner: false, winner: null, roundResults: [], answeredIds: new Set(),
-  roundCorrectAnswer: null, roundComment: null, roundOptionNotes: null, roundMode: null, roundGladiatorId: null,
+  roundCorrectAnswer: null, roundComment: null, roundOptionNotes: null, 
 }
 
 export const SCENARIOS: Scenario[] = [

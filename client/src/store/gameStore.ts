@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { socket } from '../socket'
 import type {
-  GameState, Player, RoundResult, GameMode,
+  GameState, Player, RoundResult,
   BetUpdatedPayload, PlayerAnsweredPayload,
   GladiatorHoveringPayload, GameOverPayload,
   BankBetUpdatedPayload, RoundResultsPayload,
@@ -51,14 +51,11 @@ interface GameStore {
   roundCorrectAnswer: string | number | null
   roundComment: string | null
   roundOptionNotes: string[] | null
-  roundMode: GameMode | null
-  roundGladiatorId: string | null
   /** настоящий id вопроса раунда — приходит в round_results (в game_state currentQuestion.id — ключ раунда) */
   roundQuestionId: string | null
   winner: Player | null
   answeredIds: Set<string>
   gladiatorHoverIndex: number | null
-  pendingTarget: 'win' | 'lose' | null
   /** банк-ставки толпы керри (сервер шлёт их только толпе — керри и зрители их не получают) */
   bankBets: Record<string, { optionIndex: number; amount: number }>
   stagedBets: Record<string, number[]>
@@ -87,7 +84,6 @@ interface GameStore {
   payBribe: () => void
 
   connect: (name: string, gameCode: string) => void
-  setPendingTarget: (target: 'win' | 'lose' | null) => void
   submitAnswer: (answer: string | number | string[], blink?: boolean) => void
   buyItem: (item: ItemId) => void
   /** лавка: готов / передумал */
@@ -101,7 +97,6 @@ interface GameStore {
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
   identify: (friendId: number | null) => void
   /** Оценка вопроса раунда: score −2…+2 (без 0), difficulty −1 легко / +1 сложно; null — снять */
-  rateQuestion: (questionId: string, vote: { score?: number | null; difficulty?: number | null }) => void
   /** Поменять свою оценку (повторный выбор того же значения снимает его) */
   setRating: (questionId: string, patch: { score?: number | null; difficulty?: number | null }) => void
   reset: () => void
@@ -157,8 +152,6 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundCorrectAnswer: clearRound ? null : prev.roundCorrectAnswer,
         roundComment: clearRound ? null : prev.roundComment,
         roundOptionNotes: clearRound ? null : prev.roundOptionNotes,
-        roundMode: clearRound ? null : prev.roundMode,
-        roundGladiatorId: clearRound ? null : prev.roundGladiatorId,
         roundQuestionId: clearRound ? null : prev.roundQuestionId,
         bankBets: clearRound ? {} : prev.bankBets,
         stagedBets: clearRound ? {} : prev.stagedBets,
@@ -208,7 +201,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     set({ gladiatorHoverIndex: optionIndex })
   })
 
-  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, comment, optionNotes, mode, gladiatorId, questionId, questionKey }: RoundResultsPayload) => {
+  socket.on('round_results', ({ results, correctAnswer, correctNumericAnswer, comment, optionNotes, questionId, questionKey }: RoundResultsPayload) => {
     if (questionKey && questionId) {
       realQuestionIds.set(questionKey, questionId)
       if (realQuestionIds.size > 50) realQuestionIds.delete(realQuestionIds.keys().next().value!)
@@ -219,8 +212,6 @@ export const useGameStore = create<GameStore>((set, get) => {
       roundCorrectAnswer: correctAnswer ?? correctNumericAnswer ?? null,
       roundComment: comment ?? null,
       roundOptionNotes: optionNotes ?? null,
-      roundMode: mode ?? null,
-      roundGladiatorId: gladiatorId ?? null,
       // раунд посчитан — прицел гема больше некуда применить
       targeting: null,
     })
@@ -282,13 +273,10 @@ export const useGameStore = create<GameStore>((set, get) => {
     roundCorrectAnswer: null,
     roundComment: null,
     roundOptionNotes: null,
-    roundMode: null,
-    roundGladiatorId: null,
     roundQuestionId: null,
     winner: null,
     answeredIds: new Set(),
     gladiatorHoverIndex: null,
-    pendingTarget: null,
     bankBets: {},
     stagedBets: {},
     isLateJoiner: false,
@@ -308,10 +296,6 @@ export const useGameStore = create<GameStore>((set, get) => {
       set({ joinError: null })
       if (!socket.connected) socket.connect()
       socket.emit('join_game', { name, gameCode })
-    },
-
-    setPendingTarget(target) {
-      set({ pendingTarget: target })
     },
 
     submitAnswer(answer, blink) {
@@ -351,10 +335,6 @@ export const useGameStore = create<GameStore>((set, get) => {
       socket.emit('identify', { friendId })
     },
 
-    rateQuestion(questionId, vote) {
-      socket.emit('rate_question', { questionId: realId(questionId), ...vote })
-    },
-
     setRating(questionId, patch) {
       set(prev => {
         const cur = prev.rating?.questionId === questionId
@@ -379,13 +359,10 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundCorrectAnswer: null,
         roundComment: null,
         roundOptionNotes: null,
-        roundMode: null,
-        roundGladiatorId: null,
         roundQuestionId: null,
         winner: null,
         answeredIds: new Set(),
         gladiatorHoverIndex: null,
-        pendingTarget: null,
         bankBets: {},
         stagedBets: {},
         isLateJoiner: false,

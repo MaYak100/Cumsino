@@ -58,7 +58,7 @@ function seeded(seed: string): () => number {
 
 /** Без ответа, числа, комментария и подписей — как currentQuestion в game_state (GameRoom.getPublicState). */
 export function publicQuestion(q: Question): GameState['currentQuestion'] {
-  const { answer: _a, numericAnswer: _n, orderedItems: _o, comment: _c, optionNotes: _on, ...pub } = q
+  const { answer: _a, numericAnswer: _n, comment: _c, optionNotes: _on, ...pub } = q
   return pub
 }
 
@@ -143,7 +143,6 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
     id: 'lab',
     phase,
     roundIndex: 3,
-    lastMainMode: gm === 'kerri' ? 'kerri' : 'all',
     mode: gm,
     currentQuestion: publicQuestion(q),
     // керри выбирают на переходе ANNOUNCE → BETTING
@@ -167,14 +166,11 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
     bankBets: {},
     bribePrompt: null,
     bribeEliminatedIdx: null,
-    pendingTarget: null,
     // round_results приходит в конце QUESTION и живёт до следующего ANNOUNCE
     roundResults: results,
     roundCorrectAnswer: revealed ? correct : null,
     roundComment: revealed ? q.comment ?? null : null,
     roundOptionNotes: revealed ? q.optionNotes ?? null : null,
-    roundMode: revealed ? gm : null,
-    roundGladiatorId: revealed ? gladiatorId ?? null : null,
   }
 }
 
