@@ -451,12 +451,12 @@ describe('оценки', () => {
     const bank = cats.flatMap(c => c.subs.flatMap(sd => Array.from({ length: 40 }, (_, i) => num(`${sd.id}-${i}`, sd.id))))
     const lib = buildLibrary({ bank, stats: null, friends: null, categories: cats })
     const history = new QuestionHistory()
-    for (let g = 1; g <= 30; g++) {
+    for (let g = 1; g <= 200; g++) {   // почти насыщение: оценка → 2, иначе при β 0.47 потолок не достаётся
       history.showing({ questionId: `x${g}`, category: 'hot', sub: 'h1', mode: 'all', gameNo: g, roomPlayers: 1, players: 1, answered: 1, correct: 1 })
       history.rate({ questionId: `x${g}`, category: 'hot', sub: 'h1', gameNo: g, player: 'A', score: 2 },
         { text: '', roomPlayers: 1 })
     }
-    // по отдельности: категория ×1.5 (соседка не ниже ×0.5), подкатегория ×1.5 — вместе было бы ×2.25
+    // по отдельности: категория ≈ ×1.43, подкатегория ≈ ×1.43 — вместе было бы ≈ ×2.05
     const shown = new Map<string, number>()
     const N = 4000
     let room = new RoomQuestions(lib, history, seeded(11))
@@ -468,9 +468,9 @@ describe('оценки', () => {
     const share = shown.get('h1')! / N
     expect(share).toBeGreaterThan(0.47)
     expect(share).toBeLessThan(0.53)   // база 0.25 → ровно ×2
-    // лимит сначала у подкатегорий: h1 ×1.5 внутри категории (h2 ×0.5), категории осталось ×4/3 → h2 = 2/3 · 1/4
-    expect(shown.get('h2')! / N).toBeCloseTo(1 / 6, 1)
-    expect(shown.get('h2')!).toBeLessThan(shown.get('c1')!)
+    // лимит сначала у подкатегорий: h1 ≈ ×1.43 внутри категории (h2 ≈ ×0.57), категории осталось 2 / 1.43 → h2 ≈ 0.2
+    expect(shown.get('h2')! / N).toBeCloseTo(0.2, 1)
+    expect(shown.get('h2')! / N).toBeLessThan(0.25)   // нелюбимая соседка ниже своей базы (её тянет вверх только категория)
   })
 
   it('категория на пределе: подкатегории внутри не замерзают на ×1 — порядок по оценкам сохраняется', () => {
@@ -514,7 +514,7 @@ describe('оценки', () => {
     expect(share('a') + share('b') + share('c')).toBeGreaterThan(1 / 3 + 0.05)   // категория всё равно выше базы
   })
 
-  it('50 голосов «ахуенный» в компании из 6 → ≈ ×2.4 против нейтральных соседей; ×1.5 — с 12 голосов', () => {
+  it('50 голосов «ахуенный» в компании из 6 → ≈ ×1.8 против нейтральных соседей; ×1.5 — с ~24 голосов', () => {
     const ratio = (questions: number) => {
       const history = new QuestionHistory()
       for (let g = 1; g <= questions; g++) {
@@ -527,10 +527,11 @@ describe('оценки', () => {
         k => ratingScore(k === 'hot' ? history.ratingOf('sub:hot') : neutral))
       return m.get('hot')! / m.get('n0')!
     }
-    expect(ratio(8)).toBeGreaterThan(2.2)    // 48 голосов
-    expect(ratio(8)).toBeLessThan(2.6)
-    expect(ratio(2)).toBeGreaterThan(1.4)    // 12 голосов
-    expect(ratio(2)).toBeLessThan(1.6)
+    expect(ratio(8)).toBeGreaterThan(1.7)    // 48 голосов: e^(0.47 · 16 / 13) ≈ 1.8
+    expect(ratio(8)).toBeLessThan(1.9)
+    expect(ratio(4)).toBeGreaterThan(1.4)    // 24 голоса: e^(0.47 · 8 / 9) ≈ 1.52
+    expect(ratio(4)).toBeLessThan(1.6)
+    expect(ratio(1)).toBeLessThan(1.2)       // один вопрос, вся команда +2: ≈ 1.17
   })
 
   it('фора — пять показов: пара показов сдвигает слабо, сотня — почти полностью', () => {
