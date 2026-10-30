@@ -259,6 +259,8 @@ export class GameRoom extends EventEmitter {
   }
 
   destroy() {
+    // последний показ комнаты закрывается: по итоговым голосам решается «удалить»
+    this.safely('settle', () => this.questions.settle?.())
     clearTimeout(this.phaseTimer)
     this.clearRoundTimers()
     this.clearBribeAuction()
@@ -888,6 +890,8 @@ export class GameRoom extends EventEmitter {
     this.ratable = q
     this.ratableKey = this.publicKey()
     this.ratableRoomPlayers = players.length
+    // голосовать за вопрос смогут только бывшие в комнате при показе (и зрители — делитель тот же)
+    const present = players.map(p => p.id)
     const answering = this.currentMode === 'kerri'
       ? players.filter(p => p.id === this.gladiatorId)
       : players.filter(p => !p.spectator)
@@ -896,14 +900,14 @@ export class GameRoom extends EventEmitter {
       const nums = answered.map(p => p.answer).filter((a): a is number => typeof a === 'number')
       const base = Math.abs(q.numericAnswer) || 1
       this.questions.report?.(q, {
-        roomPlayers: players.length, players: answering.length, answered: nums.length,
+        roomPlayers: players.length, present, players: answering.length, answered: nums.length,
         correct: nums.filter(a => a === q.numericAnswer).length,
         relErrors: nums.map(a => Math.abs(a - q.numericAnswer!) / base),
       })
       return
     }
     this.questions.report?.(q, {
-      roomPlayers: players.length, players: answering.length, answered: answered.length,
+      roomPlayers: players.length, present, players: answering.length, answered: answered.length,
       correct: answered.filter(p => p.answer === q.answer).length,
     })
   }

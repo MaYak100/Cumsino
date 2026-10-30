@@ -187,6 +187,26 @@ describe('ревью 2026-10-30', () => {
       room.rateQuestion('p3', 'r999-zzz', { score: -1 })
       expect(votes).toEqual(['p1:2', 'p2:1'])
     })
+
+    it('report несёт присутствовавших при показе; destroy закрывает показ (settle)', () => {
+      const present: string[][] = []
+      let settled = 0
+      const room = new GameRoom('r1', {
+        pick: () => mcQ,
+        report: (_q, r) => { present.push(r.present ?? []) },
+        settle: () => { settled++ },
+      })
+      room.addPlayer('p1', 'A')
+      room.addPlayer('p2', 'B')
+      const r = room as any
+      r.nextRound()
+      r.phase = 'QUESTION'
+      r.advanceFromQuestion()
+      room.addPlayer('late', 'L')   // вошёл после показа — голосовать за этот вопрос не сможет
+      expect(present).toEqual([['p1', 'p2']])
+      room.destroy()
+      expect(settled).toBe(1)
+    })
   })
 
   // ── зрители ──
