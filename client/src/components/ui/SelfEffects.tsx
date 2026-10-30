@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { ItemId } from '@cumsino/shared'
 import { useGameStore, selectMe } from '../../store/gameStore'
@@ -9,11 +10,25 @@ export function SelfEffects({ hexLeft }: { hexLeft?: number }) {
   const me = useGameStore(selectMe)
   const gemmedOnMe = useGameStore(s => s.gemmedOnMe)
   const fx = me?.effects ?? []
+  const smoked = fx.includes('smoke')
+
+  // Гем в смоке ответа не видит: сервер шлёт цели то же «на тебя смотрели», но смотревший получил пустоту. Запоминаем,
+  // был ли хоть один гем, пока ты был не в смоке (смок держится до конца раунда — гем после него всегда мимо).
+  // Экран смонтировался уже после гема — судим по смоку сейчас.
+  const gems = useRef({ count: gemmedOnMe, exposed: gemmedOnMe > 0 && !smoked })
+  if (gemmedOnMe !== gems.current.count) {
+    gems.current = {
+      count: gemmedOnMe,
+      exposed: gemmedOnMe === 0 ? false : gems.current.exposed || (gemmedOnMe > gems.current.count && !smoked),
+    }
+  }
 
   const tags: Array<{ key: string; item: ItemId; text: string; hot?: boolean }> = []
   if (hexLeft !== undefined) tags.push({ key: 'hex', item: 'hex', text: hexLeft > 0 ? 'Ты в хексе' : 'Время вышло', hot: true })
-  if (gemmedOnMe > 0) tags.push({ key: 'gem', item: 'gem', text: 'Твой ответ просветили', hot: true })
-  if (fx.includes('smoke')) tags.push({ key: 'smoke', item: 'smoke', text: 'Ты в смоке' })
+  if (gemmedOnMe > 0) tags.push(gems.current.exposed
+    ? { key: 'gem', item: 'gem', text: 'Твой ответ просветили', hot: true }
+    : { key: 'gem-smoke', item: 'gem', text: 'Твой ответ пытались просветить' })
+  if (smoked) tags.push({ key: 'smoke', item: 'smoke', text: 'Ты в смоке' })
   if (fx.includes('bkb')) tags.push({ key: 'bkb', item: 'bkb', text: 'BKB включён' })
 
   return (

@@ -6,6 +6,7 @@ import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { RateQuestion } from '../ui/RateQuestion'
 import { StreakFlame } from '../ui/StreakFlame'
 import { Money } from '../ui/Money'
+import { BotMark, needsBotMark } from '../ui/BotMark'
 
 type Phase = 1 | 2 | 3
 const TICKS = [500, 1000, 1500, 2000, 2500]
@@ -186,6 +187,7 @@ export function RoundResultsScreen() {
                       <StreakFlame streak={playerMap.get(e.playerId)?.streak} radius={6}>
                         <div className="font-bold truncate px-1.5 rounded-md" style={{ background: C.bg,  fontSize: compact ? 15 : 17, color: me ? C.brass : C.fg }}>
                       {me ? 'Ты' : e.name}
+                      {needsBotMark(playerMap.get(e.playerId)) && <> <BotMark /></>}
                     </div>
                       </StreakFlame>
                     </div>

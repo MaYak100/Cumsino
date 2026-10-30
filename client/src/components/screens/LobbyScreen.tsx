@@ -1,11 +1,12 @@
-import { motion } from 'framer-motion'
-import { STARTING_CHIPS, WIN_CHIPS } from '@cumsino/shared'
+import { motion, AnimatePresence } from 'framer-motion'
+import { STARTING_CHIPS, WIN_CHIPS, MAX_PLAYERS } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { Logo } from '../ui/Logo'
 import { Sticker } from '../ui/Sticker'
 import { WhoAreYou } from '../ui/WhoAreYou'
 import { Money } from '../ui/Money'
+import { BotMark, needsBotMark } from '../ui/BotMark'
 
 /** Наклон от имени — у каждого свой и не меняется между рендерами. */
 const tilt = (s: string) => ((s.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 9) - 4) * 0.9
@@ -14,6 +15,8 @@ export function LobbyScreen() {
   const gameState = useGameStore(s => s.gameState)!
   const myId = useGameStore(s => s.myId)
   const startGame = useGameStore(s => s.startGame)
+  const addBot = useGameStore(s => s.addBot)
+  const removeBot = useGameStore(s => s.removeBot)
   const isHost = myId !== null && myId === gameState.hostId
   const friendName = (id?: number) => gameState.friendRoster?.find(r => r.id === id)?.name
 
@@ -33,31 +36,67 @@ export function LobbyScreen() {
 
         <div className="w-full flex flex-col items-center gap-4">
           <span className="text-sm tnum" style={{ color: C.muted }}>За столом {gameState.players.length}</span>
-          <div className="flex flex-wrap justify-center gap-3" style={{ maxWidth: '37.5rem' }}>
+          <div className="flex flex-wrap justify-center items-center gap-3" style={{ maxWidth: '37.5rem' }}>
+            <AnimatePresence initial={false}>
             {gameState.players.map((p, i) => {
               const me = p.id === myId
               const friend = friendName(p.friendId)
               return (
-                <Sticker
-                  key={p.id}
-                  seed={p.id}
-                  slam
-                  delay={i * 0.05}
-                  rotate={tilt(p.id)}
-                  jag={4}
-                  color={me ? C.brass : C.panel2}
-                  textColor={me ? C.ink : C.fg}
-                  padding="8px 16px 9px"
-                >
-                  <div className="font-bold text-[1.0625rem] leading-tight max-w-[11.25rem] truncate">
-                    {p.name}{p.id === gameState.hostId && <span style={{ opacity: 0.55 }} className="font-semibold text-[0.8125rem]"> хост</span>}
-                  </div>
-                  {friend && friend !== p.name && (
-                    <div className="text-[0.75rem] leading-tight" style={{ opacity: 0.7 }}>это {friend}</div>
+                <motion.div key={p.id} className="relative" exit={{ opacity: 0, scale: 0.6, rotate: 8, transition: { duration: 0.18 } }}>
+                  <Sticker
+                    seed={p.id}
+                    slam
+                    delay={i * 0.05}
+                    rotate={tilt(p.id)}
+                    jag={4}
+                    color={me ? C.brass : C.panel2}
+                    textColor={me ? C.ink : p.bot ? C.muted : C.fg}
+                    padding={isHost && p.bot ? '8px 34px 9px 16px' : '8px 16px 9px'}
+                  >
+                    <div className="flex items-center gap-1.5 font-bold text-[1.0625rem] leading-tight max-w-[12.5rem]">
+                      <span className="truncate">{p.name}</span>
+                      {needsBotMark(p) && <BotMark />}
+                      {p.id === gameState.hostId && <span style={{ opacity: 0.55 }} className="font-semibold text-[0.8125rem] shrink-0">хост</span>}
+                    </div>
+                    {friend && friend !== p.name && (
+                      <div className="text-[0.75rem] leading-tight" style={{ opacity: 0.7 }}>это {friend}</div>
+                    )}
+                  </Sticker>
+                  {/* убрать бота — только хост и только в лобби (весь экран — лобби) */}
+                  {isHost && p.bot && (
+                    <motion.button
+                      onClick={() => removeBot(p.id)}
+                      whileHover={{ scale: 1.15, rotate: 90 }}
+                      whileTap={{ scale: 0.85 }}
+                      aria-label={`Убрать бота ${p.name}`}
+                      title="Убрать бота"
+                      className="absolute flex items-center justify-center rounded-full"
+                      style={{
+                        right: 6, top: '50%', marginTop: -12, width: 24, height: 24, zIndex: 3,
+                        background: C.bg, color: C.hot, border: `1.5px solid ${C.hot}88`,
+                        fontWeight: 800, fontSize: 15, lineHeight: 1,
+                      }}
+                    >
+                      ×
+                    </motion.button>
                   )}
-                </Sticker>
+                </motion.div>
               )
             })}
+            </AnimatePresence>
+            {/* пустое место за столом: хост сажает бота (соло-тесты, добор до компании) */}
+            {isHost && gameState.players.length < MAX_PLAYERS && (
+              <motion.button
+                onClick={addBot}
+                whileHover={{ y: -3, rotate: -2 }}
+                whileTap={{ scale: 0.92 }}
+                className="rounded-xl px-4 font-bold text-[0.9375rem]"
+                style={{ height: '2.6rem', border: `2px dashed ${C.line}`, color: C.muted, background: 'transparent' }}
+                title="Посадить за стол бота — он ставит и отвечает сам"
+              >
+                + бот
+              </motion.button>
+            )}
           </div>
         </div>
 

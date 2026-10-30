@@ -203,6 +203,24 @@ export const SCENARIOS: Scenario[] = [
     },
   },
 
+  {
+    id: 'lobby-bots',
+    group: 'LOBBY',
+    label: 'host + боты, «кто ты» — я выбрал',
+    Screen: LobbyScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('LOBBY', 'all', {
+        players: [
+          { ...BASE_PLAYERS[0], friendId: 1023791464 },
+          { ...BASE_PLAYERS[1], friendId: 910030283 },
+          { id: 'bot-1', name: 'Пудж', chips: 500, currentBet: 0, hasAnswered: false, bot: true },
+          { id: 'bot-2', name: 'Бот Инвокер', chips: 500, currentBet: 0, hasAnswered: false, bot: true },
+        ],
+      }),
+    },
+  },
+
   // ── ANNOUNCE ──
   {
     id: 'announce-all',
@@ -410,6 +428,29 @@ export const SCENARIOS: Scenario[] = [
       gemResults: { 'dev-2': { answer: MC_QUESTION.options[1], smoked: false } },
       gemmedOnMe: 1,
       itemFeed: [{ playerId: 'dev-2', item: 'blink', at: Date.now() }],
+    },
+  },
+  {
+    // гем в того, кто в смоке: смотревший ничего не увидел — у цели «пытались просветить», а не «просветили»
+    id: 'question-smoke-gemmed',
+    group: 'QUESTION',
+    label: 'all — я в смоке, в меня гем',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'all', {
+        currentQuestion: MC_QUESTION,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, hasAnswered: true, effects: ['smoke'] },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, hasAnswered: false },
+          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, hasAnswered: false },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 50,  hasAnswered: false },
+        ],
+      }),
+      roundCorrectAnswer: null,
+      answeredIds: new Set<string>(['dev-1']),
+      gemmedOnMe: 1,
+      itemFeed: [{ playerId: 'dev-3', item: 'gem', at: Date.now() }],
     },
   },
   {

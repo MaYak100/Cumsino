@@ -11,12 +11,17 @@ import { Money } from './Money'
 import { Marks } from './AnswerProgress'
 import { StreakFlame } from './StreakFlame'
 import { pressable } from '../../lib/pressable'
+import { BotMark, needsBotMark } from './BotMark'
 
 const UNIT_W = 200
 const CHIP_ROW_H = 52
 const BALANCE_H = 0   // баланс теперь в плашке рядом с именем
 const CARD_H = 40
 const UNIT_H = CHIP_ROW_H + BALANCE_H + CARD_H
+const CHIP_GAP = 8    // под стопкой: огню серии есть где гореть
+const ROW_GAP = 4     // gap колонки слота
+/** верх плашки от верха слота — фоновый стол (TableFelt) кладёт свою плашку ровно сюда, иначе она выглядывает снизу */
+const PLATE_TOP = CHIP_ROW_H + CHIP_GAP + ROW_GAP
 
 interface Props {
   player: Player
@@ -47,12 +52,12 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 4,
+        gap: ROW_GAP,
         zIndex: 4,
         paddingBottom: 16,
       }}
     >
-      <div style={{ height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end', marginBottom: 8 }}>   {/* зазор — огню серии есть где гореть */}
+      <div style={{ height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end', marginBottom: CHIP_GAP }}>
         <PhysicalChipStack
           chips={chips}
           interactive={isMe}
@@ -100,9 +105,10 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
       <span style={{
         display: 'flex', alignItems: 'center', padding: '0 12px',
         background: isMe ? C.brass : 'transparent', color: isMe ? C.ink : C.fg, borderRadius: '10px 0 0 10px',
-        fontSize: 15, fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0,
+        fontSize: 15, fontWeight: 700, whiteSpace: 'nowrap', minWidth: 0, gap: 5,
       }}>
-        {name}
+        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>{name}</span>
+        {needsBotMark(player) && <BotMark />}
       </span>
       {/* блайнд, эффекты — бумажной биркой на правом верхнем углу: имя не теснят, справа место кнопкам быстрой ставки */}
       {player && ((player.effects?.length ?? 0) > 0 || player.bigBlind) && (
@@ -133,4 +139,4 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
   )
 }
 
-export { UNIT_W, CARD_H, CHIP_ROW_H, BALANCE_H, UNIT_H }
+export { UNIT_W, CARD_H, CHIP_ROW_H, BALANCE_H, UNIT_H, PLATE_TOP }

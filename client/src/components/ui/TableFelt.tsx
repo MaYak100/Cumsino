@@ -7,7 +7,7 @@ import {
   SCENE_W, SCENE_H,
   useSceneScale,
 } from '../../lib/tableGeometry'
-import { UNIT_W, CHIP_ROW_H, BALANCE_H, UNIT_H, NamePlate } from './PlayerSlot'
+import { UNIT_W, UNIT_H, PLATE_TOP, NamePlate } from './PlayerSlot'
 import { chipStyle } from '../../lib/chipStyle'
 import { pileOffset } from '../../types/chips'
 
@@ -84,8 +84,9 @@ export function TableFelt({ blurred }: Props) {
       }}>
         <FeltOval />
 
-        {/* Bet chip stacks */}
-        {players.map((player, i) => {
+        {/* На ставках (не размыт) плашки и кучки рисует сам стол ставок — здесь только сукно: иначе под своей плашкой
+            выглядывает фоновая, а своя кучка двоится (у фона другие места фишек) */}
+        {blurred && players.map((player, i) => {
           const chips = player.betChips
           if (!chips?.length) return null
           const angle = playerAngle(i, N)
@@ -104,8 +105,8 @@ export function TableFelt({ blurred }: Props) {
           )
         })}
 
-        {/* Player name cards — same ordering and positioning as BettingTableScreen/PlayerSlot */}
-        {players.map((player, i) => {
+        {/* Плашки — в том же порядке и на тех же местах, что у PlayerSlot на столе ставок */}
+        {blurred && players.map((player, i) => {
           const angle = playerAngle(i, N)
           const { left: unitLeft, top: unitTop } = unitPosition(angle, UNIT_W, UNIT_H, 0)
           const isMe = player.id === myId
@@ -115,7 +116,7 @@ export function TableFelt({ blurred }: Props) {
               style={{
                 position: 'absolute',
                 left: unitLeft,
-                top: unitTop + CHIP_ROW_H + BALANCE_H + 8,
+                top: unitTop + PLATE_TOP,
                 width: UNIT_W,
                 display: 'flex',
                 justifyContent: 'center',
