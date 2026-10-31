@@ -26,8 +26,11 @@ const MIN_WR_GAP = 0.10
 const MIN_WR_GAMES = 30
 const MIN_WR_LEAD_GAMES = 50
 const MIN_SELF_WR_GAMES = 40
-/** self_wr: шаг вариантов ≈ одна стандартная ошибка винрейта (50 / √игр), но не меньше 5 п.п. */
-const SELF_WR_MIN_STEP = 5
+/**
+ * self_wr: шаг вариантов — 3 п.п. при любой выборке, соседи через 1 или 2 шага (wrOptions). До 2026-10-31 шаг был
+ * max(5, 50 / √игр): при 40 играх 8 п.п., варианты вроде 22 / 30 / 46 / 62% — слишком далеко друг от друга.
+ */
+export const SELF_WR_STEP = 3
 /** hero_main (варианты, кроме ловушки) и hero_games */
 const MIN_HERO_GAMES = 20
 const MIN_PAIR_GAMES = 50
@@ -202,11 +205,6 @@ export function plural(n: number, one: string, few: string, many: string): strin
   return `${n} ${w}`
 }
 
-/** Шаг вариантов self_wr по выборке. */
-export function selfWrStep(games: number): number {
-  return Math.max(SELF_WR_MIN_STEP, Math.round(50 / Math.sqrt(games)))
-}
-
 /** 4 винрейта, все в (0, 100): соседи через step или 2·step, как у числовых вопросов (stepOptions.ts). По возрастанию. */
 export function wrOptions(answer: number, step: number, rng: () => number): number[] {
   return makeStepOptions(answer, step, rng, 4, 0, 100).values
@@ -293,7 +291,7 @@ export const FRIEND_KINDS: FriendKind[] = [
         card: `fr:self_wr:${a}:${mode}:${h}`,
         build: () => {
           const answer = Math.round(100 * wins / games)
-          const values = wrOptions(answer, selfWrStep(games), g.rng)
+          const values = wrOptions(answer, SELF_WR_STEP, g.rng)
           return {
             id: `fr:self_wr:${a}:${mode}:${h}`, mode: 'all', topic: 'Друзья', displayTopic: g.who(a),
             text: `Какой винрейт у ${g.whose(a)} на ${g.hero(h)} ${g.where(a, mode)}?`,

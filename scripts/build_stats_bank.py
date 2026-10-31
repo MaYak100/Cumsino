@@ -4,9 +4,10 @@
 
 Вопрос собирает сервер при каждом показе (server/src/game/stats/statQuestions.ts) — здесь только подкатегории,
 пулы и значения. Правила (docs/questions/stratz-research.md):
-  - MC: 4 варианта из пула; ответ — лидер среди показанных (ask: max / min); лидер отрывается от каждого из трёх
-    остальных на gap (rel — во сколько раз, abs — на сколько единиц), но не дальше maxRel от второго места
-    (иначе ответ очевиден: Treads 846к против BoT 2 5к); нет такой четвёрки — гейт снимается;
+  - MC: 4 варианта из пула; ответ — лидер среди показанных (ask: max / min); порог gap — с КАЖДОЙ из трёх обманок:
+    rel — лидер на такую долю выше, abs — на столько единиц (оба заданы — оба сразу), band — коридор: обманка от ⅔
+    до 0.9 правды (иначе ответ очевиден: Manta 10.0М против 5.6М / 4.9М / 4.7М угадали все 5 из 5); нет такой
+    четвёрки — гейт снимается;
   - герой / предмет, попавший в варианты (и герой вопроса), исключается из подкатегории до конца игры;
   - note — истинное значение варианта (до ~6 символов); в игре подписи форматирует сервер по value всей показанной
     четвёрки (одна точность и общий суффикс к/М, формат — поле note подкатегории), note в entries — запасной;
@@ -17,17 +18,16 @@
 server/src/game/questions/categories.ts; здесь только субъект пула (subject — герой вопроса) и тексты.
 
 Формат bank.json:
-  {snapshot, patch, subcategories: [{id, comment, gap?, note?, layout?, topLead?, exclusive?, pools, closest?}]}
+  {snapshot, patch, subcategories: [{id, comment, gap?, note?, layout?, exclusive?, pools, closest?}]}
   pools:       MC-пулы (пусто — подкатегория только «кто ближе»)
   closest:     {unit?, comment?, pools: [closest-пул]} — unit по словарю единиц игры («%», «урона», «HP»; нет — без
                единицы), comment — если отличается от MC
-  gap:         {rel | abs, maxRel?}
+  gap:         {rel?, abs?, band?: [lo, hi]} — с каждой обманкой; band: меньшее / большее из (правда, обманка) в
+               [lo, hi] — «больше всех»: обманка от lo до hi правды, «меньше всех» — правда от lo до hi обманки
   note:        count — числа (к/М по максимуму четвёрки) | pct — доля 0…1 → «53.5%» | pct0 — «62%» | pp — п.п. «+1.4»
   layout:      talent_tree — варианты не перемешиваются, стоят как в дереве талантов (сверху 25 ур., снизу 20 ур.)
-  topLead:     true — ответ всегда лидер всего пула (а не «среди показанных»): пул собран здесь (4 записи), между
-               вопросами исключается только герой вопроса, варианты (ботинки) повторяться могут
   mc-пул:      {subject?, entries: [[name, value, note]], asks: [{ask: max|min, text}]}
-  exclusive:   [[a, b]] — не ставить в одну четвёрку (компонент и его улучшение: Arcane ≥ Guardian Greaves всегда)
+  exclusive:   [[a, b]] — не ставить в одну четвёрку (компонент и его улучшение: Maelstrom ≥ Mjollnir всегда)
   closest-пул: {subject, text, answer}; subject — карточка колоды (stat:<подкатегория>:<subject>), как у MC; несколько
                пулов с одним subject (предметы героя) — сервер выбирает сначала героя, потом пул
 
@@ -47,30 +47,32 @@ STATS = Path("scripts/data/stats")
 DOTA = Path("scripts/data/dota")
 OUT = STATS / "bank.json"
 
-# пороги из решений 2026-10-27
-AVG_GAP = {"rel": 0.10}
-# maxRel — лидер не дальше ×N от второго места (2026-10-29): ботинки — медиана отрыва была ×4.9, ×3+ в 62%
-# (у 75 из 127 героев одни ботинки ≥ 70% покупок); такие ботинки сами выпадают из вариантов — их не с кем сравнить
+# пороги из решений 2026-10-27; коридор обманок (band) — 2026-10-31: каждая обманка от ⅔ до 0.9 правды («меньше
+# всех» — зеркально: правда от ⅔ до 0.9 обманки). Раньше лидер был ограничен сверху только от второго места
+# (maxRel ×3) — две другие обманки бывали вдвое ниже (Manta 10.0М против 5.6М / 4.9М / 4.7М — угадали все 5 из 5).
+# Верх коридора 0.9 сам даёт отрыв лидера ≥ 11%, отдельный rel у таких подкатегорий не нужен
+BAND = [2 / 3, 0.9]
+AVG_GAP = {"band": BAND}
+# хил союзникам — коридор от половины: хилеров в пуле 20, с ⅔ лидеров 8 (с ½ — 15)
+HEAL_GAP = {"band": [0.5, 0.9]}
+# добивания — ещё и ≥ 20 крипов с каждой обманкой: 0.9 от 60 крипов — разница 6, на глаз не различить
+CS_GAP = {"band": BAND, "abs": 20}
 COUNTER_GAP = {"abs": 2.5}         # п.п. преимущества
 COUNTER_MIN_GAMES = 5000
 COUNTER_MIN_RIVALS = 25            # меньше — пул мал (Chen, Batrider, Elder Titan)
 TALENT_GAP = {"abs": 0.10}         # доля внутри пары уровня
 BAN_GAP = {"abs": 0.025}
 WR_GAP = {"abs": 0.025}            # 1.5 п.п. — почти монетка (2026-10-29)
-PICK_GAP = {"rel": 0.15}
-ITEM_GAP = {"rel": 0.10, "maxRel": 3}
-ITEM_HERO_GAP = {"rel": 0.15, "maxRel": 3}
-# ботинки (2026-10-29): ответ — настоящие самые популярные ботинки героя (topLead), второе место — не дальше ×2.5
-# и не ближе 10% (Gyrocopter 32.3% / 31.4%, Silencer — монетка); из 127 героев остаётся 25 — у остальных одни
-# ботинки с огромным отрывом (Arcane у саппортов, Treads у керри), ответ очевиден
-BOOTS_GAP = {"rel": 0.10, "maxRel": 2.5}
-BOOTS_MIN_SHARE = 0.0005           # 3-й и 4-й варианты — от 0.05%: подпись не меньше «0.1%», не «0.0%»
+PICK_GAP = {"band": BAND}
+ITEM_GAP = {"band": BAND}
+ITEM_HERO_GAP = {"band": BAND}
+# ботинки героя убраны (2026-10-31): вопросы очевидны (Arcane у саппортов, Treads у керри), а с коридором обманок
+# героев почти не остаётся
 HEAL_ALLIES_MIN = 500              # заметный хил союзникам — иначе шум «хилит / не хилит»
 ITEM_MIN_COST = 2000
 ITEM_BASIC_KEEP = {"blink", "aghanims_shard"}           # без рецепта, но законченные предметы
 ITEM_INTERMEDIATE = {"yasha", "sange", "kaya", "lesser_crit", "soul_booster", "oblivion_staff", "pers",
                      "ultimate_scepter_2"}
-BOOTS_SKIP = {"Boots of Speed"}    # база — её покупают все, кто собирает ботинки
 ITEMS_PER_HERO = 8
 CLOSEST_BAN_TOP = 30
 CLOSEST_PICK_MIN = 0.05            # пики closest: от 5% (верх и середина; ниже — ошибка в разы на малых числах)
@@ -149,39 +151,35 @@ def month_ru(ym: str, case: list) -> str:
 # ---------- проверка пулов ----------
 
 def gap_ok(lead: float, other: float, gap: dict, ask: str) -> bool:
+    """Обманка other годится к ответу lead: все заданные пороги сразу (как gapOk в statQuestions.ts)."""
     d = lead - other if ask == "max" else other - lead
     if d <= 0:
         return False
-    if "abs" in gap:
-        return d >= gap["abs"]
-    base = abs(other) if ask == "max" else abs(lead)
-    return base > 0 and d >= gap["rel"] * base
-
-
-def cap_ok(lead: float, other: float, gap: dict, ask: str) -> bool:
-    """Лидер не дальше maxRel от соперника (для второго места): иначе ответ очевиден."""
-    if "maxRel" not in gap:
-        return True
-    hi, lo = (lead, other) if ask == "max" else (other, lead)
-    return lo > 0 and hi <= gap["maxRel"] * lo + 1e-9
+    if "abs" in gap and d < gap["abs"] - 1e-9:
+        return False
+    if "rel" in gap:
+        base = abs(other) if ask == "max" else abs(lead)
+        if base <= 0 or d < gap["rel"] * base - 1e-9:
+            return False
+    if "band" in gap:
+        lo_k, hi_k = gap["band"]
+        hi, lo = (lead, other) if ask == "max" else (other, lead)
+        if lo <= 0 or not (lo_k * hi - 1e-9 <= lo <= hi_k * hi + 1e-9):
+            return False
+    return True
 
 
 def leaders(entries: list, gap: dict, ask: str, exclusive: list | None = None) -> int:
-    """Сколько вариантов могут быть ответом: у них ≥ 3 соперника с нужным отрывом, ближайший — в пределах maxRel.
-    С exclusive — точно, перебором троек (пулы с exclusive малы: предметы, ботинки)."""
+    """Сколько вариантов могут быть ответом: у них ≥ 3 подходящие обманки, без пар компонент / улучшение между собой
+    (с exclusive — точно, перебором троек: пулы с exclusive малы, это предметы)."""
     bad = {frozenset(x) for x in exclusive or []}
 
     def can_lead(e):
         rivals = [o for o in entries if gap_ok(e[1], o[1], gap, ask) and frozenset((e[0], o[0])) not in bad]
         if not bad:
-            return len(rivals) >= 3 and any(cap_ok(e[1], o[1], gap, ask) for o in rivals)
-        for trio in combinations(rivals, 3):
-            if any(frozenset((a[0], b[0])) in bad for a, b in combinations(trio, 2)):
-                continue
-            second = (max if ask == "max" else min)(o[1] for o in trio)
-            if cap_ok(e[1], second, gap, ask):
-                return True
-        return False
+            return len(rivals) >= 3
+        return any(all(frozenset((a[0], b[0])) not in bad for a, b in combinations(trio, 2))
+                   for trio in combinations(rivals, 3))
     return sum(1 for e in entries if can_lead(e))
 
 
@@ -190,9 +188,7 @@ def first_try(entries: list, gap: dict, ask: str, rng: random.Random, n: int = 3
     for _ in range(n):
         s = rng.sample(entries, 4)
         lead = (max if ask == "max" else min)(s, key=lambda e: e[1])
-        rest = [e for e in s if e is not lead]
-        second = (max if ask == "max" else min)(rest, key=lambda e: e[1])
-        ok += all(gap_ok(lead[1], e[1], gap, ask) for e in rest) and cap_ok(lead[1], second[1], gap, ask)
+        ok += all(gap_ok(lead[1], e[1], gap, ask) for e in s if e is not lead)
     return ok / n
 
 
@@ -306,8 +302,10 @@ def avg_subs(bank: Bank, snap: Path) -> None:
             pool("cs", "min", "Кто из этих героев в среднем добивает меньше всего крипов за матч?", "bottom")],
          near("cs", lambda h: f"Сколько крипов в среднем добивает {h} за матч на {p}?")),
     ]
+    gaps = {"avg_heal_allies": HEAL_GAP, "avg_cs": CS_GAP}
     for sid, what, pools, closest in specs:
-        sub = {"id": sid, "comment": f"{what} на {p} ({window}).", "gap": AVG_GAP, "note": "count", "pools": pools}
+        sub = {"id": sid, "comment": f"{what} на {p} ({window}).", "gap": gaps.get(sid, AVG_GAP), "note": "count",
+               "pools": pools}
         if closest:
             sub["closest"] = closest
         bank.add(sub)
@@ -501,37 +499,6 @@ def item_subs(bank: Bank, snap: Path, names: dict) -> None:
               "gap": ITEM_HERO_GAP, "note": "count", "pools": pools,
               "exclusive": upgrade_pairs({e[0] for pl in pools for e in pl["entries"]}),
               "closest": closest_part(near, "%", near_comment.replace("к матчам", "к матчам героя"))})
-
-    boots = defaultdict(list)
-    for r in load(snap / "stratz/boots.json")["rows"]:
-        if r["window_id"] == "boots_patch" and r["hero_id"] is not None and r["item"] not in BOOTS_SKIP:
-            boots[r["hero_id"]].append([r["item"], r["purchases"]])
-    bweeks = next(d["window"]["weeks"] for d in load(snap / "stratz/manifest.json")["datasets"]
-                  if d["id"] == "boots_patch")
-    bad = {frozenset(x) for x in upgrade_pairs({e[0] for es in boots.values() for e in es})}
-    pools = []
-    for h, rows_ in sorted(boots.items()):
-        total = sum(v for _, v in rows_)
-        rows_.sort(key=lambda e: -e[1])
-        # лидер + следующие по популярности, без пар компонент / улучшение (Arcane ≥ Guardian Greaves всегда)
-        top = []
-        for name, v in rows_:
-            if len(top) == 4:
-                break
-            if all(frozenset((name, t[0])) not in bad for t in top) and (len(top) < 2 or v / total >= BOOTS_MIN_SHARE):
-                top.append([name, v / total, pct(v / total)])
-        if len(top) < 4 or not (gap_ok(top[0][1], top[1][1], BOOTS_GAP, "max")
-                                and cap_ok(top[0][1], top[1][1], BOOTS_GAP, "max")):
-            continue
-        pools.append(mc_pool(top, ("max", f"Какие из этих ботинок чаще всего собирают на {names[h]}?"),
-                             subject=names[h]))
-    # ботинки и тайминги в «кто ближе» не берём (2026-10-30)
-    bank.add({"id": "boots_hero",
-              "comment": f"Доля среди всех покупок ботинок на герое, кроме Boots of Speed, за патч {bank.patch} "
-                         f"(STRATZ, {weeks_span(bweeks)}). Ответ — самые популярные ботинки на герое вообще, "
-                         f"не только среди показанных.",
-              "gap": BOOTS_GAP, "note": "pct", "topLead": True, "pools": pools,
-              "exclusive": sorted(sorted(x) for x in bad)})
 
 
 # ---------- main ----------

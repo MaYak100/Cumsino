@@ -15,8 +15,15 @@ export interface StatClosest {
   comment?: string
   pools: StatClosestPool[]
 }
-/** Отрыв лидера: rel — во сколько раз, abs — на сколько единиц; maxRel — не дальше ×N от второго места. */
-export interface StatGap { rel?: number; abs?: number; maxRel?: number }
+/**
+ * Порог четвёрки — проверяется с КАЖДОЙ из трёх обманок (gapOk), заданные поля — все сразу:
+ *  rel  — лидер на такую долю выше обманки (для min — обманка выше лидера на долю от лидера);
+ *  abs  — на столько единиц (добивания: и коридор, и ≥ 20 крипов);
+ *  band — коридор [lo, hi]: меньшее / большее из (правда, обманка) в этих пределах. «Больше всех» — обманка от lo до
+ *         hi правды (⅔…0.9: Manta 10.0М против 5.6М / 4.9М / 4.7М не пройдёт); «меньше всех» — зеркально, правда от
+ *         lo до hi обманки. Верх коридора сам даёт отрыв, rel рядом с ним не нужен.
+ */
+export interface StatGap { rel?: number; abs?: number; band?: [lo: number, hi: number] }
 /** Формат подписей: count — числа (к/М), pct — доля 0…1 → «53.5%», pct0 — «62%», pp — п.п. «+1.4». */
 export type StatNoteFormat = 'count' | 'pct' | 'pct0' | 'pp'
 
@@ -33,11 +40,6 @@ export interface StatSubcategory {
   note?: StatNoteFormat
   /** talent_tree — варианты не перемешиваются, стоят как в дереве талантов игры. */
   layout?: 'talent_tree'
-  /**
-   * Ответ — лидер всего пула, а не «среди показанных» (ботинки: Arcane у саппорта не выпадает из вариантов).
-   * Пул отобран в банке; между вопросами исключается только герой вопроса — варианты могут повторяться.
-   */
-  topLead?: boolean
   /** Пары, которые не ставятся в одну четвёрку (компонент и его улучшение — ответ угадывается логикой). */
   exclusive?: Array<[string, string]>
   /** MC; пусто — подкатегория только «кто ближе» */
@@ -74,20 +76,24 @@ export function talentTreeOrder(firstSide: 'left' | 'right' = TALENT_FIRST_SLOT_
   return firstSide === 'right' ? [3, 2, 1, 0] : [2, 3, 0, 1]
 }
 
-/** Лидер отрывается от соперника: abs — на столько единиц, rel — на такую долю (для min — от лидера). */
+/**
+ * Обманка other годится к ответу lead: лидер строго лучше и проходит все заданные пороги (StatGap) — abs, rel, band.
+ * Зеркало gap_ok в scripts/build_stats_bank.py.
+ */
 export function gapOk(lead: number, other: number, gap: StatGap, ask: 'max' | 'min'): boolean {
   const d = ask === 'max' ? lead - other : other - lead
   if (d <= 0) return false
-  if (gap.abs !== undefined) return d >= gap.abs - 1e-9
-  const base = Math.abs(ask === 'max' ? other : lead)
-  return base > 0 && d >= (gap.rel ?? 0) * base - 1e-9
-}
-
-/** Лидер не дальше maxRel от соперника (проверяется для второго места — иначе ответ очевиден: ×170 у ботинок). */
-export function capOk(lead: number, other: number, gap: StatGap, ask: 'max' | 'min'): boolean {
-  if (gap.maxRel === undefined) return true
-  const [hi, lo] = ask === 'max' ? [lead, other] : [other, lead]
-  return lo > 0 && hi <= gap.maxRel * lo + 1e-9
+  if (gap.abs !== undefined && d < gap.abs - 1e-9) return false
+  if (gap.rel !== undefined) {
+    const base = Math.abs(ask === 'max' ? other : lead)
+    if (base <= 0 || d < gap.rel * base - 1e-9) return false
+  }
+  if (gap.band) {
+    const [loK, hiK] = gap.band
+    const [hi, lo] = ask === 'max' ? [lead, other] : [other, lead]
+    if (lo <= 0 || lo < loK * hi - 1e-9 || lo > hiK * hi + 1e-9) return false
+  }
+  return true
 }
 
 const SUFFIXES: Array<[number, string]> = [[1e6, 'М'], [1e3, 'к']]
@@ -122,8 +128,8 @@ export function formatNotes(values: number[], fmt: StatNoteFormat, lead?: number
 
 /**
  * Карточки колоды подкатегории (имена, без префикса `stat:<sub>:`): mc — герой вопроса у пулов с subject, иначе те,
- * кто может быть ЛИДЕРОМ четвёрки с отрывом (≥ 3 совместимых соперника по gap, с maxRel — один из них в пределе;
- * topLead — только лучший пула); closest — субъекты. Для таблицы соотношений и /dev: у «Винрейта» в пуле 126 героев,
+ * кто может быть ЛИДЕРОМ четвёрки (≥ 3 обманки, прошедшие gap, и среди них — тройка без пар из exclusive; как
+ * leaders в build_stats_bank.py); closest — субъекты. Для таблицы соотношений и /dev: у «Винрейта» в пуле 126 героев,
  * а лидерами с отрывом бывают 34 — круг колоды идёт по ним. Без гейта (запасной путь сборки) лидером может стать и
  * другой — это редкость, её здесь не считаем.
  */
@@ -143,20 +149,30 @@ export function statCards(sub: StatSubcategory): { mc: Set<string>; closest: Set
       continue
     }
     for (const { ask } of pool.asks) {
-      const leads = sub.topLead ? [best(pool.entries, ask)] : pool.entries
-      for (const lead of leads) {
+      for (const lead of pool.entries) {
         const rivals = pool.entries.filter(o => o !== lead && !clash.get(lead[0])?.has(o[0]) &&
           gapOk(lead[1], o[1], gap, ask))
-        if (rivals.length >= OPTIONS - 1 && rivals.some(o => capOk(lead[1], o[1], gap, ask))) mc.add(lead[0])
+        if (hasTrio(rivals, clash)) mc.add(lead[0])
       }
     }
   }
   return { mc, closest: new Set((sub.closest?.pools ?? []).map(p => p.subject)) }
 }
 
-/** Лучшая запись пула по ask (для topLead — ответ). */
-function best(entries: StatEntry[], ask: 'max' | 'min'): StatEntry {
-  return entries.reduce((a, e) => ((ask === 'max' ? e[1] > a[1] : e[1] < a[1]) ? e : a))
+/** Есть ли среди rivals три варианта без несовместимых пар (перебор: пулы с exclusive — до 30 предметов). */
+function hasTrio(rivals: StatEntry[], clash: Map<string, Set<string>>): boolean {
+  if (rivals.length < OPTIONS - 1) return false
+  if (!clash.size) return true
+  const ok = (a: StatEntry, b: StatEntry) => !clash.get(a[0])?.has(b[0])
+  for (let i = 0; i < rivals.length; i++) {
+    for (let j = i + 1; j < rivals.length; j++) {
+      if (!ok(rivals[i], rivals[j])) continue
+      for (let k = j + 1; k < rivals.length; k++) {
+        if (ok(rivals[i], rivals[k]) && ok(rivals[j], rivals[k])) return true
+      }
+    }
+  }
+  return false
 }
 
 /**
@@ -187,8 +203,7 @@ export function gameOnlyDeck(): DeckAccess {
  *  - колода между играми идёт по карточкам: у пулов с героем вопроса (контрпики, предметы героя) — по герою
  *    вопроса, у общих пулов (средние, винрейт) — по ответу (лидеру), чтобы ответом по кругу побывал каждый;
  *  - в одной игре шаблон без героя вопроса (`Кто больше всех лечит союзников?`) — не больше одного раза;
- *  - герой / предмет, попавший в варианты (и герой вопроса), до конца игры в подкатегории не появляется
- *    (topLead — только герой вопроса: ботинки повторяются у разных героев);
+ *  - герой / предмет, попавший в варианты (и герой вопроса), до конца игры в подкатегории не появляется;
  * Порядок: четвёрка с отрывом лидера и свежей карточкой → (колода кончилась) новый круг → с отрывом, но
  * карточка не свежая (только свободная: не из этой и не из прошлой игры) → без гейта (тоже только свежая или
  * свободная). Без гейта лидер отличается от второго и подписью.
@@ -224,7 +239,7 @@ export class StatQuestionBuilder {
     const used = this.usedOf(sub)
     const pools = this.shuffle(sub.pools
       .filter(p => !(p.subject && used.has(p.subject)))
-      .map(p => ({ pool: p, free: sub.topLead ? p.entries : p.entries.filter(e => !used.has(e[0])) }))
+      .map(p => ({ pool: p, free: p.entries.filter(e => !used.has(e[0])) }))
       .filter(({ free }) => free.length >= OPTIONS))
     if (!pools.length) return null
 
@@ -236,8 +251,7 @@ export class StatQuestionBuilder {
         if (pool.subject && !ok(StatQuestionBuilder.card(sub, pool.subject))) continue
         for (const ask of this.shuffle(pool.asks)) {
           if (!pool.subject && this.templates.has(`${sub.id}|${ask.text}`)) continue
-          const top = sub.topLead ? best(pool.entries, ask.ask) : undefined
-          const leadOk = (e: StatEntry) => (!top || e === top) && (!!pool.subject || ok(card(pool, e)))
+          const leadOk = (e: StatEntry) => !!pool.subject || ok(card(pool, e))
           const picked = gated ? this.gatedSet(free, gap, ask.ask, clash, leadOk) : this.ungatedSet(sub, free, ask.ask, clash, leadOk)
           if (picked) return { pool, ask, picked }
         }
@@ -261,22 +275,16 @@ export class StatQuestionBuilder {
     return this.mcQuestion(sub, mode, pool, ask, picked, id)
   }
 
-  /** Лидер — случайный из тех, у кого ≥ 3 совместимых соперника с отрывом (и с maxRel — один из них в пределе:
-   *  он и будет вторым местом); соперники — случайные из подходящих. */
+  /** Лидер — случайный из тех, у кого ≥ 3 совместимые обманки, прошедшие порог gap (каждая); обманки — случайные из
+   *  подходящих. С exclusive набор жадный, поэтому несколько попыток: первая могла взять «не ту» обманку. */
   private gatedSet(free: StatEntry[], gap: StatGap, ask: 'max' | 'min', clash: Map<string, Set<string>>,
     leadOk: (e: StatEntry) => boolean): StatEntry[] | null {
     for (const lead of this.shuffle(free)) {
       if (!leadOk(lead)) continue
       const rivals = free.filter(o => o !== lead && gapOk(lead[1], o[1], gap, ask))
-      if (gap.maxRel === undefined) {
+      if (rivals.length < OPTIONS - 1) continue
+      for (let attempt = 0; attempt < (clash.size ? 8 : 1); attempt++) {
         const set = this.compatible([lead], rivals, clash)
-        if (set) return set
-        continue
-      }
-      // второе место — в пределах maxRel, остальные — любые с отрывом (они ниже второго места не обязаны быть)
-      for (const near of this.shuffle(rivals.filter(o => capOk(lead[1], o[1], gap, ask)))) {
-        if (clash.get(lead[0])?.has(near[0])) continue
-        const set = this.compatible([lead, near], rivals, clash)
         if (set) return set
       }
     }
@@ -326,7 +334,7 @@ export class StatQuestionBuilder {
     id: string): Question {
     const used = this.usedOf(sub)
     if (pool.subject) used.add(pool.subject)
-    if (!sub.topLead) for (const e of picked) used.add(e[0])
+    for (const e of picked) used.add(e[0])
     const shown = this.arrange(sub, pool, picked)
     const notes = sub.note
       ? formatNotes(shown.map(e => e[1]), sub.note, shown.indexOf(picked[0]))

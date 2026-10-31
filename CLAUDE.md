@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (478 тестов)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (491)
+npm run test:server                     # vitest сервера (476 тестов)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (489)
 npx vitest run server/src/game/__tests__/sessions.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -384,7 +384,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 491 тест из корня (`npx vitest run --config server/vitest.config.ts`), из них 478 — `npm run test:server`.
+не нужно). 489 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 476 — `npm run test:server`.
 Живой прогон сессий — `node scripts/e2e_sessions.mjs [url]` при запущенном сервере (по умолчанию порт 3002):
 настоящий socket.io-client — обрыв, возврат, стол в конце ставок, вторая вкладка, вход по имени, хост. Повторять после
 правок `GameEngine` / `handlers` / клиентского входа.
@@ -402,7 +402,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 | `socket/__tests__/handlers.test.ts` (87) | проверки payload всех событий (токен, вариант), действия от игрока сокета (`ctx`), `leave_game`, `client_log`, disconnect → `engine.disconnect`, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
 | `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, единицы, сглаженный выбор, колоды (круг, соседние игры, группы с весами), веса MC / closest, тема, оценки и пределы множителей, друзья (про всех / только опознанные, доля опознанных ≈ ×3), прогон настоящего банка |
 | `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты |
-| `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, предел отрыва, дерево талантов, `topLead`, настоящий `bank.json` |
+| `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, коридор обманок (`band`, вместе с `abs`), дерево талантов, настоящий `bank.json` |
 | `shared/src/__tests__/` | `chips`, `units`, `topic` |
 
 Паттерн GameRoom-тестов: `(room as any)` для private-полей и методов (`phase`, `currentMode`, `gladiatorId`,
