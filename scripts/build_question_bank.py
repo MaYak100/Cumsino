@@ -705,7 +705,15 @@ def archived(q: dict, by: str, reason: str, seed: str | None = None) -> dict:
 # --- ручные правки -------------------------------------------------------------------------------------------
 
 def load_overrides() -> dict[str, dict]:
-    data = json.loads(OVERRIDES.read_text(encoding="utf-8"))["questions"]
+    def no_dups(pairs: list) -> dict:
+        # повтор id в файле JSON молча оставил бы последнюю запись — новая правка потерялась бы без ошибки
+        keys = [k for k, _ in pairs]
+        dup = sorted({k for k in keys if keys.count(k) > 1})
+        if dup:
+            sys.exit(f"overrides: id повторяется: {dup}")
+        return dict(pairs)
+
+    data = json.loads(OVERRIDES.read_text(encoding="utf-8"), object_pairs_hook=no_dups)["questions"]
     for qid, o in data.items():
         extra = set(o) - OVERRIDE_FIELDS
         if extra:
