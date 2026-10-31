@@ -11,7 +11,7 @@
 // Комната помнит свои карточки сама: соседняя комната перезаписывает запись карточки в history.
 import { withUnit, joinTopic, type GameMode, type Question } from '@cumsino/shared'
 import type { Library, Category, Subcategory, BankQuestion, QuestionKind } from './library'
-import { QuestionHistory } from './history'
+import { QuestionHistory, type AnswerRow } from './history'
 import { smoothOrder, commitChoice, type Weighted } from './smooth'
 import { makeStepOptions, formatNumber } from './stepOptions'
 import { StatQuestionBuilder, type DeckAccess } from '../stats/statQuestions'
@@ -31,6 +31,9 @@ export interface RoundReport {
   answered: number
   correct: number
   relErrors?: number[]
+  /** варианты в порядке показа (MC) и каждый ответ — пишутся в q_showing / q_answer (history.ShowingRow) */
+  options?: string[]
+  answers?: AnswerRow[]
 }
 
 /** undefined — не менять, null — снять */
@@ -304,8 +307,13 @@ export class RoomQuestions implements QuestionSource {
     if (!q.category || !q.subcategory) return
     if (this.open && this.open.id !== q.id) this.settle(this.open)
     const { present, ...row } = r
+    const closest = q.mode === 'closest'
     this.history.showing({
       questionId: q.id, category: q.category, sub: q.subcategory, mode: q.mode, gameNo: this.gameNo, ...row,
+      text: q.text,
+      options: closest ? undefined : (r.options ?? q.options),
+      answer: closest ? undefined : q.answer,
+      answerNum: closest ? q.numericAnswer : undefined,
     }, present)
     this.open = q
   }

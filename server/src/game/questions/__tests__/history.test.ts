@@ -4,7 +4,10 @@ import * as os from 'os'
 import * as path from 'path'
 import { RoomQuestions } from '../picker'
 import { buildLibrary, type BankQuestion } from '../library'
-import { QuestionHistory, REAL_GAME_SHOWINGS, type HistoryBackend, type RatingRow, type HistorySnapshot } from '../history'
+import {
+  QuestionHistory, REAL_GAME_SHOWINGS, type HistoryBackend, type RatingRow, type HistorySnapshot, type ShowingRow,
+  type AnswerRow,
+} from '../history'
 import { findDotEnv, loadDotEnv, createHistory } from '../setup'
 import { StatQuestionBuilder, type StatsBank } from '../../stats/statQuestions'
 import type { CategoryDef } from '../categories'
@@ -264,6 +267,41 @@ describe('кредиты сглаживания', () => {
     expect(Array.from({ length: 6 }, () => r2.pick('closest').category)).not.toContain('one')
     const r3 = new RoomQuestions(lib, history, seeded(7))
     expect(Array.from({ length: 6 }, () => r3.pick('closest').category)).toContain('one')
+  })
+})
+
+describe('показ в хранилище: текст, варианты в порядке показа, верный ответ, ответы', () => {
+  const cats: CategoryDef[] = [{ id: 'c', title: 'C', weight: 1, subs: [{ id: 's', title: 'S' }] }]
+  const lib = buildLibrary({ bank: Array.from({ length: 5 }, (_, i) => num(`q${i}`, 's', 40 + i * 4)), stats: null, friends: null, categories: cats })
+
+  function rows() {
+    const shown: ShowingRow[] = []
+    const { backend } = recorder()
+    const history = new QuestionHistory({ ...backend, showing: row => { shown.push(row) } })
+    return { shown, room: new RoomQuestions(lib, history, seeded(3)) }
+  }
+
+  it('MC: варианты те, что показаны (числовые строятся заново на каждый показ), верный — текстом; ответы как есть', () => {
+    const { shown, room } = rows()
+    const q = room.pick('all')
+    expect(q.options).toHaveLength(4)
+    const answers: AnswerRow[] = [{ role: 'answer', player: 'p-1', name: 'A', optionIndex: 1, answer: q.options![1],
+      correct: q.options![1] === q.answer, timeMs: 900, blink: false, hexed: false, smoked: false }]
+    room.report(q, { roomPlayers: 2, players: 2, answered: 1, correct: 0, options: q.options, answers })
+    expect(shown).toHaveLength(1)
+    expect(shown[0]).toMatchObject({ questionId: q.id, mode: 'all', text: q.text, options: q.options, answer: q.answer, answers })
+    expect(shown[0].answerNum).toBeUndefined()
+    expect(shown[0].options).toContain(shown[0].answer)
+  })
+
+  it('«кто ближе»: вариантов нет, правильное число — answerNum', () => {
+    const { shown, room } = rows()
+    const q = room.pick('closest')
+    room.report(q, { roomPlayers: 1, players: 1, answered: 0, correct: 0, relErrors: [] })
+    expect(shown[0].options).toBeUndefined()
+    expect(shown[0].answer).toBeUndefined()
+    expect(shown[0].answerNum).toBe(q.numericAnswer)
+    expect(shown[0].text).toBe(q.text)
   })
 })
 

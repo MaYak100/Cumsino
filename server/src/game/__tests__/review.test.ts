@@ -2,6 +2,7 @@
 // победитель, BETTING без ставящих, хекс, падения расчёта / сбора вопроса, пустые раунды.
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { GameRoom } from '../GameRoom'
+import type { RoundReport } from '../questions/picker'
 import type { Question, GameMode, GameState, RoundResult } from '@cumsino/shared'
 import {
   PHASE_DURATIONS, LAST_ANSWER_GRACE_MS, ANSWER_REVEAL_NOTES_MS, WIN_CHIPS, HEX_SECONDS,
@@ -598,5 +599,118 @@ describe('ревью 2026-10-30', () => {
       room.setShopReady('p1', true)
       expect(sent.length).toBe(2)
     })
+  })
+})
+
+// ── каждый ответ в report (q_answer) ──
+describe('report: варианты в порядке показа и каждый ответ', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.spyOn(Math, 'random').mockReturnValue(0)   // керри — первый участник (p1)
+  })
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.restoreAllMocks()
+  })
+
+  /** Комната: три человека и бот; reports — всё, что ушло в report. */
+  function reportingRoom(q: Question) {
+    const reports: RoundReport[] = []
+    const room = new GameRoom('r1', {
+      pick: mode => ({ ...q, mode, options: q.options ? [...q.options] : undefined }),
+      report: (_q, rep) => { reports.push(JSON.parse(JSON.stringify(rep))) },
+    })
+    const r = room as any
+    for (const id of ['p1', 'p2', 'p3']) room.addPlayer(id, id.toUpperCase())
+    expect(room.addBot('p1')).toBe(true)
+    const p = (id: string) => r.players.get(id)
+    const startIn = (mode: GameMode) => {
+      r.selector.index = { all: 0, kerri: 1, closest: 2 }[mode]
+      room.start('p1')
+    }
+    return { room, r, p, reports, startIn }
+  }
+
+  // порядок показа нарочно не алфавитный: верный — третий
+  const shown: Question = { id: 'num:7', mode: 'all', topic: 'T', text: 'Q?', options: ['30', '10', '20', '40'], answer: '20' }
+
+  it('«для всех»: варианты как показаны, выбор и индекс, время от начала вопроса, ставка; бот, зритель и молчавший — нет', () => {
+    const t = reportingRoom(shown)
+    t.startIn('all')
+    t.room.addPlayer('s1', 'Зритель')                       // вошёл в анонсе — зритель
+    vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)
+    expect(t.r.phase).toBe('BETTING')
+    const blind = t.p('p1').blind as number
+    t.room.placeBet('p1', blind + 20)                       // p1 подтвердил, p2 и p3 — принудительный блайнд
+    vi.advanceTimersByTime(PHASE_DURATIONS.BETTING! * 1000)
+    expect(t.r.phase).toBe('QUESTION')
+    t.p('p2').items.smoked = true
+    t.p('p1').inventory.blink = 1
+    vi.advanceTimersByTime(1200)
+    t.room.submitAnswer('p2', '40')
+    vi.advanceTimersByTime(800)
+    t.room.submitAnswer('p1', '30')
+    vi.advanceTimersByTime(500)
+    t.room.submitAnswer('p1', '20', true)                   // блинк: время — последнего ответа
+    t.r.advanceFromQuestion()
+    expect(t.reports).toHaveLength(1)
+    const rep = t.reports[0]
+    expect(rep.options).toEqual(['30', '10', '20', '40'])
+    expect(rep.answers).toEqual([
+      { role: 'answer', player: 'p1', name: 'P1', blink: true, hexed: false, smoked: false, correct: true,
+        timeMs: 2500, answer: '20', optionIndex: 2, bet: blind + 20, forced: false },
+      { role: 'answer', player: 'p2', name: 'P2', blink: false, hexed: false, smoked: true, correct: false,
+        timeMs: 1200, answer: '40', optionIndex: 3, bet: t.p('p2').currentBet, forced: true },
+    ])
+    expect(t.p('bot-1').hasAnswered).toBe(true)              // бот ответил — но в answers его нет
+    expect(rep.answered).toBe(2)
+  })
+
+  it('керри: ответ керри + выбор толпы (kerri_bet: верно = керри выбрал этот вариант); бот и зритель — нет', () => {
+    const t = reportingRoom(shown)
+    t.startIn('kerri')
+    t.room.addPlayer('s1', 'Зритель')
+    vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)
+    expect(t.r.phase).toBe('BETTING')
+    expect(t.r.gladiatorId).toBe('p1')
+    const blind = t.p('p2').blind as number
+    t.room.placeBet('p2', blind, 3)                         // p2 угадал, куда пойдёт керри
+    // p3 не подтвердил и вариант не выделил — сервер ставит блайнд на верный (индекс 2)
+    vi.advanceTimersByTime(PHASE_DURATIONS.BETTING! * 1000)
+    expect(t.r.phase).toBe('QUESTION')
+    vi.advanceTimersByTime(3000)
+    t.room.submitAnswer('p1', '40')
+    t.r.advanceFromQuestion()
+    const rep = t.reports.at(-1)!
+    expect(rep.options).toEqual(['30', '10', '20', '40'])
+    expect(rep.answers).toEqual([
+      { role: 'answer', player: 'p1', name: 'P1', blink: false, hexed: false, smoked: false, correct: false,
+        timeMs: 3000, answer: '40', optionIndex: 3 },
+      { role: 'kerri_bet', player: 'p2', name: 'P2', blink: false, hexed: false, smoked: false, optionIndex: 3,
+        answer: '40', correct: true, bet: blind, forced: false },
+      { role: 'kerri_bet', player: 'p3', name: 'P3', blink: false, hexed: false, smoked: false, optionIndex: 2,
+        answer: '20', correct: false, bet: t.p('p3').currentBet, forced: true },
+    ])
+  })
+
+  it('«кто ближе»: число, точное попадание = верно, вариантов нет; опознанный — с friendId', () => {
+    const cn: Question = { id: 'cn:1', mode: 'closest', topic: 'T', text: 'Сколько?', numericAnswer: 175, unit: '%' }
+    const t = reportingRoom(cn)
+    t.p('p2').friendId = 1101588971
+    t.startIn('closest')
+    vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)
+    expect(t.r.phase).toBe('QUESTION')
+    t.p('p1').items.hexed = true
+    vi.advanceTimersByTime(700)
+    t.room.submitAnswer('p1', 150)
+    t.room.submitAnswer('p2', 175)
+    t.r.advanceFromQuestion()
+    const rep = t.reports.at(-1)!
+    expect(rep.options).toBeUndefined()
+    expect(rep.answers).toEqual([
+      { role: 'answer', player: 'p1', name: 'P1', blink: false, hexed: true, smoked: false, correct: false, timeMs: 700, num: 150 },
+      { role: 'answer', player: 'p2', name: 'P2', friendId: 1101588971, blink: false, hexed: false, smoked: false,
+        correct: true, timeMs: 700, num: 175 },
+    ])
   })
 })
