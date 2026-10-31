@@ -13,6 +13,7 @@ import { RoundResultsScreen } from '../components/screens/RoundResultsScreen'
 import { GameOverScreen } from '../components/screens/GameOverScreen'
 import { LateJoinScreen } from '../components/screens/LateJoinScreen'
 import { PhoneBetting } from './PhoneBetting'
+import { FlameShowcase, SmokeShowcase } from './Showcase'
 import { useGameStore } from '../store/gameStore'
 
 type GameStoreState = ReturnType<typeof useGameStore.getState>
@@ -179,6 +180,22 @@ function base(phase: GamePhase, mode: GameMode, overrides: Partial<GameState> = 
 // ── scenarios ─────────────────────────────────────────────────────────────────
 
 export const SCENARIOS: Scenario[] = [
+
+  // ── ВИТРИНА ── (огонь: ?s=showcase-flame; вариант огня в любом сценарии — &flame=a|b|c)
+  {
+    id: 'showcase-flame',
+    group: 'ВИТРИНА',
+    label: 'огонь серии: a / b / c × 2, 3, 5, 7',
+    Screen: FlameShowcase,
+    state: { myId: MY_ID, gameState: base('LOBBY', 'all') },
+  },
+  {
+    id: 'showcase-smoke',
+    group: 'ВИТРИНА',
+    label: 'дым смока: плашка, ник, строка, кучка',
+    Screen: SmokeShowcase,
+    state: { myId: MY_ID, gameState: base('LOBBY', 'all') },
+  },
 
   // ── SHOP ──
   {
@@ -512,6 +529,27 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
+    id: 'betting-smoke',
+    group: 'BETTING',
+    label: 'all — я в смоке, Никита в смоке, серии',
+    Screen: BettingTableScreen,
+    withFelt: true,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        ...QB_SETTINGS, jackpotBank: 120, currentQuestion: QB_QUESTION, phaseTimeLeft: 18, phaseDuration: 20,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0,   hasAnswered: false, blind: 30, streak: 2, effects: ['smoke'] },
+          { id: 'dev-2', name: 'Артём',  chips: 950, currentBet: 100, betChips: [50, 50], hasAnswered: false, blind: 40, streak: 5 },
+          { id: 'dev-3', name: 'Света',  chips: 740, currentBet: 150, betChips: [100, 50], hasAnswered: false, blind: 30, streak: 3 },
+          { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false, blind: 30, streak: 4, betHidden: true, effects: ['smoke'] },
+        ],
+        inventory: { gem: 1, hex: 1 },
+      }),
+      stagedBets: {},
+    },
+  },
+  {
     id: 'betting-kerri-gladiator',
     group: 'BETTING',
     label: 'kerri — гладиатор',
@@ -774,6 +812,21 @@ export const SCENARIOS: Scenario[] = [
         currentQuestion: CN_QUESTION, players: BET_PLAYERS, myAnswer: 1700, inventory: { blink: 2 },
       }),
       answeredIds: new Set([MY_ID]),
+      roundCorrectAnswer: null,
+    },
+  },
+  {
+    id: 'question-closest-smoke',
+    group: 'QUESTION',
+    label: 'closest: Света в смоке',
+    Screen: ClosestScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'closest', {
+        currentQuestion: CN_QUESTION,
+        players: BET_PLAYERS.map(p => p.id === 'dev-3' ? { ...p, effects: ['smoke' as const] } : p),
+      }),
+      answeredIds: new Set(['dev-2']),
       roundCorrectAnswer: null,
     },
   },

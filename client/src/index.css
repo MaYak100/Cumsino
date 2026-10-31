@@ -96,9 +96,64 @@ input::placeholder {
   color: #5d6d66;
 }
 
+/* Дым смока (ui/SmokeVeil.tsx): листы плывут медленно и в разной фазе — живое, но не дёрганое */
+.smoke-drift-a, .smoke-drift-b, .smoke-curl {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.smoke-drift-a { animation: smoke-drift 7s ease-in-out infinite alternate; }
+.smoke-drift-b { animation: smoke-drift 9.5s ease-in-out -4s infinite alternate-reverse; }
+.smoke-curl { animation: smoke-curl 6s ease-in-out infinite alternate; }
+.smoke-curl-late { animation-duration: 7.5s; animation-delay: -3s; }
+@keyframes smoke-drift {
+  from { transform: translate(-2.5px, 0.5px) scale(0.985); }
+  to   { transform: translate(2.5px, -0.5px) scale(1.015); }
+}
+@keyframes smoke-curl {
+  from { transform: translate(-1px, 0.5px) rotate(-10deg); }
+  to   { transform: translate(1px, -0.5px) rotate(8deg); }
+}
+
+/* Пламя серии (ui/StreakFlame.tsx): языки качаются от основания, у каждого своя фаза и период */
+.flame-tongue {
+  transform-origin: 50% 100%;
+  animation:
+    flame-sway var(--fd, 2.4s) ease-in-out var(--fdl, 0s) infinite alternate,
+    flame-lick var(--fd2, 1.3s) ease-in-out var(--fdl2, 0s) infinite alternate;
+}
+@keyframes flame-sway {
+  from { rotate: var(--fr0, -3deg); }
+  to   { rotate: var(--fr1, 3deg); }
+}
+@keyframes flame-lick {
+  from { scale: 1 var(--fs0, 0.9); }
+  to   { scale: 0.96 var(--fs1, 1.05); }
+}
+.flame-crown {
+  transform-origin: 50% 100%;
+  animation: flame-breathe var(--fd, 2.6s) ease-in-out var(--fdl, 0s) infinite alternate;
+}
+@keyframes flame-breathe {
+  from { transform: skewX(var(--fk0, -3deg)) scaleY(var(--fs0, 0.9)); }
+  to   { transform: skewX(var(--fk1, 3deg)) scaleY(var(--fs1, 1.04)); }
+}
+.flame-ember {
+  animation: flame-ember var(--fd, 2.6s) cubic-bezier(.3, .1, .5, 1) var(--fdl, 0s) infinite;
+  opacity: 0;
+}
+@keyframes flame-ember {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
+  15%  { opacity: 1; }
+  70%  { opacity: 0.9; }
+  100% { transform: translate(var(--fx, 4px), var(--fy, -24px)) rotate(var(--frt, 120deg)) scale(0.5); opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  /* бесконечные анимации с длительностью 0.01ms мерцали бы — дым и пламя просто стоят */
+  .smoke-drift-a, .smoke-drift-b, .smoke-curl, .flame-tongue, .flame-crown { animation: none !important; }
+  .flame-ember { display: none; }
 }

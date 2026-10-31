@@ -15,6 +15,7 @@ import { Sticker } from '../ui/Sticker'
 import { TopicStack } from '../ui/Topic'
 import { Money } from '../ui/Money'
 import { Marks, useFreshFeed } from '../ui/AnswerProgress'
+import { SmokeVeil, SMOKE } from '../ui/SmokeVeil'
 import { ItemIcon } from '../ui/ItemIcon'
 import { ConfirmButton } from '../ui/BetButtons'
 import { ItemBar } from '../ui/ItemBar'
@@ -154,11 +155,15 @@ function Opponents({ bet }: { bet: Betting }) {
           const feed = freshFeed.find(f => f.item === 'hex' ? f.targetId === p.id : f.playerId === p.id)
           // керри вариантов толпы не видит (сервер их не шлёт)
           const opt = !isKerriCrowd ? undefined : staged ? stagedOptions[p.id] : p.betOption
+          // в смоке строку целиком закрывает дым; выбор цели хекса его разгоняет — ник нужен
+          const veil = !!p.effects?.includes('smoke') && targeting !== 'hex'
           return (
-            <OpponentRow key={p.id} p={p} isGlad={isGlad} chips={chips} amount={amount} draft={!!staged} smoked={!!p.betHidden}
-              option={opt !== undefined && options[opt] !== undefined ? opt : undefined}
-              onTarget={canHex ? () => useItem('hex', p.id) : undefined}
-              feed={feed ? <ItemIcon key={feed.at} id={feed.item} size={20} /> : null} />
+            <SmokeVeil key={p.id} on={veil} seed={p.id} style={{ display: 'flex', minWidth: 0 }}>
+              <OpponentRow p={p} isGlad={isGlad} chips={chips} amount={amount} draft={!!staged} smoked={!!p.betHidden}
+                option={opt !== undefined && options[opt] !== undefined ? opt : undefined}
+                onTarget={canHex ? () => useItem('hex', p.id) : undefined}
+                feed={feed ? <ItemIcon key={feed.at} id={feed.item} size={20} /> : null} />
+            </SmokeVeil>
           )
         })}
       </div>
@@ -175,7 +180,7 @@ function OpponentRow({ p, isGlad, chips, amount, draft, smoked, option, onTarget
       onClick={onTarget}
       {...(onTarget ? pressable(onTarget, `Цель: ${p.name}`) : {})}
       whileTap={onTarget ? { scale: 0.96 } : undefined}
-      className="flex flex-col justify-center gap-1 rounded-xl px-2.5 min-w-0"
+      className="flex flex-col justify-center gap-1 rounded-xl px-2.5 min-w-0 w-full"
       style={{
         height: '3.25rem', background: C.panel,
         border: `1.5px solid ${onTarget ? C.hot : isGlad ? `${C.hot}88` : C.line}`,
@@ -196,8 +201,9 @@ function OpponentRow({ p, isGlad, chips, amount, draft, smoked, option, onTarget
         {isGlad ? (
           <span className="font-display text-[0.8125rem]" style={{ color: C.hot }}>керри</span>
         ) : smoked ? (
+          // видно только при выборе цели хекса (иначе строку закрывает дым) — та же бумага дыма
           <span className="text-[0.75rem] font-semibold rounded-full px-2 py-0.5" style={{
-            color: C.fg, background: 'radial-gradient(ellipse, rgba(147,163,156,.38), rgba(147,163,156,.12))',
+            color: SMOKE.light, background: SMOKE.mid, border: `1px solid ${SMOKE.edge}`,
           }}>в смоке</span>
         ) : (
           <>

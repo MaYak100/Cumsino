@@ -8,6 +8,10 @@ import { ItemBar } from '../components/ui/ItemBar'
 import { Notice } from '../components/ui/Notice'
 import { useCompactBetting } from '../lib/tableGeometry'
 import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
+import { FlameStyleContext, FLAME_DEFAULT, type FlameStyle } from '../components/ui/StreakFlame'
+
+/** ?flame=a|b|c — вариант огня серии во всех сценариях (сравнение; в игре — FLAME_DEFAULT) */
+const FLAME: FlameStyle = (['a', 'b', 'c'] as const).find(f => f === new URLSearchParams(window.location.search).get('flame')) ?? FLAME_DEFAULT
 
 const GROUPS = [...new Set(SCENARIOS.map(s => s.group))]
 
@@ -53,6 +57,7 @@ export function MockPage() {
   const active = SCENARIOS.find(s => s.id === activeId)
 
   return (
+    <FlameStyleContext.Provider value={FLAME}>
     <div style={{ display: 'flex', height: '100dvh', overflow: 'hidden' }}>
 
       {/* ── Sidebar ─────────────────────────────────────────────────────── */}
@@ -211,5 +216,6 @@ export function MockPage() {
       </div>
 
     </div>
+    </FlameStyleContext.Provider>
   )
 }

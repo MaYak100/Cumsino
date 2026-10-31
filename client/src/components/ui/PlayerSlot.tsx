@@ -10,6 +10,7 @@ import { C, DISPLAY } from '../../theme'
 import { Money } from './Money'
 import { Marks } from './AnswerProgress'
 import { StreakFlame } from './StreakFlame'
+import { SmokeVeil } from './SmokeVeil'
 import { pressable } from '../../lib/pressable'
 import { BotMark, needsBotMark, OfflineMark } from './BotMark'
 
@@ -41,6 +42,9 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
   // стопка соперника — стабильные id: на каждый клик и chip_staged узлы не пересоздаются
   const theirs = useMemo(() => buildPhysicalChips(player.chips, `stack-${player.id}`), [player.chips, player.id])
   const chips = isMe ? (myChips ?? []) : theirs
+  // соперник в смоке: плашку закрывает дым, стопка — в дымке; при выборе цели хекса дым расходится (ник нужен)
+  const smoked = !!player.effects?.includes('smoke')
+  const hazed = smoked && !isMe && !onTarget
 
   return (
     <div
@@ -57,7 +61,10 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
         paddingBottom: 16,
       }}
     >
-      <div style={{ height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end', marginBottom: CHIP_GAP }}>
+      <div style={{
+        height: CHIP_ROW_H, display: 'flex', alignItems: 'flex-end', marginBottom: CHIP_GAP,
+        opacity: hazed ? 0.3 : 1, filter: hazed ? 'blur(1.5px)' : 'none', transition: 'opacity .5s, filter .5s',
+      }}>
         <PhysicalChipStack
           chips={chips}
           interactive={isMe}
@@ -84,16 +91,21 @@ export function PlayerSlot({ player, angle, isMe, myChips, placedIds, onDenomCli
           isMe={isMe}
           balance={isMe ? chips.filter(c => !placedIds?.has(c.id)).reduce((a, c) => a + c.denom, 0) : player.chips}
           player={player}
+          smoked={smoked && !onTarget}
         />
       </motion.div>
     </div>
   )
 }
 
-/** Плашка игрока у стола: имя | $баланс (общая для стола ставок и фонового стола). */
-export function NamePlate({ name, isMe, balance, player }: { name: string; isMe: boolean; balance?: number; player?: Player }) {
+/** Плашка игрока у стола: имя | $баланс (общая для стола ставок и фонового стола).
+ *  smoked — игрок в смоке: соперникам плашку целиком закрывает дым (и огонь серии под ним гаснет), себе — клубы по краю. */
+export function NamePlate({ name, isMe, balance, player, smoked }: {
+  name: string; isMe: boolean; balance?: number; player?: Player; smoked?: boolean
+}) {
   return (
-    <StreakFlame streak={player?.streak}>
+    <SmokeVeil on={!!smoked} self={isMe} seed={player?.id ?? name}>
+    <StreakFlame streak={smoked && !isMe ? 0 : player?.streak}>
     <div style={{
       position: 'relative', overflow: 'visible',
       display: 'flex', alignItems: 'stretch', maxWidth: UNIT_W, height: CARD_H,
@@ -137,6 +149,7 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
       )}
     </div>
     </StreakFlame>
+    </SmokeVeil>
   )
 }
 
