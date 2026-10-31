@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-30",
+ "built_at": "2026-10-31",
  "sources": {
   "numbers": "scripts\\generate\\numeric_lab\\out\\full1\\resolved.json",
   "costs": "scripts\\generate\\numeric_lab\\out\\costs2\\resolved.json",
@@ -111,17 +111,6 @@
    "aspect": "чара"
   },
   {
-   "id": "num:lion_voodoo:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится хекс от Hex у Lion на максимальном уровне?",
-   "topic": "Lion",
-   "answer": 3.2,
-   "step": 0.6,
-   "unit": "сек.",
-   "comment": "Lion · Hex: 2 / 2.4 / 2.8 / 3.2 сек. по уровням"
-  },
-  {
    "id": "num:lion_mana_drain:mana_per_second:max",
    "sub": "hero_other",
    "kind": "number",
@@ -209,17 +198,6 @@
    "unit": "%"
   },
   {
-   "id": "num:juggernaut_omni_slash:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Omnislash у Juggernaut на 3-м уровне?",
-   "topic": "Juggernaut",
-   "answer": 3.5,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Juggernaut · Omnislash: 3 / 3.25 / 3.5 сек. по уровням"
-  },
-  {
    "id": "num:juggernaut_healing_ward:healing_ward_heal_amount@shard:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -250,17 +228,6 @@
    "step": 50,
    "unit": "урона/сек.",
    "comment": "Disruptor · Static Storm: 200 / 275 / 350 урона/сек. по уровням"
-  },
-  {
-   "id": "num:disruptor_kinetic_field:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд держится Kinetic Field у Disruptor на максимальном уровне?",
-   "topic": "Disruptor",
-   "answer": 4.4,
-   "step": 0.6,
-   "unit": "сек.",
-   "comment": "Disruptor · Kinetic Field: 2.6 / 3.2 / 3.8 / 4.4 сек. по уровням"
   },
   {
    "id": "num:disruptor_thunder_strike:strike_damage:max",
@@ -318,28 +285,6 @@
    "comment": "Lich · Frost Shield: 45 / 50 / 55 / 60% по уровням"
   },
   {
-   "id": "num:lich_death_charge:active_mana_restore_pct_of_health:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент текущего здоровья союзного крипа превращает в ману врождёнка Sacrifice у Lich на 30-м уровне героя?",
-   "topic": "Lich",
-   "answer": 132,
-   "step": 20,
-   "unit": "%",
-   "comment": "Sacrifice: 42% + 3% за каждый уровень героя → 132% на 30-м"
-  },
-  {
-   "id": "num:tinker_rearm:abilitychanneltime:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится каст Rearm у Tinker на 3-м уровне?",
-   "topic": "Tinker",
-   "answer": 1.25,
-   "step": 0.2,
-   "unit": "сек.",
-   "comment": "Tinker · Rearm: 2.75 / 2 / 1.25 сек. по уровням"
-  },
-  {
    "id": "num:tinker_laser:laser_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -351,16 +296,6 @@
    "comment": "Tinker · Laser: 75 / 150 / 225 / 300 урона по уровням"
   },
   {
-   "id": "num:tinker_deploy_turrets:turret_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд живут турели от Deploy Turrets у Tinker?",
-   "topic": "Tinker",
-   "answer": 4.5,
-   "step": 0.5,
-   "unit": "сек."
-  },
-  {
    "id": "num:tinker_warp_grenade:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -369,28 +304,6 @@
    "answer": 150,
    "step": 25,
    "unit": "урона"
-  },
-  {
-   "id": "num:puck_phase_shift:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Phase Shift у Puck на максимальном уровне?",
-   "topic": "Puck",
-   "answer": 3.25,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Puck · Phase Shift: 1 / 1.75 / 2.5 / 3.25 сек. по уровням"
-  },
-  {
-   "id": "num:puck_dream_coil:coil_stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан при разрыве Dream Coil у Puck на 3-м уровне?",
-   "topic": "Puck",
-   "answer": 2.5,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Puck · Dream Coil: 1.5 / 2 / 2.5 сек. по уровням"
   },
   {
    "id": "num:puck_dream_coil:coil_initial_damage:max",
@@ -412,17 +325,6 @@
    "answer": 20,
    "step": 5,
    "unit": "урона"
-  },
-  {
-   "id": "num:chaos_knight_chaos_bolt:stun_max:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой максимальный стан может дать Chaos Bolt у Chaos Knight на максимальном уровне?",
-   "topic": "Chaos Knight",
-   "answer": 3.25,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Chaos Knight · Chaos Bolt: 1.75 / 2.25 / 2.75 / 3.25 сек. по уровням"
   },
   {
    "id": "num:chaos_knight_reality_rift:armor_reduction:max",
@@ -468,28 +370,6 @@
    "comment": "Dazzle · Shallow Grave: 4 / 4.5 / 5 / 5.5 сек. по уровням"
   },
   {
-   "id": "num:dazzle_innate_weave:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится один стак врождёнки Weave у Dazzle на 30-м уровне героя?",
-   "topic": "Dazzle",
-   "answer": 9.9,
-   "step": 1,
-   "unit": "сек.",
-   "comment": "Weave: 6.9 сек. + 0.1 сек. за каждый уровень героя → 9.9 сек. на 30-м"
-  },
-  {
-   "id": "num:dazzle_nothl_projection:poison_touch_hex:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "На сколько секунд хексит Poison Touch у Dazzle во время Nothl Projection на 3-м уровне ульты?",
-   "topic": "Dazzle",
-   "answer": 1.8,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Dazzle · Nothl Projection: 1.4 / 1.6 / 1.8 сек. по уровням"
-  },
-  {
    "id": "num:dazzle_innate_weave:ally_heal@shard:max",
    "sub": "hero_other",
    "kind": "number",
@@ -498,17 +378,6 @@
    "answer": 60,
    "step": 10,
    "unit": "HP"
-  },
-  {
-   "id": "num:tidehunter_ravage:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Ravage у Tidehunter на 3-м уровне?",
-   "topic": "Tidehunter",
-   "answer": 2.4,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Tidehunter · Ravage: 2 / 2.2 / 2.4 сек. по уровням"
   },
   {
    "id": "num:tidehunter_kraken_shell:damage_reduction:max",
@@ -540,16 +409,6 @@
    "topic": "Tidehunter",
    "answer": 7,
    "step": 1,
-   "unit": "сек."
-  },
-  {
-   "id": "num:invoker_sun_strike:delay:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Через сколько секунд после каста падает Sun Strike у Invoker?",
-   "topic": "Invoker",
-   "answer": 1.7,
-   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -669,17 +528,6 @@
    "comment": "Elder Titan · Earth Splitter: 34 / 42 / 50% по уровням"
   },
   {
-   "id": "num:elder_titan_echo_stomp:sleep_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится сон от Echo Stomp у Elder Titan на максимальном уровне?",
-   "topic": "Elder Titan",
-   "answer": 4.4,
-   "step": 0.6,
-   "unit": "сек.",
-   "comment": "Elder Titan · Echo Stomp: 2 / 2.8 / 3.6 / 4.4 сек. по уровням"
-  },
-  {
    "id": "num:elder_titan_ancestral_spirit:damage_heroes:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -722,16 +570,6 @@
    "step": 2.5,
    "unit": "%",
    "ceil": 100
-  },
-  {
-   "id": "num:kunkka_torrent:delay:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Через сколько секунд после каста срабатывает Torrent у Kunkka?",
-   "topic": "Kunkka",
-   "answer": 1.6,
-   "step": 0.3,
-   "unit": "сек."
   },
   {
    "id": "num:kunkka_tidebringer:cleave_damage:max",
@@ -794,17 +632,6 @@
    "answer": 0.5,
    "step": 0.05,
    "unit": "%"
-  },
-  {
-   "id": "num:beastmaster_primal_roar:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Primal Roar у Beastmaster на максимальном уровне?",
-   "topic": "Beastmaster",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Beastmaster · Primal Roar: 3 / 3.5 / 4 сек. по уровням"
   },
   {
    "id": "num:beastmaster_wild_axes:damage_amp:max",
@@ -880,17 +707,6 @@
    "step": 30,
    "unit": "урона",
    "comment": "Warlock · Chaotic Offering: 80 / 120 / 160 урона по уровням"
-  },
-  {
-   "id": "num:silencer_global_silence:abilityduration:1",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Global Silence у Silencer на 1-м уровне?",
-   "topic": "Silencer",
-   "answer": 4.5,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Silencer · Global Silence: 4.5 / 5.25 / 6 сек. по уровням"
   },
   {
    "id": "num:silencer_last_word:int_multiplier:max",
@@ -1053,17 +869,6 @@
    "unit": "урона"
   },
   {
-   "id": "num:sven_storm_bolt:bolt_stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Storm Hammer у Sven на максимальном уровне?",
-   "topic": "Sven",
-   "answer": 1.75,
-   "step": 0.25,
-   "unit": "сек.",
-   "comment": "Sven · Storm Hammer: 1 / 1.25 / 1.5 / 1.75 сек. по уровням"
-  },
-  {
    "id": "num:sven_gods_strength:gods_strength_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1118,16 +923,6 @@
    "ceil": 100
   },
   {
-   "id": "num:life_stealer_infest:infest_duration_enemy@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд Lifestealer может сидеть во вражеском герое через Infest с Aghanim's Scepter?",
-   "topic": "Lifestealer",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "сек."
-  },
-  {
    "id": "num:life_stealer_infest:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1148,17 +943,6 @@
    "step": 200,
    "unit": "урона",
    "comment": "Hoodwink · Sharpshooter: 600 / 975 / 1350 урона по уровням"
-  },
-  {
-   "id": "num:hoodwink_bushwhack:debuff_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Bushwhack у Hoodwink на максимальном уровне?",
-   "topic": "Hoodwink",
-   "answer": 2.1,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Hoodwink · Bushwhack: 1.5 / 1.7 / 1.9 / 2.1 сек. по уровням"
   },
   {
    "id": "num:hoodwink_acorn_shot:bounce_count:max",
@@ -1182,17 +966,6 @@
    "unit": "%"
   },
   {
-   "id": "num:marci_companion_run:debuff_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от приземления Rebound у Marci на максимальном уровне?",
-   "topic": "Marci",
-   "answer": 1.7,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Marci · Rebound: 0.8 / 1.1 / 1.4 / 1.7 сек. по уровням"
-  },
-  {
    "id": "num:marci_unleash:flurry_bonus_attack_speed:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1202,17 +975,6 @@
    "step": 150,
    "unit": "скорости атаки",
    "comment": "Marci · Unleash: 700 / 925 / 1150 скорости атаки по уровням"
-  },
-  {
-   "id": "num:marci_special_delivery:cd:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у врождёнки Special Delivery у Marci на 30-м уровне героя?",
-   "topic": "Marci",
-   "answer": 65,
-   "step": 10,
-   "unit": "сек.",
-   "comment": "Special Delivery: 215 сек. − 5 сек. за каждый уровень героя → 65 сек. на 30-м"
   },
   {
    "id": "num:marci_grapple:impact_damage:max",
@@ -1247,16 +1009,6 @@
    "comment": "Pangolier · Swashbuckle: 35 / 65 / 95 / 125 урона по уровням"
   },
   {
-   "id": "num:pangolier_rollup:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Roll Up, которую Pangolier получает от Aghanim's Shard?",
-   "topic": "Pangolier",
-   "answer": 2.25,
-   "step": 0.25,
-   "unit": "сек."
-  },
-  {
    "id": "num:queenofpain_succubus:spell_lifesteal_close:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1265,16 +1017,6 @@
    "answer": 14,
    "step": 2,
    "unit": "%"
-  },
-  {
-   "id": "num:queenofpain_blink:shard_duration@shard:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится безмолвие от звуковой волны Blink у Queen of Pain с Aghanim's Shard?",
-   "topic": "Queen of Pain",
-   "answer": 1.75,
-   "step": 0.25,
-   "unit": "сек."
   },
   {
    "id": "num:queenofpain_sonic_wave:damage:max",
@@ -1364,17 +1106,6 @@
    "comment": "Treant Protector · Living Armor: 60 / 80 / 100 / 120 урона по уровням"
   },
   {
-   "id": "num:treant_leech_seed:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длятся рут и дизарм от Leech Seed у Treant Protector на максимальном уровне?",
-   "topic": "Treant Protector",
-   "answer": 1.5,
-   "step": 0.25,
-   "unit": "сек.",
-   "comment": "Treant Protector · Leech Seed: 0.75 / 1 / 1.25 / 1.5 сек. по уровням"
-  },
-  {
    "id": "num:treant_overgrowth:movement_speed@scepter:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1405,17 +1136,6 @@
    "step": 1,
    "unit": "брони",
    "comment": "Lycan · Howl: 4 / 5 / 6 / 7 брони по уровням"
-  },
-  {
-   "id": "num:lycan_apex_predator:damage_amp:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов больше урона по нейтральным крипам наносят Lycan и его юниты благодаря врождёнке Apex Predator на 30-м уровне героя?",
-   "topic": "Lycan",
-   "answer": 78,
-   "step": 10,
-   "unit": "%",
-   "comment": "Apex Predator: 18% + 2% за каждый уровень героя → 78% на 30-м"
   },
   {
    "id": "num:lycan_shapeshift:health_bonus:max",
@@ -1451,17 +1171,6 @@
    "comment": "Zeus · Arc Lightning: 5 / 7 / 9 / 11 отскоков по уровням"
   },
   {
-   "id": "num:zuus_static_field:damage_health_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от текущего здоровья цели снимает врождёнка Static Field у Zeus на 30-м уровне героя?",
-   "topic": "Zeus",
-   "answer": 4.95,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Static Field: 3.45% + 0.05% за каждый уровень героя → 4.95% на 30-м"
-  },
-  {
    "id": "num:zuus_cloud:hits_to_kill_tooltip:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1481,28 +1190,6 @@
    "step": 30,
    "unit": "урона",
    "comment": "Dark Willow · Bedlam: 70 / 120 / 170 урона по уровням"
-  },
-  {
-   "id": "num:dark_willow_terrorize:destination_status_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится страх от Terrorize у Dark Willow на 3-м уровне?",
-   "topic": "Dark Willow",
-   "answer": 3.2,
-   "step": 0.2,
-   "unit": "сек.",
-   "comment": "Dark Willow · Terrorize: 2.8 / 3 / 3.2 сек. по уровням"
-  },
-  {
-   "id": "num:dark_willow_cursed_crown:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Cursed Crown у Dark Willow на максимальном уровне?",
-   "topic": "Dark Willow",
-   "answer": 2.4,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Dark Willow · Cursed Crown: 1.5 / 1.8 / 2.1 / 2.4 сек. по уровням"
   },
   {
    "id": "num:dark_willow_cursed_crown:shard_bramble_amount@shard:max",
@@ -1547,17 +1234,6 @@
    "comment": "Dark Seer · Wall of Replica: 70 / 80 / 90% по уровням"
   },
   {
-   "id": "num:dark_seer_aggrandize:heal_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Врождёнка Quick Wit у Dark Seer восстанавливает часть макс. здоровья и маны при получении уровня. Какой это процент на 30-м уровне героя?",
-   "topic": "Dark Seer",
-   "answer": 53.5,
-   "step": 10,
-   "unit": "%",
-   "comment": "Quick Wit: 8.5% + 1.5% за каждый уровень героя → 53.5% на 30-м"
-  },
-  {
    "id": "num:ancient_apparition_ice_blast:kill_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1599,17 +1275,6 @@
    "step": 15,
    "unit": "урона",
    "comment": "Ancient Apparition · Chilling Touch: 35 / 65 / 95 / 125 урона по уровням"
-  },
-  {
-   "id": "num:batrider_flaming_lasso:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится Flaming Lasso у Batrider на 3-м уровне?",
-   "topic": "Batrider",
-   "answer": 3.25,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Batrider · Flaming Lasso: 2.25 / 2.75 / 3.25 сек. по уровням"
   },
   {
    "id": "num:batrider_sticky_napalm:turn_rate_pct:max",
@@ -1656,28 +1321,6 @@
    "comment": "Earthshaker · Echo Slam: 70 / 90 / 110 урона по уровням"
   },
   {
-   "id": "num:earthshaker_fissure:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Fissure у Earthshaker на максимальном уровне?",
-   "topic": "Earthshaker",
-   "answer": 1.6,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Earthshaker · Fissure: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
-  },
-  {
-   "id": "num:earthshaker_slugger:projectile_body_damage_hero:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько базового урона на 30-м уровне героя наносит тело врага, отброшенное врождёнкой Slugger у Earthshaker, если оно попадает в героя?",
-   "topic": "Earthshaker",
-   "answer": 585,
-   "step": 75,
-   "unit": "урона",
-   "comment": "Slugger: 135 урона + 15 урона за каждый уровень героя → 585 урона на 30-м"
-  },
-  {
    "id": "num:earthshaker_enchant_totem:scepter_cleave_pct@scepter:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1717,28 +1360,6 @@
    "step": 5,
    "unit": "%",
    "ceil": 100
-  },
-  {
-   "id": "num:tusk_bitter_chill:attack_speed_slow:max",
-   "sub": "hero_other",
-   "kind": "number",
-   "text": "На сколько включённая врождёнка Bitter Chill у Tusk режет скорость атаки вражеским героям рядом на 30-м уровне героя?",
-   "topic": "Tusk",
-   "answer": 102,
-   "step": 15,
-   "unit": "скорости атаки",
-   "comment": "Bitter Chill: 12 скорости атаки + 3 скорости атаки за каждый уровень героя → 102 скорости атаки на 30-м"
-  },
-  {
-   "id": "num:ember_spirit_searing_chains:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится рут от Searing Chains у Ember Spirit на максимальном уровне?",
-   "topic": "Ember Spirit",
-   "answer": 2.75,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Ember Spirit · Searing Chains: 1.25 / 1.75 / 2.25 / 2.75 сек. по уровням"
   },
   {
    "id": "num:ember_spirit_sleight_of_fist:bonus_hero_damage:max",
@@ -1805,17 +1426,6 @@
    "unit": "%"
   },
   {
-   "id": "num:arc_warden_tempest_double:bounty_gold:max",
-   "sub": "hero_other",
-   "kind": "number",
-   "text": "Сколько золота получает враг за убийство Tempest Double у Arc Warden на 30-м уровне героя?",
-   "topic": "Arc Warden",
-   "answer": 370,
-   "step": 50,
-   "unit": "золота",
-   "comment": "Tempest Double: 70 золота + 10 золота за каждый уровень героя → 370 золота на 30-м"
-  },
-  {
    "id": "num:lina_laguna_blade:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1825,17 +1435,6 @@
    "step": 80,
    "unit": "урона",
    "comment": "Lina · Laguna Blade: 400 / 580 / 760 урона по уровням"
-  },
-  {
-   "id": "num:lina_light_strike_array:light_strike_array_stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Light Strike Array у Lina на максимальном уровне?",
-   "topic": "Lina",
-   "answer": 2.4,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Lina · Light Strike Array: 1.2 / 1.6 / 2 / 2.4 сек. по уровням"
   },
   {
    "id": "num:lina_laguna_blade:supercharge_stacks@shard:max",
@@ -1856,28 +1455,6 @@
    "answer": 35,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:night_stalker_void:duration_night:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится замедление от Void у Night Stalker ночью на максимальном уровне?",
-   "topic": "Night Stalker",
-   "answer": 3.4,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Night Stalker · Void: 1.6 / 2.2 / 2.8 / 3.4 сек. по уровням"
-  },
-  {
-   "id": "num:night_stalker_hunter_in_the_night:bonus_movement_speed_pct_night:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов скорости передвижения даёт ночью врождёнка Hunter in the Night у Night Stalker на 30-м уровне героя (без Aghanim's Scepter)?",
-   "topic": "Night Stalker",
-   "answer": 44,
-   "step": 6,
-   "unit": "%",
-   "comment": "Hunter in the Night: 24% + 2% каждые 3 уровня героя → 44% на 30-м"
   },
   {
    "id": "num:night_stalker_darkness:bonus_damage:max",
@@ -1913,28 +1490,6 @@
    "comment": "Sand King · Epicenter: 12 / 16 / 20 пульсов по уровням"
   },
   {
-   "id": "num:sandking_burrowstrike:burrow_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Burrowstrike у Sand King на максимальном уровне?",
-   "topic": "Sand King",
-   "answer": 1.8,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Sand King · Burrowstrike: 1.2 / 1.4 / 1.6 / 1.8 сек. по уровням"
-  },
-  {
-   "id": "num:sandking_caustic_finale:caustic_finale_damage_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. здоровья умершего юнита наносит взрыв врождёнки Caustic Finale у Sand King на 30-м уровне героя (сверх базового урона)?",
-   "topic": "Sand King",
-   "answer": 17.5,
-   "step": 2.5,
-   "unit": "%",
-   "comment": "Caustic Finale: 2.5% + 0.5% за каждый уровень героя → 17.5% на 30-м"
-  },
-  {
    "id": "num:sandking_sand_storm:sand_storm_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1944,17 +1499,6 @@
    "step": 15,
    "unit": "урона/сек.",
    "comment": "Sand King · Sand Storm: 30 / 50 / 70 / 90 урона/сек. по уровням"
-  },
-  {
-   "id": "num:morphling_adaptive_strike_agi:stun_max:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой максимальный стан у Adaptive Strike от Morphling на максимальном уровне, если сила сильно перевешивает ловкость?",
-   "topic": "Morphling",
-   "answer": 2.6,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Morphling · Adaptive Strike: 1.4 / 1.8 / 2.2 / 2.6 сек. по уровням"
   },
   {
    "id": "num:morphling_adaptive_strike_agi:damage_max:max",
@@ -2031,16 +1575,6 @@
    "answer": 40,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:luna_lucent_beam:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Lucent Beam у Luna?",
-   "topic": "Luna",
-   "answer": 0.6,
-   "step": 0.1,
-   "unit": "сек."
   },
   {
    "id": "num:luna_moon_glaive:damage_reduction_percent:max",
@@ -2159,17 +1693,6 @@
    "unit": "скорости атаки"
   },
   {
-   "id": "num:windrunner_shackleshot:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от удачного Shackleshot у Windranger на максимальном уровне?",
-   "topic": "Windranger",
-   "answer": 3.25,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Windranger · Shackleshot: 1.75 / 2.25 / 2.75 / 3.25 сек. по уровням"
-  },
-  {
    "id": "num:windrunner_powershot:powershot_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2201,17 +1724,6 @@
    "unit": "скорости"
   },
   {
-   "id": "num:jakiro_double_trouble:attack_damage_reduction:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов срезается урон каждой атаки головы Jakiro из-за врождёнки Double Trouble на 30-м уровне героя?",
-   "topic": "Jakiro",
-   "answer": 21,
-   "step": 4,
-   "unit": "%",
-   "comment": "Double Trouble: 51% − 1% за каждый уровень героя → 21% на 30-м"
-  },
-  {
    "id": "num:jakiro_macropyre:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2221,28 +1733,6 @@
    "step": 50,
    "unit": "урона/сек.",
    "comment": "Jakiro · Macropyre: 100 / 150 / 200 урона/сек. по уровням"
-  },
-  {
-   "id": "num:jakiro_liquid_fire:cd:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у Liquid Fire у Jakiro на максимальном уровне?",
-   "topic": "Jakiro",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Jakiro · Liquid Fire: 13 / 10 / 7 / 4 сек. по уровням"
-  },
-  {
-   "id": "num:jakiro_ice_path:stun_duration:1",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой максимальный стан от Ice Path у Jakiro на 1-м уровне?",
-   "topic": "Jakiro",
-   "answer": 1.25,
-   "step": 0.2,
-   "unit": "сек.",
-   "comment": "Jakiro · Ice Path: 1.25 / 1.5 / 1.75 / 2 сек. по уровням"
   },
   {
    "id": "num:naga_siren_mirror_image:illusion_duration:max",
@@ -2286,17 +1776,6 @@
    "unit": "%"
   },
   {
-   "id": "num:slark_pounce:leash_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится привязка от Pounce у Slark на максимальном уровне?",
-   "topic": "Slark",
-   "answer": 3.25,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Slark · Pounce: 2.5 / 2.75 / 3 / 3.25 сек. по уровням"
-  },
-  {
    "id": "num:slark_shadow_dance:bonus_regen:max",
    "sub": "hero_other",
    "kind": "number",
@@ -2306,16 +1785,6 @@
    "step": 20,
    "unit": "HP/сек.",
    "comment": "Slark · Shadow Dance: 60 / 90 / 120 HP/сек. по уровням"
-  },
-  {
-   "id": "num:slark_dark_pact:delay:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Через сколько секунд после каста срабатывает Dark Pact у Slark?",
-   "topic": "Slark",
-   "answer": 1.5,
-   "step": 0.25,
-   "unit": "сек."
   },
   {
    "id": "num:slark_depth_shroud:cd:max",
@@ -2360,28 +1829,6 @@
    "comment": "Omniknight · Hammer of Purity: 13 / 10 / 7 / 4 сек. по уровням"
   },
   {
-   "id": "num:omniknight_degen_aura:speed_bonus:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какое замедление скорости передвижения даёт врагам врождёнка Degen Aura у Omniknight на 30-м уровне героя?",
-   "topic": "Omniknight",
-   "answer": 41,
-   "step": 6,
-   "unit": "%",
-   "comment": "Degen Aura: 11% + 1% за каждый уровень героя → 41% на 30-м"
-  },
-  {
-   "id": "num:spectre_desolate:bonus_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько бонусного чистого урона наносит врождёнка Desolate у Spectre по одинокой цели на 30-м уровне героя?",
-   "topic": "Spectre",
-   "answer": 68.5,
-   "step": 7.5,
-   "unit": "урона",
-   "comment": "Desolate: 23.5 урона + 1.5 урона за каждый уровень героя → 68.5 урона на 30-м"
-  },
-  {
    "id": "num:spectre_dispersion:damage_reflection_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -2413,18 +1860,6 @@
    "step": 0.5,
    "unit": "сек.",
    "comment": "Spectre · Shadow Step: 3.5 / 4 / 4.5 / 5 сек. по уровням"
-  },
-  {
-   "id": "num:obsidian_destroyer_equilibrium:mana_restore:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от максимальной маны восстанавливает врождёнка Essence Flux у Outworld Devourer на 30-м уровне героя при срабатывании от обычного заклинания?",
-   "topic": "Outworld Devourer",
-   "answer": 70,
-   "step": 5,
-   "unit": "%",
-   "comment": "Essence Flux: 40% + 5% каждые 5 уровней героя → 70% на 30-м",
-   "ceil": 100
   },
   {
    "id": "num:obsidian_destroyer_astral_imprisonment:damage:max",
@@ -2552,17 +1987,6 @@
    "comment": "Gyrocopter · Rocket Barrage: 8 / 14 / 20 / 26 урона по уровням"
   },
   {
-   "id": "num:gyrocopter_homing_missile:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Homing Missile у Gyrocopter на максимальном уровне?",
-   "topic": "Gyrocopter",
-   "answer": 2.5,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Gyrocopter · Homing Missile: 1.3 / 1.7 / 2.1 / 2.5 сек. по уровням"
-  },
-  {
    "id": "num:gyrocopter_flak_cannon:max_attacks:max",
    "sub": "hero_other",
    "kind": "number",
@@ -2585,17 +2009,6 @@
    "ceil": 100
   },
   {
-   "id": "num:vengefulspirit_magic_missile:magic_missile_stun:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Magic Missile у Vengeful Spirit на максимальном уровне?",
-   "topic": "Vengeful Spirit",
-   "answer": 1.8,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Vengeful Spirit · Magic Missile: 1.2 / 1.4 / 1.6 / 1.8 сек. по уровням"
-  },
-  {
    "id": "num:vengefulspirit_wave_of_terror:armor_reduction:max",
    "sub": "hero_other",
    "kind": "number",
@@ -2616,17 +2029,6 @@
    "step": 75,
    "unit": "урона",
    "comment": "Vengeful Spirit · Nether Swap: 150 / 300 / 450 урона по уровням"
-  },
-  {
-   "id": "num:alchemist_unstable_concoction:max_stun:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой максимальный стан у полностью сваренного Unstable Concoction у Alchemist на максимальном уровне?",
-   "topic": "Alchemist",
-   "answer": 3.2,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Alchemist · Unstable Concoction: 1.7 / 2.2 / 2.7 / 3.2 сек. по уровням"
   },
   {
    "id": "num:alchemist_corrosive_weaponry:max_stacks:max",
@@ -2811,27 +2213,6 @@
    "comment": "Shadow Shaman · Ether Shock: 125 / 190 / 255 / 320 урона по уровням"
   },
   {
-   "id": "num:shadow_shaman_voodoo:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Hex у Shadow Shaman на максимальном уровне?",
-   "topic": "Shadow Shaman",
-   "answer": 2.9,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Shadow Shaman · Hex: 2 / 2.3 / 2.6 / 2.9 сек. по уровням"
-  },
-  {
-   "id": "num:shadow_shaman_shackles:scepter_shock_interval@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "С Aghanim's Scepter цель Shackles у Shadow Shaman периодически выпускает Ether Shock вокруг себя. Раз во сколько секунд это происходит?",
-   "topic": "Shadow Shaman",
-   "answer": 0.9,
-   "step": 0.15,
-   "unit": "сек."
-  },
-  {
    "id": "num:shadow_shaman_urnaconda:impact_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2850,17 +2231,6 @@
    "answer": 17,
    "step": 3,
    "unit": "%"
-  },
-  {
-   "id": "num:spirit_breaker_charge_of_darkness:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Charge of Darkness у Spirit Breaker на максимальном уровне?",
-   "topic": "Spirit Breaker",
-   "answer": 2.2,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Spirit Breaker · Charge of Darkness: 1.3 / 1.6 / 1.9 / 2.2 сек. по уровням"
   },
   {
    "id": "num:spirit_breaker_bulldoze:status_resistance:max",
@@ -3002,37 +2372,6 @@
    "comment": "Templar Assassin · Psionic Trap: 200 / 300 / 400 урона по уровням"
   },
   {
-   "id": "num:templar_assassin_psionic_trap:max_silence_duration@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое максимальное безмолвие накладывает Psionic Trap у Templar Assassin с Aghanim's Scepter?",
-   "topic": "Templar Assassin",
-   "answer": 3,
-   "step": 0.5,
-   "unit": "сек."
-  },
-  {
-   "id": "num:rattletrap_battery_assault:interval:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "С каким интервалом бьёт Battery Assault у Clockwerk?",
-   "topic": "Clockwerk",
-   "answer": 0.7,
-   "step": 0.1,
-   "unit": "сек."
-  },
-  {
-   "id": "num:rattletrap_hookshot:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Hookshot у Clockwerk на 3-м уровне (без аганима)?",
-   "topic": "Clockwerk",
-   "answer": 1.6,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Clockwerk · Hookshot: 1.2 / 1.4 / 1.6 сек. по уровням"
-  },
-  {
    "id": "num:rattletrap_overclocking:buff_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -3063,27 +2402,6 @@
    "step": 40,
    "unit": "урона",
    "comment": "Grimstroke · Phantom's Embrace: 120 / 200 / 280 / 360 урона по уровням"
-  },
-  {
-   "id": "num:grimstroke_spirit_walk:max_stun:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой максимальный стан даёт Ink Swell у Grimstroke на максимальном уровне?",
-   "topic": "Grimstroke",
-   "answer": 2.8,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Grimstroke · Ink Swell: 1.6 / 2 / 2.4 / 2.8 сек. по уровням"
-  },
-  {
-   "id": "num:grimstroke_dark_artistry:slow_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится замедление от Stroke of Fate у Grimstroke?",
-   "topic": "Grimstroke",
-   "answer": 1.75,
-   "step": 0.25,
-   "unit": "сек."
   },
   {
    "id": "num:grimstroke_dark_portrait:images_do_damage_percent_tooltip:max",
@@ -3182,17 +2500,6 @@
    "comment": "Abaddon · Curse of Avernus: 10 / 20 / 30 / 40 скорости атаки по уровням"
   },
   {
-   "id": "num:dragon_knight_dragon_tail:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Dragon Tail у Dragon Knight на максимальном уровне?",
-   "topic": "Dragon Knight",
-   "answer": 2.4,
-   "step": 0.4,
-   "unit": "сек.",
-   "comment": "Dragon Knight · Dragon Tail: 1.8 / 2 / 2.2 / 2.4 сек. по уровням"
-  },
-  {
    "id": "num:dragon_knight_breathe_fire:reduction:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3212,16 +2519,6 @@
    "answer": 85,
    "step": 15,
    "unit": "урона/сек."
-  },
-  {
-   "id": "num:oracle_fortunes_end:maximum_purge_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой максимальный рут даёт Fortune's End у Oracle при полном касте?",
-   "topic": "Oracle",
-   "answer": 2.75,
-   "step": 0.5,
-   "unit": "сек."
   },
   {
    "id": "num:oracle_purifying_flames:damage:max",
@@ -3287,17 +2584,6 @@
    "ceil": 100
   },
   {
-   "id": "num:faceless_void_chronosphere:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Chronosphere у Faceless Void на 3-м уровне?",
-   "topic": "Faceless Void",
-   "answer": 4.75,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Faceless Void · Chronosphere: 3.75 / 4.25 / 4.75 сек. по уровням"
-  },
-  {
    "id": "num:faceless_void_time_lock:chance_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3352,16 +2638,6 @@
    "comment": "Lone Druid · True Form: 50 / 90 / 130 урона по уровням"
   },
   {
-   "id": "num:lone_druid_spirit_bear:bear_bat:max",
-   "sub": "hero_other",
-   "kind": "number",
-   "text": "Какое базовое время атаки у медведя из врождёнки Spirit Bear у Lone Druid?",
-   "topic": "Lone Druid",
-   "answer": 1.5,
-   "step": 0.2,
-   "unit": "сек."
-  },
-  {
    "id": "num:lone_druid_savage_roar:shard_attack_speed@shard:max",
    "sub": "hero_other",
    "kind": "number",
@@ -3414,16 +2690,6 @@
    "comment": "Io · Spirits: 30 / 50 / 70 / 90 урона по уровням"
   },
   {
-   "id": "num:shadow_demon_disruption:disruption_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится бан от Disruption у Shadow Demon?",
-   "topic": "Shadow Demon",
-   "answer": 2.75,
-   "step": 0.5,
-   "unit": "сек."
-  },
-  {
    "id": "num:shadow_demon_demonic_purge:purge_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3443,17 +2709,6 @@
    "answer": 450,
    "step": 75,
    "unit": "HP"
-  },
-  {
-   "id": "num:shadow_demon_menace:stack:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов на 30-м уровне героя увеличивает получаемый урон один стак врождёнки Menace у Shadow Demon?",
-   "topic": "Shadow Demon",
-   "answer": 4.9,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Menace: 1.9% + 0.1% за каждый уровень героя → 4.9% на 30-м"
   },
   {
    "id": "num:visage_soul_assumption:soul_charge_damage:max",
@@ -3551,17 +2806,6 @@
    "unit": "%"
   },
   {
-   "id": "num:kez_shodo_sai:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от удара Kez по цели с Mark (Shodo Sai) на максимальном уровне, без шарда?",
-   "topic": "Kez",
-   "answer": 0.8,
-   "step": 0.1,
-   "unit": "сек.",
-   "comment": "Kez · Shodo Sai: 0.5 / 0.6 / 0.7 / 0.8 сек. по уровням"
-  },
-  {
    "id": "num:kez_falcon_rush:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -3581,17 +2825,6 @@
    "answer": 40,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:sniper_assassinate:scepter_stun_duration@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Assassinate у Sniper с Aghanim's Scepter на 3-м уровне ульты?",
-   "topic": "Sniper",
-   "answer": 1.2,
-   "step": 0.2,
-   "unit": "сек.",
-   "comment": "Sniper · Assassinate: 0.8 / 1 / 1.2 сек. по уровням"
   },
   {
    "id": "num:sniper_shrapnel:shrapnel_damage:max",
@@ -3625,17 +2858,6 @@
    "step": 5,
    "unit": "%",
    "comment": "Skywrath Mage · Ancient Seal: 20 / 25 / 30 / 35% по уровням"
-  },
-  {
-   "id": "num:skywrath_mage_shield_of_the_scion:damage_barrier:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько маг. барьера даёт один стак врождёнки Shield of the Scion у Skywrath Mage на 30-м уровне героя?",
-   "topic": "Skywrath Mage",
-   "answer": 58.5,
-   "step": 10,
-   "unit": "HP",
-   "comment": "Shield of the Scion: 13.5 HP + 1.5 HP за каждый уровень героя → 58.5 HP на 30-м"
   },
   {
    "id": "num:skywrath_mage_arcane_bolt:int_multiplier:max",
@@ -3680,27 +2902,6 @@
    "unit": "сек."
   },
   {
-   "id": "num:monkey_king_wukongs_command:scepter_spawn_interval@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Раз во сколько секунд с Aghanim's Scepter рядом с Monkey King появляется новый солдат?",
-   "topic": "Monkey King",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "сек."
-  },
-  {
-   "id": "num:magnataur_reverse_polarity:hero_stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Reverse Polarity у Magnus на 3-м уровне?",
-   "topic": "Magnus",
-   "answer": 3.5,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Magnus · Reverse Polarity: 2.5 / 3 / 3.5 сек. по уровням"
-  },
-  {
    "id": "num:magnataur_horn_toss:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3721,28 +2922,6 @@
    "unit": "урона"
   },
   {
-   "id": "num:magnataur_solid_core:slow_resistance:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько сопротивления замедлению даёт врождёнка Solid Core у Magnus на 30-м уровне героя?",
-   "topic": "Magnus",
-   "answer": 54,
-   "step": 10,
-   "unit": "%",
-   "comment": "Solid Core: 24% + 1% за каждый уровень героя → 54% на 30-м"
-  },
-  {
-   "id": "num:riki_innate_backstab:damage_multiplier:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Какой множитель ловкости даёт врождёнка Backstab у Riki при ударе в спину на 30-м уровне героя?",
-   "topic": "Riki",
-   "answer": 2.05,
-   "step": 0.25,
-   "unit": "× ловкости",
-   "comment": "Backstab: 0.55 × ловкости + 0.05 × ловкости за каждый уровень героя → 2.05 × ловкости на 30-м"
-  },
-  {
    "id": "num:riki_smoke_screen:miss_rate:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3753,17 +2932,6 @@
    "unit": "%",
    "comment": "Riki · Smoke Screen: 40 / 50 / 60 / 70% по уровням",
    "ceil": 100
-  },
-  {
-   "id": "num:riki_blink_strike:cd:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у Blink Strike у Riki на максимальном уровне?",
-   "topic": "Riki",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Riki · Blink Strike: 13 / 10 / 7 / 4 сек. по уровням"
   },
   {
    "id": "num:riki_backstab:bonus_xp_kill:max",
@@ -3809,27 +2977,6 @@
    "unit": "сек."
   },
   {
-   "id": "num:witch_doctor_voodoo_switcheroo:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд Witch Doctor остаётся Death Ward'ом при касте Voodoo Switcheroo от Aghanim's Shard?",
-   "topic": "Witch Doctor",
-   "answer": 2.5,
-   "step": 0.4,
-   "unit": "сек."
-  },
-  {
-   "id": "num:mars_spear:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Spear of Mars, когда героя прибивает к дереву или стене, на максимальном уровне?",
-   "topic": "Mars",
-   "answer": 2.2,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Mars · Spear of Mars: 1.3 / 1.6 / 1.9 / 2.2 сек. по уровням"
-  },
-  {
    "id": "num:mars_bulwark:physical_damage_reduction:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3862,17 +3009,6 @@
    "unit": "%"
   },
   {
-   "id": "num:centaur_hoof_stomp:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Hoof Stomp у Centaur Warrunner на максимальном уровне?",
-   "topic": "Centaur Warrunner",
-   "answer": 2.2,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Centaur Warrunner · Hoof Stomp: 1.6 / 1.8 / 2 / 2.2 сек. по уровням"
-  },
-  {
    "id": "num:centaur_return:return_damage_str:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3882,16 +3018,6 @@
    "step": 5,
    "unit": "%",
    "comment": "Centaur Warrunner · Retaliate: 14 / 21 / 28 / 35% по уровням"
-  },
-  {
-   "id": "num:centaur_double_edge:cd:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у Double Edge у Centaur Warrunner?",
-   "topic": "Centaur Warrunner",
-   "answer": 3.5,
-   "step": 0.5,
-   "unit": "сек."
   },
   {
    "id": "num:centaur_double_edge:shard_str_pct@shard:max",
@@ -3947,17 +3073,6 @@
    "unit": "%"
   },
   {
-   "id": "num:earth_spirit_geomagnetic_grip:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится безмолвие от Geomagnetic Grip у Earth Spirit на максимальном уровне?",
-   "topic": "Earth Spirit",
-   "answer": 3.5,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Earth Spirit · Geomagnetic Grip: 2.3 / 2.7 / 3.1 / 3.5 сек. по уровням"
-  },
-  {
    "id": "num:earth_spirit_petrify:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3977,17 +3092,6 @@
    "step": 25,
    "unit": "урона/сек.",
    "comment": "Earth Spirit · Magnetize: 45 / 90 / 135 урона/сек. по уровням"
-  },
-  {
-   "id": "num:dawnbreaker_fire_wreath:smash_stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от финального удара Starbreaker у Dawnbreaker на максимальном уровне?",
-   "topic": "Dawnbreaker",
-   "answer": 1.2,
-   "step": 0.2,
-   "unit": "сек.",
-   "comment": "Dawnbreaker · Starbreaker: 0.6 / 0.8 / 1 / 1.2 сек. по уровням"
   },
   {
    "id": "num:dawnbreaker_celestial_hammer:move_slow:max",
@@ -4044,27 +3148,6 @@
    "comment": "Razor · Static Link: 6 / 12 / 18 / 24 урона/сек. по уровням"
   },
   {
-   "id": "num:razor_storm_surge:strike_internal_cd:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какой внутренний кд у молнии Storm Surge у Razor (без шарда)?",
-   "topic": "Razor",
-   "answer": 2.5,
-   "step": 0.4,
-   "unit": "сек."
-  },
-  {
-   "id": "num:razor_eye_of_the_storm:strike_interval:1",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "С каким интервалом бьёт молния Eye of the Storm у Razor на 1-м уровне?",
-   "topic": "Razor",
-   "answer": 0.7,
-   "step": 0.1,
-   "unit": "сек.",
-   "comment": "Razor · Eye of the Storm: 0.7 / 0.6 / 0.5 сек. по уровням"
-  },
-  {
    "id": "num:techies_sticky_bomb:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -4074,17 +3157,6 @@
    "step": 50,
    "unit": "урона",
    "comment": "Techies · Sticky Bomb: 95 / 170 / 245 / 320 урона по уровням"
-  },
-  {
-   "id": "num:techies_suicide:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Blast Off! у Techies на максимальном уровне?",
-   "topic": "Techies",
-   "answer": 1.4,
-   "step": 0.2,
-   "unit": "сек.",
-   "comment": "Techies · Blast Off!: 0.8 / 1 / 1.2 / 1.4 сек. по уровням"
   },
   {
    "id": "num:techies_land_mines:mres_reduction:max",
@@ -4128,17 +3200,6 @@
    "step": 5,
    "unit": "%",
    "comment": "Largo · Croak of Genius: 30 / 35 / 40 / 45% по уровням"
-  },
-  {
-   "id": "num:largo_encore:buff_amplification:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов врождёнка Encore у Largo продлевает его баффы на 30-м уровне героя?",
-   "topic": "Largo",
-   "answer": 45,
-   "step": 5,
-   "unit": "%",
-   "comment": "Encore: 15% + 1% за каждый уровень героя → 45% на 30-м"
   },
   {
    "id": "num:weaver_the_swarm:destroy_attacks:max",
@@ -4196,17 +3257,6 @@
    "comment": "Ring Master · Tame the Beasts: 180 / 280 / 380 / 480 урона по уровням"
   },
   {
-   "id": "num:ringmaster_the_box:invis_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится Escape Act у Ring Master на максимальном уровне?",
-   "topic": "Ring Master",
-   "answer": 3.2,
-   "step": 0.6,
-   "unit": "сек.",
-   "comment": "Ring Master · Escape Act: 2 / 2.4 / 2.8 / 3.2 сек. по уровням"
-  },
-  {
    "id": "num:ringmaster_impalement:bleed_health_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -4248,17 +3298,6 @@
    "step": 50,
    "unit": "урона",
    "comment": "Phantom Lancer · Spirit Lance: 100 / 160 / 220 / 280 урона по уровням"
-  },
-  {
-   "id": "num:phantom_lancer_illusory_armaments:outgoing_floor:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Ниже какого процента не может опуститься исходящий урон свежесозданной иллюзии Phantom Lancer благодаря врождёнке Illusory Armaments на 30-м уровне героя?",
-   "topic": "Phantom Lancer",
-   "answer": 37,
-   "step": 4,
-   "unit": "%",
-   "comment": "Illusory Armaments: 17% + 2% каждые 3 уровня героя → 37% на 30-м"
   },
   {
    "id": "num:phantom_lancer_juxtapose:AbilityCooldown@shard:max",
@@ -4324,16 +3363,6 @@
    "unit": "HP"
   },
   {
-   "id": "num:snapfire_scatterblast:shard_stun_duration@shard:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Scatterblast у Snapfire с Aghanim's Shard?",
-   "topic": "Snapfire",
-   "answer": 1.4,
-   "step": 0.2,
-   "unit": "сек."
-  },
-  {
    "id": "num:snapfire_boomstick:damage_amp_max:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -4353,16 +3382,6 @@
    "step": 50,
    "unit": "урона",
    "comment": "Pudge · Meat Hook: 150 / 220 / 290 / 360 урона по уровням"
-  },
-  {
-   "id": "num:pudge_dismember:abilitychanneltime:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится каст Dismember у Pudge?",
-   "topic": "Pudge",
-   "answer": 2.75,
-   "step": 0.5,
-   "unit": "сек."
   },
   {
    "id": "num:pudge_rot:rot_damage@scepter:max",
@@ -4429,27 +3448,6 @@
    "unit": "%"
   },
   {
-   "id": "num:void_spirit_aether_remnant:pull_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд Aether Remnant у Void Spirit тянет пойманного врага на максимальном уровне?",
-   "topic": "Void Spirit",
-   "answer": 1.6,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Void Spirit · Aether Remnant: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
-  },
-  {
-   "id": "num:void_spirit_resonant_pulse:silence_duration_scepter@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится безмолвие от Resonant Pulse у Void Spirit с Aghanim's Scepter?",
-   "topic": "Void Spirit",
-   "answer": 1.75,
-   "step": 0.25,
-   "unit": "сек."
-  },
-  {
    "id": "num:void_spirit_astral_step:pop_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -4492,17 +3490,6 @@
    "step": 40,
    "unit": "золота",
    "comment": "Bounty Hunter · Track: 80 / 160 / 240 золота по уровням"
-  },
-  {
-   "id": "num:bounty_hunter_wind_walk:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от атаки из Shadow Walk у Bounty Hunter на максимальном уровне?",
-   "topic": "Bounty Hunter",
-   "answer": 1.6,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Bounty Hunter · Shadow Walk: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
   },
   {
    "id": "num:bounty_hunter_shuriken_toss:bonus_damage:max",
@@ -4590,17 +3577,6 @@
    "comment": "Bristleback · Warpath: 8 / 10 / 12 стаков по уровням"
   },
   {
-   "id": "num:bristleback_prickly:amp_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов врождёнка Prickly у Bristleback усиливает урон и длительность дебаффов по героям за его спиной на 30-м уровне героя?",
-   "topic": "Bristleback",
-   "answer": 19.5,
-   "step": 2.5,
-   "unit": "%",
-   "comment": "Prickly: 4.5% + 0.5% за каждый уровень героя → 19.5% на 30-м"
-  },
-  {
    "id": "num:broodmother_spawn_spiderlings:tooltip_spiderling_hp:max",
    "sub": "hero_other",
    "kind": "number",
@@ -4634,16 +3610,6 @@
    "comment": "Broodmother · Spin Web: 3 / 5 / 7 / 9 паутин по уровням"
   },
   {
-   "id": "num:broodmother_sticky_snare:root_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится рут от Spinner's Snare, который Broodmother получает с Aghanim's Scepter?",
-   "topic": "Broodmother",
-   "answer": 3,
-   "step": 0.5,
-   "unit": "сек."
-  },
-  {
    "id": "num:antimage_mana_break:percent_damage_per_burn:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -4662,17 +3628,6 @@
    "answer": 6,
    "step": 1,
    "unit": "сек."
-  },
-  {
-   "id": "num:antimage_persectur:move_slow_max:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какое максимальное замедление скорости передвижения даёт врождёнка Persecutor у Anti-Mage по цели с нулевой маной на 30-м уровне героя?",
-   "topic": "Anti-Mage",
-   "answer": 54,
-   "step": 10,
-   "unit": "%",
-   "comment": "Persecutor: 24% + 1% за каждый уровень героя → 54% на 30-м"
   },
   {
    "id": "num:antimage_mana_void:cd:max",
@@ -4695,17 +3650,6 @@
    "step": 40,
    "unit": "урона",
    "comment": "Crystal Maiden · Crystal Nova: 110 / 160 / 210 / 260 урона по уровням"
-  },
-  {
-   "id": "num:crystal_maiden_frostbite:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится Frostbite у Crystal Maiden на максимальном уровне?",
-   "topic": "Crystal Maiden",
-   "answer": 3,
-   "step": 0.5,
-   "unit": "сек.",
-   "comment": "Crystal Maiden · Frostbite: 1.5 / 2 / 2.5 / 3 сек. по уровням"
   },
   {
    "id": "num:crystal_maiden_freezing_field:damage:max",
@@ -4815,17 +3759,6 @@
    "comment": "Nyx Assassin · Mind Flare: 25 / 30 / 35 / 40% по уровням"
   },
   {
-   "id": "num:rubick_telekinesis:lift_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд враг висит в воздухе от Telekinesis у Rubick на максимальном уровне (без учёта стана после падения)?",
-   "topic": "Rubick",
-   "answer": 1.7,
-   "step": 0.25,
-   "unit": "сек.",
-   "comment": "Rubick · Telekinesis: 0.95 / 1.2 / 1.45 / 1.7 сек. по уровням"
-  },
-  {
    "id": "num:rubick_fade_bolt:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -4931,16 +3864,6 @@
    "step": 2,
    "unit": "ударов",
    "comment": "Leshrac · Lightning Storm: 5 / 7 / 9 / 11 ударов по уровням"
-  },
-  {
-   "id": "num:leshrac_split_earth:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится стан от Split Earth у Leshrac?",
-   "topic": "Leshrac",
-   "answer": 1.7,
-   "step": 0.3,
-   "unit": "сек."
   },
   {
    "id": "num:leshrac_pulse_nova:damage:max",
@@ -5103,16 +4026,6 @@
    "comment": "Shadow Fiend · Presence of the Dark Lord: 2.5 / 4 / 5.5 / 7 брони по уровням"
   },
   {
-   "id": "num:nevermore_requiem:requiem_slow_duration_max:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какова максимальная длительность страха от Requiem of Souls у Shadow Fiend, если цель словила много линий?",
-   "topic": "Shadow Fiend",
-   "answer": 2.15,
-   "step": 0.25,
-   "unit": "сек."
-  },
-  {
    "id": "num:nevermore_requiem:AbilityCooldown@scepter:max",
    "sub": "hero_time",
    "kind": "number",
@@ -5121,17 +4034,6 @@
    "answer": 30,
    "step": 5,
    "unit": "сек."
-  },
-  {
-   "id": "num:enigma_malefice:stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько длится один стан от Malefice у Enigma на максимальном уровне (без шарда)?",
-   "topic": "Enigma",
-   "answer": 0.9,
-   "step": 0.1,
-   "unit": "сек.",
-   "comment": "Enigma · Malefice: 0.3 / 0.5 / 0.7 / 0.9 сек. по уровням"
   },
   {
    "id": "num:enigma_demonic_conversion:split_attack_count:max",
@@ -5174,28 +4076,6 @@
    "step": 40,
    "unit": "%",
    "comment": "Wraith King · Mortal Strike: 160 / 200 / 240 / 280% по уровням"
-  },
-  {
-   "id": "num:skeleton_king_hellfire_blast:blast_stun_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от Wraithfire Blast у Wraith King на максимальном уровне?",
-   "topic": "Wraith King",
-   "answer": 1.6,
-   "step": 0.3,
-   "unit": "сек.",
-   "comment": "Wraith King · Wraithfire Blast: 1 / 1.2 / 1.4 / 1.6 сек. по уровням"
-  },
-  {
-   "id": "num:skeleton_king_vampiric_spirit:duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд Wraith King на 30-м уровне героя проводит в форме призрака после смерти благодаря врождёнке Vampiric Spirit (без Aghanim's Scepter)?",
-   "topic": "Wraith King",
-   "answer": 5.5,
-   "step": 1,
-   "unit": "сек.",
-   "comment": "Vampiric Spirit: 4.25 сек. + 0.25 сек. каждые 6 уровней героя → 5.5 сек. на 30-м"
   },
   {
    "id": "num:skeleton_king_mortal_strike:curse_damage_pct@shard:max",
@@ -5383,16 +4263,6 @@
    "unit": "сек."
   },
   {
-   "id": "num:shadow_amulet:fade_time:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "За сколько секунд герой полностью уходит в инвиз после активации Shadow Amulet?",
-   "topic": "Shadow Amulet",
-   "answer": 1.25,
-   "step": 0.2,
-   "unit": "сек."
-  },
-  {
    "id": "num:ring_of_tarrasque:bonus_health_regen:max",
    "sub": "item_numbers",
    "kind": "number",
@@ -5482,26 +4352,6 @@
    "step": 5,
    "unit": "%",
    "ceil": 100
-  },
-  {
-   "id": "num:aeon_disk:buff_duration:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько секунд длится бафф Combo Breaker после срабатывания Aeon Disk?",
-   "topic": "Aeon Disk",
-   "answer": 2.5,
-   "step": 0.25,
-   "unit": "сек."
-  },
-  {
-   "id": "num:heavens_halberd:disarm_melee:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько секунд длится дизарм от Heaven's Halberd?",
-   "topic": "Heaven's Halberd",
-   "answer": 3.5,
-   "step": 0.5,
-   "unit": "сек."
   },
   {
    "id": "num:manta:bonus_agility:max",
@@ -5631,16 +4481,6 @@
    "topic": "Black King Bar",
    "answer": 95,
    "step": 10,
-   "unit": "сек."
-  },
-  {
-   "id": "num:abyssal_blade:stun_duration:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько длится стан от активки Overwhelm у Abyssal Blade?",
-   "topic": "Abyssal Blade",
-   "answer": 1.6,
-   "step": 0.3,
    "unit": "сек."
   },
   {
@@ -6044,16 +4884,6 @@
    "unit": "брони"
   },
   {
-   "id": "num:sheepstick:sheep_duration:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько секунд длится хекс от Scythe of Vyse?",
-   "topic": "Scythe of Vyse",
-   "answer": 2.8,
-   "step": 0.4,
-   "unit": "сек."
-  },
-  {
    "id": "num:sheepstick:bonus_mana_regen:max",
    "sub": "item_numbers",
    "kind": "number",
@@ -6282,16 +5112,6 @@
    "answer": 75,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:basher:bash_duration:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько секунд длится стан от баша Skull Basher?",
-   "topic": "Skull Basher",
-   "answer": 1.2,
-   "step": 0.2,
-   "unit": "сек."
   },
   {
    "id": "num:rapier:bonus_spell_amp:max",
@@ -6695,16 +5515,6 @@
    "unit": "брони"
   },
   {
-   "id": "num:echo_sabre:slow_duration:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько секунд длится замедление от двойной атаки Echo Sabre?",
-   "topic": "Echo Sabre",
-   "answer": 0.8,
-   "step": 0.1,
-   "unit": "сек."
-  },
-  {
    "id": "num:veil_of_discord:spell_lifesteal:max",
    "sub": "item_numbers",
    "kind": "number",
@@ -6872,16 +5682,6 @@
    "topic": "Book of the Dead",
    "answer": 65,
    "step": 10,
-   "unit": "сек."
-  },
-  {
-   "id": "num:fallen_sky:stun_duration:max",
-   "sub": "neutrals",
-   "kind": "number",
-   "text": "На сколько секунд станит врагов приземление нейтралки 5-го тира Fallen Sky?",
-   "topic": "Fallen Sky",
-   "answer": 1.6,
-   "step": 0.3,
    "unit": "сек."
   },
   {
