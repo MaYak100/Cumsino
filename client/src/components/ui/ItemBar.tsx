@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ITEMS, ITEM_ORDER, type ItemId } from '@cumsino/shared'
+import { ITEMS, ITEM_ORDER, smokePhaseOk, type ItemId } from '@cumsino/shared'
 import { useGameStore, selectMe, selectIsGladiator } from '../../store/gameStore'
 import { C, DISPLAY } from '../../theme'
 import { roughClip } from './Sticker'
@@ -42,6 +42,8 @@ function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, 
     return ph.includes('QUESTION') ? (ph.includes('BETTING') ? 'На ставках или на вопросе' : 'Только на вопросе')
       : ph.includes('ANNOUNCE') ? 'Только до вопроса' : 'Только на ставках'
   }
+  // смок в анонсе — только «для всех» (прячет ставку: включить до первой фишки)
+  if (id === 'smoke' && !smokePhaseOk(phase as never, mode as never)) return 'На ставках или на вопросе'
   if (id === 'blink') return answered ? null : 'Сначала ответь, потом передумывай'
   if (id === 'manta' && answered) return 'Только до ответа'
   // сервер молча не примет второй раз за раунд — не делаем вид, что можно

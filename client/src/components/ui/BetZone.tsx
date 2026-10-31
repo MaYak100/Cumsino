@@ -18,6 +18,8 @@ interface Props {
   onRecall?: (id: string) => void
   /** sm — керри-толпа: середину сукна занимают исходы и квитки, кучки соседей у края должны быть компактнее */
   size?: 'md' | 'sm'
+  /** соперник в смоке («для всех»): ставку не видно — вместо кучки дымок «в смоке» */
+  smoked?: boolean
 }
 
 const SIZES = {
@@ -26,7 +28,7 @@ const SIZES = {
 } as const
 
 /** Ставка игрока на сукне: фишки кучкой (каждая краем на соседней), под ней сумма. */
-export function BetZone({ cx, cy, chips, slots, mine, onRecall, size = 'md' }: Props) {
+export function BetZone({ cx, cy, chips, slots, mine, onRecall, size = 'md', smoked }: Props) {
   const { chip: CHIP_PX, spread, offset: UNIT_OFFSET, pill } = SIZES[size]
   const flight = useFlightTransform()
   const total = chips.reduce((s, c) => s + c.denom, 0)
@@ -73,7 +75,29 @@ export function BetZone({ cx, cy, chips, slots, mine, onRecall, size = 'md' }: P
           ))}
         </AnimatePresence>
       )}
-      {total > 0 && (
+      <AnimatePresence>
+        {smoked && (
+          <motion.div
+            key="smoke"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            style={{
+              position: 'absolute', left: cx - 48, top: cy - UNIT_OFFSET - 24, width: 96, height: 48,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 40,
+              borderRadius: '50%',
+              background: 'radial-gradient(ellipse at 50% 55%, rgba(147,163,156,.5) 0%, rgba(147,163,156,.22) 45%, rgba(147,163,156,0) 72%)',
+            }}
+          >
+            <span style={{ fontSize: size === 'sm' ? 12 : 13, fontWeight: 700, color: C.fg, whiteSpace: 'nowrap',
+              textShadow: '0 1px 3px rgba(0,0,0,.6)' }}>
+              в смоке
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {total > 0 && !smoked && (
         <div style={{
           position: 'absolute',
           left: cx - 34,

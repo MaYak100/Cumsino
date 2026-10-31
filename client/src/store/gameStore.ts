@@ -6,7 +6,7 @@ import type {
   GladiatorHoveringPayload, GameOverPayload,
   RoundResultsPayload, ChipStagedPayload, JoinedPayload,
   ItemId, ItemUsedPayload, GemResultPayload, MantaResultPayload,
-  JoinErrorPayload,
+  JoinErrorPayload, SetSettingsPayload,
 } from '@cumsino/shared'
 import { activeSession, forgetActive, loadDraft, rememberActive, saveDraft, tokenFor, type Session } from '../lib/session'
 import { syncClock } from '../lib/clock'
@@ -109,6 +109,8 @@ interface GameStore {
   removeBot: (id: string) => void
   /** «Играем впервые» (хост, лобби): предметы в лавке открываются по два */
   setFirstGame: (on: boolean) => void
+  /** Настройки игры (хост, лобби): джекпот и ставка на вопрос (режим «для всех») */
+  setSettings: (patch: SetSettingsPayload) => void
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
   identify: (friendId: number | null) => void
   /** Поменять свою оценку (повторный выбор того же значения снимает его): score −2…+2 (без 0), difficulty ±1 */
@@ -125,6 +127,15 @@ let lastDrop: { reason: string; at: number; hidden: boolean } | null = null
 
 function sendJoin() {
   if (joined) socket.emit('join_game', joined)
+}
+
+/** Черновики соперников без тех, чья ставка скрыта смоком (betHidden). */
+function withoutHidden(staged: Record<string, number[]>, players: Player[]) {
+  const hidden = players.filter(p => p.betHidden && staged[p.id])
+  if (!hidden.length) return staged
+  const next = { ...staged }
+  for (const p of hidden) delete next[p.id]
+  return next
 }
 
 /** Раунд посчитан (round_results или итоги в стейте после переподключения) — поля стора. */
@@ -215,7 +226,8 @@ export const useGameStore = create<GameStore>((set, get) => {
         roundOptionNotes: clearRound ? null : prev.roundOptionNotes,
         roundQuestionId: clearRound ? null : prev.roundQuestionId,
         ...(results ?? {}),
-        stagedBets: clearRound ? {} : prev.stagedBets,
+        // соперник ушёл в смок («для всех») — его черновик больше не показываем (сервер его и не шлёт)
+        stagedBets: clearRound ? {} : withoutHidden(prev.stagedBets, state.players),
         stagedOptions: clearRound ? {} : prev.stagedOptions,
         betSent: clearRound ? false : prev.betSent || !!state.betConfirmed,
         // вошедший в лобби или в лавку — участник; посреди раунда — зритель, пока сервер не снимет флаг (nextRound)
@@ -401,6 +413,10 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     setFirstGame(on) {
       socket.emit('set_first_game', { on })
+    },
+
+    setSettings(patch) {
+      socket.emit('set_settings', patch)
     },
 
     identify(friendId) {

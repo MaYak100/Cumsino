@@ -116,7 +116,7 @@ function ShopCard({ id, index, price, have, full, can, lockIn, onBuy }: {
 
   const ph = def.usePhases
   const when = ph === 'passive' ? 'сам'
-    : ph.includes('QUESTION') ? (ph.includes('BETTING') ? 'ставки, вопрос' : 'на вопросе')
+    : ph.includes('QUESTION') ? (ph.includes('ANNOUNCE') ? 'до вопроса и на нём' : ph.includes('BETTING') ? 'ставки, вопрос' : 'на вопросе')
     : ph.includes('ANNOUNCE') ? 'до вопроса' : 'на ставках'
 
   return (

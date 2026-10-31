@@ -13,17 +13,18 @@ function lighten(hex: string, k: number) {
 /** Таймер-фитиль: линия во всю ширину тает до нуля, цифры на конце. ≤5с — малиновый.
  *  Остаток — от дедлайна endsAt (время сервера, lib/clock): не копит ошибку в фоновой вкладке и не прыгает от новых
  *  стейтов; нет дедлайна (моки) — от seconds. total — полная длина отсчёта (45 с вопроса, 15 с хекса): от неё
- *  ширина, поэтому экран, открытый посреди отсчёта, показывает правильную долю. lightning — первые секунды дают
- *  «Молнию»: значок у границы окна, пока окно идёт — линия ярче. redAfterLightning — сразу после окна молнии линия
+ *  ширина, поэтому экран, открытый посреди отсчёта, показывает правильную долю. lightning — первые lightningMs дают
+ *  «Молнию» (8 с; «для всех» со ставкой на вопрос — 1.5 с, roundTimings): значок у границы окна, пока окно идёт —
+ *  линия ярче. redAfterLightning — сразу после окна молнии линия
  *  красная (хекс: время почти кончилось). */
-export function TimeBar({ seconds, endsAt, total, color = C.brass, stopped, lightning, redAfterLightning }: {
+export function TimeBar({ seconds, endsAt, total, color = C.brass, stopped, lightning, lightningMs = LIGHTNING_MS, redAfterLightning }: {
   seconds: number; endsAt?: number; total?: number; color?: string; stopped?: boolean; lightning?: boolean
-  redAfterLightning?: boolean
+  lightningMs?: number; redAfterLightning?: boolean
 }) {
   const ms = useMsLeft(endsAt, seconds, stopped)
   const current = Math.ceil(ms / 1000)
   const max = total ?? seconds
-  const win = LIGHTNING_MS / 1000
+  const win = lightningMs / 1000
   const showBolt = !!lightning && max > win
   const boltOn = showBolt && !stopped && ms > (max - win) * 1000   // окно молнии ещё идёт
   const urgent = !stopped && (current <= 5 || (!!redAfterLightning && showBolt && !boltOn))

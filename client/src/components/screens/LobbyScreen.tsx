@@ -18,7 +18,10 @@ export function LobbyScreen() {
   const addBot = useGameStore(s => s.addBot)
   const removeBot = useGameStore(s => s.removeBot)
   const setFirstGame = useGameStore(s => s.setFirstGame)
+  const setSettings = useGameStore(s => s.setSettings)
   const firstGame = !!gameState.firstGame
+  const jackpot = !!gameState.jackpot
+  const questionBet = !!gameState.questionBet
   const isHost = myId !== null && myId === gameState.hostId
   const friendName = (id?: number) => gameState.friendRoster?.find(r => r.id === id)?.name
 
@@ -116,11 +119,26 @@ export function LobbyScreen() {
             >
               Начать игру
             </motion.button>
-            <FirstGameToggle on={firstGame} onToggle={() => setFirstGame(!firstGame)} />
+            <div className="flex flex-col gap-2 [@media(max-height:760px)]:gap-1.5">
+              <HostToggle on={jackpot} onToggle={() => setSettings({ jackpot: !jackpot })}
+                label="Джекпот" hint="пустые раунды копят банк"
+                title="Режим «для всех»: все ошиблись — ставки уходят в банк, его забирают угадавшие следующего раунда. Все угадали — каждому бонус от казино. Работает, когда ставят хотя бы двое" />
+              <HostToggle on={questionBet} onToggle={() => setSettings({ questionBet: !questionBet })}
+                label="Ставка на вопрос" hint="на ставках виден вопрос без вариантов"
+                title="Режим «для всех»: на ставках виден текст вопроса (без вариантов), ставки 20 с, на ответ 15 с, молния — первые 1.5 с. Выключено — ставишь по теме, как раньше" />
+              <HostToggle on={firstGame} onToggle={() => setFirstGame(!firstGame)}
+                label="Играем впервые" hint="предметы откроются по два за лавку"
+                title="Предметы в лавке открываются не сразу, а по два за лавку: манта и гем, потом блинк и BKB, потом хекс и смок. Аегис — всегда" />
+            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-1 text-[0.9375rem] text-center" style={{ color: C.muted }}>
             <span>Ждём хоста. Пока не рыпайтесь.</span>
+            {(jackpot || questionBet) && (
+              <span style={{ color: C.brass }}>
+                {[jackpot && 'джекпот', questionBet && 'ставка на вопрос'].filter(Boolean).join(' и ').replace(/^./, c => c.toUpperCase())}
+              </span>
+            )}
             {firstGame && <span style={{ color: C.brass }}>Играем впервые: предметы откроются по два за лавку</span>}
           </div>
         )}
@@ -141,8 +159,10 @@ export function LobbyScreen() {
   )
 }
 
-/** Галочка хоста «Играем впервые»: предметы в лавке открываются по два (сервер — lockedItems). */
-function FirstGameToggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
+/** Галочка хоста в лобби: «Играем впервые» (сервер — lockedItems), «Джекпот», «Ставка на вопрос» (set_settings). */
+function HostToggle({ on, onToggle, label, hint, title }: {
+  on: boolean; onToggle: () => void; label: string; hint: string; title: string
+}) {
   return (
     <motion.button
       type="button"
@@ -151,7 +171,7 @@ function FirstGameToggle({ on, onToggle }: { on: boolean; onToggle: () => void }
       onClick={onToggle}
       whileTap={{ scale: 0.95 }}
       className="flex items-center gap-3 text-left"
-      title="Предметы в лавке открываются не сразу, а по два за лавку: манта и гем, потом блинк и BKB, потом хекс и смок. Аегис — всегда"
+      title={title}
     >
       <span className="flex items-center justify-center rounded-md shrink-0"
         style={{ width: 28, height: 28, border: `2px solid ${on ? C.brass : C.line}`, background: on ? C.brass : 'transparent' }}>
@@ -165,8 +185,9 @@ function FirstGameToggle({ on, onToggle }: { on: boolean; onToggle: () => void }
         </AnimatePresence>
       </span>
       <span className="flex flex-col leading-tight">
-        <span className="font-bold text-[1rem]" style={{ color: on ? C.brass : C.fg }}>Играем впервые</span>
-        <span className="text-[0.8125rem]" style={{ color: C.muted }}>предметы откроются по два за лавку</span>
+        <span className="font-bold text-[1rem]" style={{ color: on ? C.brass : C.fg }}>{label}</span>
+        {/* невысокий экран — без подсказки (полный текст в title): лобби без прокрутки */}
+        <span className="text-[0.8125rem] [@media(max-height:760px)]:hidden" style={{ color: C.muted }}>{hint}</span>
       </span>
     </motion.button>
   )
