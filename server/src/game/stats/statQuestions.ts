@@ -18,13 +18,13 @@ export interface StatClosest {
 /**
  * Порог четвёрки — проверяется с КАЖДОЙ из трёх обманок (gapOk), заданные поля — все сразу:
  *  rel  — лидер на такую долю выше обманки (для min — обманка выше лидера на долю от лидера);
- *  abs  — на столько единиц (добивания: и коридор, и ≥ 20 крипов);
+ *  abs  — на столько единиц (добивания: и коридор, и ≥ 25 крипов);
  *  band — коридор [lo, hi]: меньшее / большее из (правда, обманка) в этих пределах. «Больше всех» — обманка от lo до
- *         hi правды (⅔…0.9: Manta 10.0М против 5.6М / 4.9М / 4.7М не пройдёт); «меньше всех» — зеркально, правда от
+ *         hi правды (⅔…0.88: Manta 10.0М против 5.6М / 4.9М / 4.7М не пройдёт); «меньше всех» — зеркально, правда от
  *         lo до hi обманки. Верх коридора сам даёт отрыв, rel рядом с ним не нужен.
  */
 export interface StatGap { rel?: number; abs?: number; band?: [lo: number, hi: number] }
-/** Формат подписей: count — числа (к/М), pct — доля 0…1 → «53.5%», pct0 — «62%», pp — п.п. «+1.4». */
+/** Формат подписей: count — числа (к/М), pct — доля 0…1 → «53.5%», pct0 — «62%», pp — п.п. со знаком «+1.4%». */
 export type StatNoteFormat = 'count' | 'pct' | 'pct0' | 'pp'
 
 
@@ -110,8 +110,9 @@ export function formatNotes(values: number[], fmt: StatNoteFormat, lead?: number
   const one = (v: number, digits: number): string => {
     if (fmt === 'pct' || fmt === 'pct0') return `${(100 * v).toFixed(digits)}%`
     if (fmt === 'pp') {
+      // процентные пункты (контрпики: преимущество STRATZ) — «+1.1%», «−1.6%», «0.0%»
       const t = Math.abs(v).toFixed(digits)
-      return Number(t) === 0 ? t : `${v > 0 ? '+' : '−'}${t}`
+      return Number(t) === 0 ? `${t}%` : `${v > 0 ? '+' : '−'}${t}%`
     }
     const t = (v / div).toFixed(digits)
     if (Number(t) === 0 && v !== 0) return `<${(10 ** -digits).toFixed(digits)}${suf}`
