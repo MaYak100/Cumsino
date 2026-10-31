@@ -77,6 +77,57 @@ describe('makeStepOptions', () => {
     }
   })
 
+  // место ответа по величине: доли из `draws` показов
+  const rankShares = (answer: number, step: number, ceil = Infinity, draws = 20000) => {
+    const rng = seeded(answer * 1000 + step)
+    const counts = [0, 0, 0, 0]
+    for (let i = 0; i < draws; i++) counts[makeStepOptions(answer, step, rng, 4, 0, ceil).correct]++
+    return counts.map(c => c / draws)
+  }
+
+  it('место ответа равновероятно и у нуля, и у потолка (5–6 шагов — раньше 27 / 27 / 27 / 18, 5 шагов — 31 / 31 / 31 / 7)', () => {
+    for (const shares of [rankShares(6, 1), rankShares(5, 1), rankShares(4, 1), rankShares(95, 1, 100),
+      rankShares(5.25, 1), rankShares(20, 5)]) {
+      for (const s of shares) expect(Math.abs(s - 0.25)).toBeLessThan(0.015)
+    }
+  })
+
+  it('с ответом наверху у нуля — только умещающиеся раскладки, по весам 66 / 34 между ними', () => {
+    // ответ 5 при шаге 1, наибольший: под ним 3–4 шага — 1-1-1 (0.34³) или ровно один двойной (3 · 0.66 · 0.34²)
+    const rng = seeded(7)
+    let top = 0, allOnes = 0
+    for (let i = 0; i < 40000; i++) {
+      const { values, correct } = makeStepOptions(5, 1, rng)
+      expect(values[0]).toBeGreaterThan(0)
+      if (correct !== 3) continue
+      top++
+      expect(values[3] - values[0]).toBeLessThanOrEqual(4)
+      if (values[3] - values[0] === 3) allOnes++
+    }
+    const w111 = 0.34 ** 3, w2 = 3 * 0.66 * 0.34 ** 2
+    expect(allOnes / top).toBeCloseTo(w111 / (w111 + w2), 1)
+  })
+
+  it('невозможное место исключается, остальные поровну: ответ в 3 шагах никогда не наибольший', () => {
+    const shares = rankShares(3, 1)
+    expect(shares[3]).toBe(0)
+    for (const s of shares.slice(0, 3)) expect(Math.abs(s - 1 / 3)).toBeLessThan(0.015)
+    const mirror = rankShares(97, 1, 100)
+    expect(mirror[0]).toBe(0)
+  })
+
+  it('без хвостов плавающей точки у нуля: 0.7 при шаге 0.1 — варианта 0 нет', () => {
+    for (let seed = 1; seed <= 300; seed++) {
+      const { values } = makeStepOptions(0.7, 0.1, seeded(seed))
+      expect(values[0]).toBeGreaterThan(0)
+      expect(values).toContain(0.7)
+    }
+  })
+
+  it('окно уже трёх шагов — ответ наименьший, промежутки по шагу', () => {
+    expect(makeStepOptions(2, 1, seeded(1), 4, 0, 4)).toEqual({ values: [2, 3, 4, 5], correct: 0 })
+  })
+
   it('formatNumber без хвостов плавающей точки', () => {
     expect(formatNumber(0.1 + 0.2)).toBe('0.3')
     expect(formatNumber(850)).toBe('850')

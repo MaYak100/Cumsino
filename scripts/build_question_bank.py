@@ -45,10 +45,9 @@ id вопроса постоянный — по нему игра помнит, 
   - единицы приводятся к словарю (UNIT_ALIAS, UNIT_RULES): игрок видит их прямо в вариантах («175 HP», «12 сек.»);
   - шаг по масштабу (решение 2026-10-31): у секунд шаг ≈ 20% ответа красивым числом (строго меньше 20%, минимум
     1 сек., без утечки круглостью — scale_step); правило только поднимает шаг, step в overrides мельче — ошибка;
-  - проверки (падают, если не исправлено в overrides): ответ ≤ 5 шагов (правильный тогда редко бывает наибольшим:
-    при ≤ 3 шагах никогда, 4 — в 1% показов, 5 — в 7%, до 6 — в 18%, дальше ровно 25%; исключение — 5 сек. при шаге
-    1 сек.), то же у потолка ceil (ответ редко наименьший), «ответ выдаёт круглость», латиница внутри русских слов,
-    старые имена героев.
+  - проверки (падают, если не исправлено в overrides): ответ ≤ 3 шагов от нуля или ceil (место ответа невозможно;
+    принятые ok печатаются), ответ ≤ 5 шагов (место честное, 25%, но наверху раскладка зажата у нуля; исключение — 5 сек. при
+    шаге 1 сек.), то же у потолка ceil, «ответ выдаёт круглость», латиница внутри русских слов, старые имена героев.
 
 Формат:
   {built_at, sources, questions: [
@@ -270,11 +269,18 @@ def apply_levelup(q: dict, out: dict, levelups: dict, names: dict) -> bool:
 
 # --- проверки шага -------------------------------------------------------------------------------------------
 
-# Ответ дальше MIN_STEPS шагов от нуля (и от потолка ceil): иначе позиция ответа нечестная. Промежутки 1 или 2 шага
-# (двойной — 66%), поэтому наибольшим ответ бывает, только если все промежутки влезают под ответ: при ответе в k шагов
-# доля показов, где он наибольший, — 0 (k ≤ 3), 1% (k = 4), 7% (k = 5), 18% (5 < k ≤ 6), 25% (k > 6); остальные позиции
-# делят остаток поровну (при 5 < k ≤ 6 — 27 / 27 / 27 / 18).
+# Варианты (makeStepOptions, server/src/game/questions/stepOptions.ts; с 2026-10-31): сначала равновероятно — место
+# ответа по величине, потом промежутки 1 или 2 шага (двойной — 66%) среди раскладок, которые с этим местом умещаются в
+# (0, ceil). Наибольшим ответ может быть, только если под ним влезают три промежутка: при ответе в k шагов от нуля
+#   k ≤ 3 — место невозможно (сервер его исключает, остальные три — по 33%) → ошибка сборки RANK_STEPS: «ответ никогда
+#          не наибольший» — подсказка в каждом показе; ok (меньшее зло) сборка печатает при каждом запуске;
+#   3 < k ≤ 5 — место честное (25%), но с ответом наверху раскладка зажата: при k = 4 — только 1-1-1, при k = 5 — без
+#          двух двойных; плотная кучка у нуля выдаёт наибольший → ошибка MIN_STEPS (ok — можно, с причиной);
+#   k > 5 — проверка проходит; при 5 < k ≤ 6 у наибольшего нельзя только 2-2-2.
+# То же зеркально у потолка ceil (ответ наименьший). До 2026-10-31 сервер выбирал сначала промежутки, потом место
+# среди подходящих — ответ в 5–6 шагах был наибольшим в 18% показов (27 / 27 / 27 / 18), в 5 шагах — в 7%, в 4 — в 1%.
 MIN_STEPS = 5
+RANK_STEPS = 3
 DOUBLE_GAP_CHANCE = Fraction(66, 100)   # как в stepOptions.ts
 
 ROUND_LEVELS = [(1000, 6), (100, 5), (50, 4), (25, 3), (10, 3), (5, 2), (1, 1)]
@@ -290,26 +296,41 @@ def round_level(x: Fraction, answer: Fraction | None = None) -> int:
     return 0
 
 
-def shows(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None
-          ) -> list[tuple[Fraction, int, list[Fraction]]]:
-    """Все показы makeStepOptions (server/src/game/questions/stepOptions.ts) с вероятностями: (вероятность, место ответа
-    по возрастанию, варианты по возрастанию). Соседи через 1 или 2 шага, позиция ответа — равновероятно среди допустимых
-    (все варианты > 0 и < ceil); не встаёт ни одна позиция — сервер берёт промежутки по одному шагу."""
-    def fits(offsets: list[int], p: int) -> bool:
-        return all(0 < answer + (o - offsets[p]) * step and (ceil is None or answer + (o - offsets[p]) * step < ceil)
-                   for o in offsets)
-
+def gap_layouts(n: int = 4) -> list[tuple[list[int], Fraction]]:
+    """Все раскладки промежутков (1 или 2 шага) → (смещения от наименьшего, вероятность): [1, 2, 1] → [0, 1, 3, 4]."""
     out = []
     for gaps in product((1, 2), repeat=n - 1):
         chance = Fraction(1)
         for g in gaps:
             chance *= DOUBLE_GAP_CHANCE if g == 2 else 1 - DOUBLE_GAP_CHANCE
-        offsets = [0, *accumulate(gaps)]
-        valid = [p for p in range(n) if fits(offsets, p)]
-        if not valid:
-            offsets = list(range(n))
-            valid = [p for p in range(n) if fits(offsets, p)] or [0]
-        out += [(chance / len(valid), p, [answer + (o - offsets[p]) * step for o in offsets]) for p in valid]
+        out.append(([0, *accumulate(gaps)], chance))
+    return out
+
+
+def possible_ranks(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None) -> list[int]:
+    """Места ответа по возрастанию, для которых хоть одна раскладка умещается в (0, ceil)."""
+    return [p for p in range(n) if any(fits(answer, step, offs, p, ceil) for offs, _ in gap_layouts(n))]
+
+
+def fits(answer: Fraction, step: Fraction, offsets: list[int], p: int, ceil: Fraction | None) -> bool:
+    return all(0 < answer + (o - offsets[p]) * step and (ceil is None or answer + (o - offsets[p]) * step < ceil)
+               for o in offsets)
+
+
+def shows(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None
+          ) -> list[tuple[Fraction, int, list[Fraction]]]:
+    """Все показы makeStepOptions (server/src/game/questions/stepOptions.ts) с вероятностями: (вероятность, место ответа
+    по возрастанию, варианты по возрастанию). Место — равновероятно среди возможных (possible_ranks), раскладка
+    промежутков — по весам 66 / 34 среди умещающихся с этим местом; не умещается ничего — ответ наименьший,
+    промежутки по одному шагу."""
+    ranks = possible_ranks(answer, step, n, ceil)
+    if not ranks:
+        return [(Fraction(1), 0, [answer + i * step for i in range(n)])]
+    out = []
+    for p in ranks:
+        ok = [(offs, chance) for offs, chance in gap_layouts(n) if fits(answer, step, offs, p, ceil)]
+        total = sum(chance for _, chance in ok)
+        out += [(chance / total / len(ranks), p, [answer + (o - offs[p]) * step for o in offs]) for offs, chance in ok]
     return out
 
 
@@ -334,7 +355,7 @@ def round_leak(answer: Fraction, step: Fraction, cap: int = 6, ceil: Fraction | 
 # --- шаг по масштабу: секунды ---------------------------------------------------------------------------------
 # Решение пользователя 2026-10-31: длительности и кд — ориентировка по масштабу, а не память до десятых. Шаг ≈ 20%
 # ответа, красивым числом, минимум 1 сек. (даже у 5.25 сек.), дробность ответа не важна. Шаг строго меньше 20%: при
-# ровно 20% ответ = 5 шагов и наибольшим бывает в 7% показов (MIN_STEPS выше); меньше 20% — не хуже 27/27/27/18.
+# ровно 20% ответ = 5 шагов, и наверху раскладка зажата (MIN_STEPS выше); меньше 20% — у наибольшего нельзя только 2-2-2.
 # Кандидаты — красивые шаги в [10%, 20%) ответа; из них тот, при котором ответ реже всего выделяется круглостью
 # (round_leak), при равенстве — крупнее. Утечка у лучшего больше SEC_LEAK_MAX (75 при шаге 10 — единственный кратный 25
 # в 78% показов) — шаг не трогаем, только не мельче 1 сек. Правило только поднимает шаг: шаг из прогона или overrides
@@ -371,16 +392,31 @@ def sec_floor_forced(q: dict) -> bool:
     return q["unit"] == SEC_UNIT and s == SEC_MIN_STEP and a * SEC_MAX_SHARE <= SEC_MIN_STEP
 
 
+def rank_problems(q: dict) -> list[str]:
+    """Место ответа, невозможное ни при одной раскладке (ответ ≤ RANK_STEPS шагов от нуля или ceil): игрок, знающий
+    это, отбрасывает крайний вариант в каждом показе. Без ok — ошибка; с ok (шаг мельче выдаёт ответ круглостью) —
+    сборка печатает вопрос при каждом запуске."""
+    a, s = Fraction(str(q["answer"])), Fraction(str(q["step"]))
+    ceil = Fraction(str(q["ceil"])) if q.get("ceil") is not None else None
+    ranks = possible_ranks(a, s, ceil=ceil)
+    if len(ranks) == 4:
+        return []
+    missing = ", ".join({0: "наименьшим", 3: "наибольшим"}.get(p, f"{p + 1}-м") for p in range(4) if p not in ranks)
+    where = f"ответ {q['answer']} при шаге {q['step']}" + (f" и потолке {q['ceil']}" if ceil is not None else "")
+    return [f"{where} не бывает {missing} ни при одной раскладке (≤ {RANK_STEPS} шагов от края) — шаг мельче, drop "
+            f"или ok с причиной"]
+
+
 def step_problems(q: dict) -> list[str]:
     a, s = Fraction(str(q["answer"])), Fraction(str(q["step"]))
     ceil = Fraction(str(q["ceil"])) if q.get("ceil") is not None else None
     problems = []
     # секунды с ответом 5 сек.: шаг 1 сек. — жёсткий минимум (решение 2026-10-31), ответ наибольший в 7% показов
     if a <= MIN_STEPS * s and not sec_floor_forced(q):
-        problems.append(f"ответ {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: правильный редко бывает наибольшим")
+        problems.append(f"ответ {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: наибольший ответ — в зажатой раскладке у нуля")
     if ceil is not None and ceil - a <= MIN_STEPS * s:
         problems.append(f"до потолка {q['ceil']} от ответа {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: "
-                        f"правильный редко бывает наименьшим")
+                        f"наименьший ответ — в зажатой раскладке у потолка")
     cap = round_cap(q)
     la = min(round_level(a, a), cap)
     fakes = [f for lay in layouts(a, s, ceil=ceil) for f in lay]
@@ -682,7 +718,9 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
                 problems.append(f"значение растёт с уровнем героя — в тексте нужно «на {MAX_HERO_LEVEL}-м уровне героя»"
                                 f" (ответ {q['answer']}, {q.get('comment')})")
             if "ok" not in o:
-                problems += step_problems(q)
+                problems += rank_problems(q) + step_problems(q)
+            for msg in rank_problems(q) if "ok" in o else []:   # принято ok — но видно при каждой сборке
+                print(f"  место ответа невозможно, принято ok: {q['id']} — {msg.split(' — ')[0]}")
         else:
             if len(q["options"]) != 4 or len(set(q["options"])) != 4:
                 problems.append("нужно 4 разных варианта")
