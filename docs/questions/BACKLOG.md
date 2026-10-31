@@ -18,7 +18,7 @@
 - [ ] Отменить или забрать висящий батч `out/v3` (отправлен из сессии «numeric_lab v3: прогон через API»).
 - [x] **Ручные правки банка** (2026-10-29): `scripts/data/bank/overrides.json` (drop / text / step / unit / sub / options / comment, у каждой причина) применяет `build_question_bank.py`; там же проверки, роняющие сборку: ответ ≤ 3 шагов, «ответ круглее любого фейка», латиница в русском слове, старые имена героев, врождённые с ростом от уровня без «на 30-м уровне героя»; единицы по словарю. Аудит: −25 вопросов, 24 врождённых переведены на 30-й уровень, ~50 шагов, 12 механик.
 - [ ] **Причины в генераторе — учесть при следующем прогоне** (сейчас лечится overrides):
-  - `numeric_lab/build_sample.py` не знает `hero_levelup` / `levelup_interval`: у 24 врождённых модель видела базу (3.45% Static Field) и спрашивала её как константу. Семантика: значение на уровне L = value + hero_levelup · ⌊L / levelup_interval⌋ (интервал по умолчанию 1; сверено с патчноутами). Передавать модели значение на 30-м уровне и формулу.
+  - `numeric_lab/build_sample.py` не знает `hero_levelup` / `levelup_interval`: у 24 врождённых модель видела базу (3.45% Static Field) и спрашивала её как константу. Семантика: значение на уровне L = value + hero_levelup · ⌊L / levelup_interval⌋ (интервал по умолчанию 1; сверено с патчноутами). С 2026-10-31 числовые вопросы по таким значениям выкидывает сборка (`innate_levelup`, раздел 11) — при перегенерации чисел их не спрашивать вовсе (убрать из фактов), а врождёнки — механиками.
   - Регулярка `_DISTANCE` не ловит `length` (dash_length, push_length), а `_SPEED_KEEP` пропускает всё со словом move — в банк попали скорости полёта и качения (Ball Lightning, Rolling Thunder).
   - Шаг не согласован с круглостью ответа (`prompt_v7.md`, `prompt_costs_v2.md`): 150 при шаге 20, 6 при шаге 0.75, 15 при шаге 5 (ответ = 3 шага). Либо правило в промпте, либо проверка из `build_question_bank.py` (`step_problems`) в `resolve.py` с флагом.
   - Модель пишет имя героя по памяти («Outworld Destroyer» вместо Outworld Devourer) — подставлять `localized_name` в факты и проверять текст.
@@ -235,3 +235,24 @@
   `gladiator_hover` — исход понятен только по «Закеррил / Не закеррил».
 - [ ] «Легко / сложно» копится в `q_rating.difficulty`, но ни на что не влияет (system.md: «на вес не влияют»); данных
   пока почти нет (на 2026-10-30 — 1 отметка, все голоса из соло-тестов).
+
+## 11. Фильтры сборки после игры с друзьями (2026-10-31)
+
+Сделано:
+- [x] **Правила-фильтры** в `build_question_bank.py` (`DROP_RULES`, README раздел 7): `short_time` — секунды и ответ < 5
+  (88: 79 `hero_time`, 7 `item_numbers`, по 1 `hero_other` и `neutrals`; «видел или не видел»), `innate_levelup` —
+  врождёнки, растущие с уровнем героя (24, признак — `hero_levelup` в файле героя). Спасти вопрос — `keep` в overrides.
+  Банк 1045 → 933; `hero_time` 133 → 51 (круг колоды ~47 игр вместо ~139), `hero_pct` 138 → 123, `hero_damage`
+  128 → 124, `hero_other` 85 → 82, `item_numbers` 145 → 138, `neutrals` 52 → 51.
+- [x] **Архив** `scripts/data/bank/archive.json` — всё выкинутое с причиной (правила, `drop`, флаги прогона, черновики
+  талантов), 190 записей.
+
+Осталось:
+- [ ] **Врождёнки перегенерировать механиками** «что делает врождёнка» (`text_lab`): 24 врождёнки с ростом от уровня героя
+  (список — `archive.json`, `by: rule:innate_levelup`: Static Field, Sacrifice, Weave, Special Delivery, Apex Predator,
+  Quick Wit, Slugger, Bitter Chill, Tempest Double, Hunter in the Night, Caustic Finale, Double Trouble, Degen Aura,
+  Desolate, Essence Flux, Menace, Shield of the Scion, Solid Core, Backstab, Encore, Illusory Armaments, Prickly,
+  Persecutor, Vampiric Spirit). Их правки в `overrides.json` (текст «на 30-м уровне героя», шаг, `ceil`) больше не
+  нужны — убрать при перегенерации или оставить для архива.
+- [ ] `hero_time` после фильтра — 51 вопрос при весе 1 (как у соседей по 120+): повторы чаще. Если заметно — вес 0.5 в
+  `categories.ts` или догенерация длительностей ≥ 5 с и кд.

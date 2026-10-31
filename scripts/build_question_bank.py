@@ -24,15 +24,24 @@ id вопроса постоянный — по нему игра помнит, 
 
 Ручные правки — scripts/data/bank/overrides.json (переживают перегенерацию прогонов):
   {"questions": {<id>: {"drop": "причина"} | {"why": "причина", text?, step?, unit?, ceil?, sub?, options?, comment?, ok?,
-                                                topic?}}}
+                                                topic?, keep?}}}
   options — целиком, options[0] правильный; ok — «проверка шага не применяется, потому что …»;
+  keep — «правило-фильтр (DROP_RULES) этот вопрос не выкидывает, потому что …» (keep без сработавшего правила — ошибка);
   topic — субъект темы руками, когда тема выдаёт ответ, а topic_gives_answer этого не ловит («Герои»);
   ceil — все варианты строго меньше (проценты, где 100% и больше невозможно: маг. резист, замедление, промах).
   Неизвестный id или поле — ошибка сборки.
 
 При сборке:
+  - правила-фильтры (DROP_RULES, решение 2026-10-31 после игры с друзьями) выкидывают числовые вопросы:
+      short_time      — секунды и ответ < 5 (станы, хексы, касты с шагом 0.2–0.6 с: «видел или не видел», без логики;
+                        длительности от 5 с остаются — чем дольше, тем интуитивнее);
+      innate_levelup  — врождёнка, растущая с уровнем героя (hero_levelup в файлах героя): число на 30-м уровне не
+                        вывести — такие врождёнки перегенерировать механиками «что делает врождёнка»;
+    спасти вопрос от правила — keep в overrides;
+  - всё выкинутое (флаги прогона, тип таланта, drop из overrides, правила) — в scripts/data/bank/archive.json с
+    причиной: в игру не идёт, но видно, что и почему ушло;
   - врождённые с ростом от уровня героя (hero_levelup в файлах героя) — ответ на 30-м уровне героя,
-    текст обязан это называть (правка в overrides);
+    текст обязан это называть (правка в overrides; сейчас их выкидывает innate_levelup);
   - единицы приводятся к словарю (UNIT_ALIAS, UNIT_RULES): игрок видит их прямо в вариантах («175 HP», «12 сек.»);
   - проверки (падают, если не исправлено в overrides): ответ ≤ 5 шагов (правильный тогда редко бывает наибольшим:
     при ≤ 3 шагах никогда, ≤ 4 — в 3% показов, ≤ 5 — в 12.5%, ≤ 6 — в 22%, дальше ровно 25%), то же у потолка ceil
@@ -43,6 +52,11 @@ id вопроса постоянный — по нему игра помнит, 
     {id, sub, kind: "number", text, topic, aspect?, answer, step, unit, ceil?, comment?},   # MC по шагу и «ближе всех»
     {id, sub, kind: "choice", text, topic, aspect?, options, comment?}               # options[0] — правильный
   ]}
+  archive.json: {built_at, dropped: {причина: число}, questions: [{id, sub, kind, text, answer?, step?, unit?, options?,
+                 comment?, by, reason, replaced?}]}
+    by — flags (флаги прогона) / talents (флаги проверки талантов) / overrides (drop) / rule:<имя> (DROP_RULES);
+    replaced — вопрос с тем же id есть в банке: отбракован черновик таланта, а в игре вариант из круга догенерации
+    (поэтому id в архиве может повторяться)
 
   python scripts/build_question_bank.py
 """
@@ -71,6 +85,7 @@ OVERRIDES = Path("scripts/data/bank/overrides.json")
 HERO_FILES = Path("scripts/data/dota/game/scripts/npc/heroes")
 ABILITIES = Path("scripts/data/dota/abilities.json")
 OUT = Path("scripts/data/bank/questions.json")
+ARCHIVE = Path("scripts/data/bank/archive.json")
 
 IGNORED_FLAGS = {"costs": re.compile(r"^шаг очень мелкий")}
 MECH_SUB = {"how": "mech_how", "interaction": "mech_interaction", "false_fact": "mech_false_fact",
@@ -79,7 +94,7 @@ MECH_SUB = {"how": "mech_how", "interaction": "mech_interaction", "false_fact": 
 MAX_HERO_LEVEL = 30
 LEVELUP_FIELD = {"cd": "AbilityCooldown"}   # имя факта в прогоне → ключ в AbilityValues
 
-OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok", "topic"}
+OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok", "topic", "keep"}
 
 # --- единицы -------------------------------------------------------------------------------------------------
 
@@ -385,6 +400,44 @@ def topic_gives_answer(q: dict, owner: dict[str, set[str]], names: list[str]) ->
     return hero in right and all(hero not in w for w in wrong) and any(w for w in wrong)
 
 
+# --- правила-фильтры -----------------------------------------------------------------------------------------
+# Решение пользователя 2026-10-31 по итогам игры с друзьями. Правило видит вопрос после правок overrides; первое
+# сработавшее — причина в archive.json. Спасти вопрос от правила — keep в overrides (с причиной).
+
+SHORT_TIME = 5   # сек.: короче — станы / хексы / касты с шагом 0.2–0.6 с, «видел или не видел»
+
+
+def _innate_levelup(q: dict, levelup_ids: set[str]) -> bool:
+    return q["id"] in levelup_ids   # признак из данных: hero_levelup у значения в файле героя (apply_levelup)
+
+
+def _short_time(q: dict, levelup_ids: set[str]) -> bool:
+    return q["kind"] == "number" and q["unit"].startswith("сек") and q["answer"] < SHORT_TIME
+
+
+DROP_RULES = [
+    ("innate_levelup", _innate_levelup,
+     "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает "
+     "врождёнка»"),
+    ("short_time", _short_time,
+     f"меньше {SHORT_TIME} сек.: «видел или не видел», без логики (от {SHORT_TIME} сек. — остаются)"),
+]
+
+
+def drop_rule(q: dict, levelup_ids: set[str]) -> tuple[str, str] | None:
+    for name, check, reason in DROP_RULES:
+        if check(q, levelup_ids):
+            return name, reason
+    return None
+
+
+ARCHIVE_FIELDS = ("id", "sub", "kind", "text", "topic", "answer", "step", "unit", "ceil", "options", "comment")
+
+
+def archived(q: dict, by: str, reason: str) -> dict:
+    return {**{k: q[k] for k in ARCHIVE_FIELDS if q.get(k) is not None}, "by": by, "reason": reason}
+
+
 # --- ручные правки -------------------------------------------------------------------------------------------
 
 def load_overrides() -> dict[str, dict]:
@@ -415,8 +468,9 @@ def apply_override(q: dict, o: dict) -> None:
             q["options"] = o["options"]
 
 
-def build() -> tuple[list[dict], Counter, list[str]]:
+def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
     dropped: Counter = Counter()
+    archive: list[dict] = []
     out: list[dict] = []
     levelups = hero_levelups()
     names = {k: v.get("dname") or k for k, v in json.loads(ABILITIES.read_text(encoding="utf-8")).items()}
@@ -440,10 +494,18 @@ def build() -> tuple[list[dict], Counter, list[str]]:
             levelup_ids.add(out_q["id"])
         return out_q
 
+    def flagged_number(q: dict, sub: str | None) -> None:
+        """Вопрос прогона с флагами — в архив как есть (без правок и врождёнок на 30-м уровне)."""
+        unit = normalize_unit(q["unit"], q["question"]) or q["unit"]
+        dropped[f"флаги прогона ({q.get('category') or 'costs'})"] += 1
+        archive.append(archived({"id": f"num:{q['fact_id']}:{q['level']}", "sub": sub or hero_sub(q, unit),
+                                 "kind": "number", "text": q["question"], "answer": q["answer"], "step": q["step"],
+                                 "unit": unit}, "flags", "; ".join(q["flags"])))
+
     for q in run_questions(FULL1):
         cat = q["category"]
         if flagged(q, cat):
-            dropped[cat] += 1
+            flagged_number(q, {"heroes": None, "items": "item_numbers"}.get(cat, "neutrals"))
             continue
         if cat == "heroes":
             out.append(number_question(q, None, q["entity"].split(" · ")[0]))
@@ -457,16 +519,22 @@ def build() -> tuple[list[dict], Counter, list[str]]:
 
     for q in run_questions(COSTS):
         if flagged(q, "costs"):
-            dropped["costs"] += 1
+            flagged_number(q, "costs")
             continue
         out.append(number_question(q, "costs", q["entity"]))   # тема — предмет (данные прогона), не «Цена»
 
     for group in json.loads(TALENTS.read_text(encoding="utf-8")):
         for q in group["questions"]:
-            if q["flags"] or q["type"] != "has":
-                dropped["talents"] += 1
-                continue
             real = [o for o in q["options"] if o["kind"] == "real"]
+            if q["flags"] or q["type"] != "has":
+                dropped["таланты: флаги проверки или не «has»"] += 1
+                tid = real[0].get("talent_id") if len(real) == 1 else None
+                archive.append(archived({"id": f"tal:{tid}" if tid else None, "sub": "talents_has", "kind": "choice",
+                                         "text": q["question"], "topic": q["hero"],
+                                         "options": [o["text"] for o in real + [o for o in q["options"]
+                                                                                 if o["kind"] != "real"]]},
+                                        "talents", "; ".join(q["flags"]) or f"тип «{q['type']}» (в игре — только «has»)"))
+                continue
             assert len(real) == 1, q
             fakes = [o["text"] for o in q["options"] if o["kind"] != "real"]
             comment = f"Настоящий талант: {real[0]['text']} ({real[0]['original']})."
@@ -498,18 +566,31 @@ def build() -> tuple[list[dict], Counter, list[str]]:
     owner, owner_names = _owners_index()
     for q in out:
         o = overrides.get(q["id"], {})
+        def set_hero_sub() -> None:
+            if q["sub"] is None:
+                q["sub"] = hero_sub({"fact_id": q["id"].split(":", 1)[1].rsplit(":", 1)[0], "question": q["text"]},
+                                    q["unit"])
+
         if "drop" in o:
-            dropped["overrides"] += 1
+            set_hero_sub()
+            dropped["drop в overrides"] += 1
+            archive.append(archived(q, "overrides", o["drop"]))
             continue
         apply_override(q, o)
         for key in ("text", "comment"):   # и после правок; варианты не трогаем: правда талантов — строка игры дословно
             if q.get(key):
                 q[key] = fix_text(q[key])
-        if q.pop("_unit_unknown", None) is not None and "unit" not in o:
+        unit_unknown = q.pop("_unit_unknown", None) is not None and "unit" not in o
+        set_hero_sub()
+        rule = None if unit_unknown else drop_rule(q, levelup_ids)
+        if rule and "keep" not in o:
+            dropped[f"правило {rule[0]}"] += 1
+            archive.append(archived(q, f"rule:{rule[0]}", rule[1]))
+            continue
+        if "keep" in o and not rule:
+            errors.append(f"{q['id']}: keep в overrides, а правило-фильтр не срабатывает — убери keep")
+        if unit_unknown:
             errors.append(f"{q['id']}: единица «{q['unit']}» не распознана — unit в overrides ({q['text']})")
-        if q["sub"] is None:
-            q["sub"] = hero_sub({"fact_id": q["id"].split(":", 1)[1].rsplit(":", 1)[0], "question": q["text"]},
-                                q["unit"])
         problems = text_problems(q)
         if q["kind"] == "number":
             if not (q["step"] > 0 and q["answer"] > 0):
@@ -532,7 +613,11 @@ def build() -> tuple[list[dict], Counter, list[str]]:
                 q["topic"] = TOPIC_GROUP
         errors += [f"{q['id']}: {p} — {q['text']}" for p in problems]
         kept.append(q)
-    return kept, dropped, errors
+    live = {q["id"] for q in kept}
+    for a in archive:   # отбракованный черновик таланта, а вопрос с тем же id в игре — из круга догенерации
+        if a.get("id") in live:
+            a["replaced"] = True
+    return kept, dropped, errors, archive
 
 
 def flagged(q: dict, category: str) -> bool:
@@ -541,19 +626,24 @@ def flagged(q: dict, category: str) -> bool:
 
 
 def main() -> None:
-    questions, dropped, errors = build()
+    questions, dropped, errors, archive = build()
     if errors:
         print("\n".join(errors), file=sys.stderr)
         sys.exit(f"{len(errors)} ошибок — исправь в {OVERRIDES}")
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    bank = {"built_at": date.today().isoformat(),
+    today = date.today().isoformat()
+    bank = {"built_at": today,
             "sources": {k: str(v) for k, v in
                         {"numbers": FULL1, "costs": COSTS, "talents": TALENTS, "mechanics": MECHANICS,
                          "overrides": OVERRIDES}.items()},
             "questions": questions}
     OUT.write_text(json.dumps(bank, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    ARCHIVE.write_text(json.dumps({"built_at": today, "dropped": dict(dropped), "questions": archive},
+                                  ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     subs = Counter(q["sub"] for q in questions)
-    print(f"{len(questions)} вопросов → {OUT}; убрано: {dict(dropped)}")
+    print(f"{len(questions)} вопросов → {OUT}; выкинуто {len(archive)} → {ARCHIVE}:")
+    for reason, n in dropped.most_common():
+        print(f"  {n:4}  {reason}")
     for sub, n in sorted(subs.items()):
         print(f"  {sub:18} {n}")
 
