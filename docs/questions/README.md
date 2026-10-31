@@ -386,7 +386,7 @@ Quelling Blade), причина исключения записывается. �
 - `innate_levelup` — врождёнка, растущая с уровнем героя: признак из данных — у значения есть `hero_levelup` в файле
   героя (`hero_levelups` / `apply_levelup`, те же вопросы, что спрашивались «на 30-м уровне героя»). Число на 30-м
   уровне не вывести — такие врождёнки перегенерировать механиками «что делает врождёнка». 24 вопроса;
-- `mech_seed` — разбор пользователем подкатегорий `hero_damage`, `hero_pct` и `hero_other` (2026-10-31): число, где нет логики, кроме
+- `mech_seed` — разбор пользователем всех числовых подкатегорий, кроме цен (2026-10-31): число, где нет логики, кроме
   «видел ли тултип». Не пропадает — **семя для механики** (вид — поле `seed` в архиве):
   - `hero_damage` — правилом, первый подошедший вид: `aghanim` — в тексте «Aghanim» (способности и прибавки от
     Scepter / Shard, 22; «без аганима» кириллицей у Finger of Death — не считается), `dps` — единица «урона/сек.» (15;
@@ -403,9 +403,16 @@ Quelling Blade), причина исключения записывается. �
     за стак, мана в секунду (`coef`, 6), второстепенное (`minor`, 6: Demonic Cleanse, Firesnap Cookie, опыт Cloak and
     Dagger, скорость Treant с аганимом, барьеры Warcry с шардом и Reactive Armor с аганимом), броня 6–8 — лотерея
     (`armor`, 6; Corrosive Haze и Divine Favor — 20 — остаются). Остаются «количество» (атаки до сноса, отскоки,
-    пульсы, стаки, заряды), HP призывов, золото, большие разовые хилы / бонусы HP. 82 → 43.
+    пульсы, стаки, заряды), HP призывов, золото, большие разовые хилы / бонусы HP. 82 → 43;
+  - `hero_time` — только списком `MECH_SEED_IDS`: все способности / эффекты от Aghanim's Scepter / Shard (`aghanim`, 10:
+    кд Gush с аганимом, Depth Shroud, авто-Objurgation, Overclocking, Stone Form самого Visage, инвиз Juxtapose,
+    Metamorphosis от Terror Wave, Mana Break с аганимом, на сколько аганим режет кд Fiend's Gate и Requiem of Souls;
+    «без Aghanim's Scepter» у Haunt и Arena of Blood — остаются) и ответ, который выдаёт себя круглостью в ~29% показов
+    при любом шаге в полосе 10–20% (`round`, 2: кд Pierce the Veil 75 сек., кд Morph 125 сек.). 51 → 39;
+  - `item_numbers` — списком: Behemoth's Blood у Heart of Tarrasque и оба вопроса Helm of the Overlord (`item_detail`,
+    3), Miasma у Hydra's Breath (`unknown_item`, 1). 138 → 134. `neutrals` — Witchbane (`ratio`, 1). 49 → 48.
 
-  Правило действует только в этих трёх подкатегориях: аганим в `hero_time` ещё не разбирался.
+  Цены (`costs`) пользователь оставил целиком.
 
 Спасти вопрос от правила — `keep: «причина»` в `overrides.json` (`keep` у вопроса, который правило не трогает, — ошибка
 сборки).
@@ -415,7 +422,7 @@ Quelling Blade), причина исключения записывается. �
 игре вопрос с тем же id из круга догенерации). Поля как в банке (`id`, `sub`, `text`, `answer` / `step` / `unit` или
 `options`) + `reason`, сводка — `dropped`. `seed` — семя для генерации механик: `innate` (`innate_levelup`) и виды
 `mech_seed` (`aghanim`, `dps`, `threshold`, `pct_per_sec`, `pct_per_hit`, `detail`, `illusion`, `ratio`, `slow`,
-`attack_speed`, `regen`, `per_unit`, `coef`, `minor`, `armor`); пачку
+`attack_speed`, `regen`, `per_unit`, `coef`, `minor`, `armor`, `round`, `item_detail`, `unknown_item`); пачку
 перегенерации отбирать по этому полю (BACKLOG раздел 11). Игра архив не читает; вернуть вопрос — убрать причину (правку, `keep`).
 
 Чинится сборкой сама, с отметкой в выводе: тема, выдающая ответ. Если варианты — способности или имена разных героев,

@@ -9,12 +9,12 @@
   "правило mech_seed (коэффициент)": 6,
   "правило mech_seed (урон в секунду)": 15,
   "правило innate_levelup": 24,
-  "правило mech_seed (аганим / шард)": 23,
+  "правило mech_seed (аганим / шард)": 33,
   "правило mech_seed (броня 6–8, лотерея)": 6,
   "правило mech_seed (урон иллюзий)": 3,
   "правило mech_seed (за единицу)": 4,
   "правило mech_seed (порог / коэффициент)": 2,
-  "правило mech_seed (процент маны / атрибута в урон)": 5,
+  "правило mech_seed (процент маны / атрибута в урон)": 6,
   "правило mech_seed (процент HP / маны в секунду)": 8,
   "правило mech_seed (скорость атаки)": 12,
   "правило mech_seed (дробный процент HP за удар)": 4,
@@ -22,7 +22,10 @@
   "правило mech_seed (второстепенное)": 6,
   "drop в overrides": 32,
   "правило mech_seed (замедление)": 6,
-  "правило mech_seed (реген в секунду)": 5
+  "правило mech_seed (круглый ответ, шаг не лечит)": 2,
+  "правило mech_seed (реген в секунду)": 5,
+  "правило mech_seed (сложное / второстепенное у предмета)": 3,
+  "правило mech_seed (незнакомый предмет)": 1
  },
  "questions": [
   {
@@ -1034,6 +1037,19 @@
    "seed": "threshold"
   },
   {
+   "id": "num:tidehunter_gush:cooldown_scepter@scepter:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Какое кд у Gush у Tidehunter с Aghanim's Scepter?",
+   "topic": "Tidehunter",
+   "answer": 7,
+   "step": 1,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:invoker_sun_strike:delay:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1876,6 +1892,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:morphling_replicate:cd:1",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Какое кд у ультимейта Morph от Morphling на 1-м уровне?",
+   "topic": "Morphling",
+   "answer": 125,
+   "step": 15,
+   "unit": "сек.",
+   "comment": "Morphling · Morph: 125 / 90 / 55 сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (круглый ответ, шаг не лечит): число из тултипа без логики — перегенерировать механикой",
+   "seed": "round"
+  },
+  {
    "id": "num:viper_nethertoxin:max_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2089,6 +2119,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:slark_depth_shroud:cd:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Какое кд у Depth Shroud — способности Slark от Aghanim's Shard?",
+   "topic": "Slark",
+   "answer": 75,
+   "step": 5,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:omniknight_degen_aura:speed_bonus:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -2130,6 +2173,19 @@
    "by": "rule:innate_levelup",
    "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
    "seed": "innate"
+  },
+  {
+   "id": "num:obsidian_destroyer_objurgation:automatic_trigger_cd@scepter:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "С Aghanim's Scepter Objurgation у Outworld Devourer автоматически срабатывает при низком HP. Как часто максимум может происходить это срабатывание?",
+   "topic": "Outworld Devourer",
+   "answer": 80,
+   "step": 10,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:shredder_reactive_armor:max_shield@scepter:max",
@@ -2319,6 +2375,20 @@
    "seed": "aghanim"
   },
   {
+   "id": "num:muerta_pierce_the_veil:cd:1",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Какое кд у Pierce the Veil (ульт Muerta) на 1-м уровне?",
+   "topic": "Muerta",
+   "answer": 75,
+   "step": 5,
+   "unit": "сек.",
+   "comment": "Muerta · Pierce the Veil: 75 / 60 / 45 сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (круглый ответ, шаг не лечит): число из тултипа без логики — перегенерировать механикой",
+   "seed": "round"
+  },
+  {
    "id": "num:tiny_grow:attack_speed_reduction:max",
    "sub": "hero_other",
    "kind": "number",
@@ -2472,6 +2542,19 @@
    "comment": "Clockwerk · Hookshot: 1.2 / 1.4 / 1.6 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:rattletrap_overclocking:buff_duration:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Сколько секунд длится Overclocking у Clockwerk (способность с Aghanim's Scepter)?",
+   "topic": "Clockwerk",
+   "answer": 18,
+   "step": 3,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:grimstroke_spirit_walk:max_stun:max",
@@ -2735,6 +2818,19 @@
    "by": "rule:mech_seed",
    "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
    "seed": "attack_speed"
+  },
+  {
+   "id": "num:visage_gravekeepers_cloak:shard_cooldown@shard:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Какое кд у активного Stone Form самого Visage, который даёт Aghanim's Shard?",
+   "topic": "Visage",
+   "answer": 65,
+   "step": 10,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:kez_raptor_dance:max_health_damage_pct:max",
@@ -3230,6 +3326,19 @@
    "seed": "innate"
   },
   {
+   "id": "num:phantom_lancer_juxtapose:AbilityCooldown@shard:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Какое кд у активки Juxtapose (инвиз), которую даёт Aghanim's Shard у Phantom Lancer?",
+   "topic": "Phantom Lancer",
+   "answer": 18,
+   "step": 3,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:storm_spirit_ball_lightning:ball_lightning_move_speed:max",
    "sub": "hero_other",
    "kind": "number",
@@ -3384,6 +3493,19 @@
    "seed": "illusion"
   },
   {
+   "id": "num:terrorblade_terror_wave:scepter_meta_duration:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "На сколько секунд Terror Wave с Aghanim's Scepter даёт Terrorblade Metamorphosis?",
+   "topic": "Terrorblade",
+   "answer": 15,
+   "step": 2.5,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:bristleback_prickly:amp_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3408,6 +3530,19 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:antimage_mana_break:empowered_mana_break_debuff_duration@scepter:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "Сколько секунд цель не может восстанавливать и получать ману после усиленного Mana Break от Aghanim's Scepter у Anti-Mage?",
+   "topic": "Anti-Mage",
+   "answer": 6,
+   "step": 1,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:antimage_persectur:move_slow_max:max",
@@ -3557,6 +3692,19 @@
    "seed": "pct_per_sec"
   },
   {
+   "id": "num:abyssal_underlord_dark_portal:AbilityCooldown@scepter:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "На сколько секунд Aghanim's Scepter уменьшает кд Fiend's Gate у Underlord?",
+   "topic": "Underlord",
+   "answer": 20,
+   "step": 5,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:chen_penitence:bonus_attack_speed:max",
    "sub": "hero_other",
    "kind": "number",
@@ -3595,6 +3743,19 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:nevermore_requiem:AbilityCooldown@scepter:max",
+   "sub": "hero_time",
+   "kind": "number",
+   "text": "На сколько секунд Aghanim's Scepter уменьшает кд Requiem of Souls у Shadow Fiend?",
+   "topic": "Shadow Fiend",
+   "answer": 30,
+   "step": 5,
+   "unit": "сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:enigma_malefice:stun_duration:max",
@@ -3795,6 +3956,58 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:heart:missing_health_regen:max",
+   "sub": "item_numbers",
+   "kind": "number",
+   "text": "Какой процент от недостающего здоровья добавляет к регену пассивка Behemoth's Blood у Heart of Tarrasque?",
+   "topic": "Heart of Tarrasque",
+   "answer": 1.5,
+   "step": 0.25,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (сложное / второстепенное у предмета): число из тултипа без логики — перегенерировать механикой",
+   "seed": "item_detail"
+  },
+  {
+   "id": "num:helm_of_the_overlord:health_min:max",
+   "sub": "item_numbers",
+   "kind": "number",
+   "text": "До какого минимального запаса здоровья Helm of the Overlord поднимает доминированного крипа?",
+   "topic": "Helm of the Overlord",
+   "answer": 1900,
+   "step": 200,
+   "unit": "HP",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (сложное / второстепенное у предмета): число из тултипа без логики — перегенерировать механикой",
+   "seed": "item_detail"
+  },
+  {
+   "id": "num:helm_of_the_overlord:creep_bonus_damage:max",
+   "sub": "item_numbers",
+   "kind": "number",
+   "text": "Сколько базового урона атаки получает крип, захваченный Helm of the Overlord?",
+   "topic": "Helm of the Overlord",
+   "answer": 70,
+   "step": 10,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (сложное / второстепенное у предмета): число из тултипа без логики — перегенерировать механикой",
+   "seed": "item_detail"
+  },
+  {
+   "id": "num:hydras_breath:poison_damage_per_second:max",
+   "sub": "item_numbers",
+   "kind": "number",
+   "text": "Какой процент от макс. HP цели в секунду наносит яд Miasma у Hydra's Breath?",
+   "topic": "Hydra's Breath",
+   "answer": 2.5,
+   "step": 0.25,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (незнакомый предмет): число из тултипа без логики — перегенерировать механикой",
+   "seed": "unknown_item"
+  },
+  {
    "id": "num:hydras_breath:proc_dmg_pct:max",
    "sub": "item_numbers",
    "kind": "number",
@@ -3865,6 +4078,19 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:heavy_blade:damage:max",
+   "sub": "neutrals",
+   "kind": "number",
+   "text": "Сколько процентов от максимальной маны цели наносит магическим уроном каждая атака с нейтралкой 5-го тира Witchbane?",
+   "topic": "Witchbane",
+   "answer": 4,
+   "step": 0.5,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент маны / атрибута в урон): число из тултипа без логики — перегенерировать механикой",
+   "seed": "ratio"
   },
   {
    "id": "num:spellslinger:mana_pct:max",

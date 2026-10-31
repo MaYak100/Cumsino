@@ -43,7 +43,9 @@ id вопроса постоянный — по нему игра помнит, 
                         шард, урон в секунду, порог / коэффициент; hero_pct — процент в секунду без аганима и список
                         id MECH_SEED_IDS (дроби за удар, детали, иллюзии, коэффициенты в урон, замедления);
                         hero_other — только список id (скорость атаки, реген в секунду, хил за единицу,
-                        коэффициенты, второстепенное, броня 6–8);
+                        коэффициенты, второстепенное, броня 6–8); hero_time — список id (аганим / шард, круглый
+                        ответ); item_numbers и neutrals — список id (второстепенное у предмета, незнакомый
+                        предмет, процент маны в урон);
     спасти вопрос от правила — keep в overrides;
   - всё выкинутое (флаги прогона, тип таланта, drop из overrides, правила) — в scripts/data/bank/archive.json с
     причиной: в игру не идёт, но видно, что и почему ушло;
@@ -531,8 +533,9 @@ def _short_time(q: dict, levelup_ids: set[str]) -> bool:
 
 # mech_seed — разбор «урона способностей» пользователем (2026-10-31): числа, где нет логики, кроме «видел ли тултип».
 # Вопрос не пропадает, а становится семенем для механики (вместе с innate_levelup): по archive.json (поле seed)
-# потом генерируются вопросы «что делает / как работает». Разобраны hero_damage, hero_pct и hero_other (только списком
-# id); в остальных подкатегориях (аганим в hero_time…) правило не действует. В hero_damage — правилом, вид — первый подошедший:
+# потом генерируются вопросы «что делает / как работает». Разобраны все числовые подкатегории, кроме цен (costs —
+# остаются целиком): hero_damage, hero_pct, hero_other, hero_time, item_numbers, neutrals (кроме hero_damage и
+# процента в секунду hero_pct — только списком id MECH_SEED_IDS). В hero_damage — правилом, вид — первый подошедший:
 #   aghanim    — способность или прибавка от Aghanim's Scepter / Shard (в тексте «Aghanim»; «без аганима» у Finger of
 #                Death — кириллицей, это обычный вопрос про ульту);
 #   dps        — урон в секунду (единица «урона/сек.», её ставит DPS_TEXT; «без учёта урона в секунду» у Gorgon's Grasp —
@@ -552,7 +555,8 @@ MECH_SEED = {"aghanim": "аганим / шард", "dps": "урон в секу�
              "detail": "второстепенная деталь", "illusion": "урон иллюзий", "ratio": "процент маны / атрибута в урон",
              "slow": "замедление", "attack_speed": "скорость атаки", "regen": "реген в секунду",
              "per_unit": "за единицу", "coef": "коэффициент", "minor": "второстепенное",
-             "armor": "броня 6–8, лотерея"}
+             "armor": "броня 6–8, лотерея", "round": "круглый ответ, шаг не лечит",
+             "item_detail": "сложное / второстепенное у предмета", "unknown_item": "незнакомый предмет"}
 MECH_SEED_IDS = {
     "num:ogre_magi_smash:damage_absorb_pct:max": "aghanim",                       # Fire Shield, шард
     "num:huskar_burning_spear:burn_damage_max_pct:max": "pct_per_hit",
@@ -623,6 +627,27 @@ MECH_SEED_IDS = {
     "num:vengefulspirit_wave_of_terror:armor_reduction:max": "armor",
     "num:nevermore_dark_lord:presence_armor_reduction:max": "armor",
     "num:tusk_drinking_buddies:armor_bonus:max": "armor",
+    # hero_time — четвёртый разбор пользователя (2026-10-31): все способности / эффекты от Aghanim's Scepter / Shard
+    # («без Aghanim's Scepter» у Haunt и Arena of Blood — обычные вопросы, остаются) и ответы, которые выдают себя
+    # круглостью в ~29% показов при любом шаге в полосе 10–20% (75 сек. при шаге 5, 125 сек. при шаге 15).
+    "num:tidehunter_gush:cooldown_scepter@scepter:max": "aghanim",
+    "num:slark_depth_shroud:cd:max": "aghanim",                                 # шард
+    "num:obsidian_destroyer_objurgation:automatic_trigger_cd@scepter:max": "aghanim",
+    "num:rattletrap_overclocking:buff_duration:max": "aghanim",
+    "num:visage_gravekeepers_cloak:shard_cooldown@shard:max": "aghanim",        # Stone Form самого Visage
+    "num:phantom_lancer_juxtapose:AbilityCooldown@shard:max": "aghanim",        # инвиз
+    "num:terrorblade_terror_wave:scepter_meta_duration:max": "aghanim",
+    "num:antimage_mana_break:empowered_mana_break_debuff_duration@scepter:max": "aghanim",
+    "num:abyssal_underlord_dark_portal:AbilityCooldown@scepter:max": "aghanim",
+    "num:nevermore_requiem:AbilityCooldown@scepter:max": "aghanim",
+    "num:muerta_pierce_the_veil:cd:1": "round",                                 # 75 сек., шаг 5
+    "num:morphling_replicate:cd:1": "round",                                    # Morph, 125 сек., шаг 15
+    # item_numbers и neutrals — пятый разбор пользователя (2026-10-31): остальное остаётся, цены (costs) — целиком.
+    "num:heart:missing_health_regen:max": "item_detail",                        # Behemoth's Blood
+    "num:helm_of_the_overlord:health_min:max": "item_detail",
+    "num:helm_of_the_overlord:creep_bonus_damage:max": "item_detail",
+    "num:hydras_breath:poison_damage_per_second:max": "unknown_item",           # Miasma
+    "num:heavy_blade:damage:max": "ratio",                                      # Witchbane
 }
 
 

@@ -307,16 +307,6 @@
    "comment": "Tidehunter · Kraken Shell: 15 / 35 / 55 / 75 урона по уровням"
   },
   {
-   "id": "num:tidehunter_gush:cooldown_scepter@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у Gush у Tidehunter с Aghanim's Scepter?",
-   "topic": "Tidehunter",
-   "answer": 7,
-   "step": 1,
-   "unit": "сек."
-  },
-  {
    "id": "num:invoker_cold_snap:cd:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1077,17 +1067,6 @@
    "comment": "Morphling · Adaptive Strike: 1 / 1.5 / 2 / 2.5× по уровням"
   },
   {
-   "id": "num:morphling_replicate:cd:1",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у ультимейта Morph от Morphling на 1-м уровне?",
-   "topic": "Morphling",
-   "answer": 125,
-   "step": 15,
-   "unit": "сек.",
-   "comment": "Morphling · Morph: 125 / 90 / 55 сек. по уровням"
-  },
-  {
    "id": "num:morphling_waveform:cd:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1256,16 +1235,6 @@
    "unit": "%"
   },
   {
-   "id": "num:slark_depth_shroud:cd:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у Depth Shroud — способности Slark от Aghanim's Shard?",
-   "topic": "Slark",
-   "answer": 75,
-   "step": 5,
-   "unit": "сек."
-  },
-  {
    "id": "num:omniknight_purification:recast_effectiveness_pct@shard:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1350,16 +1319,6 @@
    "answer": 12,
    "step": 2,
    "unit": "%"
-  },
-  {
-   "id": "num:obsidian_destroyer_objurgation:automatic_trigger_cd@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "С Aghanim's Scepter Objurgation у Outworld Devourer автоматически срабатывает при низком HP. Как часто максимум может происходить это срабатывание?",
-   "topic": "Outworld Devourer",
-   "answer": 80,
-   "step": 10,
-   "unit": "сек."
   },
   {
    "id": "num:shredder_whirling_death:stat_loss_pct:max",
@@ -1468,17 +1427,6 @@
    "step": 2,
    "unit": "атак",
    "comment": "Phoenix · Supernova: 7 / 10 / 13 атак по уровням"
-  },
-  {
-   "id": "num:muerta_pierce_the_veil:cd:1",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у Pierce the Veil (ульт Muerta) на 1-м уровне?",
-   "topic": "Muerta",
-   "answer": 75,
-   "step": 5,
-   "unit": "сек.",
-   "comment": "Muerta · Pierce the Veil: 75 / 60 / 45 сек. по уровням"
   },
   {
    "id": "num:tiny_avalanche:avalanche_damage:max",
@@ -1672,16 +1620,6 @@
    "step": 50,
    "unit": "урона",
    "comment": "Templar Assassin · Psionic Trap: 200 / 300 / 400 урона по уровням"
-  },
-  {
-   "id": "num:rattletrap_overclocking:buff_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд длится Overclocking у Clockwerk (способность с Aghanim's Scepter)?",
-   "topic": "Clockwerk",
-   "answer": 18,
-   "step": 3,
-   "unit": "сек."
   },
   {
    "id": "num:rattletrap_power_cogs:damage:max",
@@ -1917,16 +1855,6 @@
    "step": 100,
    "unit": "HP",
    "comment": "Visage · Summon Familiars: 450 / 600 / 750 HP по уровням"
-  },
-  {
-   "id": "num:visage_gravekeepers_cloak:shard_cooldown@shard:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у активного Stone Form самого Visage, который даёт Aghanim's Shard?",
-   "topic": "Visage",
-   "answer": 65,
-   "step": 10,
-   "unit": "сек."
   },
   {
    "id": "num:slardar_amplify_damage:armor_reduction:max",
@@ -2295,16 +2223,6 @@
    "comment": "Phantom Lancer · Spirit Lance: 100 / 160 / 220 / 280 урона по уровням"
   },
   {
-   "id": "num:phantom_lancer_juxtapose:AbilityCooldown@shard:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Какое кд у активки Juxtapose (инвиз), которую даёт Aghanim's Shard у Phantom Lancer?",
-   "topic": "Phantom Lancer",
-   "answer": 18,
-   "step": 3,
-   "unit": "сек."
-  },
-  {
    "id": "num:storm_spirit_static_remnant:static_remnant_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2458,16 +2376,6 @@
    "comment": "Terrorblade · Sunder: 35 / 30 / 25% по уровням"
   },
   {
-   "id": "num:terrorblade_terror_wave:scepter_meta_duration:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "На сколько секунд Terror Wave с Aghanim's Scepter даёт Terrorblade Metamorphosis?",
-   "topic": "Terrorblade",
-   "answer": 15,
-   "step": 2.5,
-   "unit": "сек."
-  },
-  {
    "id": "num:terrorblade_metamorphosis:bonus_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2552,16 +2460,6 @@
    "answer": 65,
    "step": 10,
    "unit": "%"
-  },
-  {
-   "id": "num:antimage_mana_break:empowered_mana_break_debuff_duration@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "Сколько секунд цель не может восстанавливать и получать ману после усиленного Mana Break от Aghanim's Scepter у Anti-Mage?",
-   "topic": "Anti-Mage",
-   "answer": 6,
-   "step": 1,
-   "unit": "сек."
   },
   {
    "id": "num:antimage_mana_void:cd:max",
@@ -2810,16 +2708,6 @@
    "comment": "Underlord · Atrophy Aura: 30 / 35 / 40 / 45 урона по уровням"
   },
   {
-   "id": "num:abyssal_underlord_dark_portal:AbilityCooldown@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "На сколько секунд Aghanim's Scepter уменьшает кд Fiend's Gate у Underlord?",
-   "topic": "Underlord",
-   "answer": 20,
-   "step": 5,
-   "unit": "сек."
-  },
-  {
    "id": "num:chen_hand_of_god:heal_amount:max",
    "sub": "hero_other",
    "kind": "number",
@@ -2862,16 +2750,6 @@
    "step": 40,
    "unit": "урона",
    "comment": "Shadow Fiend · Shadowraze: 85 / 150 / 215 / 280 урона по уровням"
-  },
-  {
-   "id": "num:nevermore_requiem:AbilityCooldown@scepter:max",
-   "sub": "hero_time",
-   "kind": "number",
-   "text": "На сколько секунд Aghanim's Scepter уменьшает кд Requiem of Souls у Shadow Fiend?",
-   "topic": "Shadow Fiend",
-   "answer": 30,
-   "step": 5,
-   "unit": "сек."
   },
   {
    "id": "num:enigma_demonic_conversion:split_attack_count:max",
@@ -3971,16 +3849,6 @@
    "unit": "HP"
   },
   {
-   "id": "num:heart:missing_health_regen:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Какой процент от недостающего здоровья добавляет к регену пассивка Behemoth's Blood у Heart of Tarrasque?",
-   "topic": "Heart of Tarrasque",
-   "answer": 1.5,
-   "step": 0.25,
-   "unit": "%"
-  },
-  {
    "id": "num:mjollnir:chain_strikes:max",
    "sub": "item_numbers",
    "kind": "number",
@@ -4102,26 +3970,6 @@
    "unit": "сек."
   },
   {
-   "id": "num:helm_of_the_overlord:health_min:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "До какого минимального запаса здоровья Helm of the Overlord поднимает доминированного крипа?",
-   "topic": "Helm of the Overlord",
-   "answer": 1900,
-   "step": 200,
-   "unit": "HP"
-  },
-  {
-   "id": "num:helm_of_the_overlord:creep_bonus_damage:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Сколько базового урона атаки получает крип, захваченный Helm of the Overlord?",
-   "topic": "Helm of the Overlord",
-   "answer": 70,
-   "step": 10,
-   "unit": "урона"
-  },
-  {
    "id": "num:greater_crit:crit_multiplier:max",
    "sub": "item_numbers",
    "kind": "number",
@@ -4140,16 +3988,6 @@
    "answer": 88,
    "step": 8,
    "unit": "урона"
-  },
-  {
-   "id": "num:hydras_breath:poison_damage_per_second:max",
-   "sub": "item_numbers",
-   "kind": "number",
-   "text": "Какой процент от макс. HP цели в секунду наносит яд Miasma у Hydra's Breath?",
-   "topic": "Hydra's Breath",
-   "answer": 2.5,
-   "step": 0.25,
-   "unit": "%"
   },
   {
    "id": "num:orb_of_venom:damage:max",
@@ -4560,16 +4398,6 @@
    "answer": 65,
    "step": 10,
    "unit": "сек."
-  },
-  {
-   "id": "num:heavy_blade:damage:max",
-   "sub": "neutrals",
-   "kind": "number",
-   "text": "Сколько процентов от максимальной маны цели наносит магическим уроном каждая атака с нейтралкой 5-го тира Witchbane?",
-   "topic": "Witchbane",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "%"
   },
   {
    "id": "num:dagger_of_ristul:bonus_damage:max",
