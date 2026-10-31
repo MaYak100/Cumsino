@@ -8,7 +8,7 @@ import { QuestionHistory } from '../questions/history'
 import type { Library } from '../questions/library'
 import type { Question, GameMode, RoundResult } from '@cumsino/shared'
 import {
-  PHASE_DURATIONS, LAST_ANSWER_GRACE_MS, LIGHTNING_MS, MAX_PLAYERS, CLOSEST_EXACT_BONUS, HEX_SECONDS,
+  PHASE_DURATIONS, LAST_ANSWER_GRACE_MS, LIGHTNING_MS, MAX_PLAYERS, CLOSEST_EXACT_BONUS, HEX_QB_SECONDS, roundTimings,
   gladiatorBonus, closestWinnerBonus,
 } from '@cumsino/shared'
 
@@ -321,17 +321,18 @@ describe('сессии', () => {
       const t = makeRoom(3)
       t.toBetting('all')
       const first = t.room.getStateForPlayer('p1')
-      expect(first.phaseDuration).toBe(PHASE_DURATIONS.BETTING)
+      const betting = roundTimings('all', true).betting   // по умолчанию «ставка на вопрос» — 20 с
+      expect(first.phaseDuration).toBe(betting)
       vi.advanceTimersByTime(7_300)
       t.room.placeBet('p2', 30)   // новый стейт посреди фазы
       const later = t.room.getStateForPlayer('p1')
       expect(later.phaseEndsAt).toBe(first.phaseEndsAt)
-      expect(later.phaseDuration).toBe(PHASE_DURATIONS.BETTING)
+      expect(later.phaseDuration).toBe(betting)
       expect(later.serverNow).toBe(Date.now())
-      expect(later.phaseEndsAt! - later.serverNow!).toBe(PHASE_DURATIONS.BETTING! * 1000 - 7_300)
+      expect(later.phaseEndsAt! - later.serverNow!).toBe(betting * 1000 - 7_300)
     })
 
-    it('хекс: свой дедлайн на вопросе — hexEndsAt = начало вопроса + HEX_SECONDS', () => {
+    it('хекс: свой дедлайн на вопросе — hexEndsAt = начало вопроса + время хекса (ставка на вопрос — 7 с)', () => {
       const t = makeRoom(3)
       t.toBetting('all')
       t.p('p1').inventory = { hex: 1 }
@@ -339,7 +340,7 @@ describe('сессии', () => {
       for (const id of ['p1', 'p2', 'p3']) t.room.placeBet(id, 30)
       expect(t.r.phase).toBe('QUESTION')
       const st = t.room.getStateForPlayer('p2')
-      expect(st.hexEndsAt).toBe(t.r.questionStartAt + HEX_SECONDS * 1000)
+      expect(st.hexEndsAt).toBe(t.r.questionStartAt + HEX_QB_SECONDS * 1000)
       expect(t.room.getStateForPlayer('p3').hexEndsAt).toBeUndefined()
     })
   })

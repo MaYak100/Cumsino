@@ -1,6 +1,6 @@
 // shared/src/items.ts — предметы, бонусы (молния, серия) и блайнды. Правила — docs/items.md.
 import type { GameMode, GamePhase } from './types'
-import { MIN_CHIP } from './constants'
+import { MIN_CHIP, PHASE_DURATIONS, QUESTION_BET_BETTING, QUESTION_BET_QUESTION } from './constants'
 
 export type ItemId = 'blink' | 'gem' | 'manta' | 'smoke' | 'hex' | 'bkb' | 'aegis'
 
@@ -23,8 +23,9 @@ export interface ItemDef {
   desc: string
 }
 
-/** хекс: столько секунд у цели на ответ */
+/** хекс: столько секунд у цели на ответ (в «ставке на вопрос» — HEX_QB_SECONDS) */
 export const HEX_SECONDS = 15
+export const HEX_QB_SECONDS = 7
 /** аегис: упал ниже порога после раунда — баланс поднимается до AEGIS_RESTORE, но не выше, чем был перед раундом */
 export const AEGIS_THRESHOLD = 50
 export const AEGIS_RESTORE = 300
@@ -43,12 +44,12 @@ export const ITEMS: Record<ItemId, ItemDef> = {
     targeted: false, key: 'Z', desc: 'Убирает один неверный вариант. Раз за раунд',
   },
   smoke: {
-    id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['BETTING', 'QUESTION'], modes: ['all', 'closest'],
-    targeted: false, key: 'C', desc: 'Разбей ещё на ставках или на вопросе: до конца раунда не видно, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
+    id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['ANNOUNCE', 'BETTING', 'QUESTION'], modes: ['all', 'closest'],
+    targeted: false, key: 'C', desc: 'Разбей до вопроса или на нём: до конца раунда не видно, ответил ли ты и чем пользуешься, а «для всех» — и твою ставку. Гем на тебя слепнет',
   },
   hex: {
     id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],
-    targeted: true, key: 'V', desc: `Бросается на ставках: у цели будет всего ${HEX_SECONDS} секунд на ответ`,
+    targeted: true, key: 'V', desc: `Бросается на ставках: у цели будет всего ${HEX_SECONDS} секунд на ответ (в ставке на вопрос — ${HEX_QB_SECONDS})`,
   },
   bkb: {
     id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all'],
@@ -71,6 +72,12 @@ export const UNLOCK_PER_SHOP = 2
 export function lockedItems(firstGame: boolean, shopsShown: number): ItemId[] {
   if (!firstGame) return []
   return ITEM_ORDER.filter(id => id !== 'aegis').slice(UNLOCK_PER_SHOP * Math.max(1, shopsShown))
+}
+
+/** Смок: в каких фазах режима можно включить. В ANNOUNCE — только «для всех» (смок прячет и ставку: включить до
+ *  первой фишки); в «кто ближе» анонс сразу переходит в вопрос. */
+export function smokePhaseOk(phase: GamePhase, mode: GameMode): boolean {
+  return phase !== 'ANNOUNCE' || mode === 'all'
 }
 
 /** Покупка — только в лавке (фаза SHOP перед каждым раундом «для всех»). */
@@ -99,11 +106,24 @@ export const LAST_ANSWER_GRACE_MS = 1000
 
 // ── бонусы (платит казино) ──
 // «Для всех» и толпа керри: база бонуса — чистый выигрыш игрока из основного пула раунда (без банк-ставки и других
-// бонусов). Никто не проиграл — выигрыша нет, нет и бонусов (0 × 1.25 = 0). Округление вниз до $10.
+// бонусов); с джекпотом «для всех» — и доля банка, и бонус «все угадали». Без джекпота никто не проиграл — выигрыша
+// нет, нет и бонусов (0 × 1.25 = 0). Округление вниз до $10.
 /** «Молния»: верный ответ в первые 8 секунд вопроса — +25% выигрыша (не меньше $10; керри — +$100) */
 export const LIGHTNING_MS = 8000
+/** «для всех» со ставкой на вопрос: вопрос уже прочитан на ставках — молния только за первые 1.5 с */
+export const LIGHTNING_QB_MS = 1500
 export const LIGHTNING_SHARE = 0.25
 export const LIGHTNING_GLADIATOR = 100
+
+/** Длительности раунда: «для всех» со ставкой на вопрос — ставки 20 с, вопрос 15 с, молния 1.5 с, хекс 7 с;
+ *  иначе (и в керри / «кто ближе») — PHASE_DURATIONS, LIGHTNING_MS, HEX_SECONDS. */
+export interface RoundTimings { betting: number; question: number; lightningMs: number; hexSeconds: number }
+export function roundTimings(mode: GameMode, questionBet: boolean): RoundTimings {
+  if (mode === 'all' && questionBet) {
+    return { betting: QUESTION_BET_BETTING, question: QUESTION_BET_QUESTION, lightningMs: LIGHTNING_QB_MS, hexSeconds: HEX_QB_SECONDS }
+  }
+  return { betting: PHASE_DURATIONS.BETTING!, question: PHASE_DURATIONS.QUESTION!, lightningMs: LIGHTNING_MS, hexSeconds: HEX_SECONDS }
+}
 
 /** «Серия»: доля выигрыша сверху за N верных раундов подряд (с двух). Сброс — ошибка или пропуск хода. */
 export function streakShare(streak: number): number {

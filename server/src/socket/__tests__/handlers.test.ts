@@ -9,7 +9,7 @@ function setup() {
   const room = {
     start: vi.fn(), placeBet: vi.fn(), submitAnswer: vi.fn(), buyItem: vi.fn(), useItem: vi.fn(),
     setShopReady: vi.fn(), relayHover: vi.fn(), stageChip: vi.fn(), identify: vi.fn(), rateQuestion: vi.fn(),
-    addBot: vi.fn(), removeBot: vi.fn(), setFirstGame: vi.fn(),
+    addBot: vi.fn(), removeBot: vi.fn(), setFirstGame: vi.fn(), setSettings: vi.fn(),
   }
   // игрок — не сокет: ctx отдаёт комнату и id игрока (p1), а не socket.id
   const engine = {
@@ -88,6 +88,14 @@ describe('socket/handlers', () => {
     ['set_first_game', { on: false }, 'setFirstGame'],
     ['set_first_game', { on: 'yes' }, null],
     ['set_first_game', undefined, null],
+    // настройки игры: каждое поле — boolean или нет; хоть одно
+    ['set_settings', { jackpot: false }, 'setSettings'],
+    ['set_settings', { questionBet: true }, 'setSettings'],
+    ['set_settings', { jackpot: true, questionBet: false }, 'setSettings'],
+    ['set_settings', { jackpot: 'no' }, null],
+    ['set_settings', { jackpot: true, questionBet: 1 }, null],
+    ['set_settings', {}, null],
+    ['set_settings', undefined, null],
   ]
 
   it.each(rows)('%s %j → %s', (event, payload, method) => {
@@ -103,6 +111,12 @@ describe('socket/handlers', () => {
     expect(handlers.has('pay_bribe')).toBe(false)
     send('place_bet', { amount: 30, option: 2, chips: [10, 20] })
     expect(room.placeBet).toHaveBeenCalledWith('p1', 30, 2, [10, 20])
+  })
+
+  it('set_settings: в комнату — только переданные поля', () => {
+    const { send, room } = setup()
+    send('set_settings', { questionBet: false, junk: 1 })
+    expect(room.setSettings).toHaveBeenCalledWith('p1', { questionBet: false })
   })
 
   it('событие без привязки сокета к игроку (ctx пуст) — молча мимо', () => {

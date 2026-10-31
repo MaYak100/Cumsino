@@ -1,4 +1,4 @@
-import { PHASE_DURATIONS } from '@cumsino/shared'
+import { roundTimings } from '@cumsino/shared'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { withUnit } from '@cumsino/shared'
@@ -78,7 +78,7 @@ export function ClosestScreen() {
   return (
     <div className="min-h-dvh flex flex-col">
       <GameHud />
-      <TimeBar seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed} />
+      <TimeBar seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={roundTimings(gameState.mode, !!gameState.questionBet).question} color={color} stopped={revealed} />
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="below-itembar flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 flex flex-col justify-center">

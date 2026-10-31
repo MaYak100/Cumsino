@@ -759,20 +759,22 @@ describe('GameRoom', () => {
       expect(total).toBe(0)
     })
 
-    it('все ответили верно — нулевые дельты', () => {
+    it('все ответили верно — нулевые дельты (джекпот выключен)', () => {
       const { room } = setup([
         { answer: 'A', bet: 100 },
         { answer: 'A', bet: 200 },
       ])
+      priv(room).settings.jackpot = false
       const results = priv(room).calculateResults()
       for (const r of results) expect(r.delta).toBe(0)
     })
 
-    it('никто не угадал — нулевые дельты (ставки сохраняются)', () => {
+    it('никто не угадал — нулевые дельты, ставки сохраняются (джекпот выключен)', () => {
       const { room } = setup([
         { answer: 'B', bet: 100 },
         { answer: 'C', bet: 200 },
       ])
+      priv(room).settings.jackpot = false
       const results = priv(room).calculateResults()
       for (const r of results) expect(r.delta).toBe(0)
     })
@@ -829,7 +831,7 @@ describe('GameRoom', () => {
       ])
       const results = priv(room).calculateResults()
       const p1 = results.find((r: any) => r.playerId === 'p1')
-      expect(p1.sources.some((s: any) => s.label === 'Все ошиблись')).toBe(true)
+      expect(p1.sources.some((s: any) => s.label.startsWith('Все ошиблись'))).toBe(true)
     })
   })
 

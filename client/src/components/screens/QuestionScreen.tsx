@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { HEX_SECONDS, PHASE_DURATIONS } from '@cumsino/shared'
+import { roundTimings } from '@cumsino/shared'
 import { useGameStore, selectIsGladiator, selectMe } from '../../store/gameStore'
 import { C, modeColor } from '../../theme'
 import { GameHud } from '../ui/GameHud'
@@ -103,15 +103,18 @@ export function QuestionScreen() {
     ? (idx: number | null) => sendHover(idx)
     : undefined
 
+  // длины полос: «для всех» со ставкой на вопрос — вопрос 15 с, хекс 7 с, молния 1.5 с
+  const timings = roundTimings(gameState.mode, !!gameState.questionBet)
+
   return (
     <div className="min-h-dvh flex flex-col">
       <GameHud />
       {hexed
         // key: разные полосы — разные экземпляры (иначе хексовая унаследует длину 45 с от обычной и «побежит» неровно)
-        ? <TimeBar key="hex" seconds={gameState.hexTimeLeft!} endsAt={gameState.hexEndsAt} total={HEX_SECONDS} color={color} stopped={revealed || hexDead}
-            lightning={!isCrowd} redAfterLightning />
-        : <TimeBar key="phase" seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed}
-            lightning={!isCrowd} />}
+        ? <TimeBar key="hex" seconds={gameState.hexTimeLeft!} endsAt={gameState.hexEndsAt} total={timings.hexSeconds} color={color} stopped={revealed || hexDead}
+            lightning={!isCrowd} lightningMs={timings.lightningMs} redAfterLightning />
+        : <TimeBar key="phase" seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={timings.question} color={color} stopped={revealed}
+            lightning={!isCrowd} lightningMs={timings.lightningMs} />}
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}
       <main className="below-itembar flex-1 w-full max-w-[56rem] mx-auto px-4 sm:px-6 pt-6 flex flex-col justify-center">

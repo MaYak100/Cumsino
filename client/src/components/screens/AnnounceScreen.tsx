@@ -5,6 +5,7 @@ import { C, DISPLAY, MODE, modeColor } from '../../theme'
 import { GameHud } from '../ui/GameHud'
 import { Sticker } from '../ui/Sticker'
 import { TopicStack } from '../ui/Topic'
+import { JackpotBadge } from '../ui/JackpotBadge'
 
 /** какие режимы уже объявлялись в этой игре (первый раз — дольше, чтобы прочитали правила). Модульный, но
  *  сбрасывается с новой игрой — иначе во второй игре без перезагрузки правила мелькали бы быстро */
@@ -42,6 +43,11 @@ export function AnnounceScreen() {
   const color = modeColor(gameState.mode)
   const q = gameState.currentQuestion
   const topic = q?.displayTopic ?? q?.topic ?? ''
+  const isAll = gameState.mode === 'all'
+  // «для всех» со ставкой на вопрос: ставишь, уже прочитав вопрос (варианты — после ставок)
+  const desc = isAll && gameState.questionBet
+    ? 'Сначала видишь вопрос без вариантов и ставишь на себя. Ответил верно — делишь ставки тех, кто ошибся.'
+    : mode?.desc
 
   return (
     <div className="min-h-dvh flex flex-col overflow-hidden">
@@ -82,8 +88,14 @@ export function AnnounceScreen() {
             className="mt-10 text-lg sm:text-xl leading-relaxed"
             style={{ color: C.fg, maxWidth: 560 }}
           >
-            {mode?.desc}
+            {desc}
           </motion.p>
+          {/* банк джекпота: пустые раунды «для всех» копят его, забирают угадавшие следующего обычного */}
+          {isAll && (gameState.jackpotBank ?? 0) > 0 && (
+            <div className="mt-6">
+              <JackpotBadge bank={gameState.jackpotBank} size="clamp(22px, 2.6vw, 34px)" slam rotate={-2} />
+            </div>
+          )}
         </motion.div>
 
         {/* тема — стикер поверх режима */}

@@ -12,6 +12,7 @@ import { ClosestScreen } from '../components/screens/ClosestScreen'
 import { RoundResultsScreen } from '../components/screens/RoundResultsScreen'
 import { GameOverScreen } from '../components/screens/GameOverScreen'
 import { LateJoinScreen } from '../components/screens/LateJoinScreen'
+import { PhoneBetting } from './PhoneBetting'
 import { useGameStore } from '../store/gameStore'
 
 type GameStoreState = ReturnType<typeof useGameStore.getState>
@@ -118,6 +119,31 @@ const CN_QUESTION = {
   displayTopic: 'Blink Dagger',   // у предметов аспекта нет: тема не выдаёт, что спросят цену
   text: 'Сколько стоит Blink Dagger?',
 }
+
+// «Для всех» со ставкой на вопрос: на ставках сервер шлёт текст без вариантов и единицы
+const QB_QUESTION = {
+  id: 'q-qb-1',
+  mode: 'all' as GameMode,
+  topic: 'Способности',
+  displayTopic: 'Lion\nспособности',
+  text: 'Сколько маны тратит Finger of Death на первом уровне?',
+}
+const QB_LONG_QUESTION = {
+  id: 'q-qb-long',
+  mode: 'all' as GameMode,
+  topic: 'Таланты',
+  displayTopic: 'Enigma\nталанты',
+  text: 'Какой из этих талантов есть у Enigma — и при этом его берут чаще, чем соседний на том же уровне дерева талантов по статистике последнего патча?',
+}
+/** настройки игры по умолчанию (обе включены) и банк джекпота */
+const QB_SETTINGS = { jackpot: true, questionBet: true } as const
+/** стол «для всех» со ставкой на вопрос: Света в смоке (ставка скрыта), у остальных ставки и черновик */
+const QB_PLAYERS: Player[] = [
+  { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0,   hasAnswered: false, blind: 30 },
+  { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [50, 50], hasAnswered: false, blind: 20 },
+  { id: 'dev-3', name: 'Света',  chips: 740, currentBet: 0,   hasAnswered: false, blind: 80, bigBlind: true, betHidden: true, effects: ['smoke'] },
+  { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false, blind: 30, streak: 2 },
+]
 
 const BET_PLAYERS: Player[] = [
   { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betChips: [100],     hasAnswered: false },
@@ -232,6 +258,20 @@ export const SCENARIOS: Scenario[] = [
   },
 
   {
+    id: 'lobby-settings',
+    group: 'LOBBY',
+    label: 'host — джекпот и ставка на вопрос включены (как по умолчанию)',
+    Screen: LobbyScreen,
+    state: { myId: MY_ID, gameState: base('LOBBY', 'all', { ...QB_SETTINGS }) },
+  },
+  {
+    id: 'lobby-settings-nonhost',
+    group: 'LOBBY',
+    label: 'non-host — видит настройки',
+    Screen: LobbyScreen,
+    state: { myId: MY_ID, gameState: base('LOBBY', 'all', { ...QB_SETTINGS, hostId: 'dev-2' }) },
+  },
+  {
     id: 'lobby-bots',
     group: 'LOBBY',
     label: 'host + боты, «кто ты» — я выбрал',
@@ -256,6 +296,16 @@ export const SCENARIOS: Scenario[] = [
     label: 'all',
     Screen: AnnounceScreen,
     state: { myId: MY_ID, gameState: base('ANNOUNCE', 'all', { currentQuestion: MC_QUESTION }) },
+  },
+  {
+    id: 'announce-all-jackpot',
+    group: 'ANNOUNCE',
+    label: 'all — ставка на вопрос, джекпот $360',
+    Screen: AnnounceScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('ANNOUNCE', 'all', { ...QB_SETTINGS, jackpotBank: 360, currentQuestion: QB_QUESTION }),
+    },
   },
   {
     id: 'announce-kerri',
@@ -391,6 +441,77 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
+    id: 'betting-qb',
+    group: 'BETTING',
+    label: 'all — ставка на вопрос, джекпот $240, Света в смоке',
+    Screen: BettingTableScreen,
+    withFelt: true,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        ...QB_SETTINGS, jackpotBank: 240, currentQuestion: QB_QUESTION,
+        phaseTimeLeft: 20, phaseDuration: 20, players: QB_PLAYERS,
+        inventory: { smoke: 1, hex: 1, bkb: 1 },
+      }),
+      // черновик Никиты на столе; черновик Светы стёрт смоком (стор убирает его по betHidden)
+      stagedBets: { 'dev-4': [20, 10, 10] },
+    },
+  },
+  {
+    id: 'betting-qb-long',
+    group: 'BETTING',
+    label: 'all — ставка на вопрос, длинный вопрос, 8 игроков',
+    Screen: BettingTableScreen,
+    withFelt: true,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        ...QB_SETTINGS, jackpotBank: 1250, currentQuestion: QB_LONG_QUESTION,
+        phaseTimeLeft: 14, phaseDuration: 20,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0, hasAnswered: false, blind: 30 },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 150, betChips: [100, 20, 20, 10], hasAnswered: false },
+          { id: 'dev-3', name: 'Света',  chips: 540, currentBet: 0, hasAnswered: false, betHidden: true, effects: ['smoke'] },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 230, betChips: [100, 50, 50, 20, 10], hasAnswered: false },
+          { id: 'dev-5', name: 'Даша',   chips: 610, currentBet: 260, betChips: [100, 100, 20, 20, 10, 10], hasAnswered: false },
+          { id: 'dev-6', name: 'Костя',  chips: 300, currentBet: 120, betChips: [50, 50, 20], hasAnswered: false },
+          { id: 'dev-7', name: 'Лена',   chips: 450, currentBet: 180, betChips: [100, 50, 10, 10, 10], hasAnswered: false },
+          { id: 'dev-8', name: 'Паша',   chips: 500, currentBet: 0, hasAnswered: false, betHidden: true, effects: ['smoke'] },
+        ],
+      }),
+      stagedBets: {},
+    },
+  },
+  {
+    id: 'betting-qb-phone',
+    group: 'BETTING',
+    label: 'телефон — ставка на вопрос, джекпот, Света в смоке',
+    Screen: PhoneBetting,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        ...QB_SETTINGS, jackpotBank: 240, currentQuestion: QB_QUESTION,
+        phaseTimeLeft: 20, phaseDuration: 20, players: QB_PLAYERS,
+        inventory: {},   // угловая панель (окно широкое) и панель в колонке не рисуются обе
+      }),
+      stagedBets: { 'dev-4': [20, 10, 10] },
+    },
+  },
+  {
+    id: 'betting-qb-phone-long',
+    group: 'BETTING',
+    label: 'телефон — длинный вопрос, без джекпота',
+    Screen: PhoneBetting,
+    state: {
+      myId: MY_ID,
+      gameState: base('BETTING', 'all', {
+        ...QB_SETTINGS, jackpotBank: 0, currentQuestion: QB_LONG_QUESTION,
+        phaseTimeLeft: 9, phaseDuration: 20, players: QB_PLAYERS, inventory: {},
+      }),
+      stagedBets: {},
+    },
+  },
+  {
     id: 'betting-kerri-gladiator',
     group: 'BETTING',
     label: 'kerri — гладиатор',
@@ -453,6 +574,39 @@ export const SCENARIOS: Scenario[] = [
       gemResults: { 'dev-2': { answer: MC_QUESTION.options[1], smoked: false } },
       gemmedOnMe: 1,
       itemFeed: [{ playerId: 'dev-2', item: 'blink', at: Date.now() }],
+    },
+  },
+  {
+    id: 'question-all-qb',
+    group: 'QUESTION',
+    label: 'all — ставка на вопрос: фитиль 15 с, молния 1.5 с, хекс 7 с',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'all', {
+        ...QB_SETTINGS, currentQuestion: { ...QB_QUESTION, options: ['100', '150', '200', '250'] },
+        phaseTimeLeft: 14, phaseDuration: 15,
+        players: QB_PLAYERS.map(p => ({ ...p, betHidden: undefined, currentBet: p.currentBet || 50 })),
+      }),
+      roundCorrectAnswer: null,
+      answeredIds: new Set<string>(),
+    },
+  },
+  {
+    id: 'question-all-qb-hexed',
+    group: 'QUESTION',
+    label: 'all — ставка на вопрос, на мне хекс (7 с)',
+    Screen: QuestionScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'all', {
+        ...QB_SETTINGS, currentQuestion: { ...QB_QUESTION, options: ['100', '150', '200', '250'] },
+        phaseTimeLeft: 12, phaseDuration: 15, hexTimeLeft: 4,
+        players: QB_PLAYERS.map(p => ({ ...p, betHidden: undefined, currentBet: p.currentBet || 50,
+          effects: p.id === 'dev-1' ? ['hex' as const] : p.effects })),
+      }),
+      roundCorrectAnswer: null,
+      answeredIds: new Set<string>(),
     },
   },
   {

@@ -3,7 +3,7 @@
 // клиент получил бы по сокету (game_state, round_results). Игроки, ставки и ответы соперников — правдоподобные
 // заглушки; они детерминированы по id вопроса, чтобы при переключении стадий не прыгали.
 import type { GameState, GameMode, Player, Question, RoundResult } from '@cumsino/shared'
-import { decomposeToChips, CLOSEST_WINNER_BONUS, CLOSEST_EXACT_BONUS, GLADIATOR_BONUS, PHASE_DURATIONS } from '@cumsino/shared'
+import { decomposeToChips, CLOSEST_WINNER_BONUS, CLOSEST_EXACT_BONUS, GLADIATOR_BONUS, PHASE_DURATIONS, roundTimings } from '@cumsino/shared'
 import { useGameStore } from '../store/gameStore'
 
 type GameStoreState = ReturnType<typeof useGameStore.getState>
@@ -142,19 +142,26 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
     ? shown.map(p => ({ ...p, chips: Math.max(0, p.chips + (results.find(r => r.playerId === p.id)?.delta ?? 0)) }))
     : shown
 
+  // как сервер: «для всех» до вопроса — без вариантов и единицы (ставка на вопрос — текст виден, лаборатория — с ней)
+  const preQuestion = gm === 'all' && (phase === 'ANNOUNCE' || phase === 'BETTING')
+  const timings = roundTimings(gm, true)
   const gameState: GameState = {
     id: 'lab',
     phase,
     roundIndex: 3,
     mode: gm,
-    currentQuestion: publicQuestion(q),
+    currentQuestion: publicQuestion(preQuestion ? { ...q, options: undefined, unit: undefined } : q),
+    jackpot: true,
+    questionBet: true,
+    jackpotBank: 0,
     // керри выбирают на переходе ANNOUNCE → BETTING
     gladiatorId: stage === 'announce' ? undefined : gladiatorId,
     // толпа видит ответ керри в BETTING и QUESTION (GameRoom.getStateForPlayer)
     gladiatorAnswer: mode === 'kerri-crowd' && (phase === 'BETTING' || phase === 'QUESTION') ? q.answer : undefined,
     hostId: MY_ID,
     players: finalPlayers,
-    phaseTimeLeft: phase === 'QUESTION' && revealed ? 0 : PHASE_DURATIONS[phase] ?? 30,
+    phaseTimeLeft: phase === 'QUESTION' && revealed ? 0
+      : phase === 'BETTING' ? timings.betting : phase === 'QUESTION' ? timings.question : PHASE_DURATIONS[phase] ?? 30,
     friendRoster: [],
   }
 

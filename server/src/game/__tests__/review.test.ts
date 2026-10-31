@@ -7,6 +7,7 @@ import type { Question, GameMode, GameState, RoundResult } from '@cumsino/shared
 import {
   PHASE_DURATIONS, LAST_ANSWER_GRACE_MS, ANSWER_REVEAL_NOTES_MS, WIN_CHIPS, HEX_SECONDS,
   AEGIS_THRESHOLD, AEGIS_RESTORE, itemPrice, STARTING_CHIPS, NEW_MODE_ANNOUNCE_EXTRA,
+  QUESTION_BET_BETTING,
 } from '@cumsino/shared'
 
 // узнаваемые строки: если они встретятся в сообщении до расчёта — утечка
@@ -148,6 +149,39 @@ describe('ревью 2026-10-30', () => {
       vi.advanceTimersByTime(LAST_ANSWER_GRACE_MS)
       // после расчёта ответы видны
       expect(t.states('p3').at(-1)!.players.find(x => x.id === 'p1')!.answer).toBe('B')
+    })
+
+    for (const questionBet of [true, false]) {
+      it(`«для всех»: варианты и единица не уходят до QUESTION ни одной роли; текст — только в ставке на вопрос (questionBet: ${questionBet})`, () => {
+        const t = makeRoom(3, m => (m === 'closest' ? cnQ : { ...mcQ, options: ['OPTA', 'OPTB', 'OPTC', 'OPTD'], answer: 'OPTA', unit: 'UNITX', text: 'TEXTQ' }))
+        t.room.setSettings('p1', { questionBet })
+        t.startIn('all')
+        t.room.addPlayer('s1', 'Зритель')               // вошёл в анонсе — зритель
+        expect(t.r.phase).toBe('ANNOUNCE')
+        vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)
+        expect(t.r.phase).toBe('BETTING')
+        t.room.stageChip('p2', [10, 20])
+        for (const id of ['p1', 'p2', 'p3', 's1']) {
+          const early = t.mail(id)
+          expect(early.some(e => e.event === 'game_state' && e.data.phase === 'BETTING')).toBe(true)
+          for (const opt of ['OPTA', 'OPTB', 'OPTC', 'OPTD', 'UNITX']) expect(leaks(early, opt)).toBe(false)
+          expect(leaks(early, 'TEXTQ')).toBe(questionBet)
+          const st = t.states(id).at(-1)!
+          expect(st.currentQuestion!.options).toBeUndefined()
+          expect(st.currentQuestion!.text).toBe(questionBet ? 'TEXTQ' : '')
+        }
+        for (const id of ['p1', 'p2', 'p3']) t.room.placeBet(id, 30)
+        expect(t.r.phase).toBe('QUESTION')
+        expect(t.states('p2').at(-1)!.currentQuestion).toMatchObject({ text: 'TEXTQ', options: ['OPTA', 'OPTB', 'OPTC', 'OPTD'], unit: 'UNITX' })
+      })
+    }
+
+    it('керри: толпа видит варианты на ставках (ставка на вопрос керри не касается)', () => {
+      const t = makeRoom(3)
+      t.startIn('kerri')
+      vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)
+      expect(t.r.phase).toBe('BETTING')
+      expect(t.states('p2').at(-1)!.currentQuestion!.options).toEqual(['A', 'B', 'C', 'D'])
     })
 
     it('«кто ближе»: число не уходит до расчёта, единица — в currentQuestion', () => {
@@ -642,7 +676,7 @@ describe('report: варианты в порядке показа и кажды�
     expect(t.r.phase).toBe('BETTING')
     const blind = t.p('p1').blind as number
     t.room.placeBet('p1', blind + 20)                       // p1 подтвердил, p2 и p3 — принудительный блайнд
-    vi.advanceTimersByTime(PHASE_DURATIONS.BETTING! * 1000)
+    vi.advanceTimersByTime(QUESTION_BET_BETTING * 1000)     // «ставка на вопрос» (по умолчанию): ставки 20 с
     expect(t.r.phase).toBe('QUESTION')
     t.p('p2').items.smoked = true
     t.p('p1').inventory.blink = 1

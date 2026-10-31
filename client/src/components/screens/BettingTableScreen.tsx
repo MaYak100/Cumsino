@@ -29,6 +29,7 @@ import { Money } from '../ui/Money'
 import { GLADIATOR_BONUS } from '@cumsino/shared'
 import { pressable } from '../../lib/pressable'
 import { isSpectator } from '../../lib/players'
+import { JackpotBadge } from '../ui/JackpotBadge'
 
 // Раскладка керри-толпы в координатах сцены (сукно: центр 650×415, внутренние полуоси 380×248).
 // Кучки соперников лежат у края сукна (landingZone, компактные — BetZone size="sm"); середина рассчитана так, чтобы
@@ -160,25 +161,40 @@ function RoundTable({ bet }: { bet: Betting }) {
               </div>
             )}
 
-            {/* ── In-felt header: all mode — centered in felt ── */}
-            {!isKerriMode && gameState.currentQuestion && (
-              <div style={{
-                position: 'absolute',
-                left: 0, top: FELT_CY - 120,
-                width: SCENE_W, zIndex: 5, pointerEvents: 'none',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center',
-              }}>
-                <div style={{ marginBottom: 18 }}><Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} /></div>
-                <Sticker seed={`${gameState.currentQuestion.id}-topic`} slam rotate={-3} jag={6} padding="10px 22px 12px"
-                  style={{ maxWidth: 520 }}>
-                  <TopicStack topic={gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic} size={32} aspectScale={0.5} />
-                </Sticker>
-                <div style={{ fontSize: 15, color: C.fg, marginTop: 22 }}>
-                  Ставь на то, что ответишь верно
+            {/* ── «Для всех»: таймер, банк джекпота, тема; при ставке на вопрос — и текст вопроса (без вариантов) ── */}
+            {!isKerriMode && gameState.currentQuestion && (() => {
+              const q = gameState.currentQuestion!
+              const text = gameState.questionBet ? q.text : ''
+              return (
+                <div style={{
+                  position: 'absolute',
+                  left: FELT_CX - Q_W / 2, top: text ? FELT_CY - 175 : FELT_CY - 120,
+                  width: Q_W, zIndex: 5, pointerEvents: 'none',
+                  display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', textAlign: 'center',
+                }}>
+                  <div style={{ marginBottom: text ? 12 : 18, display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} />
+                    <JackpotBadge bank={gameState.jackpotBank} size={20} seed={`jp-${gameState.roundIndex}`} />
+                  </div>
+                  <Sticker seed={`${q.id}-topic`} slam rotate={-3} jag={6} padding={text ? '7px 18px 9px' : '10px 22px 12px'}
+                    style={{ maxWidth: 520 }}>
+                    <TopicStack topic={q.displayTopic ?? q.topic} size={text ? 24 : 32} aspectScale={0.5} />
+                  </Sticker>
+                  {text && (
+                    <div style={{
+                      color: C.fg, fontWeight: 600, lineHeight: 1.3, textWrap: 'balance', marginTop: 16,
+                      fontSize: text.length > 140 ? 16 : text.length > 90 ? 18 : 20,   // до трёх строк над «Ставлю»
+                    } as React.CSSProperties}>
+                      {text}
+                    </div>
+                  )}
+                  <div style={{ fontSize: text ? 13 : 15, color: text ? C.muted : C.fg, marginTop: text ? 8 : 22 }}>
+                    {text ? 'Варианты — после ставок. Ставь, если знаешь ответ' : 'Ставь на то, что ответишь верно'}
+                  </div>
                 </div>
-              </div>
-            )}
+              )
+            })()}
 
             {/* ── Center: gladiator label (only in kerri mode for the gladiator) ── */}
             {isGladiator && isKerriMode && (
@@ -305,8 +321,11 @@ function RoundTable({ bet }: { bet: Betting }) {
               const isThisGlad   = player.id === gameState.gladiatorId
 
               const stagedDenoms = stagedBets[player.id]
+              // соперник в смоке («для всех»): его ставку сервер не показывает — вместо кучки дымок
+              const smoked = !isMe && !!player.betHidden
               const betChips = isMe
                 ? (isKerriCrowd ? [] : placedChips)
+                : smoked ? []
                 : stagedDenoms !== undefined
                   ? stagedDenoms.map((denom, i) => ({ id: `${i}-${denom}-${player.id}`, denom } as PhysicalChip))
                   : player.betChips?.length
@@ -342,6 +361,7 @@ function RoundTable({ bet }: { bet: Betting }) {
                       mine={isMe && !isKerriCrowd}
                       onRecall={isMe && !betConfirmed && !isKerriCrowd ? recall : undefined}
                       size={isKerriMode ? 'sm' : 'md'}
+                      smoked={smoked}
                     />
                   )}
                   {theirs && options[theirs.opt] !== undefined && (

@@ -19,6 +19,7 @@ import { ItemIcon } from '../ui/ItemIcon'
 import { ConfirmButton } from '../ui/BetButtons'
 import { ItemBar } from '../ui/ItemBar'
 import { BotMark, needsBotMark } from '../ui/BotMark'
+import { JackpotBadge } from '../ui/JackpotBadge'
 
 const DENOMS: ChipValue[] = [500, 100, 50, 20, 10]
 const RACK_PX = 42     // фишка в стопке дока — под палец
@@ -51,11 +52,12 @@ export function CompactBetting({ bet }: { bet: Betting }) {
           <div className="flex-1 flex flex-col gap-4 px-4 pt-3 pb-5">
             {/* шапка: режим и таймер */}
             <div className="flex items-center gap-3">
-              <span className="font-display text-[0.8125rem] px-2.5 py-1 rounded-md"
+              <span className="font-display text-[0.8125rem] px-2.5 py-1 rounded-md whitespace-nowrap"
                 style={{ background: mode.color, color: C.ink, transform: 'rotate(-2deg)' }}>
                 {mode.short}
               </span>
               <span className="text-[0.8125rem]" style={{ color: C.muted }}>Ставки</span>
+              {!isKerriMode && <JackpotBadge bank={gameState.jackpotBank} size="1rem" seed={`jp-${gameState.roundIndex}`} />}
               <span className="ml-auto"><Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} color={mode.color} size={44} /></span>
             </div>
 
@@ -65,7 +67,17 @@ export function CompactBetting({ bet }: { bet: Betting }) {
                 <Sticker seed={`${q.id}-topic`} slam rotate={-3} jag={6} padding="8px 18px 10px" style={{ maxWidth: '100%' }}>
                   <TopicStack topic={q.displayTopic ?? q.topic} size="1.35rem" aspectScale={0.55} />
                 </Sticker>
-                <span className="text-[0.875rem] mt-1.5" style={{ color: C.fg }}>Ставь на то, что ответишь верно</span>
+                {gameState.questionBet && q.text ? (
+                  <>
+                    {/* ставка на вопрос: текст без вариантов */}
+                    <div className="font-semibold leading-snug text-[1.05rem] text-center mt-2" style={{ color: C.fg, textWrap: 'balance' } as CSSProperties}>
+                      {q.text}
+                    </div>
+                    <span className="text-[0.8125rem] text-center" style={{ color: C.muted }}>Варианты — после ставок. Ставь, если знаешь ответ</span>
+                  </>
+                ) : (
+                  <span className="text-[0.875rem] mt-1.5" style={{ color: C.fg }}>Ставь на то, что ответишь верно</span>
+                )}
               </div>
             )}
 
@@ -134,15 +146,16 @@ function Opponents({ bet }: { bet: Betting }) {
       <div className="grid gap-1.5" style={{ gridTemplateColumns: others.length > 1 ? 'repeat(2, minmax(0, 1fr))' : '1fr' }}>
         {others.map(p => {
           const isGlad = isKerriMode && p.id === gameState.gladiatorId
-          const staged = stagedBets[p.id]
-          const chips = staged ?? (p.betChips?.length ? p.betChips : buildChipsForPlayer(p.id, p.currentBet).map(c => c.denom))
+          // в смоке («для всех») — ставки не видно: ни черновика, ни суммы
+          const staged = p.betHidden ? undefined : stagedBets[p.id]
+          const chips = p.betHidden ? [] : staged ?? (p.betChips?.length ? p.betChips : buildChipsForPlayer(p.id, p.currentBet).map(c => c.denom))
           const amount = staged ? staged.reduce((a, d) => a + d, 0) : p.currentBet
           const canHex = targeting === 'hex' && !p.effects?.includes('hex') && !isSpectator(p)
           const feed = freshFeed.find(f => f.item === 'hex' ? f.targetId === p.id : f.playerId === p.id)
           // керри вариантов толпы не видит (сервер их не шлёт)
           const opt = !isKerriCrowd ? undefined : staged ? stagedOptions[p.id] : p.betOption
           return (
-            <OpponentRow key={p.id} p={p} isGlad={isGlad} chips={chips} amount={amount} draft={!!staged}
+            <OpponentRow key={p.id} p={p} isGlad={isGlad} chips={chips} amount={amount} draft={!!staged} smoked={!!p.betHidden}
               option={opt !== undefined && options[opt] !== undefined ? opt : undefined}
               onTarget={canHex ? () => useItem('hex', p.id) : undefined}
               feed={feed ? <ItemIcon key={feed.at} id={feed.item} size={20} /> : null} />
@@ -153,8 +166,8 @@ function Opponents({ bet }: { bet: Betting }) {
   )
 }
 
-function OpponentRow({ p, isGlad, chips, amount, draft, option, onTarget, feed }: {
-  p: Player; isGlad: boolean; chips: number[]; amount: number; draft: boolean
+function OpponentRow({ p, isGlad, chips, amount, draft, smoked, option, onTarget, feed }: {
+  p: Player; isGlad: boolean; chips: number[]; amount: number; draft: boolean; smoked?: boolean
   option?: number; onTarget?: () => void; feed: ReactNode
 }) {
   return (
@@ -182,6 +195,10 @@ function OpponentRow({ p, isGlad, chips, amount, draft, option, onTarget, feed }
       <span className="flex items-center gap-1.5 leading-none min-w-0">
         {isGlad ? (
           <span className="font-display text-[0.8125rem]" style={{ color: C.hot }}>керри</span>
+        ) : smoked ? (
+          <span className="text-[0.75rem] font-semibold rounded-full px-2 py-0.5" style={{
+            color: C.fg, background: 'radial-gradient(ellipse, rgba(147,163,156,.38), rgba(147,163,156,.12))',
+          }}>в смоке</span>
         ) : (
           <>
             <MiniPile chips={chips} />

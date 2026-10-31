@@ -6,10 +6,11 @@ import type {
 import {
   STARTING_CHIPS, WIN_CHIPS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, ANSWER_REVEAL_MS, ANSWER_REVEAL_NOTES_MS,
   MAX_PLAYERS, MIN_CHIP, NEW_MODE_ANNOUNCE_EXTRA, gladiatorBonus, closestWinnerBonus, PITY_CHIPS,
+  allCorrectBonus, JACKPOT_MIN_BETTORS,
   decomposeToChips,
   ITEMS, ITEM_ORDER, BUY_PHASES, lockedItems, itemPrice, round10, floor10, blindFor, streakShare,
-  HEX_SECONDS, bkbCap, AEGIS_THRESHOLD, AEGIS_RESTORE, LAST_ANSWER_GRACE_MS,
-  LIGHTNING_MS, LIGHTNING_SHARE, LIGHTNING_GLADIATOR, STREAK_GLADIATOR_BASE,
+  bkbCap, AEGIS_THRESHOLD, AEGIS_RESTORE, LAST_ANSWER_GRACE_MS,
+  LIGHTNING_SHARE, LIGHTNING_GLADIATOR, STREAK_GLADIATOR_BASE, roundTimings, smokePhaseOk,
 } from '@cumsino/shared'
 import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
@@ -96,6 +97,15 @@ function chipsPrefix(chips: number[], total: number): number[] | undefined {
   return undefined
 }
 
+/** Настройки игры (хост в лобби, set_settings), обе по умолчанию включены — docs/items.md. */
+export interface RoomSettings {
+  /** джекпот «для всех»: «все ошиблись» — ставки в банк, обычный раунд — банк угадавшим, «все угадали» — бонус */
+  jackpot: boolean
+  /** ставка на вопрос «для всех»: на ставках текст вопроса без вариантов, ставки 20 с, вопрос 15 с */
+  questionBet: boolean
+}
+export const DEFAULT_SETTINGS: RoomSettings = { jackpot: true, questionBet: true }
+
 /** не в сети дольше этого к старту игры — ушёл из лобби, в игру не попадает */
 export const LOBBY_DROP_MS = 30_000
 /** обрыв короче этого (перезагрузка страницы, мигнула сеть) — его ещё ждут: фаза не кончается за секунду без него */
@@ -148,13 +158,25 @@ export class GameRoom extends EventEmitter {
   private lastResults?: RoundResultsPayload
   /** таймеры ходов ботов (по боту) — снимаются на смене фазы, при уходе бота и в destroy */
   private botTimers = new Map<string, ReturnType<typeof setTimeout>[]>()
+  /** настройки хоста (лобби) */
+  private settings: RoomSettings
+  /** банк джекпота: ставки раундов «все ошиблись»; сгорает с концом игры */
+  private jackpotBank = 0
+  /** банк после посчитанного раунда (baseResults) — применяет commitSettlement (расчёт можно звать повторно) */
+  private bankAfter?: number
 
   constructor(id: string, questions: QuestionSource | ((mode: GameMode) => Question),
-    private friendRoster: FriendProfile[] = []) {
+    private friendRoster: FriendProfile[] = [], settings: Partial<RoomSettings> = {}) {
     super()
     this.id = id
     this.questions = typeof questions === 'function' ? { pick: questions } : questions
     this.selector = new RoundSelector()
+    this.settings = { ...DEFAULT_SETTINGS, ...settings }
+  }
+
+  /** Длительности этого раунда: «для всех» со ставкой на вопрос — короче (ставки, вопрос, молния, хекс). */
+  private timings() {
+    return roundTimings(this.currentMode, this.settings.questionBet)
   }
 
   get isFull() { return this.players.size >= MAX_PLAYERS }
@@ -294,6 +316,19 @@ export class GameRoom extends EventEmitter {
   /** «играем впервые» — предметы открываются постепенно */
   private firstGame = false
 
+  /** Хост в лобби меняет настройки игры (джекпот, ставка на вопрос). Переданное поле меняется, остальные — нет. */
+  setSettings(requesterId: string, patch: Partial<RoomSettings>) {
+    if (this.phase !== 'LOBBY' || requesterId !== this.hostId) return
+    let changed = false
+    for (const key of ['jackpot', 'questionBet'] as const) {
+      const v = patch[key]
+      if (typeof v !== 'boolean' || this.settings[key] === v) continue
+      this.settings[key] = v
+      changed = true
+    }
+    if (changed) this.broadcastState()
+  }
+
   /** Хост в лобби убирает бота. */
   removeBot(requesterId: string, botId: string) {
     if (this.phase !== 'LOBBY' || requesterId !== this.hostId) return
@@ -309,13 +344,14 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  /** Ход бота через 0.5–3 с (бот всё ещё в комнате и фаза та же — иначе ход не нужен). */
-  private botLater(bot: RoomPlayer, act: () => void) {
+  /** Ход бота через 0.5–3 с (бот всё ещё в комнате и фаза та же — иначе ход не нужен). slow — 2–6 с: ответ в
+   *  «ставке на вопрос» (молния 1.5 с — иначе почти каждый верный ответ бота с молнией, соло-тест врёт). */
+  private botLater(bot: RoomPlayer, act: () => void, slow = false) {
     const phase = this.phase
     const t = setTimeout(() => this.safely('bot', () => {
       if (this.players.get(bot.id) !== bot || this.phase !== phase) return
       act()
-    }), 500 + Math.random() * 2500)
+    }), slow ? 2000 + Math.random() * 4000 : 500 + Math.random() * 2500)
     const list = this.botTimers.get(bot.id) ?? []
     list.push(t)
     this.botTimers.set(bot.id, list)
@@ -345,7 +381,7 @@ export class GameRoom extends EventEmitter {
         this.botLater(bot, () => {
           const answer = this.botAnswer()
           if (answer !== undefined) this.submitAnswer(bot.id, answer)
-        })
+        }, this.currentMode === 'all' && this.settings.questionBet)
       }
     }
   }
@@ -412,6 +448,7 @@ export class GameRoom extends EventEmitter {
     this.clearRoundTimers()
     this.revealing = true
     this.pending = null
+    this.bankAfter = undefined   // отменённый раунд банк джекпота не трогает
     this.refundRoundItems()
     const results = this.withPity(Array.from(this.players.values()).map(p => ({
       playerId: p.id, delta: 0, chipBreakdown: decomposeToChips(0), sources: [{ label: reason, delta: 0 }],
@@ -529,9 +566,18 @@ export class GameRoom extends EventEmitter {
     return !!v && !v.spectator && v.id !== this.gladiatorId
   }
 
-  /** bet_updated: вариант толпы керри — только толпе (керри и зрителям — без него). */
+  /** «для всех»: игрок в смоке — его ставку (сумму и фишки) соперники не видят до расчёта раунда. */
+  private betSmoked(p: RoomPlayer): boolean {
+    return this.currentMode === 'all' && p.items.smoked && !this.revealing && this.phase !== 'REVEAL'
+  }
+
+  /** bet_updated: вариант толпы керри — только толпе (керри и зрителям — без него); ставка в смоке — только себе. */
   private emitBet(p: RoomPlayer) {
     const full = { playerId: p.id, amount: p.currentBet, chips: p.betChips, option: p.betOption }
+    if (this.betSmoked(p)) {
+      this.sendToPlayer(p.id, 'bet_updated', full)
+      return
+    }
     if (this.currentMode !== 'kerri') {
       this.broadcast('bet_updated', full)
       return
@@ -712,6 +758,7 @@ export class GameRoom extends EventEmitter {
     if ((player.inventory[item] ?? 0) < 1) return false
     if (def.usePhases === 'passive' || !def.usePhases.includes(this.phase)) return false
     if (!def.modes.includes(this.currentMode)) return false
+    if (item === 'smoke' && !smokePhaseOk(this.phase, this.currentMode)) return false
     if (this.phase === 'QUESTION' && this.revealing) return false
     if (this.currentMode === 'kerri' && (item !== 'blink' || player.id !== this.gladiatorId)) return false
     return true
@@ -777,16 +824,17 @@ export class GameRoom extends EventEmitter {
   /** Старт QUESTION: отсчёт для молнии и HEX_SECONDS хекснутым. */
   private onQuestionStart() {
     this.questionStartAt = Date.now()
+    const hexSeconds = this.timings().hexSeconds
     for (const p of this.players.values()) {
       if (!p.items.hexed) continue
-      p.items.hexDeadline = this.questionStartAt + HEX_SECONDS * 1000
+      p.items.hexDeadline = this.questionStartAt + hexSeconds * 1000
       const items = p.items
       this.hexTimers.push(setTimeout(() => this.safely('hex', () => {
         items.hexDone = true
         if (this.phase !== 'QUESTION' || this.revealing) return
         if (!this.graceTimer && this.allAnswered()) this.startGrace()
         this.broadcastState()
-      }), HEX_SECONDS * 1000))
+      }), hexSeconds * 1000))
     }
   }
 
@@ -810,7 +858,7 @@ export class GameRoom extends EventEmitter {
   private endBetting() {
     clearTimeout(this.phaseTimer)
     this.forceBlinds()
-    this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
+    this.schedulePhase('QUESTION', this.timings().question)
   }
 
   private forceBlinds() {
@@ -843,6 +891,8 @@ export class GameRoom extends EventEmitter {
     if (chips.reduce((a, b) => a + b, 0) > player.chips) return
     player.items.stagedChips = [...chips]
     if (this.currentMode === 'kerri' && this.optionOk(option)) player.items.stagedOption = option
+    // в смоке («для всех») черновик соперникам не показывается
+    if (this.betSmoked(player)) return
     const full = { playerId, chips, option: this.currentMode === 'kerri' ? player.items.stagedOption : undefined }
     for (const v of this.players.values()) {
       if (v.bot || v.id === playerId) continue
@@ -861,6 +911,9 @@ export class GameRoom extends EventEmitter {
     const settled = this.revealing || this.phase === 'REVEAL'
     // в лавке вопрос следующего раунда уже выбран, но не показывается (тема — сюрприз анонса)
     const showQuestion = this.phase !== 'SHOP'
+    // «для всех» до вопроса — без вариантов и единицы (при любой настройке); текст — только в «ставке на вопрос».
+    // Керри не трогаем: толпа ставит на вариант
+    const beforeQuestion = this.currentMode === 'all' && (this.phase === 'ANNOUNCE' || this.phase === 'BETTING')
     return {
       id: this.id,
       phase: this.phase,
@@ -873,9 +926,8 @@ export class GameRoom extends EventEmitter {
             mode: this.currentQuestion.mode,
             topic: this.currentQuestion.topic,
             displayTopic: this.currentQuestion.displayTopic,
-            text: this.currentQuestion.text,
-            options: this.currentQuestion.options,
-            unit: this.currentQuestion.unit,
+            text: beforeQuestion && !this.settings.questionBet ? '' : this.currentQuestion.text,
+            ...(beforeQuestion ? {} : { options: this.currentQuestion.options, unit: this.currentQuestion.unit }),
             category: this.currentQuestion.category,
             subcategory: this.currentQuestion.subcategory,
           }
@@ -890,6 +942,9 @@ export class GameRoom extends EventEmitter {
       friendRoster: this.friendRoster,
       firstGame: this.firstGame,
       ...(this.firstGame ? { lockedItems: lockedItems(true, this.shopsShown) } : {}),
+      jackpot: this.settings.jackpot,
+      questionBet: this.settings.questionBet,
+      ...(this.settings.jackpot ? { jackpotBank: this.jackpotBank } : {}),
     }
   }
 
@@ -897,10 +952,13 @@ export class GameRoom extends EventEmitter {
    *  керри — только толпе. */
   private publicPlayer(p: RoomPlayer, settled: boolean, viewerId?: string): Player {
     const effects = this.effectsOf(p)
+    // «для всех»: ставка игрока в смоке — только ему самому (до расчёта)
+    const hideBet = !settled && p.id !== viewerId && this.betSmoked(p)
     return {
-      id: p.id, name: p.name, chips: p.chips, currentBet: p.currentBet,
+      id: p.id, name: p.name, chips: p.chips, currentBet: hideBet ? 0 : p.currentBet,
       ...(p.betOption !== undefined && this.seesOptions(viewerId) ? { betOption: p.betOption } : {}),
-      betChips: p.betChips,
+      betChips: hideBet ? undefined : p.betChips,
+      ...(hideBet ? { betHidden: true as const } : {}),
       // смок: другим не видно, ответил ли (до расчёта раунда)
       hasAnswered: p.items.smokeHidesAnswer && !settled && p.id !== viewerId ? false : p.hasAnswered,
       // чужие ответы — только после расчёта раунда (в «ближе всех» иначе можно подсмотреть число)
@@ -945,7 +1003,7 @@ export class GameRoom extends EventEmitter {
       base.aegisBought = me.aegisBought
       if (me.items.hexed && (this.phase === 'BETTING' || this.phase === 'QUESTION')) {
         base.hexTimeLeft = me.items.hexDeadline === undefined
-          ? HEX_SECONDS
+          ? this.timings().hexSeconds
           : me.items.hexDone ? 0 : Math.max(0, Math.ceil((me.items.hexDeadline - Date.now()) / 1000))
         if (me.items.hexDeadline !== undefined) base.hexEndsAt = me.items.hexDone ? Date.now() : me.items.hexDeadline
       }
@@ -969,6 +1027,7 @@ export class GameRoom extends EventEmitter {
     this.revealing = false
     this.clearRoundTimers()
     this.pending = null
+    this.bankAfter = undefined
     // вопрос не собрался (ошибка в банке) — следующий режим цикла, а не падение комнаты
     let mode = this.selector.next()
     let question: Question | null = null
@@ -1073,9 +1132,9 @@ export class GameRoom extends EventEmitter {
         if (this.currentMode === 'all' || this.currentMode === 'kerri') this.assignBlinds()
         // «кто ближе» без ставок; ставить некому (керри один, у толпы нет денег) — сразу вопрос
         if (this.currentMode === 'closest' || !this.bettingNeeded().length) {
-          this.schedulePhase('QUESTION', PHASE_DURATIONS['QUESTION']!)
+          this.schedulePhase('QUESTION', this.timings().question)
         } else {
-          this.schedulePhase('BETTING', PHASE_DURATIONS['BETTING']!)
+          this.schedulePhase('BETTING', this.timings().betting)
         }
         break
 
@@ -1129,6 +1188,7 @@ export class GameRoom extends EventEmitter {
       // ошибка расчёта не должна вешать комнату (revealing уже стоит): раунд не считается, игра идёт дальше
       console.error(`[room ${this.id}] расчёт раунда упал — раунд не считается:`, err)
       this.pending = null
+      this.bankAfter = undefined
       this.refundRoundItems()
       results = Array.from(this.players.values()).map(p => ({
         playerId: p.id, delta: 0, chipBreakdown: decomposeToChips(0),
@@ -1284,7 +1344,7 @@ export class GameRoom extends EventEmitter {
         delta += d
       }
       const isGladiator = mode === 'kerri' && p.id === this.gladiatorId
-      const fast = p.items.answerAt !== undefined && p.items.answerAt < LIGHTNING_MS
+      const fast = p.items.answerAt !== undefined && p.items.answerAt < this.timings().lightningMs
 
       // исход раунда для серии: true — +1, false — сброс, null — без изменений.
       // База бонусов: «для всех» и толпа керри — чистый выигрыш из основного пула (никто не проиграл — 0, бонусов
@@ -1355,12 +1415,15 @@ export class GameRoom extends EventEmitter {
       if (p) p.aegis = false
     }
     this.pending = null
+    if (this.bankAfter !== undefined) this.jackpotBank = this.bankAfter
+    this.bankAfter = undefined
   }
 
   private baseResults(): RoundResult[] {
     const players = Array.from(this.players.values())
     type Source = { label: string; delta: number }
     this.poolWins = new Map()
+    this.bankAfter = undefined
 
     if (this.currentMode === 'all') {
       const q = this.currentQuestion!
@@ -1368,22 +1431,58 @@ export class GameRoom extends EventEmitter {
       const loserIds = new Set(players.filter(p => p.answer !== q.answer && p.currentBet > 0).map(p => p.id))
       const allCorrect = loserIds.size === 0 && winnerIds.size > 0
       const noneCorrect = winnerIds.size === 0 && loserIds.size > 0
+      const stakes = (ids: Set<string>) => [...ids].map(id => ({ id, stake: this.players.get(id)!.currentBet }))
+      // джекпот — только когда ставят хотя бы двое (docs/items.md, «Джекпот»)
+      const jackpot = this.settings.jackpot && winnerIds.size + loserIds.size >= JACKPOT_MIN_BETTORS
+
+      if (jackpot && (allCorrect || noneCorrect)) {
+        // все угадали — каждому бонус казино (растёт с номером раунда «для всех»), банк лежит дальше;
+        // все ошиблись — ставки уходят в банк
+        const bonus = allCorrectBonus(this.modeRounds.all)
+        let toBank = 0
+        const out = players.map(p => {
+          let delta = 0
+          let sources: Source[] = []
+          if (allCorrect && winnerIds.has(p.id)) {
+            delta = bonus
+            sources = [{ label: 'Все угадали', delta }]
+            this.poolWins.set(p.id, bonus)
+          } else if (noneCorrect && loserIds.has(p.id)) {
+            delta = -p.currentBet
+            toBank += p.currentBet
+            sources = [{ label: 'Все ошиблись — ставка в джекпот', delta }]
+          }
+          return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
+        })
+        if (noneCorrect) this.bankAfter = this.jackpotBank + toBank
+        return out
+      }
 
       const deltas = noneCorrect
         ? new Map<string, number>()
-        : distributePool(
-            [...winnerIds].map(id => ({ id, stake: this.players.get(id)!.currentBet })),
-            [...loserIds].map(id => ({ id, stake: this.players.get(id)!.currentBet })),
-          )
-      for (const id of winnerIds) this.poolWins.set(id, Math.max(0, deltas.get(id) ?? 0))
+        : distributePool(stakes(winnerIds), stakes(loserIds))
+      // обычный раунд с джекпотом: банк делится между угадавшими так же — пропорционально ставкам, кратно 10,
+      // остаток — крупнейшему (отдельным делёжом: доля банка в итогах — своей строкой)
+      const normal = !allCorrect && !noneCorrect && winnerIds.size > 0
+      const bank = jackpot && normal && this.jackpotBank > 0
+        ? distributePool(stakes(winnerIds), [{ id: ' bank', stake: this.jackpotBank }])
+        : undefined
+      if (bank) this.bankAfter = 0
+      for (const id of winnerIds) {
+        this.poolWins.set(id, Math.max(0, deltas.get(id) ?? 0) + Math.max(0, bank?.get(id) ?? 0))
+      }
 
       return players.map(p => {
-        const delta = deltas.get(p.id) ?? 0
+        const fromPool = deltas.get(p.id) ?? 0
+        const fromBank = bank && winnerIds.has(p.id) ? bank.get(p.id) ?? 0 : 0
+        const delta = fromPool + fromBank
         let sources: Source[]
         if (allCorrect) sources = [{ label: 'Все угадали', delta: 0 }]
         else if (noneCorrect) sources = [{ label: 'Все ошиблись', delta: 0 }]
-        else if (winnerIds.has(p.id)) sources = [{ label: 'Ответил верно', delta }]
-        else if (loserIds.has(p.id)) sources = [{ label: 'Ответил неверно', delta }]
+        else if (winnerIds.has(p.id)) {
+          sources = [{ label: 'Ответил верно', delta: fromPool }]
+          if (fromBank) sources.push({ label: 'Джекпот', delta: fromBank })
+        } else if (loserIds.has(p.id)) sources = [{ label: 'Ответил неверно', delta }]
         else sources = []
         return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
       })
