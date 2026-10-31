@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (520 тестов)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (533)
+npm run test:server                     # vitest сервера (521 тест)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (534)
 npx vitest run server/src/game/__tests__/sessions.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -415,7 +415,9 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   «замедление», «безмолвие», «увеличение урона заклинаний», «базовое время атаки» — без сленга; таланты — строка
   русской локализации дословно ([talents-style.md](docs/questions/talents-style.md)).
 - **Статистика** — снимок `scripts/data/stats/<дата>/` (`fetch_stats.py` — OpenDota, `fetch_stratz.py` — STRATZ) →
-  `python scripts/build_stats_bank.py` → `scripts/data/stats/bank.json` → `statQuestions.ts`. **Друзья** —
+  `python scripts/build_stats_bank.py` → `scripts/data/stats/bank.json` → `statQuestions.ts` (обманки — в коридоре
+  ⅔–0.88 правды, добивания ещё ≥ 25 крипов; контрпики — только про коров, позиции 1–3 ≥ 60%; closest средних за
+  матч — верхняя половина пула; stratz-research.md, раздел 5). **Друзья** —
   `scripts/data/friends/metrics.json` → `server/src/game/questions/friends.ts` (категория при ≥ 2 опознанных в лобби;
   «мейн», «винрейт героя», «тиммейты» — про всех из компании, опознанные ×3 чаще; «игры вместе» — пары с хотя бы одним
   опознанным; «свой винрейт» и «игры на герое» — только опознанные).
@@ -425,7 +427,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 533 теста из корня (`npx vitest run --config server/vitest.config.ts`), из них 520 — `npm run test:server`.
+не нужно). 534 теста из корня (`npx vitest run --config server/vitest.config.ts`), из них 521 — `npm run test:server`.
 Живой прогон сессий — `node scripts/e2e_sessions.mjs [url]` при запущенном сервере (по умолчанию порт 3002):
 настоящий socket.io-client — обрыв, возврат, стол в конце ставок, вторая вкладка, вход по имени, хост. Повторять после
 правок `GameEngine` / `handlers` / клиентского входа.
@@ -444,7 +446,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 | `socket/__tests__/handlers.test.ts` (95) | проверки payload всех событий (токен, вариант, `set_settings`), действия от игрока сокета (`ctx`), `leave_game`, `client_log`, disconnect → `engine.disconnect`, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
 | `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, место ответа 25% у нуля и потолка (невозможное исключается, раскладки по весам), единицы, сглаженный выбор, колоды (круг, соседние игры, группы с весами), веса MC / closest, тема, оценки и пределы множителей, друзья (про всех / только опознанные, доля опознанных ≈ ×3), прогон настоящего банка |
 | `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты, строка показа (текст, варианты, верный ответ / число, ответы) |
-| `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, коридор обманок (`band`, вместе с `abs`), дерево талантов, настоящий `bank.json` |
+| `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, коридор обманок (`band` 0.88, вместе с `abs`), подписи п.п. «+1.1%», контрпики только про коров, closest средних — верхняя половина, дерево талантов, настоящий `bank.json` |
 | `shared/src/__tests__/` | `chips`, `units`, `topic` |
 
 Паттерн GameRoom-тестов: `(room as any)` для private-полей и методов (`phase`, `currentMode`, `gladiatorId`,

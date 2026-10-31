@@ -6,7 +6,7 @@
 пулы и значения. Правила (docs/questions/stratz-research.md):
   - MC: 4 варианта из пула; ответ — лидер среди показанных (ask: max / min); порог gap — с КАЖДОЙ из трёх обманок:
     rel — лидер на такую долю выше, abs — на столько единиц (оба заданы — оба сразу), band — коридор: обманка от ⅔
-    до 0.9 правды (иначе ответ очевиден: Manta 10.0М против 5.6М / 4.9М / 4.7М угадали все 5 из 5); нет такой
+    до 0.88 правды (иначе ответ очевиден: Manta 10.0М против 5.6М / 4.9М / 4.7М угадали все 5 из 5); нет такой
     четвёрки — гейт снимается;
   - герой / предмет, попавший в варианты (и герой вопроса), исключается из подкатегории до конца игры;
   - note — истинное значение варианта (до ~6 символов); в игре подписи форматирует сервер по value всей показанной
@@ -24,7 +24,7 @@ server/src/game/questions/categories.ts; здесь только субъект 
                единицы), comment — если отличается от MC
   gap:         {rel?, abs?, band?: [lo, hi]} — с каждой обманкой; band: меньшее / большее из (правда, обманка) в
                [lo, hi] — «больше всех»: обманка от lo до hi правды, «меньше всех» — правда от lo до hi обманки
-  note:        count — числа (к/М по максимуму четвёрки) | pct — доля 0…1 → «53.5%» | pct0 — «62%» | pp — п.п. «+1.4»
+  note:        count — числа (к/М по максимуму четвёрки) | pct — доля 0…1 → «53.5%» | pct0 — «62%» | pp — п.п. «+1.4%»
   layout:      talent_tree — варианты не перемешиваются, стоят как в дереве талантов (сверху 25 ур., снизу 20 ур.)
   mc-пул:      {subject?, entries: [[name, value, note]], asks: [{ask: max|min, text}]}
   exclusive:   [[a, b]] — не ставить в одну четвёрку (компонент и его улучшение: Maelstrom ≥ Mjollnir всегда)
@@ -47,19 +47,26 @@ STATS = Path("scripts/data/stats")
 DOTA = Path("scripts/data/dota")
 OUT = STATS / "bank.json"
 
-# пороги из решений 2026-10-27; коридор обманок (band) — 2026-10-31: каждая обманка от ⅔ до 0.9 правды («меньше
-# всех» — зеркально: правда от ⅔ до 0.9 обманки). Раньше лидер был ограничен сверху только от второго места
+# пороги из решений 2026-10-27; коридор обманок (band) — 2026-10-31: каждая обманка от ⅔ до 0.88 правды («меньше
+# всех» — зеркально: правда от ⅔ до 0.88 обманки). Раньше лидер был ограничен сверху только от второго места
 # (maxRel ×3) — две другие обманки бывали вдвое ниже (Manta 10.0М против 5.6М / 4.9М / 4.7М — угадали все 5 из 5).
-# Верх коридора 0.9 сам даёт отрыв лидера ≥ 11%, отдельный rel у таких подкатегорий не нужен
-BAND = [2 / 3, 0.9]
+# Верх коридора сам даёт отрыв лидера ≥ 1 / 0.88 − 1 ≈ 13.6% (с 0.9 было 11% — мало, решение 2026-10-31), отдельный
+# rel у таких подкатегорий не нужен
+BAND_HI = 0.88
+BAND = [2 / 3, BAND_HI]
 AVG_GAP = {"band": BAND}
-# хил союзникам — коридор от половины: хилеров в пуле 20, с ⅔ лидеров 8 (с ½ — 15)
-HEAL_GAP = {"band": [0.5, 0.9]}
-# добивания — ещё и ≥ 20 крипов с каждой обманкой: 0.9 от 60 крипов — разница 6, на глаз не различить
-CS_GAP = {"band": BAND, "abs": 20}
+# хил союзникам — коридор от половины: хилеров в пуле 20, с ⅔ лидеров мало
+HEAL_GAP = {"band": [0.5, BAND_HI]}
+# добивания — ещё и ≥ 25 крипов с каждой обманкой (было 20, 2026-10-31): 0.88 от 60 крипов — разница 7, на глаз не
+# различить; саппорты в пуле остаются
+CS_GAP = {"band": BAND, "abs": 25}
 COUNTER_GAP = {"abs": 2.5}         # п.п. преимущества
 COUNTER_MIN_GAMES = 5000
 COUNTER_MIN_RIVALS = 25            # меньше — пул мал (Chen, Batrider, Elder Titan)
+# контрпики — только про коров (2026-10-31): у героя вопроса доля позиций 1–3 в рейтинге за недели патча (STRATZ
+# winWeek по позициям, окно hero_wr_patch_weeks) не меньше CORE_MIN. «Против кого саппорт выигрывает» — шум: у
+# саппорта исход матчапа решает кор его линии. Соперники в вариантах — любые
+CORE_MIN = 0.6
 TALENT_GAP = {"abs": 0.10}         # доля внутри пары уровня
 BAN_GAP = {"abs": 0.025}
 WR_GAP = {"abs": 0.025}            # 1.5 п.п. — почти монетка (2026-10-29)
@@ -99,8 +106,9 @@ def pct(v: float, digits: int = 1) -> str:
 
 
 def signed(v: float) -> str:
+    """Процентные пункты со знаком: «+1.1%», «−1.6%», «0.0%» (как formatNotes 'pp' в statQuestions.ts)."""
     t = f"{abs(v):.1f}"
-    return t if t == "0.0" else f"{'+' if v > 0 else '−'}{t}"
+    return f"{t}%" if t == "0.0" else f"{'+' if v > 0 else '−'}{t}%"
 
 
 def ru_date(iso: str) -> str:
@@ -265,13 +273,15 @@ def avg_subs(bank: Bank, snap: Path) -> None:
     heal_ok = lambda r: r["healingAllies"] >= HEAL_ALLIES_MIN
 
     def near(field, text, unit=None, digits=0, where=None):
-        """«Кто ближе» по каждому герою: text(герой) — вопрос; ответ округлён до digits знаков после точки."""
-        rs = [r for r in rows if r.get(field) is not None and (where is None or where(r))]
+        """«Кто ближе» по героям из верхней половины пула по полю (2026-10-31: внизу числа малы, игроки промахиваются в
+        разы — урон по строениям у Lich 256); text(герой) — вопрос; ответ округлён до digits знаков после точки."""
+        rs = half([r for r in rows if r.get(field) is not None and (where is None or where(r))],
+                  lambda r: r[field], True)
         return closest_part([{"subject": r["hero"], "text": text(r["hero"]),
                               "answer": round(r[field], digits) if digits else round(r[field])} for r in rs], unit)
 
     # «кто ближе» (2026-10-30): убийства (с точностью 0.1), добивания, урон по героям и строениям, хил союзникам
-    # (герои от HEAL_ALLIES_MIN, как в MC); самолечения нет — число неинтуитивное. Выбросов в этих полях нет: Meepo
+    # (герои от HEAL_ALLIES_MIN, как в MC) — в каждом только верхняя половина пула (near); самолечения нет — число неинтуитивное. Выбросов в этих полях нет: Meepo
     # суммирует клонов только в самолечении, полученном уроне и атаках, здесь он в общем ряду (9.0 убийств, 306
     # добиваний). Единицы — словарь игры («урона», «HP»); у убийств и добиваний единицы нет: слово уже в вопросе,
     # а «7.4 убийств» не по-русски
@@ -311,17 +321,32 @@ def avg_subs(bank: Bank, snap: Path) -> None:
         bank.add(sub)
 
 
+def core_share(snap: Path) -> dict:
+    """Доля позиций 1–3 в рейтинговых матчах героя за недели патча: hero_id → доля (знаменатель — сумма матчей по
+    пяти позициям, ~99% всех матчей героя)."""
+    pos = defaultdict(dict)
+    for r in load(snap / "stratz/heroes.json")["rows"]:
+        if r["window_id"] == "hero_wr_patch_weeks" and r["bracket"] == "all" and r["position"]:
+            pos[r["hero_id"]][int(r["position"][-1])] = r["games"]
+    return {h: sum(p.get(i, 0) for i in (1, 2, 3)) / sum(p.values()) for h, p in pos.items() if sum(p.values())}
+
+
 def counter_sub(bank: Bank, snap: Path, names: dict) -> None:
+    core = core_share(snap)
     by_hero = defaultdict(list)
     for h, h2, kind, games, wins, syn in load(snap / "stratz/matchups.json")["rows"]:
         if kind == "vs" and games >= COUNTER_MIN_GAMES and syn is not None:
             by_hero[h].append([names[h2], round(syn, 2), signed(syn)])
-    pools = [mc_pool(entries, *((ask, f"Против кого из этих героев {names[h]} выигрывает {word} всего?")
-                                for ask, word in (("min", "реже"), ("max", "чаще"))), subject=names[h])
-             for h, entries in sorted(by_hero.items()) if len(entries) >= COUNTER_MIN_RIVALS]
+    heroes = [h for h, entries in sorted(by_hero.items()) if len(entries) >= COUNTER_MIN_RIVALS]
+    cores = [h for h in heroes if core.get(h, 0) >= CORE_MIN]
+    print(f"  контрпики: коров (позиции 1–3 ≥ {CORE_MIN:.0%}) — {len(cores)} из {len(heroes)} героев с пулом")
+    pools = [mc_pool(by_hero[h], *((ask, f"Против кого из этих героев {names[h]} выигрывает {word} всего?")
+                                   for ask, word in (("min", "реже"), ("max", "чаще"))), subject=names[h])
+             for h in cores]
     bank.add({"id": "counter",
-              "comment": f"Подписи — преимущество героя против соперника в процентных пунктах: винрейт с поправкой "
-                         f"на силу обоих (STRATZ, {bank.patch}, все ранги).",
+              "comment": f"Подписи — преимущество героя над соперником: на сколько процентных пунктов его винрейт в "
+                         f"этой паре выше (+) или ниже (−) ожидаемого с поправкой на силу обоих героев (STRATZ, "
+                         f"{bank.patch}, все ранги).",
               "gap": COUNTER_GAP, "note": "pp", "pools": pools})
 
 

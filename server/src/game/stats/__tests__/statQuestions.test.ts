@@ -175,29 +175,32 @@ describe('StatQuestionBuilder — несовместимые пары и нич�
 })
 
 describe('коридор обманок (band) и пороги вместе', () => {
-  const BAND: [number, number] = [2 / 3, 0.9]
+  const BAND: [number, number] = [2 / 3, 0.88]
 
-  it('gapOk band: «больше всех» — обманка от ⅔ до 0.9 правды, «меньше всех» — зеркально', () => {
-    expect(gapOk(100, 90, { band: BAND }, 'max')).toBe(true)
-    expect(gapOk(100, 91, { band: BAND }, 'max')).toBe(false)              // ближе 0.9 — монетка
+  it('gapOk band: «больше всех» — обманка от ⅔ до 0.88 правды, «меньше всех» — зеркально', () => {
+    expect(gapOk(100, 88, { band: BAND }, 'max')).toBe(true)
+    expect(gapOk(100, 89, { band: BAND }, 'max')).toBe(false)              // ближе 0.88 — монетка
+    expect(gapOk(100, 90, { band: BAND }, 'max')).toBe(false)              // 0.9 — было можно до 2026-10-31
     expect(gapOk(100, 66.7, { band: BAND }, 'max')).toBe(true)
     expect(gapOk(100, 66.6, { band: BAND }, 'max')).toBe(false)            // ниже ⅔ — очевидно
-    expect(gapOk(100, 50, { band: [0.5, 0.9] }, 'max')).toBe(true)         // хил союзникам — от половины
-    // min: правда от ⅔ до 0.9 обманки → обманка от lead / 0.9 до 1.5 · lead
-    expect(gapOk(90, 100, { band: BAND }, 'min')).toBe(true)
-    expect(gapOk(91, 100, { band: BAND }, 'min')).toBe(false)
+    expect(gapOk(100, 50, { band: [0.5, 0.88] }, 'max')).toBe(true)        // хил союзникам — от половины
+    // min: правда от ⅔ до 0.88 обманки → обманка от lead / 0.88 до 1.5 · lead
+    expect(gapOk(88, 100, { band: BAND }, 'min')).toBe(true)
+    expect(gapOk(89, 100, { band: BAND }, 'min')).toBe(false)
     expect(gapOk(100, 150, { band: BAND }, 'min')).toBe(true)
     expect(gapOk(100, 151, { band: BAND }, 'min')).toBe(false)
     expect(gapOk(0, 10, { band: BAND }, 'min')).toBe(false)                 // нуль в коридор не встаёт
   })
 
-  it('abs и band вместе — оба сразу (добивания: коридор и ≥ 20 крипов)', () => {
-    const cs = { band: BAND, abs: 20 }
+  it('abs и band вместе — оба сразу (добивания: коридор и ≥ 25 крипов)', () => {
+    const cs = { band: BAND, abs: 25 }
     expect(gapOk(300, 250, cs, 'max')).toBe(true)
-    expect(gapOk(150, 134, cs, 'max')).toBe(false)                         // коридор да, 16 крипов — нет
+    expect(gapOk(200, 176, cs, 'max')).toBe(false)                         // ровно 0.88, но 24 крипа (было бы ок при 20)
+    expect(gapOk(250, 220, cs, 'max')).toBe(true)                          // 0.88 и 30 крипов
+    expect(gapOk(150, 130, cs, 'max')).toBe(false)                         // коридор да, 20 крипов — нет
     expect(gapOk(300, 190, cs, 'max')).toBe(false)                         // 110 крипов да, коридор (0.63) — нет
-    expect(gapOk(60, 80, cs, 'min')).toBe(true)
-    expect(gapOk(60, 75, cs, 'min')).toBe(false)
+    expect(gapOk(60, 85, cs, 'min')).toBe(true)
+    expect(gapOk(60, 80, cs, 'min')).toBe(false)                           // коридор да, 20 крипов — нет
     expect(gapOk(110, 100, { rel: 0.1, abs: 15 }, 'max')).toBe(false)       // rel да, abs нет
   })
 
@@ -205,18 +208,18 @@ describe('коридор обманок (band) и пороги вместе', ()
     const vals = [10, 5.6, 4.9, 4.7, 8.5, 8, 7.5, 7.2, 3]
     const b = bank({ gap: { band: BAND }, pools: [{ entries: entries(vals), asks: [{ ask: 'max', text: 'q' }] }] })
     const val = Object.fromEntries(entries(vals).map(e => [e[0], e[1]]))
-    expect([...statCards(b.subcategories[0]).mc].sort()).toEqual(['H0'])   // только у 10 три обманки в 6.67…9
+    expect([...statCards(b.subcategories[0]).mc].sort()).toEqual(['H0'])   // только у 10 три обманки в 6.67…8.8
     for (let seed = 1; seed <= 60; seed++) {
       const q = picker(b, seeded(seed)).pick('all')!
       expect(q.answer).toBe('H0')
       for (const o of q.options!) if (o !== q.answer) {
         expect(val[o]).toBeGreaterThanOrEqual(10 * 2 / 3 - 1e-9)
-        expect(val[o]).toBeLessThanOrEqual(9 + 1e-9)
+        expect(val[o]).toBeLessThanOrEqual(8.8 + 1e-9)
       }
     }
   })
 
-  it('min: правда от ⅔ до 0.9 каждой обманки', () => {
+  it('min: правда от ⅔ до 0.88 каждой обманки', () => {
     const vals = [1, 10, 12, 14, 15, 19, 30, 40]
     const b = bank({ gap: { band: BAND }, pools: [{ entries: entries(vals), asks: [{ ask: 'min', text: 'q' }] }] })
     const val = Object.fromEntries(entries(vals).map(e => [e[0], e[1]]))
@@ -224,7 +227,7 @@ describe('коридор обманок (band) и пороги вместе', ()
       const q = picker(b, seeded(seed)).pick('all')!
       expect(q.answer).toBe('H1')                                           // 10: обманки 12, 14, 15 (до 15)
       for (const o of q.options!) if (o !== q.answer) {
-        expect(val[o]).toBeGreaterThanOrEqual(10 / 0.9 - 1e-9)
+        expect(val[o]).toBeGreaterThanOrEqual(10 / 0.88 - 1e-9)
         expect(val[o]).toBeLessThanOrEqual(15 + 1e-9)
       }
     }
@@ -245,7 +248,9 @@ describe('formatNotes — одна точность и общий суффикс
   it('pct / pct0 / pp', () => {
     expect(formatNotes([0.535, 0.513, 0.507, 0.5], 'pct')).toEqual(['53.5%', '51.3%', '50.7%', '50.0%'])
     expect(formatNotes([0.62, 0.38, 0.78, 0.22], 'pct0')).toEqual(['62%', '38%', '78%', '22%'])
-    expect(formatNotes([-2.2, 0.8, -0.04, 0.03], 'pp')).toEqual(['−2.2', '+0.8', '0.0', '0.0'])
+    // контрпики: процентные пункты со знаком процента (2026-10-31; было «+0.8» без единиц)
+    expect(formatNotes([-2.2, 0.8, -0.04, 0.03], 'pp')).toEqual(['−2.2%', '+0.8%', '0.0%', '0.0%'])
+    expect(formatNotes([-12.3, 10.9, 1, 2], 'pp')).toEqual(['−12.3%', '+10.9%', '+1.0%', '+2.0%'])   // ≤ 6 символов
   })
 
   it('подпись лидера совпала с чужой — добавляется знак', () => {
@@ -381,17 +386,17 @@ describe('настоящий bank.json', () => {
     }
   })
 
-  it.skipIf(!real)('коридор обманок: каждая обманка от ⅔ (хил — ½) до 0.9 правды, добивания — ещё и ≥ 20', () => {
+  it.skipIf(!real)('коридор обманок: каждая обманка от ⅔ (хил — ½) до 0.88 правды, добивания — ещё и ≥ 25', () => {
     const want: Record<string, { lo: number; abs?: number }> = {
       avg_heal_allies: { lo: 0.5 }, avg_heal_self: { lo: 2 / 3 }, avg_tower: { lo: 2 / 3 },
-      avg_hero_damage: { lo: 2 / 3 }, avg_kills: { lo: 2 / 3 }, avg_cs: { lo: 2 / 3, abs: 20 },
+      avg_hero_damage: { lo: 2 / 3 }, avg_kills: { lo: 2 / 3 }, avg_cs: { lo: 2 / 3, abs: 25 },
       hero_pick: { lo: 2 / 3 }, hero_pick_year: { lo: 2 / 3 }, hero_pick_all: { lo: 2 / 3 },
       items: { lo: 2 / 3 }, items_hero: { lo: 2 / 3 },
     }
     for (const [id, w] of Object.entries(want)) {
       const sub = real!.subcategories.find(s => s.id === id)!
       expect(sub.gap?.band?.[0]).toBeCloseTo(w.lo, 9)
-      expect(sub.gap?.band?.[1]).toBe(0.9)
+      expect(sub.gap?.band?.[1]).toBe(0.88)
       expect(sub.gap?.abs).toBe(w.abs)
       for (let seed = 1; seed <= 30; seed++) {
         const q = new StatQuestionBuilder(real!, seeded(seed)).build(sub, 'all', gameOnlyDeck())!
@@ -404,7 +409,7 @@ describe('настоящий bank.json', () => {
           if (o === q.answer) continue
           const [hi, lo] = ask === 'max' ? [lead, val[o]] : [val[o], lead]
           expect(lo / hi).toBeGreaterThanOrEqual(w.lo - 1e-9)
-          expect(lo / hi).toBeLessThanOrEqual(0.9 + 1e-9)
+          expect(lo / hi).toBeLessThanOrEqual(0.88 + 1e-9)
           if (w.abs) expect(hi - lo).toBeGreaterThanOrEqual(w.abs - 1e-9)
         }
       }
@@ -414,10 +419,10 @@ describe('настоящий bank.json', () => {
 
   it.skipIf(!real)('«кто ближе» средних: убийства с точностью 0.1, остальное целое; единицы; без самолечения', () => {
     // размеры пулов зависят от снимка (сколько героев в игре, сколько лечат) — только по одному пулу на героя и
-    // разумный минимум: у средних почти все герои, у хила союзникам — хилеры
+    // разумный минимум: у средних верхняя половина героев, у хила союзникам — верхняя половина хилеров
     const want: Record<string, { unit?: string; min: number }> = {
-      avg_kills: { min: 100 }, avg_cs: { min: 100 }, avg_hero_damage: { unit: 'урона', min: 100 },
-      avg_tower: { unit: 'урона', min: 100 }, avg_heal_allies: { unit: 'HP', min: 10 },
+      avg_kills: { min: 50 }, avg_cs: { min: 50 }, avg_hero_damage: { unit: 'урона', min: 50 },
+      avg_tower: { unit: 'урона', min: 50 }, avg_heal_allies: { unit: 'HP', min: 8 },
     }
     for (const [id, w] of Object.entries(want)) {
       const sub = real!.subcategories.find(s => s.id === id)!
@@ -425,6 +430,12 @@ describe('настоящий bank.json', () => {
       expect(sub.closest!.unit).toBe(w.unit)
       expect(sub.closest!.pools.length).toBeGreaterThanOrEqual(w.min)
       expect(new Set(sub.closest!.pools.map(p => p.subject)).size).toBe(sub.closest!.pools.length)
+      // только верхняя половина пула по показателю (2026-10-31): MC-пул «больше всех» — тоже верхняя половина (у хила
+      // союзникам — все хилеры), closest — самые большие из него, ровно половина всех героев пула
+      const top = sub.pools.find(p => p.asks.some(a => a.ask === 'max'))!.entries.slice().sort((a, b) => b[1] - a[1])
+      const n = sub.closest!.pools.length
+      expect(new Set(sub.closest!.pools.map(p => p.subject))).toEqual(new Set(top.slice(0, n).map(e => e[0])))
+      expect([top.length, Math.floor(top.length / 2)]).toContain(n)
       for (const p of sub.closest!.pools) {
         const digits = id === 'avg_kills' ? 1 : 0
         expect(Math.round(p.answer * 10 ** digits) / 10 ** digits).toBe(p.answer)
@@ -450,6 +461,19 @@ describe('настоящий bank.json', () => {
       const mc = ih.pools.find(x => x.subject === p.subject)   // MC-пул героя мог не пройти гейт — closest остаётся
       if (mc) expect(mc.entries.some(e => p.text.includes(` покупают ${e[0]} `))).toBe(true)
     }
+  })
+
+  it.skipIf(!real)('контрпики: герой вопроса — кор (позиции 1–3 ≥ 60%), подписи — п.п. со знаком процента', () => {
+    const sub = real!.subcategories.find(s => s.id === 'counter')!
+    const heroes = new Set(sub.pools.map(p => p.subject))
+    for (const core of ['Anti-Mage', 'Axe', 'Invoker', 'Shadow Fiend']) expect(heroes.has(core)).toBe(true)
+    for (const sup of ['Crystal Maiden', 'Lion', 'Pudge', 'Earth Spirit']) expect(heroes.has(sup)).toBe(false)
+    // соперники — любые: саппорты в вариантах остаются
+    expect(sub.pools.some(p => p.entries.some(e => e[0] === 'Crystal Maiden'))).toBe(true)
+    expect(sub.note).toBe('pp')
+    expect(sub.comment).toContain('процентных пунктов')
+    const q = new StatQuestionBuilder(real!, seeded(3)).build(sub, 'all', gameOnlyDeck())!
+    for (const n of q.optionNotes!) expect(n).toMatch(/^([+−]\d+\.\d|0\.0)%$/)
   })
 
   it.skipIf(!real)('таланты: в банке layout talent_tree, сверху 25 уровень, снизу 20', () => {
