@@ -50,10 +50,12 @@ const HEROES = 'Герои'
 
 export const CATEGORIES: CategoryDef[] = [
   {
-    id: 'hero_numbers', title: 'Числа героев', weight: 1, subs: [
-      { id: 'hero_damage', title: 'Урон способностей', aspect: 'способности' },
-      { id: 'hero_time', title: 'Длительности и кулдауны', aspect: 'способности' },
-      { id: 'hero_pct', title: 'Проценты способностей', aspect: 'способности' },
+    // вес категории 0.85 = (3 × 0.8 + 1) / 4: три подкатегории ниже реже на 20%, «прочие числа» — с прежней долей
+    id: 'hero_numbers', title: 'Числа героев', weight: 0.85, subs: [
+      // урон, длительности и проценты — почти одна подтема «число из тултипа способности»: каждая по 0.8 (2026-10-31)
+      { id: 'hero_damage', title: 'Урон способностей', weight: 0.8, aspect: 'способности' },
+      { id: 'hero_time', title: 'Длительности и кулдауны', weight: 0.8, aspect: 'способности' },
+      { id: 'hero_pct', title: 'Проценты способностей', weight: 0.8, aspect: 'способности' },
       { id: 'hero_other', title: 'Прочие числа способностей', aspect: 'способности' },
     ],
   },
