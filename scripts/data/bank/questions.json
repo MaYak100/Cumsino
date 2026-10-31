@@ -177,17 +177,6 @@
    "ceil": 100
   },
   {
-   "id": "num:juggernaut_blade_fury:blade_fury_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Blade Fury у Juggernaut на максимальном уровне?",
-   "topic": "Juggernaut",
-   "answer": 175,
-   "step": 25,
-   "unit": "урона/сек.",
-   "comment": "Juggernaut · Blade Fury: 85 / 115 / 145 / 175 урона/сек. по уровням"
-  },
-  {
    "id": "num:juggernaut_blade_dance:blade_dance_crit_chance:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -217,17 +206,6 @@
    "step": 40,
    "unit": "урона",
    "comment": "Disruptor · Glimpse: 100 / 160 / 220 / 280 урона по уровням"
-  },
-  {
-   "id": "num:disruptor_static_storm:damage_max:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько максимального урона в секунду наносит Static Storm у Disruptor на 3-м уровне?",
-   "topic": "Disruptor",
-   "answer": 350,
-   "step": 50,
-   "unit": "урона/сек.",
-   "comment": "Disruptor · Static Storm: 200 / 275 / 350 урона/сек. по уровням"
   },
   {
    "id": "num:disruptor_thunder_strike:strike_damage:max",
@@ -296,16 +274,6 @@
    "comment": "Tinker · Laser: 75 / 150 / 225 / 300 урона по уровням"
   },
   {
-   "id": "num:tinker_warp_grenade:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит Warp Flare, которую Tinker получает с Aghanim's Shard?",
-   "topic": "Tinker",
-   "answer": 150,
-   "step": 25,
-   "unit": "урона"
-  },
-  {
    "id": "num:puck_dream_coil:coil_initial_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -315,16 +283,6 @@
    "step": 50,
    "unit": "урона",
    "comment": "Puck · Dream Coil: 175 / 250 / 325 урона по уровням"
-  },
-  {
-   "id": "num:puck_phase_shift:shard_bonus_damage@shard:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько бонусного магического урона дают атаки Puck с Aghanim's Shard?",
-   "topic": "Puck",
-   "answer": 20,
-   "step": 5,
-   "unit": "урона"
   },
   {
    "id": "num:chaos_knight_reality_rift:armor_reduction:max",
@@ -347,16 +305,6 @@
    "step": 40,
    "unit": "%",
    "comment": "Chaos Knight · Chaos Strike: 150 / 190 / 230 / 270% по уровням"
-  },
-  {
-   "id": "num:chaos_knight_phantasm:incoming_damage_tooltip:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов урона получают иллюзии от Phantasm у Chaos Knight?",
-   "topic": "Chaos Knight",
-   "answer": 350,
-   "step": 50,
-   "unit": "%"
   },
   {
    "id": "num:dazzle_shallow_grave:duration:max",
@@ -391,17 +339,6 @@
    "comment": "Tidehunter · Kraken Shell: 15 / 35 / 55 / 75 урона по уровням"
   },
   {
-   "id": "num:tidehunter_kraken_shell:damage_cleanse:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона должен получить Tidehunter, чтобы Kraken Shell сделал ему диспел, на максимальном уровне?",
-   "topic": "Tidehunter",
-   "answer": 450,
-   "step": 75,
-   "unit": "урона",
-   "comment": "Tidehunter · Kraken Shell: 600 / 550 / 500 / 450 урона по уровням"
-  },
-  {
    "id": "num:tidehunter_gush:cooldown_scepter@scepter:max",
    "sub": "hero_time",
    "kind": "number",
@@ -430,16 +367,6 @@
    "answer": 9,
    "step": 1,
    "unit": "сек."
-  },
-  {
-   "id": "num:invoker_emp:damage_per_mana_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов от сожжённой маны E.M.P. у Invoker наносит уроном?",
-   "topic": "Invoker",
-   "answer": 60,
-   "step": 10,
-   "unit": "%"
   },
   {
    "id": "num:death_prophet_exorcism:spirits:max",
@@ -483,17 +410,6 @@
    "step": 60,
    "unit": "урона",
    "comment": "Winter Wyvern · Splinter Blast: 80 / 160 / 240 / 320 урона по уровням"
-  },
-  {
-   "id": "num:winter_wyvern_cold_embrace:heal_percentage:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов от максимального HP в секунду лечит Cold Embrace у Winter Wyvern на максимальном уровне?",
-   "topic": "Winter Wyvern",
-   "answer": 4.5,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Winter Wyvern · Cold Embrace: 1.5 / 2.5 / 3.5 / 4.5% по уровням"
   },
   {
    "id": "num:winter_wyvern_winters_curse:max_duration:max",
@@ -561,17 +477,6 @@
    "comment": "Ogre Magi · Bloodlust: 35 / 50 / 65 / 80 скорости атаки по уровням"
   },
   {
-   "id": "num:ogre_magi_smash:damage_absorb_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент урона от атаки вражеского героя поглощает Fire Shield (Aghanim's Shard) у Ogre Magi?",
-   "topic": "Ogre Magi",
-   "answer": 85,
-   "step": 2.5,
-   "unit": "%",
-   "ceil": 100
-  },
-  {
    "id": "num:kunkka_tidebringer:cleave_damage:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -590,16 +495,6 @@
    "answer": 40,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:kunkka_tidal_wave:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит Tidal Wave (Aghanim's Shard) у Kunkka?",
-   "topic": "Kunkka",
-   "answer": 180,
-   "step": 30,
-   "unit": "урона"
   },
   {
    "id": "num:huskar_berserkers_blood:maximum_attack_speed:max",
@@ -622,37 +517,6 @@
    "step": 6,
    "unit": "%",
    "comment": "Huskar · Life Break: 32 / 38 / 44% по уровням"
-  },
-  {
-   "id": "num:huskar_burning_spear:burn_damage_max_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от максимального здоровья цели добавляет к горению Burning Spear у Huskar?",
-   "topic": "Huskar",
-   "answer": 0.5,
-   "step": 0.05,
-   "unit": "%"
-  },
-  {
-   "id": "num:beastmaster_wild_axes:damage_amp:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов усиливает получаемый урон от Beastmaster и его юнитов один стак Wild Axes на максимальном уровне?",
-   "topic": "Beastmaster",
-   "answer": 8,
-   "step": 1,
-   "unit": "%",
-   "comment": "Beastmaster · Wild Axes: 5 / 6 / 7 / 8% по уровням"
-  },
-  {
-   "id": "num:beastmaster_drums_of_slom:base_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит один удар в барабан Drums of Slom, которые Beastmaster получает с Aghanim's Scepter?",
-   "topic": "Beastmaster",
-   "answer": 70,
-   "step": 10,
-   "unit": "урона"
   },
   {
    "id": "num:beastmaster_summon_raptor:dive_damage:max",
@@ -698,17 +562,6 @@
    "comment": "Warlock · Upheaval: 10 / 12 / 14 / 16 сек. по уровням"
   },
   {
-   "id": "num:warlock_rain_of_chaos:golem_dmg_scepter@scepter:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Какой урон атаки у каждого голема Warlock с Aghanim's Scepter, когда Chaotic Offering на 3-м уровне?",
-   "topic": "Warlock",
-   "answer": 160,
-   "step": 30,
-   "unit": "урона",
-   "comment": "Warlock · Chaotic Offering: 80 / 120 / 160 урона по уровням"
-  },
-  {
    "id": "num:silencer_last_word:int_multiplier:max",
    "sub": "hero_other",
    "kind": "number",
@@ -718,28 +571,6 @@
    "step": 0.25,
    "unit": "×",
    "comment": "Silencer · Last Word: 1 / 1.5 / 2 / 2.5× по уровням"
-  },
-  {
-   "id": "num:silencer_glaives_of_wisdom:intellect_damage_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент интеллекта Silencer добавляется к урону атаки через Glaives of Wisdom на максимальном уровне?",
-   "topic": "Silencer",
-   "answer": 80,
-   "step": 15,
-   "unit": "%",
-   "comment": "Silencer · Glaives of Wisdom: 35 / 50 / 65 / 80% по уровням"
-  },
-  {
-   "id": "num:silencer_curse_of_the_silent:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Arcane Curse у Silencer на максимальном уровне?",
-   "topic": "Silencer",
-   "answer": 40,
-   "step": 5,
-   "unit": "урона/сек.",
-   "comment": "Silencer · Arcane Curse: 16 / 24 / 32 / 40 урона/сек. по уровням"
   },
   {
    "id": "num:clinkz_strafe:attack_speed_bonus:max",
@@ -770,16 +601,6 @@
    "text": "Сколько процентов урона атаки Clinkz наносит каждая стрела Burning Barrage (способность от Aghanim's Shard)?",
    "topic": "Clinkz",
    "answer": 75,
-   "step": 5,
-   "unit": "%"
-  },
-  {
-   "id": "num:clinkz_wind_walk:damage_percent:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент урона Clinkz наносят Skeleton Archers из Skeleton Walk?",
-   "topic": "Clinkz",
-   "answer": 20,
    "step": 5,
    "unit": "%"
   },
@@ -816,17 +637,6 @@
    "unit": "%"
   },
   {
-   "id": "num:axe_battle_hunger:damage_per_second:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Battle Hunger у Axe на максимальном уровне?",
-   "topic": "Axe",
-   "answer": 24,
-   "step": 4,
-   "unit": "урона/сек.",
-   "comment": "Axe · Battle Hunger: 12 / 16 / 20 / 24 урона/сек. по уровням"
-  },
-  {
    "id": "num:meepo_poof:poof_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -859,16 +669,6 @@
    "unit": "%"
   },
   {
-   "id": "num:meepo_megameepo_fling:fling_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит MegaMeepo Fling у Meepo с Aghanim's Scepter?",
-   "topic": "Meepo",
-   "answer": 225,
-   "step": 25,
-   "unit": "урона"
-  },
-  {
    "id": "num:sven_gods_strength:gods_strength_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -899,17 +699,6 @@
    "step": 15,
    "unit": "%",
    "comment": "Sven · Great Cleave: 60 / 70 / 80 / 90% по уровням"
-  },
-  {
-   "id": "num:life_stealer_feast:hp_damage_percent:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов от макс. HP цели наносит Feast у Lifestealer за атаку на максимальном уровне?",
-   "topic": "Lifestealer",
-   "answer": 3.25,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Lifestealer · Feast: 1.45 / 2.05 / 2.65 / 3.25% по уровням"
   },
   {
    "id": "num:life_stealer_rage:magic_resist:max",
@@ -1085,16 +874,6 @@
    "comment": "Bloodseeker · Thirst: 10 / 20 / 30 / 40% по уровням"
   },
   {
-   "id": "num:treant_overgrowth:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Overgrowth у Treant Protector?",
-   "topic": "Treant Protector",
-   "answer": 95,
-   "step": 15,
-   "unit": "урона/сек."
-  },
-  {
    "id": "num:treant_living_armor:damage_block_base:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1202,38 +981,6 @@
    "unit": "колючек"
   },
   {
-   "id": "num:dark_seer_ion_shell:damage_per_second:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Ion Shell у Dark Seer на максимальном уровне?",
-   "topic": "Dark Seer",
-   "answer": 90,
-   "step": 15,
-   "unit": "урона/сек.",
-   "comment": "Dark Seer · Ion Shell: 30 / 50 / 70 / 90 урона/сек. по уровням"
-  },
-  {
-   "id": "num:dark_seer_normal_punch:max_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Какой максимальный урон у Normal Punch от Aghanim's Scepter у Dark Seer?",
-   "topic": "Dark Seer",
-   "answer": 400,
-   "step": 50,
-   "unit": "урона"
-  },
-  {
-   "id": "num:dark_seer_wall_of_replica:tooltip_outgoing:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент урона оригинала наносят реплики от Wall of Replica у Dark Seer на 3-м уровне?",
-   "topic": "Dark Seer",
-   "answer": 90,
-   "step": 10,
-   "unit": "%",
-   "comment": "Dark Seer · Wall of Replica: 70 / 80 / 90% по уровням"
-  },
-  {
    "id": "num:ancient_apparition_ice_blast:kill_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1275,18 +1022,6 @@
    "step": 15,
    "unit": "урона",
    "comment": "Ancient Apparition · Chilling Touch: 35 / 65 / 95 / 125 урона по уровням"
-  },
-  {
-   "id": "num:batrider_sticky_napalm:turn_rate_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов Sticky Napalm у Batrider замедляет скорость поворота на максимальном уровне?",
-   "topic": "Batrider",
-   "answer": 70,
-   "step": 5,
-   "unit": "%",
-   "comment": "Batrider · Sticky Napalm: 10 / 30 / 50 / 70% по уровням",
-   "ceil": 100
   },
   {
    "id": "num:batrider_flamebreak:cd:max",
@@ -1331,16 +1066,6 @@
    "unit": "%"
   },
   {
-   "id": "num:tusk_walrus_kick:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит Walrus Kick у Tusk (с Aghanim's Scepter)?",
-   "topic": "Tusk",
-   "answer": 550,
-   "step": 75,
-   "unit": "урона"
-  },
-  {
    "id": "num:tusk_drinking_buddies:armor_bonus:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1349,17 +1074,6 @@
    "answer": 7,
    "step": 1,
    "unit": "брони"
-  },
-  {
-   "id": "num:tusk_tag_team:movement_slow:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какое замедление скорости передвижения накладывает Tag Team у Tusk при атаке по врагу?",
-   "topic": "Tusk",
-   "answer": 75,
-   "step": 5,
-   "unit": "%",
-   "ceil": 100
   },
   {
    "id": "num:ember_spirit_sleight_of_fist:bonus_hero_damage:max",
@@ -1468,17 +1182,6 @@
    "comment": "Night Stalker · Dark Ascension: 50 / 100 / 150 урона по уровням"
   },
   {
-   "id": "num:night_stalker_crippling_fear:dps:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Crippling Fear у Night Stalker на максимальном уровне?",
-   "topic": "Night Stalker",
-   "answer": 40,
-   "step": 5,
-   "unit": "урона/сек.",
-   "comment": "Night Stalker · Crippling Fear: 25 / 30 / 35 / 40 урона/сек. по уровням"
-  },
-  {
    "id": "num:sandking_epicenter:epicenter_pulses:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1488,17 +1191,6 @@
    "step": 5,
    "unit": "пульсов",
    "comment": "Sand King · Epicenter: 12 / 16 / 20 пульсов по уровням"
-  },
-  {
-   "id": "num:sandking_sand_storm:sand_storm_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Sand Storm у Sand King на максимальном уровне?",
-   "topic": "Sand King",
-   "answer": 90,
-   "step": 15,
-   "unit": "урона/сек.",
-   "comment": "Sand King · Sand Storm: 30 / 50 / 70 / 90 урона/сек. по уровням"
   },
   {
    "id": "num:morphling_adaptive_strike_agi:damage_max:max",
@@ -1534,28 +1226,6 @@
    "comment": "Morphling · Waveform: 21 / 18 / 15 / 12 сек. по уровням"
   },
   {
-   "id": "num:viper_nethertoxin:max_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Какой максимальный урон в секунду наносит Nethertoxin у Viper на максимальном уровне?",
-   "topic": "Viper",
-   "answer": 125,
-   "step": 15,
-   "unit": "урона/сек.",
-   "comment": "Viper · Nethertoxin: 35 / 65 / 95 / 125 урона/сек. по уровням"
-  },
-  {
-   "id": "num:viper_viper_strike:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Viper Strike на 3-м уровне?",
-   "topic": "Viper",
-   "answer": 150,
-   "step": 25,
-   "unit": "урона/сек.",
-   "comment": "Viper · Viper Strike: 70 / 110 / 150 урона/сек. по уровням"
-  },
-  {
    "id": "num:viper_corrosive_skin:bonus_magic_resistance:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1575,17 +1245,6 @@
    "answer": 40,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:luna_moon_glaive:damage_reduction_percent:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов падает урон с каждым отскоком Moon Glaives у Luna на максимальном уровне?",
-   "topic": "Luna",
-   "answer": 35,
-   "step": 5,
-   "unit": "%",
-   "comment": "Luna · Moon Glaives: 50 / 45 / 40 / 35% по уровням"
   },
   {
    "id": "num:luna_eclipse:hit_count:max",
@@ -1641,16 +1300,6 @@
    "comment": "Nature's Prophet · Wrath of Nature: 100 / 140 / 180 урона по уровням"
   },
   {
-   "id": "num:furion_curse_of_the_forest:damage_per_tree:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду за каждое дерево наносит Curse of the Oldgrowth от Aghanim's Shard у Nature's Prophet?",
-   "topic": "Nature's Prophet",
-   "answer": 15,
-   "step": 2.5,
-   "unit": "урона/сек."
-  },
-  {
    "id": "num:ursa_fury_swipes:damage_per_stack:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1660,16 +1309,6 @@
    "step": 4,
    "unit": "урона",
    "comment": "Ursa · Fury Swipes: 12 / 20 / 28 / 36 урона по уровням"
-  },
-  {
-   "id": "num:ursa_maul:health_as_damage_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от текущего здоровья Ursa получает в виде бонусного урона от врождёнки Maul?",
-   "topic": "Ursa",
-   "answer": 1.75,
-   "step": 0.25,
-   "unit": "%"
   },
   {
    "id": "num:ursa_enrage:damage_reduction:max",
@@ -1722,17 +1361,6 @@
    "answer": 35,
    "step": 5,
    "unit": "скорости"
-  },
-  {
-   "id": "num:jakiro_macropyre:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Macropyre у Jakiro на 3-м уровне?",
-   "topic": "Jakiro",
-   "answer": 200,
-   "step": 50,
-   "unit": "урона/сек.",
-   "comment": "Jakiro · Macropyre: 100 / 150 / 200 урона/сек. по уровням"
   },
   {
    "id": "num:naga_siren_mirror_image:illusion_duration:max",
@@ -1924,16 +1552,6 @@
    "unit": "HP"
   },
   {
-   "id": "num:shredder_flamethrower:damage_per_second:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Flamethrower у Timbersaw (Aghanim's Shard)?",
-   "topic": "Timbersaw",
-   "answer": 70,
-   "step": 10,
-   "unit": "урона/сек."
-  },
-  {
    "id": "num:undying_decay:decay_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1996,17 +1614,6 @@
    "step": 1,
    "unit": "атак",
    "comment": "Gyrocopter · Flak Cannon: 4 / 5 / 6 / 7 атак по уровням"
-  },
-  {
-   "id": "num:gyrocopter_call_down:slow:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент замедления накладывает ракета Call Down у Gyrocopter?",
-   "topic": "Gyrocopter",
-   "answer": 60,
-   "step": 5,
-   "unit": "%",
-   "ceil": 100
   },
   {
    "id": "num:vengefulspirit_wave_of_terror:armor_reduction:max",
@@ -2074,17 +1681,6 @@
    "comment": "Phoenix · Fire Spirits: 35 / 70 / 105 / 140 скорости атаки по уровням"
   },
   {
-   "id": "num:phoenix_sun_ray:hp_perc_damage:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. HP цели наносит в секунду Sun Ray у Phoenix на максимальном уровне?",
-   "topic": "Phoenix",
-   "answer": 6,
-   "step": 1,
-   "unit": "%",
-   "comment": "Phoenix · Sun Ray: 1.5 / 3 / 4.5 / 6% по уровням"
-  },
-  {
    "id": "num:phoenix_supernova:max_hero_attacks_scepter@scepter:max",
    "sub": "hero_other",
    "kind": "number",
@@ -2094,16 +1690,6 @@
    "step": 2,
    "unit": "атак",
    "comment": "Phoenix · Supernova: 7 / 10 / 13 атак по уровням"
-  },
-  {
-   "id": "num:muerta_dead_shot:damage@scepter:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "На сколько Aghanim's Scepter увеличивает урон Dead Shot у Muerta?",
-   "topic": "Muerta",
-   "answer": 125,
-   "step": 15,
-   "unit": "урона"
   },
   {
    "id": "num:muerta_pierce_the_veil:cd:1",
@@ -2159,17 +1745,6 @@
    "unit": "%"
   },
   {
-   "id": "num:doom_bringer_infernal_blade:burn_damage_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. HP цели в секунду наносит горение от Infernal Blade у Doom на максимальном уровне?",
-   "topic": "Doom",
-   "answer": 4.25,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Doom · Infernal Blade: 0.5 / 1.75 / 3 / 4.25% по уровням"
-  },
-  {
    "id": "num:doom_bringer_doom:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -2211,16 +1786,6 @@
    "step": 50,
    "unit": "урона",
    "comment": "Shadow Shaman · Ether Shock: 125 / 190 / 255 / 320 урона по уровням"
-  },
-  {
-   "id": "num:shadow_shaman_urnaconda:impact_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит при падении банка Urnaconda (способность с Aghanim's Shard) у Shadow Shaman?",
-   "topic": "Shadow Shaman",
-   "answer": 275,
-   "step": 50,
-   "unit": "урона"
   },
   {
    "id": "num:spirit_breaker_greater_bash:chance_pct:max",
@@ -2436,16 +2001,6 @@
    "comment": "Medusa · Stone Gaze: 35 / 45 / 55% по уровням"
   },
   {
-   "id": "num:medusa_mystic_snake:snake_mana_steal:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от максимальной маны цели возвращает Medusa змейка Mystic Snake?",
-   "topic": "Medusa",
-   "answer": 15,
-   "step": 2.5,
-   "unit": "%"
-  },
-  {
    "id": "num:medusa_gorgon_grasp:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2466,16 +2021,6 @@
    "step": 30,
    "unit": "урона",
    "comment": "Abaddon · Aphotic Shield: 120 / 150 / 180 / 210 урона по уровням"
-  },
-  {
-   "id": "num:abaddon_borrowed_time:ally_threshold_scepter@scepter:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона должен получить союзник, чтобы во время Borrowed Time с Aghanim's Scepter у Abaddon в него автоматически полетел Mist Coil?",
-   "topic": "Abaddon",
-   "answer": 550,
-   "step": 75,
-   "unit": "урона"
   },
   {
    "id": "num:abaddon_death_coil:damage_heal:max",
@@ -2509,16 +2054,6 @@
    "step": 6,
    "unit": "%",
    "comment": "Dragon Knight · Breathe Fire: 20 / 24 / 28 / 32% по уровням"
-  },
-  {
-   "id": "num:dragon_knight_fireball:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Fireball, который Dragon Knight получает с Aghanim's Shard?",
-   "topic": "Dragon Knight",
-   "answer": 85,
-   "step": 15,
-   "unit": "урона/сек."
   },
   {
    "id": "num:oracle_purifying_flames:damage:max",
@@ -2595,18 +2130,6 @@
    "comment": "Faceless Void · Time Lock: 12 / 16 / 20 / 24% по уровням"
   },
   {
-   "id": "num:faceless_void_time_dilation:cooldown_percentage:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов Time Dilation у Faceless Void замедляет откат кд способностей врагов на максимальном уровне?",
-   "topic": "Faceless Void",
-   "answer": 60,
-   "step": 5,
-   "unit": "%",
-   "comment": "Faceless Void · Time Dilation: 30 / 40 / 50 / 60% по уровням",
-   "ceil": 100
-  },
-  {
    "id": "num:faceless_void_time_dilation:slow@shard:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -2615,16 +2138,6 @@
    "answer": 5,
    "step": 0.5,
    "unit": "%"
-  },
-  {
-   "id": "num:lone_druid_entangle:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду получает враг под рутом от Entangle у Lone Druid?",
-   "topic": "Lone Druid",
-   "answer": 90,
-   "step": 15,
-   "unit": "урона/сек."
   },
   {
    "id": "num:lone_druid_true_form:bonus_attack_damage:max",
@@ -2646,27 +2159,6 @@
    "answer": 40,
    "step": 5,
    "unit": "скорости атаки"
-  },
-  {
-   "id": "num:wisp_tether:damage@shard:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Tether у Io врагам, касающимся связи, с Aghanim's Shard?",
-   "topic": "Io",
-   "answer": 120,
-   "step": 20,
-   "unit": "урона/сек."
-  },
-  {
-   "id": "num:wisp_overcharge:hp_regen:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов от макс. здоровья в секунду регенерирует Overcharge у Io на максимальном уровне?",
-   "topic": "Io",
-   "answer": 0.8,
-   "step": 0.1,
-   "unit": "%",
-   "comment": "Io · Overcharge: 0.5 / 0.6 / 0.7 / 0.8% по уровням"
   },
   {
    "id": "num:wisp_relocate:return_time:max",
@@ -2796,16 +2288,6 @@
    "comment": "Kez · Talon Toss: 60 / 120 / 180 / 240 урона по уровням"
   },
   {
-   "id": "num:kez_raptor_dance:max_health_damage_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. здоровья цели наносит каждый удар Raptor Dance у Kez?",
-   "topic": "Kez",
-   "answer": 2.5,
-   "step": 0.4,
-   "unit": "%"
-  },
-  {
    "id": "num:kez_falcon_rush:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -2825,17 +2307,6 @@
    "answer": 40,
    "step": 5,
    "unit": "%"
-  },
-  {
-   "id": "num:sniper_shrapnel:shrapnel_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Shrapnel у Sniper на максимальном уровне?",
-   "topic": "Sniper",
-   "answer": 75,
-   "step": 5,
-   "unit": "урона/сек.",
-   "comment": "Sniper · Shrapnel: 30 / 45 / 60 / 75 урона/сек. по уровням"
   },
   {
    "id": "num:skywrath_mage_mystic_flare:damage:max",
@@ -2900,26 +2371,6 @@
    "answer": 14,
    "step": 2,
    "unit": "сек."
-  },
-  {
-   "id": "num:magnataur_horn_toss:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит Horn Toss — способность Magnus от Aghanim's Scepter?",
-   "topic": "Magnus",
-   "answer": 325,
-   "step": 50,
-   "unit": "урона"
-  },
-  {
-   "id": "num:magnataur_skewer:cliff_hit_damage@shard:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько дополнительного урона с Aghanim's Shard получает враг, которого Magnus впечатал Skewer'ом в клифф?",
-   "topic": "Magnus",
-   "answer": 150,
-   "step": 25,
-   "unit": "урона"
   },
   {
    "id": "num:riki_smoke_screen:miss_rate:max",
@@ -3009,17 +2460,6 @@
    "unit": "%"
   },
   {
-   "id": "num:centaur_return:return_damage_str:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент своей силы Centaur Warrunner возвращает уроном за каждую атаку через Retaliate на максимальном уровне?",
-   "topic": "Centaur Warrunner",
-   "answer": 35,
-   "step": 5,
-   "unit": "%",
-   "comment": "Centaur Warrunner · Retaliate: 14 / 21 / 28 / 35% по уровням"
-  },
-  {
    "id": "num:centaur_double_edge:shard_str_pct@shard:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3041,28 +2481,6 @@
    "comment": "Pugna · Nether Blast: 95 / 170 / 245 / 320 урона по уровням"
   },
   {
-   "id": "num:pugna_nether_ward:mana_multiplier:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона за каждую потраченную единицу маны наносит Nether Ward у Pugna на максимальном уровне?",
-   "topic": "Pugna",
-   "answer": 1.6,
-   "step": 0.2,
-   "unit": "урона",
-   "comment": "Pugna · Nether Ward: 1 / 1.2 / 1.4 / 1.6 урона по уровням"
-  },
-  {
-   "id": "num:pugna_decrepify:bonus_movement_speed:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какое замедление накладывает Decrepify у Pugna на врага на максимальном уровне?",
-   "topic": "Pugna",
-   "answer": 60,
-   "step": 10,
-   "unit": "%",
-   "comment": "Pugna · Decrepify: 45 / 50 / 55 / 60% по уровням"
-  },
-  {
    "id": "num:pugna_life_drain:spell_amp_drain_rate@scepter:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3071,38 +2489,6 @@
    "answer": 8,
    "step": 1,
    "unit": "%"
-  },
-  {
-   "id": "num:earth_spirit_petrify:damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит раскол камня от Enchant Remnant у Earth Spirit (способность от Aghanim's Scepter)?",
-   "topic": "Earth Spirit",
-   "answer": 450,
-   "step": 75,
-   "unit": "урона"
-  },
-  {
-   "id": "num:earth_spirit_magnetize:damage_per_second:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду наносит Magnetize у Earth Spirit на 3-м уровне?",
-   "topic": "Earth Spirit",
-   "answer": 135,
-   "step": 25,
-   "unit": "урона/сек.",
-   "comment": "Earth Spirit · Magnetize: 45 / 90 / 135 урона/сек. по уровням"
-  },
-  {
-   "id": "num:dawnbreaker_celestial_hammer:move_slow:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какое замедление даёт огненный след от Celestial Hammer у Dawnbreaker на максимальном уровне?",
-   "topic": "Dawnbreaker",
-   "answer": 36,
-   "step": 6,
-   "unit": "%",
-   "comment": "Dawnbreaker · Celestial Hammer: 24 / 28 / 32 / 36% по уровням"
   },
   {
    "id": "num:dawnbreaker_solar_guardian:base_heal:max",
@@ -3137,17 +2523,6 @@
    "comment": "Razor · Plasma Field: 80 / 115 / 150 / 185 урона по уровням"
   },
   {
-   "id": "num:razor_static_link:drain_rate:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона в секунду ворует Static Link у Razor на максимальном уровне?",
-   "topic": "Razor",
-   "answer": 24,
-   "step": 3,
-   "unit": "урона/сек.",
-   "comment": "Razor · Static Link: 6 / 12 / 18 / 24 урона/сек. по уровням"
-  },
-  {
    "id": "num:techies_sticky_bomb:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3170,16 +2545,6 @@
    "comment": "Techies · Proximity Mines: 15 / 20 / 25% по уровням"
   },
   {
-   "id": "num:techies_minefield_sign:scepter_move_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона получает враг в активном минном поле Minefield Sign у Techies (Aghanim's Scepter) за каждые 200 единиц пройденного пути?",
-   "topic": "Techies",
-   "answer": 300,
-   "step": 50,
-   "unit": "урона"
-  },
-  {
    "id": "num:largo_frogstomp:total_ticks:max",
    "sub": "hero_other",
    "kind": "number",
@@ -3189,17 +2554,6 @@
    "step": 1,
    "unit": "раз",
    "comment": "Largo · Frogstomp: 4 / 5 / 6 / 7 раз по уровням"
-  },
-  {
-   "id": "num:largo_croak_of_genius:damage_portion_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент урона повторяется (реверб) под Croak of Genius у Largo на максимальном уровне?",
-   "topic": "Largo",
-   "answer": 45,
-   "step": 5,
-   "unit": "%",
-   "comment": "Largo · Croak of Genius: 30 / 35 / 40 / 45% по уровням"
   },
   {
    "id": "num:weaver_the_swarm:destroy_attacks:max",
@@ -3255,17 +2609,6 @@
    "step": 60,
    "unit": "урона",
    "comment": "Ring Master · Tame the Beasts: 180 / 280 / 380 / 480 урона по уровням"
-  },
-  {
-   "id": "num:ringmaster_impalement:bleed_health_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от максимального здоровья в секунду снимает кровотечение от Impalement Arts у Ring Master с героев на максимальном уровне?",
-   "topic": "Ring Master",
-   "answer": 6,
-   "step": 1,
-   "unit": "%",
-   "comment": "Ring Master · Impalement Arts: 3 / 4 / 5 / 6% по уровням"
   },
   {
    "id": "num:ringmaster_wheel:explosion_damage:max",
@@ -3384,16 +2727,6 @@
    "comment": "Pudge · Meat Hook: 150 / 220 / 290 / 360 урона по уровням"
   },
   {
-   "id": "num:pudge_rot:rot_damage@scepter:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "На сколько Aghanim's Scepter увеличивает урон Rot у Pudge?",
-   "topic": "Pudge",
-   "answer": 90,
-   "step": 15,
-   "unit": "урона"
-  },
-  {
    "id": "num:pudge_flesh_heap:damage_block:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3435,16 +2768,6 @@
    "topic": "Bane",
    "answer": 225,
    "step": 25,
-   "unit": "%"
-  },
-  {
-   "id": "num:bane_ichor_of_nyctasha:status_resistance:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "На сколько процентов снижается статус-резист к дебаффам Bane за каждый Terror от врождёнки Ichor of Nyctasha?",
-   "topic": "Bane",
-   "answer": 4,
-   "step": 0.5,
    "unit": "%"
   },
   {
@@ -3512,16 +2835,6 @@
    "step": 5,
    "unit": "%",
    "comment": "Terrorblade · Sunder: 35 / 30 / 25% по уровням"
-  },
-  {
-   "id": "num:terrorblade_conjure_image:illusion_incoming_damage_total_tooltip:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов урона получает иллюзия от Conjure Image у Terrorblade?",
-   "topic": "Terrorblade",
-   "answer": 250,
-   "step": 25,
-   "unit": "%"
   },
   {
    "id": "num:terrorblade_terror_wave:scepter_meta_duration:max",
@@ -3685,17 +2998,6 @@
    "comment": "Venomancer · Plague Ward: 150 / 250 / 350 / 450 HP по уровням"
   },
   {
-   "id": "num:venomancer_noxious_plague:damage_per_second:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. HP цели в секунду наносит Noxious Plague у Venomancer на 3-м уровне?",
-   "topic": "Venomancer",
-   "answer": 4,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Venomancer · Noxious Plague: 2 / 3 / 4% по уровням"
-  },
-  {
    "id": "num:venomancer_noxious_plague:mres_reduce@scepter:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -3748,17 +3050,6 @@
    "unit": "%"
   },
   {
-   "id": "num:nyx_assassin_jolt:max_mana_as_damage_pct:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. маны цели наносит уроном Mind Flare у Nyx Assassin на максимальном уровне?",
-   "topic": "Nyx Assassin",
-   "answer": 40,
-   "step": 5,
-   "unit": "%",
-   "comment": "Nyx Assassin · Mind Flare: 25 / 30 / 35 / 40% по уровням"
-  },
-  {
    "id": "num:rubick_fade_bolt:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3792,16 +3083,6 @@
    "comment": "Mirana · Sacred Arrow: 2.3 / 3.2 / 4.1 / 5 сек. по уровням"
   },
   {
-   "id": "num:mirana_starfall:secondary_starfall_damage_percent:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов от урона основной волны наносит второй метеор Starstorm у Mirana по ближайшему врагу?",
-   "topic": "Mirana",
-   "answer": 80,
-   "step": 10,
-   "unit": "%"
-  },
-  {
    "id": "num:mirana_invis:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -3810,17 +3091,6 @@
    "answer": 18,
    "step": 3,
    "unit": "сек."
-  },
-  {
-   "id": "num:necrolyte_heartstopper_aura:aura_damage:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Сколько процентов от максимального HP в секунду отнимает Heartstopper Aura у Necrophos на максимальном уровне?",
-   "topic": "Necrophos",
-   "answer": 2.3,
-   "step": 0.4,
-   "unit": "%",
-   "comment": "Necrophos · Heartstopper Aura: 0.8 / 1.3 / 1.8 / 2.3% по уровням"
   },
   {
    "id": "num:necrolyte_ghost_shroud:heal_bonus:max",
@@ -3887,26 +3157,6 @@
    "unit": "сек."
   },
   {
-   "id": "num:primal_beast_rock_throw:base_damage:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит Rock Throw у Primal Beast (способность от Aghanim's Shard)?",
-   "topic": "Primal Beast",
-   "answer": 325,
-   "step": 50,
-   "unit": "урона"
-  },
-  {
-   "id": "num:primal_beast_uproar:projectile_damage@scepter:max",
-   "sub": "hero_damage",
-   "kind": "number",
-   "text": "Сколько урона наносит один снаряд Uproar у Primal Beast с Aghanim's Scepter?",
-   "topic": "Primal Beast",
-   "answer": 85,
-   "step": 15,
-   "unit": "урона"
-  },
-  {
    "id": "num:primal_beast_pulverize:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -3916,17 +3166,6 @@
    "step": 25,
    "unit": "урона",
    "comment": "Primal Beast · Pulverize: 100 / 175 / 250 урона по уровням"
-  },
-  {
-   "id": "num:abyssal_underlord_firestorm:burn_damage:max",
-   "sub": "hero_pct",
-   "kind": "number",
-   "text": "Какой процент от макс. HP в секунду сжигает горение от Firestorm у Underlord на максимальном уровне?",
-   "topic": "Underlord",
-   "answer": 3,
-   "step": 0.5,
-   "unit": "%",
-   "comment": "Underlord · Firestorm: 1.5 / 2 / 2.5 / 3% по уровням"
   },
   {
    "id": "num:abyssal_underlord_pit_of_malice:pit_duration:max",
@@ -4052,7 +3291,7 @@
    "text": "Какое кд у Black Hole у Enigma на 1-м уровне?",
    "topic": "Enigma",
    "answer": 180,
-   "step": 30,
+   "step": 20,
    "unit": "сек.",
    "comment": "Enigma · Black Hole: 180 / 170 / 160 сек. по уровням"
   },
@@ -4480,7 +3719,7 @@
    "text": "Какое кд у Black King Bar?",
    "topic": "Black King Bar",
    "answer": 95,
-   "step": 15,
+   "step": 5,
    "unit": "сек."
   },
   {
@@ -5555,16 +4794,6 @@
    "unit": "%"
   },
   {
-   "id": "num:dezun_bloodrite:health_pct:max",
-   "sub": "neutrals",
-   "kind": "number",
-   "text": "Какой процент от стоимости заклинания по мане нейтралка 5-го тира Dezun Bloodrite дополнительно снимает здоровьем?",
-   "topic": "Dezun Bloodrite",
-   "answer": 35,
-   "step": 5,
-   "unit": "%"
-  },
-  {
    "id": "num:essence_ring:health_gain:max",
    "sub": "neutrals",
    "kind": "number",
@@ -5803,16 +5032,6 @@
    "answer": 12,
    "step": 2,
    "unit": "скорости"
-  },
-  {
-   "id": "num:spellslinger:mana_pct:max",
-   "sub": "neutrals",
-   "kind": "number",
-   "text": "Какой процент потраченной на способности маны возвращает нейтралка 3-го тира Spellslinger?",
-   "topic": "Spellslinger",
-   "answer": 20,
-   "step": 5,
-   "unit": "%"
   },
   {
    "id": "num:minotaur_horn:magic_resist:max",

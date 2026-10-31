@@ -6,8 +6,17 @@
   "флаги прогона (items)": 1,
   "таланты: флаги проверки или не «has»": 42,
   "правило short_time": 88,
+  "правило mech_seed (урон в секунду)": 15,
   "правило innate_levelup": 24,
-  "drop в overrides": 30
+  "правило mech_seed (аганим / шард)": 23,
+  "правило mech_seed (урон иллюзий)": 3,
+  "правило mech_seed (порог / коэффициент)": 2,
+  "правило mech_seed (процент маны / атрибута в урон)": 5,
+  "правило mech_seed (процент HP / маны в секунду)": 8,
+  "правило mech_seed (дробный процент HP за удар)": 4,
+  "правило mech_seed (второстепенная деталь)": 6,
+  "drop в overrides": 32,
+  "правило mech_seed (замедление)": 6
  },
  "questions": [
   {
@@ -753,6 +762,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:juggernaut_blade_fury:blade_fury_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Blade Fury у Juggernaut на максимальном уровне?",
+   "topic": "Juggernaut",
+   "answer": 175,
+   "step": 25,
+   "unit": "урона/сек.",
+   "comment": "Juggernaut · Blade Fury: 85 / 115 / 145 / 175 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
    "id": "num:juggernaut_omni_slash:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -764,6 +787,20 @@
    "comment": "Juggernaut · Omnislash: 3 / 3.25 / 3.5 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:disruptor_static_storm:damage_max:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько максимального урона в секунду наносит Static Storm у Disruptor на 3-м уровне?",
+   "topic": "Disruptor",
+   "answer": 350,
+   "step": 50,
+   "unit": "урона/сек.",
+   "comment": "Disruptor · Static Storm: 200 / 275 / 350 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
   },
   {
    "id": "num:disruptor_kinetic_field:duration:max",
@@ -789,7 +826,8 @@
    "unit": "%",
    "comment": "Sacrifice: 42% + 3% за каждый уровень героя → 132% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:tinker_rearm:abilitychanneltime:max",
@@ -815,6 +853,19 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:tinker_warp_grenade:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит Warp Flare, которую Tinker получает с Aghanim's Shard?",
+   "topic": "Tinker",
+   "answer": 150,
+   "step": 25,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:puck_phase_shift:duration:max",
@@ -843,6 +894,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:puck_phase_shift:shard_bonus_damage@shard:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько бонусного магического урона дают атаки Puck с Aghanim's Shard?",
+   "topic": "Puck",
+   "answer": 20,
+   "step": 5,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:chaos_knight_chaos_bolt:stun_max:max",
    "sub": "hero_time",
    "kind": "number",
@@ -856,6 +920,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:chaos_knight_phantasm:incoming_damage_tooltip:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов урона получают иллюзии от Phantasm у Chaos Knight?",
+   "topic": "Chaos Knight",
+   "answer": 350,
+   "step": 50,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон иллюзий): число из тултипа без логики — перегенерировать механикой",
+   "seed": "illusion"
+  },
+  {
    "id": "num:dazzle_innate_weave:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -866,7 +943,8 @@
    "unit": "сек.",
    "comment": "Weave: 6.9 сек. + 0.1 сек. за каждый уровень героя → 9.9 сек. на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:dazzle_nothl_projection:poison_touch_hex:max",
@@ -895,6 +973,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:tidehunter_kraken_shell:damage_cleanse:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона должен получить Tidehunter, чтобы Kraken Shell сделал ему диспел, на максимальном уровне?",
+   "topic": "Tidehunter",
+   "answer": 450,
+   "step": 75,
+   "unit": "урона",
+   "comment": "Tidehunter · Kraken Shell: 600 / 550 / 500 / 450 урона по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (порог / коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "threshold"
+  },
+  {
    "id": "num:invoker_sun_strike:delay:max",
    "sub": "hero_time",
    "kind": "number",
@@ -905,6 +997,33 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:invoker_emp:damage_per_mana_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов от сожжённой маны E.M.P. у Invoker наносит уроном?",
+   "topic": "Invoker",
+   "answer": 60,
+   "step": 10,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент маны / атрибута в урон): число из тултипа без логики — перегенерировать механикой",
+   "seed": "ratio"
+  },
+  {
+   "id": "num:winter_wyvern_cold_embrace:heal_percentage:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов от максимального HP в секунду лечит Cold Embrace у Winter Wyvern на максимальном уровне?",
+   "topic": "Winter Wyvern",
+   "answer": 4.5,
+   "step": 0.5,
+   "unit": "%",
+   "comment": "Winter Wyvern · Cold Embrace: 1.5 / 2.5 / 3.5 / 4.5% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
   },
   {
    "id": "num:elder_titan_echo_stomp:sleep_duration:max",
@@ -920,6 +1039,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:ogre_magi_smash:damage_absorb_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент урона от атаки вражеского героя поглощает Fire Shield (Aghanim's Shard) у Ogre Magi?",
+   "topic": "Ogre Magi",
+   "answer": 85,
+   "step": 2.5,
+   "unit": "%",
+   "ceil": 100,
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:kunkka_torrent:delay:max",
    "sub": "hero_time",
    "kind": "number",
@@ -930,6 +1063,32 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:kunkka_tidal_wave:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит Tidal Wave (Aghanim's Shard) у Kunkka?",
+   "topic": "Kunkka",
+   "answer": 180,
+   "step": 30,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:huskar_burning_spear:burn_damage_max_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от максимального здоровья цели добавляет к горению Burning Spear у Huskar?",
+   "topic": "Huskar",
+   "answer": 0.5,
+   "step": 0.05,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (дробный процент HP за удар): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_hit"
   },
   {
    "id": "num:beastmaster_primal_roar:duration:max",
@@ -945,6 +1104,47 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:beastmaster_wild_axes:damage_amp:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "На сколько процентов усиливает получаемый урон от Beastmaster и его юнитов один стак Wild Axes на максимальном уровне?",
+   "topic": "Beastmaster",
+   "answer": 8,
+   "step": 1,
+   "unit": "%",
+   "comment": "Beastmaster · Wild Axes: 5 / 6 / 7 / 8% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенная деталь): число из тултипа без логики — перегенерировать механикой",
+   "seed": "detail"
+  },
+  {
+   "id": "num:beastmaster_drums_of_slom:base_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит один удар в барабан Drums of Slom, которые Beastmaster получает с Aghanim's Scepter?",
+   "topic": "Beastmaster",
+   "answer": 70,
+   "step": 10,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:warlock_rain_of_chaos:golem_dmg_scepter@scepter:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Какой урон атаки у каждого голема Warlock с Aghanim's Scepter, когда Chaotic Offering на 3-м уровне?",
+   "topic": "Warlock",
+   "answer": 160,
+   "step": 30,
+   "unit": "урона",
+   "comment": "Warlock · Chaotic Offering: 80 / 120 / 160 урона по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:silencer_global_silence:abilityduration:1",
    "sub": "hero_time",
    "kind": "number",
@@ -958,6 +1158,74 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:silencer_glaives_of_wisdom:intellect_damage_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент интеллекта Silencer добавляется к урону атаки через Glaives of Wisdom на максимальном уровне?",
+   "topic": "Silencer",
+   "answer": 80,
+   "step": 15,
+   "unit": "%",
+   "comment": "Silencer · Glaives of Wisdom: 35 / 50 / 65 / 80% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент маны / атрибута в урон): число из тултипа без логики — перегенерировать механикой",
+   "seed": "ratio"
+  },
+  {
+   "id": "num:silencer_curse_of_the_silent:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Arcane Curse у Silencer на максимальном уровне?",
+   "topic": "Silencer",
+   "answer": 40,
+   "step": 5,
+   "unit": "урона/сек.",
+   "comment": "Silencer · Arcane Curse: 16 / 24 / 32 / 40 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
+   "id": "num:clinkz_wind_walk:damage_percent:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент урона Clinkz наносят Skeleton Archers из Skeleton Walk?",
+   "topic": "Clinkz",
+   "answer": 20,
+   "step": 5,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенная деталь): число из тултипа без логики — перегенерировать механикой",
+   "seed": "detail"
+  },
+  {
+   "id": "num:axe_battle_hunger:damage_per_second:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Battle Hunger у Axe на максимальном уровне?",
+   "topic": "Axe",
+   "answer": 24,
+   "step": 4,
+   "unit": "урона/сек.",
+   "comment": "Axe · Battle Hunger: 12 / 16 / 20 / 24 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
+   "id": "num:meepo_megameepo_fling:fling_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит MegaMeepo Fling у Meepo с Aghanim's Scepter?",
+   "topic": "Meepo",
+   "answer": 225,
+   "step": 25,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:sven_storm_bolt:bolt_stun_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -969,6 +1237,20 @@
    "comment": "Sven · Storm Hammer: 1 / 1.25 / 1.5 / 1.75 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:life_stealer_feast:hp_damage_percent:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов от макс. HP цели наносит Feast у Lifestealer за атаку на максимальном уровне?",
+   "topic": "Lifestealer",
+   "answer": 3.25,
+   "step": 0.5,
+   "unit": "%",
+   "comment": "Lifestealer · Feast: 1.45 / 2.05 / 2.65 / 3.25% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (дробный процент HP за удар): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_hit"
   },
   {
    "id": "num:life_stealer_infest:infest_duration_enemy@scepter:max",
@@ -1019,7 +1301,8 @@
    "unit": "сек.",
    "comment": "Special Delivery: 215 сек. − 5 сек. за каждый уровень героя → 65 сек. на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:pangolier_gyroshell:forward_move_speed:max",
@@ -1058,6 +1341,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:treant_overgrowth:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Overgrowth у Treant Protector?",
+   "topic": "Treant Protector",
+   "answer": 95,
+   "step": 15,
+   "unit": "урона/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
    "id": "num:treant_leech_seed:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1081,7 +1377,8 @@
    "unit": "%",
    "comment": "Apex Predator: 18% + 2% за каждый уровень героя → 78% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:zuus_static_field:damage_health_pct:max",
@@ -1094,7 +1391,8 @@
    "unit": "%",
    "comment": "Static Field: 3.45% + 0.05% за каждый уровень героя → 4.95% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:dark_willow_terrorize:destination_status_duration:max",
@@ -1123,6 +1421,47 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:dark_seer_ion_shell:damage_per_second:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Ion Shell у Dark Seer на максимальном уровне?",
+   "topic": "Dark Seer",
+   "answer": 90,
+   "step": 15,
+   "unit": "урона/сек.",
+   "comment": "Dark Seer · Ion Shell: 30 / 50 / 70 / 90 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
+   "id": "num:dark_seer_normal_punch:max_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Какой максимальный урон у Normal Punch от Aghanim's Scepter у Dark Seer?",
+   "topic": "Dark Seer",
+   "answer": 400,
+   "step": 50,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:dark_seer_wall_of_replica:tooltip_outgoing:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент урона оригинала наносят реплики от Wall of Replica у Dark Seer на 3-м уровне?",
+   "topic": "Dark Seer",
+   "answer": 90,
+   "step": 10,
+   "unit": "%",
+   "comment": "Dark Seer · Wall of Replica: 70 / 80 / 90% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон иллюзий): число из тултипа без логики — перегенерировать механикой",
+   "seed": "illusion"
+  },
+  {
    "id": "num:dark_seer_aggrandize:heal_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1133,7 +1472,8 @@
    "unit": "%",
    "comment": "Quick Wit: 8.5% + 1.5% за каждый уровень героя → 53.5% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:batrider_flaming_lasso:duration:max",
@@ -1147,6 +1487,21 @@
    "comment": "Batrider · Flaming Lasso: 2.25 / 2.75 / 3.25 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:batrider_sticky_napalm:turn_rate_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "На сколько процентов Sticky Napalm у Batrider замедляет скорость поворота на максимальном уровне?",
+   "topic": "Batrider",
+   "answer": 70,
+   "step": 5,
+   "unit": "%",
+   "ceil": 100,
+   "comment": "Batrider · Sticky Napalm: 10 / 30 / 50 / 70% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (замедление): число из тултипа без логики — перегенерировать механикой",
+   "seed": "slow"
   },
   {
    "id": "num:earthshaker_fissure:stun_duration:max",
@@ -1172,7 +1527,35 @@
    "unit": "урона",
    "comment": "Slugger: 135 урона + 15 урона за каждый уровень героя → 585 урона на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
+  },
+  {
+   "id": "num:tusk_walrus_kick:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит Walrus Kick у Tusk (с Aghanim's Scepter)?",
+   "topic": "Tusk",
+   "answer": 550,
+   "step": 75,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:tusk_tag_team:movement_slow:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какое замедление скорости передвижения накладывает Tag Team у Tusk при атаке по врагу?",
+   "topic": "Tusk",
+   "answer": 75,
+   "step": 5,
+   "unit": "%",
+   "ceil": 100,
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (замедление): число из тултипа без логики — перегенерировать механикой",
+   "seed": "slow"
   },
   {
    "id": "num:tusk_bitter_chill:attack_speed_slow:max",
@@ -1185,7 +1568,8 @@
    "unit": "скорости атаки",
    "comment": "Bitter Chill: 12 скорости атаки + 3 скорости атаки за каждый уровень героя → 102 скорости атаки на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:ember_spirit_searing_chains:duration:max",
@@ -1211,7 +1595,8 @@
    "unit": "золота",
    "comment": "Tempest Double: 70 золота + 10 золота за каждый уровень героя → 370 золота на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:lina_light_strike_array:light_strike_array_stun_duration:max",
@@ -1250,7 +1635,22 @@
    "unit": "%",
    "comment": "Hunter in the Night: 24% + 2% каждые 3 уровня героя → 44% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
+  },
+  {
+   "id": "num:night_stalker_crippling_fear:dps:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Crippling Fear у Night Stalker на максимальном уровне?",
+   "topic": "Night Stalker",
+   "answer": 40,
+   "step": 5,
+   "unit": "урона/сек.",
+   "comment": "Night Stalker · Crippling Fear: 25 / 30 / 35 / 40 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
   },
   {
    "id": "num:sandking_burrowstrike:burrow_duration:max",
@@ -1276,7 +1676,22 @@
    "unit": "%",
    "comment": "Caustic Finale: 2.5% + 0.5% за каждый уровень героя → 17.5% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
+  },
+  {
+   "id": "num:sandking_sand_storm:sand_storm_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Sand Storm у Sand King на максимальном уровне?",
+   "topic": "Sand King",
+   "answer": 90,
+   "step": 15,
+   "unit": "урона/сек.",
+   "comment": "Sand King · Sand Storm: 30 / 50 / 70 / 90 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
   },
   {
    "id": "num:morphling_adaptive_strike_agi:stun_max:max",
@@ -1292,6 +1707,34 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:viper_nethertoxin:max_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Какой максимальный урон в секунду наносит Nethertoxin у Viper на максимальном уровне?",
+   "topic": "Viper",
+   "answer": 125,
+   "step": 15,
+   "unit": "урона/сек.",
+   "comment": "Viper · Nethertoxin: 35 / 65 / 95 / 125 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
+   "id": "num:viper_viper_strike:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Viper Strike на 3-м уровне?",
+   "topic": "Viper",
+   "answer": 150,
+   "step": 25,
+   "unit": "урона/сек.",
+   "comment": "Viper · Viper Strike: 70 / 110 / 150 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
    "id": "num:luna_lucent_beam:stun_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1302,6 +1745,46 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:luna_moon_glaive:damage_reduction_percent:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "На сколько процентов падает урон с каждым отскоком Moon Glaives у Luna на максимальном уровне?",
+   "topic": "Luna",
+   "answer": 35,
+   "step": 5,
+   "unit": "%",
+   "comment": "Luna · Moon Glaives: 50 / 45 / 40 / 35% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенная деталь): число из тултипа без логики — перегенерировать механикой",
+   "seed": "detail"
+  },
+  {
+   "id": "num:furion_curse_of_the_forest:damage_per_tree:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду за каждое дерево наносит Curse of the Oldgrowth от Aghanim's Shard у Nature's Prophet?",
+   "topic": "Nature's Prophet",
+   "answer": 15,
+   "step": 2.5,
+   "unit": "урона/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:ursa_maul:health_as_damage_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от текущего здоровья Ursa получает в виде бонусного урона от врождёнки Maul?",
+   "topic": "Ursa",
+   "answer": 1.75,
+   "step": 0.25,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (дробный процент HP за удар): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_hit"
   },
   {
    "id": "num:windrunner_shackleshot:stun_duration:max",
@@ -1327,7 +1810,22 @@
    "unit": "%",
    "comment": "Double Trouble: 51% − 1% за каждый уровень героя → 21% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
+  },
+  {
+   "id": "num:jakiro_macropyre:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Macropyre у Jakiro на 3-м уровне?",
+   "topic": "Jakiro",
+   "answer": 200,
+   "step": 50,
+   "unit": "урона/сек.",
+   "comment": "Jakiro · Macropyre: 100 / 150 / 200 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
   },
   {
    "id": "num:jakiro_liquid_fire:cd:max",
@@ -1391,7 +1889,8 @@
    "unit": "%",
    "comment": "Degen Aura: 11% + 1% за каждый уровень героя → 41% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:spectre_desolate:bonus_damage:max",
@@ -1404,7 +1903,8 @@
    "unit": "урона",
    "comment": "Desolate: 23.5 урона + 1.5 урона за каждый уровень героя → 68.5 урона на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:obsidian_destroyer_equilibrium:mana_restore:max",
@@ -1418,7 +1918,21 @@
    "ceil": 100,
    "comment": "Essence Flux: 40% + 5% каждые 5 уровней героя → 70% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
+  },
+  {
+   "id": "num:shredder_flamethrower:damage_per_second:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Flamethrower у Timbersaw (Aghanim's Shard)?",
+   "topic": "Timbersaw",
+   "answer": 70,
+   "step": 10,
+   "unit": "урона/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:gyrocopter_homing_missile:stun_duration:max",
@@ -1432,6 +1946,20 @@
    "comment": "Gyrocopter · Homing Missile: 1.3 / 1.7 / 2.1 / 2.5 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:gyrocopter_call_down:slow:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент замедления накладывает ракета Call Down у Gyrocopter?",
+   "topic": "Gyrocopter",
+   "answer": 60,
+   "step": 5,
+   "unit": "%",
+   "ceil": 100,
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (замедление): число из тултипа без логики — перегенерировать механикой",
+   "seed": "slow"
   },
   {
    "id": "num:vengefulspirit_magic_missile:magic_missile_stun:max",
@@ -1473,6 +2001,47 @@
    "reason": "расстояние (дальность рывка) — не спрашиваем"
   },
   {
+   "id": "num:phoenix_sun_ray:hp_perc_damage:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от макс. HP цели наносит в секунду Sun Ray у Phoenix на максимальном уровне?",
+   "topic": "Phoenix",
+   "answer": 6,
+   "step": 1,
+   "unit": "%",
+   "comment": "Phoenix · Sun Ray: 1.5 / 3 / 4.5 / 6% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
+  },
+  {
+   "id": "num:muerta_dead_shot:damage@scepter:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "На сколько Aghanim's Scepter увеличивает урон Dead Shot у Muerta?",
+   "topic": "Muerta",
+   "answer": 125,
+   "step": 15,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:doom_bringer_infernal_blade:burn_damage_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от макс. HP цели в секунду наносит горение от Infernal Blade у Doom на максимальном уровне?",
+   "topic": "Doom",
+   "answer": 4.25,
+   "step": 0.5,
+   "unit": "%",
+   "comment": "Doom · Infernal Blade: 0.5 / 1.75 / 3 / 4.25% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
+  },
+  {
    "id": "num:shadow_shaman_voodoo:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1496,6 +2065,19 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:shadow_shaman_urnaconda:impact_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит при падении банка Urnaconda (способность с Aghanim's Shard) у Shadow Shaman?",
+   "topic": "Shadow Shaman",
+   "answer": 275,
+   "step": 50,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:spirit_breaker_charge_of_darkness:stun_duration:max",
@@ -1573,6 +2155,32 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:medusa_mystic_snake:snake_mana_steal:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от максимальной маны цели возвращает Medusa змейка Mystic Snake?",
+   "topic": "Medusa",
+   "answer": 15,
+   "step": 2.5,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент маны / атрибута в урон): число из тултипа без логики — перегенерировать механикой",
+   "seed": "ratio"
+  },
+  {
+   "id": "num:abaddon_borrowed_time:ally_threshold_scepter@scepter:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона должен получить союзник, чтобы во время Borrowed Time с Aghanim's Scepter у Abaddon в него автоматически полетел Mist Coil?",
+   "topic": "Abaddon",
+   "answer": 550,
+   "step": 75,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:dragon_knight_dragon_tail:stun_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1584,6 +2192,19 @@
    "comment": "Dragon Knight · Dragon Tail: 1.8 / 2 / 2.2 / 2.4 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:dragon_knight_fireball:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Fireball, который Dragon Knight получает с Aghanim's Shard?",
+   "topic": "Dragon Knight",
+   "answer": 85,
+   "step": 15,
+   "unit": "урона/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
   },
   {
    "id": "num:oracle_fortunes_end:maximum_purge_duration:max",
@@ -1611,6 +2232,34 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:faceless_void_time_dilation:cooldown_percentage:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "На сколько процентов Time Dilation у Faceless Void замедляет откат кд способностей врагов на максимальном уровне?",
+   "topic": "Faceless Void",
+   "answer": 60,
+   "step": 5,
+   "unit": "%",
+   "ceil": 100,
+   "comment": "Faceless Void · Time Dilation: 30 / 40 / 50 / 60% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (замедление): число из тултипа без логики — перегенерировать механикой",
+   "seed": "slow"
+  },
+  {
+   "id": "num:lone_druid_entangle:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду получает враг под рутом от Entangle у Lone Druid?",
+   "topic": "Lone Druid",
+   "answer": 90,
+   "step": 15,
+   "unit": "урона/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
    "id": "num:lone_druid_spirit_bear:bear_bat:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1621,6 +2270,33 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:wisp_tether:damage@shard:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Tether у Io врагам, касающимся связи, с Aghanim's Shard?",
+   "topic": "Io",
+   "answer": 120,
+   "step": 20,
+   "unit": "урона/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:wisp_overcharge:hp_regen:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов от макс. здоровья в секунду регенерирует Overcharge у Io на максимальном уровне?",
+   "topic": "Io",
+   "answer": 0.8,
+   "step": 0.1,
+   "unit": "%",
+   "comment": "Io · Overcharge: 0.5 / 0.6 / 0.7 / 0.8% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
   },
   {
    "id": "num:shadow_demon_disruption:disruption_duration:max",
@@ -1645,7 +2321,21 @@
    "unit": "%",
    "comment": "Menace: 1.9% + 0.1% за каждый уровень героя → 4.9% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
+  },
+  {
+   "id": "num:kez_raptor_dance:max_health_damage_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от макс. здоровья цели наносит каждый удар Raptor Dance у Kez?",
+   "topic": "Kez",
+   "answer": 2.5,
+   "step": 0.4,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (дробный процент HP за удар): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_hit"
   },
   {
    "id": "num:kez_shodo_sai:stun_duration:max",
@@ -1674,6 +2364,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:sniper_shrapnel:shrapnel_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Shrapnel у Sniper на максимальном уровне?",
+   "topic": "Sniper",
+   "answer": 75,
+   "step": 5,
+   "unit": "урона/сек.",
+   "comment": "Sniper · Shrapnel: 30 / 45 / 60 / 75 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
    "id": "num:skywrath_mage_shield_of_the_scion:damage_barrier:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1684,7 +2388,8 @@
    "unit": "HP",
    "comment": "Shield of the Scion: 13.5 HP + 1.5 HP за каждый уровень героя → 58.5 HP на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:monkey_king_wukongs_command:scepter_spawn_interval@scepter:max",
@@ -1712,6 +2417,32 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:magnataur_horn_toss:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит Horn Toss — способность Magnus от Aghanim's Scepter?",
+   "topic": "Magnus",
+   "answer": 325,
+   "step": 50,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:magnataur_skewer:cliff_hit_damage@shard:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько дополнительного урона с Aghanim's Shard получает враг, которого Magnus впечатал Skewer'ом в клифф?",
+   "topic": "Magnus",
+   "answer": 150,
+   "step": 25,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
    "id": "num:magnataur_solid_core:slow_resistance:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1722,7 +2453,8 @@
    "unit": "%",
    "comment": "Solid Core: 24% + 1% за каждый уровень героя → 54% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:riki_innate_backstab:damage_multiplier:max",
@@ -1735,7 +2467,8 @@
    "unit": "× ловкости",
    "comment": "Backstab: 0.55 × ловкости + 0.05 × ловкости за каждый уровень героя → 2.05 × ловкости на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:riki_blink_strike:cd:max",
@@ -1789,6 +2522,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:centaur_return:return_damage_str:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент своей силы Centaur Warrunner возвращает уроном за каждую атаку через Retaliate на максимальном уровне?",
+   "topic": "Centaur Warrunner",
+   "answer": 35,
+   "step": 5,
+   "unit": "%",
+   "comment": "Centaur Warrunner · Retaliate: 14 / 21 / 28 / 35% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент маны / атрибута в урон): число из тултипа без логики — перегенерировать механикой",
+   "seed": "ratio"
+  },
+  {
    "id": "num:centaur_double_edge:cd:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1799,6 +2546,34 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:pugna_nether_ward:mana_multiplier:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона за каждую потраченную единицу маны наносит Nether Ward у Pugna на максимальном уровне?",
+   "topic": "Pugna",
+   "answer": 1.6,
+   "step": 0.2,
+   "unit": "урона",
+   "comment": "Pugna · Nether Ward: 1 / 1.2 / 1.4 / 1.6 урона по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (порог / коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "threshold"
+  },
+  {
+   "id": "num:pugna_decrepify:bonus_movement_speed:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какое замедление накладывает Decrepify у Pugna на врага на максимальном уровне?",
+   "topic": "Pugna",
+   "answer": 60,
+   "step": 10,
+   "unit": "%",
+   "comment": "Pugna · Decrepify: 45 / 50 / 55 / 60% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (замедление): число из тултипа без логики — перегенерировать механикой",
+   "seed": "slow"
   },
   {
    "id": "num:earth_spirit_geomagnetic_grip:duration:max",
@@ -1814,6 +2589,33 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:earth_spirit_petrify:damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит раскол камня от Enchant Remnant у Earth Spirit (способность от Aghanim's Scepter)?",
+   "topic": "Earth Spirit",
+   "answer": 450,
+   "step": 75,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:earth_spirit_magnetize:damage_per_second:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду наносит Magnetize у Earth Spirit на 3-м уровне?",
+   "topic": "Earth Spirit",
+   "answer": 135,
+   "step": 25,
+   "unit": "урона/сек.",
+   "comment": "Earth Spirit · Magnetize: 45 / 90 / 135 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
+  },
+  {
    "id": "num:dawnbreaker_fire_wreath:smash_stun_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1825,6 +2627,34 @@
    "comment": "Dawnbreaker · Starbreaker: 0.6 / 0.8 / 1 / 1.2 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:dawnbreaker_celestial_hammer:move_slow:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какое замедление даёт огненный след от Celestial Hammer у Dawnbreaker на максимальном уровне?",
+   "topic": "Dawnbreaker",
+   "answer": 36,
+   "step": 6,
+   "unit": "%",
+   "comment": "Dawnbreaker · Celestial Hammer: 24 / 28 / 32 / 36% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (замедление): число из тултипа без логики — перегенерировать механикой",
+   "seed": "slow"
+  },
+  {
+   "id": "num:razor_static_link:drain_rate:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона в секунду ворует Static Link у Razor на максимальном уровне?",
+   "topic": "Razor",
+   "answer": 24,
+   "step": 3,
+   "unit": "урона/сек.",
+   "comment": "Razor · Static Link: 6 / 12 / 18 / 24 урона/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "dps"
   },
   {
    "id": "num:razor_storm_surge:strike_internal_cd:max",
@@ -1865,6 +2695,33 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:techies_minefield_sign:scepter_move_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона получает враг в активном минном поле Minefield Sign у Techies (Aghanim's Scepter) за каждые 200 единиц пройденного пути?",
+   "topic": "Techies",
+   "answer": 300,
+   "step": 50,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:largo_croak_of_genius:damage_portion_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент урона повторяется (реверб) под Croak of Genius у Largo на максимальном уровне?",
+   "topic": "Largo",
+   "answer": 45,
+   "step": 5,
+   "unit": "%",
+   "comment": "Largo · Croak of Genius: 30 / 35 / 40 / 45% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенная деталь): число из тултипа без логики — перегенерировать механикой",
+   "seed": "detail"
+  },
+  {
    "id": "num:largo_encore:buff_amplification:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1875,7 +2732,8 @@
    "unit": "%",
    "comment": "Encore: 15% + 1% за каждый уровень героя → 45% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:ringmaster_the_box:invis_duration:max",
@@ -1891,6 +2749,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:ringmaster_impalement:bleed_health_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от максимального здоровья в секунду снимает кровотечение от Impalement Arts у Ring Master с героев на максимальном уровне?",
+   "topic": "Ring Master",
+   "answer": 6,
+   "step": 1,
+   "unit": "%",
+   "comment": "Ring Master · Impalement Arts: 3 / 4 / 5 / 6% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
+  },
+  {
    "id": "num:phantom_lancer_illusory_armaments:outgoing_floor:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1901,7 +2773,8 @@
    "unit": "%",
    "comment": "Illusory Armaments: 17% + 2% каждые 3 уровня героя → 37% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:storm_spirit_ball_lightning:ball_lightning_move_speed:max",
@@ -1939,6 +2812,32 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:pudge_rot:rot_damage@scepter:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "На сколько Aghanim's Scepter увеличивает урон Rot у Pudge?",
+   "topic": "Pudge",
+   "answer": 90,
+   "step": 15,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:bane_ichor_of_nyctasha:status_resistance:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "На сколько процентов снижается статус-резист к дебаффам Bane за каждый Terror от врождёнки Ichor of Nyctasha?",
+   "topic": "Bane",
+   "answer": 4,
+   "step": 0.5,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенная деталь): число из тултипа без логики — перегенерировать механикой",
+   "seed": "detail"
   },
   {
    "id": "num:void_spirit_aether_remnant:pull_duration:max",
@@ -1979,6 +2878,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:terrorblade_conjure_image:illusion_incoming_damage_total_tooltip:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов урона получает иллюзия от Conjure Image у Terrorblade?",
+   "topic": "Terrorblade",
+   "answer": 250,
+   "step": 25,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (урон иллюзий): число из тултипа без логики — перегенерировать механикой",
+   "seed": "illusion"
+  },
+  {
    "id": "num:bristleback_prickly:amp_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1989,7 +2901,8 @@
    "unit": "%",
    "comment": "Prickly: 4.5% + 0.5% за каждый уровень героя → 19.5% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:broodmother_sticky_snare:root_duration:max",
@@ -2014,7 +2927,8 @@
    "unit": "%",
    "comment": "Persecutor: 24% + 1% за каждый уровень героя → 54% на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:crystal_maiden_frostbite:duration:max",
@@ -2030,6 +2944,34 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:venomancer_noxious_plague:damage_per_second:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от макс. HP цели в секунду наносит Noxious Plague у Venomancer на 3-м уровне?",
+   "topic": "Venomancer",
+   "answer": 4,
+   "step": 0.5,
+   "unit": "%",
+   "comment": "Venomancer · Noxious Plague: 2 / 3 / 4% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
+  },
+  {
+   "id": "num:nyx_assassin_jolt:max_mana_as_damage_pct:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от макс. маны цели наносит уроном Mind Flare у Nyx Assassin на максимальном уровне?",
+   "topic": "Nyx Assassin",
+   "answer": 40,
+   "step": 5,
+   "unit": "%",
+   "comment": "Nyx Assassin · Mind Flare: 25 / 30 / 35 / 40% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент маны / атрибута в урон): число из тултипа без логики — перегенерировать механикой",
+   "seed": "ratio"
+  },
+  {
    "id": "num:rubick_telekinesis:lift_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -2043,6 +2985,33 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:mirana_starfall:secondary_starfall_damage_percent:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов от урона основной волны наносит второй метеор Starstorm у Mirana по ближайшему врагу?",
+   "topic": "Mirana",
+   "answer": 80,
+   "step": 10,
+   "unit": "%",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенная деталь): число из тултипа без логики — перегенерировать механикой",
+   "seed": "detail"
+  },
+  {
+   "id": "num:necrolyte_heartstopper_aura:aura_damage:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Сколько процентов от максимального HP в секунду отнимает Heartstopper Aura у Necrophos на максимальном уровне?",
+   "topic": "Necrophos",
+   "answer": 2.3,
+   "step": 0.4,
+   "unit": "%",
+   "comment": "Necrophos · Heartstopper Aura: 0.8 / 1.3 / 1.8 / 2.3% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
+  },
+  {
    "id": "num:leshrac_split_earth:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -2053,6 +3022,46 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:primal_beast_rock_throw:base_damage:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит Rock Throw у Primal Beast (способность от Aghanim's Shard)?",
+   "topic": "Primal Beast",
+   "answer": 325,
+   "step": 50,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:primal_beast_uproar:projectile_damage@scepter:max",
+   "sub": "hero_damage",
+   "kind": "number",
+   "text": "Сколько урона наносит один снаряд Uproar у Primal Beast с Aghanim's Scepter?",
+   "topic": "Primal Beast",
+   "answer": 85,
+   "step": 15,
+   "unit": "урона",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
+   "seed": "aghanim"
+  },
+  {
+   "id": "num:abyssal_underlord_firestorm:burn_damage:max",
+   "sub": "hero_pct",
+   "kind": "number",
+   "text": "Какой процент от макс. HP в секунду сжигает горение от Firestorm у Underlord на максимальном уровне?",
+   "topic": "Underlord",
+   "answer": 3,
+   "step": 0.5,
+   "unit": "%",
+   "comment": "Underlord · Firestorm: 1.5 / 2 / 2.5 / 3% по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "pct_per_sec"
   },
   {
    "id": "num:nevermore_requiem:requiem_slow_duration_max:max",
@@ -2103,7 +3112,8 @@
    "unit": "сек.",
    "comment": "Vampiric Spirit: 4.25 сек. + 0.25 сек. каждые 6 уровней героя → 5.5 сек. на 30-м",
    "by": "rule:innate_levelup",
-   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»"
+   "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
+   "seed": "innate"
   },
   {
    "id": "num:point_booster:bonus_health:max",
@@ -2286,6 +3296,18 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:dezun_bloodrite:health_pct:max",
+   "sub": "neutrals",
+   "kind": "number",
+   "text": "Какой процент от стоимости заклинания по мане нейтралка 5-го тира Dezun Bloodrite дополнительно снимает здоровьем?",
+   "topic": "Dezun Bloodrite",
+   "answer": 35,
+   "step": 5,
+   "unit": "%",
+   "by": "overrides",
+   "reason": "манакост — удалено пользователем (2026-10-31): процент от стоимости заклинания по мане"
+  },
+  {
    "id": "num:psychic_headband:push_length:max",
    "sub": "neutrals",
    "kind": "number",
@@ -2308,6 +3330,18 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:spellslinger:mana_pct:max",
+   "sub": "neutrals",
+   "kind": "number",
+   "text": "Какой процент потраченной на способности маны возвращает нейтралка 3-го тира Spellslinger?",
+   "topic": "Spellslinger",
+   "answer": 20,
+   "step": 5,
+   "unit": "%",
+   "by": "overrides",
+   "reason": "манакост — удалено пользователем (2026-10-31): процент потраченной маны"
   },
   {
    "id": "num:slippers:cost:max",
