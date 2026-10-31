@@ -321,7 +321,7 @@ function RoundTable({ bet }: { bet: Betting }) {
               const isThisGlad   = player.id === gameState.gladiatorId
 
               const stagedDenoms = stagedBets[player.id]
-              // соперник в смоке («для всех»): его ставку сервер не показывает — вместо кучки дымок
+              // соперник в смоке («для всех»): его ставку сервер не показывает — вместо кучки клуб дыма
               const smoked = !isMe && !!player.betHidden
               const betChips = isMe
                 ? (isKerriCrowd ? [] : placedChips)
@@ -362,6 +362,7 @@ function RoundTable({ bet }: { bet: Betting }) {
                       onRecall={isMe && !betConfirmed && !isKerriCrowd ? recall : undefined}
                       size={isKerriMode ? 'sm' : 'md'}
                       smoked={smoked}
+                      smokeSeed={`${player.id}:pile`}
                     />
                   )}
                   {theirs && options[theirs.opt] !== undefined && (

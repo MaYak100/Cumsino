@@ -5,6 +5,7 @@ import { useGameStore } from '../../store/gameStore'
 import { C } from '../../theme'
 import { ItemIcon, ITEM_LABEL } from './ItemIcon'
 import { isSpectator } from '../../lib/players'
+import { SmokeVeil } from './SmokeVeil'
 
 const FEED_MS = 2800
 
@@ -18,6 +19,8 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
   const targeting = useGameStore(s => s.targeting)
   const useItem = useGameStore(s => s.useItem)
   const options = useGameStore(s => s.gameState?.currentQuestion?.options)
+  // ответ раскрыт — дым рассеивается: кто как ответил, видно всем
+  const revealed = useGameStore(s => s.roundCorrectAnswer !== null)
   // зритель (вошёл посреди раунда) не отвечает — в «кто ответил» его нет, целью гема он тоже не бывает
   const list = (only ? players.filter(p => only.includes(p.id)) : players).filter(p => !isSpectator(p))
 
@@ -31,11 +34,14 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
         const target = targeting === 'gem' && !me
         const last = fresh.find(e => e.playerId === p.id)
         const gem = gemResults[p.id]
+        // в смоке: соперникам ник закрыт дымом (и ответил ли — тоже); при выборе цели гема дым расходится
+        const smoked = !!p.effects?.includes('smoke') && !revealed && !target
         return (
           <div key={p.id} className="relative flex flex-col items-center">
             <AnimatePresence>
               {last && <FeedTag key={last.at} item={last.item} />}
             </AnimatePresence>
+            <SmokeVeil on={smoked} self={me} seed={p.id}>
             <motion.button
               type="button"
               disabled={!target}
@@ -50,13 +56,13 @@ export function AnswerProgress({ color, only }: { color: string; only?: string[]
                 border: `1.5px ${done ? 'solid' : 'dashed'} ${target ? C.hot : done ? color : C.line}`,
                 boxShadow: target ? `0 0 0 3px ${C.hot}55` : 'none',
                 cursor: target ? 'crosshair' : 'default',
-                opacity: p.effects?.includes('smoke') && !me ? 0.55 : 1,
                 transition: 'background-color .2s, color .2s',
               }}
             >
               {me ? 'Ты' : p.name}
               <Marks p={p} />
             </motion.button>
+            </SmokeVeil>
             {gem && (
               <motion.span
                 initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}

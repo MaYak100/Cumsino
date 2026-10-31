@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { C } from '../../theme'
 
 /** Детерминированный ГПСЧ от строки — у стикера одна и та же «вырезка» при каждом рендере. */
-function rng(seed: string) {
+export function rng(seed: string) {
   let h = 2166136261
   for (let i = 0; i < seed.length; i++) h = Math.imul(h ^ seed.charCodeAt(i), 16777619)
   return () => {
