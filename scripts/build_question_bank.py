@@ -24,11 +24,13 @@ id вопроса постоянный — по нему игра помнит, 
 
 Ручные правки — scripts/data/bank/overrides.json (переживают перегенерацию прогонов):
   {"questions": {<id>: {"drop": "причина"} | {"why": "причина", text?, step?, unit?, ceil?, sub?, options?, comment?, ok?,
-                                                topic?, keep?}}}
+                                                topic?, keep?, scale_ok?}}}
   options — целиком, options[0] правильный; ok — «проверка шага не применяется, потому что …»;
   keep — «правило-фильтр (DROP_RULES) этот вопрос не выкидывает, потому что …» (keep без сработавшего правила — ошибка);
   topic — субъект темы руками, когда тема выдаёт ответ, а topic_gives_answer этого не ловит («Герои»);
-  ceil — все варианты строго меньше (проценты, где 100% и больше невозможно: маг. резист, замедление, промах).
+  ceil — все варианты строго меньше (проценты, где 100% и больше невозможно: маг. резист, замедление, промах);
+  scale_ok — «step мельче шага по масштабу, потому что …» (исключение пользователя у секунд; только вместе со step,
+  и step обязан быть мельче правила — иначе ошибка).
   Неизвестный id или поле — ошибка сборки.
 
 При сборке:
@@ -37,6 +39,9 @@ id вопроса постоянный — по нему игра помнит, 
                         длительности от 5 с остаются — чем дольше, тем интуитивнее);
       innate_levelup  — врождёнка, растущая с уровнем героя (hero_levelup в файлах героя): число на 30-м уровне не
                         вывести — такие врождёнки перегенерировать механиками «что делает врождёнка»;
+      mech_seed       — число из тултипа без логики, семя для механики (поле seed в архиве): hero_damage — аганим /
+                        шард, урон в секунду, порог / коэффициент; hero_pct — процент в секунду без аганима и список
+                        id MECH_SEED_IDS (дроби за удар, детали, иллюзии, коэффициенты в урон, замедления);
     спасти вопрос от правила — keep в overrides;
   - всё выкинутое (флаги прогона, тип таланта, drop из overrides, правила) — в scripts/data/bank/archive.json с
     причиной: в игру не идёт, но видно, что и почему ушло;
@@ -44,7 +49,8 @@ id вопроса постоянный — по нему игра помнит, 
     текст обязан это называть (правка в overrides; сейчас их выкидывает innate_levelup);
   - единицы приводятся к словарю (UNIT_ALIAS, UNIT_RULES): игрок видит их прямо в вариантах («175 HP», «12 сек.»);
   - шаг по масштабу (решение 2026-10-31): у секунд шаг ≈ 20% ответа красивым числом (строго меньше 20%, минимум
-    1 сек., без утечки круглостью — scale_step); правило только поднимает шаг, step в overrides мельче — ошибка;
+    1 сек., без утечки круглостью — scale_step); правило только поднимает шаг, step в overrides мельче — ошибка
+    (кроме scale_ok — исключения пользователя: BKB 95 сек. — шаг 5, Black Hole 180 сек. — шаг 20);
   - проверки (падают, если не исправлено в overrides): ответ ≤ 3 шагов от нуля или ceil (место ответа невозможно;
     принятые ok печатаются), ответ ≤ 5 шагов (место честное, 25%, но наверху раскладка зажата у нуля; исключение — 5 сек. при
     шаге 1 сек.), то же у потолка ceil, «ответ выдаёт круглость», латиница внутри русских слов, старые имена героев.
@@ -55,8 +61,9 @@ id вопроса постоянный — по нему игра помнит, 
     {id, sub, kind: "choice", text, topic, aspect?, options, comment?}               # options[0] — правильный
   ]}
   archive.json: {built_at, dropped: {причина: число}, questions: [{id, sub, kind, text, answer?, step?, unit?, options?,
-                 comment?, by, reason, replaced?}]}
+                 comment?, by, reason, seed?, replaced?}]}
     by — flags (флаги прогона) / talents (флаги проверки талантов) / overrides (drop) / rule:<имя> (DROP_RULES);
+    seed — семя для генерации механик: innate (innate_levelup) / aghanim / dps / threshold (mech_seed);
     replaced — вопрос с тем же id есть в банке: отбракован черновик таланта, а в игре вариант из круга догенерации
     (поэтому id в архиве может повторяться)
 
@@ -96,7 +103,8 @@ MECH_SUB = {"how": "mech_how", "interaction": "mech_interaction", "false_fact": 
 MAX_HERO_LEVEL = 30
 LEVELUP_FIELD = {"cd": "AbilityCooldown"}   # имя факта в прогоне → ключ в AbilityValues
 
-OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok", "topic", "keep"}
+OVERRIDE_FIELDS = {"why", "drop", "text", "step", "unit", "ceil", "sub", "options", "comment", "ok", "topic", "keep",
+                   "scale_ok"}
 
 # --- единицы -------------------------------------------------------------------------------------------------
 
@@ -519,27 +527,107 @@ def _short_time(q: dict, levelup_ids: set[str]) -> bool:
     return q["kind"] == "number" and q["unit"].startswith("сек") and q["answer"] < SHORT_TIME
 
 
+# mech_seed — разбор «урона способностей» пользователем (2026-10-31): числа, где нет логики, кроме «видел ли тултип».
+# Вопрос не пропадает, а становится семенем для механики (вместе с innate_levelup): по archive.json (поле seed)
+# потом генерируются вопросы «что делает / как работает». Разобраны hero_damage и hero_pct; в остальных подкатегориях
+# (аганим в hero_time, hero_other…) правило не действует. В hero_damage — правилом, вид — первый подошедший:
+#   aghanim    — способность или прибавка от Aghanim's Scepter / Shard (в тексте «Aghanim»; «без аганима» у Finger of
+#                Death — кириллицей, это обычный вопрос про ульту);
+#   dps        — урон в секунду (единица «урона/сек.», её ставит DPS_TEXT; «без учёта урона в секунду» у Gorgon's Grasp —
+#                мгновенный урон, остаётся);
+#   threshold  — порог или коэффициент: «сколько урона должен получить» (Kraken Shell), «урон за потраченную ману»
+#                (Nether Ward). Reaper's Scythe (за недостающее HP), Fury Swipes (за стак), Duel (за победу) — остаются.
+#
+# hero_pct — второй разбор пользователя (2026-10-31). Аганим / шард здесь остаются (кроме Fire Shield у Ogre Magi);
+# правилом — только процент в секунду без аганима (Healing Ward / Song of the Siren / Black Hole с аганимом остаются),
+# остальное — по списку id (MECH_SEED_IDS): мелкие дроби за удар, второстепенные детали, урон иллюзий, коэффициенты
+# «процент маны / атрибута в урон», замедления (кроме Enchant). Шансы, криты, пороги (Ice Blast, Sunder), снижения и
+# усиления урона, резисты, сплеши (Tidebringer, Great Cleave, Split Shot), Mana Break — остаются.
+MECH_SEED_THRESHOLD = re.compile(r"должен получить|за (?:кажд\w+ )?потраченн", re.I)
+MECH_SEED_PER_SEC = re.compile(r"в секунду", re.I)
+MECH_SEED = {"aghanim": "аганим / шард", "dps": "урон в секунду", "threshold": "порог / коэффициент",
+             "pct_per_sec": "процент HP / маны в секунду", "pct_per_hit": "дробный процент HP за удар",
+             "detail": "второстепенная деталь", "illusion": "урон иллюзий", "ratio": "процент маны / атрибута в урон",
+             "slow": "замедление"}
+MECH_SEED_IDS = {
+    "num:ogre_magi_smash:damage_absorb_pct:max": "aghanim",                       # Fire Shield, шард
+    "num:huskar_burning_spear:burn_damage_max_pct:max": "pct_per_hit",
+    "num:life_stealer_feast:hp_damage_percent:max": "pct_per_hit",
+    "num:kez_raptor_dance:max_health_damage_pct:max": "pct_per_hit",
+    "num:ursa_maul:health_as_damage_pct:max": "pct_per_hit",
+    "num:beastmaster_wild_axes:damage_amp:max": "detail",
+    "num:clinkz_wind_walk:damage_percent:max": "detail",                          # Skeleton Archers
+    "num:luna_moon_glaive:damage_reduction_percent:max": "detail",
+    "num:largo_croak_of_genius:damage_portion_pct:max": "detail",
+    "num:mirana_starfall:secondary_starfall_damage_percent:max": "detail",
+    "num:bane_ichor_of_nyctasha:status_resistance:max": "detail",
+    "num:chaos_knight_phantasm:incoming_damage_tooltip:max": "illusion",
+    "num:terrorblade_conjure_image:illusion_incoming_damage_total_tooltip:max": "illusion",
+    "num:dark_seer_wall_of_replica:tooltip_outgoing:max": "illusion",
+    "num:centaur_return:return_damage_str:max": "ratio",
+    "num:silencer_glaives_of_wisdom:intellect_damage_pct:max": "ratio",
+    # E.M.P., Mind Flare, Mystic Snake и Time Dilation (откат) — расширение решения пользователя, можно вернуть keep
+    "num:invoker_emp:damage_per_mana_pct:max": "ratio",
+    "num:nyx_assassin_jolt:max_mana_as_damage_pct:max": "ratio",
+    "num:medusa_mystic_snake:snake_mana_steal:max": "ratio",
+    "num:batrider_sticky_napalm:turn_rate_pct:max": "slow",
+    "num:tusk_tag_team:movement_slow:max": "slow",
+    "num:gyrocopter_call_down:slow:max": "slow",
+    "num:pugna_decrepify:bonus_movement_speed:max": "slow",
+    "num:dawnbreaker_celestial_hammer:move_slow:max": "slow",
+    "num:faceless_void_time_dilation:cooldown_percentage:max": "slow",
+}
+
+
+def _mech_seed(q: dict, levelup_ids: set[str]) -> str | None:
+    if q["kind"] != "number":
+        return None
+    if q["id"] in MECH_SEED_IDS:
+        return MECH_SEED_IDS[q["id"]]
+    if q["sub"] == "hero_damage":
+        if "Aghanim" in q["text"]:
+            return "aghanim"
+        if q["unit"] == "урона/сек.":
+            return "dps"
+        if MECH_SEED_THRESHOLD.search(q["text"]):
+            return "threshold"
+    if q["sub"] == "hero_pct" and MECH_SEED_PER_SEC.search(q["text"]) and "Aghanim" not in q["text"]:
+        return "pct_per_sec"
+    return None
+
+
+# (имя, проверка, причина, семя механики): проверка возвращает True или вид (строку) — тогда причина и семя по виду
 DROP_RULES = [
     ("innate_levelup", _innate_levelup,
      "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает "
-     "врождёнка»"),
+     "врождёнка»", "innate"),
     ("short_time", _short_time,
-     f"меньше {SHORT_TIME} сек.: «видел или не видел», без логики (от {SHORT_TIME} сек. — остаются)"),
+     f"меньше {SHORT_TIME} сек.: «видел или не видел», без логики (от {SHORT_TIME} сек. — остаются)", None),
+    ("mech_seed", _mech_seed,
+     "семя для механики ({kind}): число из тултипа без логики — перегенерировать механикой", "{seed}"),
 ]
 
 
-def drop_rule(q: dict, levelup_ids: set[str]) -> tuple[str, str] | None:
-    for name, check, reason in DROP_RULES:
-        if check(q, levelup_ids):
-            return name, reason
+def drop_rule(q: dict, levelup_ids: set[str]) -> tuple[str, str, str, str | None] | None:
+    """(имя правила, подпись для сводки, причина, семя механики или None) первого сработавшего правила."""
+    for name, check, reason, seed in DROP_RULES:
+        hit = check(q, levelup_ids)
+        if hit is True:
+            return name, name, reason, seed
+        if hit:
+            return name, f"{name} ({MECH_SEED[hit]})", reason.format(kind=MECH_SEED[hit]), seed.format(seed=hit)
     return None
 
 
 ARCHIVE_FIELDS = ("id", "sub", "kind", "text", "topic", "answer", "step", "unit", "ceil", "options", "comment")
 
 
-def archived(q: dict, by: str, reason: str) -> dict:
-    return {**{k: q[k] for k in ARCHIVE_FIELDS if q.get(k) is not None}, "by": by, "reason": reason}
+def archived(q: dict, by: str, reason: str, seed: str | None = None) -> dict:
+    """seed — семя для генерации механик (innate / aghanim / dps / threshold): отбор — по этому полю."""
+    out = {**{k: q[k] for k in ARCHIVE_FIELDS if q.get(k) is not None}, "by": by, "reason": reason}
+    if seed:
+        out["seed"] = seed
+    return out
 
 
 # --- ручные правки -------------------------------------------------------------------------------------------
@@ -661,6 +749,9 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
         sys.exit(f"повторяющиеся id: {dup[:10]}")
 
     overrides = load_overrides()
+    stale = sorted(set(MECH_SEED_IDS) - set(ids))
+    if stale:
+        sys.exit(f"MECH_SEED_IDS: нет таких вопросов: {stale}")
     unknown = sorted(set(overrides) - set(ids))
     if unknown:
         sys.exit(f"overrides: нет таких вопросов: {unknown}")
@@ -668,6 +759,7 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
     errors: list[str] = []
     kept: list[dict] = []
     scaled: list[dict] = []   # шаг поднят правилом «шаг по масштабу»
+    excepted: list[dict] = []   # scale_ok: шаг мельче правила — решение пользователя
     owner, owner_names = _owners_index()
     for q in out:
         o = overrides.get(q["id"], {})
@@ -689,14 +781,23 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
         set_hero_sub()
         rule = None if unit_unknown else drop_rule(q, levelup_ids)
         if rule and "keep" not in o:
-            dropped[f"правило {rule[0]}"] += 1
-            archive.append(archived(q, f"rule:{rule[0]}", rule[1]))
+            name, label, reason, seed = rule
+            dropped[f"правило {label}"] += 1
+            archive.append(archived(q, f"rule:{name}", reason, seed))
             continue
         if "keep" in o and not rule:
             errors.append(f"{q['id']}: keep в overrides, а правило-фильтр не срабатывает — убери keep")
         if unit_unknown:
             errors.append(f"{q['id']}: единица «{q['unit']}» не распознана — unit в overrides ({q['text']})")
-        if q["kind"] == "number" and q["unit"] == SEC_UNIT:
+        if "scale_ok" in o and not (q["kind"] == "number" and q["unit"] == SEC_UNIT and "step" in o):
+            errors.append(f"{q['id']}: scale_ok — только у вопроса в секундах и вместе со step в overrides")
+        elif "scale_ok" in o:   # исключение из шага по масштабу — решение пользователя, step меньше правила
+            new = scale_step(q) or SEC_MIN_STEP
+            if not Fraction(str(o["step"])) < new:
+                errors.append(f"{q['id']}: scale_ok, а step {o['step']} не мельче шага по масштабу {frac_number(new)} — "
+                              f"убери scale_ok")
+            excepted.append({"id": q["id"], "answer": q["answer"], "step": q["step"], "rule": frac_number(new)})
+        elif q["kind"] == "number" and q["unit"] == SEC_UNIT:
             new = scale_step(q) or SEC_MIN_STEP   # подходящего нет (ровно 10, 20, 75 сек.) — хотя бы минимум 1 сек.
             if "step" in o and Fraction(str(o["step"])) < new:
                 errors.append(f"{q['id']}: step {o['step']} в overrides мельче шага по масштабу {frac_number(new)} — "
@@ -733,7 +834,7 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
     for a in archive:   # отбракованный черновик таланта, а вопрос с тем же id в игре — из круга догенерации
         if a.get("id") in live:
             a["replaced"] = True
-    return kept, dropped, errors, archive, scaled
+    return kept, dropped, errors, archive, scaled, excepted
 
 
 def flagged(q: dict, category: str) -> bool:
@@ -756,7 +857,7 @@ def rank_shares(qs: list[dict]) -> list[float]:
 
 
 def main() -> None:
-    questions, dropped, errors, archive, scaled = build()
+    questions, dropped, errors, archive, scaled, excepted = build()
     if errors:
         print("\n".join(errors), file=sys.stderr)
         sys.exit(f"{len(errors)} ошибок — исправь в {OVERRIDES}")
@@ -782,6 +883,10 @@ def main() -> None:
           f"{ranks}")
     for s in scaled:
         print(f"  {s['answer']:>6}: {s['was']} → {s['step']}  {s['sub']:12} {s['id']}")
+    for s in excepted:
+        print(f"  исключение scale_ok: {s['answer']} при шаге {s['step']} (по правилу {s['rule']})  {s['id']}")
+    seeds = Counter(a["seed"] for a in archive if a.get("seed"))
+    print("семена механик (archive.json, seed): " + ", ".join(f"{k} {n}" for k, n in seeds.most_common()))
 
 
 if __name__ == "__main__":
