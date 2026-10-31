@@ -6,7 +6,7 @@ import { smoothOrder, commitChoice } from '../smooth'
 import { makeStepOptions, formatNumber } from '../stepOptions'
 import { gameOnlyDeck, type StatsBank } from '../../stats/statQuestions'
 import { CATEGORIES, type CategoryDef } from '../categories'
-import { FriendsGen, FRIEND_KINDS, PRESENT_WEIGHT, selfWrStep, wrOptions } from '../friends'
+import { FriendsGen, FRIEND_KINDS, PRESENT_WEIGHT, SELF_WR_STEP, wrOptions } from '../friends'
 
 function seeded(seed: number): () => number {
   let a = seed
@@ -682,17 +682,15 @@ describe('друзья', () => {
     expect(worst.options).not.toContain('Tiny')
   })
 
-  it('свой винрейт: шаг от выборки, варианты в (0, 100), карточки — только топ героев', () => {
-    expect(selfWrStep(40)).toBe(8)
-    expect(selfWrStep(100)).toBe(5)
-    expect(selfWrStep(600)).toBe(5)
+  it('свой винрейт: шаг 3 п.п. (соседи через 3 или 6), варианты в (0, 100), карточки — только топ героев', () => {
+    expect(SELF_WR_STEP).toBe(3)
     for (let seed = 1; seed <= 50; seed++) {
-      for (const answer of [3, 50, 97]) {
-        const v = wrOptions(answer, 8, seeded(seed))
+      for (const answer of [1, 50, 99]) {
+        const v = wrOptions(answer, SELF_WR_STEP, seeded(seed))
         expect(v).toContain(answer)
         expect(Math.min(...v)).toBeGreaterThan(0)
         expect(Math.max(...v)).toBeLessThan(100)
-        expect([8, 16]).toContain(v[1] - v[0])
+        for (let i = 1; i < 4; i++) expect([3, 6]).toContain(v[i] - v[i - 1])
       }
     }
     const many = { ...metrics, heroes: { ...metrics.heroes, ranked: { ...metrics.heroes.ranked,
@@ -703,6 +701,8 @@ describe('друзья', () => {
     const q = cards[0].build()!
     expect(q.text).toMatch(/^Какой винрейт у Аня на #4\d в рейтинге\?$/)
     expect(q.options).toContain(q.answer)
+    const shown = q.options!.map(o => Number(o.replace('%', ''))).sort((a, b) => a - b)
+    for (let i = 1; i < 4; i++) expect([3, 6]).toContain(shown[i] - shown[i - 1])
     expect(q.comment).toMatch(/^10\d игр.?, 50 побед\. Вся история STRATZ\.$/)
   })
 

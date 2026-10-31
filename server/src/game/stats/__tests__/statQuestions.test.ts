@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { describe, it, expect } from 'vitest'
 import {
-  StatQuestionBuilder, gameOnlyDeck, gapOk, capOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE, statKinds, statCards,
+  StatQuestionBuilder, gameOnlyDeck, gapOk, formatNotes, talentTreeOrder, TALENT_FIRST_SLOT_SIDE, statKinds, statCards,
   type StatsBank, type StatEntry, type DeckAccess, type StatMcPool,
 } from '../statQuestions'
 import type { GameMode } from '@cumsino/shared'
@@ -174,39 +174,59 @@ describe('StatQuestionBuilder — несовместимые пары и нич�
   })
 })
 
-describe('верхний предел отрыва (maxRel)', () => {
-  it('capOk: max / min, без предела — всегда да', () => {
-    expect(capOk(250, 100, { maxRel: 2.5 }, 'max')).toBe(true)
-    expect(capOk(251, 100, { maxRel: 2.5 }, 'max')).toBe(false)
-    expect(capOk(100, 300, { maxRel: 3 }, 'min')).toBe(true)
-    expect(capOk(100, 301, { maxRel: 3 }, 'min')).toBe(false)
-    expect(capOk(1000, 1, {}, 'max')).toBe(true)
+describe('коридор обманок (band) и пороги вместе', () => {
+  const BAND: [number, number] = [2 / 3, 0.9]
+
+  it('gapOk band: «больше всех» — обманка от ⅔ до 0.9 правды, «меньше всех» — зеркально', () => {
+    expect(gapOk(100, 90, { band: BAND }, 'max')).toBe(true)
+    expect(gapOk(100, 91, { band: BAND }, 'max')).toBe(false)              // ближе 0.9 — монетка
+    expect(gapOk(100, 66.7, { band: BAND }, 'max')).toBe(true)
+    expect(gapOk(100, 66.6, { band: BAND }, 'max')).toBe(false)            // ниже ⅔ — очевидно
+    expect(gapOk(100, 50, { band: [0.5, 0.9] }, 'max')).toBe(true)         // хил союзникам — от половины
+    // min: правда от ⅔ до 0.9 обманки → обманка от lead / 0.9 до 1.5 · lead
+    expect(gapOk(90, 100, { band: BAND }, 'min')).toBe(true)
+    expect(gapOk(91, 100, { band: BAND }, 'min')).toBe(false)
+    expect(gapOk(100, 150, { band: BAND }, 'min')).toBe(true)
+    expect(gapOk(100, 151, { band: BAND }, 'min')).toBe(false)
+    expect(gapOk(0, 10, { band: BAND }, 'min')).toBe(false)                 // нуль в коридор не встаёт
   })
 
-  it('лидер не дальше ×maxRel от второго места; доминирующий вариант в варианты не попадает', () => {
-    // 846к — Treads у Drow: с пределом ×2.5 её не с кем сравнить, ни ответом, ни соперником она не будет
-    const vals = [846, 37, 20, 15, 5, 4.4, 1.1, 0.2]
-    const b = bank({ gap: { rel: 0.15, maxRel: 2.5 }, pools: [{ entries: entries(vals), asks: [{ ask: 'max', text: 'q' }] }] })
+  it('abs и band вместе — оба сразу (добивания: коридор и ≥ 20 крипов)', () => {
+    const cs = { band: BAND, abs: 20 }
+    expect(gapOk(300, 250, cs, 'max')).toBe(true)
+    expect(gapOk(150, 134, cs, 'max')).toBe(false)                         // коридор да, 16 крипов — нет
+    expect(gapOk(300, 190, cs, 'max')).toBe(false)                         // 110 крипов да, коридор (0.63) — нет
+    expect(gapOk(60, 80, cs, 'min')).toBe(true)
+    expect(gapOk(60, 75, cs, 'min')).toBe(false)
+    expect(gapOk(110, 100, { rel: 0.1, abs: 15 }, 'max')).toBe(false)       // rel да, abs нет
+  })
+
+  it('max: каждая из трёх обманок в коридоре — не только второе место (Manta 10.0М против 5.6 / 4.9 / 4.7)', () => {
+    const vals = [10, 5.6, 4.9, 4.7, 8.5, 8, 7.5, 7.2, 3]
+    const b = bank({ gap: { band: BAND }, pools: [{ entries: entries(vals), asks: [{ ask: 'max', text: 'q' }] }] })
     const val = Object.fromEntries(entries(vals).map(e => [e[0], e[1]]))
+    expect([...statCards(b.subcategories[0]).mc].sort()).toEqual(['H0'])   // только у 10 три обманки в 6.67…9
     for (let seed = 1; seed <= 60; seed++) {
       const q = picker(b, seeded(seed)).pick('all')!
-      const vs = q.options!.map(o => val[o]).sort((a, c) => c - a)
-      expect(vs[0]).toBe(val[q.answer!])
-      expect(vs[0]).toBeLessThanOrEqual(vs[1] * 2.5)
-      for (const v of vs.slice(1)) expect(vs[0]).toBeGreaterThanOrEqual(v * 1.15)
-      expect(q.options).not.toContain('H0')
+      expect(q.answer).toBe('H0')
+      for (const o of q.options!) if (o !== q.answer) {
+        expect(val[o]).toBeGreaterThanOrEqual(10 * 2 / 3 - 1e-9)
+        expect(val[o]).toBeLessThanOrEqual(9 + 1e-9)
+      }
     }
   })
 
-  it('ask min: второе место не дальше ×maxRel от лидера', () => {
-    const vals = [1, 10, 12, 15, 30, 40, 80]
-    const b = bank({ gap: { rel: 0.1, maxRel: 3 }, pools: [{ entries: entries(vals), asks: [{ ask: 'min', text: 'q' }] }] })
+  it('min: правда от ⅔ до 0.9 каждой обманки', () => {
+    const vals = [1, 10, 12, 14, 15, 19, 30, 40]
+    const b = bank({ gap: { band: BAND }, pools: [{ entries: entries(vals), asks: [{ ask: 'min', text: 'q' }] }] })
     const val = Object.fromEntries(entries(vals).map(e => [e[0], e[1]]))
     for (let seed = 1; seed <= 40; seed++) {
       const q = picker(b, seeded(seed)).pick('all')!
-      const vs = q.options!.map(o => val[o]).sort((a, c) => a - c)
-      expect(vs[0]).toBe(val[q.answer!])
-      expect(vs[1]).toBeLessThanOrEqual(vs[0] * 3)
+      expect(q.answer).toBe('H1')                                           // 10: обманки 12, 14, 15 (до 15)
+      for (const o of q.options!) if (o !== q.answer) {
+        expect(val[o]).toBeGreaterThanOrEqual(10 / 0.9 - 1e-9)
+        expect(val[o]).toBeLessThanOrEqual(15 + 1e-9)
+      }
     }
   })
 })
@@ -332,37 +352,6 @@ describe('StatQuestionBuilder — closest', () => {
   })
 })
 
-describe('StatQuestionBuilder — topLead (ботинки)', () => {
-  const boots = (hero: string, vals: Array<[string, number]>): StatMcPool =>
-    ({ subject: hero, entries: vals.map(([n, v]) => [n, v, `${v}`]), asks: [{ ask: 'max', text: `Ботинки ${hero}?` }] })
-
-  it('ответ — лидер пула; варианты (ботинки) между героями повторяются, исключается только герой', () => {
-    const b = bank({ topLead: true, gap: { rel: 0.1, maxRel: 2.5 }, note: 'pct', pools: [
-      boots('Dark Willow', [['Tranquil Boots', 0.47], ['Arcane Boots', 0.38], ['Power Treads', 0.06], ['Boots of Travel', 0.03]]),
-      boots('Tusk', [['Tranquil Boots', 0.40], ['Phase Boots', 0.28], ['Arcane Boots', 0.22], ['Power Treads', 0.04]]),
-      boots('Earthshaker', [['Arcane Boots', 0.44], ['Power Treads', 0.25], ['Boots of Travel', 0.14], ['Phase Boots', 0.12]]),
-    ] })
-    for (let seed = 1; seed <= 20; seed++) {
-      const p = picker(b, seeded(seed))
-      const qs = [p.pick('all')!, p.pick('all')!, p.pick('all')!]
-      expect(p.pick('all')).toBeNull()                       // герои кончились
-      const answers = Object.fromEntries(qs.map(q => [q.displayTopic, q.answer]))
-      expect(answers).toEqual({
-        'Dark Willow': 'Tranquil Boots', 'Tusk': 'Tranquil Boots', 'Earthshaker': 'Arcane Boots',
-      })
-      for (const q of qs) expect(q.optionNotes![q.options!.indexOf(q.answer!)]).toMatch(/^4\d\.0%$/)
-    }
-  })
-
-  it('лидер в вариантах, даже когда без него четвёрка проходит гейт (Drow: Treads ×22 от второго)', () => {
-    const b = bank({ topLead: true, gap: { rel: 0.1, maxRel: 1.5 }, pools: [
-      boots('Drow Ranger', [['Power Treads', 945], ['Boots of Travel', 42], ['Boots of Travel 2', 6], ['Phase Boots', 5],
-        ['Tranquil Boots', 2], ['Arcane Boots', 1]]),
-    ] })
-    for (let seed = 1; seed <= 10; seed++) expect(picker(b, seeded(seed)).pick('all')!.answer).toBe('Power Treads')
-  })
-})
-
 describe('настоящий bank.json', () => {
   const file = path.join(__dirname, '..', '..', '..', '..', '..', 'scripts', 'data', 'stats', 'bank.json')
   const real = fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, 'utf-8')) as StatsBank) : null
@@ -392,45 +381,35 @@ describe('настоящий bank.json', () => {
     }
   })
 
-  it.skipIf(!real)('предел отрыва: ботинки ×2.5, предметы ×3 — у каждой собранной четвёрки', () => {
-    for (const [id, cap] of [['boots_hero', 2.5], ['items_hero', 3], ['items', 3]] as const) {
+  it.skipIf(!real)('коридор обманок: каждая обманка от ⅔ (хил — ½) до 0.9 правды, добивания — ещё и ≥ 20', () => {
+    const want: Record<string, { lo: number; abs?: number }> = {
+      avg_heal_allies: { lo: 0.5 }, avg_heal_self: { lo: 2 / 3 }, avg_tower: { lo: 2 / 3 },
+      avg_hero_damage: { lo: 2 / 3 }, avg_kills: { lo: 2 / 3 }, avg_cs: { lo: 2 / 3, abs: 20 },
+      hero_pick: { lo: 2 / 3 }, hero_pick_year: { lo: 2 / 3 }, hero_pick_all: { lo: 2 / 3 },
+      items: { lo: 2 / 3 }, items_hero: { lo: 2 / 3 },
+    }
+    for (const [id, w] of Object.entries(want)) {
       const sub = real!.subcategories.find(s => s.id === id)!
-      expect(sub.gap?.maxRel).toBe(cap)
-      for (let seed = 1; seed <= 40; seed++) {
+      expect(sub.gap?.band?.[0]).toBeCloseTo(w.lo, 9)
+      expect(sub.gap?.band?.[1]).toBe(0.9)
+      expect(sub.gap?.abs).toBe(w.abs)
+      for (let seed = 1; seed <= 30; seed++) {
         const q = new StatQuestionBuilder(real!, seeded(seed)).build(sub, 'all', gameOnlyDeck())!
-        const pool = sub.pools.find(p => !p.subject || q.displayTopic === p.subject)!
+        // у средних две половины пула (больше / меньше всех) — пул находится по тексту
+        const pool = sub.pools.find(p => p.asks.some(a => a.text === q.text) && (!p.subject || q.displayTopic === p.subject))!
+        const ask = pool.asks.find(a => a.text === q.text)!.ask
         const val = Object.fromEntries(pool.entries.map(e => [e[0], e[1]]))
-        const vs = q.options!.map(o => val[o]).sort((a, c) => c - a)
-        expect(vs[0]).toBe(val[q.answer!])
-        expect(vs[0]).toBeLessThanOrEqual(vs[1] * cap + 1e-6)
+        const lead = val[q.answer!]
+        for (const o of q.options!) {
+          if (o === q.answer) continue
+          const [hi, lo] = ask === 'max' ? [lead, val[o]] : [val[o], lead]
+          expect(lo / hi).toBeGreaterThanOrEqual(w.lo - 1e-9)
+          expect(lo / hi).toBeLessThanOrEqual(0.9 + 1e-9)
+          if (w.abs) expect(hi - lo).toBeGreaterThanOrEqual(w.abs - 1e-9)
+        }
       }
     }
-  })
-
-  it.skipIf(!real)('ботинки: ответ — самые популярные ботинки героя, второе место ×1.1…×2.5, подписи в %', () => {
-    const sub = real!.subcategories.find(s => s.id === 'boots_hero')!
-    expect(sub.topLead).toBe(true)
-    expect(sub.note).toBe('pct')
-    expect(sub.pools.length).toBeGreaterThanOrEqual(20)
-    for (const pool of sub.pools) {
-      const vs = pool.entries.map(e => e[1])
-      expect(vs).toHaveLength(4)
-      expect([...vs].sort((a, c) => c - a)).toEqual(vs)       // по убыванию: [0] — лидер героя
-      expect(vs[0] / vs[1]).toBeGreaterThanOrEqual(1.1 - 1e-9)
-      expect(vs[0] / vs[1]).toBeLessThanOrEqual(2.5 + 1e-9)
-    }
-    const builder = new StatQuestionBuilder(real!, seeded(3))
-    const deck = gameOnlyDeck()
-    const heroes = new Set<string>()
-    for (let i = 0; i < sub.pools.length; i++) {
-      const q = builder.build(sub, 'all', deck)!
-      const pool = sub.pools.find(p => q.displayTopic === p.subject)!
-      heroes.add(pool.subject!)
-      expect(q.answer).toBe(pool.entries[0][0])
-      expect([...q.options!].sort()).toEqual(pool.entries.map(e => e[0]).sort())
-      for (const n of q.optionNotes!) expect(n).toMatch(/^\d+\.\d%$/)
-    }
-    expect(heroes.size).toBe(sub.pools.length)                // за одну игру — все герои, ботинки не кончаются
+    expect(real!.subcategories.find(s => s.id === 'boots_hero')).toBeUndefined()   // убраны 2026-10-31
   })
 
   it.skipIf(!real)('«кто ближе» средних: убийства с точностью 0.1, остальное целое; единицы; без самолечения', () => {
@@ -455,7 +434,7 @@ describe('настоящий bank.json', () => {
     expect(real!.subcategories.find(s => s.id === 'avg_heal_self')!.closest).toBeUndefined()
   })
 
-  it.skipIf(!real)('«кто ближе» предметов: доля 5…95%, целые, без ботинок; на герое — те же предметы, что в MC', () => {
+  it.skipIf(!real)('«кто ближе» предметов: доля 5…95%, целые; на герое — те же предметы, что в MC', () => {
     for (const id of ['items', 'items_hero']) {
       const sub = real!.subcategories.find(s => s.id === id)!
       expect(sub.closest!.unit).toBe('%')
@@ -471,7 +450,6 @@ describe('настоящий bank.json', () => {
       const mc = ih.pools.find(x => x.subject === p.subject)   // MC-пул героя мог не пройти гейт — closest остаётся
       if (mc) expect(mc.entries.some(e => p.text.includes(` покупают ${e[0]} `))).toBe(true)
     }
-    expect(real!.subcategories.find(s => s.id === 'boots_hero')!.closest).toBeUndefined()
   })
 
   it.skipIf(!real)('таланты: в банке layout talent_tree, сверху 25 уровень, снизу 20', () => {

@@ -102,7 +102,7 @@ export const CATEGORIES: CategoryDef[] = [
     id: 'match_items', title: 'Предметы в матчах', weight: 0.7, subs: [
       { id: 'items', title: 'Популярность', subject: 'Предметы', aspect: 'популярность' },
       { id: 'items_hero', title: 'Предметы героя', aspect: 'предметы' },
-      { id: 'boots_hero', title: 'Ботинки героя', weight: 0.6, aspect: 'предметы' },
+      // ботинки героя (boots_hero) убраны 2026-10-31: ответ очевиден (Arcane у саппортов, Treads у керри)
     ],
   },
   {
