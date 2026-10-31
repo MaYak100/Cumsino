@@ -911,9 +911,10 @@ export class GameRoom extends EventEmitter {
     const settled = this.revealing || this.phase === 'REVEAL'
     // в лавке вопрос следующего раунда уже выбран, но не показывается (тема — сюрприз анонса)
     const showQuestion = this.phase !== 'SHOP'
-    // «для всех» до вопроса — без вариантов и единицы (при любой настройке); текст — только в «ставке на вопрос».
-    // Керри не трогаем: толпа ставит на вариант
+    // «для всех» до вопроса — без вариантов и единицы (при любой настройке); текст — только со ставок и только в «ставке
+    // на вопрос» (в анонсе экран его не рисует — и в devtools его нет). Керри не трогаем: толпа ставит на вариант
     const beforeQuestion = this.currentMode === 'all' && (this.phase === 'ANNOUNCE' || this.phase === 'BETTING')
+    const hideText = beforeQuestion && (this.phase === 'ANNOUNCE' || !this.settings.questionBet)
     return {
       id: this.id,
       phase: this.phase,
@@ -926,7 +927,7 @@ export class GameRoom extends EventEmitter {
             mode: this.currentQuestion.mode,
             topic: this.currentQuestion.topic,
             displayTopic: this.currentQuestion.displayTopic,
-            text: beforeQuestion && !this.settings.questionBet ? '' : this.currentQuestion.text,
+            text: hideText ? '' : this.currentQuestion.text,
             ...(beforeQuestion ? {} : { options: this.currentQuestion.options, unit: this.currentQuestion.unit }),
             category: this.currentQuestion.category,
             subcategory: this.currentQuestion.subcategory,

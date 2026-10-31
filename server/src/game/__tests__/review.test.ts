@@ -152,13 +152,22 @@ describe('ревью 2026-10-30', () => {
     })
 
     for (const questionBet of [true, false]) {
-      it(`«для всех»: варианты и единица не уходят до QUESTION ни одной роли; текст — только в ставке на вопрос (questionBet: ${questionBet})`, () => {
+      it(`«для всех»: варианты и единица не уходят до QUESTION ни одной роли; текст — только со ставок и только в ставке на вопрос (questionBet: ${questionBet})`, () => {
         const t = makeRoom(3, m => (m === 'closest' ? cnQ : { ...mcQ, options: ['OPTA', 'OPTB', 'OPTC', 'OPTD'], answer: 'OPTA', unit: 'UNITX', text: 'TEXTQ' }))
         t.room.setSettings('p1', { questionBet })
         t.startIn('all')
         t.room.addPlayer('s1', 'Зритель')               // вошёл в анонсе — зритель
         expect(t.r.phase).toBe('ANNOUNCE')
-        vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)
+        // анонс: текста нет ни в почте, ни в личном состоянии — при любой настройке, у любой роли
+        vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000 - 100)
+        expect(t.r.phase).toBe('ANNOUNCE')
+        for (const id of ['p1', 'p2', 'p3', 's1']) {
+          expect(t.mail(id).some(e => e.event === 'game_state' && e.data.phase === 'ANNOUNCE')).toBe(true)
+          expect(leaks(t.mail(id), 'TEXTQ')).toBe(false)
+          expect(t.room.getStateForPlayer(id).currentQuestion).toMatchObject({ text: '', topic: 'T' })   // тема — есть
+          expect(JSON.stringify(t.room.getStateForPlayer(id))).not.toContain('TEXTQ')
+        }
+        vi.advanceTimersByTime(100)
         expect(t.r.phase).toBe('BETTING')
         t.room.stageChip('p2', [10, 20])
         for (const id of ['p1', 'p2', 'p3', 's1']) {

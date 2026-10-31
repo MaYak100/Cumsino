@@ -1014,7 +1014,7 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.r.currentQuestion).not.toBeNull()   // выбран заранее — в анонсе тот же
     })
 
-    it('таймер закрывает лавку → ANNOUNCE (первый «для всех» — анонс длиннее), вопрос виден, shopReady нет', () => {
+    it('таймер закрывает лавку → ANNOUNCE (первый «для всех» — анонс длиннее), тема видна (текст — со ставок), shopReady нет', () => {
       const t = makeRoom(2)
       t.r.closestSeen = true   // первый круг уже сыгран
       t.room.start('p1')
@@ -1022,7 +1022,7 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.r.phase).toBe('ANNOUNCE')
       const st = t.room.getPublicState()
       expect(st.phaseTimeLeft).toBe(PHASE_DURATIONS.ANNOUNCE! + 3)
-      expect(st.currentQuestion?.text).toBe(mcQ.text)
+      expect(st.currentQuestion).toMatchObject({ topic: mcQ.topic, text: '' })
       expect(st.players.every(x => x.shopReady === undefined)).toBe(true)
     })
 

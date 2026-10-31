@@ -142,15 +142,18 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
     ? shown.map(p => ({ ...p, chips: Math.max(0, p.chips + (results.find(r => r.playerId === p.id)?.delta ?? 0)) }))
     : shown
 
-  // как сервер: «для всех» до вопроса — без вариантов и единицы (ставка на вопрос — текст виден, лаборатория — с ней)
+  // как сервер: «для всех» до вопроса — без вариантов и единицы, в анонсе и без текста (ставка на вопрос — текст виден
+  // со ставок, лаборатория — с ней)
   const preQuestion = gm === 'all' && (phase === 'ANNOUNCE' || phase === 'BETTING')
+  const noText = gm === 'all' && phase === 'ANNOUNCE'
   const timings = roundTimings(gm, true)
   const gameState: GameState = {
     id: 'lab',
     phase,
     roundIndex: 3,
     mode: gm,
-    currentQuestion: publicQuestion(preQuestion ? { ...q, options: undefined, unit: undefined } : q),
+    currentQuestion: publicQuestion(preQuestion
+      ? { ...q, options: undefined, unit: undefined, ...(noText ? { text: '' } : {}) } : q),
     jackpot: true,
     questionBet: true,
     jackpotBank: 0,
