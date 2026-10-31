@@ -259,6 +259,17 @@
   дробный процент за удар 4, второстепенные детали 6, урон иллюзий 3, процент маны / атрибута в урон 5, замедления 6
   (кроме Enchant). Расширение решения агентом (вернуть — убрать id из `MECH_SEED_IDS`): E.M.P., Mind Flare, Mystic Snake
   (`ratio`) и Time Dilation (замедление отката).
+- [x] **Разбор `hero_other` пользователем → семена механик** (тот же `mech_seed`, только список `MECH_SEED_IDS`):
+  82 → 43. В архив: скорость атаки 12 (Bloodlust, Bloodrage, Fire Spirits, Grow, Little Friends, Curse of Avernus,
+  Fervor, Savage Roar, Grave Chill, Overload, Penitence, Overwhelming Odds), реген в секунду 5 (Shadow Dance, Chemical
+  Rage, Nature's Attendants, Scorched Earth, Berserk Potion), за единицу 4 (Solar Guardian, Resonant Pulse, Weave с
+  шардом, Ransack), коэффициенты 6 (Last Word, Arcane Bolt, Bone Chill и Decay с аганимом, Tailwind, Mana Drain),
+  второстепенное 6 (Demonic Cleanse, Firesnap Cookie, опыт Cloak and Dagger, скорость Treant с аганимом, барьер Warcry
+  с шардом, барьер Reactive Armor с аганимом), броня 6–8 — лотерея 6 (Reality Rift, Howl, Rip Tide, Wave of Terror,
+  Presence of the Dark Lord, Drinking Buddies). Остались: «количество» 26 (атаки до сноса, отскоки, пульсы, стаки,
+  заряды — аганим / шард тоже), HP призывов 4, золото 3, большие хилы / бонусы HP 3, скорость атаки 5 (Overpower,
+  Berserker's Blood, Strafe, Untouchable, Unleash), броня 2 (Corrosive Haze, Divine Favor). Расширение решения
+  координатором (вернуть — убрать id): барьеры Warcry (300) и Reactive Armor (800). Банк 859 → 820.
 - [x] **Манакосты — удалено пользователем**: Dezun Bloodrite (процент от стоимости заклинания по мане) и Spellslinger
   (процент потраченной маны) — `drop` в overrides. `neutrals` 51 → 49. Банк 933 → 859.
 - [x] **Исключения шага по масштабу** — `scale_ok: «причина»` в overrides вместе со `step` (README раздел 4): кд BKB 95
@@ -303,11 +314,12 @@
   Persecutor, Vampiric Spirit). Их правки в `overrides.json` (текст «на 30-м уровне героя», шаг, `ceil`) больше не
   нужны — убрать при перегенерации или оставить для архива.
 - [ ] **Пачка перегенерации механик: `innate_levelup` + `mech_seed`** (`text_lab`, вопросы «что делает / как работает»):
-  семена — `archive.json`, записи с полем `seed` (сейчас 96: `innate` 24, `aghanim` 23, `dps` 15, `pct_per_sec` 8,
-  `detail` 6, `slow` 6, `ratio` 5, `pct_per_hit` 4, `illusion` 3, `threshold` 2). Не число из тултипа, а поведение:
-  что даёт аганим / шард, как тикает урон, что за порог, как работают иллюзии и т. д.
-- [ ] Аганим / шард в остальных числовых подкатегориях (`hero_time`, `hero_other`) — разобрать с пользователем тем же
-  механизмом (`mech_seed`).
+  семена — `archive.json`, записи с полем `seed` (сейчас 135: `innate` 24, `aghanim` 23, `dps` 15, `attack_speed` 12,
+  `pct_per_sec` 8, `coef` 6, `armor` 6, `detail` 6, `minor` 6, `slow` 6, `ratio` 5, `regen` 5, `per_unit` 4,
+  `pct_per_hit` 4, `illusion` 3, `threshold` 2). Не число из тултипа, а поведение: что даёт аганим / шард, как тикает
+  урон, что за порог, как работают иллюзии, кому и как даётся скорость атаки / броня и т. д.
+- [ ] Аганим / шард в `hero_time` — разобрать с пользователем тем же механизмом (`mech_seed`); `hero_other` разобран
+  целиком (аганим там остаётся).
 - [ ] `hero_time` после фильтра — 51 вопрос при весе 1 (как у соседей по 120+): повторы чаще. Если заметно — вес 0.5 в
   `categories.ts` или догенерация длительностей ≥ 5 с и кд.
 

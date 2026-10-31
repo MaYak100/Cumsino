@@ -6,17 +6,23 @@
   "флаги прогона (items)": 1,
   "таланты: флаги проверки или не «has»": 42,
   "правило short_time": 88,
+  "правило mech_seed (коэффициент)": 6,
   "правило mech_seed (урон в секунду)": 15,
   "правило innate_levelup": 24,
   "правило mech_seed (аганим / шард)": 23,
+  "правило mech_seed (броня 6–8, лотерея)": 6,
   "правило mech_seed (урон иллюзий)": 3,
+  "правило mech_seed (за единицу)": 4,
   "правило mech_seed (порог / коэффициент)": 2,
   "правило mech_seed (процент маны / атрибута в урон)": 5,
   "правило mech_seed (процент HP / маны в секунду)": 8,
+  "правило mech_seed (скорость атаки)": 12,
   "правило mech_seed (дробный процент HP за удар)": 4,
   "правило mech_seed (второстепенная деталь)": 6,
+  "правило mech_seed (второстепенное)": 6,
   "drop в overrides": 32,
-  "правило mech_seed (замедление)": 6
+  "правило mech_seed (замедление)": 6,
+  "правило mech_seed (реген в секунду)": 5
  },
  "questions": [
   {
@@ -762,6 +768,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:lion_mana_drain:mana_per_second:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько маны в секунду высасывает Mana Drain у Lion на максимальном уровне?",
+   "topic": "Lion",
+   "answer": 120,
+   "step": 20,
+   "unit": "маны/сек.",
+   "comment": "Lion · Mana Drain: 20 / 40 / 60 / 120 маны/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "coef"
+  },
+  {
    "id": "num:juggernaut_blade_fury:blade_fury_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -920,6 +940,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:chaos_knight_reality_rift:armor_reduction:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько брони снимает Reality Rift у Chaos Knight на максимальном уровне?",
+   "topic": "Chaos Knight",
+   "answer": 7,
+   "step": 1,
+   "unit": "брони",
+   "comment": "Chaos Knight · Reality Rift: 4 / 5 / 6 / 7 брони по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (броня 6–8, лотерея): число из тултипа без логики — перегенерировать механикой",
+   "seed": "armor"
+  },
+  {
    "id": "num:chaos_knight_phantasm:incoming_damage_tooltip:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -958,6 +992,19 @@
    "comment": "Dazzle · Nothl Projection: 1.4 / 1.6 / 1.8 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:dazzle_innate_weave:ally_heal@shard:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько здоровья за каждый стак лечит союзника врождёнка Weave у Dazzle с Aghanim's Shard?",
+   "topic": "Dazzle",
+   "answer": 60,
+   "step": 10,
+   "unit": "HP",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (за единицу): число из тултипа без логики — перегенерировать механикой",
+   "seed": "per_unit"
   },
   {
    "id": "num:tidehunter_ravage:duration:max",
@@ -1037,6 +1084,20 @@
    "comment": "Elder Titan · Echo Stomp: 2 / 2.8 / 3.6 / 4.4 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:ogre_magi_bloodlust:bonus_attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки даёт Bloodlust у Ogre Magi союзнику (не самому Ogre) на максимальном уровне?",
+   "topic": "Ogre Magi",
+   "answer": 80,
+   "step": 15,
+   "unit": "скорости атаки",
+   "comment": "Ogre Magi · Bloodlust: 35 / 50 / 65 / 80 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
   },
   {
    "id": "num:ogre_magi_smash:damage_absorb_pct:max",
@@ -1158,6 +1219,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:silencer_last_word:int_multiplier:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Какой множитель разницы в интеллекте у Last Word у Silencer на максимальном уровне?",
+   "topic": "Silencer",
+   "answer": 2.5,
+   "step": 0.25,
+   "unit": "×",
+   "comment": "Silencer · Last Word: 1 / 1.5 / 2 / 2.5× по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "coef"
+  },
+  {
    "id": "num:silencer_glaives_of_wisdom:intellect_damage_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1213,6 +1288,20 @@
    "seed": "dps"
   },
   {
+   "id": "num:meepo_ransack:health_steal_heroes:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько здоровья за удар крадёт Ransack у Meepo с героев на максимальном уровне?",
+   "topic": "Meepo",
+   "answer": 16,
+   "step": 3,
+   "unit": "HP",
+   "comment": "Meepo · Ransack: 7 / 10 / 13 / 16 HP по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (за единицу): число из тултипа без логики — перегенерировать механикой",
+   "seed": "per_unit"
+  },
+  {
    "id": "num:meepo_megameepo_fling:fling_damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1237,6 +1326,19 @@
    "comment": "Sven · Storm Hammer: 1 / 1.25 / 1.5 / 1.75 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:sven_warcry:base_barrier_amount@shard:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Какой барьер от физического урона даёт Warcry у Sven с Aghanim's Shard?",
+   "topic": "Sven",
+   "answer": 300,
+   "step": 50,
+   "unit": "HP",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенное): число из тултипа без логики — перегенерировать механикой",
+   "seed": "minor"
   },
   {
    "id": "num:life_stealer_feast:hp_damage_percent:max",
@@ -1341,6 +1443,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:bloodseeker_bloodrage:attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки даёт Bloodrage у Bloodseeker на максимальном уровне?",
+   "topic": "Bloodseeker",
+   "answer": 130,
+   "step": 25,
+   "unit": "скорости атаки",
+   "comment": "Bloodseeker · Bloodrage: 55 / 80 / 105 / 130 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
+  },
+  {
    "id": "num:treant_overgrowth:damage:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1365,6 +1481,33 @@
    "comment": "Treant Protector · Leech Seed: 0.75 / 1 / 1.25 / 1.5 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:treant_overgrowth:movement_speed@scepter:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Какая фиксированная скорость передвижения у увеличенного Treant Protector после Overgrowth с Aghanim's Scepter?",
+   "topic": "Treant Protector",
+   "answer": 345,
+   "step": 25,
+   "unit": "скорости",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенное): число из тултипа без логики — перегенерировать механикой",
+   "seed": "minor"
+  },
+  {
+   "id": "num:lycan_howl:armor:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько брони снимает Howl у Lycan на максимальном уровне?",
+   "topic": "Lycan",
+   "answer": 7,
+   "step": 1,
+   "unit": "брони",
+   "comment": "Lycan · Howl: 4 / 5 / 6 / 7 брони по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (броня 6–8, лотерея): число из тултипа без логики — перегенерировать механикой",
+   "seed": "armor"
   },
   {
    "id": "num:lycan_apex_predator:damage_amp:max",
@@ -1476,6 +1619,19 @@
    "seed": "innate"
   },
   {
+   "id": "num:ancient_apparition_bone_chill:str_reduction@scepter:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "На сколько Aghanim's Scepter увеличивает снижение силы за один стак врождёнки Bone Chill у Ancient Apparition?",
+   "topic": "Ancient Apparition",
+   "answer": 0.8,
+   "step": 0.1,
+   "unit": "силы",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "coef"
+  },
+  {
    "id": "num:batrider_flaming_lasso:duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1542,6 +1698,19 @@
    "by": "rule:mech_seed",
    "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
    "seed": "aghanim"
+  },
+  {
+   "id": "num:tusk_drinking_buddies:armor_bonus:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько брони дают Drinking Buddies (Aghanim's Shard у Tusk) самому Tusk и союзнику?",
+   "topic": "Tusk",
+   "answer": 7,
+   "step": 1,
+   "unit": "брони",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (броня 6–8, лотерея): число из тултипа без логики — перегенерировать механикой",
+   "seed": "armor"
   },
   {
    "id": "num:tusk_tag_team:movement_slow:max",
@@ -1800,6 +1969,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:windrunner_tailwind:movespeed_bonus:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости передвижения даёт один стак врождёнки Tailwind у Windranger?",
+   "topic": "Windranger",
+   "answer": 35,
+   "step": 5,
+   "unit": "скорости",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "coef"
+  },
+  {
    "id": "num:jakiro_double_trouble:attack_damage_reduction:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -1854,6 +2036,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:naga_siren_rip_tide:armor_reduction:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько брони снимает Rip Tide у Naga Siren на максимальном уровне?",
+   "topic": "Naga Siren",
+   "answer": 8,
+   "step": 1,
+   "unit": "брони",
+   "comment": "Naga Siren · Rip Tide: 2 / 4 / 6 / 8 брони по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (броня 6–8, лотерея): число из тултипа без логики — перегенерировать механикой",
+   "seed": "armor"
+  },
+  {
    "id": "num:slark_pounce:leash_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1865,6 +2061,20 @@
    "comment": "Slark · Pounce: 2.5 / 2.75 / 3 / 3.25 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:slark_shadow_dance:bonus_regen:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько хп в секунду даёт пассивка Shadow Dance у Slark на 3-м уровне?",
+   "topic": "Slark",
+   "answer": 120,
+   "step": 20,
+   "unit": "HP/сек.",
+   "comment": "Slark · Shadow Dance: 60 / 90 / 120 HP/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (реген в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "regen"
   },
   {
    "id": "num:slark_dark_pact:delay:max",
@@ -1922,6 +2132,19 @@
    "seed": "innate"
   },
   {
+   "id": "num:shredder_reactive_armor:max_shield@scepter:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "До какого максимума может вырасти барьер от активного Reactive Armor с Aghanim's Scepter у Timbersaw?",
+   "topic": "Timbersaw",
+   "answer": 800,
+   "step": 150,
+   "unit": "HP",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенное): число из тултипа без логики — перегенерировать механикой",
+   "seed": "minor"
+  },
+  {
    "id": "num:shredder_flamethrower:damage_per_second:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -1933,6 +2156,19 @@
    "by": "rule:mech_seed",
    "reason": "семя для механики (аганим / шард): число из тултипа без логики — перегенерировать механикой",
    "seed": "aghanim"
+  },
+  {
+   "id": "num:undying_decay:str_steal@scepter:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "На сколько Aghanim's Scepter увеличивает кражу силы за одно попадание Decay у Undying?",
+   "topic": "Undying",
+   "answer": 4,
+   "step": 1,
+   "unit": "силы",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "coef"
   },
   {
    "id": "num:gyrocopter_homing_missile:stun_duration:max",
@@ -1975,6 +2211,20 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:vengefulspirit_wave_of_terror:armor_reduction:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько брони снимает Wave of Terror у Vengeful Spirit на максимальном уровне?",
+   "topic": "Vengeful Spirit",
+   "answer": 6,
+   "step": 1,
+   "unit": "брони",
+   "comment": "Vengeful Spirit · Wave of Terror: 3 / 4 / 5 / 6 брони по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (броня 6–8, лотерея): число из тултипа без логики — перегенерировать механикой",
+   "seed": "armor"
+  },
+  {
    "id": "num:alchemist_unstable_concoction:max_stun:max",
    "sub": "hero_time",
    "kind": "number",
@@ -1988,6 +2238,33 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:alchemist_berserk_potion:hp_regen:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько регенерации HP даёт Berserk Potion у Alchemist (способность от Aghanim's Shard)?",
+   "topic": "Alchemist",
+   "answer": 40,
+   "step": 5,
+   "unit": "HP/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (реген в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "regen"
+  },
+  {
+   "id": "num:alchemist_chemical_rage:bonus_health_regen:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько бонусной регенерации HP даёт Chemical Rage у Alchemist на 3-м уровне?",
+   "topic": "Alchemist",
+   "answer": 120,
+   "step": 15,
+   "unit": "HP/сек.",
+   "comment": "Alchemist · Chemical Rage: 50 / 85 / 120 HP/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (реген в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "regen"
+  },
+  {
    "id": "num:phoenix_icarus_dive:dash_length:max",
    "sub": "hero_other",
    "kind": "number",
@@ -1999,6 +2276,20 @@
    "comment": "Phoenix · Icarus Dive: 1100 / 1200 / 1300 / 1400 ед. по уровням",
    "by": "overrides",
    "reason": "расстояние (дальность рывка) — не спрашиваем"
+  },
+  {
+   "id": "num:phoenix_fire_spirits:attackspeed_slow:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки отнимает Fire Spirits у Phoenix на максимальном уровне?",
+   "topic": "Phoenix",
+   "answer": 140,
+   "step": 20,
+   "unit": "скорости атаки",
+   "comment": "Phoenix · Fire Spirits: 35 / 70 / 105 / 140 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
   },
   {
    "id": "num:phoenix_sun_ray:hp_perc_damage:max",
@@ -2028,6 +2319,19 @@
    "seed": "aghanim"
   },
   {
+   "id": "num:tiny_grow:attack_speed_reduction:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "На сколько Grow у Tiny режет его скорость атаки?",
+   "topic": "Tiny",
+   "answer": 35,
+   "step": 5,
+   "unit": "скорости атаки",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
+  },
+  {
    "id": "num:doom_bringer_infernal_blade:burn_damage_pct:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -2040,6 +2344,19 @@
    "by": "rule:mech_seed",
    "reason": "семя для механики (процент HP / маны в секунду): число из тултипа без логики — перегенерировать механикой",
    "seed": "pct_per_sec"
+  },
+  {
+   "id": "num:doom_bringer_scorched_earth:bonus_health_regen:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько бонусного регена HP даёт Scorched Earth у Doom?",
+   "topic": "Doom",
+   "answer": 6.66,
+   "step": 1,
+   "unit": "HP/сек.",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (реген в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "regen"
   },
   {
    "id": "num:shadow_shaman_voodoo:duration:max",
@@ -2091,6 +2408,33 @@
    "comment": "Spirit Breaker · Charge of Darkness: 1.3 / 1.6 / 1.9 / 2.2 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:enchantress_natures_attendants:heal:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько HP в секунду лечит Nature's Attendants у Enchantress на максимальном уровне?",
+   "topic": "Enchantress",
+   "answer": 16,
+   "step": 3,
+   "unit": "HP/сек.",
+   "comment": "Enchantress · Nature's Attendants: 4 / 8 / 12 / 16 HP/сек. по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (реген в секунду): число из тултипа без логики — перегенерировать механикой",
+   "seed": "regen"
+  },
+  {
+   "id": "num:enchantress_little_friends:bonus_attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки получают крипы от Little Friends у Enchantress (способность с Aghanim's Scepter)?",
+   "topic": "Enchantress",
+   "answer": 70,
+   "step": 10,
+   "unit": "скорости атаки",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
   },
   {
    "id": "num:templar_assassin_psionic_trap:max_silence_duration@scepter:max",
@@ -2181,6 +2525,20 @@
    "seed": "aghanim"
   },
   {
+   "id": "num:abaddon_frostmourne:curse_attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки получают все, кто бьёт цель под Curse of Avernus у Abaddon на максимальном уровне?",
+   "topic": "Abaddon",
+   "answer": 40,
+   "step": 5,
+   "unit": "скорости атаки",
+   "comment": "Abaddon · Curse of Avernus: 10 / 20 / 30 / 40 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
+  },
+  {
    "id": "num:dragon_knight_dragon_tail:stun_duration:max",
    "sub": "hero_time",
    "kind": "number",
@@ -2217,6 +2575,20 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:troll_warlord_fervor:attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки даёт один стак Fervor у Troll Warlord на максимальном уровне?",
+   "topic": "Troll Warlord",
+   "answer": 30,
+   "step": 5,
+   "unit": "скорости атаки",
+   "comment": "Troll Warlord · Fervor: 15 / 20 / 25 / 30 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
   },
   {
    "id": "num:faceless_void_chronosphere:duration:max",
@@ -2272,6 +2644,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:lone_druid_savage_roar:shard_attack_speed@shard:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки получают союзники от Savage Roar у Lone Druid с Aghanim's Shard?",
+   "topic": "Lone Druid",
+   "answer": 40,
+   "step": 5,
+   "unit": "скорости атаки",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
+  },
+  {
    "id": "num:wisp_tether:damage@shard:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2311,6 +2696,19 @@
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
   },
   {
+   "id": "num:shadow_demon_demonic_cleanse:purge_damage:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько HP восстанавливает союзнику Demonic Cleanse (способность с Aghanim's Shard у Shadow Demon) в конце действия?",
+   "topic": "Shadow Demon",
+   "answer": 450,
+   "step": 75,
+   "unit": "HP",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенное): число из тултипа без логики — перегенерировать механикой",
+   "seed": "minor"
+  },
+  {
    "id": "num:shadow_demon_menace:stack:max",
    "sub": "hero_pct",
    "kind": "number",
@@ -2323,6 +2721,20 @@
    "by": "rule:innate_levelup",
    "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
    "seed": "innate"
+  },
+  {
+   "id": "num:visage_grave_chill:attackspeed_bonus:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки ворует Grave Chill у Visage на максимальном уровне?",
+   "topic": "Visage",
+   "answer": 65,
+   "step": 10,
+   "unit": "скорости атаки",
+   "comment": "Visage · Grave Chill: 35 / 45 / 55 / 65 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
   },
   {
    "id": "num:kez_raptor_dance:max_health_damage_pct:max",
@@ -2390,6 +2802,19 @@
    "by": "rule:innate_levelup",
    "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
    "seed": "innate"
+  },
+  {
+   "id": "num:skywrath_mage_arcane_bolt:int_multiplier:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Какой множитель интеллекта добавляется к урону Arcane Bolt у Skywrath Mage?",
+   "topic": "Skywrath Mage",
+   "answer": 1.5,
+   "step": 0.25,
+   "unit": "×",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (коэффициент): число из тултипа без логики — перегенерировать механикой",
+   "seed": "coef"
   },
   {
    "id": "num:monkey_king_wukongs_command:scepter_spawn_interval@scepter:max",
@@ -2482,6 +2907,20 @@
    "comment": "Riki · Blink Strike: 13 / 10 / 7 / 4 сек. по уровням",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:riki_backstab:bonus_xp_kill:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько бонусного опыта получает Riki за убийство героя с Cloak and Dagger на 3-м уровне?",
+   "topic": "Riki",
+   "answer": 390,
+   "step": 60,
+   "unit": "опыта",
+   "comment": "Riki · Cloak and Dagger: 130 / 260 / 390 опыта по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенное): число из тултипа без логики — перегенерировать механикой",
+   "seed": "minor"
   },
   {
    "id": "num:witch_doctor_voodoo_switcheroo:duration:max",
@@ -2643,6 +3082,20 @@
    "seed": "slow"
   },
   {
+   "id": "num:dawnbreaker_solar_guardian:base_heal:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько хп лечит союзникам каждый пульс Solar Guardian у Dawnbreaker на 3-м уровне?",
+   "topic": "Dawnbreaker",
+   "answer": 95,
+   "step": 15,
+   "unit": "HP",
+   "comment": "Dawnbreaker · Solar Guardian: 45 / 70 / 95 HP по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (за единицу): число из тултипа без логики — перегенерировать механикой",
+   "seed": "per_unit"
+  },
+  {
    "id": "num:razor_static_link:drain_rate:max",
    "sub": "hero_damage",
    "kind": "number",
@@ -2790,6 +3243,32 @@
    "reason": "скорость полёта — по сути расстояние, не спрашиваем"
   },
   {
+   "id": "num:storm_spirit_overload:shard_attack_speed_bonus@shard:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки даёт активация Overload с Aghanim's Shard у Storm Spirit?",
+   "topic": "Storm Spirit",
+   "answer": 40,
+   "step": 5,
+   "unit": "скорости атаки",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
+  },
+  {
+   "id": "num:snapfire_firesnap_cookie:target_heal@shard:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько здоровья восстанавливает Firesnap Cookie у Snapfire с Aghanim's Shard?",
+   "topic": "Snapfire",
+   "answer": 175,
+   "step": 25,
+   "unit": "HP",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (второстепенное): число из тултипа без логики — перегенерировать механикой",
+   "seed": "minor"
+  },
+  {
    "id": "num:snapfire_scatterblast:shard_stun_duration@shard:max",
    "sub": "hero_time",
    "kind": "number",
@@ -2863,6 +3342,20 @@
    "unit": "сек.",
    "by": "rule:short_time",
    "reason": "меньше 5 сек.: «видел или не видел», без логики (от 5 сек. — остаются)"
+  },
+  {
+   "id": "num:void_spirit_resonant_pulse:absorb_per_hero_hit:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько щита добавляет Resonant Pulse у Void Spirit за каждого задетого вражеского героя на максимальном уровне?",
+   "topic": "Void Spirit",
+   "answer": 110,
+   "step": 20,
+   "unit": "HP",
+   "comment": "Void Spirit · Resonant Pulse: 50 / 70 / 90 / 110 HP по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (за единицу): число из тултипа без логики — перегенерировать механикой",
+   "seed": "per_unit"
   },
   {
    "id": "num:bounty_hunter_wind_walk:stun_duration:max",
@@ -3064,6 +3557,34 @@
    "seed": "pct_per_sec"
   },
   {
+   "id": "num:chen_penitence:bonus_attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки получают союзники по цели под Penitence у Chen на максимальном уровне?",
+   "topic": "Chen",
+   "answer": 80,
+   "step": 15,
+   "unit": "скорости атаки",
+   "comment": "Chen · Penitence: 20 / 40 / 60 / 80 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
+  },
+  {
+   "id": "num:nevermore_dark_lord:presence_armor_reduction:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "На сколько снижает броню врагов Presence of the Dark Lord у Shadow Fiend на максимальном уровне?",
+   "topic": "Shadow Fiend",
+   "answer": 7,
+   "step": 1,
+   "unit": "брони",
+   "comment": "Shadow Fiend · Presence of the Dark Lord: 2.5 / 4 / 5.5 / 7 брони по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (броня 6–8, лотерея): число из тултипа без логики — перегенерировать механикой",
+   "seed": "armor"
+  },
+  {
    "id": "num:nevermore_requiem:requiem_slow_duration_max:max",
    "sub": "hero_time",
    "kind": "number",
@@ -3114,6 +3635,20 @@
    "by": "rule:innate_levelup",
    "reason": "врождёнка растёт с уровнем героя: число на 30-м уровне не вывести — перегенерировать механикой «что делает врождёнка»",
    "seed": "innate"
+  },
+  {
+   "id": "num:legion_commander_overwhelming_odds:bonus_attack_speed:max",
+   "sub": "hero_other",
+   "kind": "number",
+   "text": "Сколько скорости атаки даёт Overwhelming Odds у Legion Commander на максимальном уровне?",
+   "topic": "Legion Commander",
+   "answer": 125,
+   "step": 15,
+   "unit": "скорости атаки",
+   "comment": "Legion Commander · Overwhelming Odds: 50 / 75 / 100 / 125 скорости атаки по уровням",
+   "by": "rule:mech_seed",
+   "reason": "семя для механики (скорость атаки): число из тултипа без логики — перегенерировать механикой",
+   "seed": "attack_speed"
   },
   {
    "id": "num:point_booster:bonus_health:max",

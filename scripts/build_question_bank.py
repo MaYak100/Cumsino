@@ -42,6 +42,8 @@ id вопроса постоянный — по нему игра помнит, 
       mech_seed       — число из тултипа без логики, семя для механики (поле seed в архиве): hero_damage — аганим /
                         шард, урон в секунду, порог / коэффициент; hero_pct — процент в секунду без аганима и список
                         id MECH_SEED_IDS (дроби за удар, детали, иллюзии, коэффициенты в урон, замедления);
+                        hero_other — только список id (скорость атаки, реген в секунду, хил за единицу,
+                        коэффициенты, второстепенное, броня 6–8);
     спасти вопрос от правила — keep в overrides;
   - всё выкинутое (флаги прогона, тип таланта, drop из overrides, правила) — в scripts/data/bank/archive.json с
     причиной: в игру не идёт, но видно, что и почему ушло;
@@ -63,7 +65,7 @@ id вопроса постоянный — по нему игра помнит, 
   archive.json: {built_at, dropped: {причина: число}, questions: [{id, sub, kind, text, answer?, step?, unit?, options?,
                  comment?, by, reason, seed?, replaced?}]}
     by — flags (флаги прогона) / talents (флаги проверки талантов) / overrides (drop) / rule:<имя> (DROP_RULES);
-    seed — семя для генерации механик: innate (innate_levelup) / aghanim / dps / threshold (mech_seed);
+    seed — семя для генерации механик: innate (innate_levelup) / виды mech_seed (aghanim, dps, threshold, … — MECH_SEED);
     replaced — вопрос с тем же id есть в банке: отбракован черновик таланта, а в игре вариант из круга догенерации
     (поэтому id в архиве может повторяться)
 
@@ -529,8 +531,8 @@ def _short_time(q: dict, levelup_ids: set[str]) -> bool:
 
 # mech_seed — разбор «урона способностей» пользователем (2026-10-31): числа, где нет логики, кроме «видел ли тултип».
 # Вопрос не пропадает, а становится семенем для механики (вместе с innate_levelup): по archive.json (поле seed)
-# потом генерируются вопросы «что делает / как работает». Разобраны hero_damage и hero_pct; в остальных подкатегориях
-# (аганим в hero_time, hero_other…) правило не действует. В hero_damage — правилом, вид — первый подошедший:
+# потом генерируются вопросы «что делает / как работает». Разобраны hero_damage, hero_pct и hero_other (только списком
+# id); в остальных подкатегориях (аганим в hero_time…) правило не действует. В hero_damage — правилом, вид — первый подошедший:
 #   aghanim    — способность или прибавка от Aghanim's Scepter / Shard (в тексте «Aghanim»; «без аганима» у Finger of
 #                Death — кириллицей, это обычный вопрос про ульту);
 #   dps        — урон в секунду (единица «урона/сек.», её ставит DPS_TEXT; «без учёта урона в секунду» у Gorgon's Grasp —
@@ -548,7 +550,9 @@ MECH_SEED_PER_SEC = re.compile(r"в секунду", re.I)
 MECH_SEED = {"aghanim": "аганим / шард", "dps": "урон в секунду", "threshold": "порог / коэффициент",
              "pct_per_sec": "процент HP / маны в секунду", "pct_per_hit": "дробный процент HP за удар",
              "detail": "второстепенная деталь", "illusion": "урон иллюзий", "ratio": "процент маны / атрибута в урон",
-             "slow": "замедление"}
+             "slow": "замедление", "attack_speed": "скорость атаки", "regen": "реген в секунду",
+             "per_unit": "за единицу", "coef": "коэффициент", "minor": "второстепенное",
+             "armor": "броня 6–8, лотерея"}
 MECH_SEED_IDS = {
     "num:ogre_magi_smash:damage_absorb_pct:max": "aghanim",                       # Fire Shield, шард
     "num:huskar_burning_spear:burn_damage_max_pct:max": "pct_per_hit",
@@ -576,6 +580,49 @@ MECH_SEED_IDS = {
     "num:pugna_decrepify:bonus_movement_speed:max": "slow",
     "num:dawnbreaker_celestial_hammer:move_slow:max": "slow",
     "num:faceless_void_time_dilation:cooldown_percentage:max": "slow",
+    # hero_other — третий разбор пользователя (2026-10-31): остаются «количество» (атаки до сноса, отскоки, пульсы,
+    # стаки, заряды), HP призывов, золото, большие разовые хилы / бонусы HP, скорость атаки Overpower / Berserker's
+    # Blood / Strafe / Untouchable / Unleash, броня Corrosive Haze / Divine Favor. В архив — остальное ниже.
+    "num:ogre_magi_bloodlust:bonus_attack_speed:max": "attack_speed",
+    "num:bloodseeker_bloodrage:attack_speed:max": "attack_speed",
+    "num:phoenix_fire_spirits:attackspeed_slow:max": "attack_speed",
+    "num:tiny_grow:attack_speed_reduction:max": "attack_speed",
+    "num:enchantress_little_friends:bonus_attack_speed:max": "attack_speed",
+    "num:abaddon_frostmourne:curse_attack_speed:max": "attack_speed",          # Curse of Avernus
+    "num:troll_warlord_fervor:attack_speed:max": "attack_speed",
+    "num:lone_druid_savage_roar:shard_attack_speed@shard:max": "attack_speed",
+    "num:visage_grave_chill:attackspeed_bonus:max": "attack_speed",
+    "num:storm_spirit_overload:shard_attack_speed_bonus@shard:max": "attack_speed",
+    "num:chen_penitence:bonus_attack_speed:max": "attack_speed",
+    "num:legion_commander_overwhelming_odds:bonus_attack_speed:max": "attack_speed",
+    "num:slark_shadow_dance:bonus_regen:max": "regen",
+    "num:alchemist_chemical_rage:bonus_health_regen:max": "regen",
+    "num:enchantress_natures_attendants:heal:max": "regen",
+    "num:doom_bringer_scorched_earth:bonus_health_regen:max": "regen",
+    "num:alchemist_berserk_potion:hp_regen:max": "regen",
+    "num:dawnbreaker_solar_guardian:base_heal:max": "per_unit",                # за пульс
+    "num:void_spirit_resonant_pulse:absorb_per_hero_hit:max": "per_unit",      # за героя
+    "num:dazzle_innate_weave:ally_heal@shard:max": "per_unit",                 # за стак
+    "num:meepo_ransack:health_steal_heroes:max": "per_unit",                   # за удар
+    "num:silencer_last_word:int_multiplier:max": "coef",
+    "num:skywrath_mage_arcane_bolt:int_multiplier:max": "coef",
+    "num:ancient_apparition_bone_chill:str_reduction@scepter:max": "coef",
+    "num:undying_decay:str_steal@scepter:max": "coef",
+    "num:windrunner_tailwind:movespeed_bonus:max": "coef",
+    "num:lion_mana_drain:mana_per_second:max": "coef",
+    "num:shadow_demon_demonic_cleanse:purge_damage:max": "minor",
+    "num:snapfire_firesnap_cookie:target_heal@shard:max": "minor",
+    "num:riki_backstab:bonus_xp_kill:max": "minor",                            # опыт Cloak and Dagger
+    "num:treant_overgrowth:movement_speed@scepter:max": "minor",
+    # барьеры Warcry (шард) и Reactive Armor (аганим) — расширение решения пользователя, можно вернуть keep
+    "num:sven_warcry:base_barrier_amount@shard:max": "minor",
+    "num:shredder_reactive_armor:max_shield@scepter:max": "minor",
+    "num:chaos_knight_reality_rift:armor_reduction:max": "armor",
+    "num:lycan_howl:armor:max": "armor",
+    "num:naga_siren_rip_tide:armor_reduction:max": "armor",
+    "num:vengefulspirit_wave_of_terror:armor_reduction:max": "armor",
+    "num:nevermore_dark_lord:presence_armor_reduction:max": "armor",
+    "num:tusk_drinking_buddies:armor_bonus:max": "armor",
 }
 
 
