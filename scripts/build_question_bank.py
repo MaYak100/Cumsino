@@ -43,9 +43,12 @@ id вопроса постоянный — по нему игра помнит, 
   - врождённые с ростом от уровня героя (hero_levelup в файлах героя) — ответ на 30-м уровне героя,
     текст обязан это называть (правка в overrides; сейчас их выкидывает innate_levelup);
   - единицы приводятся к словарю (UNIT_ALIAS, UNIT_RULES): игрок видит их прямо в вариантах («175 HP», «12 сек.»);
+  - шаг по масштабу (решение 2026-10-31): у секунд шаг ≈ 20% ответа красивым числом (строго меньше 20%, минимум
+    1 сек., без утечки круглостью — scale_step); правило только поднимает шаг, step в overrides мельче — ошибка;
   - проверки (падают, если не исправлено в overrides): ответ ≤ 5 шагов (правильный тогда редко бывает наибольшим:
-    при ≤ 3 шагах никогда, ≤ 4 — в 3% показов, ≤ 5 — в 12.5%, ≤ 6 — в 22%, дальше ровно 25%), то же у потолка ceil
-    (ответ редко наименьший), «ответ выдаёт круглость», латиница внутри русских слов, старые имена героев.
+    при ≤ 3 шагах никогда, 4 — в 1% показов, 5 — в 7%, до 6 — в 18%, дальше ровно 25%; исключение — 5 сек. при шаге
+    1 сек.), то же у потолка ceil (ответ редко наименьший), «ответ выдаёт круглость», латиница внутри русских слов,
+    старые имена героев.
 
 Формат:
   {built_at, sources, questions: [
@@ -267,10 +270,12 @@ def apply_levelup(q: dict, out: dict, levelups: dict, names: dict) -> bool:
 
 # --- проверки шага -------------------------------------------------------------------------------------------
 
-# Ответ дальше MIN_STEPS шагов от нуля (и от потолка ceil): иначе позиция ответа нечестная. Промежутки 1 или 2 шага,
-# поэтому наибольшим ответ бывает, только если все промежутки влезают под ответ: при ответе в k шагов доля показов,
-# где он наибольший, — 0 (k ≤ 3), 3% (k ≤ 4), 12.5% (k ≤ 5), 22% (k ≤ 6), 25% (k > 6).
+# Ответ дальше MIN_STEPS шагов от нуля (и от потолка ceil): иначе позиция ответа нечестная. Промежутки 1 или 2 шага
+# (двойной — 66%), поэтому наибольшим ответ бывает, только если все промежутки влезают под ответ: при ответе в k шагов
+# доля показов, где он наибольший, — 0 (k ≤ 3), 1% (k = 4), 7% (k = 5), 18% (5 < k ≤ 6), 25% (k > 6); остальные позиции
+# делят остаток поровну (при 5 < k ≤ 6 — 27 / 27 / 27 / 18).
 MIN_STEPS = 5
+DOUBLE_GAP_CHANCE = Fraction(66, 100)   # как в stepOptions.ts
 
 ROUND_LEVELS = [(1000, 6), (100, 5), (50, 4), (25, 3), (10, 3), (5, 2), (1, 1)]
 COSTS_ROUND_CAP = 5   # цены: шаг 100 при ответе 2000 — нормально, все варианты кратны 100
@@ -285,35 +290,98 @@ def round_level(x: Fraction, answer: Fraction | None = None) -> int:
     return 0
 
 
-def layouts(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None) -> list[list[Fraction]]:
-    """Все раскладки makeStepOptions (server/src/game/questions/stepOptions.ts): соседи через 1 или 2 шага, фейки при
-    каждой допустимой позиции ответа (все варианты > 0 и < ceil); не встаёт ни одна позиция — сервер берёт
-    промежутки по одному шагу."""
+def shows(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None
+          ) -> list[tuple[Fraction, int, list[Fraction]]]:
+    """Все показы makeStepOptions (server/src/game/questions/stepOptions.ts) с вероятностями: (вероятность, место ответа
+    по возрастанию, варианты по возрастанию). Соседи через 1 или 2 шага, позиция ответа — равновероятно среди допустимых
+    (все варианты > 0 и < ceil); не встаёт ни одна позиция — сервер берёт промежутки по одному шагу."""
     def fits(offsets: list[int], p: int) -> bool:
         return all(0 < answer + (o - offsets[p]) * step and (ceil is None or answer + (o - offsets[p]) * step < ceil)
                    for o in offsets)
 
     out = []
     for gaps in product((1, 2), repeat=n - 1):
+        chance = Fraction(1)
+        for g in gaps:
+            chance *= DOUBLE_GAP_CHANCE if g == 2 else 1 - DOUBLE_GAP_CHANCE
         offsets = [0, *accumulate(gaps)]
         valid = [p for p in range(n) if fits(offsets, p)]
         if not valid:
             offsets = list(range(n))
-            valid = [p for p in range(n) if fits(offsets, p)]
-        out += [[answer + (o - offsets[p]) * step for i, o in enumerate(offsets) if i != p] for p in valid]
+            valid = [p for p in range(n) if fits(offsets, p)] or [0]
+        out += [(chance / len(valid), p, [answer + (o - offsets[p]) * step for o in offsets]) for p in valid]
     return out
+
+
+def layouts(answer: Fraction, step: Fraction, n: int = 4, ceil: Fraction | None = None) -> list[list[Fraction]]:
+    """Фейки каждого возможного показа."""
+    return [[v for i, v in enumerate(values) if i != p] for _, p, values in shows(answer, step, n, ceil)]
+
+
+def round_cap(q: dict) -> int:
+    return COSTS_ROUND_CAP if q["sub"] == "costs" else 6
+
+
+def round_leak(answer: Fraction, step: Fraction, cap: int = 6, ceil: Fraction | None = None) -> Fraction:
+    """Доля показов, где ответ круглее всех трёх фейков (13 среди 15.5 / 20.5 / 25.5; 75 среди 65 / 85 / 95)."""
+    la = min(round_level(answer, answer), cap)
+    if not la:
+        return Fraction(0)
+    return sum((chance for chance, p, values in shows(answer, step, ceil=ceil)
+                if max(min(round_level(v), cap) for i, v in enumerate(values) if i != p) < la), Fraction(0))
+
+
+# --- шаг по масштабу: секунды ---------------------------------------------------------------------------------
+# Решение пользователя 2026-10-31: длительности и кд — ориентировка по масштабу, а не память до десятых. Шаг ≈ 20%
+# ответа, красивым числом, минимум 1 сек. (даже у 5.25 сек.), дробность ответа не важна. Шаг строго меньше 20%: при
+# ровно 20% ответ = 5 шагов и наибольшим бывает в 7% показов (MIN_STEPS выше); меньше 20% — не хуже 27/27/27/18.
+# Кандидаты — красивые шаги в [10%, 20%) ответа; из них тот, при котором ответ реже всего выделяется круглостью
+# (round_leak), при равенстве — крупнее. Утечка у лучшего больше SEC_LEAK_MAX (75 при шаге 10 — единственный кратный 25
+# в 78% показов) — шаг не трогаем, только не мельче 1 сек. Правило только поднимает шаг: шаг из прогона или overrides
+# крупнее — остаётся; step в overrides мельче шага по масштабу — ошибка сборки (правка устарела).
+# Что выходит (целые ответы, кратные 5, — свои шаги, чтобы ответ не выделялся круглостью):
+#   5–10 → 1; 10–12.5 → 2; 12.5–15 → 2.5 (целые 13, 14 → 2); 15–25 → 3 (15, 25 → 2.5); 25–50 → 5; 50–75 → 10;
+#   75–100 → 15 (80, 90 → 10); 100–125 → 20; 125–150 → 25 (130, 140 → 20); 150–250 → 30 (175, 225, 250 → 25); 250+ → 50;
+#   ровно 10, 20, 75, 100, 125, 200 — не трогаем (любой кандидат выдаёт ответ круглостью).
+SEC_UNIT = "сек."
+SEC_STEPS = [Fraction(x) for x in ("1", "2", "2.5", "3", "5", "10", "15", "20", "25", "30", "50", "100")]
+SEC_MIN_STEP = Fraction(1)
+SEC_MAX_SHARE = Fraction(1, MIN_STEPS)   # шаг < 20% ответа ⇔ ответ дальше MIN_STEPS шагов от нуля
+SEC_MIN_SHARE = Fraction(1, 10)
+SEC_LEAK_MAX = Fraction(12, 100)   # как у шага 2.5 при ответе, кратном 5 (15 среди 12.5 / 17.5 / 22.5 — 11% показов)
+
+
+def scale_step(q: dict) -> Fraction | None:
+    """Шаг по масштабу для вопроса в секундах (без учёта текущего шага) или None — подходящего нет."""
+    a = Fraction(str(q["answer"]))
+    ceil = Fraction(str(q["ceil"])) if q.get("ceil") is not None else None
+    if a * SEC_MAX_SHARE <= SEC_MIN_STEP:
+        cands = [SEC_MIN_STEP]   # 5 сек.: меньше 1 сек. не берём, хоть ответ и 5 шагов (step_problems это знает)
+    else:
+        cands = [s for s in SEC_STEPS if max(SEC_MIN_STEP, a * SEC_MIN_SHARE) <= s < a * SEC_MAX_SHARE]
+    scored = sorted(((round_leak(a, s, round_cap(q), ceil), -s) for s in cands))
+    if not scored or scored[0][0] > SEC_LEAK_MAX:
+        return None
+    return -scored[0][1]
+
+
+def sec_floor_forced(q: dict) -> bool:
+    """Шаг упёрся в минимум 1 сек. у ответа ≤ 5 сек.: ответ ровно в MIN_STEPS шагах — принято решением пользователя."""
+    a, s = Fraction(str(q["answer"])), Fraction(str(q["step"]))
+    return q["unit"] == SEC_UNIT and s == SEC_MIN_STEP and a * SEC_MAX_SHARE <= SEC_MIN_STEP
 
 
 def step_problems(q: dict) -> list[str]:
     a, s = Fraction(str(q["answer"])), Fraction(str(q["step"]))
     ceil = Fraction(str(q["ceil"])) if q.get("ceil") is not None else None
     problems = []
-    if a <= MIN_STEPS * s:
+    # секунды с ответом 5 сек.: шаг 1 сек. — жёсткий минимум (решение 2026-10-31), ответ наибольший в 7% показов
+    if a <= MIN_STEPS * s and not sec_floor_forced(q):
         problems.append(f"ответ {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: правильный редко бывает наибольшим")
     if ceil is not None and ceil - a <= MIN_STEPS * s:
         problems.append(f"до потолка {q['ceil']} от ответа {q['answer']} ≤ {MIN_STEPS} × шаг {q['step']}: "
                         f"правильный редко бывает наименьшим")
-    cap = COSTS_ROUND_CAP if q["sub"] == "costs" else 6
+    cap = round_cap(q)
     la = min(round_level(a, a), cap)
     fakes = [f for lay in layouts(a, s, ceil=ceil) for f in lay]
     if la and fakes and max(min(round_level(f), cap) for f in fakes) < la:
@@ -563,6 +631,7 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
 
     errors: list[str] = []
     kept: list[dict] = []
+    scaled: list[dict] = []   # шаг поднят правилом «шаг по масштабу»
     owner, owner_names = _owners_index()
     for q in out:
         o = overrides.get(q["id"], {})
@@ -591,6 +660,15 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
             errors.append(f"{q['id']}: keep в overrides, а правило-фильтр не срабатывает — убери keep")
         if unit_unknown:
             errors.append(f"{q['id']}: единица «{q['unit']}» не распознана — unit в overrides ({q['text']})")
+        if q["kind"] == "number" and q["unit"] == SEC_UNIT:
+            new = scale_step(q) or SEC_MIN_STEP   # подходящего нет (ровно 10, 20, 75 сек.) — хотя бы минимум 1 сек.
+            if "step" in o and Fraction(str(o["step"])) < new:
+                errors.append(f"{q['id']}: step {o['step']} в overrides мельче шага по масштабу {frac_number(new)} — "
+                              f"убери step из overrides (правило задаёт минимум, правка может только увеличить)")
+            if new > Fraction(str(q["step"])):
+                scaled.append({"id": q["id"], "sub": q["sub"], "answer": q["answer"], "was": q["step"],
+                               "step": frac_number(new)})
+                q["step"] = frac_number(new)
         problems = text_problems(q)
         if q["kind"] == "number":
             if not (q["step"] > 0 and q["answer"] > 0):
@@ -617,7 +695,7 @@ def build() -> tuple[list[dict], Counter, list[str], list[dict]]:
     for a in archive:   # отбракованный черновик таланта, а вопрос с тем же id в игре — из круга догенерации
         if a.get("id") in live:
             a["replaced"] = True
-    return kept, dropped, errors, archive
+    return kept, dropped, errors, archive, scaled
 
 
 def flagged(q: dict, category: str) -> bool:
@@ -625,8 +703,22 @@ def flagged(q: dict, category: str) -> bool:
     return any(not (ignore and ignore.match(f)) for f in q.get("flags") or [])
 
 
+def frac_number(x: Fraction):
+    return int(x) if x.denominator == 1 else float(x)
+
+
+def rank_shares(qs: list[dict]) -> list[float]:
+    """Средняя по вопросам доля показов, где ответ 1-й … 4-й по величине."""
+    total = [Fraction(0)] * 4
+    for q in qs:
+        ceil = Fraction(str(q["ceil"])) if q.get("ceil") is not None else None
+        for chance, p, _ in shows(Fraction(str(q["answer"])), Fraction(str(q["step"])), ceil=ceil):
+            total[p] += chance
+    return [float(t / len(qs)) for t in total] if qs else []
+
+
 def main() -> None:
-    questions, dropped, errors, archive = build()
+    questions, dropped, errors, archive, scaled = build()
     if errors:
         print("\n".join(errors), file=sys.stderr)
         sys.exit(f"{len(errors)} ошибок — исправь в {OVERRIDES}")
@@ -646,6 +738,12 @@ def main() -> None:
         print(f"  {n:4}  {reason}")
     for sub, n in sorted(subs.items()):
         print(f"  {sub:18} {n}")
+    sec = [q for q in questions if q["kind"] == "number" and q["unit"] == SEC_UNIT]
+    ranks = " / ".join(f"{x * 100:.1f}" for x in rank_shares(sec))
+    print(f"шаг по масштабу ({SEC_UNIT}): поднят у {len(scaled)} из {len(sec)}; место ответа по величине, % показов: "
+          f"{ranks}")
+    for s in scaled:
+        print(f"  {s['answer']:>6}: {s['was']} → {s['step']}  {s['sub']:12} {s['id']}")
 
 
 if __name__ == "__main__":

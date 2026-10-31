@@ -683,7 +683,7 @@
    "text": "Какое кд у Chaotic Offering у Warlock?",
    "topic": "Warlock",
    "answer": 165,
-   "step": 25,
+   "step": 30,
    "unit": "сек."
   },
   {
@@ -1741,7 +1741,7 @@
    "text": "Сколько секунд живут иллюзии от Mirror Image у Naga Siren?",
    "topic": "Naga Siren",
    "answer": 26,
-   "step": 4,
+   "step": 5,
    "unit": "сек."
   },
   {
@@ -1846,7 +1846,7 @@
    "text": "Какое кд у Haunt у Spectre на 1-м уровне (без Aghanim's Scepter)?",
    "topic": "Spectre",
    "answer": 160,
-   "step": 20,
+   "step": 30,
    "unit": "сек.",
    "comment": "Spectre · Haunt: 160 / 150 / 140 сек. по уровням"
   },
@@ -1857,7 +1857,7 @@
    "text": "Сколько живёт иллюзия от Shadow Step у Spectre на максимальном уровне?",
    "topic": "Spectre",
    "answer": 5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Spectre · Shadow Step: 3.5 / 4 / 4.5 / 5 сек. по уровням"
   },
@@ -3411,7 +3411,7 @@
    "text": "Сколько секунд длится Fiend's Grip у Bane на 3-м уровне, если каст не сбили?",
    "topic": "Bane",
    "answer": 5.75,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Bane · Fiend's Grip: 4.75 / 5.25 / 5.75 сек. по уровням"
   },
@@ -3787,7 +3787,7 @@
    "text": "Какой максимальный стан от Sacred Arrow у Mirana на максимальном уровне (стрела с максимальной дистанции)?",
    "topic": "Mirana",
    "answer": 5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек.",
    "comment": "Mirana · Sacred Arrow: 2.3 / 3.2 / 4.1 / 5 сек. по уровням"
   },
@@ -4052,7 +4052,7 @@
    "text": "Какое кд у Black Hole у Enigma на 1-м уровне?",
    "topic": "Enigma",
    "answer": 180,
-   "step": 20,
+   "step": 30,
    "unit": "сек.",
    "comment": "Enigma · Black Hole: 180 / 170 / 160 сек. по уровням"
   },
@@ -4289,7 +4289,7 @@
    "text": "Сколько секунд длится безмолвие от Soul Burn у Orchid Malevolence?",
    "topic": "Orchid Malevolence",
    "answer": 5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек."
   },
   {
@@ -4480,7 +4480,7 @@
    "text": "Какое кд у Black King Bar?",
    "topic": "Black King Bar",
    "answer": 95,
-   "step": 10,
+   "step": 15,
    "unit": "сек."
   },
   {
@@ -5902,7 +5902,7 @@
    "text": "За сколько секунд растягивается отложенный урон у нейтралки 4-го тира Prophet's Pendulum?",
    "topic": "Prophet's Pendulum",
    "answer": 5,
-   "step": 0.5,
+   "step": 1,
    "unit": "сек."
   },
   {
