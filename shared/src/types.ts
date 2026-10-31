@@ -30,6 +30,8 @@ export interface Player {
   betOption?: number
   /** номиналы фишек на сукне в порядке выкладки (как в черновике stage_chip) */
   betChips?: number[]
+  /** «для всех»: игрок в смоке — его ставка (сумма и фишки) скрыта от тебя до расчёта раунда (currentBet = 0) */
+  betHidden?: true
   answer?: string | number | string[]
   hasAnswered: boolean
   /** account id человека из компании, которым игрок назвался в лобби («кто ты»); нет — пропустил */
@@ -106,6 +108,12 @@ export interface GameState {
   firstGame?: boolean
   /** в лавке ещё закрыты (по порядку открытия) — только при firstGame */
   lockedItems?: ItemId[]
+  /** настройки хоста (лобби), режим «для всех»: джекпот — пустые раунды не пустые (docs/items.md, «Джекпот») */
+  jackpot?: boolean
+  /** ставка на вопрос: на ставках виден текст вопроса без вариантов, ставки 20 с, вопрос 15 с (roundTimings) */
+  questionBet?: boolean
+  /** банк джекпота (при jackpot): ставки раундов «все ошиблись», уходит угадавшим в следующем обычном раунде */
+  jackpotBank?: number
   // ── личное (только в getStateForPlayer для самого игрока) ──
   /** свой запас предметов */
   inventory?: Partial<Record<ItemId, number>>
@@ -158,6 +166,8 @@ export interface IdentifyPayload { friendId: number | null }
 export interface RemoveBotPayload { id: string }
 /** set_first_game — галочка «играем впервые» (хост, лобби) */
 export interface SetFirstGamePayload { on: boolean }
+/** set_settings — настройки игры (хост, лобби); переданное поле меняется, остальные — нет */
+export interface SetSettingsPayload { jackpot?: boolean; questionBet?: boolean }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
  *  null — снять отметку; поле не передано — не менять. questionId — настоящий id (round_results.questionId) или ключ
  *  раунда (currentQuestion.id): сервер оценивает только последний посчитанный вопрос комнаты. */

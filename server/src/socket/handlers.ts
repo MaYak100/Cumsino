@@ -5,6 +5,7 @@ import type {
   SubmitAnswerPayload, GladiatorHoverPayload,
   IdentifyPayload, RateQuestionPayload,
   BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId, JoinErrorPayload, RemoveBotPayload, SetFirstGamePayload,
+  SetSettingsPayload,
 } from '@cumsino/shared'
 import type { GameRoom } from '../game/GameRoom'
 import { ITEM_ORDER } from '@cumsino/shared'
@@ -127,6 +128,17 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
   socket.on('set_first_game', ({ on }: SetFirstGamePayload) => {
     if (typeof on !== 'boolean') return
     act((room, id) => room.setFirstGame(id, on))
+  })
+
+  // настройки игры (хост, лобби): каждое поле — boolean или нет поля; хоть одно должно быть
+  socket.on('set_settings', ({ jackpot, questionBet }: SetSettingsPayload) => {
+    if (jackpot !== undefined && typeof jackpot !== 'boolean') return
+    if (questionBet !== undefined && typeof questionBet !== 'boolean') return
+    if (jackpot === undefined && questionBet === undefined) return
+    act((room, id) => room.setSettings(id, {
+      ...(jackpot !== undefined ? { jackpot } : {}),
+      ...(questionBet !== undefined ? { questionBet } : {}),
+    }))
   })
 
   socket.on('remove_bot', ({ id: botId }: RemoveBotPayload) => {

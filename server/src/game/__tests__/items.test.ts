@@ -272,8 +272,9 @@ describe('предметы, бонусы, блайнды', () => {
       expect(src(t.res('p1'), 'Молния')).toBe(10)
     })
 
-    it('никто не проиграл — выигрыша нет, нет и молнии (0 × 1.25 = 0)', () => {
+    it('никто не проиграл — выигрыша нет, нет и молнии (0 × 1.25 = 0; джекпот выключен)', () => {
       const t = makeRoom(2)
+      t.r.settings.jackpot = false
       t.bets({ p1: 300, p2: 300 })
       t.toQuestion()
       t.room.submitAnswer('p1', 'A')
@@ -347,8 +348,9 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.room.getPublicState().players.find(x => x.id === 'p1')!.streak).toBe(2)
     })
 
-    it('серия растёт, но без выигрыша бонуса нет (все угадали)', () => {
+    it('серия растёт, но без выигрыша бонуса нет (все угадали, джекпот выключен)', () => {
       const t = makeRoom(2)
+      t.r.settings.jackpot = false
       t.p('p1').streak = 3
       t.p('p2').streak = 1
       t.bets({ p1: 500, p2: 100 })
@@ -752,8 +754,9 @@ describe('предметы, бонусы, блайнды', () => {
   })
 
   describe('hex', () => {
-    it('на ставках: у цели HEX_SECONDS (15 с), позже ответ не принимается', () => {
+    it('на ставках: у цели HEX_SECONDS (15 с, ставка на тему), позже ответ не принимается', () => {
       const t = makeRoom(3)
+      t.r.settings.questionBet = false
       t.give('p1', 'hex', 2)
       t.setPhase('BETTING')
       t.room.useItem('p1', 'hex', 'p2')
@@ -788,8 +791,9 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p3').inventory.hex).toBe(1)
     })
 
-    it('после HEX_SECONDS цель считается ответившей — раунд считается досрочно', () => {
+    it('после HEX_SECONDS цель считается ответившей — раунд считается досрочно (ставка на тему)', () => {
       const t = makeRoom(3)
+      t.r.settings.questionBet = false
       t.give('p1', 'hex')
       t.setPhase('BETTING')
       t.room.useItem('p1', 'hex', 'p2')

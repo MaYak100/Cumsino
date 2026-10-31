@@ -33,5 +33,18 @@ export const NEW_MODE_ANNOUNCE_EXTRA = 3
 export const ANSWER_REVEAL_MS = 5500
 export const ANSWER_REVEAL_NOTES_MS = 7500
 
+/** «Ставка на вопрос» (настройка хоста, только режим «для всех»): на ставках виден текст вопроса без вариантов —
+ *  ставки короче, вопрос короче (варианты читать быстро, сам вопрос прочитан на ставках). Выключено — PHASE_DURATIONS. */
+export const QUESTION_BET_BETTING = 20
+export const QUESTION_BET_QUESTION = 15
+
+/** Джекпот (настройка хоста, «для всех», ставят ≥ 2): «все угадали» — каждому угадавшему от казино
+ *  $50 + $10 × (n − 1), n — номер раунда «для всех» в игре (с 1) */
+export const JACKPOT_ALL_CORRECT = 50
+export const JACKPOT_ALL_CORRECT_STEP = 10
+export const allCorrectBonus = (n: number) => JACKPOT_ALL_CORRECT + JACKPOT_ALL_CORRECT_STEP * Math.max(0, n - 1)
+/** джекпот срабатывает, только если в раунде ставят (ставка > 0) не меньше стольких */
+export const JACKPOT_MIN_BETTORS = 2
+
 /** Первая лавка (после первого «кто ближе», когда предметы видят впервые) — на столько секунд дольше */
 export const FIRST_SHOP_EXTRA = 20
