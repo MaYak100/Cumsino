@@ -8,7 +8,7 @@ import { QuestionHistory } from '../questions/history'
 import type { Library } from '../questions/library'
 import type { Question, GameMode, RoundResult } from '@cumsino/shared'
 import {
-  PHASE_DURATIONS, LAST_ANSWER_GRACE_MS, LIGHTNING_MS, MAX_PLAYERS, CLOSEST_EXACT_BONUS,
+  PHASE_DURATIONS, LAST_ANSWER_GRACE_MS, LIGHTNING_MS, MAX_PLAYERS, CLOSEST_EXACT_BONUS, HEX_SECONDS,
   gladiatorBonus, closestWinnerBonus,
 } from '@cumsino/shared'
 
@@ -312,6 +312,35 @@ describe('сессии', () => {
       expect(t.src('p2', 'Угадал точно')).toBe(CLOSEST_EXACT_BONUS)
       expect(t.src('p2', 'Серия ×2')).toBe(50)   // 240 × 0.2 = 48 → $50
       expect(t.res('p1').delta).toBe(0)
+    })
+  })
+
+  // ── таймеры: дедлайн, а не «сколько осталось» ──
+  describe('дедлайн фазы в стейте', () => {
+    it('phaseEndsAt не меняется от стейта к стейту внутри фазы, phaseDuration — полная длина, serverNow — сейчас', () => {
+      const t = makeRoom(3)
+      t.toBetting('all')
+      const first = t.room.getStateForPlayer('p1')
+      expect(first.phaseDuration).toBe(PHASE_DURATIONS.BETTING)
+      vi.advanceTimersByTime(7_300)
+      t.room.placeBet('p2', 30)   // новый стейт посреди фазы
+      const later = t.room.getStateForPlayer('p1')
+      expect(later.phaseEndsAt).toBe(first.phaseEndsAt)
+      expect(later.phaseDuration).toBe(PHASE_DURATIONS.BETTING)
+      expect(later.serverNow).toBe(Date.now())
+      expect(later.phaseEndsAt! - later.serverNow!).toBe(PHASE_DURATIONS.BETTING! * 1000 - 7_300)
+    })
+
+    it('хекс: свой дедлайн на вопросе — hexEndsAt = начало вопроса + HEX_SECONDS', () => {
+      const t = makeRoom(3)
+      t.toBetting('all')
+      t.p('p1').inventory = { hex: 1 }
+      t.room.useItem('p1', 'hex', 'p2')
+      for (const id of ['p1', 'p2', 'p3']) t.room.placeBet(id, 30)
+      expect(t.r.phase).toBe('QUESTION')
+      const st = t.room.getStateForPlayer('p2')
+      expect(st.hexEndsAt).toBe(t.r.questionStartAt + HEX_SECONDS * 1000)
+      expect(t.room.getStateForPlayer('p3').hexEndsAt).toBeUndefined()
     })
   })
 

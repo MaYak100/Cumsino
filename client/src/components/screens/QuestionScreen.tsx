@@ -52,7 +52,7 @@ export function QuestionScreen() {
   useEffect(() => { setPick(savedPick()); setLost(false) }, [q?.id])
 
   // хекс: у тебя своё короткое время на ответ
-  const hexLeft = useCountdown(revealed ? undefined : gameState.hexTimeLeft)
+  const hexLeft = useCountdown(revealed ? undefined : gameState.hexTimeLeft, gameState.hexEndsAt)
   const hexed = hexLeft !== undefined
   const hexDead = hexed && hexLeft <= 0
   // блинк: пока есть в запасе — ответ можно сменить
@@ -108,9 +108,9 @@ export function QuestionScreen() {
       <GameHud />
       {hexed
         // key: разные полосы — разные экземпляры (иначе хексовая унаследует длину 45 с от обычной и «побежит» неровно)
-        ? <TimeBar key="hex" seconds={gameState.hexTimeLeft!} total={HEX_SECONDS} color={color} stopped={revealed || hexDead}
+        ? <TimeBar key="hex" seconds={gameState.hexTimeLeft!} endsAt={gameState.hexEndsAt} total={HEX_SECONDS} color={color} stopped={revealed || hexDead}
             lightning={!isCrowd} redAfterLightning />
-        : <TimeBar key="phase" seconds={gameState.phaseTimeLeft} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed}
+        : <TimeBar key="phase" seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={PHASE_DURATIONS.QUESTION} color={color} stopped={revealed}
             lightning={!isCrowd} />}
 
       {/* блок вопроса — по центру; лоток под ним фиксированной высоты, поэтому раскрытие ничего не двигает */}

@@ -156,7 +156,7 @@ function RoundTable({ bet }: { bet: Betting }) {
               <div style={{
                 position: 'absolute', left: FELT_CX - 25, top: FELT_CY - 150, zIndex: 5, pointerEvents: 'none',
               }}>
-                <Timer seconds={gameState.phaseTimeLeft} color={C.hot} size={50} />
+                <Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} color={C.hot} size={50} />
               </div>
             )}
 
@@ -169,7 +169,7 @@ function RoundTable({ bet }: { bet: Betting }) {
                 display: 'flex', flexDirection: 'column',
                 alignItems: 'center',
               }}>
-                <div style={{ marginBottom: 18 }}><Timer seconds={gameState.phaseTimeLeft} /></div>
+                <div style={{ marginBottom: 18 }}><Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} /></div>
                 <Sticker seed={`${gameState.currentQuestion.id}-topic`} slam rotate={-3} jag={6} padding="10px 22px 12px"
                   style={{ maxWidth: 520 }}>
                   <TopicStack topic={gameState.currentQuestion.displayTopic ?? gameState.currentQuestion.topic} size={32} aspectScale={0.5} />
@@ -212,7 +212,7 @@ function RoundTable({ bet }: { bet: Betting }) {
                     zIndex: 5, pointerEvents: 'none',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
                   }}>
-                    <Timer seconds={gameState.phaseTimeLeft} color={C.hot} size={32} />
+                    <Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} color={C.hot} size={32} />
                     {gladiatorName && (
                       <span style={{ fontSize: 14, color: C.muted, whiteSpace: 'nowrap' }}>
                         Отвечает <span style={{ fontFamily: DISPLAY, fontSize: 19, color: C.hot }}>{gladiatorName}</span>

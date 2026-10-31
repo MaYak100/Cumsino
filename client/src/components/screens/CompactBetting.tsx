@@ -56,7 +56,7 @@ export function CompactBetting({ bet }: { bet: Betting }) {
                 {mode.short}
               </span>
               <span className="text-[0.8125rem]" style={{ color: C.muted }}>Ставки</span>
-              <span className="ml-auto"><Timer seconds={gameState.phaseTimeLeft} color={mode.color} size={44} /></span>
+              <span className="ml-auto"><Timer seconds={gameState.phaseTimeLeft} endsAt={gameState.phaseEndsAt} total={gameState.phaseDuration} color={mode.color} size={44} /></span>
             </div>
 
             {/* что на кону */}

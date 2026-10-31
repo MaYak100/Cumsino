@@ -25,7 +25,7 @@ export function ShopScreen() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      <TimeBar seconds={gs.phaseTimeLeft} color={C.brass} />
+      <TimeBar seconds={gs.phaseTimeLeft} endsAt={gs.phaseEndsAt} total={gs.phaseDuration} color={C.brass} />
 
       <main className="flex-1 w-full max-w-[72rem] mx-auto px-4 sm:px-8 py-4 flex flex-col justify-center gap-6">
         <div className="flex flex-wrap items-end justify-between gap-4">

@@ -9,6 +9,7 @@ import type {
   JoinErrorPayload,
 } from '@cumsino/shared'
 import { activeSession, forgetActive, loadDraft, rememberActive, saveDraft, tokenFor, type Session } from '../lib/session'
+import { syncClock } from '../lib/clock'
 
 export interface ItemFeedEntry { playerId: string; item: ItemId; targetId?: string; at: number }
 
@@ -183,6 +184,7 @@ export const useGameStore = create<GameStore>((set, get) => {
   })
 
   socket.on('game_state', (state: GameState) => {
+    syncClock(state.serverNow)   // разница часов с сервером — отсчёты фаз идут от дедлайна (lib/clock)
     const { rating, gameState: before, myId } = get()
     const roundOver = state.phase === 'ANNOUNCE' || state.phase === 'GAME_OVER' || state.phase === 'LOBBY'
       || (before !== null && state.roundIndex !== before.roundIndex)

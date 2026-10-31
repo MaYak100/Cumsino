@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { LIGHTNING_MS } from '@cumsino/shared'
 import { C, DISPLAY } from '../../theme'
+import { useMsLeft } from '../../lib/clock'
 
 /** Светлее на долю k (смешать с белым) — для «молнии». */
 function lighten(hex: string, k: number) {
@@ -11,31 +11,25 @@ function lighten(hex: string, k: number) {
 }
 
 /** Таймер-фитиль: линия во всю ширину тает до нуля, цифры на конце. ≤5с — малиновый.
- *  total — полная длина отсчёта (45 с вопроса, 15 с хекса): от неё ширина, поэтому ход линейный, даже если экран
- *  открыли посреди отсчёта. lightning — первые секунды дают «Молнию»: значок у границы окна, пока окно идёт — линия
- *  ярче. redAfterLightning — сразу после окна молнии линия красная (хекс: время почти кончилось). */
-export function TimeBar({ seconds, total, color = C.brass, stopped, lightning, redAfterLightning }: {
-  seconds: number; total?: number; color?: string; stopped?: boolean; lightning?: boolean; redAfterLightning?: boolean
+ *  Остаток — от дедлайна endsAt (время сервера, lib/clock): не копит ошибку в фоновой вкладке и не прыгает от новых
+ *  стейтов; нет дедлайна (моки) — от seconds. total — полная длина отсчёта (45 с вопроса, 15 с хекса): от неё
+ *  ширина, поэтому экран, открытый посреди отсчёта, показывает правильную долю. lightning — первые секунды дают
+ *  «Молнию»: значок у границы окна, пока окно идёт — линия ярче. redAfterLightning — сразу после окна молнии линия
+ *  красная (хекс: время почти кончилось). */
+export function TimeBar({ seconds, endsAt, total, color = C.brass, stopped, lightning, redAfterLightning }: {
+  seconds: number; endsAt?: number; total?: number; color?: string; stopped?: boolean; lightning?: boolean
+  redAfterLightning?: boolean
 }) {
-  const [current, setCurrent] = useState(seconds)
-  const maxRef = useRef(total ?? seconds)
-
-  useEffect(() => {
-    if (seconds > maxRef.current) maxRef.current = seconds
-    setCurrent(seconds)
-    if (stopped) return
-    const id = setInterval(() => setCurrent(p => Math.max(0, p - 1)), 1000)
-    return () => clearInterval(id)
-  }, [seconds, stopped])
-
-  const max = maxRef.current
+  const ms = useMsLeft(endsAt, seconds, stopped)
+  const current = Math.ceil(ms / 1000)
+  const max = total ?? seconds
   const win = LIGHTNING_MS / 1000
   const showBolt = !!lightning && max > win
-  const boltOn = showBolt && !stopped && current > max - win   // окно молнии ещё идёт
+  const boltOn = showBolt && !stopped && ms > (max - win) * 1000   // окно молнии ещё идёт
   const urgent = !stopped && (current <= 5 || (!!redAfterLightning && showBolt && !boltOn))
   const c = boltOn ? lighten(color, 0.45) : urgent ? C.hot : color
-  // ширина «на секунду вперёд»: линейный переход за 1с даёт непрерывное таяние
-  const frac = max > 0 ? Math.max(0, current - (stopped ? 0 : 1)) / max : 0
+  // доля пересчитывается 4 раза в секунду, переход в четверть секунды — непрерывное таяние
+  const frac = max > 0 ? Math.min(1, ms / (max * 1000)) : 0
   const boltAt = max > 0 ? ((max - win) / max) * 100 : 0
 
   return (
@@ -44,7 +38,7 @@ export function TimeBar({ seconds, total, color = C.brass, stopped, lightning, r
         <div style={{ height: boltOn ? '0.35rem' : '0.25rem', background: C.line, borderRadius: 4, overflow: 'hidden', transition: 'height .3s' }}>
           <div style={{
             height: '100%', width: `${frac * 100}%`, background: c, borderRadius: 4,
-            transition: stopped ? 'width .3s ease' : 'width 1s linear, background-color .3s',
+            transition: stopped ? 'width .3s ease' : 'width .25s linear, background-color .3s',
             boxShadow: boltOn ? `0 0 16px ${c}, 0 0 4px #fff` : `0 0 10px ${c}`,
             opacity: stopped ? 0.35 : 1,
           }} />

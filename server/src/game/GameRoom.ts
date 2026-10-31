@@ -113,6 +113,8 @@ export class GameRoom extends EventEmitter {
   private gladiatorId?: string
   private phaseTimer?: ReturnType<typeof setTimeout>
   private phaseEndTime = 0
+  /** полная длина текущей фазы, с (для доли полосы / кольца у клиента) */
+  private phaseSeconds = 0
   private selector: RoundSelector
   private questions: QuestionSource
   /** вопрос последнего посчитанного раунда — его можно оценить до конца следующего раунда */
@@ -881,6 +883,9 @@ export class GameRoom extends EventEmitter {
       hostId: this.hostId,
       players: Array.from(this.players.values()).map(p => this.publicPlayer(p, settled, viewerId)),
       phaseTimeLeft: timeLeft,
+      phaseEndsAt: this.phaseEndTime,
+      phaseDuration: this.phaseSeconds,
+      serverNow: Date.now(),
       friendRoster: this.friendRoster,
       firstGame: this.firstGame,
       ...(this.firstGame ? { lockedItems: lockedItems(true, this.shopsShown) } : {}),
@@ -941,6 +946,7 @@ export class GameRoom extends EventEmitter {
         base.hexTimeLeft = me.items.hexDeadline === undefined
           ? HEX_SECONDS
           : me.items.hexDone ? 0 : Math.max(0, Math.ceil((me.items.hexDeadline - Date.now()) / 1000))
+        if (me.items.hexDeadline !== undefined) base.hexEndsAt = me.items.hexDone ? Date.now() : me.items.hexDeadline
       }
       if (me.items.removedOptions.length) base.removedOptions = [...me.items.removedOptions]
       // вернувшийся после обрыва видит свой раунд как был: ответ, черновик на столе, ставку, гем
@@ -1043,6 +1049,7 @@ export class GameRoom extends EventEmitter {
     clearTimeout(this.phaseTimer)
     this.phase = phase
     this.phaseEndTime = Date.now() + seconds * 1000
+    this.phaseSeconds = seconds
     if (phase === 'QUESTION') this.onQuestionStart()
     this.broadcastState()
     this.phaseTimer = setTimeout(() => this.safely('onPhaseEnd', () => this.onPhaseEnd()), seconds * 1000)
