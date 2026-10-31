@@ -36,7 +36,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
   },
   gem: {
     id: 'gem', name: 'Gem of True Sight', basePrice: 150, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
-    targeted: true, key: 'X', desc: 'Подсмотри, что сейчас выбрано у игрока. Все видят, что ты смотрел; на кого — знает только цель',
+    targeted: true, key: 'X', desc: 'Подсмотри ответ игрока: что выбрано сейчас, а если ещё думает — его первый выбор. Все видят, что ты смотрел; на кого — знает только цель',
   },
   manta: {
     id: 'manta', name: 'Manta Style', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all'],
@@ -51,7 +51,7 @@ export const ITEMS: Record<ItemId, ItemDef> = {
     targeted: true, key: 'V', desc: `Бросается на ставках: у цели будет всего ${HEX_SECONDS} секунд на ответ`,
   },
   bkb: {
-    id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all', 'kerri'],
+    id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all'],
     targeted: false, key: 'B', desc: 'Включи до вопроса: проигрыш вернётся (до двух цен BKB), серия не собьётся',
   },
   aegis: {
@@ -81,10 +81,14 @@ export const round10 = (x: number) => Math.round(x / 10) * 10
 export const floor10 = (x: number) => Math.floor(x / 10) * 10
 const ceil10 = (x: number) => Math.ceil(x / 10) * 10
 
-/** Цена растёт с балансом: до $500 — базовая, $1000 — ×1.25, $2000 — ×1.75, с $2500 — ×2. */
+/** Цена линейно от баланса — как у BKB: $50 + 15% баланса. Остальные — в той же пропорции к базовой цене
+ *  (basePrice / 200 от цены BKB): блинк $12.5 + 3.75%, манта / смок / аегис $25 + 7.5%, гем / хекс $37.5 + 11.25%.
+ *  До $10, не меньше $10. */
+export const PRICE_FIXED = 50
+export const PRICE_SHARE = 0.15
 export function itemPrice(id: ItemId, balance: number): number {
-  const k = Math.min(2, Math.max(1, 0.75 + balance / 2000))
-  return round10(ITEMS[id].basePrice * k)
+  const k = ITEMS[id].basePrice / ITEMS.bkb.basePrice
+  return Math.max(10, round10(k * (PRICE_FIXED + PRICE_SHARE * Math.max(0, balance))))
 }
 
 // ── параметры предметов ──
@@ -96,8 +100,8 @@ export const LAST_ANSWER_GRACE_MS = 1000
 // ── бонусы (платит казино) ──
 // «Для всех» и толпа керри: база бонуса — чистый выигрыш игрока из основного пула раунда (без банк-ставки и других
 // бонусов). Никто не проиграл — выигрыша нет, нет и бонусов (0 × 1.25 = 0). Округление вниз до $10.
-/** «Молния»: верный ответ в первые 5 секунд вопроса — +25% выигрыша (не меньше $10; керри — +$100) */
-export const LIGHTNING_MS = 5000
+/** «Молния»: верный ответ в первые 8 секунд вопроса — +25% выигрыша (не меньше $10; керри — +$100) */
+export const LIGHTNING_MS = 8000
 export const LIGHTNING_SHARE = 0.25
 export const LIGHTNING_GLADIATOR = 100
 

@@ -24,6 +24,8 @@ interface Props {
   peeks?: Record<number, string[]>
   /** верный ответ известен заранее (толпа в керри) — помечаем пунктиром */
   knownCorrect?: string | null
+  /** подпись выбранного варианта на раскрытии («Выбор керри» — толпа видит, что он нажал, даже если мимо) */
+  pickLabel?: string
   color: string
   /** id вопроса — для стабильных «вырезок» бирок */
   seed: string
@@ -32,7 +34,8 @@ interface Props {
 /** Сетка вариантов 2×2. Все строки одной высоты (grid-auto-rows: 1fr), а подписи значений после раскрытия —
  *  бирки поверх верхней кромки (absolute), поэтому раскрытие ничего не сдвигает. */
 export function AnswerOptions({
-  options, interactive, myPick, onPick, onHover, correct, notes, hoverIdx, eliminated, allowChange, peeks, knownCorrect, color, seed,
+  options, interactive, myPick, onPick, onHover, correct, notes, hoverIdx, eliminated, allowChange, peeks, knownCorrect, pickLabel,
+  color, seed,
 }: Props) {
   const revealed = correct !== null
 
@@ -121,6 +124,21 @@ export function AnswerOptions({
                 animate={{ opacity: [1, 0.25, 1] }}
                 transition={{ repeat: Infinity, duration: 0.9 }}
               />
+            )}
+
+            {revealed && isMine && pickLabel && (
+              <motion.span
+                initial={{ scale: 1.6, opacity: 0, rotate: -8 }}
+                animate={{ scale: 1, opacity: 1, rotate: -3 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 18 }}
+                className="absolute text-[0.75rem] font-bold px-2 py-0.5 rounded"
+                style={{
+                  top: -12, left: '0.75rem', zIndex: 2, boxShadow: '0 3px 8px rgba(0,0,0,.45)',
+                  background: missed ? C.hot : C.ink, color: missed ? C.ink : C.mint,
+                }}
+              >
+                {pickLabel}
+              </motion.span>
             )}
 
             {seen && seen.length > 0 && (

@@ -4,6 +4,7 @@ import { useGameStore } from '../../store/gameStore'
 import { socket } from '../../socket'
 import { C, DISPLAY } from '../../theme'
 import { Logo } from '../ui/Logo'
+import { lastJoin } from '../../lib/session'
 
 const field = 'w-full rounded-xl px-4 focus:outline-none transition-colors'
 const SERVER = import.meta.env.VITE_SERVER_URL ?? 'http://localhost:3001'
@@ -15,8 +16,9 @@ const GIVE_UP_MS = 75_000
 type Status = 'idle' | 'connecting' | 'waking' | 'error'
 
 export function JoinScreen() {
-  const [name, setName] = useState('')
-  const [code, setCode] = useState('')
+  // последние имя и код — тем же именем в ту же комнату: вернёшься тем же игроком (токен на этом устройстве)
+  const [name, setName] = useState(() => lastJoin()?.name ?? '')
+  const [code, setCode] = useState(() => lastJoin()?.gameCode ?? '')
   const [status, setStatus] = useState<Status>('idle')
   const connect = useGameStore(s => s.connect)
   // отказ сервера (комната полна, плохой код…) — join_error, готовый текст в message

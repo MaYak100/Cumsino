@@ -76,8 +76,9 @@ describe('ревью 2026-10-30', () => {
       vi.advanceTimersByTime(ANNOUNCE_FIRST * 1000)   // → BETTING, керри p1
       expect(t.r.phase).toBe('BETTING')
       expect(t.r.gladiatorId).toBe('p1')
-      t.room.placeBet('p2', 30, 'lose', [10, 20, 50], { optionIndex: 2, amount: 50 })
-      t.room.placeBet('p3', 30, 'win')
+      t.room.stageChip('p2', [10, 20], 2)
+      t.room.placeBet('p2', 30, 2, [10, 20])
+      t.room.placeBet('p3', 30, 0)
       expect(t.r.phase).toBe('QUESTION')
       t.room.submitAnswer('p1', 'C')
       vi.advanceTimersByTime(LAST_ANSWER_GRACE_MS)
@@ -102,15 +103,20 @@ describe('ревью 2026-10-30', () => {
       expect(ga('s1')).toBe(false)   // зритель
     })
 
-    it('керри: bank_bet_updated — только толпе (не керри, не зрителю)', () => {
+    it('керри: вариант толпы до расчёта — только толпе (bet_updated, chip_staged, game_state), не керри и не зрителю', () => {
       const t = playKerri()
-      const got = (id: string) => t.mail(id).some(e => e.event === 'bank_bet_updated')
-      expect(got('p2')).toBe(true)
-      expect(got('p3')).toBe(true)
-      expect(got('p1')).toBe(false)
-      expect(got('s1')).toBe(false)
-      // и ни в одном game_state банк-ставки нет
-      for (const id of ['p1', 's1']) expect(leaks(t.mail(id), 'bankBet')).toBe(false)
+      const optionSeen = (id: string) => before(t.mail(id)).some(e =>
+        ((e.event === 'bet_updated' || e.event === 'chip_staged') && e.data.option !== undefined)
+        || (e.event === 'game_state' && e.data.players.some((x: any) => x.betOption !== undefined)))
+      expect(optionSeen('p2')).toBe(true)
+      expect(optionSeen('p3')).toBe(true)
+      expect(optionSeen('p1')).toBe(false)
+      expect(optionSeen('s1')).toBe(false)
+      // ставки и фишки керри видит — без варианта
+      expect(before(t.mail('p1')).some(e => e.event === 'bet_updated' && e.data.playerId === 'p2' && e.data.amount === 30)).toBe(true)
+      expect(before(t.mail('p1')).some(e => e.event === 'chip_staged' && e.data.playerId === 'p2')).toBe(true)
+      // после расчёта вариант виден всем
+      expect(t.states('p1').at(-1)!.players.find(x => x.id === 'p2')!.betOption).toBe(2)
     })
 
     it('после расчёта: round_results с настоящим id и ключом раунда = currentQuestion.id', () => {
@@ -305,32 +311,27 @@ describe('ревью 2026-10-30', () => {
       expect(t.p('p2').currentBet).toBe(STARTING_CHIPS)
     })
 
-    it('керри: банк не влезает с основной — основная принята, банк нет', () => {
+    it('керри: больше баланса — нет, ровно баланс — да', () => {
       const t = kerriBetting()
-      t.room.placeBet('p2', 400, 'win', undefined, { optionIndex: 1, amount: 200 })
-      expect(t.p('p2').currentBet).toBe(400)
-      expect(t.p('p2').bankBet).toBeUndefined()
+      t.room.placeBet('p2', STARTING_CHIPS + 10, 1)
+      expect(t.p('p2').currentBet).toBe(0)
+      t.room.placeBet('p2', STARTING_CHIPS, 1)
+      expect(t.p('p2')).toMatchObject({ currentBet: STARTING_CHIPS, betOption: 1 })
     })
 
-    it('керри: основная + банк ровно баланс — принимается', () => {
+    it('керри: повторное подтверждение заменяет и сумму, и вариант', () => {
       const t = kerriBetting()
-      t.room.placeBet('p2', 300, 'lose', undefined, { optionIndex: 1, amount: 200 })
-      expect(t.p('p2')).toMatchObject({ currentBet: 300, bankBet: { optionIndex: 1, amount: 200 } })
+      t.room.placeBet('p2', 100, 1)
+      t.room.placeBet('p2', 300, 3)
+      expect(t.p('p2')).toMatchObject({ currentBet: 300, betOption: 3 })
     })
 
-    it('B7: повторное подтверждение проверяется по новой банк-ставке, а не по старой', () => {
+    it('черновик сверх баланса не запоминается', () => {
       const t = kerriBetting()
-      t.room.placeBet('p2', 100, 'win', undefined, { optionIndex: 1, amount: 400 })
-      expect(t.p('p2').bankBet).toEqual({ optionIndex: 1, amount: 400 })
-      t.room.placeBet('p2', 300, 'win', undefined, { optionIndex: 2, amount: 200 })   // 300 + 200 = 500
-      expect(t.p('p2')).toMatchObject({ currentBet: 300, bankBet: { optionIndex: 2, amount: 200 } })
-    })
-
-    it('без новой банк-ставки основная + старая банк сверх баланса — отклоняется', () => {
-      const t = kerriBetting()
-      t.room.placeBet('p2', 100, 'win', undefined, { optionIndex: 1, amount: 400 })
-      t.room.placeBet('p2', 200, 'win')
-      expect(t.p('p2').currentBet).toBe(100)
+      t.room.stageChip('p2', [500, 10], 1)
+      expect(t.p('p2').items.stagedChips).toBeUndefined()
+      t.room.stageChip('p2', [500], 1)
+      expect(t.p('p2').items.stagedChips).toEqual([500])
     })
 
     it('зритель не ставит', () => {
@@ -344,22 +345,30 @@ describe('ревью 2026-10-30', () => {
   })
 
   // ── сброс раунда ──
-  it('nextRound сбрасывает раундовое: ставки, банк, блайнд, ответ, предметы раунда, зрителя', () => {
+  it('nextRound сбрасывает раундовое: ставки, вариант, черновик, блайнд, ответ, предметы раунда, гем, зрителя', () => {
     const t = makeRoom(2)
     const p = t.p('p2')
     Object.assign(p, {
-      currentBet: 100, betTarget: 'lose', betChips: [100], bankBet: { optionIndex: 1, amount: 50 }, blind: 30,
+      currentBet: 100, betOption: 1, betChips: [100], blind: 30,
       bigBlind: true, answer: 'B', hasAnswered: true, spectator: true, shopReady: true,
     })
     p.items.bkb = true
     p.items.hexed = true
     p.items.removedOptions = [1]
+    p.items.stagedChips = [50]
+    p.items.stagedOption = 2
+    p.items.gems = { p1: { answer: 'A', smoked: false } }
     p.inventory = { gem: 2 }
     p.streak = 3
+    t.r.bettingConfirmedIds.add('p2')
     t.r.nextRound()
     expect(p).toMatchObject({ currentBet: 0, hasAnswered: false, spectator: false })
-    for (const k of ['betTarget', 'betChips', 'bankBet', 'blind', 'bigBlind', 'answer']) expect(p[k]).toBeUndefined()
-    expect(p.items).toMatchObject({ bkb: false, hexed: false, removedOptions: [] })
+    for (const k of ['betOption', 'betChips', 'blind', 'bigBlind', 'answer']) expect(p[k]).toBeUndefined()
+    expect(p.items).toMatchObject({ bkb: false, hexed: false, removedOptions: [], gems: {} })
+    expect(p.items.stagedChips).toBeUndefined()
+    expect(p.items.stagedOption).toBeUndefined()
+    const st = t.room.getStateForPlayer('p2')
+    for (const k of ['betConfirmed', 'gemResults', 'myAnswer', 'roundResults'] as const) expect(st[k]).toBeUndefined()
     // запас и серия — не раундовые
     expect(p.inventory).toEqual({ gem: 2 })
     expect(p.streak).toBe(3)
@@ -393,10 +402,7 @@ describe('ревью 2026-10-30', () => {
             const isG = mode === 'kerri' && i === 1
             if (mode !== 'closest' && !isG) {
               p.currentBet = Math.min(p.chips, pick(rnd, [0, 10, 50, 200]))
-              if (mode === 'kerri') {
-                p.betTarget = pick(rnd, ['win', 'lose'])
-                if (rnd() < 0.4 && p.chips - p.currentBet >= 20) p.bankBet = { optionIndex: pick(rnd, [1, 2, 3]), amount: 20 }
-              }
+              if (mode === 'kerri') p.betOption = pick(rnd, [0, 1, 2, 3])
             }
             if (mode === 'closest') {
               if (rnd() < 0.8) { p.answer = pick(rnd, [SECRET_NUM, SECRET_NUM - 5, SECRET_NUM + 5, 0]); p.hasAnswered = true }
@@ -446,8 +452,8 @@ describe('ревью 2026-10-30', () => {
     it('купить аегис на последние — можно (порога при покупке нет)', () => {
       const t = makeRoom(1)
       t.r.phase = 'SHOP'
-      const price = itemPrice('aegis', 150)
-      t.p('p1').chips = AEGIS_THRESHOLD + price - 10
+      t.p('p1').chips = 70
+      expect(70 - itemPrice('aegis', 70)).toBe(AEGIS_THRESHOLD - 10)
       t.room.buyItem('p1', 'aegis')
       expect(t.p('p1').aegis).toBe(true)
       expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD - 10)
@@ -461,13 +467,12 @@ describe('ревью 2026-10-30', () => {
       t.p('p1').chips = WIN_CHIPS + 10
       t.p('p2').chips = WIN_CHIPS + 500
       t.p('p2').inventory = { gem: 1 }
-      t.p('p2').bankBet = { optionIndex: 1, amount: 10 }
       t.r.phase = 'REVEAL'
       t.r.onPhaseEnd()
       expect(t.r.phase).toBe('GAME_OVER')
       const winner = t.mail('p3').find(e => e.event === 'game_over')!.data.winner
       expect(winner.id).toBe('p2')
-      for (const k of ['inventory', 'items', 'bankBet', 'aegisBought', 'seat']) expect(winner).not.toHaveProperty(k)
+      for (const k of ['inventory', 'items', 'token', 'offlineSince', 'aegisBought', 'seat']) expect(winner).not.toHaveProperty(k)
     })
 
     it('точная ничья ≥ 3000 — победителя нет, игра идёт ещё раунд; лидер один — победил', () => {

@@ -12,6 +12,7 @@ import { RevealNote } from '../ui/RevealNote'
 import { GuessLine } from '../ui/GuessLine'
 import { SelfEffects } from '../ui/SelfEffects'
 import { TopicInline } from '../ui/Topic'
+import { ItemIcon } from '../ui/ItemIcon'
 import { parseNumber } from '../../lib/parseNumber'
 import { useAnswerAck } from '../../lib/useAnswerAck'
 
@@ -25,11 +26,17 @@ export function ClosestScreen() {
   const submitAnswer = useGameStore(s => s.submitAnswer)
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
   const roundComment = useGameStore(s => s.roundComment)
-  const [value, setValue] = useState('')
-  const [sent, setSent] = useState<number | null>(null)
+  const q = gameState.currentQuestion
+  // черновик числа — в сторе по ключу вопроса: экран, смонтированный заново, не стирает набранное
+  const draft = useGameStore(s => s.closestDraft)
+  const setClosestDraft = useGameStore(s => s.setClosestDraft)
+  const value = draft && draft.key === q?.id ? draft.value : ''
+  const setValue = (v: string) => { if (q) setClosestDraft({ key: q.id, value: v }) }
+  // отправленное число — сервер помнит его (myAnswer): после переподключения поле покажет его же
+  const savedSent = () => (typeof gameState.myAnswer === 'number' ? gameState.myAnswer : null)
+  const [sent, setSent] = useState<number | null>(savedSent)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const q = gameState.currentQuestion
   const color = modeColor(gameState.mode)
   const myAnswered = myId ? answeredIds.has(myId) : false
   const revealed = typeof roundCorrectAnswer === 'number'
@@ -47,7 +54,7 @@ export function ClosestScreen() {
   const unit = q?.unit
   const unitMark = unit ? withUnit('', unit).trim() : ''
 
-  useEffect(() => { setValue(''); setSent(null); setEditing(false); setLost(false) }, [q?.id])
+  useEffect(() => { setSent(savedSent()); setEditing(false); setLost(false) }, [q?.id])
   useEffect(() => { if (!locked) inputRef.current?.focus() }, [locked])
 
   function handleSubmit(e: React.FormEvent) {
@@ -141,15 +148,29 @@ export function ClosestScreen() {
                 </span>
               )}
               </div>
+              {/* ответ принят, а блинк есть — вместо «Принято» иконка блинка «Изменить»; в правке — она же отправляет */}
               {locked && canBlink ? (
                 <motion.button
                   type="button"
                   whileTap={{ scale: 0.95 }}
                   onClick={() => { setEditing(true); setValue(sent !== null ? String(sent) : '') }}
-                  className="h-[3.5rem] sm:h-[7rem] rounded-2xl px-6 font-bold text-lg"
+                  className="h-[3.5rem] sm:h-[7rem] rounded-2xl px-5 font-bold text-lg flex items-center justify-center gap-2"
                   style={{ minWidth: '10.625rem', background: 'transparent', color: C.sky, border: `2px solid ${C.sky}` }}
+                  aria-label={`Изменить ответ блинком (осталось ${blinks})`}
                 >
-                  Блинк: изменить
+                  <ItemIcon id="blink" size={40} />
+                  Изменить
+                </motion.button>
+              ) : editing ? (
+                <motion.button
+                  type="submit"
+                  disabled={parsed === null}
+                  whileTap={{ scale: 0.95 }}
+                  className="h-[3.5rem] sm:h-[7rem] rounded-2xl px-5 font-bold text-lg disabled:opacity-35 flex items-center justify-center gap-2"
+                  style={{ minWidth: '10.625rem', background: C.sky, color: C.ink }}
+                >
+                  <ItemIcon id="blink" size={40} />
+                  Изменить
                 </motion.button>
               ) : (
               <motion.button
@@ -159,7 +180,7 @@ export function ClosestScreen() {
                 className="h-[3.5rem] sm:h-[7rem] rounded-2xl px-8 font-bold text-lg disabled:opacity-35"
                 style={{ minWidth: '10.625rem', background: color, color: C.ink }}
               >
-                {locked ? 'Принято' : editing ? 'Изменить' : 'Ответить'}
+                {locked ? 'Принято' : 'Ответить'}
               </motion.button>
               )}
             </form>

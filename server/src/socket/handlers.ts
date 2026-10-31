@@ -1,11 +1,12 @@
 import type { Socket } from 'socket.io'
 import type { GameEngine } from '../game/GameEngine'
 import type {
-  JoinGamePayload, PlaceBetPayload,
+  JoinGamePayload, PlaceBetPayload, StageChipPayload, ClientLogPayload,
   SubmitAnswerPayload, GladiatorHoverPayload,
   IdentifyPayload, RateQuestionPayload,
   BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId, JoinErrorPayload, RemoveBotPayload, SetFirstGamePayload,
 } from '@cumsino/shared'
+import type { GameRoom } from '../game/GameRoom'
 import { ITEM_ORDER } from '@cumsino/shared'
 import type { RatingVote } from '../game/questions/picker'
 
@@ -16,6 +17,10 @@ export const isChips = (c: unknown): c is number[] =>
 export const isItem = (i: unknown): i is ItemId => typeof i === 'string' && (ITEM_ORDER as string[]).includes(i)
 /** Ставки — целые, кратные 10 (меньше фишки 10 нет): иначе дробные балансы и сломанный делёж пула */
 export const isStake = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= 0 && n % 10 === 0
+/** вариант ответа керри — индекс (в вопросе их не больше десятка; есть ли такой — проверяет комната) */
+export const isOption = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= 0 && n < 16
+/** токен сессии — случайная строка клиента */
+export const isToken = (t: unknown): t is string => typeof t === 'string' && /^[A-Za-z0-9_-]{16,64}$/.test(t)
 
 export const NAME_MAX = 24
 
@@ -42,7 +47,7 @@ export const RATE_FLUSH_MS = 1000
 
 /** Что обработчикам нужно от сокета (для тестов хватает заглушки). */
 export type HandlerSocket = Pick<Socket, 'id' | 'on' | 'emit'>
-type Engine = Pick<GameEngine, 'joinRoom' | 'getRoom' | 'leaveRoom'>
+type Engine = Pick<GameEngine, 'joinRoom' | 'ctx' | 'leaveRoom' | 'disconnect'>
 
 export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void {
   // лимит событий: token bucket
@@ -77,83 +82,101 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
     },
   }
 
+  /** Игрок этого сокета (не socket.id: id игрока переживает переподключения) и его комната. */
+  const act = (fn: (room: GameRoom, id: string) => void) => {
+    const c = engine.ctx(socket.id)
+    if (c) fn(c.room, c.id)
+  }
+
   const joinError = (reason: JoinErrorPayload['reason'], message: string) => {
     const payload: JoinErrorPayload = { reason, message }
     rawSocket.emit('join_error', payload)
   }
 
-  socket.on('join_game', ({ name, gameCode }: JoinGamePayload) => {
+  socket.on('join_game', ({ name, gameCode, token }: JoinGamePayload) => {
     const code = typeof gameCode === 'string' ? gameCode.trim().toUpperCase() : ''
     if (!/^[A-Z0-9]{2,8}$/.test(code)) return joinError('bad_code', 'Код комнаты — 2–8 латинских букв или цифр')
     const clean = cleanName(name)
     if (!clean) return joinError('bad_name', 'Введи имя')
-    engine.joinRoom(rawSocket as Socket, clean, code)
+    engine.joinRoom(rawSocket as Socket, clean, code, isToken(token) ? token : undefined)
+  })
+
+  // «Выйти»: уйти из комнаты совсем (обрыв связи — не уход: игрок ждёт возвращения «не в сети»)
+  socket.on('leave_game', () => {
+    flushRating()
+    engine.leaveRoom(socket.id)
+  })
+
+  // журнал связи клиента: почему оборвалось и сколько не было — в лог (Render), чтобы видеть, кого и как рвёт
+  socket.on('client_log', ({ reason, downMs, transport, hidden }: ClientLogPayload) => {
+    if (typeof reason !== 'string' || typeof downMs !== 'number') return
+    const who = engine.ctx(socket.id)
+    console.log(`[conn] ${who ? `${who.room.id}/${who.id}` : socket.id} вернулся: ${reason.slice(0, 60)}, `
+      + `не было ${Math.round(downMs / 100) / 10} с, ${String(transport ?? '?').slice(0, 20)}${hidden ? ', вкладка в фоне' : ''}`)
   })
 
   socket.on('start_game', () => {
-    engine.getRoom(socket.id)?.start(socket.id)
+    act((room, id) => room.start(id))
   })
 
   // боты для соло-тестов: только хост и только в лобби (проверяет комната)
   socket.on('add_bot', () => {
-    engine.getRoom(socket.id)?.addBot(socket.id)
+    act((room, id) => room.addBot(id))
   })
 
   socket.on('set_first_game', ({ on }: SetFirstGamePayload) => {
     if (typeof on !== 'boolean') return
-    engine.getRoom(socket.id)?.setFirstGame(socket.id, on)
+    act((room, id) => room.setFirstGame(id, on))
   })
 
-  socket.on('remove_bot', ({ id }: RemoveBotPayload) => {
-    if (typeof id !== 'string' || !id || id.length > 64) return
-    engine.getRoom(socket.id)?.removeBot(socket.id, id)
+  socket.on('remove_bot', ({ id: botId }: RemoveBotPayload) => {
+    if (typeof botId !== 'string' || !botId || botId.length > 64) return
+    act((room, id) => room.removeBot(id, botId))
   })
 
-  socket.on('place_bet', ({ amount, target, chips, bankBet }: PlaceBetPayload) => {
+  socket.on('place_bet', ({ amount, option, chips }: PlaceBetPayload) => {
     if (!isStake(amount)) return
-    if (target !== undefined && target !== 'win' && target !== 'lose') return
+    if (option !== undefined && !isOption(option)) return
     if (chips !== undefined && !isChips(chips)) return
-    if (bankBet !== undefined && (typeof bankBet !== 'object' || !bankBet || !isStake(bankBet.amount)
-      || !Number.isInteger(bankBet.optionIndex))) return
-    engine.getRoom(socket.id)?.placeBet(socket.id, amount, target, chips, bankBet)
+    act((room, id) => room.placeBet(id, amount, option, chips))
   })
 
   socket.on('submit_answer', ({ answer, blink }: SubmitAnswerPayload) => {
     if (typeof answer !== 'string' && typeof answer !== 'number') return
     if (typeof answer === 'string' && answer.length > 300) return
     if (blink !== undefined && typeof blink !== 'boolean') return
-    engine.getRoom(socket.id)?.submitAnswer(socket.id, answer, blink === true)
+    act((room, id) => room.submitAnswer(id, answer, blink === true))
   })
 
   socket.on('buy_item', ({ item }: BuyItemPayload) => {
     if (!isItem(item)) return
-    engine.getRoom(socket.id)?.buyItem(socket.id, item)
+    act((room, id) => room.buyItem(id, item))
   })
 
   socket.on('use_item', ({ item, targetId }: UseItemPayload) => {
     if (!isItem(item)) return
     if (targetId !== undefined && (typeof targetId !== 'string' || targetId.length > 64)) return
-    engine.getRoom(socket.id)?.useItem(socket.id, item, targetId)
+    act((room, id) => room.useItem(id, item, targetId))
   })
 
   socket.on('shop_ready', ({ ready }: ShopReadyPayload) => {
     if (typeof ready !== 'boolean') return
-    engine.getRoom(socket.id)?.setShopReady(socket.id, ready)
+    act((room, id) => room.setShopReady(id, ready))
   })
 
   socket.on('gladiator_hover', ({ optionIndex }: GladiatorHoverPayload) => {
     if (optionIndex !== null && !Number.isInteger(optionIndex)) return
-    engine.getRoom(socket.id)?.relayHover(socket.id, optionIndex)
+    act((room, id) => room.relayHover(id, optionIndex))
   })
 
-  socket.on('stage_chip', ({ chips, target }: { chips: number[]; target?: 'win' | 'lose' }) => {
+  socket.on('stage_chip', ({ chips, option }: StageChipPayload) => {
     if (!isChips(chips)) return
-    engine.getRoom(socket.id)?.stageChip(socket.id, chips, target === 'win' || target === 'lose' ? target : undefined)
+    act((room, id) => room.stageChip(id, chips, isOption(option) ? option : undefined))
   })
 
   socket.on('identify', ({ friendId }: IdentifyPayload) => {
     if (friendId !== null && !Number.isInteger(friendId)) return
-    engine.getRoom(socket.id)?.identify(socket.id, friendId)
+    act((room, id) => room.identify(id, friendId))
   })
 
   // оценка: копится и уходит в комнату (и в базу) не чаще раза в RATE_FLUSH_MS; другой вопрос — прежняя сразу
@@ -164,7 +187,7 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
     ratingTimer = undefined
     const r = rating
     rating = null
-    if (r) engine.getRoom(socket.id)?.rateQuestion(socket.id, r.questionId, r.vote)
+    if (r) act((room, id) => room.rateQuestion(id, r.questionId, r.vote))
   }
 
   socket.on('rate_question', ({ questionId, score, difficulty }: RateQuestionPayload) => {
@@ -179,12 +202,15 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
     if (!ratingTimer) ratingTimer = setTimeout(flushRating, RATE_FLUSH_MS)
   })
 
-  socket.on('pay_bribe', () => {
-    engine.getRoom(socket.id)?.payBribe(socket.id)
-  })
-
-  socket.on('disconnect', () => {
-    flushRating()   // недосланная оценка — до выхода из комнаты
-    engine.leaveRoom(socket.id)
+  // напрямую, не через обёртку: причина обрыва — строка (обёртка заменила бы её на {})
+  rawSocket.on('disconnect', (reason: unknown) => {
+    try {
+      flushRating()   // недосланная оценка — пока сокет ещё привязан к игроку
+      const who = engine.ctx(socket.id)
+      if (who) console.log(`[conn] ${who.room.id}/${who.id} отвалился: ${String(reason)}`)
+      engine.disconnect(socket.id)
+    } catch (err) {
+      console.error(`[socket] disconnect от ${rawSocket.id}:`, err)
+    }
   })
 }

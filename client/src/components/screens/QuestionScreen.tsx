@@ -1,5 +1,4 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { HEX_SECONDS, PHASE_DURATIONS } from '@cumsino/shared'
 import { useGameStore, selectIsGladiator, selectMe } from '../../store/gameStore'
 import { C, modeColor } from '../../theme'
@@ -29,9 +28,6 @@ export function QuestionScreen() {
   const roundCorrectAnswer = useGameStore(s => s.roundCorrectAnswer)
   const roundComment = useGameStore(s => s.roundComment)
   const roundOptionNotes = useGameStore(s => s.roundOptionNotes)
-  const bribeEliminatedIdx = useGameStore(s => s.bribeEliminatedIdx)
-  const bribePrompt = useGameStore(s => s.bribePrompt)
-  const payBribe = useGameStore(s => s.payBribe)
   const me = useGameStore(selectMe)
   const gemResults = useGameStore(s => s.gemResults)
 
@@ -44,10 +40,16 @@ export function QuestionScreen() {
   const myAnswered = myId ? answeredIds.has(myId) : false
   const gladiator = gameState.players.find(p => p.id === gameState.gladiatorId)
 
-  const [pick, setPick] = useState<number | null>(null)
+  // свой ответ — сервер помнит его (myAnswer): экран, смонтированный заново после переподключения, покажет его же
+  const savedPick = () => {
+    const a = gameState.myAnswer
+    const i = typeof a === 'string' ? options.indexOf(a) : -1
+    return i >= 0 ? i : null
+  }
+  const [pick, setPick] = useState<number | null>(savedPick)
   // ответ ушёл, а сервер не засчитал (хекс кончился в пути) — выбор снимается, можно снова
   const [lost, setLost] = useState(false)
-  useEffect(() => { setPick(null); setLost(false) }, [q?.id])
+  useEffect(() => { setPick(savedPick()); setLost(false) }, [q?.id])
 
   // хекс: у тебя своё короткое время на ответ
   const hexLeft = useCountdown(revealed ? undefined : gameState.hexTimeLeft)
@@ -56,10 +58,7 @@ export function QuestionScreen() {
   // блинк: пока есть в запасе — ответ можно сменить
   const blinks = gameState.inventory?.blink ?? 0
   const canBlink = !isCrowd && myAnswered && blinks > 0 && !revealed && !hexDead
-  const eliminated = [
-    ...(gameState.removedOptions ?? []),
-    ...(isGladiator && bribeEliminatedIdx !== null ? [bribeEliminatedIdx] : []),
-  ]
+  const eliminated = gameState.removedOptions ?? []
   // гем: у кого что выбрано
   const peeks: Record<number, string[]> = {}
   for (const [targetId, r] of Object.entries(gemResults)) {
@@ -67,6 +66,11 @@ export function QuestionScreen() {
     const name = gameState.players.find(p => p.id === targetId)?.name
     if (idx >= 0 && name) (peeks[idx] ??= []).push(name)
   }
+  // толпа керри: на каком варианте своя ставка; на раскрытии — что выбрал керри (в т.ч. неверное)
+  const myBetIdx = isCrowd && me?.currentBet && me.betOption !== undefined ? me.betOption : -1
+  if (myBetIdx >= 0) (peeks[myBetIdx] ??= []).push('твоя ставка')
+  const kerriAnswer = gladiator?.answer
+  const kerriIdx = isCrowd && revealed && typeof kerriAnswer === 'string' ? options.indexOf(kerriAnswer) : -1
 
   useAnswerAck(pick !== null && !isCrowd && !revealed, myAnswered, () => { setPick(null); setLost(true) })
 
@@ -129,7 +133,8 @@ export function QuestionScreen() {
         <AnswerOptions
           options={options}
           interactive={interactive}
-          myPick={pick}
+          myPick={isCrowd ? (kerriIdx >= 0 ? kerriIdx : null) : pick}
+          pickLabel={isCrowd ? 'Выбор керри' : undefined}
           onPick={choose}
           onHover={hover}
           correct={revealed ? (roundCorrectAnswer as string) : null}
@@ -152,12 +157,10 @@ export function QuestionScreen() {
             </>
           ) : isCrowd ? (
             <div className="flex flex-col items-center gap-2 text-sm" style={{ color: C.muted }}>
-              {me?.currentBet ? (
+              {me?.currentBet && myBetIdx >= 0 ? (
                 <span>
-                  Твоя ставка <b className="tnum" style={{ color: C.fg }}><Money v={me.currentBet} /></b> на то, что он{' '}
-                  <b style={{ color: me.betTarget === 'lose' ? C.hot : C.mint }}>
-                    {me.betTarget === 'lose' ? 'завалит' : 'ответит'}
-                  </b>
+                  Твоя ставка <b className="tnum" style={{ color: C.fg }}><Money v={me.currentBet} /></b> на то, что он выберет{' '}
+                  <b style={{ color: C.fg }}>«{options[myBetIdx]}»</b>
                 </span>
               ) : <span>Ты не ставил в этом раунде</span>}
               {gladiator && answeredIds.has(gladiator.id) && <span style={{ color: C.fg }}>Керри ответил</span>}
@@ -178,64 +181,8 @@ export function QuestionScreen() {
             </div>
           )}
 
-          <AnimatePresence>
-            {bribePrompt && isCrowd && !revealed && (
-              <BribePrompt
-                amount={bribePrompt.amount}
-                startedAt={bribePrompt.startedAt}
-                cycle={bribePrompt.cycleIndex}
-                lose={me?.betTarget === 'lose'}
-                canPay={(me?.chips ?? 0) >= bribePrompt.amount}
-                onPay={payBribe}
-              />
-            )}
-          </AnimatePresence>
         </div>
       </main>
     </div>
-  )
-}
-
-/** Взятка (выключена флагом BRIBE_ENABLED, код сохранён). */
-function BribePrompt({ amount, startedAt, cycle, lose, canPay, onPay }: {
-  amount: number; startedAt: number; cycle: number; lose: boolean; canPay: boolean; onPay: () => void
-}) {
-  const [left, setLeft] = useState(8)
-  useEffect(() => {
-    const tick = () => setLeft(Math.max(0, 8 - (Date.now() - startedAt) / 1000))
-    tick()
-    const id = setInterval(tick, 100)
-    return () => clearInterval(id)
-  }, [startedAt])
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 16 }}
-      className="w-full max-w-md rounded-2xl p-4 text-center"
-      style={{ border: `2px solid ${C.hot}`, background: `${C.hot}14` }}
-    >
-      <div className="text-sm mb-3" style={{ color: C.fg }}>
-        {lose
-          ? <>Заплати <b><Money v={amount} /></b>, чтобы керри не убрали неверный вариант</>
-          : cycle > 0
-            ? <>Твою попытку перебили. <b><Money v={amount} /></b> — и керри всё же уберут неверный вариант</>
-            : <>Заплати <b><Money v={amount} /></b> — и керри уберут один неверный вариант</>}
-      </div>
-      <div className="flex items-center justify-center gap-3">
-        <span className="tnum font-display text-xl w-8 text-right" style={{ color: left <= 2 ? C.hot : C.brass }}>
-          {Math.ceil(left)}
-        </span>
-        <button
-          onClick={onPay}
-          disabled={!canPay || left <= 0}
-          className="rounded-xl px-5 py-2.5 font-bold disabled:opacity-40"
-          style={{ background: C.hot, color: C.ink }}
-        >
-          Заплатить <Money v={amount} />
-        </button>
-      </div>
-    </motion.div>
   )
 }

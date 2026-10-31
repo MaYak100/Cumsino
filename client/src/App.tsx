@@ -1,39 +1,26 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { useGameStore, selectIsGladiator } from './store/gameStore'
 import { JoinScreen } from './components/screens/JoinScreen'
 import { screenFor } from './components/screens/screenFor'
 import { LateJoinScreen } from './components/screens/LateJoinScreen'
-import { AnimatePresence, motion } from 'framer-motion'
 import { TableFelt } from './components/ui/TableFelt'
 import { ItemBar } from './components/ui/ItemBar'
 import { Notice } from './components/ui/Notice'
+import { Logo } from './components/ui/Logo'
 import { useCompactBetting } from './lib/tableGeometry'
+import { C, DISPLAY } from './theme'
 
 export default function App() {
   const gameState = useGameStore(s => s.gameState)
   const isGladiator = useGameStore(selectIsGladiator)
   const isLateJoiner = useGameStore(s => s.isLateJoiner)
+  const replaced = useGameStore(s => s.replaced)
+  const joinError = useGameStore(s => s.joinError)
+  // перезагрузка страницы посреди игры: вкладка помнит игру — сразу обратно, без экрана входа
+  const [resuming] = useState(() => useGameStore.getState().resumeActive())
   // на телефоне ставки — колонкой (CompactBetting), стол за ней не нужен: фон остаётся размытым
   const compact = useCompactBetting()
-  const phase = gameState?.phase
-  // Старый экран уходит анимацией Framer Motion; в фоновой вкладке (альт-таб) она может не доиграть, и он остаётся на
-  // сцене вместе с новым (анонс с темой «залипает» поверх вопроса). Сторож: через 1.2 с после смены фазы и при
-  // возврате на вкладку старые экраны (data-phase не текущей фазы) прячутся. Пересоздавать AnimatePresence сразу нельзя:
-  // на медленной машине уход длится дольше 1.2 с, и пересоздание проигрывало текущий экран заново (лавка, «кто ближе»
-  // появлялись дважды) и сбрасывало его состояние. Пересоздание — только если старый экран завис на 10 с.
-  const stageRef = useRef<HTMLDivElement>(null)
-  const [stageGen, setStageGen] = useState(0)
-  useEffect(() => {
-    const stale = () => [...(stageRef.current?.querySelectorAll<HTMLElement>(':scope > [data-screen]') ?? [])]
-      .filter(el => el.dataset.phase !== phase)
-    const hide = () => stale().forEach(el => { el.style.visibility = 'hidden' })
-    const t = setTimeout(hide, 1200)
-    const stuck = setTimeout(() => { if (stale().length) setStageGen(g => g + 1) }, 10_000)
-    // возврат на вкладку — прятать сразу, до первого кадра (иначе мелькает старый экран, например стол ставок)
-    const onVisible = () => { if (document.visibilityState === 'visible') hide() }
-    document.addEventListener('visibilitychange', onVisible)
-    return () => { clearTimeout(t); clearTimeout(stuck); document.removeEventListener('visibilitychange', onVisible) }
-  }, [phase])
 
   useEffect(() => {
     if (!gameState) return
@@ -43,44 +30,91 @@ export default function App() {
     return () => clearInterval(id)
   }, [!!gameState])
 
-  if (!gameState) return <JoinScreen />
+  if (replaced) return <ReplacedScreen />
+  if (!gameState) return resuming && !joinError ? <ResumingScreen /> : <JoinScreen />
 
   if (isLateJoiner) return (
     <div className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
-      <AnimatePresence>
-        <motion.div key="late-join" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}>
-          <LateJoinScreen />
-        </motion.div>
-      </AnimatePresence>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
+        style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}>
+        <LateJoinScreen />
+      </motion.div>
+      <ConnectionBadge />
     </div>
   )
 
   const Screen = screenFor(gameState.phase, gameState.mode, isGladiator)
-  // фаза сменилась в свёрнутой вкладке: кадры анимаций там не идут — без анимаций, старый экран прячется правилом сразу
-  const hidden = typeof document !== 'undefined' && document.hidden
 
+  // Экран фазы только появляется (без анимации ухода): старый исчезает сразу. Раньше уход старого экрана мог не
+  // доиграть в фоновой вкладке, и его приходилось прятать и пересоздавать сцену — экраны и анимации «перезагружались».
+  // Ключ — фаза: внутри фазы экран не перемонтируется ни от чего (вход / обрыв других игроков, новый game_state).
   return (
-    <div ref={stageRef} className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
+    <div className="stage" style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}>
       <TableFelt blurred={gameState.phase !== 'BETTING' || compact} />
-      {hidden && <style>{`.stage > [data-screen]:not([data-phase="${gameState.phase}"]) { visibility: hidden }`}</style>}
-      <AnimatePresence key={stageGen} custom={hidden}>
-        <motion.div
-          key={gameState.phase}
-          data-screen
-          data-phase={gameState.phase}
-          initial={hidden ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          // custom приходит от AnimatePresence в момент ухода (а не из последнего рендера экрана)
-          variants={{ exit: (instant: boolean) => ({ opacity: 0, y: -12, pointerEvents: 'none', transition: { duration: instant ? 0 : 0.15 } }) }}
-          exit="exit"
-          transition={{ duration: 0.4 }}
-          style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}
-        >
-          <Screen />
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        key={`${gameState.roundIndex}-${gameState.phase}`}
+        data-screen
+        data-phase={gameState.phase}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        // Framer Motion 11 ставит pointer-events: none элементу с initial opacity 0 — поля и кнопки его наследуют
+        style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}
+      >
+        <Screen />
+      </motion.div>
       <ItemBar />
       <Notice />
+      <ConnectionBadge />
+    </div>
+  )
+}
+
+/** Связь пропала: игра ждёт тебя «не в сети» (фишки и ставка на месте), сокет переподключается сам. */
+function ConnectionBadge() {
+  const connected = useGameStore(s => s.connected)
+  // короткий обрыв (доли секунды) не мигаем: плашка — если связи нет дольше секунды
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    if (connected) { setShow(false); return }
+    const t = setTimeout(() => setShow(true), 1000)
+    return () => clearTimeout(t)
+  }, [connected])
+  if (!show) return null
+  return (
+    <div className="fixed left-1/2 -translate-x-1/2 top-3 z-[100] rounded-full px-4 py-1.5 text-sm font-semibold"
+      style={{ background: C.panel, color: C.brass, border: `1px solid ${C.brass}` }}>
+      Нет связи — переподключаемся. Твои фишки и ставка на месте
+    </div>
+  )
+}
+
+function ResumingScreen() {
+  return (
+    <div className="stage min-h-dvh flex flex-col items-center justify-center gap-6 p-4">
+      <Logo size={48} animated />
+      <div style={{ color: C.muted }}>Возвращаемся в игру…</div>
+    </div>
+  )
+}
+
+/** Эту игру открыли в другой вкладке или на другом устройстве — здесь она остановлена. */
+function ReplacedScreen() {
+  const takeOver = useGameStore(s => s.takeOver)
+  const reset = useGameStore(s => s.reset)
+  return (
+    <div className="stage min-h-dvh flex flex-col items-center justify-center gap-6 p-4 text-center">
+      <Logo size={40} />
+      <div style={{ fontFamily: DISPLAY, fontSize: '1.5rem' }}>Игра открыта в другом окне</div>
+      <div style={{ color: C.muted }}>Здесь она остановлена, чтобы ты не играл за себя дважды</div>
+      <div className="flex gap-3">
+        <button onClick={takeOver} className="rounded-xl px-5 py-2.5 font-semibold" style={{ background: C.brass, color: C.ink }}>
+          Играть здесь
+        </button>
+        <button onClick={reset} className="rounded-xl px-5 py-2.5" style={{ border: `1px solid ${C.line}`, color: C.muted }}>
+          Выйти
+        </button>
+      </div>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { GameRoom } from '../GameRoom'
 import type { Question, ItemId, GameMode, RoundResult } from '@cumsino/shared'
 import {
   GLADIATOR_BONUS, CLOSEST_WINNER_BONUS, PHASE_DURATIONS, FIRST_SHOP_EXTRA, WIN_CHIPS,
-  itemPrice, blindFor, bkbCap, AEGIS_RESTORE, AEGIS_THRESHOLD, HEX_SECONDS, LAST_ANSWER_GRACE_MS,
+  ITEMS, itemPrice, blindFor, bkbCap, AEGIS_RESTORE, AEGIS_THRESHOLD, HEX_SECONDS, LAST_ANSWER_GRACE_MS,
   LIGHTNING_GLADIATOR, LIGHTNING_MS, LIGHTNING_SHARE, STREAK_GLADIATOR_BASE,
 } from '@cumsino/shared'
 
@@ -48,7 +48,7 @@ function makeRoom(n = 3, question: Question = mcQ) {
   return { room, r, p, give, ev, sent, results, res, toQuestion, setPhase, bets, broadcasts, except, toPlayer }
 }
 
-const ITEMS_BKB_BASE = itemPrice('bkb', 0)
+const ITEMS_BKB_BASE = ITEMS.bkb.basePrice   // BKB выдан без лавки — сейв по базовой цене
 const labels = (rr: RoundResult) => (rr.sources ?? []).map(s => s.label)
 const src = (rr: RoundResult, label: string) => rr.sources?.find(s => s.label === label)?.delta
 
@@ -177,66 +177,52 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2').blind).toBe(50)
     })
 
-    it('меньше блайнда и без стороны — отклоняется; блайнд со стороной — принимается', () => {
+    it('меньше блайнда и без варианта — отклоняется; блайнд с вариантом — принимается', () => {
       const t = makeRoom(3)
       toKerriBetting(t)
-      t.room.placeBet('p2', 20, 'win')
+      t.room.placeBet('p2', 20, 1)
       expect(t.r.bettingConfirmedIds.has('p2')).toBe(false)
       t.room.placeBet('p2', 30)
       expect(t.r.bettingConfirmedIds.has('p2')).toBe(false)
       expect(t.p('p2').currentBet).toBe(0)
-      t.room.placeBet('p2', 30, 'lose')
-      expect(t.p('p2')).toMatchObject({ currentBet: 30, betTarget: 'lose' })
+      t.room.placeBet('p2', 30, 1)
+      expect(t.p('p2')).toMatchObject({ currentBet: 30, betOption: 1 })
       expect(t.r.bettingConfirmedIds.has('p2')).toBe(true)
     })
 
-    it('банк-ставка необязательна: блайнд без неё — принят; с ней — тоже', () => {
+    it('все в толпе подтвердили — сразу QUESTION', () => {
       const t = makeRoom(3)
       toKerriBetting(t)
-      t.room.placeBet('p2', 30, 'win')
-      expect(t.p('p2').bankBet).toBeUndefined()
-      t.room.placeBet('p3', 30, 'lose', undefined, { optionIndex: 1, amount: 100 })
-      expect(t.p('p3').bankBet).toEqual({ optionIndex: 1, amount: 100 })
+      t.room.placeBet('p2', 30, 0)
+      t.room.placeBet('p3', 30, 2)
       expect(t.r.phase).toBe('QUESTION')
     })
 
-    it('не подтвердил к концу BETTING — блайнд на выделенный исход, bet_updated с target', () => {
-      const t = makeRoom(3)
+    it('не подтвердил к концу BETTING — блайнд на выделенный вариант; bet_updated с вариантом только толпе', () => {
+      const t = makeRoom(4)
       toKerriBetting(t)
-      t.room.placeBet('p2', 100, 'win')
-      t.room.stageChip('p3', [], 'lose')   // выделил «завалит», фишек не положил
+      t.room.placeBet('p2', 100, 0)
+      t.room.stageChip('p3', [], 2)   // выделил вариант C, фишек не положил
       t.r.onPhaseEnd()   // конец BETTING
       expect(t.r.phase).toBe('QUESTION')
-      expect(t.p('p3')).toMatchObject({ currentBet: 30, betTarget: 'lose', betChips: undefined })
+      expect(t.p('p3')).toMatchObject({ currentBet: 30, betOption: 2, betChips: undefined })
       expect(t.p('p1').currentBet).toBe(0)   // керри не ставит
-      expect(t.p('p2')).toMatchObject({ currentBet: 100, betTarget: 'win' })
-      const updates = t.ev('bet_updated').map(b => b.data)
-      expect(updates.at(-1)).toEqual({ playerId: 'p3', amount: 30, target: 'lose' })
-      expect(updates.some(d => d.playerId === 'p1')).toBe(false)
+      expect(t.p('p2')).toMatchObject({ currentBet: 100, betOption: 0 })
+      const toCrowd = t.sent('p2', 'bet_updated').map(m => m.data)
+      expect(toCrowd.filter(d => d.playerId === 'p3').at(-1)).toEqual({ playerId: 'p3', amount: 30, option: 2 })
+      expect(toCrowd.filter(d => d.playerId === 'p4').at(-1)).toEqual({ playerId: 'p4', amount: 30, option: 0 })
+      const toKerri = t.sent('p1', 'bet_updated').map(m => m.data)
+      expect(toKerri.filter(d => d.playerId === 'p3').at(-1)).toEqual({ playerId: 'p3', amount: 30 })
+      expect(toKerri.every(d => !('option' in d))).toBe(true)
+      expect([...toCrowd, ...toKerri].some(d => d.playerId === 'p1')).toBe(false)
     })
 
-    it('ничего не выделил — блайнд на «ответит»; единственный в толпе — лидер, у него большой', () => {
+    it('ничего не выделил — блайнд на верный вариант; единственный в толпе — лидер, у него большой', () => {
       const t = makeRoom(2)
       toKerriBetting(t)
       expect(t.p('p2')).toMatchObject({ blind: 50, bigBlind: true })
       t.r.onPhaseEnd()
-      expect(t.p('p2')).toMatchObject({ currentBet: 50, betTarget: 'win' })
-    })
-
-    it('банк-ставка без подтверждения (страховка: клиент шлёт её только в place_bet): блайнд не больше остатка', () => {
-      const t = makeRoom(3)
-      t.p('p2').chips = 120
-      toKerriBetting(t)
-      expect(t.p('p2').blind).toBe(10)
-      t.p('p2').bankBet = { optionIndex: 1, amount: 110 }
-      t.r.onPhaseEnd()
-      expect(t.p('p2').currentBet).toBe(10)
-      t.r.nextRound()
-      t.p('p2').chips = 120
-      toKerriBetting(t)
-      t.p('p2').bankBet = { optionIndex: 1, amount: 120 }   // на основную не осталось — блайнда нет
-      t.r.onPhaseEnd()
-      expect(t.p('p2').currentBet).toBe(0)
+      expect(t.p('p2')).toMatchObject({ currentBet: 50, betOption: 0 })   // A = верный
     })
 
     it('толпа без денег: блайнд 0, не ждут, принудительно не ставит, серия не меняется', () => {
@@ -245,7 +231,7 @@ describe('предметы, бонусы, блайнды', () => {
       t.p('p3').streak = 2
       toKerriBetting(t)
       expect(t.p('p3').blind).toBe(0)
-      t.room.placeBet('p2', t.p('p2').blind, 'win')
+      t.room.placeBet('p2', t.p('p2').blind, 0)
       expect(t.r.phase).toBe('QUESTION')   // p3 не ждали
       expect(t.p('p3').currentBet).toBe(0)
       t.room.submitAnswer('p1', 'A')
@@ -413,13 +399,13 @@ describe('предметы, бонусы, блайнды', () => {
       expect(src(u.res('p1'), 'Серия ×5')).toBe(60)
     })
 
-    it('керри: керри от базы $300, толпа — по угаданному исходу', () => {
+    it('керри: керри от базы $300, толпа — по угаданному выбору керри', () => {
       const t = makeRoom(3)
       t.p('p1').streak = 1
       t.p('p2').streak = 1
       t.p('p3').streak = 3
-      t.p('p2').currentBet = 100; t.p('p2').betTarget = 'win'
-      t.p('p3').currentBet = 100; t.p('p3').betTarget = 'lose'
+      t.p('p2').currentBet = 100; t.p('p2').betOption = 0
+      t.p('p3').currentBet = 100; t.p('p3').betOption = 1
       t.toQuestion('kerri')
       vi.advanceTimersByTime(LIGHTNING_MS)
       t.room.submitAnswer('p1', 'A')
@@ -474,7 +460,7 @@ describe('предметы, бонусы, блайнды', () => {
       t.r.phase = 'SHOP'
       t.room.buyItem('p1', 'blink')
       expect(t.p('p1').inventory.blink).toBe(1)
-      expect(t.p('p1').chips).toBe(500 - 50)
+      expect(t.p('p1').chips).toBe(500 - 30)   // блинк при $500: 0.25 × ($50 + 15% × 500) = $31 → $30
       t.room.buyItem('p1', 'gem')
       expect(t.p('p1').inventory.gem).toBe(1)
     })
@@ -482,7 +468,7 @@ describe('предметы, бонусы, блайнды', () => {
     it('можно купить ровно на весь баланс', () => {
       const t = makeRoom(1)
       t.r.phase = 'SHOP'
-      t.p('p1').chips = 50
+      t.p('p1').chips = 10   // блинк дешевле $10 не бывает
       t.room.buyItem('p1', 'blink')
       expect(t.p('p1').chips).toBe(0)
       expect(t.p('p1').inventory.blink).toBe(1)
@@ -529,9 +515,21 @@ describe('предметы, бонусы, блайнды', () => {
       t.p('p1').chips = 2000
       for (let i = 0; i < 4; i++) t.room.buyItem('p1', 'bkb')
       expect(t.p('p1').inventory.bkb).toBe(2)
-      t.p('p1').chips = 40
-      t.room.buyItem('p1', 'blink')
-      expect(t.p('p1').inventory.blink).toBeUndefined()
+      t.p('p1').chips = 30
+      expect(itemPrice('gem', 30)).toBe(40)
+      t.room.buyItem('p1', 'gem')
+      expect(t.p('p1').inventory.gem).toBeUndefined()
+      expect(t.p('p1').chips).toBe(30)
+    })
+
+    it('цена линейна от баланса: BKB = $50 + 15%, остальные — в пропорции к базовой цене, не меньше $10', () => {
+      expect(itemPrice('bkb', 0)).toBe(50)
+      expect(itemPrice('bkb', 1000)).toBe(200)
+      expect(itemPrice('bkb', 2000)).toBe(350)
+      expect(itemPrice('blink', 1000)).toBe(50)    // 1/4 от BKB
+      expect(itemPrice('manta', 1000)).toBe(100)   // 1/2
+      expect(itemPrice('gem', 1000)).toBe(150)     // 3/4
+      expect(itemPrice('blink', 0)).toBe(10)       // $12.5 → $10
     })
 
     it('аегис — один за игру, сразу активен', () => {
@@ -592,16 +590,14 @@ describe('предметы, бонусы, блайнды', () => {
   })
 
   describe('gem', () => {
-    it('смотрящему — текущий выбор цели; всем — без цели; цели — onYou', () => {
+    it('цель ответила — смотрящему сразу её выбор; всем — без цели; цели — onYou', () => {
       const t = makeRoom(3)
       t.give('p1', 'gem')
       t.toQuestion()
-      t.room.useItem('p1', 'gem', 'p2')
-      expect(t.sent('p1', 'gem_result').at(-1)!.data).toEqual({ targetId: 'p2', answer: null, smoked: false })
       t.room.submitAnswer('p2', 'C')
-      t.give('p1', 'gem')
       t.room.useItem('p1', 'gem', 'p2')
-      expect(t.sent('p1', 'gem_result').at(-1)!.data).toEqual({ targetId: 'p2', answer: 'C', smoked: false })
+      expect(t.sent('p1', 'gem_result').map(m => m.data)).toEqual([{ targetId: 'p2', answer: 'C', smoked: false }])
+      expect(t.room.getStateForPlayer('p1').gemResults).toEqual({ p2: { answer: 'C', smoked: false } })
       expect(t.p('p1').inventory.gem).toBeUndefined()
       expect(t.except.at(-1)).toMatchObject({ excludeId: 'p2', event: 'item_used', data: { playerId: 'p1', item: 'gem' } })
       expect(t.except.at(-1)!.data.targetId).toBeUndefined()
@@ -616,6 +612,34 @@ describe('предметы, бонусы, блайнды', () => {
       t.room.useItem('p2', 'smoke')
       t.room.submitAnswer('p2', 'C')
       t.room.useItem('p1', 'gem', 'p2')
+      expect(t.sent('p1', 'gem_result').at(-1)!.data).toEqual({ targetId: 'p2', answer: null, smoked: true })
+    })
+
+    it('цель ещё думает — сразу «пока нет ответа», затем её первый ответ; блинк после него не виден', () => {
+      const t = makeRoom(3)
+      t.give('p1', 'gem')
+      t.give('p2', 'blink')
+      t.toQuestion()
+      t.room.useItem('p1', 'gem', 'p2')
+      expect(t.sent('p1', 'gem_result').map(m => m.data)).toEqual([{ targetId: 'p2', answer: null, smoked: false }])
+      expect(t.room.getStateForPlayer('p1').gemResults).toEqual({ p2: { answer: null, smoked: false } })
+      t.room.submitAnswer('p2', 'C')
+      expect(t.sent('p1', 'gem_result').at(-1)!.data).toEqual({ targetId: 'p2', answer: 'C', smoked: false })
+      t.room.submitAnswer('p2', 'B', true)   // блинк
+      expect(t.p('p2').answer).toBe('B')
+      expect(t.sent('p1', 'gem_result')).toHaveLength(2)
+      expect(t.room.getStateForPlayer('p1').gemResults).toEqual({ p2: { answer: 'C', smoked: false } })
+      expect(t.room.getStateForPlayer('p3').gemResults).toBeUndefined()   // чужой гем не виден
+    })
+
+    it('цель думала и ушла в смок до ответа — первый ответ не показывается (smoked)', () => {
+      const t = makeRoom(3)
+      t.give('p1', 'gem')
+      t.give('p2', 'smoke')
+      t.toQuestion()
+      t.room.useItem('p1', 'gem', 'p2')
+      t.room.useItem('p2', 'smoke')
+      t.room.submitAnswer('p2', 'C')
       expect(t.sent('p1', 'gem_result').at(-1)!.data).toEqual({ targetId: 'p2', answer: null, smoked: true })
     })
 
@@ -784,10 +808,10 @@ describe('предметы, бонусы, блайнды', () => {
       const t = makeRoom(2)
       t.p('p2').chips = 1000
       t.setPhase('SHOP')
-      t.room.buyItem('p2', 'bkb')   // $250 при $1000
-      t.room.buyItem('p2', 'bkb')   // $230 при $750
+      t.room.buyItem('p2', 'bkb')   // $200 при $1000
+      t.room.buyItem('p2', 'bkb')   // $170 при $800
       expect(t.p('p2').inventory.bkb).toBe(2)
-      expect(t.p('p2').bkbPaid).toEqual([itemPrice('bkb', 1000), itemPrice('bkb', 750)])
+      expect(t.p('p2').bkbPaid).toEqual([itemPrice('bkb', 1000), itemPrice('bkb', 800)])
       t.setPhase('QUESTION')
       t.room.useItem('p2', 'bkb')
       expect(t.p('p2').items.bkb).toBe(false)
@@ -797,11 +821,11 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2').inventory.bkb).toBe(1)
       expect(t.ev('item_used').at(-1)!.data).toEqual({ playerId: 'p2', item: 'bkb' })
       expect(t.room.getPublicState().players[1].effects).toEqual(['bkb'])
-      // первым включился купленный раньше — за $250
+      // первым включился купленный раньше — за $200
       const cap = bkbCap(itemPrice('bkb', 1000))
       expect(t.p('p2').items.bkbCap).toBe(cap)
-      expect(cap).toBe(500)
-      expect(t.p('p2').bkbPaid).toEqual([itemPrice('bkb', 750)])
+      expect(cap).toBe(400)
+      expect(t.p('p2').bkbPaid).toEqual([itemPrice('bkb', 800)])
       t.p('p2').chips = 3000   // баланс на кап не влияет
       t.bets({ p1: 500, p2: 600 })
       t.toQuestion()
@@ -812,8 +836,8 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.res('p2').delta).toBe(-600 + cap)
     })
 
-    it('при базовой цене кап — $400; выдан без покупки — тоже по базовой', () => {
-      expect(bkbCap(itemPrice('bkb', 500))).toBe(400)
+    it('выдан без покупки — кап по базовой цене ($200 → $400)', () => {
+      expect(bkbCap(ITEMS_BKB_BASE)).toBe(400)
       const t = makeRoom(2)
       t.p('p1').chips = 2500
       t.give('p1', 'bkb')
@@ -825,28 +849,30 @@ describe('предметы, бонусы, блайнды', () => {
     it('куплен дёшево, включён богатым — сейв от цены покупки', () => {
       const t = makeRoom(2)
       t.setPhase('SHOP')
-      t.room.buyItem('p1', 'bkb')   // $200 при $500
+      t.room.buyItem('p1', 'bkb')   // $130 при $500
+      expect(t.p('p1').chips).toBe(370)
       t.p('p1').chips = 2500
       t.setPhase('BETTING')
       t.room.useItem('p1', 'bkb')
-      expect(t.p('p1').items.bkbCap).toBe(400)
-      expect(itemPrice('bkb', 2500)).toBe(400)   // сейчас стоил бы вдвое дороже
+      expect(t.p('p1').items.bkbCap).toBe(260)
+      expect(itemPrice('bkb', 2500)).toBe(430)   // сейчас стоил бы втрое дороже
     })
 
-    it('керри: только толпа; BKB избранного в анонсе возвращается в запас', () => {
+    it('керри: BKB не включается ни у кого (только «для всех»), запас цел', () => {
       const t = makeRoom(2)
       t.give('p1', 'bkb')
+      t.give('p2', 'bkb')
       t.setPhase('ANNOUNCE', 'kerri')
       t.room.useItem('p1', 'bkb')
-      expect(t.p('p1').items.bkb).toBe(true)
+      t.room.useItem('p2', 'bkb')
       vi.spyOn(Math, 'random').mockReturnValue(0)   // керри — p1
       t.r.onPhaseEnd()
-      expect(t.r.gladiatorId).toBe('p1')
-      expect(t.p('p1').items.bkb).toBe(false)
-      expect(t.p('p1').inventory.bkb).toBe(1)
-      expect(t.p('p1').bkbPaid).toEqual([ITEMS_BKB_BASE])   // цена вернулась вместе с BKB
-      t.room.useItem('p1', 'bkb')
-      expect(t.p('p1').items.bkb).toBe(false)
+      expect(t.r.phase).toBe('BETTING')
+      t.room.useItem('p2', 'bkb')
+      for (const id of ['p1', 'p2']) {
+        expect(t.p(id).items.bkb).toBe(false)
+        expect(t.p(id).inventory.bkb).toBe(1)
+      }
     })
   })
 
@@ -884,9 +910,9 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2').aegis).toBe(false)
     })
 
-    it('обход закрыт: купил аегис при $150 → $50, проиграл блайнд — аегис возвращает до $50, а не $300', () => {
+    it('обход закрыт: купил аегис при $80 → $50, проиграл блайнд — аегис возвращает до $50, а не $300', () => {
       const t = makeRoom(2)
-      t.p('p1').chips = 150
+      t.p('p1').chips = 80   // аегис при $80: 0.5 × ($50 + $12) = $31 → $30
       t.setPhase('SHOP')
       t.room.buyItem('p1', 'aegis')
       expect(t.p('p1').chips).toBe(50)
@@ -1108,7 +1134,7 @@ describe('предметы, бонусы, блайнды', () => {
     })
   })
 
-  // ── керри: только блинк у керри, только bkb у толпы ──
+  // ── керри: только блинк и только у керри ──
   describe('керри: предметы', () => {
     it('керри: всё, кроме блинка, игнорируется — даже если лежит в запасе', () => {
       const t = makeRoom(3)
@@ -1138,70 +1164,45 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.res('p1').delta).toBe(GLADIATOR_BONUS + LIGHTNING_GLADIATOR)
     })
 
-    it('толпа: bkb — можно; блинк, гем, смок — нет', () => {
+    it('толпа: ничего нельзя — ни bkb, ни блинк, ни гем, ни смок', () => {
       const t = makeRoom(3)
       for (const it of ['blink', 'gem', 'smoke', 'bkb'] as ItemId[]) t.give('p2', it)
       t.setPhase('BETTING', 'kerri')
       t.r.gladiatorId = 'p1'
       t.room.useItem('p2', 'bkb')
-      expect(t.p('p2').items.bkb).toBe(true)
+      t.room.useItem('p2', 'smoke')
+      expect(t.p('p2').items.bkb).toBe(false)
       t.toQuestion('kerri')
       t.room.useItem('p2', 'gem', 'p1')
       t.room.useItem('p2', 'smoke')
       t.room.submitAnswer('p2', 'A', true)
-      expect(t.p('p2').inventory).toEqual({ blink: 1, gem: 1, smoke: 1 })
+      expect(t.p('p2').inventory).toEqual({ blink: 1, gem: 1, smoke: 1, bkb: 1 })
+      expect(t.ev('item_used')).toHaveLength(0)
     })
 
-    it('толпа под BKB: возврат от всего минуса раунда (основная + банк), не больше капа', () => {
-      const t = makeRoom(3)
-      t.give('p3', 'bkb')
-      t.setPhase('BETTING', 'kerri')
-      t.r.gladiatorId = 'p1'
-      t.room.useItem('p3', 'bkb')
-      t.room.placeBet('p2', 100, 'win')
-      t.room.placeBet('p3', 300, 'lose', undefined, { optionIndex: 1, amount: 200 })
-      expect(t.p('p3').bankBet).toEqual({ optionIndex: 1, amount: 200 })
-      t.toQuestion('kerri')
-      t.room.submitAnswer('p1', 'A')   // керри верно: p3 теряет основную и банк
-      t.r.advanceFromQuestion()
-      const cap = bkbCap(ITEMS_BKB_BASE)   // выдан без лавки — по базовой цене
-      expect(src(t.res('p3'), 'BKB')).toBe(cap)
-      expect(t.res('p3').delta).toBe(-300 - 200 + cap)
-      expect(t.p('p3').streak).toBe(0)   // и не было
-    })
-
-    it('толпа под BKB: ошибся с исходом — серия не сбивается; без ставки (безденежный) — без изменений', () => {
+    it('толпа: не угадал выбор керри — серия 0; без ставки (безденежный) — без изменений', () => {
       const t = makeRoom(3)
       t.p('p2').streak = 2
       t.p('p3').streak = 2
-      t.p('p2').items.bkb = true
-      t.p('p2').items.bkbCap = 400
-      t.p('p2').currentBet = 100; t.p('p2').betTarget = 'lose'
-      t.toQuestion('kerri')
-      t.room.submitAnswer('p1', 'A')
-      t.r.advanceFromQuestion()
-      expect(t.p('p2').streak).toBe(2)
-      expect(t.p('p3').streak).toBe(2)
-    })
-
-    it('толпа без BKB: ошибся с исходом — серия 0', () => {
-      const t = makeRoom(3)
-      t.p('p2').streak = 2
-      t.p('p2').currentBet = 100; t.p('p2').betTarget = 'lose'
+      t.p('p2').currentBet = 100; t.p('p2').betOption = 1
       t.toQuestion('kerri')
       t.room.submitAnswer('p1', 'A')
       t.r.advanceFromQuestion()
       expect(t.p('p2').streak).toBe(0)
+      expect(t.p('p3').streak).toBe(2)
     })
 
-    it('керри не ответил — серия керри сбрасывается, банк-ставки толпы не сыграли', () => {
+    it('керри не ответил — серия керри сбрасывается, ставки толпы при своих', () => {
       const t = makeRoom(3)
       t.p('p1').streak = 3
-      t.p('p2').bankBet = { optionIndex: 1, amount: 100 }
+      t.p('p2').currentBet = 100; t.p('p2').betOption = 0
+      t.p('p3').currentBet = 100; t.p('p3').betOption = 1
       t.toQuestion('kerri')
       t.r.advanceFromQuestion()
       expect(t.p('p1').streak).toBe(0)
-      expect(t.res('p2').delta).toBe(-100)
+      expect(t.res('p2').delta).toBe(0)
+      expect(t.res('p3').delta).toBe(0)
+      expect(t.p('p2').chips).toBe(500)
     })
   })
 
@@ -1298,7 +1299,7 @@ describe('предметы, бонусы, блайнды', () => {
       t.p('p3').chips = 5
       t.setPhase('BETTING', 'kerri')
       t.r.gladiatorId = 'p1'
-      t.room.placeBet('p2', 50, 'win')
+      t.room.placeBet('p2', 50, 0)
       expect(t.r.phase).toBe('QUESTION')
     })
 
@@ -1466,14 +1467,14 @@ describe('предметы, бонусы, блайнды', () => {
     it('порога при покупке нет: можно купить аегис и докупаться ниже порога — выше баланса перед раундом он не поднимет', () => {
       const t = makeRoom(2)
       t.r.phase = 'SHOP'
-      t.p('p1').chips = 140
-      t.room.buyItem('p1', 'aegis')
+      t.p('p1').chips = 35
+      t.room.buyItem('p1', 'aegis')   // $30
       expect(t.p('p1').aegis).toBe(true)
-      expect(t.p('p1').chips).toBe(40)
-      t.room.buyItem('p1', 'blink')   // без $50 на блинк — не купить
+      expect(t.p('p1').chips).toBe(5)
+      t.room.buyItem('p1', 'blink')   // без $10 на блинк — не купить
       expect(t.p('p1').inventory.blink).toBeUndefined()
-      t.p('p1').chips = 90
-      t.room.buyItem('p1', 'blink')
+      t.p('p1').chips = 50
+      t.room.buyItem('p1', 'blink')   // $10
       expect(t.p('p1').chips).toBe(AEGIS_THRESHOLD - 10)
       // раунд без потерь: ниже порога, но поднимать некуда — аегис остаётся
       t.toQuestion()
@@ -1508,14 +1509,15 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p2').aegis).toBe(true)
     })
 
-    it('баланс уже на нуле до раунда — поднимать не до чего: не срабатывает', () => {
+    it('баланс уже на нуле до раунда — аегису поднимать не до чего (не срабатывает), а подачка — $50', () => {
       const t = makeRoom(2)
       t.p('p2').aegis = true
       t.p('p2').chips = 0
       t.toQuestion()
       t.room.submitAnswer('p1', 'A')
       t.r.advanceFromQuestion()
-      expect(t.p('p2').chips).toBe(0)
+      expect(t.p('p2').chips).toBe(50)
+      expect(labels(t.res('p2'))).toEqual(['Подачка'])
       expect(t.p('p2').aegis).toBe(true)
     })
 

@@ -35,38 +35,43 @@ describe('решения 2026-10-30', () => {
 
   // ── возврат предметов отменённого раунда ──
   describe('отменённый раунд — предметы обратно в запас', () => {
-    it('керри сбежал в BETTING: BKB толпы из анонса вернулся (с ценой покупки)', () => {
+    it('ошибка расчёта: BKB из анонса вернулся (с ценой покупки)', () => {
       const t = makeRoom(3)
       t.r.phase = 'SHOP'
       t.room.buyItem('p3', 'bkb')
-      t.r.currentMode = 'kerri'
+      t.r.currentMode = 'all'
       t.r.currentQuestion = { ...mcQ }
       t.r.phase = 'ANNOUNCE'
       t.room.useItem('p3', 'bkb')
       expect(t.p('p3').inventory.bkb).toBeUndefined()
-      t.r.gladiatorId = 'p1'
-      t.r.phase = 'BETTING'
-      t.room.removePlayer('p1')
+      t.r.schedulePhase('QUESTION', PHASE_DURATIONS.QUESTION!)
+      vi.spyOn(console, 'error').mockImplementation(() => {})
+      t.r.calculateResults = () => { throw new Error('бум') }
+      t.r.advanceFromQuestion()
       expect(t.results().results.every((x: any) => x.delta === 0)).toBe(true)
       expect(t.p('p3').inventory.bkb).toBe(1)
       expect(t.p('p3').bkbPaid).toEqual([itemPrice('bkb', 500)])
       expect(t.p('p3').items.bkb).toBe(false)
     })
 
-    it('керри сбежал в QUESTION: BKB толпы вернулся, банк-ставка и ставки не списаны', () => {
+    it('керри сбежал в QUESTION: ставки толпы не списаны, второго расчёта нет; у кого $0 — подачка', () => {
       const t = makeRoom(3)
-      t.p('p2').inventory.bkb = 1
+      t.p('p3').chips = 0
       t.r.currentMode = 'kerri'
       t.r.currentQuestion = { ...mcQ }
       t.r.phase = 'BETTING'
       t.r.gladiatorId = 'p1'
-      t.room.useItem('p2', 'bkb')
-      t.room.placeBet('p2', 100, 'lose', undefined, { optionIndex: 1, amount: 50 })
+      t.room.placeBet('p2', 100, 1)
       t.r.schedulePhase('QUESTION', PHASE_DURATIONS.QUESTION!)
       t.room.removePlayer('p1')
-      expect(t.p('p2').inventory.bkb).toBe(1)
       expect(t.p('p2').chips).toBe(500)
       expect(t.results().comment).toMatch(/Керри сбежал/)
+      // отменённый раунд тоже применяет дельты — ненулевой может быть только подачка
+      const p3 = t.results().results.find((x: any) => x.playerId === 'p3')
+      expect(p3.delta).toBe(50)
+      expect(p3.sources.map((s: any) => s.label)).toEqual(['Керри сбежал — раунд не считается', 'Подачка'])
+      expect(t.p('p3').chips).toBe(50)
+      expect(t.results().results.find((x: any) => x.playerId === 'p2').delta).toBe(0)
       vi.advanceTimersByTime(PHASE_DURATIONS.QUESTION! * 1000)   // таймер вопроса уже снят — второго расчёта нет
       expect(t.broadcasts.filter(b => b.event === 'round_results')).toHaveLength(1)
     })
@@ -143,6 +148,24 @@ describe('решения 2026-10-30', () => {
       t.p('p3').spectator = false
       expect(pick(t)).toBe('p2')
     })
+
+    it('на стыке кругов тот же керри два раза подряд не бывает', () => {
+      for (let run = 0; run < 50; run++) {
+        const t = makeRoom(1 + (run % 3) + 1)   // 2–4 игрока
+        const seq = Array.from({ length: 20 }, () => pick(t))
+        for (let i = 1; i < seq.length; i++) expect(seq[i], seq.join(',')).not.toBe(seq[i - 1])
+      }
+    })
+
+    it('не в сети — пропускается (остаётся в мешке); не в сети все — выбираем из них', () => {
+      const t = makeRoom(3)
+      vi.spyOn(Math, 'random').mockReturnValue(0)
+      t.room.setOffline('p1')
+      expect(pick(t)).toBe('p2')
+      expect(t.r.kerriBag).toEqual(['p1', 'p3'])
+      t.room.setOffline('p3')
+      expect(pick(t)).toBe('p1')     // в мешке одни не в сети — из них
+    })
   })
 
   // ── боты ──
@@ -183,28 +206,32 @@ describe('решения 2026-10-30', () => {
       expect(t.room.getPublicState().hostId).toBe('')
     })
 
-    it('проходят полный цикл режимов сами: лавка, ставки (керри — сторона), ответы, керри-бот отвечает', () => {
+    it('проходят полный цикл режимов сами: лавка, ставки (керри — вариант), ответы, керри-бот отвечает', () => {
       const t = makeRoom(1)
       t.room.addBot('p1')
       t.room.addBot('p1')
       const botIds = t.room.getPublicState().players.filter(x => x.bot).map(x => x.id)
       const log: Array<{ round: number; mode: GameMode; phase: GamePhase }> = []
+      const bets = new Map<number, Map<string, any>>()
+      const answers = new Map<number, Set<string>>()
+      const gladiators = new Map<number, string>()
+      const betSeen = (data: any) => {
+        const round = t.r.roundIndex
+        if (!bets.has(round)) bets.set(round, new Map())
+        bets.get(round)!.set(data.playerId, data)
+      }
       t.room.on('sendToPlayer', ({ playerId, event, data }: any) => {
-        if (playerId !== 'p1' || event !== 'game_state') return
+        if (playerId !== 'p1') return
+        if (event === 'bet_updated') betSeen(data)   // керри: ставки толпы — лично каждому
+        if (event !== 'game_state') return
         const last = log.at(-1)
         if (!last || last.phase !== data.phase || last.round !== data.roundIndex) {
           log.push({ round: data.roundIndex, mode: data.mode, phase: data.phase })
         }
       })
-      const bets = new Map<number, Map<string, any>>()
-      const answers = new Map<number, Set<string>>()
-      const gladiators = new Map<number, string>()
       t.room.on('broadcast', ({ event, data }: any) => {
         const round = t.r.roundIndex
-        if (event === 'bet_updated') {
-          if (!bets.has(round)) bets.set(round, new Map())
-          bets.get(round)!.set(data.playerId, data)
-        }
+        if (event === 'bet_updated') betSeen(data)
         if (event === 'player_answered') {
           if (!answers.has(round)) answers.set(round, new Set())
           answers.get(round)!.add(data.playerId)
@@ -215,7 +242,7 @@ describe('решения 2026-10-30', () => {
       // человек: в лавке «Готов», на ставках — блайнд, на вопросе — ответ; бот ходит за 0.5–3 с
       for (let s = 0; s < 600 && t.r.roundIndex <= 7; s++) {
         if (t.r.phase === 'SHOP') t.room.setShopReady('p1', true)
-        if (t.r.phase === 'BETTING') t.room.placeBet('p1', t.p('p1').blind ?? 0, t.r.currentMode === 'kerri' ? 'win' : undefined)
+        if (t.r.phase === 'BETTING') t.room.placeBet('p1', t.p('p1').blind ?? 0, t.r.currentMode === 'kerri' ? 0 : undefined)
         if (t.r.phase === 'QUESTION') t.room.submitAnswer('p1', t.r.currentMode === 'closest' ? 300 : 'B')
         vi.advanceTimersByTime(1000)
       }
@@ -232,7 +259,13 @@ describe('решения 2026-10-30', () => {
             expect(answers.get(round)?.has(b)).toBe(true)
           } else if (mode === 'kerri') {
             if (b === g) expect(answers.get(round)?.has(b)).toBe(true)
-            else expect(['win', 'lose']).toContain(bets.get(round)?.get(b)?.target)
+            else {
+              const bet = bets.get(round)?.get(b)
+              expect(bet?.amount).toBeGreaterThan(0)
+              // вариант толпы видит толпа; человек — керри — видит ставку без варианта
+              if (g === 'p1') expect(bet).not.toHaveProperty('option')
+              else expect([0, 1, 2, 3]).toContain(bet?.option)
+            }
           } else {
             expect(answers.get(round)?.has(b)).toBe(true)
           }
@@ -270,9 +303,9 @@ describe('решения 2026-10-30', () => {
       const e = new GameEngine(io as any, new QuestionHistory(), emptyLibrary)
       const sock = { id: 'h', join() {}, leave() {}, emit: () => true }
       e.joinRoom(sock as any, 'H', 'ROOM')
-      const room = e.getRoom('h')!
-      room.addBot('h')
-      room.addBot('h')
+      const { room, id } = e.ctx('h')!   // id игрока — не socket.id
+      room.addBot(id)
+      room.addBot(id)
       expect(room.playerCount).toBe(3)
       ;(room as any).phase = 'SHOP'
       ;(room as any).runBots()

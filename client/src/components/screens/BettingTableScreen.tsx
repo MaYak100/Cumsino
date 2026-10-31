@@ -33,31 +33,25 @@ import { isSpectator } from '../../lib/players'
 // Раскладка керри-толпы в координатах сцены (сукно: центр 650×415, внутренние полуоси 380×248).
 // Кучки соперников лежат у края сукна (landingZone, компактные — BetZone size="sm"); середина рассчитана так, чтобы
 // не задевать их при 3–8 игроках: напротив (y≈187, сумма до ≈235), верхние диагонали (x ≤ 435 / ≥ 865 до y≈300),
-// бока (x ≤ 330), нижние диагонали (x ≤ 435 / ≥ 865 с y≈528). Сверху вниз: кто отвечает + таймер → вопрос →
-// две главные зоны → подпись побочной ставки → 2×2 варианта-квитка (узкие: ниже по сукну соседи ближе) → «Ставлю».
+// бока (x ≤ 330), нижние диагонали (x ≤ 435 / ≥ 865 с y≈528). Сверху вниз: кто отвечает + таймер → вопрос и
+// подсказка → 2×2 варианта (узкие: ниже по сукну соседи ближе; справа в варианте — место под свою кучку) → «Ставлю».
 const HEAD_TOP = 256
 const Q_TOP = 298
 const Q_W = 540
 
-const MAIN_W = 250
-const MAIN_H = 60
-const MAIN_GAP = 14
-const MAIN_TOP = 374
-const LOSE_LEFT = FELT_CX - MAIN_W - MAIN_GAP / 2
-const WIN_LEFT  = FELT_CX + MAIN_GAP / 2
-
-const SIDE_LABEL_TOP = MAIN_TOP + MAIN_H + 8
 const OPT_W = 210
-const OPT_H = 64    // до четырёх строк мелкого текста
-const OPT_GAP = 6
-const OPT_TOP = 466
+const OPT_H = 80    // до четырёх строк мелкого текста
+const OPT_GAP = 8
+const OPT_TOP = 418
 const OPT_LEFT = FELT_CX - OPT_W - OPT_GAP / 2
-const CONFIRM_TOP = OPT_TOP + 2 * OPT_H + OPT_GAP + 8
+const CONFIRM_TOP = OPT_TOP + 2 * OPT_H + OPT_GAP + 10
 
-// фишки в главной зоне и в квитке (банк — внутри квитка, справа: не сливается с кучкой соседа)
-const CPIX = 26
-const CPIX_BANK = 22
-const BANK_PAD = 44   // место справа в квитке под кучку банк-ставки
+// своя кучка — внутри выбранного варианта, справа (место оставлено отступом)
+const CPIX_OPT = 24
+const PILE_PAD = 50
+
+/** буквы вариантов — ими подписаны кучки соперников у края сукна */
+const OPTION_LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е']
 
 // «для всех»: «Ставлю» и подпись блайнда — над своей кучкой (сбоку при 7–8 игроках лежит зона соседа)
 const ABOVE_MY_PILE = 125
@@ -74,18 +68,18 @@ function RoundTable({ bet }: { bet: Betting }) {
   const {
     gameState, myId, me, isGladiator, isKerriMode, isKerriCrowd,
     myStack, betConfirmed,
-    stdPlacedIds, stdPlacedChips, stdSlots, stdBetAmt,
-    mainTarget, bankTarget, activeZone, allPlacedIds,
-    mainPlacedChips, bankPlacedChips, mainSlots, bankSlots, mainBetAmt, bankBetAmt,
+    placedIds, placedChips, slots, betAmt,
+    options, option, correctIndex, selectOption, optionTotal,
     myBlind, balance, quickAmounts,
-    stdPlace, stdRecall, kerriPlace, kerriRecall, selectMainZone, selectBankZone,
-    quickBet, handleConfirm, sideTotal, canConfirm, showBlind,
+    place, recall,
+    quickBet, handleConfirm, canConfirm, showBlind,
   } = bet
-  const stagedBets  = useGameStore(s => s.stagedBets)
-  const targeting   = useGameStore(s => s.targeting)
-  const useItem     = useGameStore(s => s.useItem)
-  const freshFeed   = useFreshFeed()
-  const sceneScale  = useSceneScale()
+  const stagedBets    = useGameStore(s => s.stagedBets)
+  const stagedOptions = useGameStore(s => s.stagedOptions)
+  const targeting     = useGameStore(s => s.targeting)
+  const useItem       = useGameStore(s => s.useItem)
+  const freshFeed     = useFreshFeed()
+  const sceneScale    = useSceneScale()
 
   const myAngle = playerAngle(0, Math.max(1, gameState.players.length))
   const myUnit = unitPosition(myAngle, UNIT_W, UNIT_H, 0)
@@ -97,31 +91,38 @@ function RoundTable({ bet }: { bet: Betting }) {
   const N             = orderedPlayers.length
   const gladiatorName = players.find(p => p.id === gameState.gladiatorId)?.name
 
-  // ── Кучка фишек в зоне (общий layoutId со стопкой — фишка перелетает) ───────
+  // ── Своя кучка в варианте (общий layoutId со стопкой — фишка перелетает; сменил вариант — кучка переезжает) ──
   const flight = useFlightTransform(sceneScale)
-  const renderZoneChips = (chips: PhysicalChip[], slots: Map<string, number>, cx: number, cy: number, spread: number, px = CPIX) =>
-    chips.map((chip, i) => {
-      const o = pileOffset(slots.get(chip.id) ?? i, chip.id, spread)
+  const renderOptionChips = (cx: number, cy: number) =>
+    placedChips.map((chip, i) => {
+      const o = pileOffset(slots.get(chip.id) ?? i, chip.id, 6)
       return (
         <motion.div
           key={chip.id}
           layoutId={chip.id}
           transformTemplate={flight}
           style={{
-            ...chipStyle(chip.denom, px),
+            ...chipStyle(chip.denom, CPIX_OPT),
             position: 'absolute',
-            left: cx + o.x - px / 2,
-            top:  cy + o.y - px / 2,
+            left: cx + o.x - CPIX_OPT / 2,
+            top:  cy + o.y - CPIX_OPT / 2,
             zIndex: 20 + i,
-            cursor: 'pointer',
+            cursor: betConfirmed ? 'default' : 'pointer',
           }}
-          onClick={() => kerriRecall(chip.id)}
+          onClick={() => recall(chip.id)}
           transition={{ type: 'spring', stiffness: 300, damping: 28 }}
         >
           {chip.denom}
         </motion.div>
       )
     })
+
+  /** толпа керри: на какой вариант стоит (или лежит черновиком) ставка соперника */
+  const opponentOption = (id: string, currentBet: number, betOption?: number): { opt: number; draft: boolean } | null => {
+    if (currentBet > 0 && betOption !== undefined) return { opt: betOption, draft: false }
+    if (stagedBets[id]?.length && stagedOptions[id] !== undefined) return { opt: stagedOptions[id], draft: true }
+    return null
+  }
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -200,56 +201,12 @@ function RoundTable({ bet }: { bet: Betting }) {
               </div>
             )}
 
-            {/* ══ KERRI CROWD ═════════════════════════════════════════════ */}
+            {/* ══ KERRI CROWD: ставка на вариант, который выберет керри ══════ */}
             {isKerriCrowd && gameState.currentQuestion && (() => {
-              const q  = gameState.currentQuestion!
-              const opts = q.options ?? []
-              const mainZone = (target: 'win' | 'lose') => {
-                const win = target === 'win'
-                const color = win ? C.mint : C.hot
-                const sel = mainTarget === target
-                const active = sel && activeZone === 'main'
-                const left = win ? WIN_LEFT : LOSE_LEFT
-                const total = sideTotal(target)
-                return (
-                  <div key={target}>
-                    <motion.div
-                      style={{
-                        position: 'absolute', left, top: MAIN_TOP, width: MAIN_W, height: MAIN_H, zIndex: 6,
-                        borderRadius: 16,
-                        border: `2px ${sel ? 'solid' : 'dashed'} ${sel ? color : `${color}66`}`,
-                        background: active ? `${color}2e` : sel ? `${color}14` : 'rgba(8,17,14,0.5)',
-                        boxShadow: active ? `0 0 30px ${color}55, inset 0 0 0 1px ${color}` : 'none',
-                        willChange: 'auto',
-                        cursor: betConfirmed ? 'default' : 'pointer',
-                        transition: 'border-color .18s, background .18s, box-shadow .18s',
-                      }}
-                      onClick={() => selectMainZone(target)}
-                      {...(betConfirmed ? {} : pressable(() => selectMainZone(target), win ? 'Ставлю, что ответит' : 'Ставлю, что завалит'))}
-                    >
-                      <div style={{
-                        position: 'absolute', left: 0, right: 0, top: 9, textAlign: 'center',
-                        fontFamily: DISPLAY, fontSize: 23, lineHeight: 1, color: sel ? color : `${color}bb`,
-                        opacity: sel && mainBetAmt > 0 ? 0.35 : 1, transition: 'opacity .2s',   // фишки поверх надписи
-                      }}>
-                        {win ? 'Ответит' : 'Завалит'}
-                      </div>
-                      {total > 0 && (
-                        <div style={{
-                          position: 'absolute', right: 12, bottom: 6,
-                          fontFamily: DISPLAY, fontSize: 14, fontVariantNumeric: 'tabular-nums', color,
-                        }}>
-                          <Money v={total} />
-                        </div>
-                      )}
-                    </motion.div>
-                    {sel && renderZoneChips(mainPlacedChips, mainSlots, left + MAIN_W / 2, MAIN_TOP + MAIN_H / 2 + 4, 12)}
-                  </div>
-                )
-              }
+              const q = gameState.currentQuestion!
               return (
                 <>
-                  {/* кто отвечает + таймер — ниже суммы ставки соседа напротив; под ним вопрос */}
+                  {/* кто отвечает + таймер — ниже суммы ставки соседа напротив; под ним вопрос и подсказка */}
                   <div style={{
                     position: 'absolute', left: FELT_CX - Q_W / 2, width: Q_W, top: HEAD_TOP, height: Q_TOP - HEAD_TOP - 8,
                     zIndex: 5, pointerEvents: 'none',
@@ -264,71 +221,75 @@ function RoundTable({ bet }: { bet: Betting }) {
                   </div>
                   <div style={{
                     position: 'absolute', left: FELT_CX - Q_W / 2, width: Q_W, top: Q_TOP, zIndex: 5, pointerEvents: 'none',
-                    textAlign: 'center', color: C.fg, fontWeight: 600, lineHeight: 1.3, textWrap: 'balance',
-                    fontSize: q.text.length > 140 ? 15 : 17,   // три строки до главных зон
-                  } as React.CSSProperties}>
-                    {q.text}
-                  </div>
-
-                  {mainZone('lose')}
-                  {mainZone('win')}
-
-                  {/* побочная ставка: на вариант, который он выберет вместо верного */}
-                  <div style={{
-                    position: 'absolute', left: 0, width: SCENE_W, top: SIDE_LABEL_TOP, zIndex: 5,
-                    textAlign: 'center', fontSize: 14, color: C.muted, pointerEvents: 'none',
+                    textAlign: 'center',
                   }}>
-                    Угадай, где ошибётся — <span style={{ fontFamily: DISPLAY, color: C.brass }}>×4</span>
+                    <div style={{
+                      color: C.fg, fontWeight: 600, lineHeight: 1.3, textWrap: 'balance',
+                      fontSize: q.text.length > 140 ? 15 : 17,   // три строки до подсказки
+                    } as React.CSSProperties}>
+                      {q.text}
+                    </div>
+                    <div style={{ fontSize: 13, color: C.muted, marginTop: 6 }}>
+                      Ставь, какой вариант выберет керри. Угадавшие делят ставки остальных
+                    </div>
                   </div>
 
-                  {opts.map((opt, idx) => {
-                    const isCorrect = opt === gameState.gladiatorAnswer
+                  {options.map((opt, idx) => {
+                    const isCorrect = idx === correctIndex
+                    const isSel = option === idx
+                    const total = optionTotal(idx)
                     const zx = OPT_LEFT + (idx % 2) * (OPT_W + OPT_GAP)
                     const zy = OPT_TOP + Math.floor(idx / 2) * (OPT_H + OPT_GAP)
-                    const isSel = bankTarget === idx
-                    const isActive = isSel && activeZone === 'bank'
+                    const pick = () => selectOption(idx)
                     return (
                       <div key={idx}>
                         <div
                           style={{
                             position: 'absolute', left: zx, top: zy, width: OPT_W, height: OPT_H, zIndex: 6,
                             borderRadius: 10,
-                            border: `2px ${isCorrect || isSel ? 'solid' : 'dashed'} ${
-                              isCorrect ? `${C.mint}88` : isActive ? C.brass : isSel ? '#9a7630' : 'rgba(237,232,222,0.18)'}`,
-                            background: isCorrect ? 'rgba(62,224,143,0.08)'
-                              : isActive ? 'rgba(242,182,48,0.16)' : isSel ? 'rgba(242,182,48,0.07)' : 'rgba(8,17,14,0.5)',
-                            boxShadow: isActive ? '0 0 20px rgba(242,182,48,0.3)' : 'none',
-                            cursor: isCorrect || betConfirmed ? 'default' : 'pointer',
-                            display: 'flex', alignItems: 'center', padding: `0 ${isCorrect ? 10 : BANK_PAD}px 0 11px`,
-                            transition: 'border-color .18s, background .18s, box-shadow .18s',
+                            border: `2px ${isSel ? 'solid' : 'dashed'} ${
+                              isSel ? C.brass : isCorrect ? `${C.mint}88` : 'rgba(237,232,222,0.18)'}`,
+                            background: isSel ? 'rgba(242,182,48,0.14)' : isCorrect ? 'rgba(62,224,143,0.06)' : 'rgba(8,17,14,0.5)',
+                            boxShadow: isSel && !betConfirmed ? '0 0 20px rgba(242,182,48,0.3)' : 'none',
+                            cursor: betConfirmed ? 'default' : 'pointer',
+                            opacity: betConfirmed && !isSel ? 0.55 : 1,
+                            display: 'flex', alignItems: 'center', padding: `7px ${PILE_PAD}px 2px 11px`,   // сверху — буква на кромке
+                            transition: 'border-color .18s, background .18s, box-shadow .18s, opacity .18s',
                           }}
-                          onClick={isCorrect ? undefined : () => selectBankZone(idx)}
-                          {...(isCorrect || betConfirmed ? {} : pressable(() => selectBankZone(idx), `Ошибётся на «${opt}»`))}
+                          onClick={betConfirmed ? undefined : pick}
+                          {...(betConfirmed ? {} : pressable(pick, `Керри выберет «${opt}»`))}
                         >
                           <span style={{
                             flex: 1, fontSize: 13, fontWeight: 600, lineHeight: 1.2,
-                            color: isCorrect ? C.mint : isActive ? C.brass : C.fg,
+                            color: isSel ? C.brass : isCorrect ? C.mint : C.fg,
                             overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical',
                           } as React.CSSProperties}>
                             {opt}
                           </span>
                           {/* бейджи на кромке, не в строке — тексту варианта нужна вся ширина */}
-                          {isCorrect ? (
+                          <span style={{
+                            position: 'absolute', top: -9, left: 9, fontFamily: DISPLAY, fontSize: 11, lineHeight: 1,
+                            padding: '3px 6px 4px', borderRadius: 999,
+                            background: isSel ? C.brass : C.line, color: isSel ? C.ink : C.fg,
+                          }}>{OPTION_LETTERS[idx]}</span>
+                          {isCorrect && (
                             <span style={{
                               position: 'absolute', top: -9, right: 10, fontSize: 11, fontWeight: 800, lineHeight: 1,
                               padding: '3px 7px', borderRadius: 999, background: C.mint, color: C.ink,
                             }}>верный</span>
-                          ) : isSel && bankBetAmt > 0 ? (
+                          )}
+                          {total > 0 && (
                             <span style={{
-                              position: 'absolute', top: -10, right: 8, zIndex: 30, fontFamily: DISPLAY, fontSize: 12, lineHeight: 1,
-                              padding: '3px 7px 4px', borderRadius: 999, background: C.brass, color: C.ink, fontVariantNumeric: 'tabular-nums',
+                              position: 'absolute', bottom: -10, right: 8, zIndex: 30, fontFamily: DISPLAY, fontSize: 12, lineHeight: 1,
+                              padding: '3px 7px 4px', borderRadius: 999, fontVariantNumeric: 'tabular-nums',
+                              background: isSel ? C.brass : 'rgba(12,21,19,0.92)', color: isSel ? C.ink : C.fg,
+                              border: isSel ? 'none' : `1px solid ${C.line}`,
                             }}>
-                              <Money v={bankBetAmt} />
+                              <Money v={total} />
                             </span>
-                          ) : null}
+                          )}
                         </div>
-                        {/* фишки — внутри квитка, справа (место оставлено отступом): своя кучка не сливается с соседской */}
-                        {isSel && renderZoneChips(bankPlacedChips, bankSlots, zx + OPT_W - BANK_PAD / 2 - 2, zy + OPT_H / 2 + 3, 5, CPIX_BANK)}
+                        {isSel && renderOptionChips(zx + OPT_W - PILE_PAD / 2 - 2, zy + OPT_H / 2)}
                       </div>
                     )
                   })}
@@ -345,13 +306,15 @@ function RoundTable({ bet }: { bet: Betting }) {
 
               const stagedDenoms = stagedBets[player.id]
               const betChips = isMe
-                ? (isKerriCrowd ? [] : stdPlacedChips)
+                ? (isKerriCrowd ? [] : placedChips)
                 : stagedDenoms !== undefined
                   ? stagedDenoms.map((denom, i) => ({ id: `${i}-${denom}-${player.id}`, denom } as PhysicalChip))
                   : player.betChips?.length
                     // та же схема id, что у черновика: подтверждение не перерисовывает фишки заново
                     ? player.betChips.map((denom, i) => ({ id: `${i}-${denom}-${player.id}`, denom } as PhysicalChip))
                     : buildChipsForPlayer(player.id, player.currentBet)
+              // толпе керри — буква варианта рядом с суммой соперника (снаружи от середины: не лезет на варианты)
+              const theirs = isKerriCrowd && !isMe ? opponentOption(player.id, player.currentBet, player.betOption) : null
 
               return (
                 <div key={player.id}>
@@ -360,14 +323,8 @@ function RoundTable({ bet }: { bet: Betting }) {
                     angle={angle}
                     isMe={isMe}
                     myChips={isMe ? myStack : undefined}
-                    placedIds={isMe ? (isKerriCrowd ? allPlacedIds : stdPlacedIds) : undefined}
-                    onDenomClick={
-                      isMe && !isThisGlad && !betConfirmed
-                        ? isKerriCrowd
-                          ? activeZone !== null ? kerriPlace : undefined
-                          : stdPlace
-                        : undefined
-                    }
+                    placedIds={isMe ? placedIds : undefined}
+                    onDenomClick={isMe && !isThisGlad && !betConfirmed ? place : undefined}
                     onTarget={targeting === 'hex' && !isMe && !player.effects?.includes('hex') && !isSpectator(player)
                       ? () => useItem('hex', player.id) : undefined}
                     above={(() => {
@@ -376,16 +333,33 @@ function RoundTable({ bet }: { bet: Betting }) {
                       return e ? <FeedTag key={e.at} item={e.item} side="left" /> : null
                     })()}
                   />
-                  {/* Standard-mode my zone, or all opponent zones */}
+                  {/* своя кучка «для всех» и кучки соперников; своя в керри — в выбранном варианте */}
                   {(!isMe || !isKerriCrowd) && (
                     <BetZone
                       cx={cx} cy={cy}
                       chips={betChips}
-                      slots={isMe ? stdSlots : undefined}
+                      slots={isMe ? slots : undefined}
                       mine={isMe && !isKerriCrowd}
-                      onRecall={isMe && !betConfirmed && !isKerriCrowd ? stdRecall : undefined}
+                      onRecall={isMe && !betConfirmed && !isKerriCrowd ? recall : undefined}
                       size={isKerriMode ? 'sm' : 'md'}
                     />
+                  )}
+                  {theirs && options[theirs.opt] !== undefined && (
+                    <div
+                      title={options[theirs.opt]}
+                      style={{
+                        position: 'absolute', zIndex: 41, pointerEvents: 'none',
+                        left: cx < FELT_CX - 5 ? cx - 34 - 26 : cx + 36, top: cy + 21,
+                        minWidth: 22, height: 22, borderRadius: 999, padding: '0 6px',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontFamily: DISPLAY, fontSize: 12, lineHeight: 1,
+                        background: theirs.draft ? 'rgba(12,21,19,0.85)' : theirs.opt === option ? C.brass : C.paper,
+                        color: theirs.draft ? C.muted : C.ink,
+                        border: theirs.draft ? `1.5px dashed ${C.muted}` : 'none',
+                      }}
+                    >
+                      {OPTION_LETTERS[theirs.opt]}
+                    </div>
                   )}
                 </div>
               )
@@ -394,32 +368,21 @@ function RoundTable({ bet }: { bet: Betting }) {
           </div>
         </LayoutGroup>
 
-        {/* ── Confirm button (kerri crowd) ── */}
+        {/* ── «Ставлю»: толпа керри — под вариантами, «для всех» — над своей кучкой ── */}
         <AnimatePresence>
-          {isKerriCrowd && canConfirm && (
+          {canConfirm && (
             <motion.div
+              key={isKerriCrowd ? 'kerri' : 'all'}
               initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 0.7 }}
               transition={{ type: 'spring', stiffness: 500, damping: 22 }}
-              style={{ position: 'absolute', left: FELT_CX, top: CONFIRM_TOP, zIndex: 60, translateX: '-50%', pointerEvents: 'auto' }}
+              style={{
+                position: 'absolute', left: FELT_CX, top: isKerriCrowd ? CONFIRM_TOP : stdControlsTop,
+                zIndex: 60, translateX: '-50%', pointerEvents: 'auto',
+              }}
             >
-              <ConfirmButton amount={mainBetAmt + bankBetAmt} onClick={handleConfirm} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* ── Confirm button (all mode) ── */}
-        <AnimatePresence>
-          {!isKerriCrowd && canConfirm && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.7 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 22 }}
-              style={{ position: 'absolute', left: FELT_CX, top: stdControlsTop, zIndex: 60, translateX: '-50%', pointerEvents: 'auto' }}
-            >
-              <ConfirmButton amount={stdBetAmt} onClick={handleConfirm} />
+              <ConfirmButton amount={betAmt} onClick={handleConfirm} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -438,7 +401,7 @@ function RoundTable({ bet }: { bet: Betting }) {
               }}
             >
               {me?.bigBlind ? 'Большой блайнд' : 'Малый блайнд'}: <span style={{ fontFamily: DISPLAY, color: C.brass }}><Money v={myBlind} /></span>
-              {isKerriCrowd && !mainTarget && <span style={{ color: C.muted, fontWeight: 600 }}> — выбери исход</span>}
+              {isKerriCrowd && option === null && <span style={{ color: C.muted, fontWeight: 600 }}> — выбери вариант</span>}
             </motion.div>
           )}
         </AnimatePresence>
@@ -454,7 +417,7 @@ function RoundTable({ bet }: { bet: Betting }) {
               }}>
                 {col.map(q => (
                   <QuickButton key={q.label} label={q.label} amount={q.amount}
-                    disabled={isKerriCrowd && !mainTarget} onClick={() => quickBet(q.amount)} />
+                    disabled={isKerriCrowd && option === null} onClick={() => quickBet(q.amount)} />
                 ))}
               </div>
             ))}

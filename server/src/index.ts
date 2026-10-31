@@ -16,6 +16,10 @@ const io = new Server(httpServer, {
   cors: { origin: CLIENT_ORIGIN, methods: ['GET', 'POST'] },
   // самое большое честное событие — ставка с 40 фишками; мегабайтный мусор не разбираем
   maxHttpBufferSize: 32_000,
+  // «Замёрзшее» соединение (VPN, фильтры провайдера) замечаем за ~20 с, а не за 45 (по умолчанию 25 + 20): клиент
+  // быстрее переподключается, комната быстрее перестаёт его ждать. Обрыв ничего не стоит — игрок возвращается по токену
+  pingInterval: 10_000,
+  pingTimeout: 10_000,
   allowRequest: (req, callback) => {
     const ok = originAllowed(req.headers.origin)
     if (!ok) console.warn(`[socket] чужой Origin отклонён: ${req.headers.origin}`)

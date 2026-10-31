@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
 import { GLADIATOR_BONUS, type Player } from '@cumsino/shared'
 import { useGameStore } from '../../store/gameStore'
-import type { Betting, MainSide } from '../../lib/useBetting'
+import type { Betting } from '../../lib/useBetting'
 import { pileOffset, buildChipsForPlayer } from '../../types/chips'
 import type { PhysicalChip } from '../../types/chips'
 import type { ChipValue } from '../ui/Chip'
@@ -25,11 +25,13 @@ const RACK_PX = 42     // фишка в стопке дока — под пал�
 const RACK_STEP = 3
 const PILE_PX = 34     // фишка в зоне ставки
 const spring = { type: 'spring', stiffness: 420, damping: 30 } as const
+/** буквы вариантов керри — ими подписаны ставки соперников */
+const OPTION_LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е']
 
 /**
  * Ставки на телефоне: вместо круглого стола (на 375 px он ужимается до ×0.29) — колонка. Сверху режим, таймер и тема
- * (в керри — кто отвечает и вопрос), ниже своя зона ставки (в керри — два исхода и квитки «где ошибётся ×4»
- * колонкой), соперники полосой со ставками и предметы. Стопки фишек крупными кнопками, быстрые ставки и «Ставлю» —
+ * (в керри — кто отвечает и вопрос), ниже своя зона ставки (в керри — четыре варианта строками: какой выберет керри),
+ * соперники полосой со ставками и предметы. Стопки фишек крупными кнопками, быстрые ставки и «Ставлю» —
  * в доке, прибитом к низу экрана. Логика — общая со столом (lib/useBetting).
  * Контейнер прокручивается сам (layoutScroll — перелёт фишек по layoutId учитывает прокрутку).
  */
@@ -92,10 +94,13 @@ export function CompactBetting({ bet }: { bet: Betting }) {
                 <div className="font-semibold leading-snug text-[1rem]" style={{ color: C.fg, textWrap: 'pretty' } as CSSProperties}>
                   {q.text}
                 </div>
+                <span className="text-[0.8125rem] leading-snug" style={{ color: C.muted }}>
+                  Ставь, какой вариант выберет керри. Угадавшие делят ставки остальных
+                </span>
               </div>
             )}
 
-            {!isGladiator && (isKerriCrowd ? <KerriZones bet={bet} /> : <MyZone bet={bet} />)}
+            {!isGladiator && (isKerriCrowd ? <KerriOptions bet={bet} /> : <MyZone bet={bet} />)}
 
             <Opponents bet={bet} />
             <ItemBar inline />
@@ -110,10 +115,11 @@ export function CompactBetting({ bet }: { bet: Betting }) {
 
 // ── соперники ──────────────────────────────────────────────────────────────
 
-/** Соперники полосой: имя, эффекты, баланс; ставка мини-кучкой и суммой (черновик — приглушённо), в керри — исход. */
+/** Соперники полосой: имя, эффекты, баланс; ставка мини-кучкой и суммой (черновик — приглушённо), в керри — вариант. */
 function Opponents({ bet }: { bet: Betting }) {
-  const { gameState, myId, isKerriMode } = bet
+  const { gameState, myId, isKerriMode, isKerriCrowd, options } = bet
   const stagedBets = useGameStore(s => s.stagedBets)
+  const stagedOptions = useGameStore(s => s.stagedOptions)
   const targeting = useGameStore(s => s.targeting)
   const useItem = useGameStore(s => s.useItem)
   const freshFeed = useFreshFeed()
@@ -133,9 +139,11 @@ function Opponents({ bet }: { bet: Betting }) {
           const amount = staged ? staged.reduce((a, d) => a + d, 0) : p.currentBet
           const canHex = targeting === 'hex' && !p.effects?.includes('hex') && !isSpectator(p)
           const feed = freshFeed.find(f => f.item === 'hex' ? f.targetId === p.id : f.playerId === p.id)
+          // керри вариантов толпы не видит (сервер их не шлёт)
+          const opt = !isKerriCrowd ? undefined : staged ? stagedOptions[p.id] : p.betOption
           return (
             <OpponentRow key={p.id} p={p} isGlad={isGlad} chips={chips} amount={amount} draft={!!staged}
-              side={isKerriMode && !staged ? p.betTarget : undefined}
+              option={opt !== undefined && options[opt] !== undefined ? opt : undefined}
               onTarget={canHex ? () => useItem('hex', p.id) : undefined}
               feed={feed ? <ItemIcon key={feed.at} id={feed.item} size={20} /> : null} />
           )
@@ -145,11 +153,10 @@ function Opponents({ bet }: { bet: Betting }) {
   )
 }
 
-function OpponentRow({ p, isGlad, chips, amount, draft, side, onTarget, feed }: {
+function OpponentRow({ p, isGlad, chips, amount, draft, option, onTarget, feed }: {
   p: Player; isGlad: boolean; chips: number[]; amount: number; draft: boolean
-  side?: MainSide; onTarget?: () => void; feed: ReactNode
+  option?: number; onTarget?: () => void; feed: ReactNode
 }) {
-  const sideColor = side === 'win' ? C.mint : side === 'lose' ? C.hot : undefined
   return (
     <motion.div
       onClick={onTarget}
@@ -181,8 +188,13 @@ function OpponentRow({ p, isGlad, chips, amount, draft, side, onTarget, feed }: 
             <span className="font-display text-[0.875rem] tnum shrink-0" style={{ color: amount > 0 ? (draft ? C.muted : C.fg) : '#56665f' }}>
               {amount > 0 ? <Money v={amount} /> : <span className="text-[0.75rem]" style={{ fontFamily: 'Rubik' }}>без ставки</span>}
             </span>
-            {sideColor && amount > 0 && (
-              <span className="text-[0.6875rem] font-bold truncate" style={{ color: sideColor }}>{side === 'win' ? 'ответит' : 'завалит'}</span>
+            {option !== undefined && amount > 0 && (
+              <span className="font-display text-[0.6875rem] leading-none px-1.5 py-0.5 rounded-full shrink-0" style={{
+                background: draft ? 'transparent' : C.paper, color: draft ? C.muted : C.ink,
+                border: draft ? `1px dashed ${C.muted}` : 'none',
+              }}>
+                {OPTION_LETTERS[option]}
+              </span>
             )}
             {draft && amount > 0 && <span className="text-[0.6875rem] truncate" style={{ color: C.muted }}>думает</span>}
           </>
@@ -237,7 +249,7 @@ function Pile({ chips, slots, spread, px = PILE_PX, onRecall }: {
 
 /** «Для всех»: кусок сукна — сюда ложатся фишки; справа внизу сумма. */
 function MyZone({ bet }: { bet: Betting }) {
-  const { stdPlacedChips, stdSlots, stdBetAmt, betConfirmed, stdRecall } = bet
+  const { placedChips, slots, betAmt, betConfirmed, recall } = bet
   return (
     <div className="relative rounded-[1.4rem] flex items-center" style={{
       height: '8rem', background: FELT.cloth, border: `3px solid ${FELT.edge}`,
@@ -245,20 +257,20 @@ function MyZone({ bet }: { bet: Betting }) {
       margin: '0.6rem 0.6rem 0.4rem',
     }}>
       <div className="flex-1 h-full flex items-center justify-center">
-        {stdPlacedChips.length > 0
-          ? <Pile chips={stdPlacedChips} slots={stdSlots} spread={13} onRecall={betConfirmed ? undefined : stdRecall} />
+        {placedChips.length > 0
+          ? <Pile chips={placedChips} slots={slots} spread={13} onRecall={betConfirmed ? undefined : recall} />
           : <span className="text-[0.8125rem] text-center px-6" style={{ color: 'rgba(237,232,222,.55)' }}>
               Тапай по фишкам внизу — они лягут сюда
             </span>}
       </div>
       <AnimatePresence>
-        {stdBetAmt > 0 && (
+        {betAmt > 0 && (
           <motion.span
             initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
             className="absolute right-3 bottom-2.5 font-display text-[1.1rem] tnum px-2.5 py-0.5 rounded-full"
             style={{ background: 'rgba(12,21,19,.8)', color: betConfirmed ? C.mint : C.fg, zIndex: 40 }}
           >
-            <Money v={stdBetAmt} />
+            <Money v={betAmt} />
           </motion.span>
         )}
       </AnimatePresence>
@@ -266,114 +278,65 @@ function MyZone({ bet }: { bet: Betting }) {
   )
 }
 
-/** Толпа керри: два исхода крупно и квитки «где ошибётся ×4» колонкой. */
-function KerriZones({ bet }: { bet: Betting }) {
-  const {
-    gameState, mainTarget, bankTarget, activeZone, betConfirmed,
-    mainPlacedChips, mainSlots, mainBetAmt, bankPlacedChips, bankSlots, bankBetAmt,
-    selectMainZone, selectBankZone, kerriRecall, sideTotal,
-  } = bet
-  const opts = gameState.currentQuestion?.options ?? []
-  const recall = betConfirmed ? undefined : kerriRecall
-
-  const zone = (target: MainSide) => {
-    const win = target === 'win'
-    const color = win ? C.mint : C.hot
-    const sel = mainTarget === target
-    const active = sel && activeZone === 'main'
-    const total = sideTotal(target)
-    const pick = () => selectMainZone(target)
-    return (
-      <motion.div
-        key={target}
-        onClick={betConfirmed ? undefined : pick}
-        {...(betConfirmed ? {} : pressable(pick, win ? 'Ставлю, что ответит' : 'Ставлю, что завалит'))}
-        whileTap={betConfirmed ? undefined : { scale: 0.97 }}
-        className="relative flex-1 rounded-2xl flex flex-col items-center"
-        style={{
-          height: '6.75rem', paddingTop: '0.65rem',
-          border: `2px ${sel ? 'solid' : 'dashed'} ${sel ? color : `${color}66`}`,
-          background: active ? `${color}2e` : sel ? `${color}14` : C.panel,
-          boxShadow: active ? `0 0 24px ${color}55` : 'none',
-          cursor: betConfirmed ? 'default' : 'pointer',
-          transition: 'border-color .18s, background .18s, box-shadow .18s',
-        }}
-      >
-        <span className="font-display text-[1.3rem] leading-none" style={{ color: sel ? color : `${color}bb` }}>
-          {win ? 'Ответит' : 'Завалит'}
-        </span>
-        <span className="text-[0.75rem] tnum mt-1" style={{ color: total > 0 ? color : C.muted }}>
-          {total > 0 ? <>на кону <Money v={total} /></> : 'пока никто'}
-        </span>
-        <div className="flex-1 w-full flex items-center justify-center">
-          {sel && <Pile chips={mainPlacedChips} slots={mainSlots} spread={9} px={28} onRecall={recall} />}
-        </div>
-        {sel && mainBetAmt > 0 && (
-          <span className="absolute -top-2.5 right-2 font-display text-[0.8125rem] tnum px-2 py-0.5 rounded-full"
-            style={{ background: color, color: C.ink, zIndex: 40 }}>
-            <Money v={mainBetAmt} />
-          </span>
-        )}
-      </motion.div>
-    )
-  }
+/** Толпа керри: варианты строками — какой выберет керри. Выбранный — латунью, в нём своя кучка; верный отмечен. */
+function KerriOptions({ bet }: { bet: Betting }) {
+  const { options, option, correctIndex, selectOption, optionTotal, betConfirmed, placedChips, slots, recall } = bet
+  const onRecall = betConfirmed ? undefined : recall
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex gap-2.5">{zone('lose')}{zone('win')}</div>
-
-      <div className="text-[0.875rem] text-center leading-tight" style={{ color: C.muted }}>
-        Угадай, где ошибётся — <span className="font-display" style={{ color: C.brass }}>×4</span>
-        <span className="text-[0.75rem]"> · необязательно</span>
-      </div>
-      <div className="flex flex-col gap-2">
-        {opts.map((opt, idx) => {
-          const isCorrect = opt === gameState.gladiatorAnswer
-          const isSel = bankTarget === idx
-          const isActive = isSel && activeZone === 'bank'
-          const pick = () => selectBankZone(idx)
-          const clickable = !isCorrect && !betConfirmed
-          return (
-            <motion.div
-              key={idx}
-              onClick={clickable ? pick : undefined}
-              {...(clickable ? pressable(pick, `Ошибётся на «${opt}»`) : {})}
-              whileTap={clickable ? { scale: 0.98 } : undefined}
-              className="relative flex items-center rounded-xl pl-3"
-              style={{
-                minHeight: '2.9rem', paddingRight: isSel && bankPlacedChips.length ? '4.25rem' : '0.75rem',
-                paddingTop: 7, paddingBottom: 7,
-                border: `2px ${isCorrect || isSel ? 'solid' : 'dashed'} ${
-                  isCorrect ? `${C.mint}88` : isActive ? C.brass : isSel ? '#9a7630' : 'rgba(237,232,222,0.18)'}`,
-                background: isCorrect ? 'rgba(62,224,143,0.08)'
-                  : isActive ? 'rgba(242,182,48,0.16)' : isSel ? 'rgba(242,182,48,0.07)' : C.panel,
-                cursor: clickable ? 'pointer' : 'default',
-                transition: 'border-color .18s, background .18s',
-              }}
-            >
-              <span className="text-[0.8125rem] font-semibold leading-snug"
-                style={{ color: isCorrect ? C.mint : isActive ? C.brass : C.fg }}>
-                {opt}
+    <div className="flex flex-col gap-2.5 pt-1">
+      {options.map((opt, idx) => {
+        const isCorrect = idx === correctIndex
+        const isSel = option === idx
+        const total = optionTotal(idx)
+        const pick = () => selectOption(idx)
+        const clickable = !betConfirmed
+        return (
+          <motion.div
+            key={idx}
+            onClick={clickable ? pick : undefined}
+            {...(clickable ? pressable(pick, `Керри выберет «${opt}»`) : {})}
+            whileTap={clickable ? { scale: 0.98 } : undefined}
+            className="relative flex items-center gap-2.5 rounded-xl pl-2.5"
+            style={{
+              minHeight: '3.5rem', paddingRight: '4.5rem', paddingTop: 8, paddingBottom: 8,
+              border: `2px ${isSel ? 'solid' : 'dashed'} ${isSel ? C.brass : isCorrect ? `${C.mint}88` : 'rgba(237,232,222,0.18)'}`,
+              background: isSel ? 'rgba(242,182,48,0.14)' : isCorrect ? 'rgba(62,224,143,0.06)' : C.panel,
+              boxShadow: isSel && !betConfirmed ? '0 0 18px rgba(242,182,48,0.25)' : 'none',
+              opacity: betConfirmed && !isSel ? 0.55 : 1,
+              cursor: clickable ? 'pointer' : 'default',
+              transition: 'border-color .18s, background .18s, opacity .18s',
+            }}
+          >
+            <span className="font-display text-[0.75rem] leading-none px-1.5 py-1 rounded-full shrink-0"
+              style={{ background: isSel ? C.brass : C.line, color: isSel ? C.ink : C.fg }}>
+              {OPTION_LETTERS[idx]}
+            </span>
+            <span className="text-[0.8125rem] font-semibold leading-snug"
+              style={{ color: isSel ? C.brass : isCorrect ? C.mint : C.fg }}>
+              {opt}
+            </span>
+            {isCorrect && (
+              <span className="absolute -top-2.5 right-2.5 text-[0.6875rem] font-extrabold px-2 py-0.5 rounded-full"
+                style={{ background: C.mint, color: C.ink }}>верный</span>
+            )}
+            {total > 0 && (
+              <span className="absolute -bottom-2.5 right-2.5 font-display text-[0.75rem] tnum px-2 py-0.5 rounded-full"
+                style={{
+                  background: isSel ? C.brass : C.bg, color: isSel ? C.ink : C.fg, zIndex: 40,
+                  border: isSel ? 'none' : `1px solid ${C.line}`,
+                }}>
+                <Money v={total} />
               </span>
-              {isCorrect && (
-                <span className="absolute -top-2.5 right-2.5 text-[0.6875rem] font-extrabold px-2 py-0.5 rounded-full"
-                  style={{ background: C.mint, color: C.ink }}>верный</span>
-              )}
-              {isSel && bankBetAmt > 0 && (
-                <span className="absolute -top-2.5 right-2.5 font-display text-[0.75rem] tnum px-2 py-0.5 rounded-full"
-                  style={{ background: C.brass, color: C.ink, zIndex: 40 }}>
-                  <Money v={bankBetAmt} />
-                </span>
-              )}
-              {isSel && (
-                <div className="absolute" style={{ right: '2.1rem', top: '50%' }}>
-                  <Pile chips={bankPlacedChips} slots={bankSlots} spread={5} px={24} onRecall={recall} />
-                </div>
-              )}
-            </motion.div>
-          )
-        })}
-      </div>
+            )}
+            {isSel && (
+              <div className="absolute" style={{ right: '2.25rem', top: '50%' }}>
+                <Pile chips={placedChips} slots={slots} spread={6} px={26} onRecall={onRecall} />
+              </div>
+            )}
+          </motion.div>
+        )
+      })}
     </div>
   )
 }
@@ -382,16 +345,15 @@ function KerriZones({ bet }: { bet: Betting }) {
 
 function Dock({ bet }: { bet: Betting }) {
   const {
-    me, myStack, allPlacedIds, stdPlacedIds, isKerriCrowd, betConfirmed, activeZone, mainTarget,
+    me, myStack, placedIds, isKerriCrowd, betConfirmed, option,
     place, quickAmounts, quickBet, balance, canConfirm, confirmAmount, handleConfirm, showBlind, myBlind,
-    hasDraft, clearDraft, mainBetAmt, bankBetAmt, stdBetAmt, dealing,
+    hasDraft, clearDraft, betAmt, dealing,
   } = bet
-  const placed = isKerriCrowd ? allPlacedIds : stdPlacedIds
-  const left = myStack.filter(c => !placed.has(c.id))
+  const left = myStack.filter(c => !placedIds.has(c.id))
   const leftSum = left.reduce((a, c) => a + c.denom, 0)
-  const noZone = isKerriCrowd && activeZone === null
+  const noZone = isKerriCrowd && option === null
   const rackOff = betConfirmed || noZone
-  const quickOff = isKerriCrowd && !mainTarget
+  const quickOff = noZone
 
   // док прибит к низу экрана; на телефоне боком (ниже 560 px) он занял бы почти весь экран — там он просто в потоке
   const shell = (children: ReactNode) => (
@@ -405,7 +367,7 @@ function Dock({ bet }: { bet: Betting }) {
   )
 
   if (betConfirmed) {
-    const amount = isKerriCrowd ? mainBetAmt + bankBetAmt : stdBetAmt
+    const amount = betAmt
     return shell(
       <div className="flex flex-col items-center gap-1.5 py-2">
         <Sticker seed={`bet-ok-${amount}`} slam rotate={-3} jag={5} color={C.mint} textColor={C.ink} padding="8px 20px 10px">
@@ -477,10 +439,10 @@ function Dock({ bet }: { bet: Betting }) {
       <div className="flex items-center gap-3" style={{ minHeight: 48 }}>
         <div className="flex flex-col items-start leading-tight min-w-0">
           {noZone ? (
-            <span className="text-[0.8125rem] font-semibold" style={{ color: C.brass }}>Сначала выбери исход</span>
+            <span className="text-[0.8125rem] font-semibold" style={{ color: C.brass }}>Сначала выбери вариант</span>
           ) : (
             <span className="text-[0.75rem] whitespace-nowrap" style={{ color: C.muted }}>
-              {activeZone === 'bank' ? 'Фишки — в квиток' : 'В стопке'}{' '}
+              В стопке{' '}
               <span className="font-display text-[0.9375rem] tnum" style={{ color: C.fg }}><Money v={leftSum} /></span>
             </span>
           )}

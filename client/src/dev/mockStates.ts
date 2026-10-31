@@ -17,7 +17,6 @@ import { useGameStore } from '../store/gameStore'
 type GameStoreState = ReturnType<typeof useGameStore.getState>
 export type ScenarioState = Partial<Omit<GameStoreState,
   'connect' | 'submitAnswer' | 'sendHover' | 'startGame' | 'reset'
-  | 'payBribe'
 >>
 
 export interface Scenario {
@@ -291,7 +290,6 @@ export const SCENARIOS: Scenario[] = [
           { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false },
         ],
       }),
-      bankBets: {},
       stagedBets: {},
     },
   },
@@ -312,7 +310,6 @@ export const SCENARIOS: Scenario[] = [
           { id: 'dev-4', name: 'Никита', chips: 420,  currentBet: 0,  hasAnswered: false, blind: 20 },
         ],
       }),
-      bankBets: {},
       stagedBets: {},
     },
   },
@@ -330,13 +327,14 @@ export const SCENARIOS: Scenario[] = [
         gladiatorAnswer: MC_QUESTION.options[0],
         players: [
           { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0,   hasAnswered: false },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 100, betChips: [100],         hasAnswered: false },
+          { id: 'dev-2', name: 'Артём',  chips: 350, currentBet: 0,                            hasAnswered: false },
           { id: 'dev-3', name: 'Света',  chips: 540, currentBet: 0,                            hasAnswered: false },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 150, betChips: [100, 50], betTarget: 'lose', hasAnswered: false },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 150, betChips: [100, 50], betOption: 2, hasAnswered: false },
         ],
       }),
-      bankBets: { 'dev-4': { optionIndex: 2, amount: 50 } },
-      stagedBets: {},
+      // Света ещё думает: черновик на «Б»
+      stagedBets: { 'dev-3': [50, 20] },
+      stagedOptions: { 'dev-3': 1 },
     },
   },
   {
@@ -354,17 +352,18 @@ export const SCENARIOS: Scenario[] = [
         gladiatorAnswer: MC_QUESTION.options[0],
         players: [
           { id: 'dev-1', name: 'Ты',     chips: 580, currentBet: 0, hasAnswered: false, blind: 30 },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 150, betChips: [100, 20, 20, 10], betTarget: 'win', hasAnswered: false },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 150, betChips: [100, 20, 20, 10], betOption: 0, hasAnswered: false },
           { id: 'dev-3', name: 'Света',  chips: 540, currentBet: 0, hasAnswered: false },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 230, betChips: [100, 50, 50, 20, 10], betTarget: 'lose', hasAnswered: false },
-          { id: 'dev-5', name: 'Даша',   chips: 610, currentBet: 260, betChips: [100, 100, 20, 20, 10, 10], betTarget: 'win', hasAnswered: false },
-          { id: 'dev-6', name: 'Костя',  chips: 300, currentBet: 120, betChips: [50, 50, 20], betTarget: 'lose', hasAnswered: false },
-          { id: 'dev-7', name: 'Лена',   chips: 450, currentBet: 180, betChips: [100, 50, 10, 10, 10], betTarget: 'win', hasAnswered: false },
-          { id: 'dev-8', name: 'Паша',   chips: 500, currentBet: 200, betChips: [100, 50, 20, 20, 10], betTarget: 'lose', hasAnswered: false },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 230, betChips: [100, 50, 50, 20, 10], betOption: 1, hasAnswered: false },
+          { id: 'dev-5', name: 'Даша',   chips: 610, currentBet: 260, betChips: [100, 100, 20, 20, 10, 10], betOption: 0, hasAnswered: false },
+          { id: 'dev-6', name: 'Костя',  chips: 300, currentBet: 120, betChips: [50, 50, 20], betOption: 3, hasAnswered: false },
+          { id: 'dev-7', name: 'Лена',   chips: 450, currentBet: 180, betChips: [100, 50, 10, 10, 10], betOption: 1, hasAnswered: false },
+          { id: 'dev-8', name: 'Паша',   chips: 500, currentBet: 0, hasAnswered: false },
         ],
       }),
-      bankBets: {},
-      stagedBets: {},
+      // Паша ещё думает: черновик на «В» (у соперника — пунктиром)
+      stagedBets: { 'dev-8': [100, 50, 20, 20, 10] },
+      stagedOptions: { 'dev-8': 2 },
     },
   },
   {
@@ -388,7 +387,6 @@ export const SCENARIOS: Scenario[] = [
           { id: 'dev-8', name: 'Паша',   chips: 500, currentBet: 200, betChips: [100, 50, 20, 20, 10], hasAnswered: false },
         ],
       }),
-      bankBets: {},
       stagedBets: {},
     },
   },
@@ -405,7 +403,6 @@ export const SCENARIOS: Scenario[] = [
         gladiatorId: 'dev-1',
         players: BASE_PLAYERS,
       }),
-      bankBets: {},
       stagedBets: {},
     },
   },
@@ -428,7 +425,6 @@ export const SCENARIOS: Scenario[] = [
           { id: 'dev-4', name: 'Никита', chips: 420, currentBet: 0,   hasAnswered: false, blind: 30, streak: 6 },
         ],
       }),
-      bankBets: {},
       stagedBets: {},
       // как в игре: бирка «только что применили» живёт ~3 с после открытия сценария
       itemFeed: [{ playerId: 'dev-3', item: 'hex', targetId: 'dev-2', at: Date.now() }],
@@ -614,6 +610,20 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
+    id: 'question-closest-blink',
+    group: 'QUESTION',
+    label: 'closest: ответил, есть блинк',
+    Screen: ClosestScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('QUESTION', 'closest', {
+        currentQuestion: CN_QUESTION, players: BET_PLAYERS, myAnswer: 1700, inventory: { blink: 2 },
+      }),
+      answeredIds: new Set([MY_ID]),
+      roundCorrectAnswer: null,
+    },
+  },
+  {
     id: 'question-closest-reveal',
     group: 'QUESTION',
     label: 'closest + раскрытие',
@@ -628,89 +638,6 @@ export const SCENARIOS: Scenario[] = [
     },
   },
 
-  // ── QUESTION — bribe event ──
-  {
-    id: 'question-kerri-crowd-bribe-win',
-    group: 'QUESTION',
-    label: 'kerri — взятка (Ответит)',
-    Screen: QuestionScreen,
-    state: {
-      myId: MY_ID,
-      gameState: base('QUESTION', 'kerri', {
-        currentQuestion: MC_QUESTION,
-        gladiatorId: 'dev-2',
-        gladiatorAnswer: MC_QUESTION.options[0],
-        players: [
-          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betTarget: 'win',  hasAnswered: false },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0,   hasAnswered: false },
-          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, betTarget: 'lose', hasAnswered: false },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 100, betTarget: 'win',  hasAnswered: false },
-        ],
-      }),
-      bribePrompt: { amount: 50, startedAt: 0, cycleIndex: 0 },
-      roundCorrectAnswer: null,
-    },
-  },
-  {
-    id: 'question-kerri-crowd-bribe-win-cycle2',
-    group: 'QUESTION',
-    label: 'kerri — взятка (Ответит, 2й круг)',
-    Screen: QuestionScreen,
-    state: {
-      myId: MY_ID,
-      gameState: base('QUESTION', 'kerri', {
-        currentQuestion: MC_QUESTION,
-        gladiatorId: 'dev-2',
-        gladiatorAnswer: MC_QUESTION.options[0],
-        players: [
-          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betTarget: 'win',  hasAnswered: false },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0,   hasAnswered: false },
-          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, betTarget: 'lose', hasAnswered: false },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 100, betTarget: 'win',  hasAnswered: false },
-        ],
-      }),
-      bribePrompt: { amount: 75, startedAt: 0, cycleIndex: 1 },
-      roundCorrectAnswer: null,
-    },
-  },
-  {
-    id: 'question-kerri-crowd-bribe-lose',
-    group: 'QUESTION',
-    label: 'kerri — взятка (Завалит)',
-    Screen: QuestionScreen,
-    state: {
-      myId: MY_ID,
-      gameState: base('QUESTION', 'kerri', {
-        currentQuestion: MC_QUESTION,
-        gladiatorId: 'dev-2',
-        gladiatorAnswer: MC_QUESTION.options[0],
-        players: [
-          { id: 'dev-1', name: 'Ты',     chips: 480, currentBet: 100, betTarget: 'lose', hasAnswered: false },
-          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0,   hasAnswered: false },
-          { id: 'dev-3', name: 'Света',  chips: 590, currentBet: 150, betTarget: 'win',  hasAnswered: false },
-          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 100, betTarget: 'lose', hasAnswered: false },
-        ],
-      }),
-      bribePrompt: { amount: 75, startedAt: 0, cycleIndex: 0 },
-      roundCorrectAnswer: null,
-    },
-  },
-  {
-    id: 'question-kerri-gladiator-eliminated',
-    group: 'QUESTION',
-    label: 'керри — гладиатор + убранный вариант',
-    Screen: GladiatorSelfScreen,
-    state: {
-      myId: MY_ID,
-      gameState: base('QUESTION', 'kerri', {
-        currentQuestion: MC_QUESTION,
-        gladiatorId: 'dev-1',
-        players: BET_PLAYERS,
-      }),
-      bribeEliminatedIdx: 2,
-      roundCorrectAnswer: null,
-    },
-  },
   // ── REVEAL ──
   {
     id: 'reveal-all',
@@ -748,17 +675,17 @@ export const SCENARIOS: Scenario[] = [
         gladiatorId: 'dev-2',
         currentQuestion: MC_QUESTION,
         players: [
-          { id: 'dev-1', name: 'Ты',     chips: 880, currentBet: 100, hasAnswered: true, betTarget: 'win', streak: 2 },
+          { id: 'dev-1', name: 'Ты',     chips: 730, currentBet: 100, hasAnswered: true, betOption: 0, streak: 2 },
           { id: 'dev-2', name: 'Артём',  chips: 800, currentBet: 0,   hasAnswered: true, answer: MC_QUESTION.options[0], streak: 4 },
-          { id: 'dev-3', name: 'Света',  chips: 390, currentBet: 150, hasAnswered: true, betTarget: 'lose' },
-          { id: 'dev-4', name: 'Никита', chips: 430, currentBet: 50,  hasAnswered: true, betTarget: 'win'  },
+          { id: 'dev-3', name: 'Света',  chips: 390, currentBet: 150, hasAnswered: true, betOption: 2 },
+          { id: 'dev-4', name: 'Никита', chips: 400, currentBet: 50,  hasAnswered: true, betOption: 0 },
         ],
       }),
       roundResults: [
-        { playerId: 'dev-1', delta: 280,  chipBreakdown: { 500:0,100:2,50:1,20:1,10:1 }, sources: [{ label: 'Угадал исход',    delta: 130 }, { label: 'Прочитал ошибку',    delta: 150 }] },
-        { playerId: 'dev-2', delta: 300,  chipBreakdown: { 500:0,100:3,50:0,20:0,10:0 }, sources: [{ label: 'Закеррил',        delta: 300 }] },
-        { playerId: 'dev-3', delta: -150, chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Ошибся с исходом', delta: -150 }] },
-        { playerId: 'dev-4', delta: -30,  chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Угадал исход',    delta: 20  }, { label: 'Был слишком уверен', delta: -50  }] },
+        { playerId: 'dev-1', delta: 110,  chipBreakdown: { 500:0,100:1,50:0,20:0,10:1 }, sources: [{ label: 'Угадал выбор керри',    delta: 110  }] },
+        { playerId: 'dev-2', delta: 300,  chipBreakdown: { 500:0,100:3,50:0,20:0,10:0 }, sources: [{ label: 'Закеррил',              delta: 300  }] },
+        { playerId: 'dev-3', delta: -150, chipBreakdown: { 500:0,100:0,50:0,20:0,10:0 }, sources: [{ label: 'Не угадал выбор керри', delta: -150 }] },
+        { playerId: 'dev-4', delta: 40,   chipBreakdown: { 500:0,100:0,50:0,20:2,10:0 }, sources: [{ label: 'Угадал выбор керри',    delta: 40   }] },
       ] as RoundResult[],
       roundCorrectAnswer: MC_QUESTION.options[0],
     },

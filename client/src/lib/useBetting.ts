@@ -6,13 +6,15 @@ import type { ChipValue } from '../components/ui/Chip'
 import { useStableSlots } from './pileSlots'
 import { socket } from '../socket'
 
-export type MainSide = 'win' | 'lose'
-
 /**
  * Логика ставок — общая для круглого стола (BettingTableScreen) и компактной раскладки на телефоне (CompactBetting):
- * своя стопка, черновик (stage_chip соперникам), керри-толпа (исход + банк-ставка на вариант), быстрые ставки,
- * блайнд, подтверждение и авто-подтверждение за 2 с до конца ставок. Вызывается один раз в BettingTableScreen —
- * при повороте телефона раскладка меняется, а черновик остаётся.
+ * своя стопка, черновик (stage_chip — сервер его помнит), толпа керри — выбор варианта, быстрые ставки, блайнд,
+ * подтверждение. Вызывается один раз в BettingTableScreen — при повороте телефона раскладка меняется, а черновик
+ * остаётся.
+ *
+ * Истина — на столе: не подтвердил к концу ставок — сервер ставит то, что лежит (если не меньше блайнда), иначе
+ * блайнд; в керри — на выделенный вариант. Поэтому каждая выкладка сразу уходит черновиком, а экран, смонтированный
+ * заново (переподключение), раскладывает черновик и подтверждённую ставку из стейта.
  */
 export function useBetting() {
   const gameState = useGameStore(s => s.gameState)!
@@ -21,26 +23,24 @@ export function useBetting() {
   const isGladiator = useGameStore(selectIsGladiator)
   const markBetSent = useGameStore(s => s.markBetSent)
 
+  const isKerriMode  = gameState.mode === 'kerri'
+  const isKerriCrowd = isKerriMode && !isGladiator
+  const options = gameState.currentQuestion?.options ?? []
+  // толпа знает верный ответ — по умолчанию выделен он (туда же сервер поставит, если ничего не выбрал)
+  const correctIndex = gameState.gladiatorAnswer !== undefined ? options.indexOf(gameState.gladiatorAnswer) : -1
+
   const [myStack, setMyStack]         = useState<PhysicalChip[]>([])
   const [betConfirmed, setBetConfirmed] = useState(false)
+  /** выложенные фишки (в керри — на выбранный вариант) */
+  const [placedIds, setPlacedIds] = useState<Set<string>>(new Set())
+  /** толпа керри: на какой вариант ставлю */
+  const [option, setOption] = useState<number | null>(null)
 
-  // «для всех»: выложенные фишки
-  const [stdPlacedIds, setStdPlacedIds] = useState<Set<string>>(new Set())
-
-  // толпа керри: исход и банк-ставка, у каждой своя кучка
-  const [mainTarget,  setMainTarget]  = useState<MainSide | null>(null)
-  const [bankTarget,  setBankTarget]  = useState<number | null>(null)
-  const [activeZone,  setActiveZone]  = useState<'main' | 'bank' | null>(null)
-  const [mainPlacedIds, setMainPlacedIds] = useState<Set<string>>(new Set())
-  const [bankPlacedIds, setBankPlacedIds] = useState<Set<string>>(new Set())
-
-  const phaseRef = useRef('')
-  const handleConfirmRef = useRef<() => void>(() => {})
-  const autoConfirmTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const roundRef = useRef<number | null>(null)
 
   // Быстрая ставка раскладывает фишки каскадом (таймеры). Пока раскладывает — «Ставлю» спрятана, ручная выкладка
-  // ждёт, а подтверждение (и авто в конце ставок) сначала докладывает всё разом
-  const quick = useRef<{ timers: number[]; pick: PhysicalChip[]; kerri: boolean } | null>(null)
+  // ждёт, а подтверждение сначала докладывает всё разом
+  const quick = useRef<{ timers: number[]; pick: PhysicalChip[] } | null>(null)
   const [dealing, setDealing] = useState(false)
   const stopQuick = (flush: boolean): PhysicalChip[] | null => {
     const q = quick.current
@@ -48,175 +48,105 @@ export function useBetting() {
     q.timers.forEach(clearTimeout)
     quick.current = null
     setDealing(false)
-    if (flush) (q.kerri ? setMainPlacedIds : setStdPlacedIds)(new Set(q.pick.map(c => c.id)))
+    if (flush) setPlacedIds(new Set(q.pick.map(c => c.id)))
     return q.pick
   }
   useEffect(() => () => quick.current?.timers.forEach(clearTimeout), [])
 
+  // Новые ставки (или экран смонтирован посреди ставок — переподключение): стопка из баланса, на стол — то, что
+  // сервер помнит: подтверждённая ставка или черновик
   useEffect(() => {
-    if (gameState.phase === 'BETTING' && me && phaseRef.current !== 'BETTING') {
-      stopQuick(false)
-      setMyStack(buildPhysicalChips(me.chips))
-      setStdPlacedIds(new Set())
-      setBetConfirmed(false)
-      setMainTarget(null)
-      setBankTarget(null)
-      setActiveZone(null)
-      setMainPlacedIds(new Set())
-      setBankPlacedIds(new Set())
+    if (gameState.phase !== 'BETTING' || !me || roundRef.current === gameState.roundIndex) return
+    roundRef.current = gameState.roundIndex
+    stopQuick(false)
+    const stack = buildPhysicalChips(me.chips)
+    const confirmed = !!gameState.betConfirmed && me.currentBet > 0
+    const onTable = confirmed ? me.betChips ?? [] : gameState.myStagedChips ?? []
+    const taken = new Set<string>()
+    for (const denom of onTable) {
+      const chip = [...stack].reverse().find(c => c.denom === denom && !taken.has(c.id))
+      if (chip) taken.add(chip.id)
     }
-    phaseRef.current = gameState.phase
-  }, [gameState.phase])
+    setMyStack(stack)
+    setPlacedIds(taken)
+    setBetConfirmed(!!gameState.betConfirmed)
+    const saved = confirmed ? me.betOption : gameState.myStagedOption
+    setOption(isKerriCrowd ? saved ?? (correctIndex >= 0 ? correctIndex : null) : null)
+  }, [gameState.phase, gameState.roundIndex, !!me])
 
+  // ставка подтвердилась на сервере (в т.ч. из другого окна) — здесь тоже
   useEffect(() => {
-    if (gameState.phase !== 'BETTING' || isGladiator) return
-    const delay = Math.max(500, (gameState.phaseTimeLeft - 2) * 1000)
-    if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current)
-    autoConfirmTimerRef.current = setTimeout(() => handleConfirmRef.current(), delay)
-    return () => { if (autoConfirmTimerRef.current) clearTimeout(autoConfirmTimerRef.current) }
-  }, [gameState.phase, isGladiator])
-
-  const isKerriMode  = gameState.mode === 'kerri'
-  const isKerriCrowd = isKerriMode && !isGladiator
+    if (gameState.betConfirmed) setBetConfirmed(true)
+  }, [gameState.betConfirmed])
 
   // ── производное ──────────────────────────────────────────────────────────
-  const allPlacedIds     = new Set([...mainPlacedIds, ...bankPlacedIds])
   // в порядке выкладки: от него зависит место фишки в кучке (Set хранит порядок вставки)
-  const chipById         = new Map(myStack.map(c => [c.id, c]))
-  const inOrder          = (ids: Set<string>) => [...ids].flatMap(id => chipById.get(id) ?? [])
-  const mainPlacedChips  = inOrder(mainPlacedIds)
-  const bankPlacedChips  = inOrder(bankPlacedIds)
-  const stdPlacedChips   = inOrder(stdPlacedIds)
+  const chipById     = new Map(myStack.map(c => [c.id, c]))
+  const placedChips  = [...placedIds].flatMap(id => chipById.get(id) ?? [])
   // места в кучке не зависят от того, что убрали: фишки не переезжают по спирали
-  const stdSlots         = useStableSlots(stdPlacedChips)
-  const mainSlots        = useStableSlots(mainPlacedChips)
-  const bankSlots        = useStableSlots(bankPlacedChips)
+  const slots        = useStableSlots(placedChips)
   const sum = (cs: PhysicalChip[]) => cs.reduce((a, c) => a + c.denom, 0)
-  const mainBetAmt  = sum(mainPlacedChips)
-  const bankBetAmt  = sum(bankPlacedChips)
-  const stdBetAmt   = sum(stdPlacedChips)
-  // Черновик ставки соперникам; в керри — с выделенным исходом: не подтвердишь — сервер поставит блайнд туда
-  const stage = (payload: { chips: number[] }, target = mainTarget) =>
-    socket.emit('stage_chip', isKerriCrowd && target ? { ...payload, target } : payload)
+  const betAmt = sum(placedChips)
 
-  // ── «для всех» ───────────────────────────────────────────────────────────
-  const stdPlace = (denom: ChipValue) => {
-    if (betConfirmed || quick.current) return
-    const unplaced = myStack.filter(c => c.denom === denom && !stdPlacedIds.has(c.id))
+  /** Черновик соперникам и серверу (не подтвердишь — поставится он); в керри — с вариантом. */
+  const stage = (chips: PhysicalChip[], opt = option) =>
+    socket.emit('stage_chip', isKerriCrowd && opt !== null ? { chips: chips.map(c => c.denom), option: opt } : { chips: chips.map(c => c.denom) })
+
+  const place = (denom: ChipValue) => {
+    if (betConfirmed || quick.current || isGladiator) return
+    if (isKerriCrowd && option === null) return
+    const unplaced = myStack.filter(c => c.denom === denom && !placedIds.has(c.id))
     const chip = unplaced[unplaced.length - 1]
     if (!chip) return
-    setStdPlacedIds(prev => new Set([...prev, chip.id]))
-    stage({ chips: [...stdPlacedChips, chip].map(c => c.denom) })
+    setPlacedIds(prev => new Set([...prev, chip.id]))
+    stage([...placedChips, chip])
   }
 
-  const stdRecall = (id: string) => {
+  const recall = (id: string) => {
     if (betConfirmed || quick.current) return
-    setStdPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-    stage({ chips: stdPlacedChips.filter(c => c.id !== id).map(c => c.denom) })
+    setPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
+    stage(placedChips.filter(c => c.id !== id))
   }
 
-  // ── толпа керри ──────────────────────────────────────────────────────────
-  const kerriPlace = (denom: ChipValue) => {
-    if (betConfirmed || quick.current || activeZone === null) return
-    if (activeZone === 'main' && !mainTarget) return
-    if (activeZone === 'bank' && bankTarget === null) return
-    const unplacedK = myStack.filter(c => c.denom === denom && !allPlacedIds.has(c.id))
-    const chip = unplacedK[unplacedK.length - 1]
-    if (!chip) return
-    const newMain = activeZone === 'main' ? [...mainPlacedChips, chip] : mainPlacedChips
-    const newBank = activeZone === 'bank' ? [...bankPlacedChips, chip] : bankPlacedChips
-    if (activeZone === 'main') {
-      setMainPlacedIds(prev => new Set([...prev, chip.id]))
-    } else {
-      setBankPlacedIds(prev => new Set([...prev, chip.id]))
-    }
-    stage({ chips: [...newMain, ...newBank].map(c => c.denom) })
+  /** Толпа керри: вариант, на который ставлю (кучка переезжает на него). */
+  const selectOption = (i: number) => {
+    if (betConfirmed || !isKerriCrowd || i < 0 || i >= options.length) return
+    setOption(i)
+    stage(quick.current?.pick ?? placedChips, i)
   }
 
-  const kerriRecall = (id: string) => {
-    if (betConfirmed || quick.current) return
-    if (mainPlacedIds.has(id)) {
-      setMainPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-      stage({ chips: [...mainPlacedChips.filter(c => c.id !== id), ...bankPlacedChips].map(c => c.denom) })
-    } else if (bankPlacedIds.has(id)) {
-      setBankPlacedIds(prev => { const s = new Set(prev); s.delete(id); return s })
-      stage({ chips: [...mainPlacedChips, ...bankPlacedChips.filter(c => c.id !== id)].map(c => c.denom) })
-    }
-  }
-
-  const selectMainZone = (target: MainSide) => {
-    if (betConfirmed) return
-    if (mainTarget !== target) {
-      stopQuick(false)
-      setMainPlacedIds(new Set())
-      stage({ chips: bankPlacedChips.map(c => c.denom) }, target)
-    } else {
-      stage({ chips: [...mainPlacedChips, ...bankPlacedChips].map(c => c.denom) }, target)
-    }
-    setMainTarget(target)
-    setActiveZone('main')
-  }
-
-  const selectBankZone = (idx: number) => {
-    if (betConfirmed) return
-    if (bankTarget !== null && bankTarget !== idx) {
-      setBankPlacedIds(new Set())
-      stage({ chips: mainPlacedChips.map(c => c.denom) })
-    }
-    if (bankTarget === idx) {
-      if (bankPlacedIds.size === 0) {
-        setBankTarget(null)
-        if (activeZone === 'bank') setActiveZone(mainTarget ? 'main' : null)
-      } else {
-        setActiveZone('bank')
-      }
-    } else {
-      setBankTarget(idx)
-      setActiveZone('bank')
-    }
-  }
-
-  /** Фишку номинала — в выбранную зону (в керри — в активную: исход или квиток). */
-  const place = (denom: ChipValue) => (isKerriCrowd ? kerriPlace(denom) : stdPlace(denom))
-  const recall = (id: string) => (isKerriCrowd ? kerriRecall(id) : stdRecall(id))
-
-  /** Отмена: всё выложенное — обратно в стопку (исход и квиток в керри остаются выбранными). */
+  /** Отмена: всё выложенное — обратно в стопку (вариант остаётся выбранным). */
   const clearDraft = () => {
     if (betConfirmed) return
     stopQuick(false)
-    setStdPlacedIds(new Set())
-    setMainPlacedIds(new Set())
-    setBankPlacedIds(new Set())
-    stage({ chips: [] })
+    setPlacedIds(new Set())
+    stage([])
   }
 
   // ── блайнд ───────────────────────────────────────────────────────────────
-  // блайнд («для всех» и толпа керри): меньше него ставку не подтвердить; не подтвердил — сервер поставит блайнд сам
-  // (в керри — на выделенный исход, а не выбран — на «ответит»)
+  // меньше блайнда ставку не подтвердить; не подтвердил — сервер поставит стол (если не меньше) или блайнд
   const myBlind = !isGladiator && me?.blind && me.chips >= me.blind ? me.blind : 0
 
   // ── Быстрая ставка: min / 25% / 50% / all-in ─────────────────────────────
-  // Заменяет выложенное (в керри — основную ставку) на нужную сумму: фишки берутся жадно, от крупных, и летят
-  // каскадом. Ставка уходит только по «Ставлю».
+  // Заменяет выложенное на нужную сумму: фишки берутся жадно, от крупных, и летят каскадом. Ставка уходит только по
+  // «Ставлю» (или сама в конце ставок — она уже на столе).
   const balance = me?.chips ?? 0
   const quickAmounts = (() => {
-    const free = balance - (isKerriCrowd ? bankBetAmt : 0)
     const ceil10 = (x: number) => Math.ceil(x / 10) * 10
     const min = Math.max(10, myBlind)
-    const clamp = (x: number) => Math.min(free, Math.max(min, ceil10(x)))
+    const clamp = (x: number) => Math.min(balance, Math.max(min, ceil10(x)))
     return [
-      { label: 'min', amount: Math.min(free, min) },
+      { label: 'min', amount: Math.min(balance, min) },
       { label: '25%', amount: clamp(balance * 0.25) },
       { label: '50%', amount: clamp(balance * 0.5) },
-      { label: 'all-in', amount: free },
+      { label: 'all-in', amount: balance },
     ]
   })()
   const quickBet = (target: number) => {
-    if (betConfirmed || target <= 0) return
-    if (isKerriCrowd && !mainTarget) return
+    if (betConfirmed || target <= 0 || isGladiator) return
+    if (isKerriCrowd && option === null) return
     stopQuick(false)
-    const busy = isKerriCrowd ? bankPlacedIds : new Set<string>()
-    const pool = myStack.filter(c => !busy.has(c.id)).sort((a, b) => b.denom - a.denom)
+    const pool = [...myStack].sort((a, b) => b.denom - a.denom)
     let rest = target
     const pick: PhysicalChip[] = []
     for (const c of pool) if (c.denom <= rest) { pick.push(c); rest -= c.denom }
@@ -224,78 +154,65 @@ export function useBetting() {
       const extra = pool.filter(c => !pick.includes(c)).reverse().find(c => c.denom >= rest)
       if (extra) pick.push(extra)
     }
-    const setIds = isKerriCrowd ? setMainPlacedIds : setStdPlacedIds
-    setIds(new Set())
-    if (isKerriCrowd) setActiveZone('main')
+    setPlacedIds(new Set())
     if (pick.length) {
-      const q = { timers: [] as number[], pick, kerri: isKerriCrowd }
+      const q = { timers: [] as number[], pick }
       quick.current = q
       setDealing(true)
       pick.forEach((c, i) => q.timers.push(window.setTimeout(() => {
-        setIds(prev => new Set([...prev, c.id]))
+        setPlacedIds(prev => new Set([...prev, c.id]))
         if (i === pick.length - 1 && quick.current === q) { quick.current = null; setDealing(false) }
       }, 60 + i * 55)))
     }
-    stage({ chips: [...pick.map(c => c.denom), ...(isKerriCrowd ? bankPlacedChips.map(c => c.denom) : [])] })
+    stage(pick)
   }
 
   // ── Подтверждение ────────────────────────────────────────────────────────
   const handleConfirm = () => {
     if (betConfirmed) return
     // быстрая ставка ещё раскладывается — подтверждаем всю выбранную сумму, а не то, что успело долететь
-    const pick = stopQuick(true)
-    const main = pick && isKerriCrowd ? pick : mainPlacedChips
-    const std = pick && !isKerriCrowd ? pick : stdPlacedChips
-    const mainAmt = sum(main)
-    const stdAmt = sum(std)
-    const ok = isKerriCrowd ? mainTarget !== null && mainAmt > 0 && mainAmt >= myBlind : stdAmt > 0 && stdAmt >= myBlind
-    if (!ok) return
+    const chips = stopQuick(true) ?? placedChips
+    const amount = sum(chips)
+    if (amount <= 0 || amount < myBlind) return
+    if (isKerriCrowd && option === null) return
     markBetSent()
-    if (isKerriCrowd) {
-      const withBank = bankTarget !== null && bankBetAmt > 0
-      socket.emit('place_bet', {
-        amount: mainAmt,
-        target: mainTarget,
-        // те же фишки и в том же порядке, что в черновике (stage_chip): основная, затем банк — у соперников ничего не пропадает
-        chips: [...main, ...(withBank ? bankPlacedChips : [])].map(c => c.denom),
-        ...(withBank ? { bankBet: { optionIndex: bankTarget, amount: bankBetAmt } } : {}),
-      })
-    } else {
-      socket.emit('place_bet', { amount: stdAmt, chips: std.map(c => c.denom) })
-    }
+    socket.emit('place_bet', {
+      amount,
+      // те же фишки и в том же порядке, что в черновике (stage_chip): у соперников ничего не прыгает
+      chips: chips.map(c => c.denom),
+      ...(isKerriCrowd ? { option } : {}),
+    })
     setBetConfirmed(true)
   }
 
-  // свежая версия на каждый рендер — авто-подтверждение по таймеру зовёт актуальную
-  handleConfirmRef.current = handleConfirm
-
-  // сколько всего на кону у исхода: подтверждённые ставки соперников + своя
-  const sideTotal = (target: MainSide) =>
-    gameState.players.reduce((a, p) => a + (p.id !== myId && p.betTarget === target ? p.currentBet : 0), 0)
-    + (mainTarget === target ? mainBetAmt : 0)
+  /** сколько на кону у варианта (керри): подтверждённые ставки соперников + черновики + своя */
+  const stagedBets = useGameStore(s => s.stagedBets)
+  const stagedOptions = useGameStore(s => s.stagedOptions)
+  const optionTotal = (i: number) =>
+    gameState.players.reduce((a, p) => {
+      if (p.id === myId) return a
+      if (p.betOption === i && p.currentBet > 0) return a + p.currentBet
+      if (stagedOptions[p.id] === i && p.currentBet === 0) return a + (stagedBets[p.id] ?? []).reduce((x, y) => x + y, 0)
+      return a
+    }, 0) + (option === i ? betAmt : 0)
 
   /** «Ставлю $N» можно показать */
-  const canConfirm = !isGladiator && !betConfirmed && !dealing && (isKerriCrowd
-    ? mainTarget !== null && mainBetAmt > 0 && mainBetAmt >= myBlind
-    : stdPlacedIds.size > 0 && stdBetAmt >= myBlind)
+  const canConfirm = !isGladiator && !betConfirmed && !dealing && placedIds.size > 0 && betAmt >= myBlind
+    && (!isKerriCrowd || option !== null)
   /** подпись блайнда — пока ставка до него не дотягивает */
-  const showBlind = !isGladiator && !betConfirmed && !dealing && myBlind > 0 &&
-    (isKerriCrowd ? !(mainTarget !== null && mainBetAmt >= myBlind) : stdBetAmt < myBlind)
-  /** сумма на кнопке «Ставлю» (в керри — основная + банк) */
-  const confirmAmount = isKerriCrowd ? mainBetAmt + bankBetAmt : stdBetAmt
+  const showBlind = !isGladiator && !betConfirmed && !dealing && myBlind > 0 && betAmt < myBlind
   /** что лежит в черновике (для «Отмены») */
-  const hasDraft = isKerriCrowd ? mainPlacedIds.size + bankPlacedIds.size > 0 : stdPlacedIds.size > 0
+  const hasDraft = placedIds.size > 0
 
   return {
     gameState, myId, me, isGladiator, isKerriMode, isKerriCrowd,
     myStack, betConfirmed, dealing,
-    stdPlacedIds, stdPlacedChips, stdSlots, stdBetAmt,
-    mainTarget, bankTarget, activeZone, allPlacedIds,
-    mainPlacedChips, bankPlacedChips, mainSlots, bankSlots, mainBetAmt, bankBetAmt,
+    placedIds, placedChips, slots, betAmt,
+    options, option, correctIndex, selectOption, optionTotal,
     myBlind, balance, quickAmounts,
-    stdPlace, stdRecall, kerriPlace, kerriRecall, selectMainZone, selectBankZone, place, recall, clearDraft,
-    quickBet, handleConfirm, sideTotal,
-    canConfirm, showBlind, confirmAmount, hasDraft,
+    place, recall, clearDraft,
+    quickBet, handleConfirm,
+    canConfirm, showBlind, confirmAmount: betAmt, hasDraft,
   }
 }
 

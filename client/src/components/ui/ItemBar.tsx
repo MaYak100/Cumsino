@@ -31,9 +31,10 @@ function blocker(id: ItemId, phase: string, mode: string, isGladiator: boolean, 
   const def = ITEMS[id]
   if (def.usePhases === 'passive') return 'Работает сам'
   if (settled) return 'Раунд уже посчитан'
+  // в керри — только блинк, и только у самого керри
   if (mode === 'kerri') {
-    if (isGladiator && id !== 'blink') return 'Керри может только блинк'
-    if (!isGladiator && id !== 'bkb') return 'В керри толпе доступен только BKB'
+    if (id !== 'blink') return 'В керри — только блинк'
+    if (!isGladiator) return 'Блинк — у керри, толпа только ставит'
   }
   if (!def.modes.includes(mode as never)) return 'Не в этом режиме'
   if (!def.usePhases.includes(phase as never)) {

@@ -61,6 +61,8 @@ export function TableFelt({ blurred }: Props) {
 
   return (
     <motion.div
+      // первый кадр (загрузка страницы, возврат после обрыва) — сразу в нужном виде, без вспышки резкого стола
+      initial={false}
       animate={{
         opacity: blurred ? 0.13 : 1,
         filter: blurred ? 'blur(14px)' : 'blur(0px)',

@@ -9,7 +9,7 @@ export function QuickButton({ label, amount, disabled, onClick }: { label: strin
       onClick={disabled ? undefined : onClick}
       whileHover={disabled ? undefined : { y: -2 }}
       whileTap={disabled ? undefined : { scale: 0.92 }}
-      title={disabled ? 'Сначала выбери исход' : undefined}
+      title={disabled ? 'Сначала выбери вариант' : undefined}
       style={{
         width: 80, height: 40, borderRadius: 10, cursor: disabled ? 'default' : 'pointer',
         background: C.panel, border: `1.5px solid ${label === 'all-in' ? C.hot : C.line}`,

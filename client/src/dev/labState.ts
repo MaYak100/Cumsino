@@ -98,7 +98,10 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
     const isKerri = p.id === gladiatorId
     const chips = 250 + Math.floor(rnd() * 60) * 10
     const bet = isKerri || gm === 'closest' ? 0 : [50, 100, 150, 200][Math.floor(rnd() * 4)]
-    const target: 'win' | 'lose' | undefined = kerri && !isKerri ? (rnd() < 0.6 ? 'win' : 'lose') : undefined
+    // толпа керри ставит на вариант, который выберет керри: чаще на верный
+    const betOption = kerri && !isKerri && options.length
+      ? (rnd() < 0.55 ? Math.max(0, options.indexOf(q.answer ?? '')) : Math.floor(rnd() * options.length))
+      : undefined
     let answer: string | number | undefined
     if (gm === 'closest') answer = me && myAnswer !== undefined ? myAnswer : guessNumber(q.numericAnswer ?? 0, rnd)
     else if (!kerri || isKerri) {
@@ -106,7 +109,7 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
         : rnd() < 0.55 || !wrong.length ? q.answer : wrong[Math.floor(rnd() * wrong.length)]
     }
     return {
-      ...p, chips, currentBet: bet, betTarget: target, betChips: bet ? decomposeBet(bet) : undefined,
+      ...p, chips, currentBet: bet, betOption, betChips: bet ? decomposeBet(bet) : undefined,
       answer, hasAnswered: false, friendId: friends[i],
     }
   })
@@ -118,9 +121,9 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
   // ставки видны с BETTING: соперники уже поставили, «я» ставлю сам на столе
   const shown = players.map(p => {
     const me = p.id === MY_ID
-    if (stage === 'announce') return { ...p, currentBet: 0, betTarget: undefined, betChips: undefined, answer: undefined }
+    if (stage === 'announce') return { ...p, currentBet: 0, betOption: undefined, betChips: undefined, answer: undefined }
     if (stage === 'betting') {
-      return me ? { ...p, currentBet: 0, betTarget: undefined, betChips: undefined, answer: undefined } : { ...p, answer: undefined }
+      return me ? { ...p, currentBet: 0, betOption: undefined, betChips: undefined, answer: undefined } : { ...p, answer: undefined }
     }
     return { ...p, answer: revealed ? p.answer : undefined, hasAnswered: revealed && p.answer !== undefined }
   })
@@ -163,9 +166,7 @@ export function labState({ q, mode, stage, count, friends, myAnswer }: LabInput)
     answeredIds,
     gladiatorHoverIndex: null,
     stagedBets: {},
-    bankBets: {},
-    bribePrompt: null,
-    bribeEliminatedIdx: null,
+    stagedOptions: {},
     // round_results приходит в конце QUESTION и живёт до следующего ANNOUNCE
     roundResults: results,
     roundCorrectAnswer: revealed ? correct : null,
@@ -179,7 +180,7 @@ function decomposeBet(amount: number): number[] {
   return ([500, 100, 50, 20, 10] as const).flatMap(d => Array<number>(b[d]).fill(d))
 }
 
-/** Итоги раунда по правилам GameRoom.calculateResults (без банковых ставок керри). */
+/** Итоги раунда по правилам GameRoom.calculateResults (без молнии, серий и предметов). */
 function roundResults(gm: GameMode, q: Question, players: Player[], gladiatorId?: string): RoundResult[] {
   const row = (playerId: string, delta: number, sources: RoundResult['sources']): RoundResult =>
     ({ playerId, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources })
@@ -210,9 +211,11 @@ function roundResults(gm: GameMode, q: Question, players: Player[], gladiatorId?
   if (gm === 'kerri') {
     const kerri = players.find(p => p.id === gladiatorId)
     const ok = kerri?.answer === q.answer
+    // выигрывают поставившие на вариант, который выбрал керри
+    const pick = kerri?.answer !== undefined ? (q.options ?? []).indexOf(String(kerri.answer)) : -1
     const crowd = players.filter(p => p.id !== gladiatorId && p.currentBet > 0)
-    const win = crowd.filter(p => (p.betTarget === 'win') === ok)
-    const lose = crowd.filter(p => (p.betTarget === 'win') !== ok)
+    const win = crowd.filter(p => pick >= 0 && p.betOption === pick)
+    const lose = crowd.filter(p => !(pick >= 0 && p.betOption === pick))
     const deltas = win.length && lose.length ? pool(win, lose) : new Map<string, number>()
     return players.map(p => {
       if (p.id === gladiatorId) {
@@ -220,8 +223,8 @@ function roundResults(gm: GameMode, q: Question, players: Player[], gladiatorId?
         return row(p.id, d, [{ label: ok ? 'Закеррил' : 'Не закеррил', delta: d }])
       }
       const d = deltas.get(p.id) ?? 0
-      const label = !lose.length ? 'Все угадали исход' : !win.length ? 'Никто не угадал исход'
-        : win.includes(p) ? 'Угадал исход' : 'Ошибся с исходом'
+      const label = pick < 0 ? 'Керри не ответил' : !lose.length ? 'Все угадали выбор керри'
+        : !win.length ? 'Никто не угадал выбор керри' : win.includes(p) ? 'Угадал выбор керри' : 'Не угадал выбор керри'
       return row(p.id, d, p.currentBet ? [{ label, delta: d }] : [])
     })
   }

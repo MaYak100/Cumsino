@@ -15,3 +15,16 @@ export function BotMark() {
     </span>
   )
 }
+
+/** Связь у игрока пропала: он в игре (фишки и ставка на месте) и вернётся сам — его не ждут. */
+export function OfflineMark({ p }: { p?: Pick<Player, 'offline'> }) {
+  if (!p?.offline) return null
+  return (
+    <span className="font-bold rounded shrink-0" title="Нет связи — вернётся тем же игроком" style={{
+      fontSize: '0.625rem', lineHeight: 1.35, padding: '0 0.25rem',
+      border: `1px solid ${C.hot}`, color: C.hot, verticalAlign: 'middle',
+    }}>
+      нет связи
+    </span>
+  )
+}

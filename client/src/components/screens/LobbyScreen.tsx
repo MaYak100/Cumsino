@@ -6,7 +6,7 @@ import { Logo } from '../ui/Logo'
 import { Sticker } from '../ui/Sticker'
 import { WhoAreYou } from '../ui/WhoAreYou'
 import { Money } from '../ui/Money'
-import { BotMark, needsBotMark } from '../ui/BotMark'
+import { BotMark, needsBotMark, OfflineMark } from '../ui/BotMark'
 
 /** Наклон от имени — у каждого свой и не меняется между рендерами. */
 const tilt = (s: string) => ((s.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 9) - 4) * 0.9
@@ -58,6 +58,7 @@ export function LobbyScreen() {
                     <div className="flex items-center gap-1.5 font-bold text-[1.0625rem] leading-tight max-w-[12.5rem]">
                       <span className="truncate">{p.name}</span>
                       {needsBotMark(p) && <BotMark />}
+                      <OfflineMark p={p} />
                       {p.id === gameState.hostId && <span style={{ opacity: 0.55 }} className="font-semibold text-[0.8125rem] shrink-0">хост</span>}
                     </div>
                     {friend && friend !== p.name && (

@@ -26,9 +26,9 @@ export interface Player {
   name: string
   chips: number
   currentBet: number
-  betTarget?: 'win' | 'lose'
-  /** номиналы фишек на сукне в порядке выкладки (как в черновике stage_chip); у толпы керри — основная ставка,
-   *  затем банк-ставка, т. е. сумма может быть больше currentBet */
+  /** толпа керри: на какой вариант (индекс options) поставил — банк делят поставившие на выбор керри */
+  betOption?: number
+  /** номиналы фишек на сукне в порядке выкладки (как в черновике stage_chip) */
   betChips?: number[]
   answer?: string | number | string[]
   hasAnswered: boolean
@@ -48,6 +48,8 @@ export interface Player {
   spectator?: boolean
   /** бот для соло-тестов (add_bot в лобби): играет сам, в оценках и «кто ты» не участвует */
   bot?: true
+  /** связь потеряна: игрок остаётся в игре со всем своим (фишки, предметы, ставка), вернётся по токену */
+  offline?: true
 }
 
 export type PublicEffect = 'bkb' | 'hex' | 'smoke' | 'aegis'
@@ -107,6 +109,17 @@ export interface GameState {
   hexTimeLeft?: number
   /** варианты, убранные мантой (индексы options) */
   removedOptions?: number[]
+  /** свой ответ в этом раунде (чужие — только после расчёта, в players[].answer) */
+  myAnswer?: string | number
+  /** свой черновик на столе (BETTING): фишки и вариант керри — экран после переподключения раскладывает их снова */
+  myStagedChips?: number[]
+  myStagedOption?: number
+  /** своя ставка подтверждена в этом раунде */
+  betConfirmed?: boolean
+  /** что показал свой гем: targetId → ответ цели (null — пока не ответил / в смоке) */
+  gemResults?: Record<string, { answer: string | number | null; smoked: boolean }>
+  /** итоги посчитанного раунда (показ ответа и REVEAL) — те же, что в round_results: вернувшийся их не пропустит */
+  roundResults?: RoundResultsPayload
 }
 
 export interface RoundResult {
@@ -117,9 +130,12 @@ export interface RoundResult {
 }
 
 // Socket event payloads — Client → Server
-export interface JoinGamePayload { name: string; gameCode: string }
-/** chips — все фишки игрока на сукне (с банк-ставкой: сначала основная, потом банк) — сервер хранит их в betChips */
-export interface PlaceBetPayload { amount: number; target?: 'win' | 'lose'; chips?: number[]; bankBet?: { optionIndex: number; amount: number } }
+/** token — секрет сессии игрока (клиент хранит в localStorage): с ним после обрыва возвращаешься тем же игроком */
+export interface JoinGamePayload { name: string; gameCode: string; token?: string }
+/** chips — фишки на сукне в порядке выкладки (сервер хранит их в betChips); option — толпа керри: индекс варианта */
+export interface PlaceBetPayload { amount: number; option?: number; chips?: number[] }
+/** черновик на столе: фишки и (толпа керри) вариант — сервер помнит его, в конце ставок ставится он */
+export interface StageChipPayload { chips: number[]; option?: number }
 /** blink — сменить уже отправленный ответ (тратит блинк) */
 export interface SubmitAnswerPayload { answer: string | number | string[]; blink?: boolean }
 export interface BuyItemPayload { item: ItemId }
@@ -143,9 +159,9 @@ export interface JoinErrorPayload {
   reason: 'room_full' | 'server_full' | 'bad_name' | 'bad_code'
   message: string
 }
-export interface BetUpdatedPayload { playerId: string; amount: number; target?: 'win' | 'lose'; chips?: number[] }
-/** банк-ставка толпы — только толпе керри (не самому керри и не зрителям) */
-export interface BankBetUpdatedPayload { playerId: string; optionIndex: number; amount: number }
+/** вход принят: playerId — свой id в комнате (не socket.id: он меняется при каждом переподключении) */
+export interface JoinedPayload { playerId: string }
+export interface BetUpdatedPayload { playerId: string; amount: number; option?: number; chips?: number[] }
 export interface PlayerAnsweredPayload { playerId: string }
 export interface GladiatorHoveringPayload { optionIndex: number | null }
 export interface RoundResultsPayload {
@@ -167,10 +183,6 @@ export interface ItemUsedPayload { playerId: string; item: ItemId; targetId?: st
 /** результат гема — только тому, кто смотрел: выбранный сейчас ответ цели (null — ещё не ответил), smoked — цель в смоке */
 export interface GemResultPayload { targetId: string; answer: string | number | null; smoked: boolean }
 export interface MantaResultPayload { optionIndex: number }
-export interface ChipStagedPayload { playerId: string; chips: number[] }
-
-export interface BribePromptPayload { amount: number; cycleIndex: number }
-export interface BribeMsgPayload {
-  type: 'helping' | 'betrayed' | 'helped'
-  eliminatedOptionIndex?: number
-}
+export interface ChipStagedPayload { playerId: string; chips: number[]; option?: number }
+/** журнал связи клиента (после переподключения): почему оборвалось и сколько не было — в лог сервера */
+export interface ClientLogPayload { reason: string; downMs: number; transport?: string; hidden?: boolean }

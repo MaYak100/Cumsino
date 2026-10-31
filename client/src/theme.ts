@@ -37,7 +37,7 @@ export const MODE: Record<GameMode, { name: string; short: string; desc: string;
   kerri: {
     name: 'Керри',
     short: 'Керри',
-    desc: 'Отвечает один. Остальные видят ответ и ставят: вывезет или завалит.',
+    desc: 'Отвечает один. Остальные видят верный ответ и ставят, какой вариант он выберет.',
     color: C.hot,
   },
   closest: {

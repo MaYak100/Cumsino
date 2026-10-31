@@ -4,11 +4,13 @@ interface AnswerEntry { id: string; answer: number }
 
 /**
  * Спец-режим КТО БЛИЖЕ: победитель(и) получают бонус из системы.
- * При ничьей бонус делится поровну (округление вниз до кратного 10).
+ * При ничьей бонус делится поровну (округление вниз до кратного 10). winnerBonus растёт с каждым раундом режима
+ * (closestWinnerBonus), бонус за точное — нет.
  */
 export function distributeClosest(
   players: AnswerEntry[],
-  correctAnswer: number
+  correctAnswer: number,
+  winnerBonus: number = CLOSEST_WINNER_BONUS,
 ): Map<string, number> {
   const result = new Map<string, number>(players.map(p => [p.id, 0]))
 
@@ -24,7 +26,7 @@ export function distributeClosest(
   const winners = diffs.filter(d => d.diff === minDiff)
   const isExact = winners.every(w => w.exact)
 
-  const totalBonus = CLOSEST_WINNER_BONUS + (isExact ? CLOSEST_EXACT_BONUS : 0)
+  const totalBonus = winnerBonus + (isExact ? CLOSEST_EXACT_BONUS : 0)
   const perWinner = Math.floor(totalBonus / winners.length / 10) * 10
 
   for (const winner of winners) {

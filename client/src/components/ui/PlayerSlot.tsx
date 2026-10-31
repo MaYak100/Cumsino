@@ -11,7 +11,7 @@ import { Money } from './Money'
 import { Marks } from './AnswerProgress'
 import { StreakFlame } from './StreakFlame'
 import { pressable } from '../../lib/pressable'
-import { BotMark, needsBotMark } from './BotMark'
+import { BotMark, needsBotMark, OfflineMark } from './BotMark'
 
 const UNIT_W = 200
 const CHIP_ROW_H = 52
@@ -109,6 +109,7 @@ export function NamePlate({ name, isMe, balance, player }: { name: string; isMe:
       }}>
         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>{name}</span>
         {needsBotMark(player) && <BotMark />}
+        <OfflineMark p={player} />
       </span>
       {/* блайнд, эффекты — бумажной биркой на правом верхнем углу: имя не теснят, справа место кнопкам быстрой ставки */}
       {player && ((player.effects?.length ?? 0) > 0 || player.bigBlind) && (

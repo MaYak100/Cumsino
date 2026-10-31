@@ -173,7 +173,6 @@ export function DevPage() {
       connect: () => {},
       startGame: () => {},
       sendHover: () => {},
-      payBribe: () => {},
       submitAnswer: answer => setMyAnswer(answer as string | number),
       identify: friendId => useGameStore.setState(s => s.gameState ? {
         gameState: { ...s.gameState, players: s.gameState.players.map(p => p.id === MY_ID ? { ...p, friendId: friendId ?? undefined } : p) },
