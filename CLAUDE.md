@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (478 тестов)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (491)
+npm run test:server                     # vitest сервера (483 теста)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (496)
 npx vitest run server/src/game/__tests__/sessions.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -121,7 +121,7 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
     `advanceFromQuestion()`: `revealing = true` (идемпотентно: поздний ответ / дисконнект не считают раунд второй
     раз), `calculateResults()` = `baseResults()` + `applyBonuses()` (молния → серия → BKB → аегис; серии и аегисы в
     `pending`, применяет `commitSettlement()` — тесты могут звать `calculateResults()` повторно), `applyDeltas`
-    (флор 0), `reportRound()` (показ для оценок), `game_state` и `round_results`; фаза остаётся QUESTION ещё 5.5 с
+    (флор 0), `reportRound()` (показ для оценок; варианты в порядке показа и каждый ответ — `q_answer`), `game_state` и `round_results`; фаза остаётся QUESTION ещё 5.5 с
     (7.5 с с `optionNotes`) — клиенты показывают ответ — потом REVEAL. Ошибка расчёта — нулевые итоги «Ошибка расчёта».
   - **Керри — «мешок»** (`kerriBag`): каждый участник по разу в случайном порядке, потом новый круг из всех. Ушедший
     выпадает из мешка; вошедший посреди круга добавляется в текущий круг (к тем, кто ещё не был керри), вошедший
@@ -190,7 +190,7 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
 - **`game/questions/`** — система вопросов ([docs/questions/system.md](docs/questions/system.md)): `library.ts`
   (банк, статистика, друзья, `categories.ts`), `picker.ts` (`RoomQuestions`: режим → категория → подкатегория по
   сглаженным весам `smooth.ts` и множителям оценок → колода), `stepOptions.ts` (варианты числа по шагу),
-  `history.ts` (колоды, кредиты, оценки, архив), `pgBackend.ts` (Neon), `setup.ts` (`.env`, 4 попытки загрузки
+  `history.ts` (колоды, кредиты, оценки, архив, показы и ответы), `pgBackend.ts` (Neon; `q_showing` — показ с вариантами в порядке показа, `q_answer` — каждый ответ человека и выбор толпы керри), `setup.ts` (`.env`, 4 попытки загрузки
   базы), `friends.ts`. **`game/stats/statQuestions.ts`** — вопросы на статистике STRATZ / OpenDota
   ([docs/questions/stratz-research.md](docs/questions/stratz-research.md), раздел 5).
 
@@ -384,7 +384,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 491 тест из корня (`npx vitest run --config server/vitest.config.ts`), из них 478 — `npm run test:server`.
+не нужно). 496 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 483 — `npm run test:server`.
 Живой прогон сессий — `node scripts/e2e_sessions.mjs [url]` при запущенном сервере (по умолчанию порт 3002):
 настоящий socket.io-client — обрыв, возврат, стол в конце ставок, вторая вкладка, вход по имени, хост. Повторять после
 правок `GameEngine` / `handlers` / клиентского входа.
@@ -395,13 +395,13 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 | `game/__tests__/RoundSelector.test.ts` | цикл all → kerri → closest |
 | `game/__tests__/GameRoom.test.ts` (80) | игроки, расчёт по режимам (керри — ставки на вариант, делят угадавшие выбор керри, в т.ч. неверный), флор 0, победитель, `gladiatorAnswer`, вариант толпы — только толпе, `optionNotes`/`comment` только в `round_results` и пауза перед REVEAL, окно показа ответа, ставки и ответы, уход игроков (керри ушёл в QUESTION — отмена), блок «аудит» (хост, керри сбежал, проверка ответов, повторный join, ошибка пикера) |
 | `game/__tests__/items.test.ts` (111) | блайнды (в т.ч. керри, принудительный на выделенный вариант / верный), молния и серия от выигрыша (вниз до $10, без проигравших — нет), лавка (первая после «кто ближе», «Готов», таймер), линейные цены, все предметы (BKB — сейв от цены покупки, аегис — не выше баланса перед раундом, обход «купил на последние»; гем — первый ответ думающего, блинк после — нет), окно 1 с после ответа, керри (только блинк керри), «кто ближе», подачка, края, вошедший посреди раунда |
-| `game/__tests__/review.test.ts` (35) | утечки до расчёта по фазе × роли (id, notes, `gladiatorAnswer`, вариант толпы в `bet_updated` / `chip_staged` / стейте, чужие ответы, лавка, `token`), оценка по ключу / id, `present` и `settle`, зрители и отмена раунда, BETTING без ставящих, лимиты ставок и черновика, сброс раунда, сумма `sources` = delta, граница аегиса, победитель (точная ничья — играем дальше), хекс, ошибки не вешают комнату, без лишних `game_state` |
+| `game/__tests__/review.test.ts` (38) | утечки до расчёта по фазе × роли (id, notes, `gladiatorAnswer`, вариант толпы в `bet_updated` / `chip_staged` / стейте, чужие ответы, лавка, `token`), оценка по ключу / id, `present` и `settle`, зрители и отмена раунда, BETTING без ставящих, лимиты ставок и черновика, сброс раунда, сумма `sources` = delta, граница аегиса, победитель (точная ничья — играем дальше), хекс, ошибки не вешают комнату, без лишних `game_state`; `report`: варианты в порядке показа и каждый ответ (выбор, время, блинк / хекс / смок, ставка, выбор толпы керри; без ботов, зрителей и молчавших) |
 | `game/__tests__/rules.test.ts` (19) | решения 2026-10-30: возврат предметов отменённого раунда (керри сбежал в BETTING / QUESTION, ошибка расчёта), «мешок» керри (круг, ушедший, вошедший, зритель, не в сети, не дважды подряд), боты (хост / лобби / лимит / имена, без стейта, полный цикл режимов сами, не в оценках, комната из одних ботов закрывается, таймеры), «играем впервые» (по два предмета за лавку, только хост и лобби) |
 | `game/__tests__/sessions.test.ts` (29) | 2026-10-31: дедлайн фазы в стейте (не меняется внутри фазы, хекс — свой), не в сети — всё своё на месте, ждут ещё 5 с (перезагрузка не закрывает фазу), возврат по токену / по имени (только не в сети), место освобождается через минуту, уход из лобби к старту, хост к человеку в сети, не в сети не ждём (лавка, ставки — за него стол / блайнд, ответы), черновик на столе в конце ставок, керри по вариантам (неверный выбор, не ответил — серия толпы цела), растущие бонусы, подачка; движок: `joined` + стейт, канал `pl:<id>`, `session_replaced`, пустая комната живёт 10 мин, `leave_game` |
 | `game/__tests__/GameEngine.test.ts` | вход, полная комната / `MAX_ROOMS` → `join_error`, переход между комнатами, удаление пустой |
 | `socket/__tests__/handlers.test.ts` (87) | проверки payload всех событий (токен, вариант), действия от игрока сокета (`ctx`), `leave_game`, `client_log`, disconnect → `engine.disconnect`, token bucket, `cleanName`, троттлинг оценок, `join_error`, Origin |
 | `game/questions/__tests__/picker.test.ts` | шаг и `ceil`, единицы, сглаженный выбор, колоды (круг, соседние игры, группы с весами), веса MC / closest, тема, оценки и пределы множителей, друзья (про всех / только опознанные, доля опознанных ≈ ×3), прогон настоящего банка |
-| `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты |
+| `game/questions/__tests__/history.test.ts` | `.env`, попытки загрузки базы, колоды соседних игр и комнат, кредиты, оценка по id игрока, «удалить» при закрытии показа, блок «прошлой игры», карточки комнаты, строка показа (текст, варианты, верный ответ / число, ответы) |
 | `game/stats/__tests__/statQuestions.test.ts` | гейт и лидер, подписи, исключения, несовместимые пары, closest, предел отрыва, дерево талантов, `topLead`, настоящий `bank.json` |
 | `shared/src/__tests__/` | `chips`, `units`, `topic` |
 

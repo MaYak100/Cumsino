@@ -10,7 +10,14 @@
 //   q_credit   — кредиты сглаженного выбора
 //   q_rating   — оценки и сложность (одна строка на игрока, вопрос и игру; переоценка и снятие заменяют строку).
 //                player — id игрока (сокет; до 2026-10-30 — ник), name — ник
-//   q_showing  — показы: сколько игроков, ответили, верно, ошибки в «ближе всех» — статистика по категориям
+//   q_showing  — показы: сколько игроков, ответили, верно, ошибки в «ближе всех» — статистика по категориям; текст,
+//                варианты в порядке показа (у числовых, статистики и друзей они свои на каждый показ), верный вариант
+//                (answer) или число (answer_num) — строку можно читать без банка
+//   q_answer   — каждый ответ человека на показ (showing_id → q_showing.id; боты и зрители не пишутся): role answer —
+//                ответ (в керри только керри), kerri_bet — ставка толпы керри на вариант керри (correct — керри его
+//                выбрал); выбор (option_index в порядке показа + answer) или число (num), время от начала вопроса
+//                (time_ms, последний ответ — как у молнии), блинк / хекс / смок, ставка (bet) и не подтвердил ли её
+//                (forced). player — id игрока в комнате (как q_rating.player), friend_id — кто из компании
 import { Pool } from 'pg'
 import { REAL_GAME_SHOWINGS, type HistoryBackend, type HistorySnapshot, type RatingRow, type ShowingRow } from './history'
 
@@ -37,6 +44,20 @@ create table if not exists q_showing (
   rel_errors double precision[], shown_at timestamptz not null default now());
 alter table q_showing add column if not exists room_players int;
 alter table q_rating add column if not exists name text;
+alter table q_showing add column if not exists text text;
+alter table q_showing add column if not exists options text[];
+alter table q_showing add column if not exists answer text;
+alter table q_showing add column if not exists answer_num double precision;
+create table if not exists q_answer (
+  id bigserial primary key, showing_id bigint not null references q_showing (id) on delete cascade,
+  question_id text not null, mode text not null, game_no int not null, role text not null,
+  player text not null, name text, friend_id bigint,
+  option_index smallint, answer text, num double precision, correct boolean not null,
+  time_ms int, blink boolean not null default false, hexed boolean not null default false,
+  smoked boolean not null default false, bet int, forced boolean,
+  answered_at timestamptz not null default now());
+create index if not exists q_answer_showing on q_answer (showing_id);
+create index if not exists q_answer_question on q_answer (question_id);
 `
 
 /** Голоса показов последних RECENT_GAMES игр грузятся при старте: переоценка после перезапуска заменяет голос. */
@@ -177,10 +198,27 @@ export class PgBackend implements HistoryBackend {
       row.difficulty ?? null])
   }
 
+  /** Показ и его ответы — одним запросом: строки q_answer получают id показа (ответов нет — только показ). */
   showing(row: ShowingRow): void {
-    this.run(`insert into q_showing (question_id, category, sub, mode, game_no, room_players, players, answered, correct,
-      rel_errors) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    const answers = (row.answers ?? []).map(a => ({
+      role: a.role, player: a.player, name: a.name, friend_id: a.friendId ?? null,
+      option_index: a.optionIndex ?? null, answer: a.answer ?? null, num: a.num ?? null, correct: a.correct,
+      time_ms: a.timeMs !== undefined ? Math.round(a.timeMs) : null,
+      blink: a.blink, hexed: a.hexed, smoked: a.smoked, bet: a.bet ?? null, forced: a.forced ?? null,
+    }))
+    this.run(`with s as (
+        insert into q_showing (question_id, category, sub, mode, game_no, room_players, players, answered, correct,
+          rel_errors, text, options, answer, answer_num)
+        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning id)
+      insert into q_answer (showing_id, question_id, mode, game_no, role, player, name, friend_id, option_index, answer,
+        num, correct, time_ms, blink, hexed, smoked, bet, forced)
+      select s.id, $1::text, $4::text, $5::int, a.role, a.player, a.name, a.friend_id, a.option_index, a.answer,
+        a.num, a.correct, a.time_ms, a.blink, a.hexed, a.smoked, a.bet, a.forced
+      from s, jsonb_to_recordset($15::jsonb) as a(role text, player text, name text, friend_id bigint,
+        option_index smallint, answer text, num double precision, correct boolean, time_ms int, blink boolean,
+        hexed boolean, smoked boolean, bet int, forced boolean)`,
     [row.questionId, row.category, row.sub, row.mode, row.gameNo, row.roomPlayers, row.players, row.answered,
-      row.correct, row.relErrors ?? null])
+      row.correct, row.relErrors ?? null, row.text ?? null, row.options ?? null, row.answer ?? null,
+      row.answerNum ?? null, JSON.stringify(answers)])
   }
 }

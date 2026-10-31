@@ -15,6 +15,7 @@ import { distributePool } from './economy/distributePool'
 import { distributeClosest } from './economy/distributeClosest'
 import { RoundSelector } from './RoundSelector'
 import type { QuestionSource, RatingVote } from './questions/picker'
+import type { AnswerRow } from './questions/history'
 
 /** Предметы и эффекты одного раунда (docs/items.md) — сбрасываются в nextRound. */
 interface RoundItems {
@@ -1153,7 +1154,9 @@ export class GameRoom extends EventEmitter {
     }), this.currentQuestion?.optionNotes ? ANSWER_REVEAL_NOTES_MS : ANSWER_REVEAL_MS)
   }
 
-  /** Статистика раунда для фидбека по категориям: сколько отвечало, сколько верно, ошибки в «ближе всех». */
+  /** Статистика раунда для фидбека по категориям: сколько отвечало, сколько верно, ошибки в «ближе всех»; варианты в
+   *  порядке показа и каждый ответ (answers — q_answer: ловушка против лотереи, быстрый неверный против медленного
+   *  верного). Боты и зрители в answers не попадают. */
   private reportRound() {
     const q = this.currentQuestion
     if (!q) return
@@ -1168,6 +1171,7 @@ export class GameRoom extends EventEmitter {
       ? players.filter(p => p.id === this.gladiatorId)
       : players.filter(p => !p.spectator)
     const answered = answering.filter(p => p.hasAnswered)
+    const answers = this.answerRows(answered, players)
     if (this.currentMode === 'closest' && q.numericAnswer !== undefined) {
       const nums = answered.map(p => p.answer).filter((a): a is number => typeof a === 'number')
       const base = Math.abs(q.numericAnswer) || 1
@@ -1175,13 +1179,56 @@ export class GameRoom extends EventEmitter {
         roomPlayers: players.length, present, players: answering.length, answered: nums.length,
         correct: nums.filter(a => a === q.numericAnswer).length,
         relErrors: nums.map(a => Math.abs(a - q.numericAnswer!) / base),
+        answers,
       })
       return
     }
     this.questions.report?.(q, {
       roomPlayers: players.length, present, players: answering.length, answered: answered.length,
       correct: answered.filter(p => p.answer === q.answer).length,
+      options: q.options ? [...q.options] : undefined,
+      answers,
     })
+  }
+
+  /** Строки q_answer: ответы (answered — уже без ботов и зрителей) и, в керри, ставки толпы на вариант. */
+  private answerRows(answered: RoomPlayer[], humans: RoomPlayer[]): AnswerRow[] {
+    const q = this.currentQuestion!
+    const opts = this.currentMode === 'closest' ? undefined : q.options
+    const mode = this.currentMode
+    const base = (p: RoomPlayer) => ({
+      player: p.id, name: p.name, ...(p.friendId !== undefined ? { friendId: p.friendId } : {}),
+      blink: p.items.spent.includes('blink'), hexed: p.items.hexed, smoked: p.items.smoked,
+    })
+    const rows: AnswerRow[] = answered.map(p => {
+      const row: AnswerRow = { role: 'answer', ...base(p), correct: false, timeMs: p.items.answerAt }
+      if (typeof p.answer === 'number') {
+        row.num = p.answer
+        row.correct = p.answer === q.numericAnswer
+      } else if (typeof p.answer === 'string') {
+        row.answer = p.answer
+        const i = opts?.indexOf(p.answer) ?? -1
+        if (i >= 0) row.optionIndex = i
+        row.correct = p.answer === q.answer
+      }
+      // «для всех»: ставка на себя (до вопроса, по теме) — уверенность
+      if (mode === 'all' && p.currentBet > 0) {
+        row.bet = p.currentBet
+        row.forced = !this.bettingConfirmedIds.has(p.id)
+      }
+      return row
+    })
+    if (mode === 'kerri' && opts) {
+      const pick = this.kerriPick()
+      for (const p of humans) {
+        if (p.spectator || p.id === this.gladiatorId || p.currentBet <= 0 || p.betOption === undefined) continue
+        rows.push({
+          role: 'kerri_bet', ...base(p), optionIndex: p.betOption, answer: opts[p.betOption],
+          correct: pick >= 0 && p.betOption === pick, bet: p.currentBet, forced: !this.bettingConfirmedIds.has(p.id),
+        })
+      }
+    }
+    return rows
   }
 
   /** Основной расчёт + бонусы казино (молния → серия → BKB → аегис) + подачка. Серии и аегисы применяет
