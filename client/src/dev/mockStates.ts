@@ -617,7 +617,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: 'question-all-qb',
     group: 'QUESTION',
-    label: 'all — ставка на вопрос: фитиль 15 с, молния 1.5 с, хекс 7 с',
+    label: 'all — ставка на вопрос: фитиль 20 с, молния 3 с, хекс 7 с',
     Screen: QuestionScreen,
     state: {
       myId: MY_ID,

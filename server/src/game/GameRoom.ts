@@ -71,6 +71,8 @@ interface RoomPlayer extends Omit<Player, 'bot' | 'offline'> {
   /** аегис куплен и ещё не сработал */
   aegis: boolean
   aegisBought: boolean
+  /** куплено за игру — лимит ITEMS[id].max на всю игру; потраченное и возвращённое (отмена раунда) не в счёт */
+  bought: Partial<Record<ItemId, number>>
   items: RoundItems
   /** вошёл посреди раунда (не в лобби и не в лавке): до следующего раунда только смотрит — не ставит, не отвечает,
    *  не применяет предметы, не керри, без блайнда, никого не задерживает. Сбрасывается в nextRound. */
@@ -282,6 +284,7 @@ export class GameRoom extends EventEmitter {
       bkbPaid: [],
       aegis: false,
       aegisBought: false,
+      bought: {},
       items: freshRound(),
       // в лобби и в лавке раунд ещё не начался — участвует; иначе смотрит до следующего раунда
       spectator: !['LOBBY', 'SHOP'].includes(this.phase),
@@ -344,14 +347,14 @@ export class GameRoom extends EventEmitter {
     }
   }
 
-  /** Ход бота через 0.5–3 с (бот всё ещё в комнате и фаза та же — иначе ход не нужен). slow — 2–6 с: ответ в
-   *  «ставке на вопрос» (молния 1.5 с — иначе почти каждый верный ответ бота с молнией, соло-тест врёт). */
+  /** Ход бота через 0.5–3 с (бот всё ещё в комнате и фаза та же — иначе ход не нужен). slow — 3–8 с: ответ в
+   *  «ставке на вопрос» (молния 3 с — иначе почти каждый верный ответ бота с молнией, соло-тест врёт). */
   private botLater(bot: RoomPlayer, act: () => void, slow = false) {
     const phase = this.phase
     const t = setTimeout(() => this.safely('bot', () => {
       if (this.players.get(bot.id) !== bot || this.phase !== phase) return
       act()
-    }), slow ? 2000 + Math.random() * 4000 : 500 + Math.random() * 2500)
+    }), slow ? 3000 + Math.random() * 5000 : 500 + Math.random() * 2500)
     const list = this.botTimers.get(bot.id) ?? []
     list.push(t)
     this.botTimers.set(bot.id, list)
@@ -634,7 +637,8 @@ export class GameRoom extends EventEmitter {
 
   // ── предметы (docs/items.md) ──
 
-  /** Покупка: только в лавке (BUY_PHASES), цена от баланса списывается сразу; аегис — один за игру и сразу активен. */
+  /** Покупка: только в лавке (BUY_PHASES), цена от баланса списывается сразу; каждого предмета — не больше
+   *  ITEMS[id].max за всю игру (аегис — один, сразу активен). */
   buyItem(playerId: string, item: ItemId) {
     const player = this.players.get(playerId)
     if (!player || !BUY_PHASES.includes(this.phase) || !ITEMS[item]) return
@@ -648,16 +652,18 @@ export class GameRoom extends EventEmitter {
     if (lockedItems(this.firstGame, this.shopsShown).includes(item)) return
     // ограничений по порогу аегиса нет: аегис не поднимает выше баланса перед раундом (после лавки), так что
     // «купи аегис на последние и получи $300» не работает
+    // лимит — на всю игру: купленное за игру, а не то, что сейчас в запасе
+    const bought = player.bought[item] ?? 0
+    if (bought >= ITEMS[item].max) return
     if (item === 'aegis') {
       if (player.aegisBought) return
       player.aegisBought = true
       player.aegis = true
     } else {
-      const have = player.inventory[item] ?? 0
-      if (have >= ITEMS[item].max) return
-      player.inventory[item] = have + 1
+      player.inventory[item] = (player.inventory[item] ?? 0) + 1
       if (item === 'bkb') player.bkbPaid.push(price)
     }
+    player.bought[item] = bought + 1
     player.chips -= price
     this.broadcastState()
   }
@@ -1002,6 +1008,7 @@ export class GameRoom extends EventEmitter {
       base.inventory = { ...me.inventory }
       base.prices = Object.fromEntries(ITEM_ORDER.map(id => [id, itemPrice(id, me.chips)])) as Record<ItemId, number>
       base.aegisBought = me.aegisBought
+      base.bought = { ...me.bought }
       if (me.items.hexed && (this.phase === 'BETTING' || this.phase === 'QUESTION')) {
         base.hexTimeLeft = me.items.hexDeadline === undefined
           ? this.timings().hexSeconds

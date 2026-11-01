@@ -9,7 +9,7 @@ export interface ItemDef {
   name: string
   /** цена при балансе до $500; выше — дороже (itemPrice) */
   basePrice: number
-  /** сколько можно держать в запасе; у аегиса — сколько можно купить за игру */
+  /** сколько можно купить за всю игру (решение 2026-11-01); запас отдельно не ограничен */
   max: number
   /** когда применяется; passive — срабатывает сам */
   usePhases: GamePhase[] | 'passive'
@@ -32,27 +32,27 @@ export const AEGIS_RESTORE = 300
 
 export const ITEMS: Record<ItemId, ItemDef> = {
   blink: {
-    id: 'blink', name: 'Blink', basePrice: 50, max: 5, usePhases: ['QUESTION'], modes: ['all', 'kerri', 'closest'],
+    id: 'blink', name: 'Blink', basePrice: 50, max: 15, usePhases: ['QUESTION'], modes: ['all', 'kerri', 'closest'],
     targeted: false, desc: 'Передумал после ответа — жми другой вариант. Один блинк — одна смена ответа',
   },
   gem: {
-    id: 'gem', name: 'Gem of True Sight', basePrice: 150, max: 3, usePhases: ['QUESTION'], modes: ['all', 'closest'],
+    id: 'gem', name: 'Gem of True Sight', basePrice: 150, max: 5, usePhases: ['QUESTION'], modes: ['all', 'closest'],
     targeted: true, key: 'X', desc: 'Подсмотри ответ игрока: что выбрано сейчас, а если ещё думает — его первый выбор. Все видят, что ты смотрел; на кого — знает только цель',
   },
   manta: {
-    id: 'manta', name: 'Manta Style', basePrice: 100, max: 3, usePhases: ['QUESTION'], modes: ['all'],
+    id: 'manta', name: 'Manta Style', basePrice: 100, max: 5, usePhases: ['QUESTION'], modes: ['all'],
     targeted: false, key: 'Z', desc: 'Убирает один неверный вариант. Раз за раунд',
   },
   smoke: {
-    id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 3, usePhases: ['ANNOUNCE', 'BETTING', 'QUESTION'], modes: ['all', 'closest'],
-    targeted: false, key: 'C', desc: 'Разбей до вопроса или на нём: до конца раунда не видно, ответил ли ты и чем пользуешься, а «для всех» — и твою ставку. Гем на тебя слепнет',
+    id: 'smoke', name: 'Smoke of Deceit', basePrice: 100, max: 5, usePhases: ['ANNOUNCE', 'BETTING', 'QUESTION'], modes: ['all', 'closest'],
+    targeted: false, key: 'C', desc: 'До конца раунда не видно твою ставку, ответил ли ты и чем пользуешься. Гем на тебя слепнет',
   },
   hex: {
-    id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 3, usePhases: ['BETTING'], modes: ['all'],
-    targeted: true, key: 'V', desc: `Бросается на ставках: у цели будет всего ${HEX_SECONDS} секунд на ответ (в ставке на вопрос — ${HEX_QB_SECONDS})`,
+    id: 'hex', name: 'Scythe of Vyse', basePrice: 150, max: 5, usePhases: ['BETTING'], modes: ['all'],
+    targeted: true, key: 'V', desc: `Бросается на ставках: у цели на ответ всего ${HEX_SECONDS} с (при ставке на вопрос — ${HEX_QB_SECONDS})`,
   },
   bkb: {
-    id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 2, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all'],
+    id: 'bkb', name: 'Black King Bar', basePrice: 200, max: 3, usePhases: ['ANNOUNCE', 'BETTING'], modes: ['all'],
     targeted: false, key: 'B', desc: 'Включи до вопроса: проигрыш вернётся (до двух цен BKB), серия не собьётся',
   },
   aegis: {
@@ -110,12 +110,12 @@ export const LAST_ANSWER_GRACE_MS = 1000
 // нет, нет и бонусов (0 × 1.25 = 0). Округление вниз до $10.
 /** «Молния»: верный ответ в первые 8 секунд вопроса — +25% выигрыша (не меньше $10; керри — +$100) */
 export const LIGHTNING_MS = 8000
-/** «для всех» со ставкой на вопрос: вопрос уже прочитан на ставках — молния только за первые 1.5 с */
-export const LIGHTNING_QB_MS = 1500
+/** «для всех» со ставкой на вопрос: вопрос уже прочитан на ставках — молния только за первые 3 с */
+export const LIGHTNING_QB_MS = 3000
 export const LIGHTNING_SHARE = 0.25
 export const LIGHTNING_GLADIATOR = 100
 
-/** Длительности раунда: «для всех» со ставкой на вопрос — ставки 20 с, вопрос 15 с, молния 1.5 с, хекс 7 с;
+/** Длительности раунда: «для всех» со ставкой на вопрос — ставки 20 с, вопрос 20 с, молния 3 с, хекс 7 с;
  *  иначе (и в керри / «кто ближе») — PHASE_DURATIONS, LIGHTNING_MS, HEX_SECONDS. */
 export interface RoundTimings { betting: number; question: number; lightningMs: number; hexSeconds: number }
 export function roundTimings(mode: GameMode, questionBet: boolean): RoundTimings {

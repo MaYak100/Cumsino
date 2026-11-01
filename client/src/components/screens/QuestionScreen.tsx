@@ -103,7 +103,7 @@ export function QuestionScreen() {
     ? (idx: number | null) => sendHover(idx)
     : undefined
 
-  // длины полос: «для всех» со ставкой на вопрос — вопрос 15 с, хекс 7 с, молния 1.5 с
+  // длины полос: «для всех» со ставкой на вопрос — вопрос 20 с, хекс 7 с, молния 3 с
   const timings = roundTimings(gameState.mode, !!gameState.questionBet)
 
   return (

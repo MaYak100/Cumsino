@@ -4,6 +4,7 @@ import { buildPhysicalChips } from '../types/chips'
 import type { PhysicalChip } from '../types/chips'
 import type { ChipValue } from '../components/ui/Chip'
 import { useStableSlots } from './pileSlots'
+import { quickChips } from './quickChips'
 import { socket } from '../socket'
 
 /**
@@ -128,7 +129,7 @@ export function useBetting() {
   const myBlind = !isGladiator && me?.blind && me.chips >= me.blind ? me.blind : 0
 
   // ── Быстрая ставка: min / 25% / 50% / all-in ─────────────────────────────
-  // Заменяет выложенное на нужную сумму: фишки берутся жадно, от крупных, и летят каскадом. Ставка уходит только по
+  // Заменяет выложенное на нужную сумму ровно (не хватает мелочи — размен стопки) и раскладывает каскадом. Ставка уходит только по
   // «Ставлю» (или сама в конце ставок — она уже на столе).
   const balance = me?.chips ?? 0
   const quickAmounts = (() => {
@@ -146,14 +147,9 @@ export function useBetting() {
     if (betConfirmed || target <= 0 || isGladiator) return
     if (isKerriCrowd && option === null) return
     stopQuick(false)
-    const pool = [...myStack].sort((a, b) => b.denom - a.denom)
-    let rest = target
-    const pick: PhysicalChip[] = []
-    for (const c of pool) if (c.denom <= rest) { pick.push(c); rest -= c.denom }
-    if (rest > 0) {   // ровно не сложилось — добираем одной фишкой сверху
-      const extra = pool.filter(c => !pick.includes(c)).reverse().find(c => c.denom >= rest)
-      if (extra) pick.push(extra)
-    }
+    // ровно из стопки не складывается — размен (стопка перекладывается), см. quickChips
+    const { stack, pick } = quickChips(myStack, target)
+    if (stack !== myStack) setMyStack(stack)
     setPlacedIds(new Set())
     if (pick.length) {
       const q = { timers: [] as number[], pick }

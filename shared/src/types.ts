@@ -110,7 +110,7 @@ export interface GameState {
   lockedItems?: ItemId[]
   /** настройки хоста (лобби), режим «для всех»: джекпот — пустые раунды не пустые (docs/items.md, «Джекпот») */
   jackpot?: boolean
-  /** ставка на вопрос: на ставках виден текст вопроса без вариантов, ставки 20 с, вопрос 15 с (roundTimings) */
+  /** ставка на вопрос: на ставках виден текст вопроса без вариантов, ставки 20 с, вопрос 20 с (roundTimings) */
   questionBet?: boolean
   /** банк джекпота (при jackpot): ставки раундов «все ошиблись», уходит угадавшим в следующем обычном раунде */
   jackpotBank?: number
@@ -121,6 +121,8 @@ export interface GameState {
   prices?: Record<ItemId, number>
   /** аегис уже покупался в этой игре */
   aegisBought?: boolean
+  /** сколько каждого предмета уже куплено за игру (лимит — ITEMS[id].max) */
+  bought?: Partial<Record<ItemId, number>>
   /** на тебе хекс: сколько секунд осталось на ответ (в QUESTION) */
   hexTimeLeft?: number
   /** на тебе хекс и вопрос идёт: конец твоего времени — время сервера (мс) */

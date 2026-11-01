@@ -14,7 +14,7 @@ function lighten(hex: string, k: number) {
  *  Остаток — от дедлайна endsAt (время сервера, lib/clock): не копит ошибку в фоновой вкладке и не прыгает от новых
  *  стейтов; нет дедлайна (моки) — от seconds. total — полная длина отсчёта (45 с вопроса, 15 с хекса): от неё
  *  ширина, поэтому экран, открытый посреди отсчёта, показывает правильную долю. lightning — первые lightningMs дают
- *  «Молнию» (8 с; «для всех» со ставкой на вопрос — 1.5 с, roundTimings): значок у границы окна, пока окно идёт —
+ *  «Молнию» (8 с; «для всех» со ставкой на вопрос — 3 с, roundTimings): значок у границы окна, пока окно идёт —
  *  линия ярче. redAfterLightning — сразу после окна молнии линия
  *  красная (хекс: время почти кончилось). */
 export function TimeBar({ seconds, endsAt, total, color = C.brass, stopped, lightning, lightningMs = LIGHTNING_MS, redAfterLightning }: {

@@ -695,6 +695,7 @@ describe('report: варианты в порядке показа и кажды�
     t.room.submitAnswer('p1', '30')
     vi.advanceTimersByTime(500)
     t.room.submitAnswer('p1', '20', true)                   // блинк: время — последнего ответа
+    vi.advanceTimersByTime(500)                              // бот в ставке на вопрос отвечает не раньше 3 с
     t.r.advanceFromQuestion()
     expect(t.reports).toHaveLength(1)
     const rep = t.reports[0]

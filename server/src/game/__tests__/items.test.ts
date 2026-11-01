@@ -511,12 +511,21 @@ describe('предметы, бонусы, блайнды', () => {
       expect(st.prices!.bkb).toBe(itemPrice('bkb', t.p('p1').chips))
     })
 
-    it('не больше max в запасе и не дороже баланса', () => {
+    it('не больше max за всю игру (потраченное не возвращает лимит) и не дороже баланса', () => {
       const t = makeRoom(1)
       t.r.phase = 'SHOP'
+      t.p('p1').chips = 2900
+      for (let i = 0; i < 5; i++) t.room.buyItem('p1', 'bkb')
+      expect(ITEMS.bkb.max).toBe(3)
+      expect(t.p('p1').inventory.bkb).toBe(3)
+      // запас израсходован, но лимит — на игру: больше не купить
+      t.p('p1').inventory.bkb = 0
       t.p('p1').chips = 2000
-      for (let i = 0; i < 4; i++) t.room.buyItem('p1', 'bkb')
-      expect(t.p('p1').inventory.bkb).toBe(2)
+      t.room.buyItem('p1', 'bkb')
+      expect(t.p('p1').inventory.bkb).toBe(0)
+      expect(t.room.getStateForPlayer('p1').bought).toEqual({ bkb: 3 })
+      expect([ITEMS.manta.max, ITEMS.gem.max, ITEMS.blink.max, ITEMS.hex.max, ITEMS.smoke.max, ITEMS.aegis.max])
+        .toEqual([5, 5, 15, 5, 5, 1])
       t.p('p1').chips = 30
       expect(itemPrice('gem', 30)).toBe(40)
       t.room.buyItem('p1', 'gem')

@@ -333,17 +333,17 @@ describe('«для всех»: джекпот, ставка на вопрос, �
       expect(off.room.getStateForPlayer('p2').currentQuestion).toMatchObject({ text: 'Q?', options: ['A', 'B', 'C', 'D'] })
     })
 
-    it('бот отвечает через 2–6 с (молния 1.5 с ему не достаётся); ставка на тему — 0.5–3 с', () => {
+    it('бот отвечает через 3–8 с (молния 3 с ему не достаётся); ставка на тему — 0.5–3 с', () => {
       const run = (settings: Partial<RoomSettings>) => {
         const t = makeRoom(1, settings)
         t.room.addBot('p1')
         t.r.currentMode = 'all'
         t.r.currentQuestion = { ...mcQ }
-        t.r.schedulePhase('QUESTION', 15)
+        t.r.schedulePhase('QUESTION', 20)
         return t
       }
       const on = run({})
-      vi.advanceTimersByTime(1999)
+      vi.advanceTimersByTime(2999)
       expect(on.p('bot-1').hasAnswered).toBe(false)
       vi.advanceTimersByTime(1)
       expect(on.p('bot-1').hasAnswered).toBe(true)
