@@ -4,7 +4,7 @@ import type {
   JoinGamePayload, PlaceBetPayload, StageChipPayload, ClientLogPayload,
   SubmitAnswerPayload, GladiatorHoverPayload,
   IdentifyPayload, RateQuestionPayload,
-  BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId, JoinErrorPayload, RemoveBotPayload, SetFirstGamePayload,
+  BuyItemPayload, UseItemPayload, ShopReadyPayload, ItemId, JoinErrorPayload, RemoveBotPayload, SetFirstGamePayload, KickDecisionPayload,
   SetSettingsPayload,
 } from '@cumsino/shared'
 import type { GameRoom } from '../game/GameRoom'
@@ -94,12 +94,13 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
     rawSocket.emit('join_error', payload)
   }
 
-  socket.on('join_game', ({ name, gameCode, token }: JoinGamePayload) => {
+  socket.on('join_game', ({ name, gameCode, token, device }: JoinGamePayload) => {
     const code = typeof gameCode === 'string' ? gameCode.trim().toUpperCase() : ''
     if (!/^[A-Z0-9]{2,8}$/.test(code)) return joinError('bad_code', 'Код комнаты — 2–8 латинских букв или цифр')
     const clean = cleanName(name)
     if (!clean) return joinError('bad_name', 'Введи имя')
-    engine.joinRoom(rawSocket as Socket, clean, code, isToken(token) ? token : undefined)
+    engine.joinRoom(rawSocket as Socket, clean, code, isToken(token) ? token : undefined,
+      isToken(device) ? device : undefined)
   })
 
   // «Выйти»: уйти из комнаты совсем (обрыв связи — не уход: игрок ждёт возвращения «не в сети»)
@@ -139,6 +140,12 @@ export function registerHandlers(rawSocket: HandlerSocket, engine: Engine): void
       ...(jackpot !== undefined ? { jackpot } : {}),
       ...(questionBet !== undefined ? { questionBet } : {}),
     }))
+  })
+
+  // хост про игрока без связи: кикнуть (деньги в джекпот) или ждать ещё раунд
+  socket.on('kick_decision', ({ playerId, kick }: KickDecisionPayload) => {
+    if (typeof playerId !== 'string' || !playerId || playerId.length > 64 || typeof kick !== 'boolean') return
+    act((room, id) => room.kickDecision(id, playerId, kick))
   })
 
   socket.on('remove_bot', ({ id: botId }: RemoveBotPayload) => {

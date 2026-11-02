@@ -872,6 +872,27 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
+    id: 'reveal-offline-ask',
+    group: 'REVEAL',
+    label: 'хосту: Никита без связи — кикнуть / ждать',
+    Screen: RoundResultsScreen,
+    state: {
+      myId: MY_ID,
+      gameState: base('REVEAL', 'all', {
+        currentQuestion: MC_QUESTION,
+        jackpot: true,
+        jackpotBank: 120,
+        players: [
+          { id: 'dev-1', name: 'Ты',     chips: 780, currentBet: 0, hasAnswered: true },
+          { id: 'dev-2', name: 'Артём',  chips: 250, currentBet: 0, hasAnswered: true },
+          { id: 'dev-4', name: 'Никита', chips: 370, currentBet: 0, hasAnswered: false, offline: true },
+        ],
+        offlineAsk: [{ id: 'dev-4', name: 'Никита', chips: 370, offlineSec: 74 }],
+      }),
+      roundResults: [] as RoundResult[],
+    },
+  },
+  {
     id: 'reveal-kerri',
     group: 'REVEAL',
     label: 'kerri',

@@ -7,6 +7,9 @@ import { LateJoinScreen } from './components/screens/LateJoinScreen'
 import { TableFelt } from './components/ui/TableFelt'
 import { ItemBar } from './components/ui/ItemBar'
 import { Notice } from './components/ui/Notice'
+import { OfflineAsk } from './components/ui/OfflineAsk'
+import { ExitDialog } from './components/ui/ExitDialog'
+import { NukeScreen } from './components/screens/NukeScreen'
 import { Logo } from './components/ui/Logo'
 import { useCompactBetting } from './lib/tableGeometry'
 import { C, DISPLAY } from './theme'
@@ -31,6 +34,7 @@ export default function App() {
   }, [!!gameState])
 
   if (replaced) return <ReplacedScreen />
+  if (joinError?.reason === 'twin') return <NukeScreen />
   if (!gameState) return resuming && !joinError ? <ResumingScreen /> : <JoinScreen />
 
   if (isLateJoiner) return (
@@ -39,6 +43,7 @@ export default function App() {
         style={{ position: 'absolute', inset: 0, overflowY: 'auto', pointerEvents: 'auto' }}>
         <LateJoinScreen />
       </motion.div>
+      <ExitDialog />
       <ConnectionBadge />
     </div>
   )
@@ -65,6 +70,8 @@ export default function App() {
       </motion.div>
       <ItemBar />
       <Notice />
+      <OfflineAsk />
+      <ExitDialog />
       <ConnectionBadge />
     </div>
   )

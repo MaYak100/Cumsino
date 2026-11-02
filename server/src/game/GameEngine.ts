@@ -43,7 +43,7 @@ export class GameEngine {
 
   /** Вход в комнату (создаёт её). Есть токен этой комнаты — тот же игрок со всем своим (после обрыва связи, после
    *  перезагрузки страницы); нет — новый. Комната полна / сервер полон — join_error, а игрок остаётся, где был. */
-  joinRoom(socket: JoinSocket, name: string, gameCode: string, token?: string): void {
+  joinRoom(socket: JoinSocket, name: string, gameCode: string, token?: string, device?: string): void {
     const prev = this.bySocket.get(socket.id)
     let room = this.rooms.get(gameCode)
     const key = token || randomBytes(16).toString('hex')
@@ -57,6 +57,12 @@ export class GameEngine {
 
     const resumed = room?.resume(key, name)
     if (!resumed) {
+      // второй игрок с этого же устройства (твинк) — нельзя; VPN тут ни при чём: id живёт в браузере, не в IP
+      if (device && room?.deviceTwin(device)) {
+        console.log(`[room] ${gameCode}: твинк «${name}» не пущен`)
+        this.joinError(socket, 'twin', 'С этого устройства в комнате уже есть игрок')
+        return
+      }
       // проверки — до выхода из старой комнаты: отказ не должен выкидывать игрока из игры
       if (room?.isFull && !room.canFreeSeat) {
         this.joinError(socket, 'room_full', `В комнате уже ${MAX_PLAYERS} игроков`)
@@ -81,6 +87,7 @@ export class GameEngine {
         return
       }
     }
+    if (device) room.setDevice(playerId, device)
     this.bind(socket, gameCode, playerId)
     if (resumed) console.log(`[room] ${gameCode}: ${name} вернулся (${playerId})`)
     // комната разослала стейт до того, как сокет вошёл в канал игрока, — ему отдельно
@@ -143,7 +150,7 @@ export class GameEngine {
     b.socket.leave(playerChannel(b.playerId))
     const room = this.rooms.get(b.code)
     if (!room) return
-    room.removePlayer(b.playerId)
+    room.leave(b.playerId)
     // людей не осталось (одни боты — тоже пустая): закрываем, destroy снимает и таймеры ботов
     if (room.humanCount === 0) this.closeRoom(b.code, 'все вышли')
   }

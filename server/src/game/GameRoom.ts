@@ -64,6 +64,12 @@ interface RoomPlayer extends Omit<Player, 'bot' | 'offline'> {
   token: string
   /** с какого момента не в сети (undefined — в сети). Игрок остаётся в игре: фишки, предметы, ставка, место керри */
   offlineSince?: number
+  /** id браузера (JoinGamePayload.device): второй игрок с того же устройства не входит */
+  device?: string
+  /** номер раунда, в котором пропал */
+  offlineRound?: number
+  /** хост сказал «ждать»: до итогов какого раунда не спрашивать снова */
+  waitUntilRound?: number
   /** запас предметов — личное, в публичный стейт не попадает */
   inventory: Partial<Record<ItemId, number>>
   /** цены BKB в запасе, по порядку покупки: сейв включённого — две его цены (первым включается купленный раньше) */
@@ -108,8 +114,10 @@ export interface RoomSettings {
 }
 export const DEFAULT_SETTINGS: RoomSettings = { jackpot: true, questionBet: true }
 
-/** не в сети дольше этого к старту игры — ушёл из лобби, в игру не попадает */
-export const LOBBY_DROP_MS = 30_000
+/** лобби: без связи дольше этого — просто вышел (без плашки «нет связи»), вернётся — войдёт заново */
+export const LOBBY_DROP_MS = 5_000
+/** в игре: без связи дольше этого (или пропустил целый раунд) — на итогах раунда хоста спрашивают, кикнуть ли */
+export const OFFLINE_ASK_MS = 60_000
 /** обрыв короче этого (перезагрузка страницы, мигнула сеть) — его ещё ждут: фаза не кончается за секунду без него */
 export const OFFLINE_GRACE_MS = 5_000
 
@@ -216,6 +224,9 @@ export class GameRoom extends EventEmitter {
     if (!p) return undefined
     p.token = token
     p.offlineSince = undefined
+    p.offlineRound = undefined
+    p.waitUntilRound = undefined
+    this.offlineAsk.delete(p.id)
     this.ensureHost()
     this.broadcastState()
     return p.id
@@ -228,13 +239,82 @@ export class GameRoom extends EventEmitter {
     if (!p || p.bot || p.offlineSince !== undefined) return
     const since = Date.now()
     p.offlineSince = since
+    p.offlineRound = this.roundIndex
     this.ensureHost()
     this.broadcastState()
+    // лобби: «нет связи» не показываем; не вернулся за LOBBY_DROP_MS — вышел (вернётся — войдёт новым)
+    const lobby = this.phase === 'LOBBY'
     const t = setTimeout(() => this.safely('offline', () => {
       this.offlineTimers = this.offlineTimers.filter(x => x !== t)
-      if (this.players.get(id) === p && p.offlineSince === since) this.recheckWaits()
-    }), OFFLINE_GRACE_MS)
+      if (this.players.get(id) !== p || p.offlineSince !== since) return
+      if (this.phase === 'LOBBY') this.removePlayer(id)
+      else if (!lobby) this.recheckWaits()
+    }), lobby ? LOBBY_DROP_MS : OFFLINE_GRACE_MS)
     this.offlineTimers.push(t)
+  }
+
+  setDevice(id: string, device: string) {
+    const p = this.players.get(id)
+    if (p) p.device = device
+  }
+
+  /** С этого устройства в комнате уже есть игрок (твинк). В лобби не в сети — это он же сменил имя: старого убираем. */
+  deviceTwin(device: string): boolean {
+    const p = [...this.players.values()].find(x => x.device === device)
+    if (!p) return false
+    if (p.offlineSince !== undefined && this.phase === 'LOBBY') {
+      this.removePlayer(p.id)
+      return false
+    }
+    return true
+  }
+
+  /** хосту на решение: кто давно без связи (порядок — кто раньше пропал) */
+  private offlineAsk = new Set<string>()
+
+  /** Итоги раунда: без связи ≥ OFFLINE_ASK_MS или пропустил целый раунд — спросить хоста (если не просил ждать). */
+  private collectOfflineAsk() {
+    for (const p of this.players.values()) {
+      if (p.bot || p.offlineSince === undefined || this.offlineAsk.has(p.id)) continue
+      if (p.waitUntilRound !== undefined && this.roundIndex <= p.waitUntilRound) continue
+      const long = Date.now() - p.offlineSince >= OFFLINE_ASK_MS
+      const missedRound = p.offlineRound !== undefined && p.offlineRound < this.roundIndex
+      if (long || missedRound) this.offlineAsk.add(p.id)
+    }
+  }
+
+  /** Фишки ушедшего посреди игры — в банк джекпота (джекпот выключен — сгорают). */
+  private toBank(chips: number) {
+    if (!this.settings.jackpot || chips <= 0) return
+    this.jackpotBank += chips
+    if (this.bankAfter !== undefined) this.bankAfter += chips
+  }
+
+  /** Сам вышел (Esc → «Выйти», переход в другую комнату). Посреди игры его фишки — в джекпот, как у кикнутого. */
+  leave(id: string) {
+    const p = this.players.get(id)
+    if (!p) return
+    if (!p.bot && this.phase !== 'LOBBY' && this.phase !== 'GAME_OVER') this.toBank(p.chips)
+    this.removePlayer(id)
+    if (this.humanCount) this.broadcastState()
+  }
+
+  /** Решение хоста про пропавшего: kick — убрать, его фишки в банк джекпота (джекпот выключен — просто сгорают);
+   *  иначе ждать ещё раунд (спросят на итогах следующего). */
+  kickDecision(hostId: string, playerId: string, kick: boolean) {
+    if (hostId !== this.hostId || !this.offlineAsk.has(playerId)) return
+    const p = this.players.get(playerId)
+    this.offlineAsk.delete(playerId)
+    if (!p || p.offlineSince === undefined) { this.broadcastState(); return }
+    if (!kick) {
+      p.waitUntilRound = this.roundIndex
+      this.broadcastState()
+      return
+    }
+    this.toBank(p.chips)
+    console.log(`[room ${this.id}] хост кикнул ${p.name} (без связи ${Math.round((Date.now() - p.offlineSince) / 1000)} с), $${p.chips} → джекпот`)
+    this.removePlayer(playerId)
+    this.broadcastState()
   }
 
   /** таймеры «перестать ждать того, кто не в сети» — снимаются в destroy */
@@ -411,6 +491,7 @@ export class GameRoom extends EventEmitter {
   removePlayer(id: string) {
     if (!this.players.has(id)) return
     this.players.delete(id)
+    this.offlineAsk.delete(id)
     this.kerriBag = this.kerriBag.filter(x => x !== id)
     this.clearBotTimers(id)
     this.ensureHost()
@@ -725,7 +806,8 @@ export class GameRoom extends EventEmitter {
         break
       }
       case 'hex': {
-        if (r.hexThrown || !target || target.items.hexed) return
+        // под BKB хекс не цепляется (предмет не тратится)
+        if (r.hexThrown || !target || target.items.hexed || target.items.bkb) return
         this.consume(player, item)
         r.hexThrown = true
         target.items.hexed = true
@@ -740,6 +822,10 @@ export class GameRoom extends EventEmitter {
         // первым включается купленный раньше; цены нет (выдан в обход лавки) — базовая
         r.bkbPaid = player.bkbPaid.shift() ?? ITEMS.bkb.basePrice
         r.bkbCap = bkbCap(r.bkbPaid)
+        // BKB снимает хекс (брошенный хекс сгорает — бросающий его не получает назад)
+        r.hexed = false
+        r.hexDeadline = undefined
+        r.hexDone = undefined
         this.broadcast('item_used', { playerId, item })
         break
       }
@@ -977,7 +1063,8 @@ export class GameRoom extends EventEmitter {
       ...(effects.length ? { effects } : {}),
       ...(p.spectator ? { spectator: true } : {}),
       ...(p.bot ? { bot: true as const } : {}),
-      ...(p.offlineSince !== undefined ? { offline: true as const } : {}),
+      // в лобби «нет связи» не показываем: не вернётся за LOBBY_DROP_MS — просто выйдет
+      ...(p.offlineSince !== undefined && this.phase !== 'LOBBY' ? { offline: true as const } : {}),
     }
   }
 
@@ -1026,6 +1113,14 @@ export class GameRoom extends EventEmitter {
       if (Object.keys(me.items.gems).length) base.gemResults = { ...me.items.gems }
     }
     if (this.lastResults && (this.revealing || this.phase === 'REVEAL')) base.roundResults = this.lastResults
+    if (playerId === this.hostId && this.offlineAsk.size) {
+      base.offlineAsk = [...this.offlineAsk].flatMap(id => {
+        const p = this.players.get(id)
+        return p && p.offlineSince !== undefined
+          ? [{ id, name: p.name, chips: p.chips, offlineSec: Math.round((Date.now() - p.offlineSince) / 1000) }]
+          : []
+      })
+    }
     return base
   }
 
@@ -1119,6 +1214,7 @@ export class GameRoom extends EventEmitter {
     this.phaseEndTime = Date.now() + seconds * 1000
     this.phaseSeconds = seconds
     if (phase === 'QUESTION') this.onQuestionStart()
+    if (phase === 'REVEAL') this.collectOfflineAsk()
     this.broadcastState()
     this.phaseTimer = setTimeout(() => this.safely('onPhaseEnd', () => this.onPhaseEnd()), seconds * 1000)
     this.runBots()

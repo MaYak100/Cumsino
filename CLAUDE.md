@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (521 тест)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (534)
+npm run test:server                     # vitest сервера (527 тестов)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (540)
 npx vitest run server/src/game/__tests__/sessions.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -141,6 +141,17 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
     стол или блайнд. Хост переходит к человеку в сети (`ensureHost`). Полная комната освобождает место того, кто не
     в сети > 1 мин (`evictOffline`). На старте игры не в сети > `LOBBY_DROP_MS` (30 с) — убираются (закрыл вкладку в
     лобби).
+  - **Обрывы (2026-11-02).** Лобби: «нет связи» не показывается, не вернулся за `LOBBY_DROP_MS` (5 с) — вышел
+    (вернётся — войдёт новым). В игре: без связи ≥ `OFFLINE_ASK_MS` (60 с) или пропустил целый раунд — на итогах
+    раунда (`collectOfflineAsk` в `schedulePhase('REVEAL')`) хосту `GameState.offlineAsk` (`ui/OfflineAsk.tsx`):
+    `kick_decision {playerId, kick}` — кикнуть (фишки в банк джекпота, `toBank`; джекпот выключен — сгорают) или ждать
+    ещё раунд (`waitUntilRound`). Вернулся — вопрос снимается. **Сам вышел** (Esc → `ui/ExitDialog.tsx` с
+    подтверждением, Enter — выйти; `leave` = `leave_game`) посреди игры — фишки тоже в джекпот.
+  - **Твинки (2026-11-02):** клиент шлёт в `join_game` `device` (id браузера в localStorage, `deviceId()`; только в
+    прод-сборке — в dev тесты во вкладках). Второй игрок с того же устройства (не по токену) — `join_error twin`, во
+    втором окне `NukeScreen` (отсчёт «на ваш дом будет сброшена ядерная боеголовка», `/mocks?s=nuke`); первое окно
+    не трогается. В лобби тот же device не в сети — это он сменил имя: старый убирается. Приватное окно / другой
+    браузер обходят — защита от случайного, не от упорного; IP не используется (VPN, общий NAT).
   - **Победа** проверяется в конце REVEAL: **единственный** самый богатый из ≥ `WIN_CHIPS`; точная ничья наверху —
     игра идёт ещё раунд (и дальше, пока лидер не один). `game_over.winner` — публичная проекция. Следующий вопрос не
     собрался — GAME_OVER с лидером.
@@ -217,13 +228,13 @@ transport, hidden}` (после возвращения), `start_game` (толь�
 `shop_ready {ready}`, `buy_item {item}`, `use_item {item, targetId?}`, `stage_chip {chips, option?}`,
 `place_bet {amount, option?, chips?}`, `gladiator_hover {optionIndex|null}`, `submit_answer {answer, blink?}`,
 `rate_question {questionId, score?, difficulty?}` (`null` — снять), `set_first_game {on}` (хост, лобби —
-«играем впервые»: `GameState.firstGame` / `lockedItems`, docs/items.md), `set_settings {jackpot?, questionBet?}` (хост,
+«играем впервые»: `GameState.firstGame` / `lockedItems`, docs/items.md), `kick_decision {playerId, kick}` (хост, игрок из `offlineAsk`), `set_settings {jackpot?, questionBet?}` (хост,
 лобби; поле — boolean, хоть одно; в сторе `setSettings(patch)`), `add_bot` (хост, лобби),
 `remove_bot {id}` (хост, лобби; в сторе `addBot()` / `removeBot(id)`).
 
 Сервер → клиент: `joined {playerId}`, `session_replaced` (игру забрало другое окно), `game_state` (личный,
 `getStateForPlayer`; без изменений `identify` / `shop_ready` / повторный join не рассылаются всем),
-`join_error {reason: room_full | server_full | bad_name | bad_code, message}`, `bet_updated {playerId, amount, option?,
+`join_error {reason: room_full | server_full | bad_name | bad_code | twin, message}`, `bet_updated {playerId, amount, option?,
 chips?}` (ставка за не подтвердившего: со столом — с `chips`, блайнд — без), `chip_staged {playerId, chips, option?}`,
 `player_answered` (игроку в смоке — только себе), `gladiator_hovering`, `round_results {results, questionId,
 questionKey, correctAnswer, correctNumericAnswer, comment, optionNotes, mode, gladiatorId}` (он же — `roundResults` в
@@ -430,7 +441,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 534 теста из корня (`npx vitest run --config server/vitest.config.ts`), из них 521 — `npm run test:server`.
+не нужно). 540 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 527 — `npm run test:server`.
 Живой прогон сессий — `node scripts/e2e_sessions.mjs [url]` при запущенном сервере (по умолчанию порт 3002):
 настоящий socket.io-client — обрыв, возврат, стол в конце ставок, вторая вкладка, вход по имени, хост. Повторять после
 правок `GameEngine` / `handlers` / клиентского входа.
@@ -469,6 +480,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
   «обманка-магнит» против разброса, быстрый неверный ответ; кнопка «легко / сложно» тогда не нужна.
 - Минимум игроков для старта (сейчас можно одному; для соло-тестов есть боты).
 - Смок: скрывает ли хекс / BKB (сейчас нет; ставку «для всех» — да, с 2026-10-31).
+- Выход на телефоне: Esc-диалога там нет (нет клавиши) — нужна ли кнопка «Выйти».
 - Позже: звук, баланс камбэка.
 
 ## Deployment

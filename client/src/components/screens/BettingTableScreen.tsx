@@ -344,7 +344,7 @@ function RoundTable({ bet }: { bet: Betting }) {
                     myChips={isMe ? myStack : undefined}
                     placedIds={isMe ? placedIds : undefined}
                     onDenomClick={isMe && !isThisGlad && !betConfirmed ? place : undefined}
-                    onTarget={targeting === 'hex' && !isMe && !player.effects?.includes('hex') && !isSpectator(player)
+                    onTarget={targeting === 'hex' && !isMe && !player.effects?.includes('hex') && !player.effects?.includes('bkb') && !isSpectator(player)
                       ? () => useItem('hex', player.id) : undefined}
                     above={(() => {
                       // хекс — бирка над целью; остальное — над тем, кто применил

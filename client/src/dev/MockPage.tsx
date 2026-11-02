@@ -6,6 +6,9 @@ import { useGameStore } from '../store/gameStore'
 import { TableFelt } from '../components/ui/TableFelt'
 import { ItemBar } from '../components/ui/ItemBar'
 import { Notice } from '../components/ui/Notice'
+import { OfflineAsk } from '../components/ui/OfflineAsk'
+import { ExitDialog } from '../components/ui/ExitDialog'
+import { NukeScreen } from '../components/screens/NukeScreen'
 import { useCompactBetting } from '../lib/tableGeometry'
 import { SCENARIOS, PLAYER_POOL, type Scenario, type ScenarioState } from './mockStates'
 import { FlameStyleContext, FLAME_DEFAULT, type FlameStyle } from '../components/ui/StreakFlame'
@@ -55,6 +58,8 @@ export function MockPage() {
   }
 
   const active = SCENARIOS.find(s => s.id === activeId)
+  // ?s=nuke — экран твинка (join_error twin), без стейта
+  if (new URLSearchParams(window.location.search).get('s') === 'nuke') return <NukeScreen />
 
   return (
     <FlameStyleContext.Provider value={FLAME}>
@@ -199,6 +204,8 @@ export function MockPage() {
             {(() => { const Screen = active.Screen; return <Screen /> })()}
             <ItemBar />
             <Notice />
+            <OfflineAsk />
+            <ExitDialog />
           </>
         ) : (
           <div style={{

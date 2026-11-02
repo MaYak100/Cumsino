@@ -8,7 +8,7 @@ import type {
   ItemId, ItemUsedPayload, GemResultPayload, MantaResultPayload,
   JoinErrorPayload, SetSettingsPayload,
 } from '@cumsino/shared'
-import { activeSession, forgetActive, loadDraft, rememberActive, saveDraft, tokenFor, type Session } from '../lib/session'
+import { activeSession, deviceId, forgetActive, loadDraft, rememberActive, saveDraft, tokenFor, type Session } from '../lib/session'
 import { syncClock } from '../lib/clock'
 
 export interface ItemFeedEntry { playerId: string; item: ItemId; targetId?: string; at: number }
@@ -111,6 +111,10 @@ interface GameStore {
   setFirstGame: (on: boolean) => void
   /** Настройки игры (хост, лобби): джекпот и ставка на вопрос (режим «для всех») */
   setSettings: (patch: SetSettingsPayload) => void
+  /** снять отказ во входе (экран твинка → обратно на вход) */
+  clearJoinError: () => void
+  /** Хост про игрока без связи (offlineAsk): kick — убрать, его фишки в джекпот; иначе ждать ещё раунд */
+  kickDecision: (playerId: string, kick: boolean) => void
   /** «Кто ты» в лобби: человек из компании или null (пропустить) */
   identify: (friendId: number | null) => void
   /** Поменять свою оценку (повторный выбор того же значения снимает его): score −2…+2 (без 0), difficulty ±1 */
@@ -126,7 +130,7 @@ let joined: Session | null = null
 let lastDrop: { reason: string; at: number; hidden: boolean } | null = null
 
 function sendJoin() {
-  if (joined) socket.emit('join_game', joined)
+  if (joined) socket.emit('join_game', { ...joined, device: deviceId() })
 }
 
 /** Черновики соперников без тех, чья ставка скрыта смоком (betHidden). */
@@ -191,6 +195,8 @@ export const useGameStore = create<GameStore>((set, get) => {
   })
 
   socket.on('join_error', (err: JoinErrorPayload) => {
+    // твинк: не ломиться снова при переподключении и после перезагрузки
+    if (err.reason === 'twin') { joined = null; forgetActive() }
     set({ joinError: err })
   })
 
@@ -417,6 +423,14 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     setSettings(patch) {
       socket.emit('set_settings', patch)
+    },
+
+    clearJoinError() {
+      set({ joinError: null })
+    },
+
+    kickDecision(playerId, kick) {
+      socket.emit('kick_decision', { playerId, kick })
     },
 
     identify(friendId) {

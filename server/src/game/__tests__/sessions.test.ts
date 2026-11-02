@@ -54,6 +54,7 @@ describe('сессии', () => {
     it('обрыв: игрок остаётся со всем своим — фишки, запас, аегис, «кто ты»; публично offline', () => {
       const t = makeRoom(2)
       t.room.identify('p1', 7)
+      t.room.start('p1')
       Object.assign(t.p('p1'), { chips: 340, inventory: { gem: 1 }, aegisBought: true, aegis: true })
       t.room.setOffline('p1')
       expect(t.room.playerCount).toBe(2)
@@ -89,6 +90,7 @@ describe('сессии', () => {
 
     it('полная комната: место освобождает тот, кто не в сети дольше минуты', () => {
       const t = makeRoom(MAX_PLAYERS)
+      t.room.start('p1')
       t.room.setOffline('p3')
       expect(t.room.canFreeSeat).toBe(false)
       expect(t.room.addPlayer('x', 'X')).toBe(false)
@@ -99,7 +101,70 @@ describe('сессии', () => {
       expect(t.room.playerCount).toBe(MAX_PLAYERS)
     })
 
-    it(`старт игры: закрывший вкладку в лобби (не в сети дольше LOBBY_DROP_MS) убирается, мигнувший — остаётся`, () => {
+    it('лобби: «нет связи» не видно; не вернулся за LOBBY_DROP_MS — вышел, вернулся раньше — тот же', () => {
+      const t = makeRoom(3)
+      t.room.setOffline('p2')
+      expect(t.pub('p2').offline).toBeUndefined()
+      vi.advanceTimersByTime(LOBBY_DROP_MS - 1000)
+      expect(t.room.resume('tok-2', 'P2')).toBe('p2')
+      t.room.setOffline('p3')
+      vi.advanceTimersByTime(LOBBY_DROP_MS + 1)
+      expect(t.room.has('p3')).toBe(false)
+      expect(t.room.resume('tok-3', 'P3')).toBeUndefined()   // вернётся — войдёт новым
+      expect(t.room.has('p2')).toBe(true)
+    })
+
+    it('в игре: без связи ≥ 60 с — на итогах хоста спрашивают; «ждать» — ещё раунд, «кикнуть» — фишки в джекпот', () => {
+      const t = makeRoom(3)
+      t.room.start('p1')
+      t.room.setOffline('p3')
+      expect(t.room.getStateForPlayer('p1').offlineAsk).toBeUndefined()
+      vi.advanceTimersByTime(61_000)
+      t.p('p3').chips = 420
+      t.r.schedulePhase('REVEAL', 14)
+      expect(t.room.getStateForPlayer('p1').offlineAsk).toEqual([{ id: 'p3', name: 'P3', chips: 420, offlineSec: 61 }])
+      expect(t.room.getStateForPlayer('p2').offlineAsk).toBeUndefined()   // только хосту
+      t.room.kickDecision('p2', 'p3', true)   // не хост — мимо
+      expect(t.room.has('p3')).toBe(true)
+      t.room.kickDecision('p1', 'p3', false)  // ждать
+      expect(t.room.getStateForPlayer('p1').offlineAsk).toBeUndefined()
+      t.r.schedulePhase('REVEAL', 14)          // те же итоги — не спрашиваем
+      expect(t.room.getStateForPlayer('p1').offlineAsk).toBeUndefined()
+      t.r.roundIndex++
+      t.r.schedulePhase('REVEAL', 14)          // следующий раунд — снова
+      expect(t.room.getStateForPlayer('p1').offlineAsk?.[0].id).toBe('p3')
+      const bank = t.r.jackpotBank
+      t.room.kickDecision('p1', 'p3', true)
+      expect(t.room.has('p3')).toBe(false)
+      expect(t.r.jackpotBank).toBe(bank + 420)
+      expect(t.room.getStateForPlayer('p1').offlineAsk).toBeUndefined()
+    })
+
+    it('сам вышел посреди игры — фишки в джекпот; в лобби — нет', () => {
+      const t = makeRoom(3)
+      t.room.leave('p3')
+      expect(t.r.jackpotBank).toBe(0)
+      t.room.start('p1')
+      t.p('p2').chips = 333
+      t.room.leave('p2')
+      expect(t.room.has('p2')).toBe(false)
+      expect(t.r.jackpotBank).toBe(333)
+    })
+
+    it('в игре: пропустил целый раунд — спрашивают раньше 60 с; вернулся — вопрос снимается', () => {
+      const t = makeRoom(3)
+      t.room.start('p1')
+      t.room.setOffline('p3')
+      t.r.roundIndex++
+      t.r.schedulePhase('REVEAL', 14)
+      expect(t.room.getStateForPlayer('p1').offlineAsk?.[0].id).toBe('p3')
+      t.room.resume('tok-3', 'P3')
+      expect(t.room.getStateForPlayer('p1').offlineAsk).toBeUndefined()
+      t.room.kickDecision('p1', 'p3', true)
+      expect(t.room.has('p3')).toBe(true)
+    })
+
+    it(`старт игры: мигнувший прямо перед стартом — остаётся`, () => {
       const t = makeRoom(3)
       t.room.setOffline('p2')
       vi.advanceTimersByTime(LOBBY_DROP_MS + 1)
@@ -459,12 +524,35 @@ describe('GameEngine: сессии', () => {
     const c = makeSocket('c')
     e.joinRoom(c as any, 'Вася', 'ROOM')   // без токена, Вася в сети — другой игрок
     expect(e.ctx('c')!.id).not.toBe(id)
+    ;(room as any).phase = 'ANNOUNCE'   // игра идёт (в лобби «нет связи» не показывается)
     e.disconnect('a')
     expect(room.getPublicState().players.find(x => x.id === id)!.offline).toBe(true)
     const b = makeSocket('b')
     e.joinRoom(b as any, 'Вася', 'ROOM', TOKEN)
     expect(e.ctx('b')!.id).toBe(id)
     expect((room as any).players.get(id).chips).toBe(340)
+    expect(room.playerCount).toBe(2)
+  })
+
+  it('твинк: второй игрок с того же устройства — join_error twin; тот же игрок по токену — можно; в лобби не в сети — заменяется', () => {
+    const { e } = makeEngine()
+    const a = makeSocket('a')
+    e.joinRoom(a as any, 'Вася', 'ROOM', TOKEN, 'dev-aaaaaaaaaaaaaaaa')
+    const { room, id } = e.ctx('a')!
+    const t = makeSocket('t')
+    e.joinRoom(t as any, 'Твинк', 'ROOM', undefined, 'dev-aaaaaaaaaaaaaaaa')
+    expect(t.emitted.find(m => m.event === 'join_error')?.data.reason).toBe('twin')
+    expect(room.playerCount).toBe(1)
+    e.joinRoom(makeSocket('o') as any, 'Петя', 'ROOM', undefined, 'dev-bbbbbbbbbbbbbbbb')   // другое устройство
+    expect(room.playerCount).toBe(2)
+    const b = makeSocket('b')
+    e.joinRoom(b as any, 'Вася', 'ROOM', TOKEN, 'dev-aaaaaaaaaaaaaaaa')   // вторая вкладка того же игрока
+    expect(e.ctx('b')!.id).toBe(id)
+    e.disconnect('b')                                                   // лобби: пропал и зашёл под другим именем
+    const c = makeSocket('c')
+    e.joinRoom(c as any, 'Василий', 'ROOM', 'other-token-123456', 'dev-aaaaaaaaaaaaaaaa')
+    expect(e.ctx('c')).toBeDefined()
+    expect(room.has(id)).toBe(false)
     expect(room.playerCount).toBe(2)
   })
 

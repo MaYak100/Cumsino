@@ -90,3 +90,18 @@ export function loadDraft(): { key: string; value: string } | null {
 export function lastJoin(): { name: string; gameCode: string } | null {
   return parse<{ name: string; gameCode: string }>(read(local, LAST))
 }
+
+const DEVICE = 'cumsino:device'
+
+/** id этого браузера (localStorage, общий для всех вкладок): сервер не пускает второго игрока с того же устройства в
+ *  комнату (твинк). VPN не мешает — это не IP. Обходится приватным окном или другим браузером: защита от
+ *  «случайно», не от упорных. В dev не шлётся — тесты на одном компьютере в нескольких вкладках. */
+export function deviceId(): string | undefined {
+  if (import.meta.env.DEV) return undefined
+  let id = read(local, DEVICE)
+  if (!id) {
+    id = newToken()
+    write(local, DEVICE, id)
+  }
+  return id
+}

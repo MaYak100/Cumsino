@@ -140,6 +140,8 @@ export interface GameState {
   gemResults?: Record<string, { answer: string | number | null; smoked: boolean }>
   /** итоги посчитанного раунда (показ ответа и REVEAL) — те же, что в round_results: вернувшийся их не пропустит */
   roundResults?: RoundResultsPayload
+  /** только хосту: кто давно без связи (≥ 60 с или пропустил раунд) — кикнуть (деньги в джекпот) или ждать ещё раунд */
+  offlineAsk?: Array<{ id: string; name: string; chips: number; offlineSec: number }>
 }
 
 export interface RoundResult {
@@ -151,7 +153,8 @@ export interface RoundResult {
 
 // Socket event payloads — Client → Server
 /** token — секрет сессии игрока (клиент хранит в localStorage): с ним после обрыва возвращаешься тем же игроком */
-export interface JoinGamePayload { name: string; gameCode: string; token?: string }
+/** device — id браузера (localStorage): второй игрок с того же устройства в комнату не входит (join_error twin) */
+export interface JoinGamePayload { name: string; gameCode: string; token?: string; device?: string }
 /** chips — фишки на сукне в порядке выкладки (сервер хранит их в betChips); option — толпа керри: индекс варианта */
 export interface PlaceBetPayload { amount: number; option?: number; chips?: number[] }
 /** черновик на столе: фишки и (толпа керри) вариант — сервер помнит его, в конце ставок ставится он */
@@ -168,6 +171,9 @@ export interface IdentifyPayload { friendId: number | null }
 export interface RemoveBotPayload { id: string }
 /** set_first_game — галочка «играем впервые» (хост, лобби) */
 export interface SetFirstGamePayload { on: boolean }
+/** kick_decision — хост решает про игрока без связи из offlineAsk: kick — убрать (деньги в банк джекпота), иначе
+ *  ждать ещё раунд */
+export interface KickDecisionPayload { playerId: string; kick: boolean }
 /** set_settings — настройки игры (хост, лобби); переданное поле меняется, остальные — нет */
 export interface SetSettingsPayload { jackpot?: boolean; questionBet?: boolean }
 /** score: −2 удалить (в архив навсегда), −1 слабый, +1 хороший, +2 ахуенный; difficulty: −1 легко, +1 сложно.
@@ -178,7 +184,7 @@ export interface RateQuestionPayload { questionId: string; score?: number | null
 // Socket event payloads — Server → Client
 /** отказ во входе (join_game): комната полна, сервер полон, пустое имя, плохой код. message — готовый текст */
 export interface JoinErrorPayload {
-  reason: 'room_full' | 'server_full' | 'bad_name' | 'bad_code'
+  reason: 'room_full' | 'server_full' | 'bad_name' | 'bad_code' | 'twin'
   message: string
 }
 /** вход принят: playerId — свой id в комнате (не socket.id: он меняется при каждом переподключении) */

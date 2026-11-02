@@ -785,6 +785,28 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p3').hasAnswered).toBe(true)
     })
 
+    it('BKB снимает хекс (хекс сгорает), под BKB хекс не цепляется и не тратится', () => {
+      const t = makeRoom(3)
+      t.give('p1', 'hex')
+      t.give('p3', 'hex')
+      t.give('p2', 'bkb')
+      t.setPhase('BETTING')
+      t.room.useItem('p1', 'hex', 'p2')
+      expect(t.p('p2').items.hexed).toBe(true)
+      t.room.useItem('p2', 'bkb')
+      expect(t.p('p2').items.hexed).toBe(false)
+      expect(t.room.getPublicState().players[1].effects).toEqual(['bkb'])
+      expect(t.room.getStateForPlayer('p2').hexTimeLeft).toBeUndefined()
+      expect(t.p('p1').inventory.hex).toBeUndefined()   // брошенный хекс сгорел
+      t.room.useItem('p3', 'hex', 'p2')                  // в BKB — мимо, предмет цел
+      expect(t.p('p2').items.hexed).toBe(false)
+      expect(t.p('p3').inventory.hex).toBe(1)
+      t.toQuestion()
+      vi.advanceTimersByTime(HEX_SECONDS * 1000 + 1000)
+      t.room.submitAnswer('p2', 'A')
+      expect(t.p('p2').hasAnswered).toBe(true)
+    })
+
     it('одна порча на цель за раунд; не в QUESTION; не в керри', () => {
       const t = makeRoom(3)
       t.give('p1', 'hex')

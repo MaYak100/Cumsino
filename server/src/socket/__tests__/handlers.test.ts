@@ -139,7 +139,7 @@ describe('socket/handlers', () => {
     it('чистое имя и код — в движок', () => {
       const { send, engine } = setup()
       send('join_game', { name: '  Вася  ', gameCode: ' ab12 ' })
-      expect(engine.joinRoom).toHaveBeenCalledWith(expect.anything(), 'Вася', 'AB12', undefined)
+      expect(engine.joinRoom).toHaveBeenCalledWith(expect.anything(), 'Вася', 'AB12', undefined, undefined)
     })
 
     it('токен сессии: годный (16–64 символа A-Za-z0-9_-) — в движок, мусор — отбрасывается', () => {

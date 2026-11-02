@@ -151,7 +151,7 @@ function Opponents({ bet }: { bet: Betting }) {
           const staged = p.betHidden ? undefined : stagedBets[p.id]
           const chips = p.betHidden ? [] : staged ?? (p.betChips?.length ? p.betChips : buildChipsForPlayer(p.id, p.currentBet).map(c => c.denom))
           const amount = staged ? staged.reduce((a, d) => a + d, 0) : p.currentBet
-          const canHex = targeting === 'hex' && !p.effects?.includes('hex') && !isSpectator(p)
+          const canHex = targeting === 'hex' && !p.effects?.includes('hex') && !p.effects?.includes('bkb') && !isSpectator(p)
           const feed = freshFeed.find(f => f.item === 'hex' ? f.targetId === p.id : f.playerId === p.id)
           // керри вариантов толпы не видит (сервер их не шлёт)
           const opt = !isKerriCrowd ? undefined : staged ? stagedOptions[p.id] : p.betOption
