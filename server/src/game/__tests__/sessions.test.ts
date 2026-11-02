@@ -323,9 +323,10 @@ describe('сессии', () => {
       expect(st.roundResults?.results).toEqual(t.results())
     })
 
-    it('керри не ответил — у толпы дельт нет, серия толпы не сбивается', () => {
+    it('керри не ответил — у толпы дельт нет, серия толпы не сбивается (джекпот выключен)', () => {
       vi.spyOn(Math, 'random').mockReturnValue(0)
       const t = makeRoom(3)
+      t.r.settings.jackpot = false
       t.toBetting('kerri')
       t.r.players.get('p2').streak = 2
       t.room.placeBet('p2', 50, 2)

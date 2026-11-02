@@ -11,8 +11,8 @@ Cumsino — браузерная казино-викторина по Dota 2 д�
 ```bash
 npm run dev:server                      # сервер (tsx watch), порт 3001
 npm run dev --workspace=client          # Vite, порт 5173 или следующий свободный
-npm run test:server                     # vitest сервера (527 тестов)
-npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (540)
+npm run test:server                     # vitest сервера (530 тестов)
+npx vitest run --config server/vitest.config.ts          # из корня: сервер + shared/src/__tests__ (543)
 npx vitest run server/src/game/__tests__/sessions.test.ts --config server/vitest.config.ts
 npm run test:watch --workspace=server
 npm run ratios --workspace=server       # таблица соотношений категорий (docs/questions/system.md, §7)
@@ -148,7 +148,7 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
     подтверждением, Enter — выйти; `leave` = `leave_game`) посреди игры — фишки тоже в джекпот.
   - **Твинки (2026-11-02):** клиент шлёт в `join_game` `device` (id браузера в localStorage, `deviceId()`; только в
     прод-сборке — в dev тесты во вкладках). Второй игрок с того же устройства (не по токену) — `join_error twin`, во
-    втором окне `NukeScreen` (отсчёт «на ваш дом будет сброшена ядерная боеголовка», `/mocks?s=nuke`); первое окно
+    втором окне `NukeScreen` (отсчёт 10 с «на ваш дом будет сброшена ядерная боеголовка» с кнопкой «Я больше не буду» — успел, обратно на вход; не успел — БУМ, через 5 с «…или я сожгу тебе видюху»; `/mocks?s=nuke`); первое окно
     не трогается. В лобби тот же device не в сети — это он сменил имя: старый убирается. Приватное окно / другой
     браузер обходят — защита от случайного, не от упорного; IP не используется (VPN, общий NAT).
   - **Победа** проверяется в конце REVEAL: **единственный** самый богатый из ≥ `WIN_CHIPS`; точная ничья наверху —
@@ -173,7 +173,7 @@ Production build: `npm run build --workspace=shared && npm run build --workspace
     Поставившие на выбор керри делят ставки остальных пропорционально (`distributePool`); керри не ответил или на
     его выбор никто не ставил — «все ошиблись», дельт нет. Керри за верный — `gladiatorBonus(n)`. Вариант толпы видит
     только толпа (`seesOptions`: не керри, не зритель — по ставкам керри прочитал бы ответ) — в стейте, `bet_updated`,
-    `chip_staged`. Предметы в керри — только блинк керри. Банк-ставок ×4 и аукциона взяток больше нет.
+    `chip_staged`. Предметы в керри — только блинк керри. Банк-ставок ×4 и аукциона взяток больше нет. Джекпот (та же галочка, 2026-11-02): никто не угадал выбор керри — ставки толпы в банк, все угадали — `allCorrectBonus(n керри)`; банк раздаёт только «для всех» (docs/items.md).
   - **Ставки** `placeBet(id, amount, option?, chips?)`: только BETTING, не зритель, не керри; не больше баланса, не
     меньше блайнда (если на него хватает); в kerri ненулевая ставка требует `option`. `betChips` — префикс присланных
     фишек на сумму (`chipsPrefix`). Все в сети подтвердили → `endBetting()`. **Истина на столе:** `stageChip(id,
@@ -440,7 +440,7 @@ OUTER_RX=424, OUTER_RY=285, LAND_INSET=20, CARD_GAP_X=CARD_GAP_Y=45`), масш�
 ## Tests
 
 `server/src/**/__tests__/` и `shared/src/__tests__/`; vitest алиасит `@cumsino/shared` на исходники (собирать shared
-не нужно). 540 тестов из корня (`npx vitest run --config server/vitest.config.ts`), из них 527 — `npm run test:server`.
+не нужно). 543 теста из корня (`npx vitest run --config server/vitest.config.ts`), из них 530 — `npm run test:server`.
 Живой прогон сессий — `node scripts/e2e_sessions.mjs [url]` при запущенном сервере (по умолчанию порт 3002):
 настоящий socket.io-client — обрыв, возврат, стол в конце ставок, вторая вкладка, вход по имени, хост. Повторять после
 правок `GameEngine` / `handlers` / клиентского входа.

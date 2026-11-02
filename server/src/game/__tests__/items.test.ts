@@ -1227,8 +1227,9 @@ describe('предметы, бонусы, блайнды', () => {
       expect(t.p('p3').streak).toBe(2)
     })
 
-    it('керри не ответил — серия керри сбрасывается, ставки толпы при своих', () => {
+    it('керри не ответил — серия керри сбрасывается, ставки толпы при своих (джекпот выключен)', () => {
       const t = makeRoom(3)
+      t.r.settings.jackpot = false
       t.p('p1').streak = 3
       t.p('p2').currentBet = 100; t.p('p2').betOption = 0
       t.p('p3').currentBet = 100; t.p('p3').betOption = 1

@@ -121,7 +121,7 @@ export function LobbyScreen() {
             </motion.button>
             <div className="flex flex-col gap-2 [@media(max-height:760px)]:gap-1.5">
               <HostToggle on={jackpot} onToggle={() => setSettings({ jackpot: !jackpot })}
-                label="Джекпот" hint="пустые раунды копят банк"
+                label="Джекпот" hint="пустые раунды и керри копят банк"
                 title="Режим «для всех»: все ошиблись — ставки уходят в банк, его забирают угадавшие следующего раунда. Все угадали — каждому бонус от казино. Работает, когда ставят хотя бы двое" />
               <HostToggle on={questionBet} onToggle={() => setSettings({ questionBet: !questionBet })}
                 label="Ставка на вопрос" hint="на ставках виден вопрос без вариантов"

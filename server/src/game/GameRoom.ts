@@ -1605,6 +1605,34 @@ export class GameRoom extends EventEmitter {
       const losers = crowd.filter(p => !(pick >= 0 && p.betOption === pick)).map(p => ({ id: p.id, stake: p.currentBet }))
       const allWon = losers.length === 0 && winners.length > 0
       const noneWon = winners.length === 0 && losers.length > 0
+      // джекпот (та же галочка, ставят хотя бы двое): никто не угадал выбор керри — ставки толпы в банк (банк
+      // разыгрывается в «для всех»); все угадали — каждому бонус «все угадали». Керри без связи и не ответил — при своих
+      const kerriGone = pick < 0 && gladiator.offlineSince !== undefined
+      const jackpot = this.settings.jackpot && crowd.length >= JACKPOT_MIN_BETTORS && !kerriGone
+      if (jackpot && (allWon || noneWon)) {
+        const allBonus = allCorrectBonus(this.modeRounds.kerri)
+        const glad = correct ? gladiatorBonus(this.modeRounds.kerri) : 0
+        let toBank = 0
+        const out = players.map(p => {
+          let delta = 0
+          let sources: Source[] = []
+          if (p.id === this.gladiatorId) {
+            delta = glad
+            sources = [{ label: correct ? 'Закеррил' : pick < 0 ? 'Не ответил' : 'Не закеррил', delta }]
+          } else if (p.currentBet > 0 && allWon) {
+            delta = allBonus
+            sources = [{ label: 'Все угадали выбор керри', delta }]
+            this.poolWins.set(p.id, allBonus)
+          } else if (p.currentBet > 0) {
+            delta = -p.currentBet
+            toBank += p.currentBet
+            sources = [{ label: pick < 0 ? 'Керри не ответил — ставка в джекпот' : 'Никто не угадал — ставка в джекпот', delta }]
+          }
+          return { playerId: p.id, delta, chipBreakdown: decomposeToChips(Math.abs(delta)), sources }
+        })
+        if (noneWon) this.bankAfter = this.jackpotBank + toBank
+        return out
+      }
 
       const deltas = noneWon ? new Map<string, number>() : distributePool(winners, losers)
       for (const w of winners) this.poolWins.set(w.id, Math.max(0, deltas.get(w.id) ?? 0))

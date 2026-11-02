@@ -5,7 +5,7 @@ import { GameRoom, type RoomSettings } from '../GameRoom'
 import type { Question, GameMode, RoundResult, GameState } from '@cumsino/shared'
 import {
   PHASE_DURATIONS, NEW_MODE_ANNOUNCE_EXTRA, LAST_ANSWER_GRACE_MS, LIGHTNING_MS, LIGHTNING_QB_MS, HEX_SECONDS,
-  HEX_QB_SECONDS, QUESTION_BET_BETTING, QUESTION_BET_QUESTION, allCorrectBonus, bkbCap, ITEMS,
+  HEX_QB_SECONDS, QUESTION_BET_BETTING, QUESTION_BET_QUESTION, allCorrectBonus, gladiatorBonus, bkbCap, ITEMS,
 } from '@cumsino/shared'
 
 const mcQ: Question = { id: 'q-mc', mode: 'all', topic: 'T', text: 'Q?', options: ['A', 'B', 'C', 'D'], answer: 'A' }
@@ -231,20 +231,79 @@ describe('«для всех»: джекпот, ставка на вопрос, �
       expect(t.room.getPublicState().jackpotBank).toBeUndefined()
     })
 
-    it('керри джекпот не трогает', () => {
-      const t = makeRoom(3)
-      t.r.jackpotBank = 100
-      t.r.phase = 'QUESTION'
-      t.r.currentMode = 'kerri'
-      t.r.gladiatorId = 'p1'
-      t.r.currentQuestion = { ...mcQ, mode: 'kerri' }
-      t.r.modeRounds.kerri = 1
-      Object.assign(t.p('p1'), { answer: 'B', hasAnswered: true })
-      Object.assign(t.p('p2'), { currentBet: 50, betOption: 2 })
-      Object.assign(t.p('p3'), { currentBet: 50, betOption: 3 })
-      t.r.advanceFromQuestion()
-      expect(t.res('p2').delta).toBe(0)
-      expect(t.r.jackpotBank).toBe(100)
+    describe('керри (2026-11-02, та же галочка)', () => {
+      function kerri(n = 3, settings: Partial<RoomSettings> = {}) {
+        const t = makeRoom(n, settings)
+        t.r.jackpotBank = 100
+        t.r.phase = 'QUESTION'
+        t.r.currentMode = 'kerri'
+        t.r.gladiatorId = 'p1'
+        t.r.currentQuestion = { ...mcQ, mode: 'kerri' }
+        t.r.modeRounds.kerri = 1
+        return t
+      }
+
+      it('никто не угадал выбор керри — ставки толпы в банк, керри — своё', () => {
+        const t = kerri()
+        Object.assign(t.p('p1'), { answer: 'A', hasAnswered: true })
+        Object.assign(t.p('p2'), { currentBet: 50, betOption: 2 })
+        Object.assign(t.p('p3'), { currentBet: 30, betOption: 3 })
+        t.r.advanceFromQuestion()
+        expect(t.res('p2').delta).toBe(-50)
+        expect(t.res('p3').delta).toBe(-30)
+        expect(t.res('p1').delta).toBe(gladiatorBonus(1))
+        expect(t.r.jackpotBank).toBe(180)
+      })
+
+      it('керри не ответил — тоже в банк; керри без связи — при своих', () => {
+        const t = kerri()
+        Object.assign(t.p('p2'), { currentBet: 50, betOption: 0 })
+        Object.assign(t.p('p3'), { currentBet: 50, betOption: 1 })
+        t.r.advanceFromQuestion()
+        expect(t.res('p2').delta).toBe(-50)
+        expect(t.r.jackpotBank).toBe(200)
+        const u = kerri()
+        u.p('p1').offlineSince = Date.now()
+        Object.assign(u.p('p2'), { currentBet: 50, betOption: 0 })
+        Object.assign(u.p('p3'), { currentBet: 50, betOption: 1 })
+        u.r.advanceFromQuestion()
+        expect(u.res('p2').delta).toBe(0)
+        expect(u.r.jackpotBank).toBe(100)
+      })
+
+      it('все угадали выбор керри — каждому allCorrectBonus(n), банк лежит', () => {
+        const t = kerri()
+        t.r.modeRounds.kerri = 3
+        Object.assign(t.p('p1'), { answer: 'B', hasAnswered: true })
+        Object.assign(t.p('p2'), { currentBet: 50, betOption: 1 })
+        Object.assign(t.p('p3'), { currentBet: 20, betOption: 1 })
+        t.r.advanceFromQuestion()
+        expect(t.res('p2').delta).toBe(allCorrectBonus(3))
+        expect(t.res('p3').delta).toBe(allCorrectBonus(3))
+        expect(t.r.jackpotBank).toBe(100)
+      })
+
+      it('обычный раунд керри банк не раздаёт; ставит один — как без джекпота; выключено — при своих', () => {
+        const t = kerri(4)
+        Object.assign(t.p('p1'), { answer: 'A', hasAnswered: true })
+        Object.assign(t.p('p2'), { currentBet: 50, betOption: 0 })
+        Object.assign(t.p('p3'), { currentBet: 50, betOption: 1 })
+        t.r.advanceFromQuestion()
+        expect(t.res('p2').delta).toBe(50)
+        expect(t.r.jackpotBank).toBe(100)
+        const one = kerri()
+        Object.assign(one.p('p1'), { answer: 'A', hasAnswered: true })
+        Object.assign(one.p('p2'), { currentBet: 50, betOption: 2 })
+        one.r.advanceFromQuestion()
+        expect(one.res('p2').delta).toBe(0)
+        const off = kerri(3, { jackpot: false })
+        Object.assign(off.p('p1'), { answer: 'A', hasAnswered: true })
+        Object.assign(off.p('p2'), { currentBet: 50, betOption: 2 })
+        Object.assign(off.p('p3'), { currentBet: 50, betOption: 3 })
+        off.r.advanceFromQuestion()
+        expect(off.res('p2').delta).toBe(0)
+        expect(off.r.jackpotBank).toBe(100)
+      })
     })
   })
 

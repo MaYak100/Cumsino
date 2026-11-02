@@ -902,11 +902,12 @@ describe('GameRoom', () => {
       expect(labels(results, 'p1')).toEqual(['Не закеррил'])
     })
 
-    it('керри не ответил — у толпы нет дельт, «Керри не ответил»; у керри — «Не ответил»', () => {
+    it('керри не ответил — у толпы нет дельт, «Керри не ответил»; у керри — «Не ответил» (джекпот выключен)', () => {
       const { room } = setup(undefined, [
         { bet: 100, option: 0 },
         { bet: 200, option: 1 },
       ])
+      priv(room).settings.jackpot = false
       const results = priv(room).calculateResults()
       for (const r of results) expect(r.delta).toBe(0)
       expect(labels(results, 'p2')).toEqual(['Керри не ответил'])
@@ -934,21 +935,23 @@ describe('GameRoom', () => {
       expect(labels(priv(room).calculateResults(), 'p1')).toContain('Не закеррил')
     })
 
-    it('все поставили на выбор керри — «Все угадали выбор керри», дельт нет', () => {
+    it('все поставили на выбор керри — «Все угадали выбор керри», дельт нет (джекпот выключен)', () => {
       const { room } = setup('A', [
         { bet: 100, option: 0 },
         { bet: 200, option: 0 },
       ])
+      priv(room).settings.jackpot = false
       const results = priv(room).calculateResults()
       expect(res(results, 'p2').delta).toBe(0)
       expect(labels(results, 'p2')).toContain('Все угадали выбор керри')
     })
 
-    it('на выбор керри никто не ставил — «Никто не угадал выбор керри», ставки при своих', () => {
+    it('на выбор керри никто не ставил — «Никто не угадал выбор керри», ставки при своих (джекпот выключен)', () => {
       const { room } = setup('A', [
         { bet: 100, option: 1 },
         { bet: 200, option: 2 },
       ])
+      priv(room).settings.jackpot = false
       const results = priv(room).calculateResults()
       expect(res(results, 'p2').delta).toBe(0)
       expect(res(results, 'p3').delta).toBe(0)
